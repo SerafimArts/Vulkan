@@ -27,12 +27,19 @@ final readonly class PreprocessorHeadersLoader implements HeadersLoaderInterface
 
     public function __construct(
         /**
-         * Directory with the `vulkan`, `vk_video` and `platform` directories
-         * and the `prototypes-1.0.h` file
+         * Directory with the `vulkan` and `vk_video` directories of the
+         * Khronos repository
          *
          * @var non-empty-string
          */
-        private string $include = __DIR__ . '/../../../resources/include',
+        private string $include = __DIR__ . '/../../../resources/src/include',
+        /**
+         * Directory with the `platform` stubs of the system headers and the
+         * `prototypes-1.0.h` file
+         *
+         * @var non-empty-string
+         */
+        private string $patches = __DIR__ . '/../../../resources/patches',
         /**
          * Additional replacements by the names of the macros, applied after
          * the default ones
@@ -51,7 +58,7 @@ final readonly class PreprocessorHeadersLoader implements HeadersLoaderInterface
      */
     public function withDefine(string $name, string $replacement = '1'): self
     {
-        return new self($this->include, [...$this->defines, $name => $replacement]);
+        return new self($this->include, $this->patches, [...$this->defines, $name => $replacement]);
     }
 
     /**
@@ -87,7 +94,8 @@ final readonly class PreprocessorHeadersLoader implements HeadersLoaderInterface
             $preprocessor->files->mount($this->include);
             $preprocessor->files->mount($this->include . '/vulkan');
             $preprocessor->files->mount($this->include . '/vk_video');
-            $preprocessor->files->mount($this->include . '/platform');
+            $preprocessor->files->mount($this->patches);
+            $preprocessor->files->mount($this->patches . '/platform');
 
             return (string) $preprocessor->process(self::ENTRYPOINT);
         } catch (\Throwable $e) {

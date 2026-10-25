@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Tests\Architecture;
 
 use PHPat\Selector\Selector;
+use PHPat\Selector\SelectorInterface;
 use PHPat\Test\Attributes\TestRule;
 use PHPat\Test\Builder\Rule;
 use PHPat\Test\PHPat;
@@ -29,6 +30,8 @@ final class CommandArchitecture
                 Selector::inNamespace('Serafim\Vulkan\Loader\Platform'),
                 Selector::inNamespace('Serafim\Vulkan\Loader\Exception'),
                 Selector::inNamespace('Symfony\Component\Console'),
+                Selector::inNamespace('Symfony\Component\HttpClient'),
+                Selector::inNamespace('Symfony\Contracts\HttpClient'),
             );
     }
 
@@ -36,7 +39,7 @@ final class CommandArchitecture
     public function testCommandsExtendConsoleCommand(): Rule
     {
         return PHPat::rule()
-            ->classes(Selector::inNamespace(self::NAMESPACE))
+            ->classes(self::selectCommands())
             ->shouldExtend()
             ->classes(Selector::classname(Command::class));
     }
@@ -53,7 +56,23 @@ final class CommandArchitecture
     public function testCommandsAreNamedWithCommandSuffix(): Rule
     {
         return PHPat::rule()
-            ->classes(Selector::inNamespace(self::NAMESPACE))
+            ->classes(Selector::AllOf(
+                Selector::inNamespace(self::NAMESPACE),
+                Selector::extends(Command::class),
+            ))
             ->shouldBeNamed('/Command$/', true);
+    }
+
+    #[TestRule]
+    public function testHelpersAreReadonly(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace(self::NAMESPACE . '\Download'))
+            ->shouldBeReadonly();
+    }
+
+    private static function selectCommands(): SelectorInterface
+    {
+        return Selector::classname('/^Serafim\\\\Vulkan\\\\Command\\\\[^\\\\]+Command$/', true);
     }
 }

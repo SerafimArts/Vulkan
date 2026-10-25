@@ -26,4 +26,18 @@ final class InvalidHeadersException extends LoaderException
             Could not write the compiled Vulkan headers to [%s]
             MESSAGE, $pathname), previous: $prev);
     }
+
+    public static function becauseHeadersNotDownloaded(string $url, ?\Throwable $prev = null): self
+    {
+        return new self(\sprintf(<<<'MESSAGE'
+            Could not download the Vulkan headers from [%s]
+            MESSAGE, $url), previous: $prev);
+    }
+
+    public static function becauseHeadersNotExtracted(string $pathname, ?\Throwable $prev = null): self
+    {
+        return new self(\sprintf(<<<'MESSAGE'
+            Could not extract the Vulkan headers from [%s]
+            MESSAGE, $pathname), previous: $prev);
+    }
 }

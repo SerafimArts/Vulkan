@@ -19,4 +19,10 @@ phpunit.xml export-ignore
 tsconfig.json export-ignore
 
 vite.config.js export-ignore
+
+# Compiler Toolset
+/bin export-ignore
 /resources/src export-ignore
+/resources/patches export-ignore
+/resources/logo.svg export-ignore
+/src/Command export-ignore

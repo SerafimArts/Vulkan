@@ -18,7 +18,7 @@ use Serafim\Vulkan\Vulkan;
 final class RuntimeArchitecture
 {
     #[TestRule]
-    public function testRuntimeDoesNotDependOnCommandsAndConsole(): Rule
+    public function testRuntimeDoesNotDependOnCommandsConsoleAndHttpClient(): Rule
     {
         return PHPat::rule()
             ->classes(Selector::inNamespace('Serafim\Vulkan'))
@@ -27,6 +27,8 @@ final class RuntimeArchitecture
             ->classes(
                 Selector::inNamespace('Serafim\Vulkan\Command'),
                 Selector::inNamespace('Symfony\Component\Console'),
+                Selector::inNamespace('Symfony\Component\HttpClient'),
+                Selector::inNamespace('Symfony\Contracts\HttpClient'),
             );
     }
 
