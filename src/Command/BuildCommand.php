@@ -11,33 +11,51 @@ use Serafim\Vulkan\Loader\Headers\PreprocessorHeadersLoader;
 use Serafim\Vulkan\Loader\Platform\Platform;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Compiles the Vulkan headers of all the platforms into the C sources that
- * are loaded by the library at runtime.
+ * Builds the Vulkan headers of all the platforms into the C sources that are
+ * loaded by the library at runtime. Downloads the sources first if they are
+ * missing.
  */
-#[AsCommand('compile', 'Compiles the Vulkan headers of all the platforms')]
-final class CompileCommand extends Command
+#[AsCommand('build', 'Builds the Vulkan headers of all the platforms')]
+final class BuildCommand extends Command
 {
     public function __construct(
         /**
-         * Source of the headers being compiled
+         * Source of the headers being built
          */
         private readonly HeadersLoaderInterface $headers = new PreprocessorHeadersLoader(),
         /**
-         * Directory the compiled headers are written to
+         * Directory the built headers are written to
          *
          * @var non-empty-string
          */
         private readonly string $output = __DIR__ . '/../../resources/headers',
+        /**
+         * Directory the sources are downloaded to
+         *
+         * @var non-empty-string
+         */
+        private readonly string $sources = __DIR__ . '/../../resources/src',
     ) {
         parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        if (!$this->hasSources()) {
+            $output->writeln('The sources are not downloaded, running the download command');
+
+            $status = $this->download($output);
+
+            if ($status !== self::SUCCESS) {
+                return $status;
+            }
+        }
+
         try {
             $this->createOutputDirectory();
         } catch (InvalidHeadersException $e) {
@@ -83,12 +101,12 @@ final class CompileCommand extends Command
     }
 
     /**
-     * Writes the compiled headers of the platform and returns their size in
+     * Writes the built headers of the platform and returns their size in
      * bytes.
      *
      * @return int<0, max>
      * @throws InvalidHeadersException in case of the headers cannot be
-     *         compiled or written
+     *         built or written
      */
     private function writeHeaders(Platform $platform): int
     {
@@ -101,5 +119,24 @@ final class CompileCommand extends Command
         }
 
         return $size;
+    }
+
+    private function hasSources(): bool
+    {
+        return \is_file($this->sources . '/include/vulkan/vulkan.h');
+    }
+
+    private function download(OutputInterface $output): int
+    {
+        $command = $this->getApplication()
+            ?->find('download');
+
+        if ($command === null) {
+            $output->writeln('<error>The download command is not available</error>');
+
+            return self::FAILURE;
+        }
+
+        return $command->run(new ArrayInput([]), $output);
     }
 }
