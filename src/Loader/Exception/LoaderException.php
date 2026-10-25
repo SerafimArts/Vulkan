@@ -6,4 +6,4 @@ namespace Serafim\Vulkan\Loader\Exception;
 
 use Serafim\Vulkan\Exception\VulkanException;
 
-class LoaderException extends VulkanException {}
+abstract class LoaderException extends VulkanException {}
