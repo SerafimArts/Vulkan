@@ -1,0 +1,51 @@
+includes:
+  - phar://phpstan.phar/conf/bleedingEdge.neon
+  - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+  - vendor/phpstan/phpstan-strict-rules/rules.neon
+  - vendor/phpat/phpat/extension.neon
+parameters:
+  level: max
+  phpVersion:
+    min: 80400
+    max: 80500
+  strictRules:
+    allRules: true
+  paths:
+    - src
+  fileExtensions:
+    - php
+  tmpDir: vendor/.cache.phpstan
+  reportUnmatchedIgnoredErrors: true
+  treatPhpDocTypesAsCertain: false
+  phpat:
+    ignore_built_in_classes: true
+    show_rule_names: true
+services:
+  -
+    class: Serafim\Vulkan\Tests\Architecture\LibraryArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\PlatformArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\HeadersArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\ExceptionArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\LoaderArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\CommandArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\RuntimeArchitecture
+    tags:
+      - phpat.test

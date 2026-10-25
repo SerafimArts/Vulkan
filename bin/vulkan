@@ -1,0 +1,13 @@
+#!/usr/bin/php
+<?php
+
+declare(strict_types=1);
+
+use Serafim\Vulkan\Command\CompileCommand;
+use Symfony\Component\Console\Application;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$application = new Application('serafim/vulkan');
+$application->addCommand(new CompileCommand());
+$application->run();

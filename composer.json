@@ -1,0 +1,79 @@
+{
+    "name": "serafim/vulkan",
+    "description": "PHP Vulkan Bindings",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.4",
+        "ext-ffi": "*",
+        "ffi/location": "^1.1",
+        "ffi/env": "^1.1"
+    },
+    "suggest": {
+        "ffi/preprocessor": "Required to compile the Vulkan headers at runtime with PreprocessorHeadersLoader"
+    },
+    "autoload": {
+        "psr-4": {
+            "Serafim\\Vulkan\\": "src"
+        }
+    },
+    "require-dev": {
+        "ffi/preprocessor": "^1.0",
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "phpat/phpat": "^0.12.5",
+        "phpstan/phpstan": "^2.3",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^12.0|^13.0",
+        "symfony/console": "^7.4|^8.0",
+        "symfony/css-selector": "^6.4|^7.4|^8.0",
+        "symfony/dom-crawler": "^6.4|^7.4|^8.0",
+        "symfony/var-dumper": "^6.4|^7.4|^8.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Serafim\\Vulkan\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+            "dev-main": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "platform-check": true,
+        "bin-compat": "full",
+        "optimize-autoloader": false,
+        "preferred-install": {
+            "*": "dist"
+        }
+    },
+    "scripts-aliases": {
+        "test:unit": [
+            "test",
+            "phpunit",
+            "unit"
+        ],
+        "linter:check": [
+            "linter",
+            "stan"
+        ],
+        "phpcs:check": [
+            "phpcs",
+            "cs",
+            "psr",
+            "per"
+        ]
+    },
+    "scripts": {
+        "test:unit": "phpunit --testdox",
+        "linter:check": "phpstan analyse --configuration phpstan.neon --memory-limit 256M",
+        "linter:baseline": "@linter:check --generate-baseline",
+        "phpcs:check": "@phpcs:fix --dry-run",
+        "phpcs:fix": "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes --verbose --diff"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
