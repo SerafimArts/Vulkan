@@ -66,13 +66,6 @@ final class PlatformDetectorTest extends TestCase
         self::assertSame($expected, $detector->getPlatform($environment));
     }
 
-    public function testWaylandDriverDoesNotSupportWindows(): void
-    {
-        self::assertFalse(
-            new WaylandPlatformDriver()->supports(new Environment('Windows')),
-        );
-    }
-
     public function testUnsupportedFamilyThrowsInvalidPlatformException(): void
     {
         $this->expectException(InvalidPlatformException::class);

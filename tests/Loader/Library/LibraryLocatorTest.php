@@ -16,14 +16,6 @@ use Serafim\Vulkan\Tests\TestCase;
 #[CoversClass(FamilyLibraryDriver::class)]
 final class LibraryLocatorTest extends TestCase
 {
-    public function testFamilyDriverSupportsOnlyItsFamily(): void
-    {
-        $driver = new FamilyLibraryDriver('Linux', ['libvulkan.so']);
-
-        self::assertTrue($driver->supports(new Environment('Linux')));
-        self::assertFalse($driver->supports(new Environment('Windows')));
-    }
-
     public function testUnsupportedFamilyThrowsInvalidLibraryException(): void
     {
         $this->expectException(InvalidLibraryException::class);

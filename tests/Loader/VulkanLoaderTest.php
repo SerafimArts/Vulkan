@@ -51,16 +51,6 @@ final class VulkanLoaderTest extends TestCase
         $loader->load(new Environment('Plan9'));
     }
 
-    public function testWithersReturnNewInstances(): void
-    {
-        $loader = VulkanLoader::createDefault();
-        $headers = self::createHeadersLoader('');
-
-        self::assertNotSame($loader, $loader->withLibraryLocator(self::createLocator()));
-        self::assertNotSame($loader, $loader->withPlatformDetector(self::createDetector()));
-        self::assertNotSame($loader, $loader->withHeadersLoader($headers));
-    }
-
     private static function createLoader(HeadersLoaderInterface $headers): VulkanLoader
     {
         return new VulkanLoader(

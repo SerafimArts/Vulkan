@@ -12,9 +12,4 @@ final class LoadingException extends LoaderException
             Could not load the Vulkan API from [%s]: %s
             MESSAGE, $library, $prev->getMessage()), previous: $prev);
     }
-
-    public static function becauseAlreadyLoaded(?\Throwable $prev = null): self
-    {
-        return new self('The Vulkan API has already been loaded', previous: $prev);
-    }
 }
