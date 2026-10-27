@@ -22,7 +22,7 @@ final class VkSamplerCubicWeightsCreateInfoQCOM extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkSamplerCubicWeightsCreateInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000519000;
+    public const int STRUCTURE_TYPE = 1000519000;
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,

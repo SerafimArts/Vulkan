@@ -22,7 +22,7 @@ final class VkDeviceMemoryOverallocationCreateInfoAMD extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkDeviceMemoryOverallocationCreateInfoAMD';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD` */
-    private const int STRUCTURE_TYPE = 1000189000;
+    public const int STRUCTURE_TYPE = 1000189000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

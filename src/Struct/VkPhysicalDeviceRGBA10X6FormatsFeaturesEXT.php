@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RGBA10X6_FORMATS_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000344000;
+    public const int STRUCTURE_TYPE = 1000344000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

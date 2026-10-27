@@ -21,7 +21,7 @@ final class VkPhysicalDeviceGlobalPriorityQueryFeatures extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceGlobalPriorityQueryFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GLOBAL_PRIORITY_QUERY_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000388000;
+    public const int STRUCTURE_TYPE = 1000388000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

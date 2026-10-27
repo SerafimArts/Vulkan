@@ -24,7 +24,7 @@ final class VkBufferCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkBufferCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 12;
+    public const int STRUCTURE_TYPE = 12;
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,

@@ -22,7 +22,7 @@ final class VkWriteDescriptorSetTensorARM extends InputStructure implements VkWr
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSetTensorARM';
 
     /** `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM` */
-    private const int STRUCTURE_TYPE = 1000460003;
+    public const int STRUCTURE_TYPE = 1000460003;
 
     public function __construct(
         public ?VkWriteDescriptorSetExtension $next = null,

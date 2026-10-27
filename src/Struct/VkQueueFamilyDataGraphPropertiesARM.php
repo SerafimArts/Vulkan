@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkQueueFamilyDataGraphPropertiesARM extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM` */
+    public const int STRUCTURE_TYPE = 1000507018;
+
     public function __construct(
         public VkPhysicalDeviceDataGraphProcessingEngineARM $engine,
         public VkPhysicalDeviceDataGraphOperationSupportARM $operation,

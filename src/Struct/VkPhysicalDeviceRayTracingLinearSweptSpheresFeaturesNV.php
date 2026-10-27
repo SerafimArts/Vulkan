@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV extends Input
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000429008;
+    public const int STRUCTURE_TYPE = 1000429008;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

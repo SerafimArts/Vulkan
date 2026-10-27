@@ -20,7 +20,7 @@ final class VkPresentWait2InfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkPresentWait2InfoKHR';
 
     /** `VK_STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000480002;
+    public const int STRUCTURE_TYPE = 1000480002;
 
     public function __construct(
         /** @var int<0, max> */

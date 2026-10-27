@@ -118,7 +118,7 @@ final readonly class StructEmitter
         if ($plan->structureType !== null) {
             $constant = $class->addConstant('STRUCTURE_TYPE', $this->getStructureType($plan->structureType));
 
-            $constant->setPrivate();
+            $constant->setPublic();
             $constant->setType('int');
             $constant->addComment('`' . $plan->structureType . '`');
 
@@ -172,6 +172,14 @@ final readonly class StructEmitter
 
         $class->setReadOnly();
         $class->setExtends(OutputStructure::class);
+
+        if ($plan->structureType !== null) {
+            $constant = $class->addConstant('STRUCTURE_TYPE', $this->getStructureType($plan->structureType));
+
+            $constant->setPublic();
+            $constant->setType('int');
+            $constant->addComment('`' . $plan->structureType . '`');
+        }
 
         $this->properties->emit($namespace, $class, $plan->properties);
         $this->emitFactory($namespace, $class, $plan);

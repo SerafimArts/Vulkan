@@ -23,7 +23,7 @@ final class VkMicromapCreateInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkMicromapCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_MICROMAP_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000396007;
+    public const int STRUCTURE_TYPE = 1000396007;
 
     public function __construct(
         public VkBuffer $buffer,

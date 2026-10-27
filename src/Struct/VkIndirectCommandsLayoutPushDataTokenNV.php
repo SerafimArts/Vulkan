@@ -21,7 +21,7 @@ final class VkIndirectCommandsLayoutPushDataTokenNV extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkIndirectCommandsLayoutPushDataTokenNV';
 
     /** `VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV` */
-    private const int STRUCTURE_TYPE = 1000135012;
+    public const int STRUCTURE_TYPE = 1000135012;
 
     public function __construct(
         public ?VkIndirectCommandsLayoutTokenNVExtension $next = null,

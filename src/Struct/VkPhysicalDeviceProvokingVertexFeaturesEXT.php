@@ -21,7 +21,7 @@ final class VkPhysicalDeviceProvokingVertexFeaturesEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceProvokingVertexFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROVOKING_VERTEX_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000254000;
+    public const int STRUCTURE_TYPE = 1000254000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

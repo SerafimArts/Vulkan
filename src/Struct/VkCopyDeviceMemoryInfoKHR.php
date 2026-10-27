@@ -20,7 +20,7 @@ final class VkCopyDeviceMemoryInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkCopyDeviceMemoryInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_COPY_DEVICE_MEMORY_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000318001;
+    public const int STRUCTURE_TYPE = 1000318001;
 
     public function __construct(
         /** @var list<VkDeviceMemoryCopyKHR> */

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceOpticalFlowFeaturesNV extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceOpticalFlowFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000464000;
+    public const int STRUCTURE_TYPE = 1000464000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

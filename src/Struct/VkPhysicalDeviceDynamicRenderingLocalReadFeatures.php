@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDynamicRenderingLocalReadFeatures extends InputStruc
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDynamicRenderingLocalReadFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_LOCAL_READ_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000232000;
+    public const int STRUCTURE_TYPE = 1000232000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -24,7 +24,7 @@ final class VkQueryPoolCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkQueryPoolCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 11;
+    public const int STRUCTURE_TYPE = 11;
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,

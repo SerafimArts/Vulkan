@@ -23,7 +23,7 @@ final class VkDescriptorPoolCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkDescriptorPoolCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 33;
+    public const int STRUCTURE_TYPE = 33;
 
     public function __construct(
         public ?VkDescriptorPoolCreateInfoExtension $next = null,

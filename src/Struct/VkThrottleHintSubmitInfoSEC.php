@@ -22,7 +22,7 @@ final class VkThrottleHintSubmitInfoSEC extends InputStructure implements VkSubm
     protected const string NATIVE_TYPE = 'VkThrottleHintSubmitInfoSEC';
 
     /** `VK_STRUCTURE_TYPE_THROTTLE_HINT_SUBMIT_INFO_SEC` */
-    private const int STRUCTURE_TYPE = 1000674001;
+    public const int STRUCTURE_TYPE = 1000674001;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,

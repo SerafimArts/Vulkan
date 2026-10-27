@@ -21,7 +21,7 @@ final class VkPhysicalDeviceInvocationMaskFeaturesHUAWEI extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceInvocationMaskFeaturesHUAWEI';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INVOCATION_MASK_FEATURES_HUAWEI` */
-    private const int STRUCTURE_TYPE = 1000370000;
+    public const int STRUCTURE_TYPE = 1000370000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

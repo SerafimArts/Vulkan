@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR extends 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderRelaxedExtendedInstructionFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000558000;
+    public const int STRUCTURE_TYPE = 1000558000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

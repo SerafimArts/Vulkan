@@ -31,7 +31,7 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkSwapchainCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000001000;
+    public const int STRUCTURE_TYPE = 1000001000;
 
     public function __construct(
         /** The swapchain's target surface */

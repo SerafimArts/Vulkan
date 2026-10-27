@@ -21,7 +21,7 @@ final class VkImageViewMinLodCreateInfoEXT extends InputStructure implements VkI
     protected const string NATIVE_TYPE = 'VkImageViewMinLodCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_MIN_LOD_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000391001;
+    public const int STRUCTURE_TYPE = 1000391001;
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,

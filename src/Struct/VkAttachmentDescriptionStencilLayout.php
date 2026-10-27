@@ -23,7 +23,7 @@ final class VkAttachmentDescriptionStencilLayout extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkAttachmentDescriptionStencilLayout';
 
     /** `VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT` */
-    private const int STRUCTURE_TYPE = 1000241002;
+    public const int STRUCTURE_TYPE = 1000241002;
 
     public function __construct(
         public ?VkAttachmentDescription2Extension $next = null,

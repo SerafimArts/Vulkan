@@ -21,7 +21,7 @@ final class VkPhysicalDevice16BitStorageFeatures extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkPhysicalDevice16BitStorageFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_16BIT_STORAGE_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000083000;
+    public const int STRUCTURE_TYPE = 1000083000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

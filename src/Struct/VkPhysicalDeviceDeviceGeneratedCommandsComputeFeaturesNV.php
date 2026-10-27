@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends Inp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_COMPUTE_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000428000;
+    public const int STRUCTURE_TYPE = 1000428000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

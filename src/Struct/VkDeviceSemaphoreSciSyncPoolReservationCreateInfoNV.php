@@ -20,7 +20,7 @@ final class VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV extends InputStr
     protected const string NATIVE_TYPE = 'VkDeviceSemaphoreSciSyncPoolReservationCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_SEMAPHORE_SCI_SYNC_POOL_RESERVATION_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000489003;
+    public const int STRUCTURE_TYPE = 1000489003;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

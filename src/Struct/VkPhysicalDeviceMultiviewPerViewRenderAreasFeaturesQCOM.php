@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000510000;
+    public const int STRUCTURE_TYPE = 1000510000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -20,6 +20,9 @@ use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
  */
 final readonly class VkBufferCollectionPropertiesFUCHSIA extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_BUFFER_COLLECTION_PROPERTIES_FUCHSIA` */
+    public const int STRUCTURE_TYPE = 1000366003;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $memoryTypeBits,

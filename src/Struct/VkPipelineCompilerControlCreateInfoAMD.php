@@ -23,7 +23,7 @@ final class VkPipelineCompilerControlCreateInfoAMD extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkPipelineCompilerControlCreateInfoAMD';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD` */
-    private const int STRUCTURE_TYPE = 1000183000;
+    public const int STRUCTURE_TYPE = 1000183000;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkExecutionGraphPipelineCreateInfoAMDXExtension|null $next = null,

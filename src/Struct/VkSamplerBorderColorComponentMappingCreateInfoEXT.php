@@ -21,7 +21,7 @@ final class VkSamplerBorderColorComponentMappingCreateInfoEXT extends InputStruc
     protected const string NATIVE_TYPE = 'VkSamplerBorderColorComponentMappingCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_SAMPLER_BORDER_COLOR_COMPONENT_MAPPING_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000411001;
+    public const int STRUCTURE_TYPE = 1000411001;
 
     public function __construct(
         public VkComponentMapping $components,

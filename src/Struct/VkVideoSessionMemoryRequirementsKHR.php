@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkVideoSessionMemoryRequirementsKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR` */
+    public const int STRUCTURE_TYPE = 1000023003;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $memoryBindIndex,

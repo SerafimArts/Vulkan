@@ -23,7 +23,7 @@ final class VkSurfaceFullScreenExclusiveInfoEXT extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkSurfaceFullScreenExclusiveInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000255000;
+    public const int STRUCTURE_TYPE = 1000255000;
 
     public function __construct(
         public VkPhysicalDeviceSurfaceInfo2KHRExtension|VkSwapchainCreateInfoKHRExtension|null $next = null,

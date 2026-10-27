@@ -21,7 +21,7 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDebugUtilsObjectTagInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000128001;
+    public const int STRUCTURE_TYPE = 1000128001;
 
     public function __construct(
         public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,

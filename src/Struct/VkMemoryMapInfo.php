@@ -22,7 +22,7 @@ final class VkMemoryMapInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkMemoryMapInfo';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_MAP_INFO` */
-    private const int STRUCTURE_TYPE = 1000271000;
+    public const int STRUCTURE_TYPE = 1000271000;
 
     public function __construct(
         public VkDeviceMemory $memory,

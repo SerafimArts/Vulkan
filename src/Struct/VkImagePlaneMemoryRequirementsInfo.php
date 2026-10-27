@@ -22,7 +22,7 @@ final class VkImagePlaneMemoryRequirementsInfo extends InputStructure implements
     protected const string NATIVE_TYPE = 'VkImagePlaneMemoryRequirementsInfo';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO` */
-    private const int STRUCTURE_TYPE = 1000156003;
+    public const int STRUCTURE_TYPE = 1000156003;
 
     public function __construct(
         public ?VkImageMemoryRequirementsInfo2Extension $next = null,

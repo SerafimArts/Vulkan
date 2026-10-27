@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT extends I
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderUniformBufferUnsizedArrayFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNIFORM_BUFFER_UNSIZED_ARRAY_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000642000;
+    public const int STRUCTURE_TYPE = 1000642000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

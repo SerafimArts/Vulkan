@@ -21,7 +21,7 @@ final class VkProtectedSubmitInfo extends InputStructure implements VkSubmitInfo
     protected const string NATIVE_TYPE = 'VkProtectedSubmitInfo';
 
     /** `VK_STRUCTURE_TYPE_PROTECTED_SUBMIT_INFO` */
-    private const int STRUCTURE_TYPE = 1000145000;
+    public const int STRUCTURE_TYPE = 1000145000;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,

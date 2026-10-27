@@ -22,7 +22,7 @@ final class VkImageSwapchainCreateInfoKHR extends InputStructure implements VkIm
     protected const string NATIVE_TYPE = 'VkImageSwapchainCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_SWAPCHAIN_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000060008;
+    public const int STRUCTURE_TYPE = 1000060008;
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,

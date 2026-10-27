@@ -21,7 +21,7 @@ final class VkExternalComputeQueueDeviceCreateInfoNV extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkExternalComputeQueueDeviceCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000556000;
+    public const int STRUCTURE_TYPE = 1000556000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

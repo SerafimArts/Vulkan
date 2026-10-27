@@ -20,7 +20,7 @@ final class VkBuildPartitionedAccelerationStructureInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkBuildPartitionedAccelerationStructureInfoNV';
 
     /** `VK_STRUCTURE_TYPE_BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000570004;
+    public const int STRUCTURE_TYPE = 1000570004;
 
     public function __construct(
         public VkPartitionedAccelerationStructureInstancesInputNV $input,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFragmentDensityMap2FeaturesEXT extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentDensityMap2FeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_2_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000332000;
+    public const int STRUCTURE_TYPE = 1000332000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

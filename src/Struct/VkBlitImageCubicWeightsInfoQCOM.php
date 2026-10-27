@@ -22,7 +22,7 @@ final class VkBlitImageCubicWeightsInfoQCOM extends InputStructure implements Vk
     protected const string NATIVE_TYPE = 'VkBlitImageCubicWeightsInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000519002;
+    public const int STRUCTURE_TYPE = 1000519002;
 
     public function __construct(
         public ?VkBlitImageInfo2Extension $next = null,

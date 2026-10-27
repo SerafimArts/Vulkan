@@ -21,7 +21,7 @@ final class VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceElapsedTimerQueryFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ELAPSED_TIMER_QUERY_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000173000;
+    public const int STRUCTURE_TYPE = 1000173000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

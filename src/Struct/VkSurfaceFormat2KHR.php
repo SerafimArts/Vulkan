@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkSurfaceFormat2KHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR` */
+    public const int STRUCTURE_TYPE = 1000119002;
+
     public function __construct(
         public VkSurfaceFormatKHR $surfaceFormat,
     ) {}

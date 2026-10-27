@@ -23,7 +23,7 @@ final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkDepthBiasRepresentationInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DEPTH_BIAS_REPRESENTATION_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000283002;
+    public const int STRUCTURE_TYPE = 1000283002;
 
     public function __construct(
         public VkDepthBiasInfoEXTExtension|VkPipelineRasterizationStateCreateInfoExtension|null $next = null,

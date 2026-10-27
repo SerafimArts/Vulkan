@@ -21,7 +21,7 @@ final class VkPhysicalDevicePresentMeteringFeaturesNV extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePresentMeteringFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000613001;
+    public const int STRUCTURE_TYPE = 1000613001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

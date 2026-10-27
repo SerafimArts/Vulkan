@@ -18,6 +18,9 @@ use Serafim\Vulkan\Enum\VkExternalSemaphoreHandleTypeFlagBits;
  */
 final readonly class VkQueueFamilyDataGraphProcessingEnginePropertiesARM extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM` */
+    public const int STRUCTURE_TYPE = 1000507017;
+
     public function __construct(
         /** @var int-mask-of<VkExternalSemaphoreHandleTypeFlagBits::*> */
         public int $foreignSemaphoreHandleTypes,

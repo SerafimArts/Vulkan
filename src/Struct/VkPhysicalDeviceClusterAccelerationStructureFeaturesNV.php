@@ -21,7 +21,7 @@ final class VkPhysicalDeviceClusterAccelerationStructureFeaturesNV extends Input
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceClusterAccelerationStructureFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000569000;
+    public const int STRUCTURE_TYPE = 1000569000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -23,7 +23,7 @@ final class VkCopyMemoryToImageIndirectInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkCopyMemoryToImageIndirectInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000549003;
+    public const int STRUCTURE_TYPE = 1000549003;
 
     public function __construct(
         public VkStridedDeviceAddressRangeKHR $copyAddressRange,

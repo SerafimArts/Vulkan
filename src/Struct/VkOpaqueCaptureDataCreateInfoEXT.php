@@ -22,7 +22,7 @@ final class VkOpaqueCaptureDataCreateInfoEXT extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkOpaqueCaptureDataCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000135007;
+    public const int STRUCTURE_TYPE = 1000135007;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkTensorCreateInfoARMExtension|null $next = null,

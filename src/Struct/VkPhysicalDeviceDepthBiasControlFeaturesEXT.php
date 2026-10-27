@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDepthBiasControlFeaturesEXT extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDepthBiasControlFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000283000;
+    public const int STRUCTURE_TYPE = 1000283000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCustomBorderColorFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUSTOM_BORDER_COLOR_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000287002;
+    public const int STRUCTURE_TYPE = 1000287002;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceLegacyDitheringFeaturesEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceLegacyDitheringFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_DITHERING_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000465000;
+    public const int STRUCTURE_TYPE = 1000465000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

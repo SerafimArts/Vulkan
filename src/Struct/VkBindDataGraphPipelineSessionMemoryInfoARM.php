@@ -23,7 +23,7 @@ final class VkBindDataGraphPipelineSessionMemoryInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindDataGraphPipelineSessionMemoryInfoARM';
 
     /** `VK_STRUCTURE_TYPE_BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000507005;
+    public const int STRUCTURE_TYPE = 1000507005;
 
     public function __construct(
         public VkDataGraphPipelineSessionARM $session,

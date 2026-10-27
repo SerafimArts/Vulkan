@@ -24,7 +24,7 @@ final class VkPipelineOfflineCreateInfo extends InputStructure implements VkGrap
     protected const string NATIVE_TYPE = 'VkPipelineOfflineCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_OFFLINE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000298010;
+    public const int STRUCTURE_TYPE = 1000298010;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|null $next = null,

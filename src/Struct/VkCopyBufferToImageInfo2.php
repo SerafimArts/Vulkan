@@ -24,7 +24,7 @@ final class VkCopyBufferToImageInfo2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkCopyBufferToImageInfo2';
 
     /** `VK_STRUCTURE_TYPE_COPY_BUFFER_TO_IMAGE_INFO_2` */
-    private const int STRUCTURE_TYPE = 1000337002;
+    public const int STRUCTURE_TYPE = 1000337002;
 
     public function __construct(
         public VkBuffer $srcBuffer,

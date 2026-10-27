@@ -21,7 +21,7 @@ final class VkDataGraphPipelineSingleNodeConnectionARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSingleNodeConnectionARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM` */
-    private const int STRUCTURE_TYPE = 1000631008;
+    public const int STRUCTURE_TYPE = 1000631008;
 
     public function __construct(
         public VkDataGraphPipelineNodeConnectionTypeARM $connection,

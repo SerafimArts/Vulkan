@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkDescriptorSetLayoutHostMappingInfoVALVE extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE` */
+    public const int STRUCTURE_TYPE = 1000420002;
+
     public function __construct(
         /** @var int<0, max> */
         public int $descriptorOffset,

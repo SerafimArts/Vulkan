@@ -21,7 +21,7 @@ final class VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_RGB_CONVERSION_FEATURES_VALVE` */
-    private const int STRUCTURE_TYPE = 1000390000;
+    public const int STRUCTURE_TYPE = 1000390000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

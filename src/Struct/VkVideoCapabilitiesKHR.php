@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkVideoCapabilityFlagBitsKHR;
  */
 final readonly class VkVideoCapabilitiesKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR` */
+    public const int STRUCTURE_TYPE = 1000023001;
+
     public function __construct(
         /** @var int-mask-of<VkVideoCapabilityFlagBitsKHR::*> */
         public int $flags,

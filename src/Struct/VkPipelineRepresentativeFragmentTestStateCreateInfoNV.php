@@ -21,7 +21,7 @@ final class VkPipelineRepresentativeFragmentTestStateCreateInfoNV extends InputS
     protected const string NATIVE_TYPE = 'VkPipelineRepresentativeFragmentTestStateCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000166001;
+    public const int STRUCTURE_TYPE = 1000166001;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,

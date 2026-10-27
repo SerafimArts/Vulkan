@@ -22,7 +22,7 @@ final class VkVideoEncodeQuantizationMapInfoKHR extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkVideoEncodeQuantizationMapInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000553002;
+    public const int STRUCTURE_TYPE = 1000553002;
 
     public function __construct(
         public VkExtent2D $quantizationMapExtent,

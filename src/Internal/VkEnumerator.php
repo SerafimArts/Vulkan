@@ -46,6 +46,8 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
      * @param non-empty-string $type C type of an element
      * @param \Closure(CData): TCreated $factory creates an element from the
      *        native one
+     * @param int|null $structureType the `sType` of the elements that the
+     *        command requires to be set before it fills them
      *
      * @return self<TCreated>
      * @throws CommandFailedException in case of the command fails
@@ -57,6 +59,7 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
         array $arguments,
         string $type,
         \Closure $factory,
+        ?int $structureType = null,
     ): self {
         $count = $vk->memory->new('uint32_t');
         $pointer = \FFI::addr($count);
@@ -71,6 +74,16 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
             }
 
             $items = $vk->memory->new($type . '[' . $length . ']');
+
+            if ($structureType !== null) {
+                for ($i = 0; $i < $length; ++$i) {
+                    /** @var CData $item */
+                    $item = $items[$i];
+
+                    $item->sType = $structureType;
+                }
+            }
+
             $result = self::call($procedure, [...$arguments, $pointer, $items]);
         } while ($result === VkResult::VK_INCOMPLETE->value);
 

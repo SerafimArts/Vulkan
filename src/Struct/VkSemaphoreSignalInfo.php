@@ -21,7 +21,7 @@ final class VkSemaphoreSignalInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkSemaphoreSignalInfo';
 
     /** `VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO` */
-    private const int STRUCTURE_TYPE = 1000207005;
+    public const int STRUCTURE_TYPE = 1000207005;
 
     public function __construct(
         public VkSemaphore $semaphore,

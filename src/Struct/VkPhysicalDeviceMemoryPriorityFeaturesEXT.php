@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMemoryPriorityFeaturesEXT extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMemoryPriorityFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000238000;
+    public const int STRUCTURE_TYPE = 1000238000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM extends 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000507019;
+    public const int STRUCTURE_TYPE = 1000507019;
 
     public function __construct(
         /** @var int<0, 4294967295> */

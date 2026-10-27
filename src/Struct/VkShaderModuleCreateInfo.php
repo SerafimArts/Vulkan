@@ -23,7 +23,7 @@ final class VkShaderModuleCreateInfo extends InputStructure implements VkPipelin
     protected const string NATIVE_TYPE = 'VkShaderModuleCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 16;
+    public const int STRUCTURE_TYPE = 16;
 
     public function __construct(
         /**

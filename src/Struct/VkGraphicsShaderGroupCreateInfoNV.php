@@ -20,7 +20,7 @@ final class VkGraphicsShaderGroupCreateInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkGraphicsShaderGroupCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_GRAPHICS_SHADER_GROUP_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000277001;
+    public const int STRUCTURE_TYPE = 1000277001;
 
     public function __construct(
         /** @var list<VkPipelineShaderStageCreateInfo> */

@@ -22,7 +22,7 @@ final class VkDeviceQueueCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceQueueCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 2;
+    public const int STRUCTURE_TYPE = 2;
 
     public function __construct(
         public ?VkDeviceQueueCreateInfoExtension $next = null,

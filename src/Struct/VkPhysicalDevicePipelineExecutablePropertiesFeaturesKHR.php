@@ -21,7 +21,7 @@ final class VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_EXECUTABLE_PROPERTIES_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000269000;
+    public const int STRUCTURE_TYPE = 1000269000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

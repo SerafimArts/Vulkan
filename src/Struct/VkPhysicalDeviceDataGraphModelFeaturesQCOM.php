@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDataGraphModelFeaturesQCOM extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphModelFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_MODEL_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000629000;
+    public const int STRUCTURE_TYPE = 1000629000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX` */
-    private const int STRUCTURE_TYPE = 1000478000;
+    public const int STRUCTURE_TYPE = 1000478000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

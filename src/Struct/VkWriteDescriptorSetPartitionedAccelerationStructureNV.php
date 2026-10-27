@@ -21,7 +21,7 @@ final class VkWriteDescriptorSetPartitionedAccelerationStructureNV extends Input
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSetPartitionedAccelerationStructureNV';
 
     /** `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV` */
-    private const int STRUCTURE_TYPE = 1000570002;
+    public const int STRUCTURE_TYPE = 1000570002;
 
     public function __construct(
         public ?VkWriteDescriptorSetExtension $next = null,

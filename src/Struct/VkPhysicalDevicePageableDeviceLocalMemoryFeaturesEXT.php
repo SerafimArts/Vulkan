@@ -21,7 +21,7 @@ final class VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PAGEABLE_DEVICE_LOCAL_MEMORY_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000412000;
+    public const int STRUCTURE_TYPE = 1000412000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -29,7 +29,7 @@ final class VkValidationFeaturesEXT extends InputStructure implements VkInstance
     protected const string NATIVE_TYPE = 'VkValidationFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000247000;
+    public const int STRUCTURE_TYPE = 1000247000;
 
     public function __construct(
         public VkInstanceCreateInfoExtension|VkShaderModuleCreateInfoExtension|VkShaderCreateInfoEXTExtension|VkPipelineShaderStageCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|null $next = null,

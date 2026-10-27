@@ -21,7 +21,7 @@ final class VkDisplayPlaneInfo2KHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDisplayPlaneInfo2KHR';
 
     /** `VK_STRUCTURE_TYPE_DISPLAY_PLANE_INFO_2_KHR` */
-    private const int STRUCTURE_TYPE = 1000121003;
+    public const int STRUCTURE_TYPE = 1000121003;
 
     public function __construct(
         public VkDisplayModeKHR $mode,

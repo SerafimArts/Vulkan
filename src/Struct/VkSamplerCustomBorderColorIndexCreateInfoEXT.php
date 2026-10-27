@@ -21,7 +21,7 @@ final class VkSamplerCustomBorderColorIndexCreateInfoEXT extends InputStructure 
     protected const string NATIVE_TYPE = 'VkSamplerCustomBorderColorIndexCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000135011;
+    public const int STRUCTURE_TYPE = 1000135011;
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,

@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkDeviceGroupPresentModeFlagBitsKHR;
  */
 final readonly class VkDeviceGroupPresentCapabilitiesKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR` */
+    public const int STRUCTURE_TYPE = 1000060007;
+
     public function __construct(
         /** @var list<int<0, 4294967295>> */
         public array $presentMask,

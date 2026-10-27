@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkDeviceFaultFlagBitsKHR;
  */
 final readonly class VkDeviceFaultInfoKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR` */
+    public const int STRUCTURE_TYPE = 1000573002;
+
     public function __construct(
         /** @var int-mask-of<VkDeviceFaultFlagBitsKHR::*> */
         public int $flags,

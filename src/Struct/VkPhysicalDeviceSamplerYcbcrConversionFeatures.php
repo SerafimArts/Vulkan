@@ -21,7 +21,7 @@ final class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSamplerYcbcrConversionFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000156004;
+    public const int STRUCTURE_TYPE = 1000156004;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

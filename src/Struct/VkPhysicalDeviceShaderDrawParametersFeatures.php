@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderDrawParametersFeatures extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderDrawParametersFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DRAW_PARAMETERS_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000063000;
+    public const int STRUCTURE_TYPE = 1000063000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

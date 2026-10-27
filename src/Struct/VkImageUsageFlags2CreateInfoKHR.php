@@ -27,7 +27,7 @@ final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements Vk
     protected const string NATIVE_TYPE = 'VkImageUsageFlags2CreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000668002;
+    public const int STRUCTURE_TYPE = 1000668002;
 
     public function __construct(
         public VkFramebufferAttachmentImageInfoExtension|VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceSparseImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkSwapchainCreateInfoKHRExtension|null $next = null,

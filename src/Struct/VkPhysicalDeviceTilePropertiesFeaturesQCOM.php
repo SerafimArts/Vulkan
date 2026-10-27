@@ -21,7 +21,7 @@ final class VkPhysicalDeviceTilePropertiesFeaturesQCOM extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTilePropertiesFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_PROPERTIES_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000484000;
+    public const int STRUCTURE_TYPE = 1000484000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

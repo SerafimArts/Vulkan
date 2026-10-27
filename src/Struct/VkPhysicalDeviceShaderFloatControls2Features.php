@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderFloatControls2Features extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderFloatControls2Features';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT_CONTROLS_2_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000528000;
+    public const int STRUCTURE_TYPE = 1000528000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

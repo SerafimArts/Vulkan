@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkDescriptorSetLayoutSupport extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT` */
+    public const int STRUCTURE_TYPE = 1000168001;
+
     public function __construct(
         public bool $supported,
     ) {}

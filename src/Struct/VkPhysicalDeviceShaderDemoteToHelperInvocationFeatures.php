@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures extends Input
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderDemoteToHelperInvocationFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000276000;
+    public const int STRUCTURE_TYPE = 1000276000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

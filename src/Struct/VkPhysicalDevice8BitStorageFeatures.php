@@ -21,7 +21,7 @@ final class VkPhysicalDevice8BitStorageFeatures extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkPhysicalDevice8BitStorageFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_8BIT_STORAGE_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000177000;
+    public const int STRUCTURE_TYPE = 1000177000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

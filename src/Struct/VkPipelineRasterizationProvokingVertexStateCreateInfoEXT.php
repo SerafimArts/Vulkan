@@ -22,7 +22,7 @@ final class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends Inp
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationProvokingVertexStateCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000254001;
+    public const int STRUCTURE_TYPE = 1000254001;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,

@@ -25,7 +25,7 @@ final class VkExternalFormatANDROID extends InputStructure implements VkImageCre
     protected const string NATIVE_TYPE = 'VkExternalFormatANDROID';
 
     /** `VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID` */
-    private const int STRUCTURE_TYPE = 1000129005;
+    public const int STRUCTURE_TYPE = 1000129005;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,

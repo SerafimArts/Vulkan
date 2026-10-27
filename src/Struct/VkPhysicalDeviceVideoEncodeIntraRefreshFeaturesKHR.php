@@ -21,7 +21,7 @@ final class VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000552004;
+    public const int STRUCTURE_TYPE = 1000552004;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

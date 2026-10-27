@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShadingRateFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000226003;
+    public const int STRUCTURE_TYPE = 1000226003;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

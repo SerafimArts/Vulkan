@@ -21,7 +21,7 @@ final class VkVideoEncodeAV1GopRemainingFrameInfoKHR extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkVideoEncodeAV1GopRemainingFrameInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000513010;
+    public const int STRUCTURE_TYPE = 1000513010;
 
     public function __construct(
         public ?VkVideoBeginCodingInfoKHRExtension $next = null,

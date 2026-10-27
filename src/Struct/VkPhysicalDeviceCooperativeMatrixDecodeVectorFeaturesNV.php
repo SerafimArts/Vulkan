@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_DECODE_VECTOR_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000689000;
+    public const int STRUCTURE_TYPE = 1000689000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

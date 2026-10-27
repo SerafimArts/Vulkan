@@ -22,7 +22,7 @@ final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM extends InputStr
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSessionMemoryRequirementsInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000507004;
+    public const int STRUCTURE_TYPE = 1000507004;
 
     public function __construct(
         public VkDataGraphPipelineSessionARM $session,

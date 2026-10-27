@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRobustness2FeaturesKHR extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRobustness2FeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000286000;
+    public const int STRUCTURE_TYPE = 1000286000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

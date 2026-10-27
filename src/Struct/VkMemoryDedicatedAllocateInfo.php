@@ -23,7 +23,7 @@ final class VkMemoryDedicatedAllocateInfo extends InputStructure implements VkMe
     protected const string NATIVE_TYPE = 'VkMemoryDedicatedAllocateInfo';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000127001;
+    public const int STRUCTURE_TYPE = 1000127001;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,

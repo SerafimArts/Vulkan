@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCooperativeMatrixMaintenance1FeaturesEXT extends Inp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrixMaintenance1FeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000659000;
+    public const int STRUCTURE_TYPE = 1000659000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

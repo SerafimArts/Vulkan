@@ -21,7 +21,7 @@ final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_SMPTE_ST_209450_FEATURES_GOOGLE` */
-    private const int STRUCTURE_TYPE = 1000718000;
+    public const int STRUCTURE_TYPE = 1000718000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

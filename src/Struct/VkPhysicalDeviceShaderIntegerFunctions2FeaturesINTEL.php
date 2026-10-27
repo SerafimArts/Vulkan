@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_FUNCTIONS_2_FEATURES_INTEL` */
-    private const int STRUCTURE_TYPE = 1000209000;
+    public const int STRUCTURE_TYPE = 1000209000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

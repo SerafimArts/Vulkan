@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkMemoryFdPropertiesKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_MEMORY_FD_PROPERTIES_KHR` */
+    public const int STRUCTURE_TYPE = 1000074001;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $memoryTypeBits,

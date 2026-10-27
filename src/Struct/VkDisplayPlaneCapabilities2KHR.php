@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkDisplayPlaneCapabilities2KHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR` */
+    public const int STRUCTURE_TYPE = 1000121004;
+
     public function __construct(
         public VkDisplayPlaneCapabilitiesKHR $capabilities,
     ) {}

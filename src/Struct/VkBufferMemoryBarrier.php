@@ -24,7 +24,7 @@ final class VkBufferMemoryBarrier extends InputStructure
     protected const string NATIVE_TYPE = 'VkBufferMemoryBarrier';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER` */
-    private const int STRUCTURE_TYPE = 44;
+    public const int STRUCTURE_TYPE = 44;
 
     public function __construct(
         /** Buffer to sync */

@@ -24,7 +24,7 @@ final class VkDescriptorSetAllocateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkDescriptorSetAllocateInfo';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO` */
-    private const int STRUCTURE_TYPE = 34;
+    public const int STRUCTURE_TYPE = 34;
 
     public function __construct(
         public VkDescriptorPool $descriptorPool,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCudaKernelLaunchFeaturesNV extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCudaKernelLaunchFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000307003;
+    public const int STRUCTURE_TYPE = 1000307003;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

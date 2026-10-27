@@ -26,7 +26,7 @@ final class VkWriteDescriptorSet extends InputStructure
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSet';
 
     /** `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET` */
-    private const int STRUCTURE_TYPE = 35;
+    public const int STRUCTURE_TYPE = 35;
 
     public function __construct(
         /** Destination descriptor set */

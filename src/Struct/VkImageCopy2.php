@@ -20,7 +20,7 @@ final class VkImageCopy2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageCopy2';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_COPY_2` */
-    private const int STRUCTURE_TYPE = 1000337007;
+    public const int STRUCTURE_TYPE = 1000337007;
 
     public function __construct(
         public VkImageSubresourceLayers $srcSubresource,

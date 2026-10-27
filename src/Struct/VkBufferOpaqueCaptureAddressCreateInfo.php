@@ -21,7 +21,7 @@ final class VkBufferOpaqueCaptureAddressCreateInfo extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkBufferOpaqueCaptureAddressCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000257002;
+    public const int STRUCTURE_TYPE = 1000257002;
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,

@@ -18,6 +18,9 @@ use Serafim\Vulkan\Enum\VkScopeKHR;
  */
 final readonly class VkCooperativeMatrixFlexibleDimensionsPropertiesNV extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV` */
+    public const int STRUCTURE_TYPE = 1000593001;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $MGranularity,

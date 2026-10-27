@@ -22,7 +22,7 @@ final class VkD3D12FenceSubmitInfoKHR extends InputStructure implements VkSubmit
     protected const string NATIVE_TYPE = 'VkD3D12FenceSubmitInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000078002;
+    public const int STRUCTURE_TYPE = 1000078002;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,

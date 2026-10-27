@@ -22,7 +22,7 @@ final class VkRayTracingShaderGroupCreateInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkRayTracingShaderGroupCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000165011;
+    public const int STRUCTURE_TYPE = 1000165011;
 
     public function __construct(
         public VkRayTracingShaderGroupTypeKHR $type = VkRayTracingShaderGroupTypeKHR::VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR,

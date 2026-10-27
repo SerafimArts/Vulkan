@@ -25,7 +25,7 @@ final class VkAccelerationStructureCreateInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkAccelerationStructureCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000150017;
+    public const int STRUCTURE_TYPE = 1000150017;
 
     public function __construct(
         public VkBuffer $buffer,

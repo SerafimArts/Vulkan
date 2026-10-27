@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures extends InputStr
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderSubgroupExtendedTypesFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_EXTENDED_TYPES_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000175000;
+    public const int STRUCTURE_TYPE = 1000175000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

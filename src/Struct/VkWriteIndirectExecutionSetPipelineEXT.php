@@ -21,7 +21,7 @@ final class VkWriteIndirectExecutionSetPipelineEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkWriteIndirectExecutionSetPipelineEXT';
 
     /** `VK_STRUCTURE_TYPE_WRITE_INDIRECT_EXECUTION_SET_PIPELINE_EXT` */
-    private const int STRUCTURE_TYPE = 1000572008;
+    public const int STRUCTURE_TYPE = 1000572008;
 
     public function __construct(
         public VkPipeline $pipeline,

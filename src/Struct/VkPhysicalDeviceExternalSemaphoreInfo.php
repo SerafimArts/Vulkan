@@ -22,7 +22,7 @@ final class VkPhysicalDeviceExternalSemaphoreInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalSemaphoreInfo';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO` */
-    private const int STRUCTURE_TYPE = 1000076000;
+    public const int STRUCTURE_TYPE = 1000076000;
 
     public function __construct(
         public ?VkPhysicalDeviceExternalSemaphoreInfoExtension $next = null,

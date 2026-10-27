@@ -25,7 +25,7 @@ final class VkCommandBufferInheritanceInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceInfo';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO` */
-    private const int STRUCTURE_TYPE = 41;
+    public const int STRUCTURE_TYPE = 41;
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,

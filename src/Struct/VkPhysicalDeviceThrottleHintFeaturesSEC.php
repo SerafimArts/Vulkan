@@ -21,7 +21,7 @@ final class VkPhysicalDeviceThrottleHintFeaturesSEC extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceThrottleHintFeaturesSEC';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_THROTTLE_HINT_FEATURES_SEC` */
-    private const int STRUCTURE_TYPE = 1000674000;
+    public const int STRUCTURE_TYPE = 1000674000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

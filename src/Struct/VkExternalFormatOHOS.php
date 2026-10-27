@@ -25,7 +25,7 @@ final class VkExternalFormatOHOS extends InputStructure implements VkImageCreate
     protected const string NATIVE_TYPE = 'VkExternalFormatOHOS';
 
     /** `VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS` */
-    private const int STRUCTURE_TYPE = 1000452005;
+    public const int STRUCTURE_TYPE = 1000452005;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,

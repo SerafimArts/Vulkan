@@ -21,7 +21,7 @@ final class VkPhysicalDeviceSchedulingControlsFeaturesARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSchedulingControlsFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000417001;
+    public const int STRUCTURE_TYPE = 1000417001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

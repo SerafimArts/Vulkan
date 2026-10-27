@@ -21,7 +21,7 @@ final class VkPerformanceQueryReservationInfoKHR extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkPerformanceQueryReservationInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_RESERVATION_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000116007;
+    public const int STRUCTURE_TYPE = 1000116007;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

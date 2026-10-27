@@ -21,7 +21,7 @@ final class VkPhysicalDeviceVertexAttributeDivisorFeatures extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVertexAttributeDivisorFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000190002;
+    public const int STRUCTURE_TYPE = 1000190002;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

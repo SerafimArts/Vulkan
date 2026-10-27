@@ -21,7 +21,7 @@ final class VkPhysicalDevicePresentWaitFeaturesKHR extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePresentWaitFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000248000;
+    public const int STRUCTURE_TYPE = 1000248000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

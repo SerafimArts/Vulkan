@@ -21,7 +21,7 @@ final class VkPhysicalDevicePresentTimingFeaturesEXT extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePresentTimingFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_TIMING_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000208000;
+    public const int STRUCTURE_TYPE = 1000208000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

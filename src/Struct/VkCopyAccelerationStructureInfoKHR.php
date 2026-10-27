@@ -22,7 +22,7 @@ final class VkCopyAccelerationStructureInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkCopyAccelerationStructureInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_COPY_ACCELERATION_STRUCTURE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000150010;
+    public const int STRUCTURE_TYPE = 1000150010;
 
     public function __construct(
         public VkAccelerationStructureKHR $src,

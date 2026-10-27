@@ -21,7 +21,7 @@ final class VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM extends InputStru
     protected const string NATIVE_TYPE = 'VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000520001;
+    public const int STRUCTURE_TYPE = 1000520001;
 
     public function __construct(
         public ?VkSamplerYcbcrConversionCreateInfoExtension $next = null,

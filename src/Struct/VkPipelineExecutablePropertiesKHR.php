@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
  */
 final readonly class VkPipelineExecutablePropertiesKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_PROPERTIES_KHR` */
+    public const int STRUCTURE_TYPE = 1000269002;
+
     public function __construct(
         /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $stages,

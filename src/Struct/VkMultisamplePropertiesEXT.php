@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkMultisamplePropertiesEXT extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT` */
+    public const int STRUCTURE_TYPE = 1000143004;
+
     public function __construct(
         public VkExtent2D $maxSampleLocationGridSize,
     ) {}

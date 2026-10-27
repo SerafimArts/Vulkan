@@ -21,7 +21,7 @@ final class VkDataGraphPipelineDispatchInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineDispatchInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000507014;
+    public const int STRUCTURE_TYPE = 1000507014;
 
     public function __construct(
         public ?VkDataGraphPipelineDispatchInfoARMExtension $next = null,

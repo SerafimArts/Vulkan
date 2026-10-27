@@ -18,6 +18,9 @@ use Serafim\Vulkan\Enum\VkExternalFenceHandleTypeFlagBits;
  */
 final readonly class VkExternalFenceProperties extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES` */
+    public const int STRUCTURE_TYPE = 1000112001;
+
     public function __construct(
         /** @var int-mask-of<VkExternalFenceHandleTypeFlagBits::*> */
         public int $exportFromImportedHandleTypes,

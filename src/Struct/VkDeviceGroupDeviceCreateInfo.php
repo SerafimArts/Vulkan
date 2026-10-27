@@ -22,7 +22,7 @@ final class VkDeviceGroupDeviceCreateInfo extends InputStructure implements VkDe
     protected const string NATIVE_TYPE = 'VkDeviceGroupDeviceCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000070001;
+    public const int STRUCTURE_TYPE = 1000070001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

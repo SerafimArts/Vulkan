@@ -21,7 +21,7 @@ final class VkVideoEncodeH264RateControlLayerInfoKHR extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkVideoEncodeH264RateControlLayerInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_RATE_CONTROL_LAYER_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000038009;
+    public const int STRUCTURE_TYPE = 1000038009;
 
     public function __construct(
         public VkVideoEncodeH264QpKHR $minQp,

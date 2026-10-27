@@ -22,7 +22,7 @@ final class VkDescriptorSetVariableDescriptorCountAllocateInfo extends InputStru
     protected const string NATIVE_TYPE = 'VkDescriptorSetVariableDescriptorCountAllocateInfo';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000161003;
+    public const int STRUCTURE_TYPE = 1000161003;
 
     public function __construct(
         public ?VkDescriptorSetAllocateInfoExtension $next = null,

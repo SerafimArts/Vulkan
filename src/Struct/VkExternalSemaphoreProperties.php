@@ -18,6 +18,9 @@ use Serafim\Vulkan\Enum\VkExternalSemaphoreHandleTypeFlagBits;
  */
 final readonly class VkExternalSemaphoreProperties extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_EXTERNAL_SEMAPHORE_PROPERTIES` */
+    public const int STRUCTURE_TYPE = 1000076001;
+
     public function __construct(
         /** @var int-mask-of<VkExternalSemaphoreHandleTypeFlagBits::*> */
         public int $exportFromImportedHandleTypes,

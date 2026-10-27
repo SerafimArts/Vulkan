@@ -26,7 +26,7 @@ final class VkMemoryBarrierAccessFlags3KHR extends InputStructure implements VkS
     protected const string NATIVE_TYPE = 'VkMemoryBarrierAccessFlags3KHR';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_BARRIER_ACCESS_FLAGS_3_KHR` */
-    private const int STRUCTURE_TYPE = 1000574002;
+    public const int STRUCTURE_TYPE = 1000574002;
 
     public function __construct(
         public VkSubpassDependency2Extension|VkBufferMemoryBarrier2Extension|VkImageMemoryBarrier2Extension|VkMemoryBarrier2Extension|VkMemoryRangeBarrierKHRExtension|null $next = null,

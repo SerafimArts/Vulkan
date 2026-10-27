@@ -22,7 +22,7 @@ final class VkAttachmentReferenceStencilLayout extends InputStructure implements
     protected const string NATIVE_TYPE = 'VkAttachmentReferenceStencilLayout';
 
     /** `VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT` */
-    private const int STRUCTURE_TYPE = 1000241001;
+    public const int STRUCTURE_TYPE = 1000241001;
 
     public function __construct(
         public ?VkAttachmentReference2Extension $next = null,

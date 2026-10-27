@@ -22,7 +22,7 @@ final class VkExternalFormatQNX extends InputStructure implements VkImageCreateI
     protected const string NATIVE_TYPE = 'VkExternalFormatQNX';
 
     /** `VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_QNX` */
-    private const int STRUCTURE_TYPE = 1000529003;
+    public const int STRUCTURE_TYPE = 1000529003;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|null $next = null,

@@ -31,6 +31,8 @@ use Serafim\Vulkan\Struct\VkSubmitInfo;
 use Serafim\Vulkan\Vulkan;
 use Serafim\Vulkan\VulkanBase;
 
+use const Serafim\Vulkan\VK_API_VERSION_1_1;
+
 #[CoversClass(VulkanBase::class)]
 #[CoversClass(Vulkan::class)]
 final class VulkanTest extends TestCase
@@ -54,6 +56,32 @@ final class VulkanTest extends TestCase
         self::assertNotSame('', $properties->deviceName);
         self::assertSame(16, \strlen($properties->pipelineCacheUUID));
         self::assertGreaterThan(0, $properties->limits->maxImageDimension2D);
+    }
+
+    public function testPropertiesAreReadByTheQueryThatRequiresTheStructureType(): void
+    {
+        $vk = self::loadVulkan();
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            applicationInfo: new VkApplicationInfo(apiVersion: VK_API_VERSION_1_1),
+        ));
+
+        $devices = \iterator_to_array($vk->vkEnumeratePhysicalDevices($instance), false);
+
+        if ($devices === []) {
+            self::markTestSkipped('There are no physical devices');
+        }
+
+        $properties = $vk->vkGetPhysicalDeviceProperties2($devices[0])->properties;
+        $families = $vk->vkGetPhysicalDeviceQueueFamilyProperties2($devices[0]);
+
+        self::assertSame($vk->vkGetPhysicalDeviceProperties($devices[0])->deviceName, $properties->deviceName);
+        self::assertNotSame('', $properties->deviceName);
+        self::assertGreaterThan(0, \count($families));
+
+        foreach ($families as $family) {
+            self::assertGreaterThan(0, $family->queueFamilyProperties->queueCount);
+        }
     }
 
     public function testQueueFamiliesAreEnumeratedAndCounted(): void

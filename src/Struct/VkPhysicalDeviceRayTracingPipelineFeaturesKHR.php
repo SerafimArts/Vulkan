@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingPipelineFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000347000;
+    public const int STRUCTURE_TYPE = 1000347000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

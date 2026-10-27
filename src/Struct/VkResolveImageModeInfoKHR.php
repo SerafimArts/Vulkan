@@ -23,7 +23,7 @@ final class VkResolveImageModeInfoKHR extends InputStructure implements VkResolv
     protected const string NATIVE_TYPE = 'VkResolveImageModeInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_RESOLVE_IMAGE_MODE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000630004;
+    public const int STRUCTURE_TYPE = 1000630004;
 
     public function __construct(
         public ?VkResolveImageInfo2Extension $next = null,

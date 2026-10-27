@@ -22,7 +22,7 @@ final class VkFenceCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkFenceCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_FENCE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 8;
+    public const int STRUCTURE_TYPE = 8;
 
     public function __construct(
         public ?VkFenceCreateInfoExtension $next = null,

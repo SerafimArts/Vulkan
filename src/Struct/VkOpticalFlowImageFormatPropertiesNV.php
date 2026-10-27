@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkFormat;
  */
 final readonly class VkOpticalFlowImageFormatPropertiesNV extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV` */
+    public const int STRUCTURE_TYPE = 1000464003;
+
     public function __construct(
         public VkFormat $format,
     ) {}

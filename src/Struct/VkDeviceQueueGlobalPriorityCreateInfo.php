@@ -22,7 +22,7 @@ final class VkDeviceQueueGlobalPriorityCreateInfo extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkDeviceQueueGlobalPriorityCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000174000;
+    public const int STRUCTURE_TYPE = 1000174000;
 
     public function __construct(
         public VkQueueGlobalPriority $globalPriority,

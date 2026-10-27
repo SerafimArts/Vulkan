@@ -21,7 +21,7 @@ final class VkPhysicalDevicePipelinePropertiesFeaturesEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePipelinePropertiesFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROPERTIES_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000372001;
+    public const int STRUCTURE_TYPE = 1000372001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

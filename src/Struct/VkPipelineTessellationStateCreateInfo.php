@@ -21,7 +21,7 @@ final class VkPipelineTessellationStateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineTessellationStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 21;
+    public const int STRUCTURE_TYPE = 21;
 
     public function __construct(
         public ?VkPipelineTessellationStateCreateInfoExtension $next = null,

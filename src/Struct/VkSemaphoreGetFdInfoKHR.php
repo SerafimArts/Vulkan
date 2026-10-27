@@ -22,7 +22,7 @@ final class VkSemaphoreGetFdInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkSemaphoreGetFdInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_SEMAPHORE_GET_FD_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000079001;
+    public const int STRUCTURE_TYPE = 1000079001;
 
     public function __construct(
         public VkSemaphore $semaphore,

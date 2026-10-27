@@ -21,7 +21,7 @@ final class VkCuFunctionCreateInfoNVX extends InputStructure
     protected const string NATIVE_TYPE = 'VkCuFunctionCreateInfoNVX';
 
     /** `VK_STRUCTURE_TYPE_CU_FUNCTION_CREATE_INFO_NVX` */
-    private const int STRUCTURE_TYPE = 1000029001;
+    public const int STRUCTURE_TYPE = 1000029001;
 
     public function __construct(
         public VkCuModuleNVX $module,

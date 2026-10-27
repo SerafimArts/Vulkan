@@ -23,7 +23,7 @@ final class VkRenderPassCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkRenderPassCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 38;
+    public const int STRUCTURE_TYPE = 38;
 
     public function __construct(
         public ?VkRenderPassCreateInfoExtension $next = null,

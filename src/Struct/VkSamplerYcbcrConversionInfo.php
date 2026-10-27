@@ -23,7 +23,7 @@ final class VkSamplerYcbcrConversionInfo extends InputStructure implements VkSam
     protected const string NATIVE_TYPE = 'VkSamplerYcbcrConversionInfo';
 
     /** `VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO` */
-    private const int STRUCTURE_TYPE = 1000156001;
+    public const int STRUCTURE_TYPE = 1000156001;
 
     public function __construct(
         public VkSamplerYcbcrConversion $conversion,

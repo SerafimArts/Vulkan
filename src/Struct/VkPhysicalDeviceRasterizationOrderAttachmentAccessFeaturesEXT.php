@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT extend
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000342000;
+    public const int STRUCTURE_TYPE = 1000342000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

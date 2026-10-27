@@ -20,7 +20,7 @@ final class VkBeginCustomResolveInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkBeginCustomResolveInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_BEGIN_CUSTOM_RESOLVE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000628001;
+    public const int STRUCTURE_TYPE = 1000628001;
 
     public function __construct() {}
 

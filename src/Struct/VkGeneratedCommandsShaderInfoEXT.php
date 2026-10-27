@@ -23,7 +23,7 @@ final class VkGeneratedCommandsShaderInfoEXT extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkGeneratedCommandsShaderInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_GENERATED_COMMANDS_SHADER_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000572014;
+    public const int STRUCTURE_TYPE = 1000572014;
 
     public function __construct(
         public VkGeneratedCommandsInfoEXTExtension|VkGeneratedCommandsMemoryRequirementsInfoEXTExtension|null $next = null,

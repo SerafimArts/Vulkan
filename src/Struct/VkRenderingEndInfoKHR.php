@@ -21,7 +21,7 @@ final class VkRenderingEndInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkRenderingEndInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_RENDERING_END_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000619003;
+    public const int STRUCTURE_TYPE = 1000619003;
 
     public function __construct(
         public ?VkRenderingEndInfoKHRExtension $next = null,

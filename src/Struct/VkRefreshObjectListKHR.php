@@ -19,7 +19,7 @@ final class VkRefreshObjectListKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkRefreshObjectListKHR';
 
     /** `VK_STRUCTURE_TYPE_REFRESH_OBJECT_LIST_KHR` */
-    private const int STRUCTURE_TYPE = 1000308000;
+    public const int STRUCTURE_TYPE = 1000308000;
 
     public function __construct(
         /** @var list<VkRefreshObjectKHR> */

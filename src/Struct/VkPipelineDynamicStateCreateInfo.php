@@ -21,7 +21,7 @@ final class VkPipelineDynamicStateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineDynamicStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 27;
+    public const int STRUCTURE_TYPE = 27;
 
     public function __construct(
         /** @var int<0, 4294967295> */

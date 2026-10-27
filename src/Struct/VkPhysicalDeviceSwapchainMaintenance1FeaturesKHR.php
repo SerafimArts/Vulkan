@@ -21,7 +21,7 @@ final class VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR extends InputStruct
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000275000;
+    public const int STRUCTURE_TYPE = 1000275000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -20,7 +20,7 @@ final class VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000299006;
+    public const int STRUCTURE_TYPE = 1000299006;
 
     public function __construct(
         public ?VkVideoProfileInfoKHR $videoProfile = null,

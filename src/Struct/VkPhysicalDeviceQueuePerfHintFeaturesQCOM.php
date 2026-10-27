@@ -21,7 +21,7 @@ final class VkPhysicalDeviceQueuePerfHintFeaturesQCOM extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceQueuePerfHintFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_PERF_HINT_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000302001;
+    public const int STRUCTURE_TYPE = 1000302001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

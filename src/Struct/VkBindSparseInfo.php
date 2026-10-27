@@ -22,7 +22,7 @@ final class VkBindSparseInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindSparseInfo';
 
     /** `VK_STRUCTURE_TYPE_BIND_SPARSE_INFO` */
-    private const int STRUCTURE_TYPE = 7;
+    public const int STRUCTURE_TYPE = 7;
 
     public function __construct(
         public ?VkBindSparseInfoExtension $next = null,

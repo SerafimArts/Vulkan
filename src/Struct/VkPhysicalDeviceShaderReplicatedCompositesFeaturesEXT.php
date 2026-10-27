@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000564000;
+    public const int STRUCTURE_TYPE = 1000564000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

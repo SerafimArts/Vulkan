@@ -22,7 +22,7 @@ final class VkMemoryDedicatedAllocateInfoTensorARM extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkMemoryDedicatedAllocateInfoTensorARM';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM` */
-    private const int STRUCTURE_TYPE = 1000460014;
+    public const int STRUCTURE_TYPE = 1000460014;
 
     public function __construct(
         /** Tensor that this allocation will be bound to */

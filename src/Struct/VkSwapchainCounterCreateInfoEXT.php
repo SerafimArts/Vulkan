@@ -22,7 +22,7 @@ final class VkSwapchainCounterCreateInfoEXT extends InputStructure implements Vk
     protected const string NATIVE_TYPE = 'VkSwapchainCounterCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_SWAPCHAIN_COUNTER_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000091003;
+    public const int STRUCTURE_TYPE = 1000091003;
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,

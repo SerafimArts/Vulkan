@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCooperativeVectorFeaturesNV extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeVectorFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000491000;
+    public const int STRUCTURE_TYPE = 1000491000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

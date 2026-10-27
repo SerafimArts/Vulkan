@@ -22,7 +22,7 @@ final class VkRenderingAttachmentLocationInfo extends InputStructure implements 
     protected const string NATIVE_TYPE = 'VkRenderingAttachmentLocationInfo';
 
     /** `VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO` */
-    private const int STRUCTURE_TYPE = 1000232001;
+    public const int STRUCTURE_TYPE = 1000232001;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,

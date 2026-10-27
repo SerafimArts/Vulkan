@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderMaximalReconvergenceFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MAXIMAL_RECONVERGENCE_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000434000;
+    public const int STRUCTURE_TYPE = 1000434000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

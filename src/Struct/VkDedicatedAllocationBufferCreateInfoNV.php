@@ -22,7 +22,7 @@ final class VkDedicatedAllocationBufferCreateInfoNV extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkDedicatedAllocationBufferCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_BUFFER_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000026001;
+    public const int STRUCTURE_TYPE = 1000026001;
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,

@@ -28,7 +28,7 @@ final class VkExportMetalObjectCreateInfoEXT extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkExportMetalObjectCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000311000;
+    public const int STRUCTURE_TYPE = 1000311000;
 
     public function __construct(
         public VkInstanceCreateInfoExtension|VkMemoryAllocateInfoExtension|VkImageCreateInfoExtension|VkImageViewCreateInfoExtension|VkBufferViewCreateInfoExtension|VkSemaphoreCreateInfoExtension|VkEventCreateInfoExtension|null $next = null,

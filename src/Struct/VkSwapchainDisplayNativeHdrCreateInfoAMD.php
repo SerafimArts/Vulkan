@@ -21,7 +21,7 @@ final class VkSwapchainDisplayNativeHdrCreateInfoAMD extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkSwapchainDisplayNativeHdrCreateInfoAMD';
 
     /** `VK_STRUCTURE_TYPE_SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD` */
-    private const int STRUCTURE_TYPE = 1000213001;
+    public const int STRUCTURE_TYPE = 1000213001;
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,

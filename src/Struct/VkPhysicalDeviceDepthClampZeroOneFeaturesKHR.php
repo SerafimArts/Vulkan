@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDepthClampZeroOneFeaturesKHR extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDepthClampZeroOneFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000421000;
+    public const int STRUCTURE_TYPE = 1000421000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

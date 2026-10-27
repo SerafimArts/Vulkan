@@ -24,7 +24,7 @@ final class VkWin32KeyedMutexAcquireReleaseInfoNV extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkWin32KeyedMutexAcquireReleaseInfoNV';
 
     /** `VK_STRUCTURE_TYPE_WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000058000;
+    public const int STRUCTURE_TYPE = 1000058000;
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|null $next = null,

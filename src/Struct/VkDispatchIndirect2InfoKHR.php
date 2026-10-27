@@ -21,7 +21,7 @@ final class VkDispatchIndirect2InfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDispatchIndirect2InfoKHR';
 
     /** `VK_STRUCTURE_TYPE_DISPATCH_INDIRECT_2_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000318011;
+    public const int STRUCTURE_TYPE = 1000318011;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,

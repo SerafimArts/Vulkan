@@ -23,7 +23,7 @@ final class VkBindBufferMemoryInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindBufferMemoryInfo';
 
     /** `VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_INFO` */
-    private const int STRUCTURE_TYPE = 1000157000;
+    public const int STRUCTURE_TYPE = 1000157000;
 
     public function __construct(
         public VkBuffer $buffer,

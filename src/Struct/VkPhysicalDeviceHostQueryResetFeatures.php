@@ -21,7 +21,7 @@ final class VkPhysicalDeviceHostQueryResetFeatures extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceHostQueryResetFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000261000;
+    public const int STRUCTURE_TYPE = 1000261000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

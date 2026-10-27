@@ -22,7 +22,7 @@ final class VkBindImageMemorySwapchainInfoKHR extends InputStructure implements 
     protected const string NATIVE_TYPE = 'VkBindImageMemorySwapchainInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000060009;
+    public const int STRUCTURE_TYPE = 1000060009;
 
     public function __construct(
         public VkSwapchainKHR $swapchain,

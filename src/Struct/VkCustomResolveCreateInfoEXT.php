@@ -24,7 +24,7 @@ final class VkCustomResolveCreateInfoEXT extends InputStructure implements VkGra
     protected const string NATIVE_TYPE = 'VkCustomResolveCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000628002;
+    public const int STRUCTURE_TYPE = 1000628002;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,

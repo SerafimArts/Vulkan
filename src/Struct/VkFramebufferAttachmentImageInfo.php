@@ -25,7 +25,7 @@ final class VkFramebufferAttachmentImageInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkFramebufferAttachmentImageInfo';
 
     /** `VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO` */
-    private const int STRUCTURE_TYPE = 1000108002;
+    public const int STRUCTURE_TYPE = 1000108002;
 
     public function __construct(
         public ?VkFramebufferAttachmentImageInfoExtension $next = null,

@@ -24,7 +24,7 @@ final class VkPipelineCreateFlags2CreateInfo extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkPipelineCreateFlags2CreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000470005;
+    public const int STRUCTURE_TYPE = 1000470005;
 
     public function __construct(
         public VkComputePipelineCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|null $next = null,

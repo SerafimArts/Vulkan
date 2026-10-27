@@ -24,7 +24,7 @@ final class VkPipelineColorBlendStateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineColorBlendStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 26;
+    public const int STRUCTURE_TYPE = 26;
 
     public function __construct(
         public ?VkPipelineColorBlendStateCreateInfoExtension $next = null,

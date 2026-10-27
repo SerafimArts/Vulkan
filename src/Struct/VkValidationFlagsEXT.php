@@ -23,7 +23,7 @@ final class VkValidationFlagsEXT extends InputStructure implements VkInstanceCre
     protected const string NATIVE_TYPE = 'VkValidationFlagsEXT';
 
     /** `VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT` */
-    private const int STRUCTURE_TYPE = 1000061000;
+    public const int STRUCTURE_TYPE = 1000061000;
 
     public function __construct(
         public ?VkInstanceCreateInfoExtension $next = null,

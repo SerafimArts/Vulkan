@@ -20,7 +20,7 @@ final class VkPerTileBeginInfoQCOM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPerTileBeginInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_PER_TILE_BEGIN_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000309003;
+    public const int STRUCTURE_TYPE = 1000309003;
 
     public function __construct() {}
 

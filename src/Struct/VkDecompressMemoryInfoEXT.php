@@ -21,7 +21,7 @@ final class VkDecompressMemoryInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDecompressMemoryInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DECOMPRESS_MEMORY_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000550002;
+    public const int STRUCTURE_TYPE = 1000550002;
 
     public function __construct(
         /** @var int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::*> */

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImageRobustnessFeatures extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageRobustnessFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ROBUSTNESS_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000335000;
+    public const int STRUCTURE_TYPE = 1000335000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

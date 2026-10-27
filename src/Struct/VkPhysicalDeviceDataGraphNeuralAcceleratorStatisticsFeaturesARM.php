@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM exte
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_NEURAL_ACCELERATOR_STATISTICS_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000676002;
+    public const int STRUCTURE_TYPE = 1000676002;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

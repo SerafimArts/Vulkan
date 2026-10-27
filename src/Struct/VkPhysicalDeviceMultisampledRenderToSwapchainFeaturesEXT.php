@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT extends Inp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultisampledRenderToSwapchainFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SWAPCHAIN_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000616000;
+    public const int STRUCTURE_TYPE = 1000616000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

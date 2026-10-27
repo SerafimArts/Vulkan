@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkGpaDeviceGetClockInfoAMD extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_GPA_DEVICE_GET_CLOCK_INFO_AMD` */
+    public const int STRUCTURE_TYPE = 1000133006;
+
     public function __construct(
         public float $memoryClockRatioToPeak,
         public float $engineClockRatioToPeak,

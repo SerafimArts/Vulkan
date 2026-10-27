@@ -25,7 +25,7 @@ final class VkSubpassDescription2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkSubpassDescription2';
 
     /** `VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2` */
-    private const int STRUCTURE_TYPE = 1000109002;
+    public const int STRUCTURE_TYPE = 1000109002;
 
     public function __construct(
         public ?VkSubpassDescription2Extension $next = null,

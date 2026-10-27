@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkExternalTensorPropertiesARM extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_EXTERNAL_TENSOR_PROPERTIES_ARM` */
+    public const int STRUCTURE_TYPE = 1000460016;
+
     public function __construct(
         public VkExternalMemoryProperties $externalMemoryProperties,
     ) {}

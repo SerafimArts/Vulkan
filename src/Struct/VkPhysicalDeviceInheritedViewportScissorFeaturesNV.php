@@ -21,7 +21,7 @@ final class VkPhysicalDeviceInheritedViewportScissorFeaturesNV extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceInheritedViewportScissorFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INHERITED_VIEWPORT_SCISSOR_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000278000;
+    public const int STRUCTURE_TYPE = 1000278000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

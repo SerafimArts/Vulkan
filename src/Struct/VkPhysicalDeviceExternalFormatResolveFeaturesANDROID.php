@@ -21,7 +21,7 @@ final class VkPhysicalDeviceExternalFormatResolveFeaturesANDROID extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalFormatResolveFeaturesANDROID';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_FEATURES_ANDROID` */
-    private const int STRUCTURE_TYPE = 1000468000;
+    public const int STRUCTURE_TYPE = 1000468000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

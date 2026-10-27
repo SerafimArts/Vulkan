@@ -21,7 +21,7 @@ final class VkPipelineVertexInputStateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineVertexInputStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 19;
+    public const int STRUCTURE_TYPE = 19;
 
     public function __construct(
         public ?VkPipelineVertexInputStateCreateInfoExtension $next = null,

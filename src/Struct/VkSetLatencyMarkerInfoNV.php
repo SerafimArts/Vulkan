@@ -21,7 +21,7 @@ final class VkSetLatencyMarkerInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkSetLatencyMarkerInfoNV';
 
     /** `VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000505002;
+    public const int STRUCTURE_TYPE = 1000505002;
 
     public function __construct(
         /** @var int<0, max> */

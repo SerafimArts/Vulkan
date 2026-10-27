@@ -20,7 +20,7 @@ final class VkDispatchTileInfoQCOM extends InputStructure
     protected const string NATIVE_TYPE = 'VkDispatchTileInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_DISPATCH_TILE_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000309005;
+    public const int STRUCTURE_TYPE = 1000309005;
 
     public function __construct() {}
 

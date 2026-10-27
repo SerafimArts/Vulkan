@@ -21,7 +21,7 @@ final class VkDebugUtilsMessengerCallbackDataEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDebugUtilsMessengerCallbackDataEXT';
 
     /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT` */
-    private const int STRUCTURE_TYPE = 1000128003;
+    public const int STRUCTURE_TYPE = 1000128003;
 
     public function __construct(
         public ?VkDebugUtilsMessengerCallbackDataEXTExtension $next = null,

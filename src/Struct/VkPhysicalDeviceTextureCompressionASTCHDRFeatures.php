@@ -21,7 +21,7 @@ final class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends InputStruc
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTextureCompressionASTCHDRFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_HDR_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000066000;
+    public const int STRUCTURE_TYPE = 1000066000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

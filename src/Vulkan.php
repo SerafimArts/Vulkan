@@ -9754,6 +9754,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer],
             'VkShaderInstrumentationMetricDescriptionARM',
             fn(CData $item): VkShaderInstrumentationMetricDescriptionARM => VkShaderInstrumentationMetricDescriptionARM::createFromCData($item),
+            VkShaderInstrumentationMetricDescriptionARM::STRUCTURE_TYPE,
         );
     }
 
@@ -9790,6 +9791,7 @@ final class Vulkan extends VulkanBase
     public function vkExportMetalObjectsEXT(VkDevice $device): VkExportMetalObjectsInfoEXT
     {
         $nativeMetalObjectsInfo = $this->memory->new('VkExportMetalObjectsInfoEXT');
+        $nativeMetalObjectsInfo->sType = VkExportMetalObjectsInfoEXT::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkExportMetalObjectsEXT', $device);
 
@@ -9897,6 +9899,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetAccelerationStructureMemoryRequirementsNV', $device);
 
@@ -9919,6 +9922,7 @@ final class Vulkan extends VulkanBase
         VkBufferCollectionFUCHSIA $collection,
     ): VkBufferCollectionPropertiesFUCHSIA {
         $nativeProperties = $this->memory->new('VkBufferCollectionPropertiesFUCHSIA');
+        $nativeProperties->sType = VkBufferCollectionPropertiesFUCHSIA::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetBufferCollectionPropertiesFUCHSIA', $device);
 
@@ -9957,6 +9961,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetBufferMemoryRequirements2', $device);
 
@@ -9991,6 +9996,7 @@ final class Vulkan extends VulkanBase
         ?VkCommandBuffer $commandBuffer = null,
     ): VkCommandPoolMemoryConsumption {
         $nativeConsumption = $this->memory->new('VkCommandPoolMemoryConsumption');
+        $nativeConsumption->sType = VkCommandPoolMemoryConsumption::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetCommandPoolMemoryConsumption', $device);
 
@@ -10023,6 +10029,7 @@ final class Vulkan extends VulkanBase
             [$device->pointer, \FFI::addr($nativeInfo)],
             'VkDataGraphPipelineSessionBindPointRequirementARM',
             fn(CData $item): VkDataGraphPipelineSessionBindPointRequirementARM => VkDataGraphPipelineSessionBindPointRequirementARM::createFromCData($item),
+            VkDataGraphPipelineSessionBindPointRequirementARM::STRUCTURE_TYPE,
         );
     }
 
@@ -10039,6 +10046,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDataGraphPipelineSessionMemoryRequirementsARM', $device);
 
@@ -10130,6 +10138,7 @@ final class Vulkan extends VulkanBase
         $nativeBindingReference = $bindingReference->toCData($this->memory);
 
         $nativeHostMapping = $this->memory->new('VkDescriptorSetLayoutHostMappingInfoVALVE');
+        $nativeHostMapping->sType = VkDescriptorSetLayoutHostMappingInfoVALVE::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDescriptorSetLayoutHostMappingInfoVALVE', $device);
 
@@ -10175,6 +10184,7 @@ final class Vulkan extends VulkanBase
         $nativeCreateInfo = $createInfo->toCData($this->memory);
 
         $nativeSupport = $this->memory->new('VkDescriptorSetLayoutSupport');
+        $nativeSupport->sType = VkDescriptorSetLayoutSupport::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDescriptorSetLayoutSupport', $device);
 
@@ -10211,6 +10221,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceBufferMemoryRequirements', $device);
 
@@ -10256,6 +10267,7 @@ final class Vulkan extends VulkanBase
             [$device->pointer, $timeout],
             'VkDeviceFaultInfoKHR',
             fn(CData $item): VkDeviceFaultInfoKHR => VkDeviceFaultInfoKHR::createFromCData($item),
+            VkDeviceFaultInfoKHR::STRUCTURE_TYPE,
         );
     }
 
@@ -10319,6 +10331,7 @@ final class Vulkan extends VulkanBase
     public function vkGetDeviceGroupPresentCapabilitiesKHR(VkDevice $device): VkDeviceGroupPresentCapabilitiesKHR
     {
         $nativeDeviceGroupPresentCapabilities = $this->memory->new('VkDeviceGroupPresentCapabilitiesKHR');
+        $nativeDeviceGroupPresentCapabilities->sType = VkDeviceGroupPresentCapabilitiesKHR::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceGroupPresentCapabilitiesKHR', $device);
 
@@ -10390,6 +10403,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceImageMemoryRequirements', $device);
 
@@ -10436,6 +10450,7 @@ final class Vulkan extends VulkanBase
             [$device->pointer, \FFI::addr($nativeInfo)],
             'VkSparseImageMemoryRequirements2',
             fn(CData $item): VkSparseImageMemoryRequirements2 => VkSparseImageMemoryRequirements2::createFromCData($item),
+            VkSparseImageMemoryRequirements2::STRUCTURE_TYPE,
         );
     }
 
@@ -10469,6 +10484,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeLayout = $this->memory->new('VkSubresourceLayout2');
+        $nativeLayout->sType = VkSubresourceLayout2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceImageSubresourceLayout', $device);
 
@@ -10586,6 +10602,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceTensorMemoryRequirementsARM', $device);
 
@@ -10609,6 +10626,7 @@ final class Vulkan extends VulkanBase
         $nativeDisplayPlaneInfo = $displayPlaneInfo->toCData($this->memory);
 
         $nativeCapabilities = $this->memory->new('VkDisplayPlaneCapabilities2KHR');
+        $nativeCapabilities->sType = VkDisplayPlaneCapabilities2KHR::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetDisplayPlaneCapabilities2KHR', $physicalDevice);
 
@@ -10759,6 +10777,7 @@ final class Vulkan extends VulkanBase
         VkPipeline $executionGraph,
     ): VkExecutionGraphPipelineScratchSizeAMDX {
         $nativeSizeInfo = $this->memory->new('VkExecutionGraphPipelineScratchSizeAMDX');
+        $nativeSizeInfo->sType = VkExecutionGraphPipelineScratchSizeAMDX::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetExecutionGraphPipelineScratchSizeAMDX', $device);
 
@@ -10835,6 +10854,7 @@ final class Vulkan extends VulkanBase
             [$device->pointer, $framebuffer->pointer],
             'VkTilePropertiesQCOM',
             fn(CData $item): VkTilePropertiesQCOM => VkTilePropertiesQCOM::createFromCData($item),
+            VkTilePropertiesQCOM::STRUCTURE_TYPE,
         );
     }
 
@@ -10851,6 +10871,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetGeneratedCommandsMemoryRequirementsEXT', $device);
 
@@ -10872,6 +10893,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetGeneratedCommandsMemoryRequirementsNV', $device);
 
@@ -10891,6 +10913,7 @@ final class Vulkan extends VulkanBase
     public function vkGetGpaDeviceClockInfoAMD(VkDevice $device): VkGpaDeviceGetClockInfoAMD
     {
         $nativeInfo = $this->memory->new('VkGpaDeviceGetClockInfoAMD');
+        $nativeInfo->sType = VkGpaDeviceGetClockInfoAMD::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetGpaDeviceClockInfoAMD', $device);
 
@@ -10927,6 +10950,7 @@ final class Vulkan extends VulkanBase
         VkImage $image,
     ): VkImageDrmFormatModifierPropertiesEXT {
         $nativeProperties = $this->memory->new('VkImageDrmFormatModifierPropertiesEXT');
+        $nativeProperties->sType = VkImageDrmFormatModifierPropertiesEXT::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetImageDrmFormatModifierPropertiesEXT', $device);
 
@@ -10965,6 +10989,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetImageMemoryRequirements2', $device);
 
@@ -11033,6 +11058,7 @@ final class Vulkan extends VulkanBase
             [$device->pointer, \FFI::addr($nativeInfo)],
             'VkSparseImageMemoryRequirements2',
             fn(CData $item): VkSparseImageMemoryRequirements2 => VkSparseImageMemoryRequirements2::createFromCData($item),
+            VkSparseImageMemoryRequirements2::STRUCTURE_TYPE,
         );
     }
 
@@ -11089,6 +11115,7 @@ final class Vulkan extends VulkanBase
         $nativeSubresource = $subresource->toCData($this->memory);
 
         $nativeLayout = $this->memory->new('VkSubresourceLayout2');
+        $nativeLayout->sType = VkSubresourceLayout2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetImageSubresourceLayout2', $device);
 
@@ -11142,6 +11169,7 @@ final class Vulkan extends VulkanBase
         VkImageView $imageView,
     ): VkImageViewAddressPropertiesNVX {
         $nativeProperties = $this->memory->new('VkImageViewAddressPropertiesNVX');
+        $nativeProperties->sType = VkImageViewAddressPropertiesNVX::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetImageViewAddressNVX', $device);
 
@@ -11189,6 +11217,7 @@ final class Vulkan extends VulkanBase
     public function vkGetMemoryFdPropertiesKHR(VkDevice $device, int $handleType, int $fd): VkMemoryFdPropertiesKHR
     {
         $nativeMemoryFdProperties = $this->memory->new('VkMemoryFdPropertiesKHR');
+        $nativeMemoryFdProperties->sType = VkMemoryFdPropertiesKHR::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetMemoryFdPropertiesKHR', $device);
 
@@ -11235,6 +11264,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeSizeInfo = $this->memory->new('VkAccelerationStructureBuildSizesInfoKHR');
+        $nativeSizeInfo->sType = VkAccelerationStructureBuildSizesInfoKHR::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPartitionedAccelerationStructuresBuildSizesNV', $device);
 
@@ -11290,6 +11320,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer],
             'VkCooperativeMatrixFlexibleDimensionsPropertiesNV',
             fn(CData $item): VkCooperativeMatrixFlexibleDimensionsPropertiesNV => VkCooperativeMatrixFlexibleDimensionsPropertiesNV::createFromCData($item),
+            VkCooperativeMatrixFlexibleDimensionsPropertiesNV::STRUCTURE_TYPE,
         );
     }
 
@@ -11317,6 +11348,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer, \FFI::addr($nativeCooperativeMatrixInfo)],
             'VkCooperativeMatrixProperties2EXT',
             fn(CData $item): VkCooperativeMatrixProperties2EXT => VkCooperativeMatrixProperties2EXT::createFromCData($item),
+            VkCooperativeMatrixProperties2EXT::STRUCTURE_TYPE,
         );
     }
 
@@ -11340,6 +11372,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer],
             'VkCooperativeMatrixPropertiesKHR',
             fn(CData $item): VkCooperativeMatrixPropertiesKHR => VkCooperativeMatrixPropertiesKHR::createFromCData($item),
+            VkCooperativeMatrixPropertiesKHR::STRUCTURE_TYPE,
         );
     }
 
@@ -11363,6 +11396,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer],
             'VkCooperativeVectorPropertiesNV',
             fn(CData $item): VkCooperativeVectorPropertiesNV => VkCooperativeVectorPropertiesNV::createFromCData($item),
+            VkCooperativeVectorPropertiesNV::STRUCTURE_TYPE,
         );
     }
 
@@ -11379,6 +11413,7 @@ final class Vulkan extends VulkanBase
         $nativeExternalBufferInfo = $externalBufferInfo->toCData($this->memory);
 
         $nativeExternalBufferProperties = $this->memory->new('VkExternalBufferProperties');
+        $nativeExternalBufferProperties->sType = VkExternalBufferProperties::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceExternalBufferProperties', $physicalDevice);
 
@@ -11415,6 +11450,7 @@ final class Vulkan extends VulkanBase
         $nativeExternalFenceInfo = $externalFenceInfo->toCData($this->memory);
 
         $nativeExternalFenceProperties = $this->memory->new('VkExternalFenceProperties');
+        $nativeExternalFenceProperties->sType = VkExternalFenceProperties::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceExternalFenceProperties', $physicalDevice);
 
@@ -11484,6 +11520,7 @@ final class Vulkan extends VulkanBase
         $nativeExternalSemaphoreInfo = $externalSemaphoreInfo->toCData($this->memory);
 
         $nativeExternalSemaphoreProperties = $this->memory->new('VkExternalSemaphoreProperties');
+        $nativeExternalSemaphoreProperties->sType = VkExternalSemaphoreProperties::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceExternalSemaphoreProperties', $physicalDevice);
 
@@ -11520,6 +11557,7 @@ final class Vulkan extends VulkanBase
         $nativeExternalTensorInfo = $externalTensorInfo->toCData($this->memory);
 
         $nativeExternalTensorProperties = $this->memory->new('VkExternalTensorPropertiesARM');
+        $nativeExternalTensorProperties->sType = VkExternalTensorPropertiesARM::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceExternalTensorPropertiesARM', $physicalDevice);
 
@@ -11558,6 +11596,7 @@ final class Vulkan extends VulkanBase
     public function vkGetPhysicalDeviceFeatures2(VkPhysicalDevice $physicalDevice): VkPhysicalDeviceFeatures2
     {
         $nativeFeatures = $this->memory->new('VkPhysicalDeviceFeatures2');
+        $nativeFeatures->sType = VkPhysicalDeviceFeatures2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceFeatures2', $physicalDevice);
 
@@ -11613,6 +11652,7 @@ final class Vulkan extends VulkanBase
         VkFormat $format,
     ): VkFormatProperties2 {
         $nativeFormatProperties = $this->memory->new('VkFormatProperties2');
+        $nativeFormatProperties->sType = VkFormatProperties2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceFormatProperties2', $physicalDevice);
 
@@ -11656,6 +11696,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer],
             'VkPhysicalDeviceFragmentShadingRateKHR',
             fn(CData $item): VkPhysicalDeviceFragmentShadingRateKHR => VkPhysicalDeviceFragmentShadingRateKHR::createFromCData($item),
+            VkPhysicalDeviceFragmentShadingRateKHR::STRUCTURE_TYPE,
         );
     }
 
@@ -11713,6 +11754,7 @@ final class Vulkan extends VulkanBase
         $nativeImageFormatInfo = $imageFormatInfo->toCData($this->memory);
 
         $nativeImageFormatProperties = $this->memory->new('VkImageFormatProperties2');
+        $nativeImageFormatProperties->sType = VkImageFormatProperties2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceImageFormatProperties2', $physicalDevice);
 
@@ -11776,6 +11818,7 @@ final class Vulkan extends VulkanBase
         VkPhysicalDevice $physicalDevice,
     ): VkPhysicalDeviceMemoryProperties2 {
         $nativeMemoryProperties = $this->memory->new('VkPhysicalDeviceMemoryProperties2');
+        $nativeMemoryProperties->sType = VkPhysicalDeviceMemoryProperties2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceMemoryProperties2', $physicalDevice);
 
@@ -11811,6 +11854,7 @@ final class Vulkan extends VulkanBase
         int $samples,
     ): VkMultisamplePropertiesEXT {
         $nativeMultisampleProperties = $this->memory->new('VkMultisamplePropertiesEXT');
+        $nativeMultisampleProperties->sType = VkMultisamplePropertiesEXT::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceMultisamplePropertiesEXT', $physicalDevice);
 
@@ -11846,6 +11890,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer, \FFI::addr($nativeOpticalFlowImageFormatInfo)],
             'VkOpticalFlowImageFormatPropertiesNV',
             fn(CData $item): VkOpticalFlowImageFormatPropertiesNV => VkOpticalFlowImageFormatPropertiesNV::createFromCData($item),
+            VkOpticalFlowImageFormatPropertiesNV::STRUCTURE_TYPE,
         );
     }
 
@@ -11904,6 +11949,7 @@ final class Vulkan extends VulkanBase
     public function vkGetPhysicalDeviceProperties2(VkPhysicalDevice $physicalDevice): VkPhysicalDeviceProperties2
     {
         $nativeProperties = $this->memory->new('VkPhysicalDeviceProperties2');
+        $nativeProperties->sType = VkPhysicalDeviceProperties2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceProperties2', $physicalDevice);
 
@@ -11938,6 +11984,7 @@ final class Vulkan extends VulkanBase
         $nativeQueueFamilyDataGraphProcessingEngineInfo = $queueFamilyDataGraphProcessingEngineInfo->toCData($this->memory);
 
         $nativeQueueFamilyDataGraphProcessingEngineProperties = $this->memory->new('VkQueueFamilyDataGraphProcessingEnginePropertiesARM');
+        $nativeQueueFamilyDataGraphProcessingEngineProperties->sType = VkQueueFamilyDataGraphProcessingEnginePropertiesARM::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM', $physicalDevice);
 
@@ -11970,6 +12017,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer, $queueFamilyIndex],
             'VkQueueFamilyDataGraphPropertiesARM',
             fn(CData $item): VkQueueFamilyDataGraphPropertiesARM => VkQueueFamilyDataGraphPropertiesARM::createFromCData($item),
+            VkQueueFamilyDataGraphPropertiesARM::STRUCTURE_TYPE,
         );
     }
 
@@ -12042,6 +12090,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer],
             'VkQueueFamilyProperties2',
             fn(CData $item): VkQueueFamilyProperties2 => VkQueueFamilyProperties2::createFromCData($item),
+            VkQueueFamilyProperties2::STRUCTURE_TYPE,
         );
     }
 
@@ -12118,6 +12167,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer, \FFI::addr($nativeFormatInfo)],
             'VkSparseImageFormatProperties2',
             fn(CData $item): VkSparseImageFormatProperties2 => VkSparseImageFormatProperties2::createFromCData($item),
+            VkSparseImageFormatProperties2::STRUCTURE_TYPE,
         );
     }
 
@@ -12159,6 +12209,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer],
             'VkFramebufferMixedSamplesCombinationNV',
             fn(CData $item): VkFramebufferMixedSamplesCombinationNV => VkFramebufferMixedSamplesCombinationNV::createFromCData($item),
+            VkFramebufferMixedSamplesCombinationNV::STRUCTURE_TYPE,
         );
     }
 
@@ -12176,6 +12227,7 @@ final class Vulkan extends VulkanBase
         VkSurfaceKHR $surface,
     ): VkSurfaceCapabilities2EXT {
         $nativeSurfaceCapabilities = $this->memory->new('VkSurfaceCapabilities2EXT');
+        $nativeSurfaceCapabilities->sType = VkSurfaceCapabilities2EXT::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceSurfaceCapabilities2EXT', $physicalDevice);
 
@@ -12200,6 +12252,7 @@ final class Vulkan extends VulkanBase
         $nativeSurfaceInfo = $surfaceInfo->toCData($this->memory);
 
         $nativeSurfaceCapabilities = $this->memory->new('VkSurfaceCapabilities2KHR');
+        $nativeSurfaceCapabilities->sType = VkSurfaceCapabilities2KHR::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $physicalDevice);
 
@@ -12259,6 +12312,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer, \FFI::addr($nativeSurfaceInfo)],
             'VkSurfaceFormat2KHR',
             fn(CData $item): VkSurfaceFormat2KHR => VkSurfaceFormat2KHR::createFromCData($item),
+            VkSurfaceFormat2KHR::STRUCTURE_TYPE,
         );
     }
 
@@ -12340,6 +12394,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer],
             'VkPhysicalDeviceToolProperties',
             fn(CData $item): VkPhysicalDeviceToolProperties => VkPhysicalDeviceToolProperties::createFromCData($item),
+            VkPhysicalDeviceToolProperties::STRUCTURE_TYPE,
         );
     }
 
@@ -12379,6 +12434,7 @@ final class Vulkan extends VulkanBase
         $nativeVideoProfile = $videoProfile->toCData($this->memory);
 
         $nativeCapabilities = $this->memory->new('VkVideoCapabilitiesKHR');
+        $nativeCapabilities->sType = VkVideoCapabilitiesKHR::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceVideoCapabilitiesKHR', $physicalDevice);
 
@@ -12407,6 +12463,7 @@ final class Vulkan extends VulkanBase
         $nativeQualityLevelInfo = $qualityLevelInfo->toCData($this->memory);
 
         $nativeQualityLevelProperties = $this->memory->new('VkVideoEncodeQualityLevelPropertiesKHR');
+        $nativeQualityLevelProperties->sType = VkVideoEncodeQualityLevelPropertiesKHR::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR', $physicalDevice);
 
@@ -12444,6 +12501,7 @@ final class Vulkan extends VulkanBase
             [$physicalDevice->pointer, \FFI::addr($nativeVideoFormatInfo)],
             'VkVideoFormatPropertiesKHR',
             fn(CData $item): VkVideoFormatPropertiesKHR => VkVideoFormatPropertiesKHR::createFromCData($item),
+            VkVideoFormatPropertiesKHR::STRUCTURE_TYPE,
         );
     }
 
@@ -12471,6 +12529,7 @@ final class Vulkan extends VulkanBase
             [$device->pointer, \FFI::addr($nativePipelineInfo)],
             'VkPipelineExecutablePropertiesKHR',
             fn(CData $item): VkPipelineExecutablePropertiesKHR => VkPipelineExecutablePropertiesKHR::createFromCData($item),
+            VkPipelineExecutablePropertiesKHR::STRUCTURE_TYPE,
         );
     }
 
@@ -12487,6 +12546,7 @@ final class Vulkan extends VulkanBase
         $nativeCreateInfo = $createInfo->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPipelineIndirectMemoryRequirementsNV', $device);
 
@@ -12510,6 +12570,7 @@ final class Vulkan extends VulkanBase
         $nativePipelineCreateInfo = $pipelineCreateInfo?->toCData($this->memory);
 
         $nativePipelineKey = $this->memory->new('VkPipelineBinaryKeyKHR');
+        $nativePipelineKey->sType = VkPipelineBinaryKeyKHR::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetPipelineKeyKHR', $device);
 
@@ -12741,6 +12802,7 @@ final class Vulkan extends VulkanBase
         $nativeCreateInfo = $createInfo->toCData($this->memory);
 
         $nativeIdentifier = $this->memory->new('VkShaderModuleIdentifierEXT');
+        $nativeIdentifier->sType = VkShaderModuleIdentifierEXT::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetShaderModuleCreateInfoIdentifierEXT', $device);
 
@@ -12760,6 +12822,7 @@ final class Vulkan extends VulkanBase
         VkShaderModule $shaderModule,
     ): VkShaderModuleIdentifierEXT {
         $nativeIdentifier = $this->memory->new('VkShaderModuleIdentifierEXT');
+        $nativeIdentifier->sType = VkShaderModuleIdentifierEXT::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetShaderModuleIdentifierEXT', $device);
 
@@ -12925,6 +12988,7 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
+        $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkGetTensorMemoryRequirementsARM', $device);
 
@@ -12955,6 +13019,7 @@ final class Vulkan extends VulkanBase
             [$device->pointer, $videoSession->pointer],
             'VkVideoSessionMemoryRequirementsKHR',
             fn(CData $item): VkVideoSessionMemoryRequirementsKHR => VkVideoSessionMemoryRequirementsKHR::createFromCData($item),
+            VkVideoSessionMemoryRequirementsKHR::STRUCTURE_TYPE,
         );
     }
 
@@ -13905,6 +13970,7 @@ final class Vulkan extends VulkanBase
     public function vkSetGpaDeviceClockModeAMD(VkDevice $device): VkGpaDeviceClockModeInfoAMD
     {
         $nativeInfo = $this->memory->new('VkGpaDeviceClockModeInfoAMD');
+        $nativeInfo->sType = VkGpaDeviceClockModeInfoAMD::STRUCTURE_TYPE;
 
         $procedure = $this->vkGetInstanceProc('vkSetGpaDeviceClockModeAMD', $device);
 

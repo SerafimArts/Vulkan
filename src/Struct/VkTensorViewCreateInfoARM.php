@@ -23,7 +23,7 @@ final class VkTensorViewCreateInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkTensorViewCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000460001;
+    public const int STRUCTURE_TYPE = 1000460001;
 
     public function __construct(
         public VkTensorARM $tensor,

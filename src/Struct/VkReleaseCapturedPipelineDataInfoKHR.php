@@ -21,7 +21,7 @@ final class VkReleaseCapturedPipelineDataInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkReleaseCapturedPipelineDataInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_RELEASE_CAPTURED_PIPELINE_DATA_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000483005;
+    public const int STRUCTURE_TYPE = 1000483005;
 
     public function __construct(
         public VkPipeline $pipeline,

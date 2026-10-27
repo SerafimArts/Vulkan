@@ -22,7 +22,7 @@ final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderP
     protected const string NATIVE_TYPE = 'VkTileMemorySizeInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000547004;
+    public const int STRUCTURE_TYPE = 1000547004;
 
     public function __construct(
         public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|null $next = null,

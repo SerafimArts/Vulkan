@@ -21,7 +21,7 @@ final class VkAntiLagDataAMD extends InputStructure
     protected const string NATIVE_TYPE = 'VkAntiLagDataAMD';
 
     /** `VK_STRUCTURE_TYPE_ANTI_LAG_DATA_AMD` */
-    private const int STRUCTURE_TYPE = 1000476001;
+    public const int STRUCTURE_TYPE = 1000476001;
 
     public function __construct(
         public VkAntiLagModeAMD $mode = VkAntiLagModeAMD::VK_ANTI_LAG_MODE_DRIVER_CONTROL_AMD,

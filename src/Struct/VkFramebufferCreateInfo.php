@@ -25,7 +25,7 @@ final class VkFramebufferCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkFramebufferCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 37;
+    public const int STRUCTURE_TYPE = 37;
 
     public function __construct(
         public VkRenderPass $renderPass,

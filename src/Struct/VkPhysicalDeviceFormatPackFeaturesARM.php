@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFormatPackFeaturesARM extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFormatPackFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000609000;
+    public const int STRUCTURE_TYPE = 1000609000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

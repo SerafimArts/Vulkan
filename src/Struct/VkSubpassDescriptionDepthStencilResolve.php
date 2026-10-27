@@ -23,7 +23,7 @@ final class VkSubpassDescriptionDepthStencilResolve extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkSubpassDescriptionDepthStencilResolve';
 
     /** `VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE` */
-    private const int STRUCTURE_TYPE = 1000199001;
+    public const int STRUCTURE_TYPE = 1000199001;
 
     public function __construct(
         public ?VkSubpassDescription2Extension $next = null,

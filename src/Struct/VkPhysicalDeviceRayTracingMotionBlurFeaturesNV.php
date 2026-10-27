@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRayTracingMotionBlurFeaturesNV extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingMotionBlurFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_MOTION_BLUR_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000327001;
+    public const int STRUCTURE_TYPE = 1000327001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

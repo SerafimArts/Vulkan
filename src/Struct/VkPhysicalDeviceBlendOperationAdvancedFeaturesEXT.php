@@ -21,7 +21,7 @@ final class VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT extends InputStruc
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceBlendOperationAdvancedFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000148000;
+    public const int STRUCTURE_TYPE = 1000148000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

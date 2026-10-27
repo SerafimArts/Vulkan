@@ -22,7 +22,7 @@ final class VkDeviceGroupSwapchainCreateInfoKHR extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkDeviceGroupSwapchainCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_SWAPCHAIN_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000060012;
+    public const int STRUCTURE_TYPE = 1000060012;
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,

@@ -20,7 +20,7 @@ final class VkHeadlessSurfaceCreateInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkHeadlessSurfaceCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_HEADLESS_SURFACE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000256000;
+    public const int STRUCTURE_TYPE = 1000256000;
 
     public function __construct(
         /** @var int<0, 4294967295> */

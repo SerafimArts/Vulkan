@@ -281,10 +281,10 @@ final readonly class CommandsEmitter
         return match ($kind) {
             CommandKind::CREATE => new CreateBody($this->calls, $this->handles),
             CommandKind::CREATE_ARRAY => new CreateArrayBody($this->calls, $this->handles),
-            CommandKind::QUERY => new QueryBody($this->calls),
+            CommandKind::QUERY => new QueryBody($this->calls, $this->registry),
             CommandKind::QUERY_SCALAR => new ScalarQueryBody($this->calls),
             CommandKind::QUERY_POINTER => new PointerQueryBody($this->calls),
-            CommandKind::ENUMERATE => new EnumerateBody($this->calls),
+            CommandKind::ENUMERATE => new EnumerateBody($this->calls, $this->registry),
             CommandKind::EXECUTE => new ExecuteBody($this->calls),
         };
     }

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceConditionalRenderingFeaturesEXT extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceConditionalRenderingFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONDITIONAL_RENDERING_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000081001;
+    public const int STRUCTURE_TYPE = 1000081001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

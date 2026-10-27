@@ -21,7 +21,7 @@ final class VkVideoReferenceIntraRefreshInfoKHR extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkVideoReferenceIntraRefreshInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000552003;
+    public const int STRUCTURE_TYPE = 1000552003;
 
     public function __construct(
         public ?VkVideoReferenceSlotInfoKHRExtension $next = null,

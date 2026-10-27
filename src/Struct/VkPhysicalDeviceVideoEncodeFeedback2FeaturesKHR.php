@@ -21,7 +21,7 @@ final class VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_FEEDBACK_2_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000598000;
+    public const int STRUCTURE_TYPE = 1000598000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

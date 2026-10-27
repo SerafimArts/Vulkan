@@ -21,7 +21,7 @@ final class VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTexelBufferAlignmentFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000281000;
+    public const int STRUCTURE_TYPE = 1000281000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -22,7 +22,7 @@ final class VkDeviceQueueShaderCoreControlCreateInfoARM extends InputStructure i
     protected const string NATIVE_TYPE = 'VkDeviceQueueShaderCoreControlCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_QUEUE_SHADER_CORE_CONTROL_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000417000;
+    public const int STRUCTURE_TYPE = 1000417000;
 
     public function __construct(
         public VkDeviceQueueCreateInfoExtension|VkDeviceCreateInfoExtension|null $next = null,

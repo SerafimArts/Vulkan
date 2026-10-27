@@ -21,7 +21,7 @@ final class VkRenderingAreaInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkRenderingAreaInfo';
 
     /** `VK_STRUCTURE_TYPE_RENDERING_AREA_INFO` */
-    private const int STRUCTURE_TYPE = 1000470003;
+    public const int STRUCTURE_TYPE = 1000470003;
 
     public function __construct(
         /** @var int<0, 4294967295> */

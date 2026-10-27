@@ -27,7 +27,7 @@ final class VkSamplerCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkSamplerCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 31;
+    public const int STRUCTURE_TYPE = 31;
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,

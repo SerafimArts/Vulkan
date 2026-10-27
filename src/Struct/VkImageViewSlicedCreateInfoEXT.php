@@ -21,7 +21,7 @@ final class VkImageViewSlicedCreateInfoEXT extends InputStructure implements VkI
     protected const string NATIVE_TYPE = 'VkImageViewSlicedCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_SLICED_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000418001;
+    public const int STRUCTURE_TYPE = 1000418001;
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,

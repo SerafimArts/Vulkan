@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCommandBufferInheritanceFeaturesNV extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCommandBufferInheritanceFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMMAND_BUFFER_INHERITANCE_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000559000;
+    public const int STRUCTURE_TYPE = 1000559000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

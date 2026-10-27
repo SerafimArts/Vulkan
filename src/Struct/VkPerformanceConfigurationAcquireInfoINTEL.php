@@ -21,7 +21,7 @@ final class VkPerformanceConfigurationAcquireInfoINTEL extends InputStructure
     protected const string NATIVE_TYPE = 'VkPerformanceConfigurationAcquireInfoINTEL';
 
     /** `VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL` */
-    private const int STRUCTURE_TYPE = 1000210005;
+    public const int STRUCTURE_TYPE = 1000210005;
 
     public function __construct(
         public VkPerformanceConfigurationTypeINTEL $type = VkPerformanceConfigurationTypeINTEL::VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL,

@@ -21,7 +21,7 @@ final class VkDebugUtilsLabelEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDebugUtilsLabelEXT';
 
     /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT` */
-    private const int STRUCTURE_TYPE = 1000128002;
+    public const int STRUCTURE_TYPE = 1000128002;
 
     public function __construct(
         /** @var non-empty-string|null */

@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkGpaDeviceClockModeAMD;
  */
 final readonly class VkGpaDeviceClockModeInfoAMD extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_GPA_DEVICE_CLOCK_MODE_INFO_AMD` */
+    public const int STRUCTURE_TYPE = 1000133004;
+
     public function __construct(
         public VkGpaDeviceClockModeAMD $clockMode,
         public float $memoryClockRatioToPeak,

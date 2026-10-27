@@ -20,7 +20,7 @@ final class VkShaderInstrumentationCreateInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkShaderInstrumentationCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_SHADER_INSTRUMENTATION_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000607002;
+    public const int STRUCTURE_TYPE = 1000607002;
 
     public function __construct() {}
 

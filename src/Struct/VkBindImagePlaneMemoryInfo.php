@@ -22,7 +22,7 @@ final class VkBindImagePlaneMemoryInfo extends InputStructure implements VkBindI
     protected const string NATIVE_TYPE = 'VkBindImagePlaneMemoryInfo';
 
     /** `VK_STRUCTURE_TYPE_BIND_IMAGE_PLANE_MEMORY_INFO` */
-    private const int STRUCTURE_TYPE = 1000156002;
+    public const int STRUCTURE_TYPE = 1000156002;
 
     public function __construct(
         public ?VkBindImageMemoryInfoExtension $next = null,

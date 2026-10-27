@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRepresentativeFragmentTestFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_REPRESENTATIVE_FRAGMENT_TEST_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000166000;
+    public const int STRUCTURE_TYPE = 1000166000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrixConversionFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_CONVERSION_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000172000;
+    public const int STRUCTURE_TYPE = 1000172000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

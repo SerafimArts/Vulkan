@@ -22,7 +22,7 @@ final class VkCommandBufferAllocateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkCommandBufferAllocateInfo';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO` */
-    private const int STRUCTURE_TYPE = 40;
+    public const int STRUCTURE_TYPE = 40;
 
     public function __construct(
         public VkCommandPool $commandPool,

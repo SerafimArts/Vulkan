@@ -21,7 +21,7 @@ final class VkGpaSessionCreateInfoAMD extends InputStructure
     protected const string NATIVE_TYPE = 'VkGpaSessionCreateInfoAMD';
 
     /** `VK_STRUCTURE_TYPE_GPA_SESSION_CREATE_INFO_AMD` */
-    private const int STRUCTURE_TYPE = 1000133003;
+    public const int STRUCTURE_TYPE = 1000133003;
 
     public function __construct(
         public ?VkGpaSessionAMD $secondaryCopySource = null,

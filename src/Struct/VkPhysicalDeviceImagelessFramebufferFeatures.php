@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImagelessFramebufferFeatures extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImagelessFramebufferFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGELESS_FRAMEBUFFER_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000108000;
+    public const int STRUCTURE_TYPE = 1000108000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

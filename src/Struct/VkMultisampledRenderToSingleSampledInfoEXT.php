@@ -22,7 +22,7 @@ final class VkMultisampledRenderToSingleSampledInfoEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkMultisampledRenderToSingleSampledInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000376002;
+    public const int STRUCTURE_TYPE = 1000376002;
 
     public function __construct(
         public ?VkSubpassDescription2Extension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceVideoMaintenance1FeaturesKHR extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoMaintenance1FeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000515000;
+    public const int STRUCTURE_TYPE = 1000515000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

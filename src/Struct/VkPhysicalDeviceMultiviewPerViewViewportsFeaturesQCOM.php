@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultiviewPerViewViewportsFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000488000;
+    public const int STRUCTURE_TYPE = 1000488000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

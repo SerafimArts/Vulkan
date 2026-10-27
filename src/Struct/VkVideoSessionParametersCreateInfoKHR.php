@@ -24,7 +24,7 @@ final class VkVideoSessionParametersCreateInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkVideoSessionParametersCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000023006;
+    public const int STRUCTURE_TYPE = 1000023006;
 
     public function __construct(
         public VkVideoSessionKHR $videoSession,

@@ -22,7 +22,7 @@ final class VkFenceGetFdInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkFenceGetFdInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_FENCE_GET_FD_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000115001;
+    public const int STRUCTURE_TYPE = 1000115001;
 
     public function __construct(
         public VkFence $fence,

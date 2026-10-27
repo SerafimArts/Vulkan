@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderEnqueueFeaturesAMDX extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderEnqueueFeaturesAMDX';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ENQUEUE_FEATURES_AMDX` */
-    private const int STRUCTURE_TYPE = 1000134000;
+    public const int STRUCTURE_TYPE = 1000134000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

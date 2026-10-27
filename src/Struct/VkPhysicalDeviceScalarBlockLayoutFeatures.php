@@ -21,7 +21,7 @@ final class VkPhysicalDeviceScalarBlockLayoutFeatures extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceScalarBlockLayoutFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SCALAR_BLOCK_LAYOUT_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000221000;
+    public const int STRUCTURE_TYPE = 1000221000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

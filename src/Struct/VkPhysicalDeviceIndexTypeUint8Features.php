@@ -21,7 +21,7 @@ final class VkPhysicalDeviceIndexTypeUint8Features extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceIndexTypeUint8Features';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000265000;
+    public const int STRUCTURE_TYPE = 1000265000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

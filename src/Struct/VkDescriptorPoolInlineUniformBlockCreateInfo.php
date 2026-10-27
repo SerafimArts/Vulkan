@@ -22,7 +22,7 @@ final class VkDescriptorPoolInlineUniformBlockCreateInfo extends InputStructure 
     protected const string NATIVE_TYPE = 'VkDescriptorPoolInlineUniformBlockCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000138003;
+    public const int STRUCTURE_TYPE = 1000138003;
 
     public function __construct(
         public ?VkDescriptorPoolCreateInfoExtension $next = null,

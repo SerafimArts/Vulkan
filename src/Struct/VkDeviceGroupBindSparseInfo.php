@@ -21,7 +21,7 @@ final class VkDeviceGroupBindSparseInfo extends InputStructure implements VkBind
     protected const string NATIVE_TYPE = 'VkDeviceGroupBindSparseInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_BIND_SPARSE_INFO` */
-    private const int STRUCTURE_TYPE = 1000060006;
+    public const int STRUCTURE_TYPE = 1000060006;
 
     public function __construct(
         public ?VkBindSparseInfoExtension $next = null,

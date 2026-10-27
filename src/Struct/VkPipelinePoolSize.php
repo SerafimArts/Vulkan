@@ -19,7 +19,7 @@ final class VkPipelinePoolSize extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelinePoolSize';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_POOL_SIZE` */
-    private const int STRUCTURE_TYPE = 1000298005;
+    public const int STRUCTURE_TYPE = 1000298005;
 
     public function __construct(
         /** @var int<0, max> */

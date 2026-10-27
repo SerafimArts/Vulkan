@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImageAlignmentControlFeaturesMESA extends InputStruc
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageAlignmentControlFeaturesMESA';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_ALIGNMENT_CONTROL_FEATURES_MESA` */
-    private const int STRUCTURE_TYPE = 1000575000;
+    public const int STRUCTURE_TYPE = 1000575000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

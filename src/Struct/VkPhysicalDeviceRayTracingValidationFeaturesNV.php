@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRayTracingValidationFeaturesNV extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingValidationFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000568000;
+    public const int STRUCTURE_TYPE = 1000568000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkComponentTypeKHR;
  */
 final readonly class VkCooperativeVectorPropertiesNV extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_COOPERATIVE_VECTOR_PROPERTIES_NV` */
+    public const int STRUCTURE_TYPE = 1000491002;
+
     public function __construct(
         public VkComponentTypeKHR $inputType,
         public VkComponentTypeKHR $inputInterpretation,

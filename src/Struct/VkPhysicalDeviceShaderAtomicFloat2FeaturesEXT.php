@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000273000;
+    public const int STRUCTURE_TYPE = 1000273000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

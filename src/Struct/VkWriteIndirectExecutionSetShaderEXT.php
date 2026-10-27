@@ -21,7 +21,7 @@ final class VkWriteIndirectExecutionSetShaderEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkWriteIndirectExecutionSetShaderEXT';
 
     /** `VK_STRUCTURE_TYPE_WRITE_INDIRECT_EXECUTION_SET_SHADER_EXT` */
-    private const int STRUCTURE_TYPE = 1000572009;
+    public const int STRUCTURE_TYPE = 1000572009;
 
     public function __construct(
         public VkShaderEXT $shader,

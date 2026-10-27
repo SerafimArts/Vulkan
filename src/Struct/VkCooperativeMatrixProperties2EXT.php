@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkComponentTypeKHR;
  */
 final readonly class VkCooperativeMatrixProperties2EXT extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_2_EXT` */
+    public const int STRUCTURE_TYPE = 1000659002;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $MGranularity,

@@ -22,7 +22,7 @@ final class VkBufferCollectionBufferCreateInfoFUCHSIA extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkBufferCollectionBufferCreateInfoFUCHSIA';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_COLLECTION_BUFFER_CREATE_INFO_FUCHSIA` */
-    private const int STRUCTURE_TYPE = 1000366005;
+    public const int STRUCTURE_TYPE = 1000366005;
 
     public function __construct(
         public VkBufferCollectionFUCHSIA $collection,

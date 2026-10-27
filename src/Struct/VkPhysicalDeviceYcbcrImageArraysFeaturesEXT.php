@@ -21,7 +21,7 @@ final class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceYcbcrImageArraysFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_IMAGE_ARRAYS_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000252000;
+    public const int STRUCTURE_TYPE = 1000252000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

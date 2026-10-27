@@ -21,7 +21,7 @@ final class VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSubpassMergeFeedbackFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBPASS_MERGE_FEEDBACK_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000458000;
+    public const int STRUCTURE_TYPE = 1000458000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

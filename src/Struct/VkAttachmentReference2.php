@@ -24,7 +24,7 @@ final class VkAttachmentReference2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkAttachmentReference2';
 
     /** `VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2` */
-    private const int STRUCTURE_TYPE = 1000109001;
+    public const int STRUCTURE_TYPE = 1000109001;
 
     public function __construct(
         public ?VkAttachmentReference2Extension $next = null,

@@ -21,7 +21,7 @@ final class VkImageSparseMemoryRequirementsInfo2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageSparseMemoryRequirementsInfo2';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_SPARSE_MEMORY_REQUIREMENTS_INFO_2` */
-    private const int STRUCTURE_TYPE = 1000146002;
+    public const int STRUCTURE_TYPE = 1000146002;
 
     public function __construct(
         public VkImage $image,

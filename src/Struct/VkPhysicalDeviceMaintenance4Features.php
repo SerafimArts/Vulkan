@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMaintenance4Features extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMaintenance4Features';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_4_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000413000;
+    public const int STRUCTURE_TYPE = 1000413000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

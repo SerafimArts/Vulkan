@@ -22,7 +22,7 @@ final class VkDataGraphPipelineResourceInfoImageLayoutARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineResourceInfoImageLayoutARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM` */
-    private const int STRUCTURE_TYPE = 1000631006;
+    public const int STRUCTURE_TYPE = 1000631006;
 
     public function __construct(
         public ?VkDataGraphPipelineResourceInfoARMExtension $next = null,

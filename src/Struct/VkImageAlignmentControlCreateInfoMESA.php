@@ -21,7 +21,7 @@ final class VkImageAlignmentControlCreateInfoMESA extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkImageAlignmentControlCreateInfoMESA';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA` */
-    private const int STRUCTURE_TYPE = 1000575002;
+    public const int STRUCTURE_TYPE = 1000575002;
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,

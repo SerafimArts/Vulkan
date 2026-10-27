@@ -21,7 +21,7 @@ final class VkQueryPoolPerformanceCreateInfoKHR extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkQueryPoolPerformanceCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000116002;
+    public const int STRUCTURE_TYPE = 1000116002;
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,

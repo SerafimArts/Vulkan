@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImageProcessingFeaturesQCOM extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageProcessingFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000440000;
+    public const int STRUCTURE_TYPE = 1000440000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

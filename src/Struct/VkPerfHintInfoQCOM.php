@@ -21,7 +21,7 @@ final class VkPerfHintInfoQCOM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPerfHintInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000302000;
+    public const int STRUCTURE_TYPE = 1000302000;
 
     public function __construct(
         public VkPerfHintTypeQCOM $type = VkPerfHintTypeQCOM::VK_PERF_HINT_TYPE_DEFAULT_QCOM,

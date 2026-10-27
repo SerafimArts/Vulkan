@@ -21,7 +21,7 @@ final class VkMemoryOpaqueCaptureAddressAllocateInfo extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkMemoryOpaqueCaptureAddressAllocateInfo';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000257003;
+    public const int STRUCTURE_TYPE = 1000257003;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,

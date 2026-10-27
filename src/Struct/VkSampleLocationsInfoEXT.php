@@ -23,7 +23,7 @@ final class VkSampleLocationsInfoEXT extends InputStructure implements VkImageMe
     protected const string NATIVE_TYPE = 'VkSampleLocationsInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_SAMPLE_LOCATIONS_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000143000;
+    public const int STRUCTURE_TYPE = 1000143000;
 
     public function __construct(
         public VkExtent2D $sampleLocationGridSize,

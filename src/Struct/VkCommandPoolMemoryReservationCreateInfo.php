@@ -20,7 +20,7 @@ final class VkCommandPoolMemoryReservationCreateInfo extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkCommandPoolMemoryReservationCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_POOL_MEMORY_RESERVATION_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000298003;
+    public const int STRUCTURE_TYPE = 1000298003;
 
     public function __construct(
         public ?VkCommandPoolCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceHdrVividFeaturesHUAWEI extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceHdrVividFeaturesHUAWEI';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI` */
-    private const int STRUCTURE_TYPE = 1000590000;
+    public const int STRUCTURE_TYPE = 1000590000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -20,7 +20,7 @@ final class VkDeviceObjectReservationCreateInfo extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkDeviceObjectReservationCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_OBJECT_RESERVATION_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000298002;
+    public const int STRUCTURE_TYPE = 1000298002;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

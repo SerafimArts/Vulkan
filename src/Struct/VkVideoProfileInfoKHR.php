@@ -25,7 +25,7 @@ final class VkVideoProfileInfoKHR extends InputStructure implements VkQueryPoolC
     protected const string NATIVE_TYPE = 'VkVideoProfileInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000023000;
+    public const int STRUCTURE_TYPE = 1000023000;
 
     public function __construct(
         public VkVideoProfileInfoKHRExtension|VkQueryPoolCreateInfoExtension|null $next = null,

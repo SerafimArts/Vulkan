@@ -21,7 +21,7 @@ final class VkRenderPassStripeSubmitInfoARM extends InputStructure implements Vk
     protected const string NATIVE_TYPE = 'VkRenderPassStripeSubmitInfoARM';
 
     /** `VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_SUBMIT_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000424004;
+    public const int STRUCTURE_TYPE = 1000424004;
 
     public function __construct(
         public ?VkCommandBufferSubmitInfoExtension $next = null,

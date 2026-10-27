@@ -22,7 +22,7 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageDrmFormatModifierInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000158002;
+    public const int STRUCTURE_TYPE = 1000158002;
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,

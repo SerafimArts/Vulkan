@@ -21,7 +21,7 @@ final class VkPhysicalDeviceVariablePointersFeatures extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVariablePointersFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000120000;
+    public const int STRUCTURE_TYPE = 1000120000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

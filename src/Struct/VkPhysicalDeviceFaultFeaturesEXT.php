@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFaultFeaturesEXT extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFaultFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FAULT_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000341000;
+    public const int STRUCTURE_TYPE = 1000341000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

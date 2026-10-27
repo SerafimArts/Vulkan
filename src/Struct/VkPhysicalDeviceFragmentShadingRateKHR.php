@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
  */
 final readonly class VkPhysicalDeviceFragmentShadingRateKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR` */
+    public const int STRUCTURE_TYPE = 1000226004;
+
     public function __construct(
         /** @var int-mask-of<VkSampleCountFlagBits::*> */
         public int $sampleCounts,

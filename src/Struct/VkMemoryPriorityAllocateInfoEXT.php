@@ -21,7 +21,7 @@ final class VkMemoryPriorityAllocateInfoEXT extends InputStructure implements Vk
     protected const string NATIVE_TYPE = 'VkMemoryPriorityAllocateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000238001;
+    public const int STRUCTURE_TYPE = 1000238001;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,

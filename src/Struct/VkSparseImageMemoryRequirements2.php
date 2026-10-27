@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkSparseImageMemoryRequirements2 extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_SPARSE_IMAGE_MEMORY_REQUIREMENTS_2` */
+    public const int STRUCTURE_TYPE = 1000146004;
+
     public function __construct(
         public VkSparseImageMemoryRequirements $memoryRequirements,
     ) {}

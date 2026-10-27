@@ -22,7 +22,7 @@ final class VkPipelineDepthStencilStateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineDepthStencilStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 25;
+    public const int STRUCTURE_TYPE = 25;
 
     public function __construct(
         public VkStencilOpState $front,

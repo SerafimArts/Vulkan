@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderAbortFeaturesKHR extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAbortFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ABORT_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000233000;
+    public const int STRUCTURE_TYPE = 1000233000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

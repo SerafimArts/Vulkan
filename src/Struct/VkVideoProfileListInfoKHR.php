@@ -24,7 +24,7 @@ final class VkVideoProfileListInfoKHR extends InputStructure implements VkPhysic
     protected const string NATIVE_TYPE = 'VkVideoProfileListInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_PROFILE_LIST_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000023013;
+    public const int STRUCTURE_TYPE = 1000023013;
 
     public function __construct(
         public VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkImageCreateInfoExtension|VkBufferCreateInfoExtension|null $next = null,

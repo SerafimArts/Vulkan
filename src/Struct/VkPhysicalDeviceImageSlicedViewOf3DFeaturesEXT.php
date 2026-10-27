@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000418000;
+    public const int STRUCTURE_TYPE = 1000418000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

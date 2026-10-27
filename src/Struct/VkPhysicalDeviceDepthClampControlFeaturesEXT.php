@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDepthClampControlFeaturesEXT extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDepthClampControlFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000582000;
+    public const int STRUCTURE_TYPE = 1000582000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

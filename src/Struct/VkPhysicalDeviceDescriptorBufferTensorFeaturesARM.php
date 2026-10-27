@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDescriptorBufferTensorFeaturesARM extends InputStruc
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorBufferTensorFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000460018;
+    public const int STRUCTURE_TYPE = 1000460018;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

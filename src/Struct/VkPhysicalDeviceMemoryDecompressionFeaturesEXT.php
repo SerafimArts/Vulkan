@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMemoryDecompressionFeaturesEXT extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMemoryDecompressionFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_DECOMPRESSION_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000427000;
+    public const int STRUCTURE_TYPE = 1000427000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceASTCDecodeFeaturesEXT extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceASTCDecodeFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000067001;
+    public const int STRUCTURE_TYPE = 1000067001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -20,7 +20,7 @@ final class VkPerformanceMarkerInfoINTEL extends InputStructure
     protected const string NATIVE_TYPE = 'VkPerformanceMarkerInfoINTEL';
 
     /** `VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL` */
-    private const int STRUCTURE_TYPE = 1000210002;
+    public const int STRUCTURE_TYPE = 1000210002;
 
     public function __construct(
         /** @var int<0, max> */

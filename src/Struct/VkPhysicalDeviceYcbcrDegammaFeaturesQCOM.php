@@ -21,7 +21,7 @@ final class VkPhysicalDeviceYcbcrDegammaFeaturesQCOM extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceYcbcrDegammaFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_DEGAMMA_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000520000;
+    public const int STRUCTURE_TYPE = 1000520000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

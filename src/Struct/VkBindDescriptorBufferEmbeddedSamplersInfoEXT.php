@@ -23,7 +23,7 @@ final class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindDescriptorBufferEmbeddedSamplersInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000545008;
+    public const int STRUCTURE_TYPE = 1000545008;
 
     public function __construct(
         public ?VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000672000;
+    public const int STRUCTURE_TYPE = 1000672000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

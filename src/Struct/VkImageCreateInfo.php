@@ -29,7 +29,7 @@ final class VkImageCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 14;
+    public const int STRUCTURE_TYPE = 14;
 
     public function __construct(
         public VkExtent3D $extent,

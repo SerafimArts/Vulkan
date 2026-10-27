@@ -21,7 +21,7 @@ final class VkImageConstraintsInfoFUCHSIA extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageConstraintsInfoFUCHSIA';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_CONSTRAINTS_INFO_FUCHSIA` */
-    private const int STRUCTURE_TYPE = 1000366006;
+    public const int STRUCTURE_TYPE = 1000366006;
 
     public function __construct(
         public VkBufferCollectionConstraintsInfoFUCHSIA $bufferCollectionConstraints,

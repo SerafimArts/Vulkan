@@ -23,7 +23,7 @@ final class VkGeneratedCommandsMemoryRequirementsInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkGeneratedCommandsMemoryRequirementsInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000572002;
+    public const int STRUCTURE_TYPE = 1000572002;
 
     public function __construct(
         public VkIndirectCommandsLayoutEXT $indirectCommandsLayout,

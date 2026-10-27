@@ -21,7 +21,7 @@ final class VkBufferConstraintsInfoFUCHSIA extends InputStructure
     protected const string NATIVE_TYPE = 'VkBufferConstraintsInfoFUCHSIA';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_CONSTRAINTS_INFO_FUCHSIA` */
-    private const int STRUCTURE_TYPE = 1000366004;
+    public const int STRUCTURE_TYPE = 1000366004;
 
     public function __construct(
         public VkBufferCreateInfo $createInfo,

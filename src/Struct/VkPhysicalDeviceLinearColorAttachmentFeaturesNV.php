@@ -21,7 +21,7 @@ final class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceLinearColorAttachmentFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000430000;
+    public const int STRUCTURE_TYPE = 1000430000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

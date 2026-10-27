@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG extends InputStr
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRelaxedLineRasterizationFeaturesIMG';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RELAXED_LINE_RASTERIZATION_FEATURES_IMG` */
-    private const int STRUCTURE_TYPE = 1000110000;
+    public const int STRUCTURE_TYPE = 1000110000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

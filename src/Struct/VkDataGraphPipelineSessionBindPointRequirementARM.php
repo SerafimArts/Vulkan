@@ -18,6 +18,9 @@ use Serafim\Vulkan\Enum\VkDataGraphPipelineSessionBindPointTypeARM;
  */
 final readonly class VkDataGraphPipelineSessionBindPointRequirementARM extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM` */
+    public const int STRUCTURE_TYPE = 1000507012;
+
     public function __construct(
         public VkDataGraphPipelineSessionBindPointARM $bindPoint,
         public VkDataGraphPipelineSessionBindPointTypeARM $bindPointType,

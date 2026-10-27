@@ -21,7 +21,7 @@ final class VkBufferMemoryRequirementsInfo2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkBufferMemoryRequirementsInfo2';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2` */
-    private const int STRUCTURE_TYPE = 1000146000;
+    public const int STRUCTURE_TYPE = 1000146000;
 
     public function __construct(
         public VkBuffer $buffer,

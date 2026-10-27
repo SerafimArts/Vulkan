@@ -22,7 +22,7 @@ final class VkPipelineViewportCoarseSampleOrderStateCreateInfoNV extends InputSt
     protected const string NATIVE_TYPE = 'VkPipelineViewportCoarseSampleOrderStateCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000164005;
+    public const int STRUCTURE_TYPE = 1000164005;
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,

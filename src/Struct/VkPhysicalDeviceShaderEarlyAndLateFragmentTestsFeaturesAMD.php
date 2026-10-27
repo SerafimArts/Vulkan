@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends I
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_EARLY_AND_LATE_FRAGMENT_TESTS_FEATURES_AMD` */
-    private const int STRUCTURE_TYPE = 1000321000;
+    public const int STRUCTURE_TYPE = 1000321000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

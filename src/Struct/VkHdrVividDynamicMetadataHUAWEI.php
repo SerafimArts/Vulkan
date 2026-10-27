@@ -21,7 +21,7 @@ final class VkHdrVividDynamicMetadataHUAWEI extends InputStructure implements Vk
     protected const string NATIVE_TYPE = 'VkHdrVividDynamicMetadataHUAWEI';
 
     /** `VK_STRUCTURE_TYPE_HDR_VIVID_DYNAMIC_METADATA_HUAWEI` */
-    private const int STRUCTURE_TYPE = 1000590001;
+    public const int STRUCTURE_TYPE = 1000590001;
 
     public function __construct(
         public ?VkHdrMetadataEXTExtension $next = null,

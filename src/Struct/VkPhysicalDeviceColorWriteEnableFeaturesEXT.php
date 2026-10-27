@@ -21,7 +21,7 @@ final class VkPhysicalDeviceColorWriteEnableFeaturesEXT extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceColorWriteEnableFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COLOR_WRITE_ENABLE_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000381000;
+    public const int STRUCTURE_TYPE = 1000381000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMultiDrawFeaturesEXT extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultiDrawFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTI_DRAW_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000392000;
+    public const int STRUCTURE_TYPE = 1000392000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -22,7 +22,7 @@ final class VkGraphicsPipelineLibraryCreateInfoEXT extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkGraphicsPipelineLibraryCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000320002;
+    public const int STRUCTURE_TYPE = 1000320002;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,

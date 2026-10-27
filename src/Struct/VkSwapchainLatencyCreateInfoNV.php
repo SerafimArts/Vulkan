@@ -21,7 +21,7 @@ final class VkSwapchainLatencyCreateInfoNV extends InputStructure implements VkS
     protected const string NATIVE_TYPE = 'VkSwapchainLatencyCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000505007;
+    public const int STRUCTURE_TYPE = 1000505007;
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTransformFeedbackFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000028000;
+    public const int STRUCTURE_TYPE = 1000028000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

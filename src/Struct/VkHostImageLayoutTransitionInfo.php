@@ -22,7 +22,7 @@ final class VkHostImageLayoutTransitionInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkHostImageLayoutTransitionInfo';
 
     /** `VK_STRUCTURE_TYPE_HOST_IMAGE_LAYOUT_TRANSITION_INFO` */
-    private const int STRUCTURE_TYPE = 1000270006;
+    public const int STRUCTURE_TYPE = 1000270006;
 
     public function __construct(
         public VkImage $image,

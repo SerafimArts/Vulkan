@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkImageViewAddressPropertiesNVX extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_ADDRESS_PROPERTIES_NVX` */
+    public const int STRUCTURE_TYPE = 1000030001;
+
     public function __construct(
         /** @var int<0, max> */
         public int $deviceAddress,

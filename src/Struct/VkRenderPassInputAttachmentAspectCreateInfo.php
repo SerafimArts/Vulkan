@@ -22,7 +22,7 @@ final class VkRenderPassInputAttachmentAspectCreateInfo extends InputStructure i
     protected const string NATIVE_TYPE = 'VkRenderPassInputAttachmentAspectCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000117001;
+    public const int STRUCTURE_TYPE = 1000117001;
 
     public function __construct(
         public ?VkRenderPassCreateInfoExtension $next = null,

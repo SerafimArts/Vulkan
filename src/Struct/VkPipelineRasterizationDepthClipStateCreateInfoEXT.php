@@ -21,7 +21,7 @@ final class VkPipelineRasterizationDepthClipStateCreateInfoEXT extends InputStru
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationDepthClipStateCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000102001;
+    public const int STRUCTURE_TYPE = 1000102001;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,

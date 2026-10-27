@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderTileImageFeaturesEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderTileImageFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000395000;
+    public const int STRUCTURE_TYPE = 1000395000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkApplicationParametersEXT extends InputStructure implements VkAppli
     protected const string NATIVE_TYPE = 'VkApplicationParametersEXT';
 
     /** `VK_STRUCTURE_TYPE_APPLICATION_PARAMETERS_EXT` */
-    private const int STRUCTURE_TYPE = 1000435000;
+    public const int STRUCTURE_TYPE = 1000435000;
 
     public function __construct(
         public VkApplicationInfoExtension|VkDeviceCreateInfoExtension|null $next = null,

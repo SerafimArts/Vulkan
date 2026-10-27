@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMapMemoryPlacedFeaturesEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMapMemoryPlacedFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000272000;
+    public const int STRUCTURE_TYPE = 1000272000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -24,7 +24,7 @@ final class VkMemoryRangeBarrierKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkMemoryRangeBarrierKHR';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_RANGE_BARRIER_KHR` */
-    private const int STRUCTURE_TYPE = 1000318005;
+    public const int STRUCTURE_TYPE = 1000318005;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,

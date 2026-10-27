@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkExecutionGraphPipelineScratchSizeAMDX extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_EXECUTION_GRAPH_PIPELINE_SCRATCH_SIZE_AMDX` */
+    public const int STRUCTURE_TYPE = 1000134002;
+
     public function __construct(
         /** @var int<0, max> */
         public int $minSize,

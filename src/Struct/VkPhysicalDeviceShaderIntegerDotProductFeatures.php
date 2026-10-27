@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderIntegerDotProductFeatures extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderIntegerDotProductFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000280000;
+    public const int STRUCTURE_TYPE = 1000280000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

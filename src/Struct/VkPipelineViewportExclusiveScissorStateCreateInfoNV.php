@@ -21,7 +21,7 @@ final class VkPipelineViewportExclusiveScissorStateCreateInfoNV extends InputStr
     protected const string NATIVE_TYPE = 'VkPipelineViewportExclusiveScissorStateCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000205000;
+    public const int STRUCTURE_TYPE = 1000205000;
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,

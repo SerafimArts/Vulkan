@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderUntypedPointersFeaturesKHR extends InputStruct
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderUntypedPointersFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000387000;
+    public const int STRUCTURE_TYPE = 1000387000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

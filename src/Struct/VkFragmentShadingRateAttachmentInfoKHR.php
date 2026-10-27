@@ -22,7 +22,7 @@ final class VkFragmentShadingRateAttachmentInfoKHR extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkFragmentShadingRateAttachmentInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000226000;
+    public const int STRUCTURE_TYPE = 1000226000;
 
     public function __construct(
         public VkExtent2D $shadingRateAttachmentTexelSize,

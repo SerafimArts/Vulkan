@@ -24,7 +24,7 @@ final class VkPipelineShaderStageCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineShaderStageCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 18;
+    public const int STRUCTURE_TYPE = 18;
 
     public function __construct(
         public ?VkPipelineShaderStageCreateInfoExtension $next = null,

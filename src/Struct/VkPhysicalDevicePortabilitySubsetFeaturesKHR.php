@@ -21,7 +21,7 @@ final class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePortabilitySubsetFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PORTABILITY_SUBSET_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000163000;
+    public const int STRUCTURE_TYPE = 1000163000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

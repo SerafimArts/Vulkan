@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000572000;
+    public const int STRUCTURE_TYPE = 1000572000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

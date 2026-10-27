@@ -22,7 +22,7 @@ final class VkPhysicalDeviceExternalTensorInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalTensorInfoARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000460015;
+    public const int STRUCTURE_TYPE = 1000460015;
 
     public function __construct(
         /** @var int-mask-of<VkTensorCreateFlagBitsARM::*> */

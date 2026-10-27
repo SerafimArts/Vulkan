@@ -21,7 +21,7 @@ final class VkDisplayPowerInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDisplayPowerInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DISPLAY_POWER_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000091000;
+    public const int STRUCTURE_TYPE = 1000091000;
 
     public function __construct(
         public VkDisplayPowerStateEXT $powerState = VkDisplayPowerStateEXT::VK_DISPLAY_POWER_STATE_OFF_EXT,

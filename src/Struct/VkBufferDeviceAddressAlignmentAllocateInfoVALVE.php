@@ -22,7 +22,7 @@ final class VkBufferDeviceAddressAlignmentAllocateInfoVALVE extends InputStructu
     protected const string NATIVE_TYPE = 'VkBufferDeviceAddressAlignmentAllocateInfoVALVE';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_ALIGNMENT_ALLOCATE_INFO_VALVE` */
-    private const int STRUCTURE_TYPE = 1000709002;
+    public const int STRUCTURE_TYPE = 1000709002;
 
     public function __construct(
         public VkBufferCreateInfoExtension|VkMemoryAllocateInfoExtension|null $next = null,

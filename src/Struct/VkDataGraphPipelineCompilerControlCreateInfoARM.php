@@ -21,7 +21,7 @@ final class VkDataGraphPipelineCompilerControlCreateInfoARM extends InputStructu
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineCompilerControlCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000507010;
+    public const int STRUCTURE_TYPE = 1000507010;
 
     public function __construct(
         public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,

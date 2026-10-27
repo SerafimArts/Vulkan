@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkExternalBufferProperties extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_EXTERNAL_BUFFER_PROPERTIES` */
+    public const int STRUCTURE_TYPE = 1000071003;
+
     public function __construct(
         public VkExternalMemoryProperties $externalMemoryProperties,
     ) {}

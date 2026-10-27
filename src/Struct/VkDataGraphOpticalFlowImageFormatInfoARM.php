@@ -23,7 +23,7 @@ final class VkDataGraphOpticalFlowImageFormatInfoARM extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkDataGraphOpticalFlowImageFormatInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000631003;
+    public const int STRUCTURE_TYPE = 1000631003;
 
     public function __construct(
         public VkPhysicalDeviceImageFormatInfo2Extension|VkImageCreateInfoExtension|null $next = null,

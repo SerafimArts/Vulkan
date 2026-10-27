@@ -21,7 +21,7 @@ final class VkPipelineShaderStageModuleIdentifierCreateInfoEXT extends InputStru
     protected const string NATIVE_TYPE = 'VkPipelineShaderStageModuleIdentifierCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_MODULE_IDENTIFIER_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000462002;
+    public const int STRUCTURE_TYPE = 1000462002;
 
     public function __construct(
         public ?VkPipelineShaderStageCreateInfoExtension $next = null,

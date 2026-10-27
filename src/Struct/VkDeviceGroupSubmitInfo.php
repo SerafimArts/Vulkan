@@ -21,7 +21,7 @@ final class VkDeviceGroupSubmitInfo extends InputStructure implements VkSubmitIn
     protected const string NATIVE_TYPE = 'VkDeviceGroupSubmitInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_SUBMIT_INFO` */
-    private const int STRUCTURE_TYPE = 1000060005;
+    public const int STRUCTURE_TYPE = 1000060005;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,

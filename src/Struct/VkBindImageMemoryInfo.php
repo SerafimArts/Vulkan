@@ -23,7 +23,7 @@ final class VkBindImageMemoryInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindImageMemoryInfo';
 
     /** `VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_INFO` */
-    private const int STRUCTURE_TYPE = 1000157001;
+    public const int STRUCTURE_TYPE = 1000157001;
 
     public function __construct(
         public VkImage $image,

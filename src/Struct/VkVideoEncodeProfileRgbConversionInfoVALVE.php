@@ -21,7 +21,7 @@ final class VkVideoEncodeProfileRgbConversionInfoVALVE extends InputStructure im
     protected const string NATIVE_TYPE = 'VkVideoEncodeProfileRgbConversionInfoVALVE';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE` */
-    private const int STRUCTURE_TYPE = 1000390002;
+    public const int STRUCTURE_TYPE = 1000390002;
 
     public function __construct(
         public ?VkVideoProfileInfoKHRExtension $next = null,

@@ -18,6 +18,9 @@ use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
  */
 final readonly class VkFramebufferMixedSamplesCombinationNV extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV` */
+    public const int STRUCTURE_TYPE = 1000250002;
+
     public function __construct(
         public VkCoverageReductionModeNV $coverageReductionMode,
         /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */

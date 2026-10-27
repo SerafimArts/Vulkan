@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCoverageReductionModeFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000250000;
+    public const int STRUCTURE_TYPE = 1000250000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

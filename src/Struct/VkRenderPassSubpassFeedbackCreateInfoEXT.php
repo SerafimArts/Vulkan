@@ -22,7 +22,7 @@ final class VkRenderPassSubpassFeedbackCreateInfoEXT extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkRenderPassSubpassFeedbackCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000458003;
+    public const int STRUCTURE_TYPE = 1000458003;
 
     public function __construct(
         public ?VkSubpassDescription2Extension $next = null,

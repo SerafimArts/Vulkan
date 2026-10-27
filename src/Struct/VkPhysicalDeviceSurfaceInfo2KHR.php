@@ -22,7 +22,7 @@ final class VkPhysicalDeviceSurfaceInfo2KHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSurfaceInfo2KHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR` */
-    private const int STRUCTURE_TYPE = 1000119000;
+    public const int STRUCTURE_TYPE = 1000119000;
 
     public function __construct(
         public ?VkPhysicalDeviceSurfaceInfo2KHRExtension $next = null,

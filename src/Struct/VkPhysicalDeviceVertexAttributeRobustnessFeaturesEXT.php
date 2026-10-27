@@ -21,7 +21,7 @@ final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000608000;
+    public const int STRUCTURE_TYPE = 1000608000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

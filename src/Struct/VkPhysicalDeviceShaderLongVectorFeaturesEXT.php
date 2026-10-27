@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderLongVectorFeaturesEXT extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderLongVectorFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_LONG_VECTOR_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000635000;
+    public const int STRUCTURE_TYPE = 1000635000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

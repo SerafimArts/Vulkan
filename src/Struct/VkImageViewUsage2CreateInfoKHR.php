@@ -22,7 +22,7 @@ final class VkImageViewUsage2CreateInfoKHR extends InputStructure implements VkI
     protected const string NATIVE_TYPE = 'VkImageViewUsage2CreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000668003;
+    public const int STRUCTURE_TYPE = 1000668003;
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkReleaseSwapchainImagesInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkReleaseSwapchainImagesInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000275005;
+    public const int STRUCTURE_TYPE = 1000275005;
 
     public function __construct(
         /** Swapchain for which images are being released */

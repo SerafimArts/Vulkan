@@ -24,7 +24,7 @@ final class VkSetDescriptorBufferOffsetsInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkSetDescriptorBufferOffsetsInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000545007;
+    public const int STRUCTURE_TYPE = 1000545007;
 
     public function __construct(
         public ?VkSetDescriptorBufferOffsetsInfoEXTExtension $next = null,

@@ -21,7 +21,7 @@ final class VkDevicePipelineBinaryInternalCacheControlKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDevicePipelineBinaryInternalCacheControlKHR';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_PIPELINE_BINARY_INTERNAL_CACHE_CONTROL_KHR` */
-    private const int STRUCTURE_TYPE = 1000483008;
+    public const int STRUCTURE_TYPE = 1000483008;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

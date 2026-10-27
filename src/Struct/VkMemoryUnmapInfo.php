@@ -22,7 +22,7 @@ final class VkMemoryUnmapInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkMemoryUnmapInfo';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO` */
-    private const int STRUCTURE_TYPE = 1000271001;
+    public const int STRUCTURE_TYPE = 1000271001;
 
     public function __construct(
         public VkDeviceMemory $memory,

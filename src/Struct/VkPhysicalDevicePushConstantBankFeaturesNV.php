@@ -21,7 +21,7 @@ final class VkPhysicalDevicePushConstantBankFeaturesNV extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePushConstantBankFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PUSH_CONSTANT_BANK_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000580001;
+    public const int STRUCTURE_TYPE = 1000580001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

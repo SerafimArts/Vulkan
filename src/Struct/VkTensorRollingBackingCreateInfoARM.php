@@ -22,7 +22,7 @@ final class VkTensorRollingBackingCreateInfoARM extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkTensorRollingBackingCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_TENSOR_ROLLING_BACKING_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000565001;
+    public const int STRUCTURE_TYPE = 1000565001;
 
     public function __construct(
         public ?VkTensorCreateInfoARMExtension $next = null,

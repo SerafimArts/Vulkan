@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderExpectAssumeFeatures extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderExpectAssumeFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_EXPECT_ASSUME_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000544000;
+    public const int STRUCTURE_TYPE = 1000544000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -23,7 +23,7 @@ final class VkDescriptorSetLayoutCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkDescriptorSetLayoutCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 32;
+    public const int STRUCTURE_TYPE = 32;
 
     public function __construct(
         public ?VkDescriptorSetLayoutCreateInfoExtension $next = null,

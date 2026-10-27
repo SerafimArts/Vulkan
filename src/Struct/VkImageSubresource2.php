@@ -20,7 +20,7 @@ final class VkImageSubresource2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageSubresource2';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2` */
-    private const int STRUCTURE_TYPE = 1000338003;
+    public const int STRUCTURE_TYPE = 1000338003;
 
     public function __construct(
         public VkImageSubresource $imageSubresource,

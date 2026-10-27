@@ -22,7 +22,7 @@ final class VkTileMemoryBindInfoQCOM extends InputStructure implements VkCommand
     protected const string NATIVE_TYPE = 'VkTileMemoryBindInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000547003;
+    public const int STRUCTURE_TYPE = 1000547003;
 
     public function __construct(
         public VkDeviceMemory $memory,

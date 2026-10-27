@@ -21,7 +21,7 @@ final class VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures extends InputStr
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSeparateDepthStencilLayoutsFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SEPARATE_DEPTH_STENCIL_LAYOUTS_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000241000;
+    public const int STRUCTURE_TYPE = 1000241000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

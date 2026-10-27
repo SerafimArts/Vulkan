@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShader64BitIndexingFeaturesEXT extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShader64BitIndexingFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_64_BIT_INDEXING_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000627000;
+    public const int STRUCTURE_TYPE = 1000627000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

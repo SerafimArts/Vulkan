@@ -20,7 +20,7 @@ final class VkComputeOccupancyPriorityParametersNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkComputeOccupancyPriorityParametersNV';
 
     /** `VK_STRUCTURE_TYPE_COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV` */
-    private const int STRUCTURE_TYPE = 1000645000;
+    public const int STRUCTURE_TYPE = 1000645000;
 
     public function __construct(
         public float $occupancyPriority = 0.0,

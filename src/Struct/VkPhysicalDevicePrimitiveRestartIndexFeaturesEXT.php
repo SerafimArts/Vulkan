@@ -21,7 +21,7 @@ final class VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT extends InputStruct
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000678000;
+    public const int STRUCTURE_TYPE = 1000678000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

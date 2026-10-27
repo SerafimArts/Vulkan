@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImageViewMinLodFeaturesEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageViewMinLodFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000391000;
+    public const int STRUCTURE_TYPE = 1000391000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

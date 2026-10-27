@@ -22,7 +22,7 @@ final class VkGraphicsPipelineShaderGroupsCreateInfoNV extends InputStructure im
     protected const string NATIVE_TYPE = 'VkGraphicsPipelineShaderGroupsCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000277002;
+    public const int STRUCTURE_TYPE = 1000277002;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,

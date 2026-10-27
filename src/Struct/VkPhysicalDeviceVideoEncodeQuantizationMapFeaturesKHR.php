@@ -21,7 +21,7 @@ final class VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000553009;
+    public const int STRUCTURE_TYPE = 1000553009;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -22,7 +22,7 @@ final class VkPerformanceQuerySubmitInfoKHR extends InputStructure implements Vk
     protected const string NATIVE_TYPE = 'VkPerformanceQuerySubmitInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000116003;
+    public const int STRUCTURE_TYPE = 1000116003;
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|null $next = null,

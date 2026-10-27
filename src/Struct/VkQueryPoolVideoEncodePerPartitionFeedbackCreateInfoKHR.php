@@ -22,7 +22,7 @@ final class VkQueryPoolVideoEncodePerPartitionFeedbackCreateInfoKHR extends Inpu
     protected const string NATIVE_TYPE = 'VkQueryPoolVideoEncodePerPartitionFeedbackCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000598002;
+    public const int STRUCTURE_TYPE = 1000598002;
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,

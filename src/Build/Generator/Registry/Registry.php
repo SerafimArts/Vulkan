@@ -125,6 +125,21 @@ final readonly class Registry
     }
 
     /**
+     * Whether the structure starts with `sType`, which the user fills before a
+     * command writes the structure.
+     */
+    public function isTypedStructure(string $name): bool
+    {
+        foreach ($this->structs[$name]->members ?? [] as $member) {
+            if ($member->name === 'sType') {
+                return $member->value !== null;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the names of the aliases of a command.
      *
      * @return list<non-empty-string>

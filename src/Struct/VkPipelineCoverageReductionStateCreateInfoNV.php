@@ -22,7 +22,7 @@ final class VkPipelineCoverageReductionStateCreateInfoNV extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPipelineCoverageReductionStateCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000250001;
+    public const int STRUCTURE_TYPE = 1000250001;
 
     public function __construct(
         public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,

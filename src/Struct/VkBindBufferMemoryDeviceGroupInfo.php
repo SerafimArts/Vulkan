@@ -21,7 +21,7 @@ final class VkBindBufferMemoryDeviceGroupInfo extends InputStructure implements 
     protected const string NATIVE_TYPE = 'VkBindBufferMemoryDeviceGroupInfo';
 
     /** `VK_STRUCTURE_TYPE_BIND_BUFFER_MEMORY_DEVICE_GROUP_INFO` */
-    private const int STRUCTURE_TYPE = 1000060013;
+    public const int STRUCTURE_TYPE = 1000060013;
 
     public function __construct(
         public ?VkBindBufferMemoryInfoExtension $next = null,

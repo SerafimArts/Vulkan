@@ -22,7 +22,7 @@ final class VkVideoDecodeInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkVideoDecodeInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000024000;
+    public const int STRUCTURE_TYPE = 1000024000;
 
     public function __construct(
         public VkBuffer $srcBuffer,

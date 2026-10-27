@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extends
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000376000;
+    public const int STRUCTURE_TYPE = 1000376000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

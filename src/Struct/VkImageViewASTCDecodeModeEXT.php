@@ -22,7 +22,7 @@ final class VkImageViewASTCDecodeModeEXT extends InputStructure implements VkIma
     protected const string NATIVE_TYPE = 'VkImageViewASTCDecodeModeEXT';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT` */
-    private const int STRUCTURE_TYPE = 1000067000;
+    public const int STRUCTURE_TYPE = 1000067000;
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,

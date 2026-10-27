@@ -21,7 +21,7 @@ final class VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesKHR extends Input
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePipelineLibraryGroupHandlesFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_LIBRARY_GROUP_HANDLES_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000498000;
+    public const int STRUCTURE_TYPE = 1000498000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

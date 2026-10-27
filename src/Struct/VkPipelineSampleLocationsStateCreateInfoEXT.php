@@ -21,7 +21,7 @@ final class VkPipelineSampleLocationsStateCreateInfoEXT extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPipelineSampleLocationsStateCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000143002;
+    public const int STRUCTURE_TYPE = 1000143002;
 
     public function __construct(
         public VkSampleLocationsInfoEXT $sampleLocationsInfo,

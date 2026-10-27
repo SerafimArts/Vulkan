@@ -22,7 +22,7 @@ final class VkDataGraphPipelineSingleNodeCreateInfoARM extends InputStructure im
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSingleNodeCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000631007;
+    public const int STRUCTURE_TYPE = 1000631007;
 
     public function __construct(
         public VkDataGraphPipelineNodeTypeARM $nodeType,

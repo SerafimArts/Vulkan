@@ -21,7 +21,7 @@ final class VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR extends I
     protected const string NATIVE_TYPE = 'VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUANTIZATION_MAP_SESSION_PARAMETERS_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000553005;
+    public const int STRUCTURE_TYPE = 1000553005;
 
     public function __construct(
         public VkExtent2D $quantizationMapTexelSize,

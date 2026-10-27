@@ -15,6 +15,9 @@ use FFI\CData;
  */
 final readonly class VkCommandPoolMemoryConsumption extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_COMMAND_POOL_MEMORY_CONSUMPTION` */
+    public const int STRUCTURE_TYPE = 1000298004;
+
     public function __construct(
         /** @var int<0, max> */
         public int $commandPoolAllocated,

@@ -21,7 +21,7 @@ final class VkVideoEncodeRateControlLayerInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkVideoEncodeRateControlLayerInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000299002;
+    public const int STRUCTURE_TYPE = 1000299002;
 
     public function __construct(
         public ?VkVideoEncodeRateControlLayerInfoKHRExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImage2DViewOf3DFeaturesEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImage2DViewOf3DFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000393000;
+    public const int STRUCTURE_TYPE = 1000393000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

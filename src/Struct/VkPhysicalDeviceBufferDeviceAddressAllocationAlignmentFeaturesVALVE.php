@@ -21,7 +21,7 @@ final class VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_FEATURES_VALVE` */
-    private const int STRUCTURE_TYPE = 1000709000;
+    public const int STRUCTURE_TYPE = 1000709000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

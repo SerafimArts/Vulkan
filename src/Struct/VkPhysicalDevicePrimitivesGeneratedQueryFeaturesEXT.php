@@ -21,7 +21,7 @@ final class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends InputStr
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000382000;
+    public const int STRUCTURE_TYPE = 1000382000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

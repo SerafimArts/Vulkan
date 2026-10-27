@@ -21,7 +21,7 @@ final class VkAccelerationStructureMotionInfoNV extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkAccelerationStructureMotionInfoNV';
 
     /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000327002;
+    public const int STRUCTURE_TYPE = 1000327002;
 
     public function __construct(
         public ?VkAccelerationStructureCreateInfoKHRExtension $next = null,

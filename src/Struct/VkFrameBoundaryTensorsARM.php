@@ -24,7 +24,7 @@ final class VkFrameBoundaryTensorsARM extends InputStructure implements VkSubmit
     protected const string NATIVE_TYPE = 'VkFrameBoundaryTensorsARM';
 
     /** `VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM` */
-    private const int STRUCTURE_TYPE = 1000460023;
+    public const int STRUCTURE_TYPE = 1000460023;
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkBindSparseInfoExtension|null $next = null,

@@ -20,7 +20,7 @@ final class VkLatencySleepModeInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkLatencySleepModeInfoNV';
 
     /** `VK_STRUCTURE_TYPE_LATENCY_SLEEP_MODE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000505000;
+    public const int STRUCTURE_TYPE = 1000505000;
 
     public function __construct(
         public bool $lowLatencyMode = false,

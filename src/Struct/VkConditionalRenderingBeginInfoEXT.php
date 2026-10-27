@@ -23,7 +23,7 @@ final class VkConditionalRenderingBeginInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkConditionalRenderingBeginInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000081002;
+    public const int STRUCTURE_TYPE = 1000081002;
 
     public function __construct(
         public VkBuffer $buffer,

@@ -23,7 +23,7 @@ final class VkGeneratedCommandsPipelineInfoEXT extends InputStructure implements
     protected const string NATIVE_TYPE = 'VkGeneratedCommandsPipelineInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_GENERATED_COMMANDS_PIPELINE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000572013;
+    public const int STRUCTURE_TYPE = 1000572013;
 
     public function __construct(
         public VkPipeline $pipeline,

@@ -27,7 +27,7 @@ final class VkIndirectCommandsLayoutTokenNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkIndirectCommandsLayoutTokenNV';
 
     /** `VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_TOKEN_NV` */
-    private const int STRUCTURE_TYPE = 1000277003;
+    public const int STRUCTURE_TYPE = 1000277003;
 
     public function __construct(
         public ?VkIndirectCommandsLayoutTokenNVExtension $next = null,

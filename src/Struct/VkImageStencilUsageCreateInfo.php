@@ -23,7 +23,7 @@ final class VkImageStencilUsageCreateInfo extends InputStructure implements VkIm
     protected const string NATIVE_TYPE = 'VkImageStencilUsageCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000246000;
+    public const int STRUCTURE_TYPE = 1000246000;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,

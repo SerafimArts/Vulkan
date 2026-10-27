@@ -23,7 +23,7 @@ final class VkWriteDescriptorSetAccelerationStructureNV extends InputStructure i
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSetAccelerationStructureNV';
 
     /** `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_NV` */
-    private const int STRUCTURE_TYPE = 1000165007;
+    public const int STRUCTURE_TYPE = 1000165007;
 
     public function __construct(
         public ?VkWriteDescriptorSetExtension $next = null,

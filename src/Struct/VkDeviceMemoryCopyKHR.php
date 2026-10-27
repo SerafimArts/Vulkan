@@ -21,7 +21,7 @@ final class VkDeviceMemoryCopyKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceMemoryCopyKHR';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_MEMORY_COPY_KHR` */
-    private const int STRUCTURE_TYPE = 1000318000;
+    public const int STRUCTURE_TYPE = 1000318000;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $srcRange,

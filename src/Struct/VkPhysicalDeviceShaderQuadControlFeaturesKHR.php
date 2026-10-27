@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderQuadControlFeaturesKHR extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderQuadControlFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_QUAD_CONTROL_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000235000;
+    public const int STRUCTURE_TYPE = 1000235000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

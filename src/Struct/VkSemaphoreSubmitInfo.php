@@ -22,7 +22,7 @@ final class VkSemaphoreSubmitInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkSemaphoreSubmitInfo';
 
     /** `VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO` */
-    private const int STRUCTURE_TYPE = 1000314005;
+    public const int STRUCTURE_TYPE = 1000314005;
 
     public function __construct(
         public VkSemaphore $semaphore,

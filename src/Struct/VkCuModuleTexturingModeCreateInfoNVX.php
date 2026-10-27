@@ -21,7 +21,7 @@ final class VkCuModuleTexturingModeCreateInfoNVX extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkCuModuleTexturingModeCreateInfoNVX';
 
     /** `VK_STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX` */
-    private const int STRUCTURE_TYPE = 1000029004;
+    public const int STRUCTURE_TYPE = 1000029004;
 
     public function __construct(
         public ?VkCuModuleCreateInfoNVXExtension $next = null,

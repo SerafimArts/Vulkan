@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRayQueryFeaturesKHR extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayQueryFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000348013;
+    public const int STRUCTURE_TYPE = 1000348013;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

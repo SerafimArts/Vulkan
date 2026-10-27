@@ -21,7 +21,7 @@ final class VkApplicationInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkApplicationInfo';
 
     /** `VK_STRUCTURE_TYPE_APPLICATION_INFO` */
-    private const int STRUCTURE_TYPE = 0;
+    public const int STRUCTURE_TYPE = 0;
 
     public function __construct(
         public ?VkApplicationInfoExtension $next = null,

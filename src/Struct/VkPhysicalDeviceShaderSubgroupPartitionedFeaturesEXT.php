@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000662000;
+    public const int STRUCTURE_TYPE = 1000662000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

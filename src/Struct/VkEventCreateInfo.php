@@ -22,7 +22,7 @@ final class VkEventCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkEventCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_EVENT_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 10;
+    public const int STRUCTURE_TYPE = 10;
 
     public function __construct(
         public ?VkEventCreateInfoExtension $next = null,

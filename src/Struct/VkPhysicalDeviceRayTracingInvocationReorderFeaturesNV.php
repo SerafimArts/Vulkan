@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingInvocationReorderFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000490000;
+    public const int STRUCTURE_TYPE = 1000490000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

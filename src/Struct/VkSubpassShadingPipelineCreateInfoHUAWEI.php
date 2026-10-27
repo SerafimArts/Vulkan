@@ -22,7 +22,7 @@ final class VkSubpassShadingPipelineCreateInfoHUAWEI extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkSubpassShadingPipelineCreateInfoHUAWEI';
 
     /** `VK_STRUCTURE_TYPE_SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI` */
-    private const int STRUCTURE_TYPE = 1000369000;
+    public const int STRUCTURE_TYPE = 1000369000;
 
     public function __construct(
         public VkRenderPass $renderPass,

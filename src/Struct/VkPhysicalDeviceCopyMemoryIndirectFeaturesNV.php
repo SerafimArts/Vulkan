@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCopyMemoryIndirectFeaturesNV extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCopyMemoryIndirectFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000426000;
+    public const int STRUCTURE_TYPE = 1000426000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

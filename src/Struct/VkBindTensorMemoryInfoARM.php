@@ -22,7 +22,7 @@ final class VkBindTensorMemoryInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindTensorMemoryInfoARM';
 
     /** `VK_STRUCTURE_TYPE_BIND_TENSOR_MEMORY_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000460002;
+    public const int STRUCTURE_TYPE = 1000460002;
 
     public function __construct(
         public VkTensorARM $tensor,

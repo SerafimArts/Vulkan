@@ -21,7 +21,7 @@ final class VkPipelineInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000269001;
+    public const int STRUCTURE_TYPE = 1000269001;
 
     public function __construct(
         public VkPipeline $pipeline,

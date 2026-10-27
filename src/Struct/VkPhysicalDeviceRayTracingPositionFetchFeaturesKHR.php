@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000481000;
+    public const int STRUCTURE_TYPE = 1000481000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphOpticalFlowFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_OPTICAL_FLOW_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000631000;
+    public const int STRUCTURE_TYPE = 1000631000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

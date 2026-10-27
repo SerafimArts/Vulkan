@@ -18,6 +18,9 @@ use Serafim\Vulkan\Enum\VkScopeKHR;
  */
 final readonly class VkCooperativeMatrixPropertiesKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR` */
+    public const int STRUCTURE_TYPE = 1000506001;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $MSize,

@@ -22,7 +22,7 @@ final class VkPhysicalDeviceDescriptorBufferFeaturesEXT extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorBufferFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000316002;
+    public const int STRUCTURE_TYPE = 1000316002;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

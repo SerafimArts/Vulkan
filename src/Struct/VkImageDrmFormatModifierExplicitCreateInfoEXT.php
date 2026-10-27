@@ -21,7 +21,7 @@ final class VkImageDrmFormatModifierExplicitCreateInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageDrmFormatModifierExplicitCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000158004;
+    public const int STRUCTURE_TYPE = 1000158004;
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,

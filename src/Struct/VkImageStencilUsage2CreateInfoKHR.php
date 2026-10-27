@@ -23,7 +23,7 @@ final class VkImageStencilUsage2CreateInfoKHR extends InputStructure implements 
     protected const string NATIVE_TYPE = 'VkImageStencilUsage2CreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000668005;
+    public const int STRUCTURE_TYPE = 1000668005;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,

@@ -20,7 +20,7 @@ final class VkPerformanceStreamMarkerInfoINTEL extends InputStructure
     protected const string NATIVE_TYPE = 'VkPerformanceStreamMarkerInfoINTEL';
 
     /** `VK_STRUCTURE_TYPE_PERFORMANCE_STREAM_MARKER_INFO_INTEL` */
-    private const int STRUCTURE_TYPE = 1000210003;
+    public const int STRUCTURE_TYPE = 1000210003;
 
     public function __construct(
         /** @var int<0, 4294967295> */

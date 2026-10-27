@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderImageFootprintFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_IMAGE_FOOTPRINT_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000204000;
+    public const int STRUCTURE_TYPE = 1000204000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

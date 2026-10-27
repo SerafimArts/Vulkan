@@ -20,7 +20,7 @@ final class VkDeviceTensorMemoryRequirementsARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceTensorMemoryRequirementsARM';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM` */
-    private const int STRUCTURE_TYPE = 1000460010;
+    public const int STRUCTURE_TYPE = 1000460010;
 
     public function __construct(
         public ?VkTensorCreateInfoARM $createInfo = null,

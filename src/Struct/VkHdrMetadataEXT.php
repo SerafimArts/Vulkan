@@ -21,7 +21,7 @@ final class VkHdrMetadataEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkHdrMetadataEXT';
 
     /** `VK_STRUCTURE_TYPE_HDR_METADATA_EXT` */
-    private const int STRUCTURE_TYPE = 1000105000;
+    public const int STRUCTURE_TYPE = 1000105000;
 
     public function __construct(
         /** Display primary's Red */

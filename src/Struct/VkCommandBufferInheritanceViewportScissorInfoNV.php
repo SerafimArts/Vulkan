@@ -21,7 +21,7 @@ final class VkCommandBufferInheritanceViewportScissorInfoNV extends InputStructu
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceViewportScissorInfoNV';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000278001;
+    public const int STRUCTURE_TYPE = 1000278001;
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,

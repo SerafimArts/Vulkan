@@ -22,7 +22,7 @@ final class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends InputStructure i
     protected const string NATIVE_TYPE = 'VkQueryPoolVideoEncodeFeedbackCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_FEEDBACK_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000299005;
+    public const int STRUCTURE_TYPE = 1000299005;
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,

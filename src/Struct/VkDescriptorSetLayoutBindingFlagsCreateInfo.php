@@ -22,7 +22,7 @@ final class VkDescriptorSetLayoutBindingFlagsCreateInfo extends InputStructure i
     protected const string NATIVE_TYPE = 'VkDescriptorSetLayoutBindingFlagsCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000161000;
+    public const int STRUCTURE_TYPE = 1000161000;
 
     public function __construct(
         public ?VkDescriptorSetLayoutCreateInfoExtension $next = null,

@@ -24,7 +24,7 @@ final class VkCopyCommandTransformInfoQCOM extends InputStructure implements VkB
     protected const string NATIVE_TYPE = 'VkCopyCommandTransformInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_COPY_COMMAND_TRANSFORM_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000333000;
+    public const int STRUCTURE_TYPE = 1000333000;
 
     public function __construct(
         public VkBufferImageCopy2Extension|VkImageBlit2Extension|VkDeviceMemoryImageCopyKHRExtension|null $next = null,

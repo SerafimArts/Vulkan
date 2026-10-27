@@ -23,7 +23,7 @@ final class VkVideoInlineQueryInfoKHR extends InputStructure implements VkVideoD
     protected const string NATIVE_TYPE = 'VkVideoInlineQueryInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_INLINE_QUERY_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000515001;
+    public const int STRUCTURE_TYPE = 1000515001;
 
     public function __construct(
         public VkVideoDecodeInfoKHRExtension|VkVideoEncodeInfoKHRExtension|null $next = null,

@@ -22,7 +22,7 @@ final class VkIndirectCommandsLayoutCreateInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkIndirectCommandsLayoutCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000277004;
+    public const int STRUCTURE_TYPE = 1000277004;
 
     public function __construct(
         /** @var int-mask-of<VkIndirectCommandsLayoutUsageFlagBitsNV::*> */

@@ -22,7 +22,7 @@ final class VkPipelineShaderStageRequiredSubgroupSizeCreateInfo extends InputStr
     protected const string NATIVE_TYPE = 'VkPipelineShaderStageRequiredSubgroupSizeCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000225001;
+    public const int STRUCTURE_TYPE = 1000225001;
 
     public function __construct(
         public VkPipelineShaderStageCreateInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,

@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkPipelineBinaryKeyKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_PIPELINE_BINARY_KEY_KHR` */
+    public const int STRUCTURE_TYPE = 1000483003;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $keySize,

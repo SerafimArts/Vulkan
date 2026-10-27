@@ -22,7 +22,7 @@ final class VkPipelineDiscardRectangleStateCreateInfoEXT extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPipelineDiscardRectangleStateCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000099001;
+    public const int STRUCTURE_TYPE = 1000099001;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,

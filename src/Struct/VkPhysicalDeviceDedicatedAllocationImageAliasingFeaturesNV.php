@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV extends I
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000240000;
+    public const int STRUCTURE_TYPE = 1000240000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

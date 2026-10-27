@@ -21,7 +21,7 @@ final class VkDeviceCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 3;
+    public const int STRUCTURE_TYPE = 3;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

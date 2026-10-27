@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkTilePropertiesQCOM extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_TILE_PROPERTIES_QCOM` */
+    public const int STRUCTURE_TYPE = 1000484001;
+
     public function __construct(
         public VkExtent3D $tileSize,
         public VkExtent2D $apronSize,

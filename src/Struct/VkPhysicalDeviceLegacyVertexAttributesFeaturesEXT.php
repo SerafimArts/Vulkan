@@ -21,7 +21,7 @@ final class VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT extends InputStruc
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000495000;
+    public const int STRUCTURE_TYPE = 1000495000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

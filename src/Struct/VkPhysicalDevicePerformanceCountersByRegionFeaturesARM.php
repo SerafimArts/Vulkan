@@ -21,7 +21,7 @@ final class VkPhysicalDevicePerformanceCountersByRegionFeaturesARM extends Input
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePerformanceCountersByRegionFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000605000;
+    public const int STRUCTURE_TYPE = 1000605000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

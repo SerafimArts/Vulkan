@@ -21,7 +21,7 @@ final class VkVideoEncodeIntraRefreshInfoKHR extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkVideoEncodeIntraRefreshInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000552002;
+    public const int STRUCTURE_TYPE = 1000552002;
 
     public function __construct(
         public ?VkVideoEncodeInfoKHRExtension $next = null,

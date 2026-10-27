@@ -26,7 +26,7 @@ final class VkPhysicalDeviceImageFormatInfo2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageFormatInfo2';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2` */
-    private const int STRUCTURE_TYPE = 1000059004;
+    public const int STRUCTURE_TYPE = 1000059004;
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,

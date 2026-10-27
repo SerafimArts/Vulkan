@@ -21,7 +21,7 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
     protected const string NATIVE_TYPE = 'VkAntiLagPresentationInfoAMD';
 
     /** `VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD` */
-    private const int STRUCTURE_TYPE = 1000476002;
+    public const int STRUCTURE_TYPE = 1000476002;
 
     public function __construct(
         public VkAntiLagStageAMD $stage = VkAntiLagStageAMD::VK_ANTI_LAG_STAGE_INPUT_AMD,

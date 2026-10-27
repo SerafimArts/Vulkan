@@ -21,7 +21,7 @@ final class VkPipelineCacheCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineCacheCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 17;
+    public const int STRUCTURE_TYPE = 17;
 
     public function __construct(
         /** @var int-mask-of<VkPipelineCacheCreateFlagBits::*> */

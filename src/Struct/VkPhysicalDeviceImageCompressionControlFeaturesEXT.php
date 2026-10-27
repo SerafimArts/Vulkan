@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImageCompressionControlFeaturesEXT extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageCompressionControlFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000338000;
+    public const int STRUCTURE_TYPE = 1000338000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

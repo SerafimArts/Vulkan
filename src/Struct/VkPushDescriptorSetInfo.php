@@ -23,7 +23,7 @@ final class VkPushDescriptorSetInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPushDescriptorSetInfo';
 
     /** `VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO` */
-    private const int STRUCTURE_TYPE = 1000545005;
+    public const int STRUCTURE_TYPE = 1000545005;
 
     public function __construct(
         public ?VkPushDescriptorSetInfoExtension $next = null,

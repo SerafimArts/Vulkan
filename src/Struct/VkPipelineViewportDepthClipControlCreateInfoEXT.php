@@ -21,7 +21,7 @@ final class VkPipelineViewportDepthClipControlCreateInfoEXT extends InputStructu
     protected const string NATIVE_TYPE = 'VkPipelineViewportDepthClipControlCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000355001;
+    public const int STRUCTURE_TYPE = 1000355001;
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,

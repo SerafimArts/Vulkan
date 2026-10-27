@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkImageDrmFormatModifierPropertiesEXT extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT` */
+    public const int STRUCTURE_TYPE = 1000158005;
+
     public function __construct(
         /** @var int<0, max> */
         public int $drmFormatModifier,

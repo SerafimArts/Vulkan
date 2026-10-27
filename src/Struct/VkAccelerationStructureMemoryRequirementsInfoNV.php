@@ -23,7 +23,7 @@ final class VkAccelerationStructureMemoryRequirementsInfoNV extends InputStructu
     protected const string NATIVE_TYPE = 'VkAccelerationStructureMemoryRequirementsInfoNV';
 
     /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000165008;
+    public const int STRUCTURE_TYPE = 1000165008;
 
     public function __construct(
         public VkAccelerationStructureNV $accelerationStructure,

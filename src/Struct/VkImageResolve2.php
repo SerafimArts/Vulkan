@@ -20,7 +20,7 @@ final class VkImageResolve2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageResolve2';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2` */
-    private const int STRUCTURE_TYPE = 1000337010;
+    public const int STRUCTURE_TYPE = 1000337010;
 
     public function __construct(
         public VkImageSubresourceLayers $srcSubresource,

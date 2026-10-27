@@ -21,7 +21,7 @@ final class VkPhysicalDeviceAntiLagFeaturesAMD extends InputStructure implements
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAntiLagFeaturesAMD';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD` */
-    private const int STRUCTURE_TYPE = 1000476000;
+    public const int STRUCTURE_TYPE = 1000476000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

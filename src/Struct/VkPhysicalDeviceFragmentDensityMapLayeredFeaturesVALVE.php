@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE extends Input
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE` */
-    private const int STRUCTURE_TYPE = 1000611000;
+    public const int STRUCTURE_TYPE = 1000611000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

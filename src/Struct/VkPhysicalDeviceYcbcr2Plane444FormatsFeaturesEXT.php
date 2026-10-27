@@ -21,7 +21,7 @@ final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT extends InputStruct
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000330000;
+    public const int STRUCTURE_TYPE = 1000330000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

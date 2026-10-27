@@ -25,7 +25,7 @@ final class VkRayTracingPipelineCreateInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkRayTracingPipelineCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000165000;
+    public const int STRUCTURE_TYPE = 1000165000;
 
     public function __construct(
         public ?VkRayTracingPipelineCreateInfoNVExtension $next = null,

@@ -25,7 +25,7 @@ final class VkImageMemoryBarrier extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageMemoryBarrier';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER` */
-    private const int STRUCTURE_TYPE = 45;
+    public const int STRUCTURE_TYPE = 45;
 
     public function __construct(
         /** Image to sync */

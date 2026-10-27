@@ -21,7 +21,7 @@ final class VkVertexInputAttributeDescription2EXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkVertexInputAttributeDescription2EXT';
 
     /** `VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT` */
-    private const int STRUCTURE_TYPE = 1000352002;
+    public const int STRUCTURE_TYPE = 1000352002;
 
     public function __construct(
         /**

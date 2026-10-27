@@ -20,7 +20,7 @@ final class VkValidationCacheCreateInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkValidationCacheCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_VALIDATION_CACHE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000160000;
+    public const int STRUCTURE_TYPE = 1000160000;
 
     public function __construct(
         /** @var int<0, 4294967295> */

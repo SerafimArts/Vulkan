@@ -21,7 +21,7 @@ final class VkPhysicalDeviceInlineUniformBlockFeatures extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceInlineUniformBlockFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000138000;
+    public const int STRUCTURE_TYPE = 1000138000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

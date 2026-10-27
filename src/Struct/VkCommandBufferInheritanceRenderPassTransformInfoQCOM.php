@@ -22,7 +22,7 @@ final class VkCommandBufferInheritanceRenderPassTransformInfoQCOM extends InputS
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceRenderPassTransformInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDER_PASS_TRANSFORM_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000282000;
+    public const int STRUCTURE_TYPE = 1000282000;
 
     public function __construct(
         public VkRect2D $renderArea,

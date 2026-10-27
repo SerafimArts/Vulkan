@@ -21,7 +21,7 @@ final class VkDisplayEventInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDisplayEventInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DISPLAY_EVENT_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000091002;
+    public const int STRUCTURE_TYPE = 1000091002;
 
     public function __construct(
         public VkDisplayEventTypeEXT $displayEvent = VkDisplayEventTypeEXT::VK_DISPLAY_EVENT_TYPE_FIRST_PIXEL_OUT_EXT,

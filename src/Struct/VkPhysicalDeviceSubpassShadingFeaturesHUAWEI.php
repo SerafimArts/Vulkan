@@ -21,7 +21,7 @@ final class VkPhysicalDeviceSubpassShadingFeaturesHUAWEI extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSubpassShadingFeaturesHUAWEI';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBPASS_SHADING_FEATURES_HUAWEI` */
-    private const int STRUCTURE_TYPE = 1000369001;
+    public const int STRUCTURE_TYPE = 1000369001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

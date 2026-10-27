@@ -21,7 +21,7 @@ final class VkAmigoProfilingSubmitInfoSEC extends InputStructure implements VkSu
     protected const string NATIVE_TYPE = 'VkAmigoProfilingSubmitInfoSEC';
 
     /** `VK_STRUCTURE_TYPE_AMIGO_PROFILING_SUBMIT_INFO_SEC` */
-    private const int STRUCTURE_TYPE = 1000485001;
+    public const int STRUCTURE_TYPE = 1000485001;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,

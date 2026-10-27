@@ -20,7 +20,7 @@ final class VkSysmemColorSpaceFUCHSIA extends InputStructure
     protected const string NATIVE_TYPE = 'VkSysmemColorSpaceFUCHSIA';
 
     /** `VK_STRUCTURE_TYPE_SYSMEM_COLOR_SPACE_FUCHSIA` */
-    private const int STRUCTURE_TYPE = 1000366008;
+    public const int STRUCTURE_TYPE = 1000366008;
 
     public function __construct(
         /** @var int<0, 4294967295> */

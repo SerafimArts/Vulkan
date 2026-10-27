@@ -21,7 +21,7 @@ final class VkMappedMemoryRange extends InputStructure
     protected const string NATIVE_TYPE = 'VkMappedMemoryRange';
 
     /** `VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE` */
-    private const int STRUCTURE_TYPE = 6;
+    public const int STRUCTURE_TYPE = 6;
 
     public function __construct(
         /** Mapped memory object */

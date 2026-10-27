@@ -20,7 +20,7 @@ final class VkAcquireProfilingLockInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkAcquireProfilingLockInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_ACQUIRE_PROFILING_LOCK_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000116004;
+    public const int STRUCTURE_TYPE = 1000116004;
 
     public function __construct(
         /**

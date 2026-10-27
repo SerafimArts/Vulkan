@@ -22,7 +22,7 @@ final class VkBufferDeviceAddressCreateInfoEXT extends InputStructure implements
     protected const string NATIVE_TYPE = 'VkBufferDeviceAddressCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000244002;
+    public const int STRUCTURE_TYPE = 1000244002;
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,

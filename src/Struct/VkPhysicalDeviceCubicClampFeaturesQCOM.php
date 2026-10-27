@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCubicClampFeaturesQCOM extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCubicClampFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000521000;
+    public const int STRUCTURE_TYPE = 1000521000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

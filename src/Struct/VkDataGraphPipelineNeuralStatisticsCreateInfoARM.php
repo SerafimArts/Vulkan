@@ -21,7 +21,7 @@ final class VkDataGraphPipelineNeuralStatisticsCreateInfoARM extends InputStruct
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineNeuralStatisticsCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000676000;
+    public const int STRUCTURE_TYPE = 1000676000;
 
     public function __construct(
         public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,

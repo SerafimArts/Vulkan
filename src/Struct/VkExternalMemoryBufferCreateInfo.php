@@ -22,7 +22,7 @@ final class VkExternalMemoryBufferCreateInfo extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkExternalMemoryBufferCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_BUFFER_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000072000;
+    public const int STRUCTURE_TYPE = 1000072000;
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,

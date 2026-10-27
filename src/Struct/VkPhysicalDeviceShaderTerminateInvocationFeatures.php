@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderTerminateInvocationFeatures extends InputStruc
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderTerminateInvocationFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TERMINATE_INVOCATION_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000215000;
+    public const int STRUCTURE_TYPE = 1000215000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

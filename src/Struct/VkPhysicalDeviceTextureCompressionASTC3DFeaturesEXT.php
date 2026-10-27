@@ -21,7 +21,7 @@ final class VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT extends InputStr
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000288000;
+    public const int STRUCTURE_TYPE = 1000288000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -23,7 +23,7 @@ final class VkSwapchainPresentScalingCreateInfoKHR extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkSwapchainPresentScalingCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000275004;
+    public const int STRUCTURE_TYPE = 1000275004;
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,

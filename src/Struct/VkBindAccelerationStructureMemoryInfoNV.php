@@ -23,7 +23,7 @@ final class VkBindAccelerationStructureMemoryInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindAccelerationStructureMemoryInfoNV';
 
     /** `VK_STRUCTURE_TYPE_BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000165006;
+    public const int STRUCTURE_TYPE = 1000165006;
 
     public function __construct(
         public VkAccelerationStructureNV $accelerationStructure,

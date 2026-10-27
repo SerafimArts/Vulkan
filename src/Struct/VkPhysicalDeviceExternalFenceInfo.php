@@ -21,7 +21,7 @@ final class VkPhysicalDeviceExternalFenceInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalFenceInfo';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO` */
-    private const int STRUCTURE_TYPE = 1000112000;
+    public const int STRUCTURE_TYPE = 1000112000;
 
     public function __construct(
         /** @var int<0, 4294967295>|(VkExternalFenceHandleTypeFlagBits::*) */

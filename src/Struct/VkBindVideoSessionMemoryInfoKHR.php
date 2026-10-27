@@ -21,7 +21,7 @@ final class VkBindVideoSessionMemoryInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindVideoSessionMemoryInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_BIND_VIDEO_SESSION_MEMORY_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000023004;
+    public const int STRUCTURE_TYPE = 1000023004;
 
     public function __construct(
         public VkDeviceMemory $memory,

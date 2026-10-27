@@ -24,7 +24,7 @@ final class VkOpticalFlowSessionCreateInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkOpticalFlowSessionCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000464004;
+    public const int STRUCTURE_TYPE = 1000464004;
 
     public function __construct(
         /** @var int<0, 4294967295> */

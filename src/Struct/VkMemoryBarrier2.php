@@ -24,7 +24,7 @@ final class VkMemoryBarrier2 extends InputStructure implements VkSubpassDependen
     protected const string NATIVE_TYPE = 'VkMemoryBarrier2';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_BARRIER_2` */
-    private const int STRUCTURE_TYPE = 1000314000;
+    public const int STRUCTURE_TYPE = 1000314000;
 
     public function __construct(
         public VkMemoryBarrier2Extension|VkSubpassDependency2Extension|null $next = null,

@@ -22,7 +22,7 @@ final class VkRenderPassFragmentDensityMapOffsetEndInfoEXT extends InputStructur
     protected const string NATIVE_TYPE = 'VkRenderPassFragmentDensityMapOffsetEndInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000425002;
+    public const int STRUCTURE_TYPE = 1000425002;
 
     public function __construct(
         public VkSubpassEndInfoExtension|VkRenderingEndInfoKHRExtension|null $next = null,

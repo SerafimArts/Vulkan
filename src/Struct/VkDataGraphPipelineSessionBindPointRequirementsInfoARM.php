@@ -21,7 +21,7 @@ final class VkDataGraphPipelineSessionBindPointRequirementsInfoARM extends Input
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSessionBindPointRequirementsInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000507011;
+    public const int STRUCTURE_TYPE = 1000507011;
 
     public function __construct(
         public VkDataGraphPipelineSessionARM $session,

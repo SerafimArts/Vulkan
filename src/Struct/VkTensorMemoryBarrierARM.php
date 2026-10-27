@@ -24,7 +24,7 @@ final class VkTensorMemoryBarrierARM extends InputStructure implements VkDepende
     protected const string NATIVE_TYPE = 'VkTensorMemoryBarrierARM';
 
     /** `VK_STRUCTURE_TYPE_TENSOR_MEMORY_BARRIER_ARM` */
-    private const int STRUCTURE_TYPE = 1000460008;
+    public const int STRUCTURE_TYPE = 1000460008;
 
     public function __construct(
         public VkTensorARM $tensor,

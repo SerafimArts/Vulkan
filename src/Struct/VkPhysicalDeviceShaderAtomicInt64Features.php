@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderAtomicInt64Features extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicInt64Features';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000180000;
+    public const int STRUCTURE_TYPE = 1000180000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

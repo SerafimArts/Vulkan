@@ -24,7 +24,7 @@ final class VkExternalMemoryAcquireUnmodifiedEXT extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkExternalMemoryAcquireUnmodifiedEXT';
 
     /** `VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT` */
-    private const int STRUCTURE_TYPE = 1000453000;
+    public const int STRUCTURE_TYPE = 1000453000;
 
     public function __construct(
         public VkBufferMemoryBarrierExtension|VkBufferMemoryBarrier2Extension|VkImageMemoryBarrierExtension|VkImageMemoryBarrier2Extension|null $next = null,

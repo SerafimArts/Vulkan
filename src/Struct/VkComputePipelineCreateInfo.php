@@ -25,7 +25,7 @@ final class VkComputePipelineCreateInfo extends InputStructure implements VkPipe
     protected const string NATIVE_TYPE = 'VkComputePipelineCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 29;
+    public const int STRUCTURE_TYPE = 29;
 
     public function __construct(
         public VkPipelineShaderStageCreateInfo $stage,

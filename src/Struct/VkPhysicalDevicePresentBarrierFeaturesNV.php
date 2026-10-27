@@ -21,7 +21,7 @@ final class VkPhysicalDevicePresentBarrierFeaturesNV extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePresentBarrierFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_BARRIER_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000292000;
+    public const int STRUCTURE_TYPE = 1000292000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

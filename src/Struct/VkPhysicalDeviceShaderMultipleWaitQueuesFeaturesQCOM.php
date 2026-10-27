@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000304000;
+    public const int STRUCTURE_TYPE = 1000304000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

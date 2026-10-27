@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderConstantDataFeaturesKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderConstantDataFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_CONSTANT_DATA_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000231000;
+    public const int STRUCTURE_TYPE = 1000231000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

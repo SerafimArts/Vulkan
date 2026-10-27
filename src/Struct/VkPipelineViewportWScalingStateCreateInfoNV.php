@@ -22,7 +22,7 @@ final class VkPipelineViewportWScalingStateCreateInfoNV extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPipelineViewportWScalingStateCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000087000;
+    public const int STRUCTURE_TYPE = 1000087000;
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,

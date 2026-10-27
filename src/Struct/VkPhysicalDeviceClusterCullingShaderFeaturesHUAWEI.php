@@ -22,7 +22,7 @@ final class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_FEATURES_HUAWEI` */
-    private const int STRUCTURE_TYPE = 1000404000;
+    public const int STRUCTURE_TYPE = 1000404000;
 
     public function __construct(
         public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEIExtension|VkDeviceCreateInfoExtension|null $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFrameBoundaryFeaturesEXT extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFrameBoundaryFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000375000;
+    public const int STRUCTURE_TYPE = 1000375000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

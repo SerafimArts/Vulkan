@@ -27,7 +27,7 @@ final class VkGraphicsPipelineCreateInfo extends InputStructure implements VkPip
     protected const string NATIVE_TYPE = 'VkGraphicsPipelineCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 28;
+    public const int STRUCTURE_TYPE = 28;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkPipelineCreateInfoKHRExtension|null $next = null,

@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkMemoryRequirements2 extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2` */
+    public const int STRUCTURE_TYPE = 1000146003;
+
     public function __construct(
         public VkMemoryRequirements $memoryRequirements,
     ) {}

@@ -21,7 +21,7 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
     protected const string NATIVE_TYPE = 'VkPerformanceOverrideInfoINTEL';
 
     /** `VK_STRUCTURE_TYPE_PERFORMANCE_OVERRIDE_INFO_INTEL` */
-    private const int STRUCTURE_TYPE = 1000210004;
+    public const int STRUCTURE_TYPE = 1000210004;
 
     public function __construct(
         public VkPerformanceOverrideTypeINTEL $type = VkPerformanceOverrideTypeINTEL::VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL,

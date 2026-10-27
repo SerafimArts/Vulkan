@@ -21,7 +21,7 @@ final class VkTensorDependencyInfoARM extends InputStructure implements VkDepend
     protected const string NATIVE_TYPE = 'VkTensorDependencyInfoARM';
 
     /** `VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000460013;
+    public const int STRUCTURE_TYPE = 1000460013;
 
     public function __construct(
         public ?VkDependencyInfoExtension $next = null,

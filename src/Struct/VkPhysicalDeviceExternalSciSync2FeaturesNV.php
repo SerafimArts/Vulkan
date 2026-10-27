@@ -20,7 +20,7 @@ final class VkPhysicalDeviceExternalSciSync2FeaturesNV extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalSciSync2FeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_SCI_SYNC_2_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000489002;
+    public const int STRUCTURE_TYPE = 1000489002;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

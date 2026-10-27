@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends Input
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000546000;
+    public const int STRUCTURE_TYPE = 1000546000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

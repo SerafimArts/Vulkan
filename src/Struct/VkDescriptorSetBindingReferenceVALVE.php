@@ -21,7 +21,7 @@ final class VkDescriptorSetBindingReferenceVALVE extends InputStructure
     protected const string NATIVE_TYPE = 'VkDescriptorSetBindingReferenceVALVE';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_BINDING_REFERENCE_VALVE` */
-    private const int STRUCTURE_TYPE = 1000420001;
+    public const int STRUCTURE_TYPE = 1000420001;
 
     public function __construct(
         public VkDescriptorSetLayout $descriptorSetLayout,

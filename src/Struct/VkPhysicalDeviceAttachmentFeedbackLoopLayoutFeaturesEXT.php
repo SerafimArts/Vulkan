@@ -21,7 +21,7 @@ final class VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAttachmentFeedbackLoopLayoutFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_LAYOUT_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000339000;
+    public const int STRUCTURE_TYPE = 1000339000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

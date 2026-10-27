@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV extends InputStr
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000563000;
+    public const int STRUCTURE_TYPE = 1000563000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

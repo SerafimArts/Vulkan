@@ -21,7 +21,7 @@ final class VkVideoEncodeAV1RateControlLayerInfoKHR extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkVideoEncodeAV1RateControlLayerInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_RATE_CONTROL_LAYER_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000513007;
+    public const int STRUCTURE_TYPE = 1000513007;
 
     public function __construct(
         public VkVideoEncodeAV1QIndexKHR $minQIndex,

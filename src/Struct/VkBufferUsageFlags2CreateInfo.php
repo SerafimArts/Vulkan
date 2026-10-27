@@ -25,7 +25,7 @@ final class VkBufferUsageFlags2CreateInfo extends InputStructure implements VkBu
     protected const string NATIVE_TYPE = 'VkBufferUsageFlags2CreateInfo';
 
     /** `VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000470006;
+    public const int STRUCTURE_TYPE = 1000470006;
 
     public function __construct(
         public VkBufferViewCreateInfoExtension|VkBufferCreateInfoExtension|VkPhysicalDeviceExternalBufferInfoExtension|VkDescriptorBufferBindingInfoEXTExtension|null $next = null,

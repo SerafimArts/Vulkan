@@ -23,7 +23,7 @@ final class VkOpticalFlowImageFormatInfoNV extends InputStructure implements VkP
     protected const string NATIVE_TYPE = 'VkOpticalFlowImageFormatInfoNV';
 
     /** `VK_STRUCTURE_TYPE_OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000464002;
+    public const int STRUCTURE_TYPE = 1000464002;
 
     public function __construct(
         public VkPhysicalDeviceImageFormatInfo2Extension|VkImageCreateInfoExtension|null $next = null,

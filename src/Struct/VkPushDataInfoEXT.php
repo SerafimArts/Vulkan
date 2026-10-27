@@ -21,7 +21,7 @@ final class VkPushDataInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkPushDataInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PUSH_DATA_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000135004;
+    public const int STRUCTURE_TYPE = 1000135004;
 
     public function __construct(
         public VkHostAddressRangeConstEXT $data,

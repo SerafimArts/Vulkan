@@ -22,7 +22,7 @@ final class VkCopyDescriptorSet extends InputStructure
     protected const string NATIVE_TYPE = 'VkCopyDescriptorSet';
 
     /** `VK_STRUCTURE_TYPE_COPY_DESCRIPTOR_SET` */
-    private const int STRUCTURE_TYPE = 36;
+    public const int STRUCTURE_TYPE = 36;
 
     public function __construct(
         /** Source descriptor set */

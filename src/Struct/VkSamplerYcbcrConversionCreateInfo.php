@@ -26,7 +26,7 @@ final class VkSamplerYcbcrConversionCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkSamplerYcbcrConversionCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000156000;
+    public const int STRUCTURE_TYPE = 1000156000;
 
     public function __construct(
         public VkComponentMapping $components,

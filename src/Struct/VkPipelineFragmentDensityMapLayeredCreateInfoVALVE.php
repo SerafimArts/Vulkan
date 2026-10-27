@@ -21,7 +21,7 @@ final class VkPipelineFragmentDensityMapLayeredCreateInfoVALVE extends InputStru
     protected const string NATIVE_TYPE = 'VkPipelineFragmentDensityMapLayeredCreateInfoVALVE';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE` */
-    private const int STRUCTURE_TYPE = 1000611002;
+    public const int STRUCTURE_TYPE = 1000611002;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,

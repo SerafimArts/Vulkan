@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000326001;
+    public const int STRUCTURE_TYPE = 1000326001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

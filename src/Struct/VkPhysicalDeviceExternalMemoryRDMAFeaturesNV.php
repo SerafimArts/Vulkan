@@ -21,7 +21,7 @@ final class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalMemoryRDMAFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_RDMA_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000371001;
+    public const int STRUCTURE_TYPE = 1000371001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

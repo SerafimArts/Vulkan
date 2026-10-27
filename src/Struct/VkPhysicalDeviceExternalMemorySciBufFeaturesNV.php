@@ -20,7 +20,7 @@ final class VkPhysicalDeviceExternalMemorySciBufFeaturesNV extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalMemorySciBufFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCI_BUF_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000374004;
+    public const int STRUCTURE_TYPE = 1000374004;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

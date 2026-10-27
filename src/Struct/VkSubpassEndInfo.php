@@ -22,7 +22,7 @@ final class VkSubpassEndInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkSubpassEndInfo';
 
     /** `VK_STRUCTURE_TYPE_SUBPASS_END_INFO` */
-    private const int STRUCTURE_TYPE = 1000109006;
+    public const int STRUCTURE_TYPE = 1000109006;
 
     public function __construct(
         public ?VkSubpassEndInfoExtension $next = null,

@@ -22,7 +22,7 @@ final class VkExternalMemoryTensorCreateInfoARM extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkExternalMemoryTensorCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000460017;
+    public const int STRUCTURE_TYPE = 1000460017;
 
     public function __construct(
         public ?VkTensorCreateInfoARMExtension $next = null,

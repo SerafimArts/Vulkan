@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRenderPassStripedFeaturesARM extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRenderPassStripedFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RENDER_PASS_STRIPED_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000424000;
+    public const int STRUCTURE_TYPE = 1000424000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

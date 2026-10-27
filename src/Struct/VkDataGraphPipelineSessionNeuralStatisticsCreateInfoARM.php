@@ -22,7 +22,7 @@ final class VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM extends Inpu
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000676001;
+    public const int STRUCTURE_TYPE = 1000676001;
 
     public function __construct(
         public ?VkDataGraphPipelineSessionCreateInfoARMExtension $next = null,

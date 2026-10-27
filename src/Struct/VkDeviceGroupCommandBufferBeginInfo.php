@@ -21,7 +21,7 @@ final class VkDeviceGroupCommandBufferBeginInfo extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkDeviceGroupCommandBufferBeginInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO` */
-    private const int STRUCTURE_TYPE = 1000060004;
+    public const int STRUCTURE_TYPE = 1000060004;
 
     public function __construct(
         public ?VkCommandBufferBeginInfoExtension $next = null,

@@ -22,7 +22,7 @@ final class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends InputStruct
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000351000;
+    public const int STRUCTURE_TYPE = 1000351000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

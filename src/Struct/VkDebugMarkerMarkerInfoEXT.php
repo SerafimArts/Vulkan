@@ -21,7 +21,7 @@ final class VkDebugMarkerMarkerInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDebugMarkerMarkerInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DEBUG_MARKER_MARKER_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000022002;
+    public const int STRUCTURE_TYPE = 1000022002;
 
     public function __construct(
         /**

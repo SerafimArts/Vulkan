@@ -22,7 +22,7 @@ final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMeta
     protected const string NATIVE_TYPE = 'VkHdrSmpteSt209450GOOGLE';
 
     /** `VK_STRUCTURE_TYPE_HDR_SMPTE_ST_209450_GOOGLE` */
-    private const int STRUCTURE_TYPE = 1000718001;
+    public const int STRUCTURE_TYPE = 1000718001;
 
     public function __construct(
         public ?VkHdrMetadataEXTExtension $next = null,

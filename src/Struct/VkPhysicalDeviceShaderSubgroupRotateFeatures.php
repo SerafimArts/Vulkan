@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderSubgroupRotateFeatures extends InputStructure 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderSubgroupRotateFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000416000;
+    public const int STRUCTURE_TYPE = 1000416000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

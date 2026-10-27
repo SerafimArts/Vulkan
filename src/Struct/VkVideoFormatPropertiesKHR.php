@@ -21,6 +21,9 @@ use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
  */
 final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_VIDEO_FORMAT_PROPERTIES_KHR` */
+    public const int STRUCTURE_TYPE = 1000023015;
+
     public function __construct(
         /** The value is exactly the required one. */
         public VkFormat $format,

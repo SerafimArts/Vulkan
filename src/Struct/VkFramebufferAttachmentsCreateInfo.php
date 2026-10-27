@@ -22,7 +22,7 @@ final class VkFramebufferAttachmentsCreateInfo extends InputStructure implements
     protected const string NATIVE_TYPE = 'VkFramebufferAttachmentsCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000108001;
+    public const int STRUCTURE_TYPE = 1000108001;
 
     public function __construct(
         public ?VkFramebufferCreateInfoExtension $next = null,

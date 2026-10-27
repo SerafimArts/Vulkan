@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMeshShaderFeaturesNV extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMeshShaderFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000202000;
+    public const int STRUCTURE_TYPE = 1000202000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

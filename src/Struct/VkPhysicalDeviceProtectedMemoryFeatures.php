@@ -21,7 +21,7 @@ final class VkPhysicalDeviceProtectedMemoryFeatures extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceProtectedMemoryFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROTECTED_MEMORY_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000145001;
+    public const int STRUCTURE_TYPE = 1000145001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkDeviceEventInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceEventInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_EVENT_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000091001;
+    public const int STRUCTURE_TYPE = 1000091001;
 
     public function __construct(
         public VkDeviceEventTypeEXT $deviceEvent = VkDeviceEventTypeEXT::VK_DEVICE_EVENT_TYPE_DISPLAY_HOTPLUG_EXT,

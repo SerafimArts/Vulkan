@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE` */
-    private const int STRUCTURE_TYPE = 1000673000;
+    public const int STRUCTURE_TYPE = 1000673000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

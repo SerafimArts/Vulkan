@@ -22,7 +22,7 @@ final class VkConditionalRenderingBeginInfo2EXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkConditionalRenderingBeginInfo2EXT';
 
     /** `VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT` */
-    private const int STRUCTURE_TYPE = 1000318012;
+    public const int STRUCTURE_TYPE = 1000318012;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,

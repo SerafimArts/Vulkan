@@ -23,7 +23,7 @@ final class VkDescriptorBufferBindingInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDescriptorBufferBindingInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000316011;
+    public const int STRUCTURE_TYPE = 1000316011;
 
     public function __construct(
         public ?VkDescriptorBufferBindingInfoEXTExtension $next = null,

@@ -20,7 +20,7 @@ final class VkDeviceImageSubresourceInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceImageSubresourceInfo';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_IMAGE_SUBRESOURCE_INFO` */
-    private const int STRUCTURE_TYPE = 1000470004;
+    public const int STRUCTURE_TYPE = 1000470004;
 
     public function __construct(
         public ?VkImageCreateInfo $createInfo = null,

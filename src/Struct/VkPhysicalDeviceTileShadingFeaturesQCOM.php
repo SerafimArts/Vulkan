@@ -21,7 +21,7 @@ final class VkPhysicalDeviceTileShadingFeaturesQCOM extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTileShadingFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000309000;
+    public const int STRUCTURE_TYPE = 1000309000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

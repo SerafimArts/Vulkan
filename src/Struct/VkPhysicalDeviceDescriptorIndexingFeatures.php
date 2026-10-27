@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDescriptorIndexingFeatures extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorIndexingFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000161001;
+    public const int STRUCTURE_TYPE = 1000161001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkMemoryRangeBarriersInfoKHR extends InputStructure implements VkDep
     protected const string NATIVE_TYPE = 'VkMemoryRangeBarriersInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_RANGE_BARRIERS_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000318004;
+    public const int STRUCTURE_TYPE = 1000318004;
 
     public function __construct(
         public ?VkDependencyInfoExtension $next = null,

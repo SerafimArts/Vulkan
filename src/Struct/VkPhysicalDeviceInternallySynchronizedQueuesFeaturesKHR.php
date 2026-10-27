@@ -21,7 +21,7 @@ final class VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceInternallySynchronizedQueuesFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INTERNALLY_SYNCHRONIZED_QUEUES_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000504000;
+    public const int STRUCTURE_TYPE = 1000504000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

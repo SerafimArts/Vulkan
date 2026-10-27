@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkQueueFamilyProperties2 extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2` */
+    public const int STRUCTURE_TYPE = 1000059005;
+
     public function __construct(
         public VkQueueFamilyProperties $queueFamilyProperties,
     ) {}

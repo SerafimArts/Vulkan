@@ -21,7 +21,7 @@ final class VkPhysicalDevicePipelineOpacityMicromapFeaturesARM extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePipelineOpacityMicromapFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000596000;
+    public const int STRUCTURE_TYPE = 1000596000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

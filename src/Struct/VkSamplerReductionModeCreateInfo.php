@@ -22,7 +22,7 @@ final class VkSamplerReductionModeCreateInfo extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkSamplerReductionModeCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000130001;
+    public const int STRUCTURE_TYPE = 1000130001;
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,

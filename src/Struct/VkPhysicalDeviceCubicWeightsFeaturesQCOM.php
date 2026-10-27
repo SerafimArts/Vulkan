@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCubicWeightsFeaturesQCOM extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCubicWeightsFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_WEIGHTS_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000519001;
+    public const int STRUCTURE_TYPE = 1000519001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

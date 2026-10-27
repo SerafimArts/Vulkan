@@ -21,7 +21,7 @@ final class VkPhysicalDeviceGpaFeaturesAMD extends InputStructure implements VkD
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceGpaFeaturesAMD';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_FEATURES_AMD` */
-    private const int STRUCTURE_TYPE = 1000133000;
+    public const int STRUCTURE_TYPE = 1000133000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

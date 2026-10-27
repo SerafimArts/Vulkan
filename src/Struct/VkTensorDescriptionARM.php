@@ -25,7 +25,7 @@ final class VkTensorDescriptionARM extends InputStructure implements VkDataGraph
     protected const string NATIVE_TYPE = 'VkTensorDescriptionARM';
 
     /** `VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM` */
-    private const int STRUCTURE_TYPE = 1000460006;
+    public const int STRUCTURE_TYPE = 1000460006;
 
     public function __construct(
         public ?VkDataGraphPipelineResourceInfoARMExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceNestedCommandBufferFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000451000;
+    public const int STRUCTURE_TYPE = 1000451000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR extends 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000323000;
+    public const int STRUCTURE_TYPE = 1000323000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

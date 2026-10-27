@@ -21,7 +21,7 @@ final class VkPhysicalDeviceShaderFloat8FeaturesEXT extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderFloat8FeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000567000;
+    public const int STRUCTURE_TYPE = 1000567000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

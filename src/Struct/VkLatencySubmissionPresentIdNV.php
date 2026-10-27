@@ -22,7 +22,7 @@ final class VkLatencySubmissionPresentIdNV extends InputStructure implements VkS
     protected const string NATIVE_TYPE = 'VkLatencySubmissionPresentIdNV';
 
     /** `VK_STRUCTURE_TYPE_LATENCY_SUBMISSION_PRESENT_ID_NV` */
-    private const int STRUCTURE_TYPE = 1000505005;
+    public const int STRUCTURE_TYPE = 1000505005;
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|null $next = null,

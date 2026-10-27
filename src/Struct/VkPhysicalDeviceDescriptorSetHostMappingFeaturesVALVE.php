@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorSetHostMappingFeaturesVALVE';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_SET_HOST_MAPPING_FEATURES_VALVE` */
-    private const int STRUCTURE_TYPE = 1000420000;
+    public const int STRUCTURE_TYPE = 1000420000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

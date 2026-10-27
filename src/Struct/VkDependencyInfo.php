@@ -22,7 +22,7 @@ final class VkDependencyInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkDependencyInfo';
 
     /** `VK_STRUCTURE_TYPE_DEPENDENCY_INFO` */
-    private const int STRUCTURE_TYPE = 1000314003;
+    public const int STRUCTURE_TYPE = 1000314003;
 
     public function __construct(
         public ?VkDependencyInfoExtension $next = null,

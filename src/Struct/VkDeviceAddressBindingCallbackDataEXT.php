@@ -23,7 +23,7 @@ final class VkDeviceAddressBindingCallbackDataEXT extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkDeviceAddressBindingCallbackDataEXT';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT` */
-    private const int STRUCTURE_TYPE = 1000354001;
+    public const int STRUCTURE_TYPE = 1000354001;
 
     public function __construct(
         public ?VkDebugUtilsMessengerCallbackDataEXTExtension $next = null,

@@ -23,7 +23,7 @@ final class VkAccelerationStructureCreateInfo2KHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkAccelerationStructureCreateInfo2KHR';
 
     /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_2_KHR` */
-    private const int STRUCTURE_TYPE = 1000318015;
+    public const int STRUCTURE_TYPE = 1000318015;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,

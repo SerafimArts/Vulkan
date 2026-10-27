@@ -24,7 +24,7 @@ final class VkCommandBufferInheritanceRenderingInfo extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceRenderingInfo';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO` */
-    private const int STRUCTURE_TYPE = 1000044004;
+    public const int STRUCTURE_TYPE = 1000044004;
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,

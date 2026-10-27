@@ -22,7 +22,7 @@ final class VkPhysicalDeviceImageViewImageFormatInfoEXT extends InputStructure i
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageViewImageFormatInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000170000;
+    public const int STRUCTURE_TYPE = 1000170000;
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,

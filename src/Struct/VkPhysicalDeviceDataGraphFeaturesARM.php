@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDataGraphFeaturesARM extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000507006;
+    public const int STRUCTURE_TYPE = 1000507006;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

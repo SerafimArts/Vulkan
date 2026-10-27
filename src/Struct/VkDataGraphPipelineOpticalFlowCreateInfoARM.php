@@ -25,7 +25,7 @@ final class VkDataGraphPipelineOpticalFlowCreateInfoARM extends InputStructure i
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineOpticalFlowCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000631002;
+    public const int STRUCTURE_TYPE = 1000631002;
 
     public function __construct(
         public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,

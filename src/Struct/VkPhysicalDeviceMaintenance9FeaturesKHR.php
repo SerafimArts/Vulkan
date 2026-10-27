@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMaintenance9FeaturesKHR extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMaintenance9FeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000584000;
+    public const int STRUCTURE_TYPE = 1000584000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

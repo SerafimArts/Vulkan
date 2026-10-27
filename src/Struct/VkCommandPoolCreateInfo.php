@@ -22,7 +22,7 @@ final class VkCommandPoolCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkCommandPoolCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 39;
+    public const int STRUCTURE_TYPE = 39;
 
     public function __construct(
         public ?VkCommandPoolCreateInfoExtension $next = null,

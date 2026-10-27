@@ -22,7 +22,7 @@ final class VkExportSemaphoreCreateInfo extends InputStructure implements VkSema
     protected const string NATIVE_TYPE = 'VkExportSemaphoreCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000077000;
+    public const int STRUCTURE_TYPE = 1000077000;
 
     public function __construct(
         public ?VkSemaphoreCreateInfoExtension $next = null,

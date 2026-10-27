@@ -21,7 +21,7 @@ final class VkVideoPictureResourceInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkVideoPictureResourceInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_PICTURE_RESOURCE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000023002;
+    public const int STRUCTURE_TYPE = 1000023002;
 
     public function __construct(
         /**

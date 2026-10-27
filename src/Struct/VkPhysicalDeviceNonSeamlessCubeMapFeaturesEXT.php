@@ -21,7 +21,7 @@ final class VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceNonSeamlessCubeMapFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NON_SEAMLESS_CUBE_MAP_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000422000;
+    public const int STRUCTURE_TYPE = 1000422000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

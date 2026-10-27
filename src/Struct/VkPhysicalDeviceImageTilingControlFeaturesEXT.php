@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImageTilingControlFeaturesEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageTilingControlFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000687000;
+    public const int STRUCTURE_TYPE = 1000687000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

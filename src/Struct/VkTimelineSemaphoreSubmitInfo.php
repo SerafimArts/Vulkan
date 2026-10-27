@@ -22,7 +22,7 @@ final class VkTimelineSemaphoreSubmitInfo extends InputStructure implements VkSu
     protected const string NATIVE_TYPE = 'VkTimelineSemaphoreSubmitInfo';
 
     /** `VK_STRUCTURE_TYPE_TIMELINE_SEMAPHORE_SUBMIT_INFO` */
-    private const int STRUCTURE_TYPE = 1000207003;
+    public const int STRUCTURE_TYPE = 1000207003;
 
     public function __construct(
         public VkSubmitInfoExtension|VkBindSparseInfoExtension|null $next = null,

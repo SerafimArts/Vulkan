@@ -22,7 +22,7 @@ final class VkPipelineRasterizationStateRasterizationOrderAMD extends InputStruc
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationStateRasterizationOrderAMD';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD` */
-    private const int STRUCTURE_TYPE = 1000018000;
+    public const int STRUCTURE_TYPE = 1000018000;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,

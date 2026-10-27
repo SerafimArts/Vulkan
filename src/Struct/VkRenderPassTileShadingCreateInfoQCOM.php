@@ -24,7 +24,7 @@ final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkRenderPassTileShadingCreateInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000309002;
+    public const int STRUCTURE_TYPE = 1000309002;
 
     public function __construct(
         public VkExtent2D $tileApronSize,

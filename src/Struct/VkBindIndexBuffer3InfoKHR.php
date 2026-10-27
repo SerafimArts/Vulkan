@@ -22,7 +22,7 @@ final class VkBindIndexBuffer3InfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindIndexBuffer3InfoKHR';
 
     /** `VK_STRUCTURE_TYPE_BIND_INDEX_BUFFER_3_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000318007;
+    public const int STRUCTURE_TYPE = 1000318007;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,

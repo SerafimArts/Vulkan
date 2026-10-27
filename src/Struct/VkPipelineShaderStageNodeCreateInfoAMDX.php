@@ -21,7 +21,7 @@ final class VkPipelineShaderStageNodeCreateInfoAMDX extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkPipelineShaderStageNodeCreateInfoAMDX';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_NODE_CREATE_INFO_AMDX` */
-    private const int STRUCTURE_TYPE = 1000134004;
+    public const int STRUCTURE_TYPE = 1000134004;
 
     public function __construct(
         public ?VkPipelineShaderStageCreateInfoExtension $next = null,

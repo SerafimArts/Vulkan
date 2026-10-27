@@ -22,7 +22,7 @@ final class VkMemoryBarrier extends InputStructure
     protected const string NATIVE_TYPE = 'VkMemoryBarrier';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_BARRIER` */
-    private const int STRUCTURE_TYPE = 46;
+    public const int STRUCTURE_TYPE = 46;
 
     public function __construct(
         /**

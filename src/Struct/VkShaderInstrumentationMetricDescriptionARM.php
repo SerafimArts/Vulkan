@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkShaderInstrumentationMetricDescriptionARM extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM` */
+    public const int STRUCTURE_TYPE = 1000607003;
+
     public function __construct(
         public string $name,
         public string $description,

@@ -21,7 +21,7 @@ final class VkOutOfBandQueueTypeInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkOutOfBandQueueTypeInfoNV';
 
     /** `VK_STRUCTURE_TYPE_OUT_OF_BAND_QUEUE_TYPE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000505006;
+    public const int STRUCTURE_TYPE = 1000505006;
 
     public function __construct(
         public VkOutOfBandQueueTypeNV $queueType = VkOutOfBandQueueTypeNV::VK_OUT_OF_BAND_QUEUE_TYPE_RENDER_NV,

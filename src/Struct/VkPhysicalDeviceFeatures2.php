@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkPhysicalDeviceFeatures2 extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2` */
+    public const int STRUCTURE_TYPE = 1000059000;
+
     public function __construct(
         public VkPhysicalDeviceFeatures $features,
     ) {}

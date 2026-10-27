@@ -21,7 +21,7 @@ final class VkImageViewSampleWeightCreateInfoQCOM extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkImageViewSampleWeightCreateInfoQCOM';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_SAMPLE_WEIGHT_CREATE_INFO_QCOM` */
-    private const int STRUCTURE_TYPE = 1000440002;
+    public const int STRUCTURE_TYPE = 1000440002;
 
     public function __construct(
         public VkOffset2D $filterCenter,

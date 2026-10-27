@@ -22,7 +22,7 @@ final class VkVideoCodingControlInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkVideoCodingControlInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000023010;
+    public const int STRUCTURE_TYPE = 1000023010;
 
     public function __construct(
         public ?VkVideoCodingControlInfoKHRExtension $next = null,

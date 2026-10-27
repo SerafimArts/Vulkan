@@ -21,7 +21,7 @@ final class VkPhysicalDeviceDescriptorHeapFeaturesEXT extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorHeapFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000135009;
+    public const int STRUCTURE_TYPE = 1000135009;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

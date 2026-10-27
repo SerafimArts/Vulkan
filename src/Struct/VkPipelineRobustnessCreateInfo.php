@@ -25,7 +25,7 @@ final class VkPipelineRobustnessCreateInfo extends InputStructure implements VkG
     protected const string NATIVE_TYPE = 'VkPipelineRobustnessCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000068000;
+    public const int STRUCTURE_TYPE = 1000068000;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkPipelineShaderStageCreateInfoExtension|null $next = null,

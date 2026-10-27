@@ -20,7 +20,7 @@ final class VkPhysicalDeviceVulkanSC10Features extends InputStructure implements
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkanSC10Features';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_SC_1_0_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000298000;
+    public const int STRUCTURE_TYPE = 1000298000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

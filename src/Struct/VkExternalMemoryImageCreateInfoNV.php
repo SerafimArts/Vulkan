@@ -23,7 +23,7 @@ final class VkExternalMemoryImageCreateInfoNV extends InputStructure implements 
     protected const string NATIVE_TYPE = 'VkExternalMemoryImageCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_IMAGE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000056000;
+    public const int STRUCTURE_TYPE = 1000056000;
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,

@@ -22,7 +22,7 @@ final class VkPipelineLibraryCreateInfoKHR extends InputStructure implements VkG
     protected const string NATIVE_TYPE = 'VkPipelineLibraryCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_LIBRARY_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000290000;
+    public const int STRUCTURE_TYPE = 1000290000;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,

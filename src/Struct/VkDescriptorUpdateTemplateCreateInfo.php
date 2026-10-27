@@ -24,7 +24,7 @@ final class VkDescriptorUpdateTemplateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkDescriptorUpdateTemplateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000085000;
+    public const int STRUCTURE_TYPE = 1000085000;
 
     public function __construct(
         public VkDescriptorSetLayout $descriptorSetLayout,

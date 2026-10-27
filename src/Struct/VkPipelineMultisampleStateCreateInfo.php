@@ -23,7 +23,7 @@ final class VkPipelineMultisampleStateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineMultisampleStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 24;
+    public const int STRUCTURE_TYPE = 24;
 
     public function __construct(
         public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,

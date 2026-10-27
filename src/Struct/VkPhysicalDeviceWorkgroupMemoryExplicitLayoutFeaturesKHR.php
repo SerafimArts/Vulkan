@@ -21,7 +21,7 @@ final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR extends Inp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000336000;
+    public const int STRUCTURE_TYPE = 1000336000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

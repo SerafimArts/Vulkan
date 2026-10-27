@@ -21,7 +21,7 @@ final class VkPhysicalDeviceTimelineSemaphoreFeatures extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTimelineSemaphoreFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TIMELINE_SEMAPHORE_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000207000;
+    public const int STRUCTURE_TYPE = 1000207000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

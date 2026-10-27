@@ -22,7 +22,7 @@ final class VkPipelineViewportStateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineViewportStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 22;
+    public const int STRUCTURE_TYPE = 22;
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkBindTransformFeedbackBuffer2InfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindTransformFeedbackBuffer2InfoEXT';
 
     /** `VK_STRUCTURE_TYPE_BIND_TRANSFORM_FEEDBACK_BUFFER_2_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000318013;
+    public const int STRUCTURE_TYPE = 1000318013;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,

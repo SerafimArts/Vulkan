@@ -22,7 +22,7 @@ final class VkPipelineRasterizationLineStateCreateInfo extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationLineStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000259001;
+    public const int STRUCTURE_TYPE = 1000259001;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,

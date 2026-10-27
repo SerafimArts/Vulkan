@@ -21,7 +21,7 @@ final class VkPhysicalDeviceCooperativeMatrixLayoutsFeaturesARM extends InputStr
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrixLayoutsFeaturesARM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_LAYOUTS_FEATURES_ARM` */
-    private const int STRUCTURE_TYPE = 1000670000;
+    public const int STRUCTURE_TYPE = 1000670000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

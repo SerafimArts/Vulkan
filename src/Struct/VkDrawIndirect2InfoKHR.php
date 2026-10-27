@@ -21,7 +21,7 @@ final class VkDrawIndirect2InfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDrawIndirect2InfoKHR';
 
     /** `VK_STRUCTURE_TYPE_DRAW_INDIRECT_2_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000318009;
+    public const int STRUCTURE_TYPE = 1000318009;
 
     public function __construct(
         public VkStridedDeviceAddressRangeKHR $addressRange,

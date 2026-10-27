@@ -26,7 +26,7 @@ final class VkExecutionGraphPipelineCreateInfoAMDX extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkExecutionGraphPipelineCreateInfoAMDX';
 
     /** `VK_STRUCTURE_TYPE_EXECUTION_GRAPH_PIPELINE_CREATE_INFO_AMDX` */
-    private const int STRUCTURE_TYPE = 1000134003;
+    public const int STRUCTURE_TYPE = 1000134003;
 
     public function __construct(
         public VkExecutionGraphPipelineCreateInfoAMDXExtension|VkPipelineCreateInfoKHRExtension|null $next = null,

@@ -24,7 +24,7 @@ final class VkPhysicalDeviceExternalBufferInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalBufferInfo';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO` */
-    private const int STRUCTURE_TYPE = 1000071002;
+    public const int STRUCTURE_TYPE = 1000071002;
 
     public function __construct(
         public ?VkPhysicalDeviceExternalBufferInfoExtension $next = null,

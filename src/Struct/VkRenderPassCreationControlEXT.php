@@ -23,7 +23,7 @@ final class VkRenderPassCreationControlEXT extends InputStructure implements VkR
     protected const string NATIVE_TYPE = 'VkRenderPassCreationControlEXT';
 
     /** `VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_CONTROL_EXT` */
-    private const int STRUCTURE_TYPE = 1000458001;
+    public const int STRUCTURE_TYPE = 1000458001;
 
     public function __construct(
         public VkRenderPassCreateInfo2Extension|VkSubpassDescription2Extension|null $next = null,

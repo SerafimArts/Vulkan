@@ -20,6 +20,9 @@ use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
  */
 final readonly class VkSurfaceCapabilities2EXT extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_EXT` */
+    public const int STRUCTURE_TYPE = 1000090000;
+
     public function __construct(
         /**
          * Supported minimum number of images for the surface

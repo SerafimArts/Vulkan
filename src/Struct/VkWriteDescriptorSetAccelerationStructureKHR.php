@@ -23,7 +23,7 @@ final class VkWriteDescriptorSetAccelerationStructureKHR extends InputStructure 
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSetAccelerationStructureKHR';
 
     /** `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR` */
-    private const int STRUCTURE_TYPE = 1000150007;
+    public const int STRUCTURE_TYPE = 1000150007;
 
     public function __construct(
         public ?VkWriteDescriptorSetExtension $next = null,

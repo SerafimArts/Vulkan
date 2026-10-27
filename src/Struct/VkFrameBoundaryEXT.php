@@ -27,7 +27,7 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
     protected const string NATIVE_TYPE = 'VkFrameBoundaryEXT';
 
     /** `VK_STRUCTURE_TYPE_FRAME_BOUNDARY_EXT` */
-    private const int STRUCTURE_TYPE = 1000375001;
+    public const int STRUCTURE_TYPE = 1000375001;
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkBindSparseInfoExtension|null $next = null,

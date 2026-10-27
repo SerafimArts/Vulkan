@@ -24,7 +24,7 @@ final class VkGeneratedCommandsInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkGeneratedCommandsInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_GENERATED_COMMANDS_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000572004;
+    public const int STRUCTURE_TYPE = 1000572004;
 
     public function __construct(
         public VkIndirectCommandsLayoutEXT $indirectCommandsLayout,

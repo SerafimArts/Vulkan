@@ -12,6 +12,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Calls;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
+use Serafim\Vulkan\Build\Generator\Registry\Registry;
 
 /**
  * A command that fills an array of unknown length.
@@ -23,6 +24,7 @@ final readonly class EnumerateBody implements Body
 {
     public function __construct(
         private Calls $calls,
+        private Registry $registry,
     ) {}
 
     public function emit(PhpNamespace $namespace, Method $method, CommandPlan $plan): array
@@ -52,7 +54,7 @@ final readonly class EnumerateBody implements Body
             $factory = 'new ' . $class . '($this, $item, ' . $this->calls->createParentExpression($parent) . ')';
         }
 
-        return [
+        $lines = [
             ...$this->calls->createPreparationLines($namespace, $plan),
             $this->calls->createProcedureLine($plan),
             '',
@@ -63,7 +65,14 @@ final readonly class EnumerateBody implements Body
             '    [' . \implode(', ', $this->calls->createLeadingArguments($plan)) . '],',
             '    ' . \var_export($output->field->type, true) . ',',
             '    fn(CData $item): ' . $class . ' => ' . $factory . ',',
-            ');',
         ];
+
+        if ($this->registry->isTypedStructure($output->field->type)) {
+            $lines[] = '    ' . $class . '::STRUCTURE_TYPE,';
+        }
+
+        $lines[] = ');';
+
+        return $lines;
     }
 }

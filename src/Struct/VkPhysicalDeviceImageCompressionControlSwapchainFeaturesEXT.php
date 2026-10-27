@@ -21,7 +21,7 @@ final class VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT extends 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageCompressionControlSwapchainFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_COMPRESSION_CONTROL_SWAPCHAIN_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000437000;
+    public const int STRUCTURE_TYPE = 1000437000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

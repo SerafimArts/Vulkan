@@ -22,7 +22,7 @@ final class VkExportMemoryAllocateInfo extends InputStructure implements VkMemor
     protected const string NATIVE_TYPE = 'VkExportMemoryAllocateInfo';
 
     /** `VK_STRUCTURE_TYPE_EXPORT_MEMORY_ALLOCATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000072002;
+    public const int STRUCTURE_TYPE = 1000072002;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,

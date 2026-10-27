@@ -22,7 +22,7 @@ final class VkPhysicalDeviceCooperativeMatrixInfo2EXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrixInfo2EXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT` */
-    private const int STRUCTURE_TYPE = 1000659001;
+    public const int STRUCTURE_TYPE = 1000659001;
 
     public function __construct(
         public VkScopeKHR $scope,

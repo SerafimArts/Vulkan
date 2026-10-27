@@ -23,7 +23,7 @@ final class VkShaderModuleValidationCacheCreateInfoEXT extends InputStructure im
     protected const string NATIVE_TYPE = 'VkShaderModuleValidationCacheCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_SHADER_MODULE_VALIDATION_CACHE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000160001;
+    public const int STRUCTURE_TYPE = 1000160001;
 
     public function __construct(
         public VkValidationCacheEXT $validationCache,

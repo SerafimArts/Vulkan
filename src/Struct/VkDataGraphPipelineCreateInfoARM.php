@@ -23,7 +23,7 @@ final class VkDataGraphPipelineCreateInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineCreateInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CREATE_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000507000;
+    public const int STRUCTURE_TYPE = 1000507000;
 
     public function __construct(
         public VkPipelineLayout $layout,

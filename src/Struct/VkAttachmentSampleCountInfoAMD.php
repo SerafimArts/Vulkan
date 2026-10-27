@@ -23,7 +23,7 @@ final class VkAttachmentSampleCountInfoAMD extends InputStructure implements VkC
     protected const string NATIVE_TYPE = 'VkAttachmentSampleCountInfoAMD';
 
     /** `VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD` */
-    private const int STRUCTURE_TYPE = 1000044008;
+    public const int STRUCTURE_TYPE = 1000044008;
 
     public function __construct(
         public VkCommandBufferInheritanceInfoExtension|VkGraphicsPipelineCreateInfoExtension|null $next = null,

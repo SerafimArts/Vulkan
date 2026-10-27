@@ -17,6 +17,9 @@ use Serafim\Vulkan\Enum\VkToolPurposeFlagBits;
  */
 final readonly class VkPhysicalDeviceToolProperties extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES` */
+    public const int STRUCTURE_TYPE = 1000245000;
+
     public function __construct(
         public string $name,
         public string $version,

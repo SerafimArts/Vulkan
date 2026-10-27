@@ -21,7 +21,7 @@ final class VkSemaphoreCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkSemaphoreCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 9;
+    public const int STRUCTURE_TYPE = 9;
 
     public function __construct(
         public ?VkSemaphoreCreateInfoExtension $next = null,

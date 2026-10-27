@@ -21,7 +21,7 @@ final class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000492000;
+    public const int STRUCTURE_TYPE = 1000492000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

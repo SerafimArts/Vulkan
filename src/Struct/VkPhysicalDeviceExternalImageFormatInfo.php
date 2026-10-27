@@ -22,7 +22,7 @@ final class VkPhysicalDeviceExternalImageFormatInfo extends InputStructure imple
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalImageFormatInfo';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO` */
-    private const int STRUCTURE_TYPE = 1000071000;
+    public const int STRUCTURE_TYPE = 1000071000;
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,

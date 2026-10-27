@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkExportMetalObjectsInfoEXT extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECTS_INFO_EXT` */
+    public const int STRUCTURE_TYPE = 1000311001;
+
     public function __construct() {}
 
     /**

@@ -21,7 +21,7 @@ final class VkCommandBufferInheritanceConditionalRenderingInfoEXT extends InputS
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceConditionalRenderingInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000081000;
+    public const int STRUCTURE_TYPE = 1000081000;
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,

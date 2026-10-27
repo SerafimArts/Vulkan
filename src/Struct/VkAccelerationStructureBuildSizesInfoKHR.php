@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkAccelerationStructureBuildSizesInfoKHR extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR` */
+    public const int STRUCTURE_TYPE = 1000150020;
+
     public function __construct(
         /** @var int<0, max> */
         public int $accelerationStructureSize,

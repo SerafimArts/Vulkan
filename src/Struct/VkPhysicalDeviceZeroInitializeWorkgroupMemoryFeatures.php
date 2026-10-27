@@ -21,7 +21,7 @@ final class VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_WORKGROUP_MEMORY_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000325000;
+    public const int STRUCTURE_TYPE = 1000325000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

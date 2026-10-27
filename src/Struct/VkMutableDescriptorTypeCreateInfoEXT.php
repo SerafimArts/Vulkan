@@ -23,7 +23,7 @@ final class VkMutableDescriptorTypeCreateInfoEXT extends InputStructure implemen
     protected const string NATIVE_TYPE = 'VkMutableDescriptorTypeCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000351002;
+    public const int STRUCTURE_TYPE = 1000351002;
 
     public function __construct(
         public VkDescriptorSetLayoutCreateInfoExtension|VkDescriptorPoolCreateInfoExtension|null $next = null,

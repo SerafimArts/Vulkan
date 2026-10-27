@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkImageFormatProperties2 extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_IMAGE_FORMAT_PROPERTIES_2` */
+    public const int STRUCTURE_TYPE = 1000059003;
+
     public function __construct(
         public VkImageFormatProperties $imageFormatProperties,
     ) {}

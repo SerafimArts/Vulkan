@@ -23,7 +23,7 @@ final class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Input
     protected const string NATIVE_TYPE = 'VkDescriptorBufferBindingPushDescriptorBufferHandleEXT';
 
     /** `VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT` */
-    private const int STRUCTURE_TYPE = 1000316012;
+    public const int STRUCTURE_TYPE = 1000316012;
 
     public function __construct(
         public VkBuffer $buffer,

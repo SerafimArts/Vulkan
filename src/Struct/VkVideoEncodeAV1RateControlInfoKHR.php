@@ -23,7 +23,7 @@ final class VkVideoEncodeAV1RateControlInfoKHR extends InputStructure implements
     protected const string NATIVE_TYPE = 'VkVideoEncodeAV1RateControlInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000513006;
+    public const int STRUCTURE_TYPE = 1000513006;
 
     public function __construct(
         public VkVideoCodingControlInfoKHRExtension|VkVideoBeginCodingInfoKHRExtension|null $next = null,

@@ -22,7 +22,7 @@ final class VkQueryPoolPerformanceQueryCreateInfoINTEL extends InputStructure im
     protected const string NATIVE_TYPE = 'VkQueryPoolPerformanceQueryCreateInfoINTEL';
 
     /** `VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL` */
-    private const int STRUCTURE_TYPE = 1000210000;
+    public const int STRUCTURE_TYPE = 1000210000;
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,

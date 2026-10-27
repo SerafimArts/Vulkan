@@ -21,7 +21,7 @@ final class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAmigoProfilingFeaturesSEC';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC` */
-    private const int STRUCTURE_TYPE = 1000485000;
+    public const int STRUCTURE_TYPE = 1000485000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

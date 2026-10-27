@@ -21,7 +21,7 @@ final class VkLayerSettingsCreateInfoEXT extends InputStructure implements VkIns
     protected const string NATIVE_TYPE = 'VkLayerSettingsCreateInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_LAYER_SETTINGS_CREATE_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000496000;
+    public const int STRUCTURE_TYPE = 1000496000;
 
     public function __construct(
         public ?VkInstanceCreateInfoExtension $next = null,

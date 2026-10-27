@@ -21,7 +21,7 @@ final class VkPhysicalDeviceExtendedDynamicStateFeaturesEXT extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExtendedDynamicStateFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000267000;
+    public const int STRUCTURE_TYPE = 1000267000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

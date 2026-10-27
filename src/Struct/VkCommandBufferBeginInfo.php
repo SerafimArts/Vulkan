@@ -22,7 +22,7 @@ final class VkCommandBufferBeginInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkCommandBufferBeginInfo';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO` */
-    private const int STRUCTURE_TYPE = 42;
+    public const int STRUCTURE_TYPE = 42;
 
     public function __construct(
         public ?VkCommandBufferBeginInfoExtension $next = null,

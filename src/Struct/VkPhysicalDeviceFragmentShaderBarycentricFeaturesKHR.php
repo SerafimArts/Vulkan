@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR extends InputSt
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_BARYCENTRIC_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000203000;
+    public const int STRUCTURE_TYPE = 1000203000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

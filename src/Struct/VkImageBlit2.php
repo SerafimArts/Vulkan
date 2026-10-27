@@ -22,7 +22,7 @@ final class VkImageBlit2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageBlit2';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_BLIT_2` */
-    private const int STRUCTURE_TYPE = 1000337008;
+    public const int STRUCTURE_TYPE = 1000337008;
 
     public function __construct(
         public VkImageSubresourceLayers $srcSubresource,

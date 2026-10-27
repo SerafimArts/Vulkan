@@ -16,6 +16,9 @@ use FFI\CData;
  */
 final readonly class VkSubresourceLayout2 extends OutputStructure
 {
+    /** `VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2` */
+    public const int STRUCTURE_TYPE = 1000338002;
+
     public function __construct(
         public VkSubresourceLayout $subresourceLayout,
     ) {}

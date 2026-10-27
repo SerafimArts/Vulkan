@@ -21,7 +21,7 @@ final class VkDeviceQueueInfo2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceQueueInfo2';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_QUEUE_INFO_2` */
-    private const int STRUCTURE_TYPE = 1000145003;
+    public const int STRUCTURE_TYPE = 1000145003;
 
     public function __construct(
         /** @var int-mask-of<VkDeviceQueueCreateFlagBits::*> */

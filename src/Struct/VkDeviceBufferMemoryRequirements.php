@@ -20,7 +20,7 @@ final class VkDeviceBufferMemoryRequirements extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceBufferMemoryRequirements';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_BUFFER_MEMORY_REQUIREMENTS` */
-    private const int STRUCTURE_TYPE = 1000413002;
+    public const int STRUCTURE_TYPE = 1000413002;
 
     public function __construct(
         public ?VkBufferCreateInfo $createInfo = null,

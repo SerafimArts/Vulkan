@@ -25,7 +25,7 @@ final class VkSubpassDependency2 extends InputStructure
     protected const string NATIVE_TYPE = 'VkSubpassDependency2';
 
     /** `VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2` */
-    private const int STRUCTURE_TYPE = 1000109003;
+    public const int STRUCTURE_TYPE = 1000109003;
 
     public function __construct(
         public ?VkSubpassDependency2Extension $next = null,

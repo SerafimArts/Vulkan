@@ -22,7 +22,7 @@ final class VkVideoEncodeQualityLevelInfoKHR extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkVideoEncodeQualityLevelInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000299008;
+    public const int STRUCTURE_TYPE = 1000299008;
 
     public function __construct(
         public VkVideoCodingControlInfoKHRExtension|VkVideoSessionParametersCreateInfoKHRExtension|null $next = null,

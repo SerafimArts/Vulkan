@@ -23,7 +23,7 @@ final class VkSemaphoreWaitInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkSemaphoreWaitInfo';
 
     /** `VK_STRUCTURE_TYPE_SEMAPHORE_WAIT_INFO` */
-    private const int STRUCTURE_TYPE = 1000207004;
+    public const int STRUCTURE_TYPE = 1000207004;
 
     public function __construct(
         /** @var int-mask-of<VkSemaphoreWaitFlagBits::*> */

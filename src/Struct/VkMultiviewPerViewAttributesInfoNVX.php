@@ -22,7 +22,7 @@ final class VkMultiviewPerViewAttributesInfoNVX extends InputStructure implement
     protected const string NATIVE_TYPE = 'VkMultiviewPerViewAttributesInfoNVX';
 
     /** `VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX` */
-    private const int STRUCTURE_TYPE = 1000044009;
+    public const int STRUCTURE_TYPE = 1000044009;
 
     public function __construct(
         public VkCommandBufferInheritanceInfoExtension|VkGraphicsPipelineCreateInfoExtension|null $next = null,

@@ -21,7 +21,7 @@ final class VkVideoReferenceSlotInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkVideoReferenceSlotInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000023011;
+    public const int STRUCTURE_TYPE = 1000023011;
 
     public function __construct(
         public ?VkVideoReferenceSlotInfoKHRExtension $next = null,

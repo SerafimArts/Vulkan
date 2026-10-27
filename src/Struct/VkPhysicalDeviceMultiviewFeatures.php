@@ -21,7 +21,7 @@ final class VkPhysicalDeviceMultiviewFeatures extends InputStructure implements 
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultiviewFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000053001;
+    public const int STRUCTURE_TYPE = 1000053001;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

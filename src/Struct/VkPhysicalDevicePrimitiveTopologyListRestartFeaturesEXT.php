@@ -21,7 +21,7 @@ final class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000356000;
+    public const int STRUCTURE_TYPE = 1000356000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

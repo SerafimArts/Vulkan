@@ -21,7 +21,7 @@ final class VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC extends Inpu
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC` */
-    private const int STRUCTURE_TYPE = 1000637000;
+    public const int STRUCTURE_TYPE = 1000637000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

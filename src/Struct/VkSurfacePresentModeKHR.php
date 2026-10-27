@@ -22,7 +22,7 @@ final class VkSurfacePresentModeKHR extends InputStructure implements VkPhysical
     protected const string NATIVE_TYPE = 'VkSurfacePresentModeKHR';
 
     /** `VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR` */
-    private const int STRUCTURE_TYPE = 1000274000;
+    public const int STRUCTURE_TYPE = 1000274000;
 
     public function __construct(
         public ?VkPhysicalDeviceSurfaceInfo2KHRExtension $next = null,

@@ -25,7 +25,7 @@ final class VkVideoEncodeUsageInfoKHR extends InputStructure implements VkVideoP
     protected const string NATIVE_TYPE = 'VkVideoEncodeUsageInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000299004;
+    public const int STRUCTURE_TYPE = 1000299004;
 
     public function __construct(
         public VkVideoProfileInfoKHRExtension|VkQueryPoolCreateInfoExtension|null $next = null,

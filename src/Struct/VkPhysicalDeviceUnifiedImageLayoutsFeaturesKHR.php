@@ -21,7 +21,7 @@ final class VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR extends InputStructur
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR` */
-    private const int STRUCTURE_TYPE = 1000527000;
+    public const int STRUCTURE_TYPE = 1000527000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

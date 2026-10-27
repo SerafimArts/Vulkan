@@ -21,7 +21,7 @@ final class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT extend
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000524000;
+    public const int STRUCTURE_TYPE = 1000524000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

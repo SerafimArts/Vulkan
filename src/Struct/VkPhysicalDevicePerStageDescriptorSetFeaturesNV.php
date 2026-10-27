@@ -22,7 +22,7 @@ final class VkPhysicalDevicePerStageDescriptorSetFeaturesNV extends InputStructu
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePerStageDescriptorSetFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000516000;
+    public const int STRUCTURE_TYPE = 1000516000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

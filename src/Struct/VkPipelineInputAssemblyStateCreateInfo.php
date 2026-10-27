@@ -21,7 +21,7 @@ final class VkPipelineInputAssemblyStateCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineInputAssemblyStateCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 20;
+    public const int STRUCTURE_TYPE = 20;
 
     public function __construct(
         /** @var int<0, 4294967295> */

@@ -21,7 +21,7 @@ final class VkDeviceImageMemoryRequirements extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceImageMemoryRequirements';
 
     /** `VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS` */
-    private const int STRUCTURE_TYPE = 1000413003;
+    public const int STRUCTURE_TYPE = 1000413003;
 
     public function __construct(
         public ?VkImageCreateInfo $createInfo = null,

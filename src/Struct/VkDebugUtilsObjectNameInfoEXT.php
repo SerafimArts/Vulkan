@@ -23,7 +23,7 @@ final class VkDebugUtilsObjectNameInfoEXT extends InputStructure implements VkPi
     protected const string NATIVE_TYPE = 'VkDebugUtilsObjectNameInfoEXT';
 
     /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT` */
-    private const int STRUCTURE_TYPE = 1000128000;
+    public const int STRUCTURE_TYPE = 1000128000;
 
     public function __construct(
         public VkPipelineShaderStageCreateInfoExtension|VkSamplerCreateInfoExtension|null $next = null,

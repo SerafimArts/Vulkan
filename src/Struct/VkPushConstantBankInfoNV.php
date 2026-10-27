@@ -22,7 +22,7 @@ final class VkPushConstantBankInfoNV extends InputStructure implements VkPushDat
     protected const string NATIVE_TYPE = 'VkPushConstantBankInfoNV';
 
     /** `VK_STRUCTURE_TYPE_PUSH_CONSTANT_BANK_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000580000;
+    public const int STRUCTURE_TYPE = 1000580000;
 
     public function __construct(
         public VkPushDataInfoEXTExtension|VkPushConstantsInfoExtension|null $next = null,

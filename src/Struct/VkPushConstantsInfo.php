@@ -23,7 +23,7 @@ final class VkPushConstantsInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkPushConstantsInfo';
 
     /** `VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO` */
-    private const int STRUCTURE_TYPE = 1000545004;
+    public const int STRUCTURE_TYPE = 1000545004;
 
     public function __construct(
         public ?VkPushConstantsInfoExtension $next = null,

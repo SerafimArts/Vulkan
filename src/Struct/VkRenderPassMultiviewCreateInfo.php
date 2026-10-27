@@ -22,7 +22,7 @@ final class VkRenderPassMultiviewCreateInfo extends InputStructure implements Vk
     protected const string NATIVE_TYPE = 'VkRenderPassMultiviewCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000053000;
+    public const int STRUCTURE_TYPE = 1000053000;
 
     public function __construct(
         public ?VkRenderPassCreateInfoExtension $next = null,

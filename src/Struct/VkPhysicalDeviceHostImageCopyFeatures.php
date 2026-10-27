@@ -21,7 +21,7 @@ final class VkPhysicalDeviceHostImageCopyFeatures extends InputStructure impleme
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceHostImageCopyFeatures';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_IMAGE_COPY_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000270000;
+    public const int STRUCTURE_TYPE = 1000270000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

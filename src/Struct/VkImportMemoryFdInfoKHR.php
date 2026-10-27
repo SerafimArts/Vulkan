@@ -22,7 +22,7 @@ final class VkImportMemoryFdInfoKHR extends InputStructure implements VkMemoryAl
     protected const string NATIVE_TYPE = 'VkImportMemoryFdInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_IMPORT_MEMORY_FD_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000074000;
+    public const int STRUCTURE_TYPE = 1000074000;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,

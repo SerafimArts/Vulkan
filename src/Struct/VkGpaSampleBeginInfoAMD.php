@@ -23,7 +23,7 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
     protected const string NATIVE_TYPE = 'VkGpaSampleBeginInfoAMD';
 
     /** `VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD` */
-    private const int STRUCTURE_TYPE = 1000133002;
+    public const int STRUCTURE_TYPE = 1000133002;
 
     public function __construct(
         public VkGpaSampleTypeAMD $sampleType = VkGpaSampleTypeAMD::VK_GPA_SAMPLE_TYPE_CUMULATIVE_AMD,

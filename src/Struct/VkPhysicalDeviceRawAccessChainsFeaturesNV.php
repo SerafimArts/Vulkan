@@ -21,7 +21,7 @@ final class VkPhysicalDeviceRawAccessChainsFeaturesNV extends InputStructure imp
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRawAccessChainsFeaturesNV';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV` */
-    private const int STRUCTURE_TYPE = 1000555000;
+    public const int STRUCTURE_TYPE = 1000555000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

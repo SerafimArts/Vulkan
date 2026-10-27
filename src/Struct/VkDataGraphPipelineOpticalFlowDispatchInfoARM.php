@@ -22,7 +22,7 @@ final class VkDataGraphPipelineOpticalFlowDispatchInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineOpticalFlowDispatchInfoARM';
 
     /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000631005;
+    public const int STRUCTURE_TYPE = 1000631005;
 
     public function __construct(
         public ?VkDataGraphPipelineDispatchInfoARMExtension $next = null,

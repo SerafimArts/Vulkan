@@ -24,7 +24,7 @@ final class VkImageFormatListCreateInfo extends InputStructure implements VkImag
     protected const string NATIVE_TYPE = 'VkImageFormatListCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1000147000;
+    public const int STRUCTURE_TYPE = 1000147000;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSwapchainCreateInfoKHRExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,

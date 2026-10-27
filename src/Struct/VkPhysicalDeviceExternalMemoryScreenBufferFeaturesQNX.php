@@ -21,7 +21,7 @@ final class VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX extends InputS
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalMemoryScreenBufferFeaturesQNX';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_MEMORY_SCREEN_BUFFER_FEATURES_QNX` */
-    private const int STRUCTURE_TYPE = 1000529004;
+    public const int STRUCTURE_TYPE = 1000529004;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

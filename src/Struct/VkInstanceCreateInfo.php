@@ -22,7 +22,7 @@ final class VkInstanceCreateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkInstanceCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 1;
+    public const int STRUCTURE_TYPE = 1;
 
     public function __construct(
         public ?VkInstanceCreateInfoExtension $next = null,

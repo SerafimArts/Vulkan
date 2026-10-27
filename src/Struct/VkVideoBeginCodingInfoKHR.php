@@ -23,7 +23,7 @@ final class VkVideoBeginCodingInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkVideoBeginCodingInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_VIDEO_BEGIN_CODING_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000023008;
+    public const int STRUCTURE_TYPE = 1000023008;
 
     public function __construct(
         public VkVideoSessionKHR $videoSession,

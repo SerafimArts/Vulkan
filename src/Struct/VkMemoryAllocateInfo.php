@@ -21,7 +21,7 @@ final class VkMemoryAllocateInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkMemoryAllocateInfo';
 
     /** `VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO` */
-    private const int STRUCTURE_TYPE = 5;
+    public const int STRUCTURE_TYPE = 5;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,

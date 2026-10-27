@@ -21,7 +21,7 @@ final class VkPhysicalDeviceTileMemoryHeapFeaturesQCOM extends InputStructure im
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTileMemoryHeapFeaturesQCOM';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM` */
-    private const int STRUCTURE_TYPE = 1000547000;
+    public const int STRUCTURE_TYPE = 1000547000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

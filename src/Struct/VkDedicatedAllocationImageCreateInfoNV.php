@@ -22,7 +22,7 @@ final class VkDedicatedAllocationImageCreateInfoNV extends InputStructure implem
     protected const string NATIVE_TYPE = 'VkDedicatedAllocationImageCreateInfoNV';
 
     /** `VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_IMAGE_CREATE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000026000;
+    public const int STRUCTURE_TYPE = 1000026000;
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,

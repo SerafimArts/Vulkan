@@ -21,7 +21,7 @@ final class VkCopyTensorInfoARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkCopyTensorInfoARM';
 
     /** `VK_STRUCTURE_TYPE_COPY_TENSOR_INFO_ARM` */
-    private const int STRUCTURE_TYPE = 1000460011;
+    public const int STRUCTURE_TYPE = 1000460011;
 
     public function __construct(
         public VkTensorARM $srcTensor,

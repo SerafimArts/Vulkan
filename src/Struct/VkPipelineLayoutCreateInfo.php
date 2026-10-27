@@ -28,7 +28,7 @@ final class VkPipelineLayoutCreateInfo extends InputStructure implements VkBindD
     protected const string NATIVE_TYPE = 'VkPipelineLayoutCreateInfo';
 
     /** `VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO` */
-    private const int STRUCTURE_TYPE = 30;
+    public const int STRUCTURE_TYPE = 30;
 
     public function __construct(
         public VkBindDescriptorSetsInfoExtension|VkPushConstantsInfoExtension|VkPushDescriptorSetInfoExtension|VkSetDescriptorBufferOffsetsInfoEXTExtension|VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension|null $next = null,

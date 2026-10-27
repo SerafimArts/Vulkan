@@ -21,7 +21,7 @@ final class VkPhysicalDeviceSynchronization2Features extends InputStructure impl
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSynchronization2Features';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES` */
-    private const int STRUCTURE_TYPE = 1000314007;
+    public const int STRUCTURE_TYPE = 1000314007;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

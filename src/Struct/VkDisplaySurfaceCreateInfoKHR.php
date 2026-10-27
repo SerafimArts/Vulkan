@@ -24,7 +24,7 @@ final class VkDisplaySurfaceCreateInfoKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDisplaySurfaceCreateInfoKHR';
 
     /** `VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR` */
-    private const int STRUCTURE_TYPE = 1000002001;
+    public const int STRUCTURE_TYPE = 1000002001;
 
     public function __construct(
         /** The mode to use when displaying this surface */

@@ -21,7 +21,7 @@ final class VkBindImageMemoryDeviceGroupInfo extends InputStructure implements V
     protected const string NATIVE_TYPE = 'VkBindImageMemoryDeviceGroupInfo';
 
     /** `VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO` */
-    private const int STRUCTURE_TYPE = 1000060014;
+    public const int STRUCTURE_TYPE = 1000060014;
 
     public function __construct(
         public ?VkBindImageMemoryInfoExtension $next = null,

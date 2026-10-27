@@ -22,7 +22,7 @@ final class VkCommandBufferSubmitInfo extends InputStructure
     protected const string NATIVE_TYPE = 'VkCommandBufferSubmitInfo';
 
     /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_SUBMIT_INFO` */
-    private const int STRUCTURE_TYPE = 1000314006;
+    public const int STRUCTURE_TYPE = 1000314006;
 
     public function __construct(
         public VkCommandBuffer $commandBuffer,

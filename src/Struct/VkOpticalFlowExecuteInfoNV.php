@@ -21,7 +21,7 @@ final class VkOpticalFlowExecuteInfoNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkOpticalFlowExecuteInfoNV';
 
     /** `VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV` */
-    private const int STRUCTURE_TYPE = 1000464005;
+    public const int STRUCTURE_TYPE = 1000464005;
 
     public function __construct(
         /** @var int-mask-of<VkOpticalFlowExecuteFlagBitsNV::*> */

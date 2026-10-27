@@ -21,7 +21,7 @@ final class VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceGraphicsPipelineLibraryFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GRAPHICS_PIPELINE_LIBRARY_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000320000;
+    public const int STRUCTURE_TYPE = 1000320000;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,

@@ -21,7 +21,7 @@ final class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends InputStru
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT';
 
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT` */
-    private const int STRUCTURE_TYPE = 1000251000;
+    public const int STRUCTURE_TYPE = 1000251000;
 
     public function __construct(
         /** Pointer to next structure */
