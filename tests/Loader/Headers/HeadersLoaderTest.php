@@ -45,6 +45,23 @@ final class HeadersLoaderTest extends TestCase
         self::assertSame('vulkan-xlib_xrandr.h', HeadersLoader::getFilename(Platform::XLIB_XRANDR));
     }
 
+    public function testHeadersAreTheSharedPartFollowedByThePartOfThePlatform(): void
+    {
+        $directory = \sys_get_temp_dir() . '/' . \uniqid('vulkan-headers-', true);
+
+        \mkdir($directory);
+        \file_put_contents($directory . '/' . HeadersLoader::getCoreFilename(), 'typedef int A;');
+        \file_put_contents($directory . '/' . HeadersLoader::getFilename(Platform::XCB), 'typedef int B;');
+
+        try {
+            self::assertSame('typedef int A;typedef int B;', new HeadersLoader($directory)->getHeaders(Platform::XCB));
+        } finally {
+            \unlink($directory . '/' . HeadersLoader::getCoreFilename());
+            \unlink($directory . '/' . HeadersLoader::getFilename(Platform::XCB));
+            \rmdir($directory);
+        }
+    }
+
     public function testMissingHeadersThrowInvalidHeadersException(): void
     {
         $this->expectException(InvalidHeadersException::class);

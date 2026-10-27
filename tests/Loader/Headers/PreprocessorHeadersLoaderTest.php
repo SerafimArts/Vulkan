@@ -37,10 +37,7 @@ final class PreprocessorHeadersLoaderTest extends TestCase
     {
         $compiled = new PreprocessorHeadersLoader()->getHeaders(Platform::XCB);
 
-        self::assertSame(
-            \file_get_contents(__DIR__ . '/../../../resources/headers/' . HeadersLoader::getFilename(Platform::XCB)),
-            $compiled,
-        );
+        self::assertSame(new HeadersLoader()->getHeaders(Platform::XCB), $compiled);
     }
 
     public function testBrokenIncludeDirectoryThrowsInvalidHeadersException(): void
