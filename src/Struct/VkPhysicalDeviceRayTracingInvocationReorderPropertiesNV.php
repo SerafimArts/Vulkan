@@ -33,12 +33,12 @@ final readonly class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV ext
     }
 
     public function __construct(
-        public VkRayTracingInvocationReorderModeEXT|int $rayTracingInvocationReorderReorderingHint,
+        public VkRayTracingInvocationReorderModeEXT $rayTracingInvocationReorderReorderingHint,
     ) {}
 
     /**
      * @param CData&object{
-     *     rayTracingInvocationReorderReorderingHint: int,
+     *     rayTracingInvocationReorderReorderingHint: value-of<VkRayTracingInvocationReorderModeEXT>,
      * } $data
      *
      * @phpstan-param CData $data

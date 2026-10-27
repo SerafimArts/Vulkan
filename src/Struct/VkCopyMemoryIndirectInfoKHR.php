@@ -25,9 +25,9 @@ final class VkCopyMemoryIndirectInfoKHR extends InputStructure
 
     public function __construct(
         public VkStridedDeviceAddressRangeKHR $copyAddressRange,
-        /** @var int-mask-of<VkAddressCopyFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkAddressCopyFlagBitsKHR::*> */
         public int $srcCopyFlags = 0,
-        /** @var int-mask-of<VkAddressCopyFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkAddressCopyFlagBitsKHR::*> */
         public int $dstCopyFlags = 0,
         /** @var int<0, 4294967295> */
         public int $copyCount = 0,

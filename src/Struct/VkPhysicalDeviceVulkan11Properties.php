@@ -61,13 +61,13 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
         /**
          * Bitfield of what shader stages support subgroup operations
          *
-         * @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkShaderStageFlagBits::*)
          */
         public int $subgroupSupportedStages,
         /**
          * Bitfield of what subgroup operations are supported.
          *
-         * @var int-mask-of<VkSubgroupFeatureFlagBits::VK_*>
+         * @var int-mask-of<VkSubgroupFeatureFlagBits::*>
          */
         public int $subgroupSupportedOperations,
         /**
@@ -78,7 +78,7 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
          */
         public bool $subgroupQuadOperationsInAllStages,
         /** The value is exactly the required one. */
-        public VkPointClippingBehavior|int $pointClippingBehavior,
+        public VkPointClippingBehavior $pointClippingBehavior,
         /**
          * Max number of views in a subpass
          *
@@ -122,7 +122,7 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
      *     subgroupSupportedStages: int<0, 4294967295>,
      *     subgroupSupportedOperations: int<0, 4294967295>,
      *     subgroupQuadOperationsInAllStages: int<0, 1>,
-     *     pointClippingBehavior: int,
+     *     pointClippingBehavior: value-of<VkPointClippingBehavior>,
      *     maxMultiviewViewCount: int<0, 4294967295>,
      *     maxMultiviewInstanceIndex: int<0, 4294967295>,
      *     protectedNoFault: int<0, 1>,

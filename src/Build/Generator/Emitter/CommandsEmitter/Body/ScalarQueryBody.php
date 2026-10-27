@@ -72,8 +72,8 @@ final readonly class ScalarQueryBody implements Body
                 $namespace,
                 $method,
                 $plan,
-                Locations::createClassName(Locations::ENUM_NAMESPACE, $class) . '|int',
-                $class . '|int',
+                Locations::createClassName(Locations::ENUM_NAMESPACE, $class),
+                $class,
             );
             $lines[] = $this->calls->createReturnLine(
                 $plan,

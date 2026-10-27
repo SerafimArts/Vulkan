@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineBindPoint;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipeline;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -27,14 +26,14 @@ final class VkPipelineIndirectDeviceAddressInfoNV extends InputStructure
 
     public function __construct(
         public VkPipeline $pipeline,
-        public VkPipelineBindPoint|int $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
+        public VkPipelineBindPoint $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV>,
      *     pNext: CData,
-     *     pipelineBindPoint: int,
+     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
      *     pipeline: CData,
      * } $data
      *
@@ -44,7 +43,7 @@ final class VkPipelineIndirectDeviceAddressInfoNV extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->pipelineBindPoint = EnumCase::getValue($this->pipelineBindPoint);
+        $data->pipelineBindPoint = $this->pipelineBindPoint->value;
 
         $data->pipeline = $memory->ffi->cast('VkPipeline', $this->pipeline->pointer);
     }

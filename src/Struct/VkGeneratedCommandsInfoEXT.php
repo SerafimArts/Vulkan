@@ -29,7 +29,7 @@ final class VkGeneratedCommandsInfoEXT extends InputStructure
     public function __construct(
         public VkIndirectCommandsLayoutEXT $indirectCommandsLayout,
         public ?VkGeneratedCommandsInfoEXTExtension $next = null,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $shaderStages = 0,
         public ?VkIndirectExecutionSetEXT $indirectExecutionSet = null,
         /** @var int<0, max> */

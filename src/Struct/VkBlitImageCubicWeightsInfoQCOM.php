@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCubicFilterWeightsQCOM;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBlitImageInfo2Extension;
 
@@ -27,14 +26,14 @@ final class VkBlitImageCubicWeightsInfoQCOM extends InputStructure implements Vk
 
     public function __construct(
         public ?VkBlitImageInfo2Extension $next = null,
-        public VkCubicFilterWeightsQCOM|int $cubicWeights = VkCubicFilterWeightsQCOM::VK_CUBIC_FILTER_WEIGHTS_CATMULL_ROM_QCOM,
+        public VkCubicFilterWeightsQCOM $cubicWeights = VkCubicFilterWeightsQCOM::VK_CUBIC_FILTER_WEIGHTS_CATMULL_ROM_QCOM,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM>,
      *     pNext: CData,
-     *     cubicWeights: int,
+     *     cubicWeights: value-of<VkCubicFilterWeightsQCOM>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -49,6 +48,6 @@ final class VkBlitImageCubicWeightsInfoQCOM extends InputStructure implements Vk
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->cubicWeights = EnumCase::getValue($this->cubicWeights);
+        $data->cubicWeights = $this->cubicWeights->value;
     }
 }

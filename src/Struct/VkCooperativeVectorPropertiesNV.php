@@ -22,21 +22,21 @@ final readonly class VkCooperativeVectorPropertiesNV extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COOPERATIVE_VECTOR_PROPERTIES_NV->value;
 
     public function __construct(
-        public VkComponentTypeKHR|int $inputType,
-        public VkComponentTypeKHR|int $inputInterpretation,
-        public VkComponentTypeKHR|int $matrixInterpretation,
-        public VkComponentTypeKHR|int $biasInterpretation,
-        public VkComponentTypeKHR|int $resultType,
+        public VkComponentTypeKHR $inputType,
+        public VkComponentTypeKHR $inputInterpretation,
+        public VkComponentTypeKHR $matrixInterpretation,
+        public VkComponentTypeKHR $biasInterpretation,
+        public VkComponentTypeKHR $resultType,
         public bool $transpose,
     ) {}
 
     /**
      * @param CData&object{
-     *     inputType: int,
-     *     inputInterpretation: int,
-     *     matrixInterpretation: int,
-     *     biasInterpretation: int,
-     *     resultType: int,
+     *     inputType: value-of<VkComponentTypeKHR>,
+     *     inputInterpretation: value-of<VkComponentTypeKHR>,
+     *     matrixInterpretation: value-of<VkComponentTypeKHR>,
+     *     biasInterpretation: value-of<VkComponentTypeKHR>,
+     *     resultType: value-of<VkComponentTypeKHR>,
      *     transpose: int<0, 1>,
      * } $data
      *

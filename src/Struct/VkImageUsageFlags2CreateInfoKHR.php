@@ -35,7 +35,7 @@ final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements Vk
 
     public function __construct(
         public VkFramebufferAttachmentImageInfoExtension|VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceSparseImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkSurfaceCapabilities2KHRExtension|VkSwapchainCreateInfoKHRExtension|VkVideoFormatPropertiesKHRExtension|null $next = null,
-        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::VK_*) */
+        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::*) */
         public int $usage = 0,
     ) {}
 

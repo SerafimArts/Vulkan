@@ -24,17 +24,17 @@ final readonly class VkPerformanceCounterKHR extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_KHR->value;
 
     public function __construct(
-        public VkPerformanceCounterUnitKHR|int $unit,
-        public VkPerformanceCounterScopeKHR|int $scope,
-        public VkPerformanceCounterStorageKHR|int $storage,
+        public VkPerformanceCounterUnitKHR $unit,
+        public VkPerformanceCounterScopeKHR $scope,
+        public VkPerformanceCounterStorageKHR $storage,
         public string $uuid,
     ) {}
 
     /**
      * @param CData&object{
-     *     unit: int,
-     *     scope: int,
-     *     storage: int,
+     *     unit: value-of<VkPerformanceCounterUnitKHR>,
+     *     scope: value-of<VkPerformanceCounterScopeKHR>,
+     *     storage: value-of<VkPerformanceCounterStorageKHR>,
      *     uuid: CData,
      * } $data
      *

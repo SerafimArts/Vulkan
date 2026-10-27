@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkObjectType;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +24,7 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT->value;
 
     public function __construct(
-        public VkObjectType|int $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
+        public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
         /** @var int<0, max> */
         public int $objectHandle = 0,
         /** @var int<0, max> */
@@ -37,7 +36,7 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT>,
      *     pNext: CData,
-     *     objectType: int,
+     *     objectType: value-of<VkObjectType>,
      *     objectHandle: int<0, max>,
      *     tagName: int<0, max>,
      *     tagSize: int<0, max>,
@@ -50,7 +49,7 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->objectType = EnumCase::getValue($this->objectType);
+        $data->objectType = $this->objectType->value;
 
         $data->objectHandle = $this->objectHandle;
 

@@ -239,7 +239,7 @@ final readonly class EnumerateBody implements Body
         if ($output->kind === TypeKind::ENUMERATION) {
             $namespace->addUse(EnumCase::class);
 
-            $type = Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type) . '|int';
+            $type = Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type);
             $factory = 'fn(int $item): ' . $type . ' => EnumCase::createFromValue('
                 . Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type)
                 . '::class, $item)';

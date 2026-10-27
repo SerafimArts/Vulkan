@@ -13,7 +13,6 @@ use Serafim\Vulkan\Enum\VkAccelerationStructureCreateFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkAccelerationStructureTypeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfoKHRExtension;
 
@@ -33,7 +32,7 @@ final class VkAccelerationStructureCreateInfoKHR extends InputStructure
     public function __construct(
         public VkBuffer $buffer,
         public ?VkAccelerationStructureCreateInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkAccelerationStructureCreateFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkAccelerationStructureCreateFlagBitsKHR::*> */
         public int $createFlags = 0,
         /**
          * Specified in bytes
@@ -43,7 +42,7 @@ final class VkAccelerationStructureCreateInfoKHR extends InputStructure
         public int $offset = 0,
         /** @var int<0, max> */
         public int $size = 0,
-        public VkAccelerationStructureTypeKHR|int $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
+        public VkAccelerationStructureTypeKHR $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
         /** @var int<0, max> */
         public int $deviceAddress = 0,
     ) {}
@@ -56,7 +55,7 @@ final class VkAccelerationStructureCreateInfoKHR extends InputStructure
      *     buffer: CData,
      *     offset: int<0, max>,
      *     size: int<0, max>,
-     *     type: int,
+     *     type: value-of<VkAccelerationStructureTypeKHR>,
      *     deviceAddress: int<0, max>,
      * } $data
      *
@@ -80,7 +79,7 @@ final class VkAccelerationStructureCreateInfoKHR extends InputStructure
 
         $data->size = $this->size;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $data->deviceAddress = $this->deviceAddress;
     }

@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPerformanceConfigurationTypeINTEL;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,14 +24,14 @@ final class VkPerformanceConfigurationAcquireInfoINTEL extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL->value;
 
     public function __construct(
-        public VkPerformanceConfigurationTypeINTEL|int $type = VkPerformanceConfigurationTypeINTEL::VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL,
+        public VkPerformanceConfigurationTypeINTEL $type = VkPerformanceConfigurationTypeINTEL::VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL>,
      *     pNext: CData,
-     *     type: int,
+     *     type: value-of<VkPerformanceConfigurationTypeINTEL>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -41,6 +40,6 @@ final class VkPerformanceConfigurationAcquireInfoINTEL extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
     }
 }

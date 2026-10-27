@@ -35,7 +35,7 @@ final readonly class VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV extend
         /**
          * The value is at least the required one.
          *
-         * @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkSampleCountFlagBits::*)
          */
         public int $maxFragmentShadingRateInvocationCount,
     ) {}

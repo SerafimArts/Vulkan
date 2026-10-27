@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerCreateInfoExtension;
 
@@ -28,7 +27,7 @@ final class VkSamplerCustomBorderColorCreateInfoEXT extends InputStructure imple
     public function __construct(
         public VkClearColorValue $customBorderColor,
         public ?VkSamplerCreateInfoExtension $next = null,
-        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
     /**
@@ -36,7 +35,7 @@ final class VkSamplerCustomBorderColorCreateInfoEXT extends InputStructure imple
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT>,
      *     pNext: CData,
      *     customBorderColor: CData,
-     *     format: int,
+     *     format: value-of<VkFormat>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -53,6 +52,6 @@ final class VkSamplerCustomBorderColorCreateInfoEXT extends InputStructure imple
 
         $this->customBorderColor->write($memory, $data->customBorderColor);
 
-        $data->format = EnumCase::getValue($this->format);
+        $data->format = $this->format->value;
     }
 }

@@ -18,7 +18,7 @@ use Serafim\Vulkan\Enum\VkPresentStageFlagBitsEXT;
 final readonly class VkPresentStageTimeEXT extends OutputStructure
 {
     public function __construct(
-        /** @var int-mask-of<VkPresentStageFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkPresentStageFlagBitsEXT::*> */
         public int $stage,
         /**
          * Time in nanoseconds of the associated stage

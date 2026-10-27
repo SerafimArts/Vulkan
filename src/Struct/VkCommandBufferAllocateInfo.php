@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkCommandBufferLevel;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkCommandPool;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -27,7 +26,7 @@ final class VkCommandBufferAllocateInfo extends InputStructure
 
     public function __construct(
         public VkCommandPool $commandPool,
-        public VkCommandBufferLevel|int $level = VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY,
+        public VkCommandBufferLevel $level = VkCommandBufferLevel::VK_COMMAND_BUFFER_LEVEL_PRIMARY,
         /** @var int<0, 4294967295> */
         public int $commandBufferCount = 0,
     ) {}
@@ -37,7 +36,7 @@ final class VkCommandBufferAllocateInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO>,
      *     pNext: CData,
      *     commandPool: CData,
-     *     level: int,
+     *     level: value-of<VkCommandBufferLevel>,
      *     commandBufferCount: int<0, 4294967295>,
      * } $data
      *
@@ -49,7 +48,7 @@ final class VkCommandBufferAllocateInfo extends InputStructure
 
         $data->commandPool = $memory->ffi->cast('VkCommandPool', $this->commandPool->pointer);
 
-        $data->level = EnumCase::getValue($this->level);
+        $data->level = $this->level->value;
 
         $data->commandBufferCount = $this->commandBufferCount;
     }

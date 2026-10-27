@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryKHRExtension;
 
@@ -31,13 +30,13 @@ final class VkAccelerationStructureGeometrySpheresDataNV extends InputStructure 
         public VkDeviceOrHostAddressConstKHR $radiusData,
         public VkDeviceOrHostAddressConstKHR $indexData,
         public ?VkAccelerationStructureGeometryKHRExtension $next = null,
-        public VkFormat|int $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var int<0, max> */
         public int $vertexStride = 0,
-        public VkFormat|int $radiusFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $radiusFormat = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var int<0, max> */
         public int $radiusStride = 0,
-        public VkIndexType|int $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
+        public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
         /** @var int<0, max> */
         public int $indexStride = 0,
     ) {}
@@ -46,13 +45,13 @@ final class VkAccelerationStructureGeometrySpheresDataNV extends InputStructure 
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV>,
      *     pNext: CData,
-     *     vertexFormat: int,
+     *     vertexFormat: value-of<VkFormat>,
      *     vertexData: CData,
      *     vertexStride: int<0, max>,
-     *     radiusFormat: int,
+     *     radiusFormat: value-of<VkFormat>,
      *     radiusData: CData,
      *     radiusStride: int<0, max>,
-     *     indexType: int,
+     *     indexType: value-of<VkIndexType>,
      *     indexData: CData,
      *     indexStride: int<0, max>,
      * } $data
@@ -69,19 +68,19 @@ final class VkAccelerationStructureGeometrySpheresDataNV extends InputStructure 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->vertexFormat = EnumCase::getValue($this->vertexFormat);
+        $data->vertexFormat = $this->vertexFormat->value;
 
         $this->vertexData->write($memory, $data->vertexData);
 
         $data->vertexStride = $this->vertexStride;
 
-        $data->radiusFormat = EnumCase::getValue($this->radiusFormat);
+        $data->radiusFormat = $this->radiusFormat->value;
 
         $this->radiusData->write($memory, $data->radiusData);
 
         $data->radiusStride = $this->radiusStride;
 
-        $data->indexType = EnumCase::getValue($this->indexType);
+        $data->indexType = $this->indexType->value;
 
         $this->indexData->write($memory, $data->indexData);
 

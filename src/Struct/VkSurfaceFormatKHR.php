@@ -24,15 +24,15 @@ final readonly class VkSurfaceFormatKHR extends OutputStructure
 {
     public function __construct(
         /** Supported pair of rendering format */
-        public VkFormat|int $format,
+        public VkFormat $format,
         /** And color space for the surface */
-        public VkColorSpaceKHR|int $colorSpace,
+        public VkColorSpaceKHR $colorSpace,
     ) {}
 
     /**
      * @param CData&object{
-     *     format: int,
-     *     colorSpace: int,
+     *     format: value-of<VkFormat>,
+     *     colorSpace: value-of<VkColorSpaceKHR>,
      * } $data
      *
      * @phpstan-param CData $data

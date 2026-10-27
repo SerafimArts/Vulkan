@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSamplerReductionMode;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerCreateInfoExtension;
 
@@ -27,14 +26,14 @@ final class VkSamplerReductionModeCreateInfo extends InputStructure implements V
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,
-        public VkSamplerReductionMode|int $reductionMode = VkSamplerReductionMode::VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE,
+        public VkSamplerReductionMode $reductionMode = VkSamplerReductionMode::VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO>,
      *     pNext: CData,
-     *     reductionMode: int,
+     *     reductionMode: value-of<VkSamplerReductionMode>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -49,6 +48,6 @@ final class VkSamplerReductionModeCreateInfo extends InputStructure implements V
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->reductionMode = EnumCase::getValue($this->reductionMode);
+        $data->reductionMode = $this->reductionMode->value;
     }
 }

@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkThrottleHintTypeSEC;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
 
@@ -27,14 +26,14 @@ final class VkThrottleHintSubmitInfoSEC extends InputStructure implements VkSubm
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,
-        public VkThrottleHintTypeSEC|int $throttleHint = VkThrottleHintTypeSEC::VK_THROTTLE_HINT_TYPE_DEFAULT_SEC,
+        public VkThrottleHintTypeSEC $throttleHint = VkThrottleHintTypeSEC::VK_THROTTLE_HINT_TYPE_DEFAULT_SEC,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_THROTTLE_HINT_SUBMIT_INFO_SEC>,
      *     pNext: CData,
-     *     throttleHint: int,
+     *     throttleHint: value-of<VkThrottleHintTypeSEC>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -49,6 +48,6 @@ final class VkThrottleHintSubmitInfoSEC extends InputStructure implements VkSubm
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->throttleHint = EnumCase::getValue($this->throttleHint);
+        $data->throttleHint = $this->throttleHint->value;
     }
 }

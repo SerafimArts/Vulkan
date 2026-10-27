@@ -28,16 +28,16 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkFormat|int $format,
+        public VkFormat $format,
         /** The value is exactly the required one. */
         public VkComponentMapping $componentMapping,
-        /** @var int<0, 4294967295>|(VkImageCreateFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkImageCreateFlagBits::*) */
         public int $imageCreateFlags,
         /** The value is exactly the required one. */
-        public VkImageType|int $imageType,
+        public VkImageType $imageType,
         /** The value is exactly the required one. */
-        public VkImageTiling|int $imageTiling,
-        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) */
+        public VkImageTiling $imageTiling,
+        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
         public int $imageUsageFlags,
         /** @var list<VkVideoFormatPropertiesKHRExtension> */
         public array $chain = [],
@@ -45,11 +45,11 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
 
     /**
      * @param CData&object{
-     *     format: int,
+     *     format: value-of<VkFormat>,
      *     componentMapping: CData,
      *     imageCreateFlags: int<0, 4294967295>,
-     *     imageType: int,
-     *     imageTiling: int,
+     *     imageType: value-of<VkImageType>,
+     *     imageTiling: value-of<VkImageTiling>,
      *     imageUsageFlags: int<0, 4294967295>,
      * } $data
      * @param list<VkVideoFormatPropertiesKHRExtension> $chain

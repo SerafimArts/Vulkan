@@ -9,8 +9,9 @@ use Serafim\Vulkan\Build\Generator\Analysis\Names;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\StructPlan;
+use Serafim\Vulkan\Build\Generator\Emitter\Imports;
+use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Exception\InvalidStructureException;
-use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * Writing of the properties to the members of a native struct.
@@ -39,17 +40,11 @@ final readonly class Writer
         $value = '$this->' . $property->name;
         $type = $property->field->type;
 
-        $enumerations = [PropertyKind::ENUMERATION, PropertyKind::ENUMERATION_LIST, PropertyKind::ENUMERATION_ARRAY];
-
-        if (\in_array($property->kind, $enumerations, true)) {
-            $namespace->addUse(EnumCase::class);
-        }
-
         return match ($property->kind) {
             PropertyKind::INTEGER => $this->createIntegerLines($field, $value, $isLength),
             PropertyKind::FLOAT => ['$data->' . $field . ' = ' . $value . ';'],
             PropertyKind::BOOLEAN => ['$data->' . $field . ' = (int) ' . $value . ';'],
-            PropertyKind::ENUMERATION => ['$data->' . $field . ' = EnumCase::getValue(' . $value . ');'],
+            PropertyKind::ENUMERATION => ['$data->' . $field . ' = ' . $value . '->value;'],
             PropertyKind::STRING => [
                 'if (' . $value . ' !== null) {',
                 '    $data->' . $field . ' = $memory->toCString(' . $value . ');',
@@ -84,7 +79,7 @@ final readonly class Writer
                 $namespace,
                 $property,
                 $structure,
-                ['$data->' . $field . '[$i] = EnumCase::getValue($item);'],
+                ['$data->' . $field . '[$i] = $item->value;'],
             ),
             PropertyKind::STRUCTURE_LIST => $this->createListLines(
                 $namespace,
@@ -135,8 +130,9 @@ final readonly class Writer
                 $property,
                 $structure,
                 $isLengthShared,
-                '$memory->toNumberArray(' . \var_export($type, true) . ', \array_map(EnumCase::getValue(...), '
-                    . $value . '))',
+                '$memory->toNumberArray(' . \var_export($type, true) . ', \array_map(static fn('
+                    . Imports::import($namespace, Locations::ENUM_NAMESPACE, $type)
+                    . ' $item): int => $item->value, ' . $value . '))',
             ),
             default => [
                 'if (' . $value . ' !== null) {',

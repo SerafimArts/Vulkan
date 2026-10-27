@@ -27,7 +27,7 @@ final class VkImageStencilUsageCreateInfo extends InputStructure implements VkIm
 
     public function __construct(
         public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,
-        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
         public int $stencilUsage = 0,
     ) {}
 

@@ -32,15 +32,15 @@ final readonly class VkTensorExplicitTilingFormatPropertiesARM extends OutputStr
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
         public int $brick16TilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
         public int $brick8TilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
         public int $brick4TilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
         public int $blockUTilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
         public int $blockU64kTilingTensorFeatures,
     ) {}
 

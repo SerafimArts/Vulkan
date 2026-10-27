@@ -28,7 +28,7 @@ final class VkDeviceGroupPresentInfoKHR extends InputStructure implements VkPres
         public ?VkPresentInfoKHRExtension $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $deviceMasks = [],
-        /** @var int<0, 4294967295>|(VkDeviceGroupPresentModeFlagBitsKHR::VK_*) */
+        /** @var int<0, 4294967295>|(VkDeviceGroupPresentModeFlagBitsKHR::*) */
         public int $mode = 0,
     ) {}
 

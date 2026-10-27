@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPhysicalDeviceDataGraphProcessingEngineTypeARM;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -27,7 +26,7 @@ final class VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM extends 
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $queueFamilyIndex = 0,
-        public VkPhysicalDeviceDataGraphProcessingEngineTypeARM|int $engineType = VkPhysicalDeviceDataGraphProcessingEngineTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM,
+        public VkPhysicalDeviceDataGraphProcessingEngineTypeARM $engineType = VkPhysicalDeviceDataGraphProcessingEngineTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM,
     ) {}
 
     /**
@@ -35,7 +34,7 @@ final class VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM extends 
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM>,
      *     pNext: CData,
      *     queueFamilyIndex: int<0, 4294967295>,
-     *     engineType: int,
+     *     engineType: value-of<VkPhysicalDeviceDataGraphProcessingEngineTypeARM>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -46,6 +45,6 @@ final class VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM extends 
 
         $data->queueFamilyIndex = $this->queueFamilyIndex;
 
-        $data->engineType = EnumCase::getValue($this->engineType);
+        $data->engineType = $this->engineType->value;
     }
 }

@@ -14,7 +14,6 @@ use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkBufferView;
 use Serafim\Vulkan\Handle\VkDescriptorSet;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkWriteDescriptorSetExtension;
 
@@ -51,7 +50,7 @@ final class VkWriteDescriptorSet extends InputStructure
          * Descriptor type to write (determines which members of the array
          * pointed by pDescriptors are going to be used)
          */
-        public VkDescriptorType|int $descriptorType = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
+        public VkDescriptorType $descriptorType = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
         /**
          * Sampler, image view, and layout for SAMPLER,
          * COMBINED_IMAGE_SAMPLER, {SAMPLED,STORAGE}_IMAGE, and
@@ -84,7 +83,7 @@ final class VkWriteDescriptorSet extends InputStructure
      *     dstBinding: int<0, 4294967295>,
      *     dstArrayElement: int<0, 4294967295>,
      *     descriptorCount: int<0, 4294967295>,
-     *     descriptorType: int,
+     *     descriptorType: value-of<VkDescriptorType>,
      *     pImageInfo: CData,
      *     pBufferInfo: CData,
      *     pTexelBufferView: CData,
@@ -108,7 +107,7 @@ final class VkWriteDescriptorSet extends InputStructure
 
         $data->dstArrayElement = $this->dstArrayElement;
 
-        $data->descriptorType = EnumCase::getValue($this->descriptorType);
+        $data->descriptorType = $this->descriptorType->value;
 
         if ($this->imageInfo !== []) {
             $data->descriptorCount = \count($this->imageInfo);

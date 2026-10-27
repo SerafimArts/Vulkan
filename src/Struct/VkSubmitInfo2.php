@@ -26,7 +26,7 @@ final class VkSubmitInfo2 extends InputStructure
 
     public function __construct(
         public ?VkSubmitInfo2Extension $next = null,
-        /** @var int-mask-of<VkSubmitFlagBits::VK_*> */
+        /** @var int-mask-of<VkSubmitFlagBits::*> */
         public int $flags = 0,
         /** @var list<VkSemaphoreSubmitInfo> */
         public array $waitSemaphoreInfos = [],

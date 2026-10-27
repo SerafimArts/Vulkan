@@ -18,7 +18,7 @@ use Serafim\Vulkan\Enum\VkPipelineCreationFeedbackFlagBits;
 final readonly class VkPipelineCreationFeedback extends OutputStructure
 {
     public function __construct(
-        /** @var int-mask-of<VkPipelineCreationFeedbackFlagBits::VK_*> */
+        /** @var int-mask-of<VkPipelineCreationFeedbackFlagBits::*> */
         public int $flags,
         /** @var int<0, max> */
         public int $duration,

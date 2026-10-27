@@ -32,7 +32,7 @@ final readonly class VkQueueFamilyCheckpointProperties2NV extends OutputStructur
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
         public int $checkpointExecutionStageMask,
     ) {}
 

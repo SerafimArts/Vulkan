@@ -21,9 +21,9 @@ final readonly class VkQueueFamilyDataGraphOpticalFlowPropertiesARM extends Outp
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM->value;
 
     public function __construct(
-        /** @var int-mask-of<VkDataGraphOpticalFlowGridSizeFlagBitsARM::VK_*> */
+        /** @var int-mask-of<VkDataGraphOpticalFlowGridSizeFlagBitsARM::*> */
         public int $supportedOutputGridSizes,
-        /** @var int-mask-of<VkDataGraphOpticalFlowGridSizeFlagBitsARM::VK_*> */
+        /** @var int-mask-of<VkDataGraphOpticalFlowGridSizeFlagBitsARM::*> */
         public int $supportedHintGridSizes,
         /** The value is exactly the required one. */
         public bool $hintSupported,

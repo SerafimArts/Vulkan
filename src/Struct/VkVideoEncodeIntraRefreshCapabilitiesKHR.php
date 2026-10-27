@@ -32,7 +32,7 @@ final readonly class VkVideoEncodeIntraRefreshCapabilitiesKHR extends OutputStru
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoEncodeIntraRefreshModeFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoEncodeIntraRefreshModeFlagBitsKHR::*> */
         public int $intraRefreshModes,
         /**
          * The value is at least the required one.

@@ -100,7 +100,7 @@ final readonly class VkPhysicalDeviceTensorPropertiesARM extends OutputStructure
         public int $maxPerStageDescriptorUpdateAfterBindStorageTensors,
         /** The value is at least the required one. */
         public bool $shaderStorageTensorArrayNonUniformIndexingNative,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $shaderTensorSupportedStages,
     ) {}
 

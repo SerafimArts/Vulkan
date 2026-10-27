@@ -32,7 +32,7 @@ final readonly class VkPhysicalDeviceSchedulingControlsPropertiesARM extends Out
     }
 
     public function __construct(
-        /** @var int-mask-of<VkPhysicalDeviceSchedulingControlsFlagBitsARM::VK_*> */
+        /** @var int-mask-of<VkPhysicalDeviceSchedulingControlsFlagBitsARM::*> */
         public int $schedulingControlsFlags,
     ) {}
 

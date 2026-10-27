@@ -19,7 +19,7 @@ use Serafim\Vulkan\Internal\EnumCase;
 final readonly class VkDeviceFaultAddressInfoKHR extends OutputStructure
 {
     public function __construct(
-        public VkDeviceFaultAddressTypeKHR|int $addressType,
+        public VkDeviceFaultAddressTypeKHR $addressType,
         /** @var int<0, max> */
         public int $reportedAddress,
         /** @var int<0, max> */
@@ -28,7 +28,7 @@ final readonly class VkDeviceFaultAddressInfoKHR extends OutputStructure
 
     /**
      * @param CData&object{
-     *     addressType: int,
+     *     addressType: value-of<VkDeviceFaultAddressTypeKHR>,
      *     reportedAddress: int<0, max>,
      *     addressPrecision: int<0, max>,
      * } $data

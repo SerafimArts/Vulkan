@@ -32,7 +32,7 @@ final readonly class VkVideoFormatAV1QuantizationMapPropertiesKHR extends Output
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoEncodeAV1SuperblockSizeFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoEncodeAV1SuperblockSizeFlagBitsKHR::*> */
         public int $compatibleSuperblockSizes,
     ) {}
 

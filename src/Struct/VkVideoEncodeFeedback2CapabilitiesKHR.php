@@ -38,7 +38,7 @@ final readonly class VkVideoEncodeFeedback2CapabilitiesKHR extends OutputStructu
          * @var int<0, 4294967295>
          */
         public int $maxPerPartitionFeedbackEntries,
-        /** @var int-mask-of<VkVideoEncodePerPartitionFeedbackFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoEncodePerPartitionFeedbackFlagBitsKHR::*> */
         public int $supportedPerPartitionEncodeFeedbackFlags,
     ) {}
 

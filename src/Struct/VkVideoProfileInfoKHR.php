@@ -29,13 +29,13 @@ final class VkVideoProfileInfoKHR extends InputStructure implements VkQueryPoolC
 
     public function __construct(
         public VkVideoProfileInfoKHRExtension|VkQueryPoolCreateInfoExtension|null $next = null,
-        /** @var int<0, 4294967295>|(VkVideoCodecOperationFlagBitsKHR::VK_*) */
+        /** @var int<0, 4294967295>|(VkVideoCodecOperationFlagBitsKHR::*) */
         public int $videoCodecOperation = 0,
-        /** @var int-mask-of<VkVideoChromaSubsamplingFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoChromaSubsamplingFlagBitsKHR::*> */
         public int $chromaSubsampling = 0,
-        /** @var int-mask-of<VkVideoComponentBitDepthFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoComponentBitDepthFlagBitsKHR::*> */
         public int $lumaBitDepth = 0,
-        /** @var int-mask-of<VkVideoComponentBitDepthFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoComponentBitDepthFlagBitsKHR::*> */
         public int $chromaBitDepth = 0,
     ) {}
 

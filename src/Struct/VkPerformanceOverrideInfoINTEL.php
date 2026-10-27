@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPerformanceOverrideTypeINTEL;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +24,7 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_OVERRIDE_INFO_INTEL->value;
 
     public function __construct(
-        public VkPerformanceOverrideTypeINTEL|int $type = VkPerformanceOverrideTypeINTEL::VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL,
+        public VkPerformanceOverrideTypeINTEL $type = VkPerformanceOverrideTypeINTEL::VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL,
         public bool $enable = false,
         /** @var int<0, max> */
         public int $parameter = 0,
@@ -35,7 +34,7 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_OVERRIDE_INFO_INTEL>,
      *     pNext: CData,
-     *     type: int,
+     *     type: value-of<VkPerformanceOverrideTypeINTEL>,
      *     enable: int<0, 1>,
      *     parameter: int<0, max>,
      * } $data
@@ -46,7 +45,7 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $data->enable = (int) $this->enable;
 

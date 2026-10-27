@@ -26,7 +26,7 @@ final class VkDeviceGroupSwapchainCreateInfoKHR extends InputStructure implement
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkDeviceGroupPresentModeFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkDeviceGroupPresentModeFlagBitsKHR::*> */
         public int $modes = 0,
     ) {}
 

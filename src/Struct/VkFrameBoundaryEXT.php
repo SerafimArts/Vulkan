@@ -32,7 +32,7 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkPresentInfoKHRExtension|VkBindSparseInfoExtension|null $next = null,
-        /** @var int-mask-of<VkFrameBoundaryFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkFrameBoundaryFlagBitsEXT::*> */
         public int $flags = 0,
         /** @var int<0, max> */
         public int $frameID = 0,

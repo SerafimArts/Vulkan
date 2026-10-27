@@ -52,7 +52,7 @@ abstract readonly class OutputStructure
      * @param class-string<T> $enum
      * @param int<0, max> $length
      *
-     * @return list<T|int>
+     * @return list<T>
      */
     final protected static function createEnumerationListFromCData(string $enum, CData $array, int $length): array
     {

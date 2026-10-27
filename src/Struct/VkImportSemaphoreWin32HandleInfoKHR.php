@@ -27,9 +27,9 @@ final class VkImportSemaphoreWin32HandleInfoKHR extends InputStructure
 
     public function __construct(
         public VkSemaphore $semaphore,
-        /** @var int-mask-of<VkSemaphoreImportFlagBits::VK_*> */
+        /** @var int-mask-of<VkSemaphoreImportFlagBits::*> */
         public int $flags = 0,
-        /** @var int<0, 4294967295>|(VkExternalSemaphoreHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalSemaphoreHandleTypeFlagBits::*) */
         public int $handleType = 0,
         public CData|int|null $handle = null,
         public CData|int|null $name = null,

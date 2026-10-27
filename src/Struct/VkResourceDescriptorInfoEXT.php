@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorType;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkResourceDescriptorInfoEXTExtension;
 
@@ -28,14 +27,14 @@ final class VkResourceDescriptorInfoEXT extends InputStructure
     public function __construct(
         public VkResourceDescriptorDataEXT $data,
         public ?VkResourceDescriptorInfoEXTExtension $next = null,
-        public VkDescriptorType|int $type = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
+        public VkDescriptorType $type = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RESOURCE_DESCRIPTOR_INFO_EXT>,
      *     pNext: CData,
-     *     type: int,
+     *     type: value-of<VkDescriptorType>,
      *     data: CData,
      * } $data
      *
@@ -51,7 +50,7 @@ final class VkResourceDescriptorInfoEXT extends InputStructure
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $this->data->write($memory, $data->data);
     }

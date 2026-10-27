@@ -55,30 +55,30 @@ final readonly class VkSurfaceCapabilities2EXT extends OutputStructure
         /**
          * 1 or more bits representing the transforms supported
          *
-         * @var int-mask-of<VkSurfaceTransformFlagBitsKHR::VK_*>
+         * @var int-mask-of<VkSurfaceTransformFlagBitsKHR::*>
          */
         public int $supportedTransforms,
         /**
          * The surface's current transform relative to the device's natural
          * orientation
          *
-         * @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::VK_*)
+         * @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::*)
          */
         public int $currentTransform,
         /**
          * 1 or more bits representing the alpha compositing modes
          * supported
          *
-         * @var int-mask-of<VkCompositeAlphaFlagBitsKHR::VK_*>
+         * @var int-mask-of<VkCompositeAlphaFlagBitsKHR::*>
          */
         public int $supportedCompositeAlpha,
         /**
          * Supported image usage flags for the surface
          *
-         * @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkImageUsageFlagBits::*)
          */
         public int $supportedUsageFlags,
-        /** @var int-mask-of<VkSurfaceCounterFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkSurfaceCounterFlagBitsEXT::*> */
         public int $supportedSurfaceCounters,
     ) {}
 

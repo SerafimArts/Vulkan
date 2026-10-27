@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineCacheHeaderVersion;
 use Serafim\Vulkan\Exception\InvalidStructureException;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -23,7 +22,7 @@ final class VkPipelineCacheHeaderVersionOne extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineCacheHeaderVersionOne';
 
     public function __construct(
-        public VkPipelineCacheHeaderVersion|int $headerVersion,
+        public VkPipelineCacheHeaderVersion $headerVersion,
         /** @var int<0, 4294967295> */
         public int $headerSize = 0,
         /** @var int<0, 4294967295> */
@@ -36,7 +35,7 @@ final class VkPipelineCacheHeaderVersionOne extends InputStructure
     /**
      * @param CData&object{
      *     headerSize: int<0, 4294967295>,
-     *     headerVersion: int,
+     *     headerVersion: value-of<VkPipelineCacheHeaderVersion>,
      *     vendorID: int<0, 4294967295>,
      *     deviceID: int<0, 4294967295>,
      *     pipelineCacheUUID: CData,
@@ -48,7 +47,7 @@ final class VkPipelineCacheHeaderVersionOne extends InputStructure
     {
         $data->headerSize = $this->headerSize;
 
-        $data->headerVersion = EnumCase::getValue($this->headerVersion);
+        $data->headerVersion = $this->headerVersion->value;
 
         $data->vendorID = $this->vendorID;
 

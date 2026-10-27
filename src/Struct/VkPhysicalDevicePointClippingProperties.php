@@ -34,12 +34,12 @@ final readonly class VkPhysicalDevicePointClippingProperties extends OutputStruc
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkPointClippingBehavior|int $pointClippingBehavior,
+        public VkPointClippingBehavior $pointClippingBehavior,
     ) {}
 
     /**
      * @param CData&object{
-     *     pointClippingBehavior: int,
+     *     pointClippingBehavior: value-of<VkPointClippingBehavior>,
      * } $data
      *
      * @phpstan-param CData $data

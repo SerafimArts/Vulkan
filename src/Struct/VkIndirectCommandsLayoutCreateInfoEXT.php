@@ -28,9 +28,9 @@ final class VkIndirectCommandsLayoutCreateInfoEXT extends InputStructure
 
     public function __construct(
         public ?VkIndirectCommandsLayoutCreateInfoEXTExtension $next = null,
-        /** @var int-mask-of<VkIndirectCommandsLayoutUsageFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkIndirectCommandsLayoutUsageFlagBitsEXT::*> */
         public int $flags = 0,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $shaderStages = 0,
         /** @var int<0, 4294967295> */
         public int $indirectStride = 0,

@@ -35,21 +35,21 @@ final readonly class VkPhysicalDevicePipelineRobustnessProperties extends Output
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkPipelineRobustnessBufferBehavior|int $defaultRobustnessStorageBuffers,
+        public VkPipelineRobustnessBufferBehavior $defaultRobustnessStorageBuffers,
         /** The value is exactly the required one. */
-        public VkPipelineRobustnessBufferBehavior|int $defaultRobustnessUniformBuffers,
+        public VkPipelineRobustnessBufferBehavior $defaultRobustnessUniformBuffers,
         /** The value is exactly the required one. */
-        public VkPipelineRobustnessBufferBehavior|int $defaultRobustnessVertexInputs,
+        public VkPipelineRobustnessBufferBehavior $defaultRobustnessVertexInputs,
         /** The value is exactly the required one. */
-        public VkPipelineRobustnessImageBehavior|int $defaultRobustnessImages,
+        public VkPipelineRobustnessImageBehavior $defaultRobustnessImages,
     ) {}
 
     /**
      * @param CData&object{
-     *     defaultRobustnessStorageBuffers: int,
-     *     defaultRobustnessUniformBuffers: int,
-     *     defaultRobustnessVertexInputs: int,
-     *     defaultRobustnessImages: int,
+     *     defaultRobustnessStorageBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     defaultRobustnessUniformBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     defaultRobustnessVertexInputs: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     defaultRobustnessImages: value-of<VkPipelineRobustnessImageBehavior>,
      * } $data
      *
      * @phpstan-param CData $data

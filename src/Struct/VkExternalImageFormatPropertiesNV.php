@@ -22,11 +22,11 @@ final readonly class VkExternalImageFormatPropertiesNV extends OutputStructure
 {
     public function __construct(
         public VkImageFormatProperties $imageFormatProperties,
-        /** @var int-mask-of<VkExternalMemoryFeatureFlagBitsNV::VK_*> */
+        /** @var int-mask-of<VkExternalMemoryFeatureFlagBitsNV::*> */
         public int $externalMemoryFeatures,
-        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> */
+        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> */
         public int $exportFromImportedHandleTypes,
-        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> */
+        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> */
         public int $compatibleHandleTypes,
     ) {}
 

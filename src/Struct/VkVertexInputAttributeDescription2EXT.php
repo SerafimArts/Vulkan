@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -38,7 +37,7 @@ final class VkVertexInputAttributeDescription2EXT extends InputStructure
          */
         public int $binding = 0,
         /** Format of source data */
-        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
         /**
          * Offset of first element in bytes from base of vertex
          *
@@ -53,7 +52,7 @@ final class VkVertexInputAttributeDescription2EXT extends InputStructure
      *     pNext: CData,
      *     location: int<0, 4294967295>,
      *     binding: int<0, 4294967295>,
-     *     format: int,
+     *     format: value-of<VkFormat>,
      *     offset: int<0, 4294967295>,
      * } $data
      *
@@ -67,7 +66,7 @@ final class VkVertexInputAttributeDescription2EXT extends InputStructure
 
         $data->binding = $this->binding;
 
-        $data->format = EnumCase::getValue($this->format);
+        $data->format = $this->format->value;
 
         $data->offset = $this->offset;
     }

@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkCopyMicromapModeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkMicromapEXT;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,7 +27,7 @@ final class VkCopyMicromapInfoEXT extends InputStructure
     public function __construct(
         public VkMicromapEXT $src,
         public VkMicromapEXT $dst,
-        public VkCopyMicromapModeEXT|int $mode = VkCopyMicromapModeEXT::VK_COPY_MICROMAP_MODE_CLONE_EXT,
+        public VkCopyMicromapModeEXT $mode = VkCopyMicromapModeEXT::VK_COPY_MICROMAP_MODE_CLONE_EXT,
     ) {}
 
     /**
@@ -37,7 +36,7 @@ final class VkCopyMicromapInfoEXT extends InputStructure
      *     pNext: CData,
      *     src: CData,
      *     dst: CData,
-     *     mode: int,
+     *     mode: value-of<VkCopyMicromapModeEXT>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -50,6 +49,6 @@ final class VkCopyMicromapInfoEXT extends InputStructure
 
         $data->dst = $memory->ffi->cast('VkMicromapEXT', $this->dst->pointer);
 
-        $data->mode = EnumCase::getValue($this->mode);
+        $data->mode = $this->mode->value;
     }
 }

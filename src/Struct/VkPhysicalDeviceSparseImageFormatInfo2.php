@@ -15,7 +15,6 @@ use Serafim\Vulkan\Enum\VkImageType;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceSparseImageFormatInfo2Extension;
 
@@ -31,24 +30,24 @@ final class VkPhysicalDeviceSparseImageFormatInfo2 extends InputStructure
 
     public function __construct(
         public ?VkPhysicalDeviceSparseImageFormatInfo2Extension $next = null,
-        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkImageType|int $type = VkImageType::VK_IMAGE_TYPE_1D,
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
+        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkImageType $type = VkImageType::VK_IMAGE_TYPE_1D,
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
         public int $samples = 0,
-        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
         public int $usage = 0,
-        public VkImageTiling|int $tiling = VkImageTiling::VK_IMAGE_TILING_OPTIMAL,
+        public VkImageTiling $tiling = VkImageTiling::VK_IMAGE_TILING_OPTIMAL,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2>,
      *     pNext: CData,
-     *     format: int,
-     *     type: int,
+     *     format: value-of<VkFormat>,
+     *     type: value-of<VkImageType>,
      *     samples: int<0, 4294967295>,
      *     usage: int<0, 4294967295>,
-     *     tiling: int,
+     *     tiling: value-of<VkImageTiling>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -63,14 +62,14 @@ final class VkPhysicalDeviceSparseImageFormatInfo2 extends InputStructure
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->format = EnumCase::getValue($this->format);
+        $data->format = $this->format->value;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $data->samples = $this->samples;
 
         $data->usage = $this->usage;
 
-        $data->tiling = EnumCase::getValue($this->tiling);
+        $data->tiling = $this->tiling->value;
     }
 }

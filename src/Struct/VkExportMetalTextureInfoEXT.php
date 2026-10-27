@@ -38,7 +38,7 @@ final readonly class VkExportMetalTextureInfoEXT extends OutputStructure impleme
     }
 
     public function __construct(
-        /** @var int<0, 4294967295>|(VkImageAspectFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkImageAspectFlagBits::*) */
         public int $plane,
         public CData|int|null $mtlTexture,
         public ?VkImage $image = null,

@@ -27,7 +27,7 @@ final readonly class VkMemoryHeap extends OutputStructure
         /**
          * Flags for the heap
          *
-         * @var int-mask-of<VkMemoryHeapFlagBits::VK_*>
+         * @var int-mask-of<VkMemoryHeapFlagBits::*>
          */
         public int $flags,
     ) {}

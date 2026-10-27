@@ -29,7 +29,7 @@ final class VkRenderPassCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkRenderPassCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkRenderPassCreateFlagBits::VK_*> */
+        /** @var int-mask-of<VkRenderPassCreateFlagBits::*> */
         public int $flags = 0,
         /** @var list<VkAttachmentDescription> */
         public array $attachments = [],

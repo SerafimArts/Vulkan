@@ -28,11 +28,11 @@ final class VkPhysicalDeviceExternalBufferInfo extends InputStructure
 
     public function __construct(
         public ?VkPhysicalDeviceExternalBufferInfoExtension $next = null,
-        /** @var int-mask-of<VkBufferCreateFlagBits::VK_*> */
+        /** @var int-mask-of<VkBufferCreateFlagBits::*> */
         public int $flags = 0,
-        /** @var int<0, 4294967295>|(VkBufferUsageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkBufferUsageFlagBits::*) */
         public int $usage = 0,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $handleType = 0,
     ) {}
 

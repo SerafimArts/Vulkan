@@ -26,7 +26,7 @@ final class VkImportMemoryMetalHandleInfoEXT extends InputStructure implements V
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $handleType = 0,
         public CData|int|null $handle = null,
     ) {}

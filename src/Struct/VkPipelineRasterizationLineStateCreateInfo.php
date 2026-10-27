@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkLineRasterizationMode;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -27,7 +26,7 @@ final class VkPipelineRasterizationLineStateCreateInfo extends InputStructure im
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
-        public VkLineRasterizationMode|int $lineRasterizationMode = VkLineRasterizationMode::VK_LINE_RASTERIZATION_MODE_DEFAULT,
+        public VkLineRasterizationMode $lineRasterizationMode = VkLineRasterizationMode::VK_LINE_RASTERIZATION_MODE_DEFAULT,
         public bool $stippledLineEnable = false,
         /** @var int<0, 4294967295> */
         public int $lineStippleFactor = 0,
@@ -39,7 +38,7 @@ final class VkPipelineRasterizationLineStateCreateInfo extends InputStructure im
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO>,
      *     pNext: CData,
-     *     lineRasterizationMode: int,
+     *     lineRasterizationMode: value-of<VkLineRasterizationMode>,
      *     stippledLineEnable: int<0, 1>,
      *     lineStippleFactor: int<0, 4294967295>,
      *     lineStipplePattern: int<0, 65535>,
@@ -57,7 +56,7 @@ final class VkPipelineRasterizationLineStateCreateInfo extends InputStructure im
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->lineRasterizationMode = EnumCase::getValue($this->lineRasterizationMode);
+        $data->lineRasterizationMode = $this->lineRasterizationMode->value;
 
         $data->stippledLineEnable = (int) $this->stippledLineEnable;
 

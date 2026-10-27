@@ -32,7 +32,7 @@ final readonly class VkVideoDecodeCapabilitiesKHR extends OutputStructure implem
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoDecodeCapabilityFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoDecodeCapabilityFlagBitsKHR::*> */
         public int $flags,
     ) {}
 

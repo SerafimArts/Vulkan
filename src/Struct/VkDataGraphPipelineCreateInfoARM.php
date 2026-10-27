@@ -28,7 +28,7 @@ final class VkDataGraphPipelineCreateInfoARM extends InputStructure
     public function __construct(
         public VkPipelineLayout $layout,
         public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
-        /** @var int<0, max>|(VkPipelineCreateFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkPipelineCreateFlagBits2::*) */
         public int $flags = 0,
         /** @var list<VkDataGraphPipelineResourceInfoARM> */
         public array $resourceInfos = [],

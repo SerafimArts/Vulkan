@@ -26,7 +26,7 @@ final class VkRenderingAttachmentFlagsInfoKHR extends InputStructure implements 
 
     public function __construct(
         public ?VkRenderingAttachmentInfoExtension $next = null,
-        /** @var int-mask-of<VkRenderingAttachmentFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkRenderingAttachmentFlagBitsKHR::*> */
         public int $flags = 0,
     ) {}
 

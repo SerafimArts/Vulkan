@@ -259,13 +259,7 @@ final readonly class Properties
 
         Imports::import($namespace, $space, $property->field->type);
 
-        $class = Locations::createClassName($space, $property->field->type);
-
-        if ($property->kind === PropertyKind::ENUMERATION) {
-            return $class . '|int';
-        }
-
-        return $class;
+        return Locations::createClassName($space, $property->field->type);
     }
 
     /**
@@ -362,9 +356,9 @@ final readonly class Properties
             PropertyKind::STRUCTURE_ARRAY,
             PropertyKind::STRUCTURE_LIST,
             PropertyKind::HANDLE_ARRAY,
-            PropertyKind::HANDLE_LIST => 'list<' . $property->field->type . '>',
+            PropertyKind::HANDLE_LIST,
             PropertyKind::ENUMERATION_LIST,
-            PropertyKind::ENUMERATION_ARRAY => 'list<' . $property->field->type . '|int>',
+            PropertyKind::ENUMERATION_ARRAY => 'list<' . $property->field->type . '>',
             default => null,
         };
     }

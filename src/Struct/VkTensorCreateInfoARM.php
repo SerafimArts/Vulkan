@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkSharingMode;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTensorCreateFlagBitsARM;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkTensorCreateInfoARMExtension;
 
@@ -28,10 +27,10 @@ final class VkTensorCreateInfoARM extends InputStructure
 
     public function __construct(
         public ?VkTensorCreateInfoARMExtension $next = null,
-        /** @var int-mask-of<VkTensorCreateFlagBitsARM::VK_*> */
+        /** @var int-mask-of<VkTensorCreateFlagBitsARM::*> */
         public int $flags = 0,
         public ?VkTensorDescriptionARM $description = null,
-        public VkSharingMode|int $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+        public VkSharingMode $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         /** @var list<int<0, 4294967295>> */
         public array $queueFamilyIndices = [],
     ) {}
@@ -42,7 +41,7 @@ final class VkTensorCreateInfoARM extends InputStructure
      *     pNext: CData,
      *     flags: int<0, max>,
      *     pDescription: CData,
-     *     sharingMode: int,
+     *     sharingMode: value-of<VkSharingMode>,
      *     queueFamilyIndexCount: int<0, 4294967295>,
      *     pQueueFamilyIndices: CData,
      * } $data
@@ -65,7 +64,7 @@ final class VkTensorCreateInfoARM extends InputStructure
             $data->pDescription = \FFI::addr($memory->toStructure($this->description));
         }
 
-        $data->sharingMode = EnumCase::getValue($this->sharingMode);
+        $data->sharingMode = $this->sharingMode->value;
 
         if ($this->queueFamilyIndices !== []) {
             $data->queueFamilyIndexCount = \count($this->queueFamilyIndices);

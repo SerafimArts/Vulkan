@@ -22,39 +22,39 @@ final class VkComponentMapping extends InputStructure
     protected const string NATIVE_TYPE = 'VkComponentMapping';
 
     public function __construct(
-        public VkComponentSwizzle|int $r = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
-        public VkComponentSwizzle|int $g = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
-        public VkComponentSwizzle|int $b = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
-        public VkComponentSwizzle|int $a = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
+        public VkComponentSwizzle $r = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
+        public VkComponentSwizzle $g = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
+        public VkComponentSwizzle $b = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
+        public VkComponentSwizzle $a = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
     ) {}
 
     /**
      * @param CData&object{
-     *     r: int,
-     *     g: int,
-     *     b: int,
-     *     a: int,
+     *     r: value-of<VkComponentSwizzle>,
+     *     g: value-of<VkComponentSwizzle>,
+     *     b: value-of<VkComponentSwizzle>,
+     *     a: value-of<VkComponentSwizzle>,
      * } $data
      *
      * @phpstan-param CData $data
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->r = EnumCase::getValue($this->r);
+        $data->r = $this->r->value;
 
-        $data->g = EnumCase::getValue($this->g);
+        $data->g = $this->g->value;
 
-        $data->b = EnumCase::getValue($this->b);
+        $data->b = $this->b->value;
 
-        $data->a = EnumCase::getValue($this->a);
+        $data->a = $this->a->value;
     }
 
     /**
      * @param CData&object{
-     *     r: int,
-     *     g: int,
-     *     b: int,
-     *     a: int,
+     *     r: value-of<VkComponentSwizzle>,
+     *     g: value-of<VkComponentSwizzle>,
+     *     b: value-of<VkComponentSwizzle>,
+     *     a: value-of<VkComponentSwizzle>,
      * } $data
      *
      * @phpstan-param CData $data

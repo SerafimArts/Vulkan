@@ -32,9 +32,9 @@ final readonly class VkPhysicalDeviceOpticalFlowPropertiesNV extends OutputStruc
     }
 
     public function __construct(
-        /** @var int-mask-of<VkOpticalFlowGridSizeFlagBitsNV::VK_*> */
+        /** @var int-mask-of<VkOpticalFlowGridSizeFlagBitsNV::*> */
         public int $supportedOutputGridSizes,
-        /** @var int-mask-of<VkOpticalFlowGridSizeFlagBitsNV::VK_*> */
+        /** @var int-mask-of<VkOpticalFlowGridSizeFlagBitsNV::*> */
         public int $supportedHintGridSizes,
         /** The value is at least the required one. */
         public bool $hintSupported,

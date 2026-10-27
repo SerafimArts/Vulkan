@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkBlendFactor;
 use Serafim\Vulkan\Enum\VkBlendOp;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -23,38 +22,38 @@ final class VkColorBlendEquationEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkColorBlendEquationEXT';
 
     public function __construct(
-        public VkBlendFactor|int $srcColorBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
-        public VkBlendFactor|int $dstColorBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
-        public VkBlendOp|int $colorBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
-        public VkBlendFactor|int $srcAlphaBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
-        public VkBlendFactor|int $dstAlphaBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
-        public VkBlendOp|int $alphaBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
+        public VkBlendFactor $srcColorBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
+        public VkBlendFactor $dstColorBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
+        public VkBlendOp $colorBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
+        public VkBlendFactor $srcAlphaBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
+        public VkBlendFactor $dstAlphaBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
+        public VkBlendOp $alphaBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
     ) {}
 
     /**
      * @param CData&object{
-     *     srcColorBlendFactor: int,
-     *     dstColorBlendFactor: int,
-     *     colorBlendOp: int,
-     *     srcAlphaBlendFactor: int,
-     *     dstAlphaBlendFactor: int,
-     *     alphaBlendOp: int,
+     *     srcColorBlendFactor: value-of<VkBlendFactor>,
+     *     dstColorBlendFactor: value-of<VkBlendFactor>,
+     *     colorBlendOp: value-of<VkBlendOp>,
+     *     srcAlphaBlendFactor: value-of<VkBlendFactor>,
+     *     dstAlphaBlendFactor: value-of<VkBlendFactor>,
+     *     alphaBlendOp: value-of<VkBlendOp>,
      * } $data
      *
      * @phpstan-param CData $data
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->srcColorBlendFactor = EnumCase::getValue($this->srcColorBlendFactor);
+        $data->srcColorBlendFactor = $this->srcColorBlendFactor->value;
 
-        $data->dstColorBlendFactor = EnumCase::getValue($this->dstColorBlendFactor);
+        $data->dstColorBlendFactor = $this->dstColorBlendFactor->value;
 
-        $data->colorBlendOp = EnumCase::getValue($this->colorBlendOp);
+        $data->colorBlendOp = $this->colorBlendOp->value;
 
-        $data->srcAlphaBlendFactor = EnumCase::getValue($this->srcAlphaBlendFactor);
+        $data->srcAlphaBlendFactor = $this->srcAlphaBlendFactor->value;
 
-        $data->dstAlphaBlendFactor = EnumCase::getValue($this->dstAlphaBlendFactor);
+        $data->dstAlphaBlendFactor = $this->dstAlphaBlendFactor->value;
 
-        $data->alphaBlendOp = EnumCase::getValue($this->alphaBlendOp);
+        $data->alphaBlendOp = $this->alphaBlendOp->value;
     }
 }

@@ -29,7 +29,7 @@ final class VkDescriptorPoolCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkDescriptorPoolCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkDescriptorPoolCreateFlagBits::VK_*> */
+        /** @var int-mask-of<VkDescriptorPoolCreateFlagBits::*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $maxSets = 0,

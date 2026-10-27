@@ -26,7 +26,7 @@ final class VkPhysicalDeviceVideoFormatInfoKHR extends InputStructure
 
     public function __construct(
         public ?VkPhysicalDeviceVideoFormatInfoKHRExtension $next = null,
-        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
         public int $imageUsage = 0,
     ) {}
 

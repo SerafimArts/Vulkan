@@ -10,7 +10,6 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -22,12 +21,12 @@ final class VkBaseInStructure extends InputStructure
     protected const string NATIVE_TYPE = 'VkBaseInStructure';
 
     public function __construct(
-        public VkStructureType|int $sType = VkStructureType::VK_STRUCTURE_TYPE_APPLICATION_INFO,
+        public VkStructureType $sType = VkStructureType::VK_STRUCTURE_TYPE_APPLICATION_INFO,
     ) {}
 
     /**
      * @param CData&object{
-     *     sType: int,
+     *     sType: value-of<VkStructureType>,
      *     pNext: CData,
      * } $data
      *
@@ -35,6 +34,6 @@ final class VkBaseInStructure extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->sType = EnumCase::getValue($this->sType);
+        $data->sType = $this->sType->value;
     }
 }

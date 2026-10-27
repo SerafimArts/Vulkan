@@ -26,7 +26,7 @@ final class VkPhysicalDeviceExternalSemaphoreInfo extends InputStructure
 
     public function __construct(
         public ?VkPhysicalDeviceExternalSemaphoreInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkExternalSemaphoreHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalSemaphoreHandleTypeFlagBits::*) */
         public int $handleType = 0,
     ) {}
 

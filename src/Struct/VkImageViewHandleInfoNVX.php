@@ -13,7 +13,6 @@ use Serafim\Vulkan\Enum\VkDescriptorType;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Handle\VkSampler;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,7 +27,7 @@ final class VkImageViewHandleInfoNVX extends InputStructure
 
     public function __construct(
         public VkImageView $imageView,
-        public VkDescriptorType|int $descriptorType = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
+        public VkDescriptorType $descriptorType = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
         public ?VkSampler $sampler = null,
     ) {}
 
@@ -37,7 +36,7 @@ final class VkImageViewHandleInfoNVX extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_HANDLE_INFO_NVX>,
      *     pNext: CData,
      *     imageView: CData,
-     *     descriptorType: int,
+     *     descriptorType: value-of<VkDescriptorType>,
      *     sampler: CData,
      * } $data
      *
@@ -49,7 +48,7 @@ final class VkImageViewHandleInfoNVX extends InputStructure
 
         $data->imageView = $memory->ffi->cast('VkImageView', $this->imageView->pointer);
 
-        $data->descriptorType = EnumCase::getValue($this->descriptorType);
+        $data->descriptorType = $this->descriptorType->value;
 
         if ($this->sampler !== null) {
             $data->sampler = $memory->ffi->cast('VkSampler', $this->sampler->pointer);

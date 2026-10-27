@@ -15,7 +15,6 @@ use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkResolveModeFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingAttachmentInfoExtension;
 
@@ -33,13 +32,13 @@ final class VkRenderingAttachmentInfo extends InputStructure
         public VkClearValue $clearValue,
         public ?VkRenderingAttachmentInfoExtension $next = null,
         public ?VkImageView $imageView = null,
-        public VkImageLayout|int $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
-        /** @var int<0, 4294967295>|(VkResolveModeFlagBits::VK_*) */
+        public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        /** @var int<0, 4294967295>|(VkResolveModeFlagBits::*) */
         public int $resolveMode = 0,
         public ?VkImageView $resolveImageView = null,
-        public VkImageLayout|int $resolveImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
-        public VkAttachmentLoadOp|int $loadOp = VkAttachmentLoadOp::VK_ATTACHMENT_LOAD_OP_LOAD,
-        public VkAttachmentStoreOp|int $storeOp = VkAttachmentStoreOp::VK_ATTACHMENT_STORE_OP_STORE,
+        public VkImageLayout $resolveImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkAttachmentLoadOp $loadOp = VkAttachmentLoadOp::VK_ATTACHMENT_LOAD_OP_LOAD,
+        public VkAttachmentStoreOp $storeOp = VkAttachmentStoreOp::VK_ATTACHMENT_STORE_OP_STORE,
     ) {}
 
     /**
@@ -47,12 +46,12 @@ final class VkRenderingAttachmentInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO>,
      *     pNext: CData,
      *     imageView: CData,
-     *     imageLayout: int,
+     *     imageLayout: value-of<VkImageLayout>,
      *     resolveMode: int<0, 4294967295>,
      *     resolveImageView: CData,
-     *     resolveImageLayout: int,
-     *     loadOp: int,
-     *     storeOp: int,
+     *     resolveImageLayout: value-of<VkImageLayout>,
+     *     loadOp: value-of<VkAttachmentLoadOp>,
+     *     storeOp: value-of<VkAttachmentStoreOp>,
      *     clearValue: CData,
      * } $data
      *
@@ -72,7 +71,7 @@ final class VkRenderingAttachmentInfo extends InputStructure
             $data->imageView = $memory->ffi->cast('VkImageView', $this->imageView->pointer);
         }
 
-        $data->imageLayout = EnumCase::getValue($this->imageLayout);
+        $data->imageLayout = $this->imageLayout->value;
 
         $data->resolveMode = $this->resolveMode;
 
@@ -80,11 +79,11 @@ final class VkRenderingAttachmentInfo extends InputStructure
             $data->resolveImageView = $memory->ffi->cast('VkImageView', $this->resolveImageView->pointer);
         }
 
-        $data->resolveImageLayout = EnumCase::getValue($this->resolveImageLayout);
+        $data->resolveImageLayout = $this->resolveImageLayout->value;
 
-        $data->loadOp = EnumCase::getValue($this->loadOp);
+        $data->loadOp = $this->loadOp->value;
 
-        $data->storeOp = EnumCase::getValue($this->storeOp);
+        $data->storeOp = $this->storeOp->value;
 
         $this->clearValue->write($memory, $data->clearValue);
     }

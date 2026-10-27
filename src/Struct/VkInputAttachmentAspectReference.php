@@ -28,7 +28,7 @@ final class VkInputAttachmentAspectReference extends InputStructure
         public int $subpass = 0,
         /** @var int<0, 4294967295> */
         public int $inputAttachmentIndex = 0,
-        /** @var int-mask-of<VkImageAspectFlagBits::VK_*> */
+        /** @var int-mask-of<VkImageAspectFlagBits::*> */
         public int $aspectMask = 0,
     ) {}
 

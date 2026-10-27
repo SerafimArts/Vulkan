@@ -28,7 +28,7 @@ final class VkSampleLocationsInfoEXT extends InputStructure implements VkImageMe
     public function __construct(
         public VkExtent2D $sampleLocationGridSize,
         public VkImageMemoryBarrierExtension|VkImageMemoryBarrier2Extension|null $next = null,
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
         public int $sampleLocationsPerPixel = 0,
         /** @var list<VkSampleLocationEXT> */
         public array $sampleLocations = [],

@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDiscardRectangleModeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -29,7 +28,7 @@ final class VkPipelineDiscardRectangleStateCreateInfoEXT extends InputStructure 
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        public VkDiscardRectangleModeEXT|int $discardRectangleMode = VkDiscardRectangleModeEXT::VK_DISCARD_RECTANGLE_MODE_INCLUSIVE_EXT,
+        public VkDiscardRectangleModeEXT $discardRectangleMode = VkDiscardRectangleModeEXT::VK_DISCARD_RECTANGLE_MODE_INCLUSIVE_EXT,
         /** @var list<VkRect2D> */
         public array $discardRectangles = [],
     ) {}
@@ -39,7 +38,7 @@ final class VkPipelineDiscardRectangleStateCreateInfoEXT extends InputStructure 
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     discardRectangleMode: int,
+     *     discardRectangleMode: value-of<VkDiscardRectangleModeEXT>,
      *     discardRectangleCount: int<0, 4294967295>,
      *     pDiscardRectangles: CData,
      * } $data
@@ -58,7 +57,7 @@ final class VkPipelineDiscardRectangleStateCreateInfoEXT extends InputStructure 
 
         $data->flags = $this->flags;
 
-        $data->discardRectangleMode = EnumCase::getValue($this->discardRectangleMode);
+        $data->discardRectangleMode = $this->discardRectangleMode->value;
 
         if ($this->discardRectangles !== []) {
             $data->discardRectangleCount = \count($this->discardRectangles);

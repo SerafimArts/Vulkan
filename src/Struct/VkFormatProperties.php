@@ -21,19 +21,19 @@ final readonly class VkFormatProperties extends OutputStructure
         /**
          * Format features in case of linear tiling
          *
-         * @var int<0, 4294967295>|(VkFormatFeatureFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*)
          */
         public int $linearTilingFeatures,
         /**
          * Format features in case of optimal tiling
          *
-         * @var int<0, 4294967295>|(VkFormatFeatureFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*)
          */
         public int $optimalTilingFeatures,
         /**
          * Format features supported by buffers
          *
-         * @var int<0, 4294967295>|(VkFormatFeatureFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*)
          */
         public int $bufferFeatures,
     ) {}

@@ -28,9 +28,9 @@ final class VkImportSemaphoreZirconHandleInfoFUCHSIA extends InputStructure
     public function __construct(
         public VkSemaphore $semaphore,
         public CData|int $zirconHandle,
-        /** @var int-mask-of<VkSemaphoreImportFlagBits::VK_*> */
+        /** @var int-mask-of<VkSemaphoreImportFlagBits::*> */
         public int $flags = 0,
-        /** @var int<0, 4294967295>|(VkExternalSemaphoreHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalSemaphoreHandleTypeFlagBits::*) */
         public int $handleType = 0,
     ) {}
 

@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineNodeTypeARM;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineCreateInfoARMExtension;
 
@@ -26,7 +25,7 @@ final class VkDataGraphPipelineSingleNodeCreateInfoARM extends InputStructure im
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM->value;
 
     public function __construct(
-        public VkDataGraphPipelineNodeTypeARM|int $nodeType,
+        public VkDataGraphPipelineNodeTypeARM $nodeType,
         public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
         /** @var list<VkDataGraphPipelineSingleNodeConnectionARM> */
         public array $connections = [],
@@ -36,7 +35,7 @@ final class VkDataGraphPipelineSingleNodeCreateInfoARM extends InputStructure im
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CREATE_INFO_ARM>,
      *     pNext: CData,
-     *     nodeType: int,
+     *     nodeType: value-of<VkDataGraphPipelineNodeTypeARM>,
      *     connectionCount: int<0, 4294967295>,
      *     pConnections: CData,
      * } $data
@@ -53,7 +52,7 @@ final class VkDataGraphPipelineSingleNodeCreateInfoARM extends InputStructure im
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->nodeType = EnumCase::getValue($this->nodeType);
+        $data->nodeType = $this->nodeType->value;
 
         if ($this->connections !== []) {
             $data->connectionCount = \count($this->connections);

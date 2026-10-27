@@ -36,14 +36,14 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
     }
 
     public function __construct(
-        public VkDriverId|int $driverID,
+        public VkDriverId $driverID,
         public string $driverName,
         public string $driverInfo,
         public VkConformanceVersion $conformanceVersion,
         /** The value is exactly the required one. */
-        public VkShaderFloatControlsIndependence|int $denormBehaviorIndependence,
+        public VkShaderFloatControlsIndependence $denormBehaviorIndependence,
         /** The value is exactly the required one. */
-        public VkShaderFloatControlsIndependence|int $roundingModeIndependence,
+        public VkShaderFloatControlsIndependence $roundingModeIndependence,
         /**
          * An implementation can preserve signed zero, nan, inf
          *
@@ -247,13 +247,13 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
         /**
          * Supported depth resolve modes
          *
-         * @var int-mask-of<VkResolveModeFlagBits::VK_*>
+         * @var int-mask-of<VkResolveModeFlagBits::*>
          */
         public int $supportedDepthResolveModes,
         /**
          * Supported stencil resolve modes
          *
-         * @var int-mask-of<VkResolveModeFlagBits::VK_*>
+         * @var int-mask-of<VkResolveModeFlagBits::*>
          */
         public int $supportedStencilResolveModes,
         /**
@@ -279,18 +279,18 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
          * @var int<0, max>
          */
         public int $maxTimelineSemaphoreValueDifference,
-        /** @var int-mask-of<VkSampleCountFlagBits::VK_*> */
+        /** @var int-mask-of<VkSampleCountFlagBits::*> */
         public int $framebufferIntegerColorSampleCounts,
     ) {}
 
     /**
      * @param CData&object{
-     *     driverID: int,
+     *     driverID: value-of<VkDriverId>,
      *     driverName: CData,
      *     driverInfo: CData,
      *     conformanceVersion: CData,
-     *     denormBehaviorIndependence: int,
-     *     roundingModeIndependence: int,
+     *     denormBehaviorIndependence: value-of<VkShaderFloatControlsIndependence>,
+     *     roundingModeIndependence: value-of<VkShaderFloatControlsIndependence>,
      *     shaderSignedZeroInfNanPreserveFloat16: int<0, 1>,
      *     shaderSignedZeroInfNanPreserveFloat32: int<0, 1>,
      *     shaderSignedZeroInfNanPreserveFloat64: int<0, 1>,

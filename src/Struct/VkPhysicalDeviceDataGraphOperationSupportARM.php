@@ -23,7 +23,7 @@ final class VkPhysicalDeviceDataGraphOperationSupportARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphOperationSupportARM';
 
     public function __construct(
-        public VkPhysicalDeviceDataGraphOperationTypeARM|int $operationType = VkPhysicalDeviceDataGraphOperationTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_SPIRV_EXTENDED_INSTRUCTION_SET_ARM,
+        public VkPhysicalDeviceDataGraphOperationTypeARM $operationType = VkPhysicalDeviceDataGraphOperationTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_SPIRV_EXTENDED_INSTRUCTION_SET_ARM,
         public string $name = '',
         /** @var int<0, 4294967295> */
         public int $version = 0,
@@ -31,7 +31,7 @@ final class VkPhysicalDeviceDataGraphOperationSupportARM extends InputStructure
 
     /**
      * @param CData&object{
-     *     operationType: int,
+     *     operationType: value-of<VkPhysicalDeviceDataGraphOperationTypeARM>,
      *     name: CData,
      *     version: int<0, 4294967295>,
      * } $data
@@ -40,7 +40,7 @@ final class VkPhysicalDeviceDataGraphOperationSupportARM extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->operationType = EnumCase::getValue($this->operationType);
+        $data->operationType = $this->operationType->value;
 
         if (\strlen($this->name) >= 128) {
             throw InvalidStructureException::becauseArrayIsTooLong('VkPhysicalDeviceDataGraphOperationSupportARM', 'name', 128 - 1);
@@ -53,7 +53,7 @@ final class VkPhysicalDeviceDataGraphOperationSupportARM extends InputStructure
 
     /**
      * @param CData&object{
-     *     operationType: int,
+     *     operationType: value-of<VkPhysicalDeviceDataGraphOperationTypeARM>,
      *     name: CData,
      *     version: int<0, 4294967295>,
      * } $data

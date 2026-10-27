@@ -19,11 +19,11 @@ use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
 final readonly class VkExternalMemoryProperties extends OutputStructure
 {
     public function __construct(
-        /** @var int-mask-of<VkExternalMemoryFeatureFlagBits::VK_*> */
+        /** @var int-mask-of<VkExternalMemoryFeatureFlagBits::*> */
         public int $externalMemoryFeatures,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $exportFromImportedHandleTypes,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $compatibleHandleTypes,
     ) {}
 

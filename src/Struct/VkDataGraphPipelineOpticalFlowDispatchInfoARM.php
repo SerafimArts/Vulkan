@@ -26,7 +26,7 @@ final class VkDataGraphPipelineOpticalFlowDispatchInfoARM extends InputStructure
 
     public function __construct(
         public ?VkDataGraphPipelineDispatchInfoARMExtension $next = null,
-        /** @var int-mask-of<VkDataGraphOpticalFlowExecuteFlagBitsARM::VK_*> */
+        /** @var int-mask-of<VkDataGraphOpticalFlowExecuteFlagBitsARM::*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $meanFlowL1NormHint = 0,

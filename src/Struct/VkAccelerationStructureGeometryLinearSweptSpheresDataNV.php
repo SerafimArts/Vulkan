@@ -14,7 +14,6 @@ use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkRayTracingLssIndexingModeNV;
 use Serafim\Vulkan\Enum\VkRayTracingLssPrimitiveEndCapsModeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryKHRExtension;
 
@@ -33,34 +32,34 @@ final class VkAccelerationStructureGeometryLinearSweptSpheresDataNV extends Inpu
         public VkDeviceOrHostAddressConstKHR $radiusData,
         public VkDeviceOrHostAddressConstKHR $indexData,
         public ?VkAccelerationStructureGeometryKHRExtension $next = null,
-        public VkFormat|int $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var int<0, max> */
         public int $vertexStride = 0,
-        public VkFormat|int $radiusFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $radiusFormat = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var int<0, max> */
         public int $radiusStride = 0,
-        public VkIndexType|int $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
+        public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
         /** @var int<0, max> */
         public int $indexStride = 0,
-        public VkRayTracingLssIndexingModeNV|int $indexingMode = VkRayTracingLssIndexingModeNV::VK_RAY_TRACING_LSS_INDEXING_MODE_LIST_NV,
-        public VkRayTracingLssPrimitiveEndCapsModeNV|int $endCapsMode = VkRayTracingLssPrimitiveEndCapsModeNV::VK_RAY_TRACING_LSS_PRIMITIVE_END_CAPS_MODE_NONE_NV,
+        public VkRayTracingLssIndexingModeNV $indexingMode = VkRayTracingLssIndexingModeNV::VK_RAY_TRACING_LSS_INDEXING_MODE_LIST_NV,
+        public VkRayTracingLssPrimitiveEndCapsModeNV $endCapsMode = VkRayTracingLssPrimitiveEndCapsModeNV::VK_RAY_TRACING_LSS_PRIMITIVE_END_CAPS_MODE_NONE_NV,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV>,
      *     pNext: CData,
-     *     vertexFormat: int,
+     *     vertexFormat: value-of<VkFormat>,
      *     vertexData: CData,
      *     vertexStride: int<0, max>,
-     *     radiusFormat: int,
+     *     radiusFormat: value-of<VkFormat>,
      *     radiusData: CData,
      *     radiusStride: int<0, max>,
-     *     indexType: int,
+     *     indexType: value-of<VkIndexType>,
      *     indexData: CData,
      *     indexStride: int<0, max>,
-     *     indexingMode: int,
-     *     endCapsMode: int,
+     *     indexingMode: value-of<VkRayTracingLssIndexingModeNV>,
+     *     endCapsMode: value-of<VkRayTracingLssPrimitiveEndCapsModeNV>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -75,26 +74,26 @@ final class VkAccelerationStructureGeometryLinearSweptSpheresDataNV extends Inpu
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->vertexFormat = EnumCase::getValue($this->vertexFormat);
+        $data->vertexFormat = $this->vertexFormat->value;
 
         $this->vertexData->write($memory, $data->vertexData);
 
         $data->vertexStride = $this->vertexStride;
 
-        $data->radiusFormat = EnumCase::getValue($this->radiusFormat);
+        $data->radiusFormat = $this->radiusFormat->value;
 
         $this->radiusData->write($memory, $data->radiusData);
 
         $data->radiusStride = $this->radiusStride;
 
-        $data->indexType = EnumCase::getValue($this->indexType);
+        $data->indexType = $this->indexType->value;
 
         $this->indexData->write($memory, $data->indexData);
 
         $data->indexStride = $this->indexStride;
 
-        $data->indexingMode = EnumCase::getValue($this->indexingMode);
+        $data->indexingMode = $this->indexingMode->value;
 
-        $data->endCapsMode = EnumCase::getValue($this->endCapsMode);
+        $data->endCapsMode = $this->endCapsMode->value;
     }
 }

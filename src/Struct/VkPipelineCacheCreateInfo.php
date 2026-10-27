@@ -24,7 +24,7 @@ final class VkPipelineCacheCreateInfo extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO->value;
 
     public function __construct(
-        /** @var int-mask-of<VkPipelineCacheCreateFlagBits::VK_*> */
+        /** @var int-mask-of<VkPipelineCacheCreateFlagBits::*> */
         public int $flags = 0,
         /** Initial data to populate cache */
         public string $initialData = '',

@@ -61,7 +61,7 @@ final readonly class VkPhysicalDeviceSubgroupSizeControlProperties extends Outpu
         /**
          * The shader stages that support specifying a subgroup size
          *
-         * @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkShaderStageFlagBits::*)
          */
         public int $requiredSubgroupSizeStages,
     ) {}

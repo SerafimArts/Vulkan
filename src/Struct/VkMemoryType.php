@@ -21,7 +21,7 @@ final readonly class VkMemoryType extends OutputStructure
         /**
          * Memory properties of this memory type
          *
-         * @var int-mask-of<VkMemoryPropertyFlagBits::VK_*>
+         * @var int-mask-of<VkMemoryPropertyFlagBits::*>
          */
         public int $propertyFlags,
         /**

@@ -23,18 +23,18 @@ final readonly class VkFramebufferMixedSamplesCombinationNV extends OutputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV->value;
 
     public function __construct(
-        public VkCoverageReductionModeNV|int $coverageReductionMode,
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
+        public VkCoverageReductionModeNV $coverageReductionMode,
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
         public int $rasterizationSamples,
-        /** @var int-mask-of<VkSampleCountFlagBits::VK_*> */
+        /** @var int-mask-of<VkSampleCountFlagBits::*> */
         public int $depthStencilSamples,
-        /** @var int-mask-of<VkSampleCountFlagBits::VK_*> */
+        /** @var int-mask-of<VkSampleCountFlagBits::*> */
         public int $colorSamples,
     ) {}
 
     /**
      * @param CData&object{
-     *     coverageReductionMode: int,
+     *     coverageReductionMode: value-of<VkCoverageReductionModeNV>,
      *     rasterizationSamples: int<0, 4294967295>,
      *     depthStencilSamples: int<0, 4294967295>,
      *     colorSamples: int<0, 4294967295>,

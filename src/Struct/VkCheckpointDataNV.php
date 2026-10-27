@@ -21,7 +21,7 @@ final readonly class VkCheckpointDataNV extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CHECKPOINT_DATA_NV->value;
 
     public function __construct(
-        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::*) */
         public int $stage,
         public CData|int|null $checkpointMarker,
     ) {}

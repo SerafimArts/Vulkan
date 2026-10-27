@@ -22,13 +22,13 @@ final class VkPhysicalDeviceDataGraphProcessingEngineARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphProcessingEngineARM';
 
     public function __construct(
-        public VkPhysicalDeviceDataGraphProcessingEngineTypeARM|int $type = VkPhysicalDeviceDataGraphProcessingEngineTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM,
+        public VkPhysicalDeviceDataGraphProcessingEngineTypeARM $type = VkPhysicalDeviceDataGraphProcessingEngineTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM,
         public bool $isForeign = false,
     ) {}
 
     /**
      * @param CData&object{
-     *     type: int,
+     *     type: value-of<VkPhysicalDeviceDataGraphProcessingEngineTypeARM>,
      *     isForeign: int<0, 1>,
      * } $data
      *
@@ -36,14 +36,14 @@ final class VkPhysicalDeviceDataGraphProcessingEngineARM extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $data->isForeign = (int) $this->isForeign;
     }
 
     /**
      * @param CData&object{
-     *     type: int,
+     *     type: value-of<VkPhysicalDeviceDataGraphProcessingEngineTypeARM>,
      *     isForeign: int<0, 1>,
      * } $data
      *

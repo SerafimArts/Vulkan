@@ -34,7 +34,7 @@ final readonly class VkPhysicalDeviceDriverProperties extends OutputStructure im
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkDriverId|int $driverID,
+        public VkDriverId $driverID,
         /** The value is exactly the required one. */
         public string $driverName,
         /** The value is exactly the required one. */
@@ -45,7 +45,7 @@ final readonly class VkPhysicalDeviceDriverProperties extends OutputStructure im
 
     /**
      * @param CData&object{
-     *     driverID: int,
+     *     driverID: value-of<VkDriverId>,
      *     driverName: CData,
      *     driverInfo: CData,
      *     conformanceVersion: CData,

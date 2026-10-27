@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoverageReductionModeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtension;
 
@@ -29,7 +28,7 @@ final class VkPipelineCoverageReductionStateCreateInfoNV extends InputStructure 
         public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        public VkCoverageReductionModeNV|int $coverageReductionMode = VkCoverageReductionModeNV::VK_COVERAGE_REDUCTION_MODE_MERGE_NV,
+        public VkCoverageReductionModeNV $coverageReductionMode = VkCoverageReductionModeNV::VK_COVERAGE_REDUCTION_MODE_MERGE_NV,
     ) {}
 
     /**
@@ -37,7 +36,7 @@ final class VkPipelineCoverageReductionStateCreateInfoNV extends InputStructure 
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     coverageReductionMode: int,
+     *     coverageReductionMode: value-of<VkCoverageReductionModeNV>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -54,6 +53,6 @@ final class VkPipelineCoverageReductionStateCreateInfoNV extends InputStructure 
 
         $data->flags = $this->flags;
 
-        $data->coverageReductionMode = EnumCase::getValue($this->coverageReductionMode);
+        $data->coverageReductionMode = $this->coverageReductionMode->value;
     }
 }

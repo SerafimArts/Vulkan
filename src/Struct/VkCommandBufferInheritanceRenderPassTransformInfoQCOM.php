@@ -28,7 +28,7 @@ final class VkCommandBufferInheritanceRenderPassTransformInfoQCOM extends InputS
         public VkRect2D $renderArea,
         /** Pointer to next structure */
         public ?VkCommandBufferInheritanceInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::VK_*) */
+        /** @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::*) */
         public int $transform = 0,
     ) {}
 

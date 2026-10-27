@@ -27,7 +27,7 @@ final class VkImportMetalTextureInfoEXT extends InputStructure implements VkImag
     public function __construct(
         public CData|int $mtlTexture,
         public ?VkImageCreateInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkImageAspectFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkImageAspectFlagBits::*) */
         public int $plane = 0,
     ) {}
 

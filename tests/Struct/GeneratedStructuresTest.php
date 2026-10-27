@@ -6,6 +6,7 @@ namespace Serafim\Vulkan\Tests\Struct;
 
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\UnknownEnumValueException;
 use Serafim\Vulkan\Struct\InputStructure;
 use Serafim\Vulkan\Struct\OutputStructure;
 use Serafim\Vulkan\Tests\TestCase;
@@ -63,7 +64,7 @@ final class GeneratedStructuresTest extends TestCase
 
             try {
                 $class::createFromCData(...$arguments);
-            } catch (\ValueError) {
+            } catch (UnknownEnumValueException) {
                 // The memory has no valid value of an enum, the zero is not one of them.
             } catch (\Throwable $e) {
                 $failed[$class] = $e::class . ': ' . $e->getMessage();

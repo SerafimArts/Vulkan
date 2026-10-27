@@ -28,7 +28,7 @@ final class VkMemoryMapInfo extends InputStructure
     public function __construct(
         public VkDeviceMemory $memory,
         public ?VkMemoryMapInfoExtension $next = null,
-        /** @var int-mask-of<VkMemoryMapFlagBits::VK_*> */
+        /** @var int-mask-of<VkMemoryMapFlagBits::*> */
         public int $flags = 0,
         /** @var int<0, max> */
         public int $offset = 0,

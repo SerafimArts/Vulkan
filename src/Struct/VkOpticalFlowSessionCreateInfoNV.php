@@ -14,7 +14,6 @@ use Serafim\Vulkan\Enum\VkOpticalFlowGridSizeFlagBitsNV;
 use Serafim\Vulkan\Enum\VkOpticalFlowPerformanceLevelNV;
 use Serafim\Vulkan\Enum\VkOpticalFlowSessionCreateFlagBitsNV;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkOpticalFlowSessionCreateInfoNVExtension;
 
@@ -34,15 +33,15 @@ final class VkOpticalFlowSessionCreateInfoNV extends InputStructure
         public int $width = 0,
         /** @var int<0, 4294967295> */
         public int $height = 0,
-        public VkFormat|int $imageFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkFormat|int $flowVectorFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkFormat|int $costFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int-mask-of<VkOpticalFlowGridSizeFlagBitsNV::VK_*> */
+        public VkFormat $imageFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $flowVectorFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $costFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        /** @var int-mask-of<VkOpticalFlowGridSizeFlagBitsNV::*> */
         public int $outputGridSize = 0,
-        /** @var int-mask-of<VkOpticalFlowGridSizeFlagBitsNV::VK_*> */
+        /** @var int-mask-of<VkOpticalFlowGridSizeFlagBitsNV::*> */
         public int $hintGridSize = 0,
-        public VkOpticalFlowPerformanceLevelNV|int $performanceLevel = VkOpticalFlowPerformanceLevelNV::VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_UNKNOWN_NV,
-        /** @var int-mask-of<VkOpticalFlowSessionCreateFlagBitsNV::VK_*> */
+        public VkOpticalFlowPerformanceLevelNV $performanceLevel = VkOpticalFlowPerformanceLevelNV::VK_OPTICAL_FLOW_PERFORMANCE_LEVEL_UNKNOWN_NV,
+        /** @var int-mask-of<VkOpticalFlowSessionCreateFlagBitsNV::*> */
         public int $flags = 0,
     ) {}
 
@@ -52,12 +51,12 @@ final class VkOpticalFlowSessionCreateInfoNV extends InputStructure
      *     pNext: CData,
      *     width: int<0, 4294967295>,
      *     height: int<0, 4294967295>,
-     *     imageFormat: int,
-     *     flowVectorFormat: int,
-     *     costFormat: int,
+     *     imageFormat: value-of<VkFormat>,
+     *     flowVectorFormat: value-of<VkFormat>,
+     *     costFormat: value-of<VkFormat>,
      *     outputGridSize: int<0, 4294967295>,
      *     hintGridSize: int<0, 4294967295>,
-     *     performanceLevel: int,
+     *     performanceLevel: value-of<VkOpticalFlowPerformanceLevelNV>,
      *     flags: int<0, 4294967295>,
      * } $data
      *
@@ -77,17 +76,17 @@ final class VkOpticalFlowSessionCreateInfoNV extends InputStructure
 
         $data->height = $this->height;
 
-        $data->imageFormat = EnumCase::getValue($this->imageFormat);
+        $data->imageFormat = $this->imageFormat->value;
 
-        $data->flowVectorFormat = EnumCase::getValue($this->flowVectorFormat);
+        $data->flowVectorFormat = $this->flowVectorFormat->value;
 
-        $data->costFormat = EnumCase::getValue($this->costFormat);
+        $data->costFormat = $this->costFormat->value;
 
         $data->outputGridSize = $this->outputGridSize;
 
         $data->hintGridSize = $this->hintGridSize;
 
-        $data->performanceLevel = EnumCase::getValue($this->performanceLevel);
+        $data->performanceLevel = $this->performanceLevel->value;
 
         $data->flags = $this->flags;
     }

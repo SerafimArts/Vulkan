@@ -29,7 +29,7 @@ final class VkVideoEncodeRateControlInfoKHR extends InputStructure implements Vk
         public VkVideoCodingControlInfoKHRExtension|VkVideoBeginCodingInfoKHRExtension|null $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        /** @var int<0, 4294967295>|(VkVideoEncodeRateControlModeFlagBitsKHR::VK_*) */
+        /** @var int<0, 4294967295>|(VkVideoEncodeRateControlModeFlagBitsKHR::*) */
         public int $rateControlMode = 0,
         /** @var list<VkVideoEncodeRateControlLayerInfoKHR> */
         public array $layers = [],

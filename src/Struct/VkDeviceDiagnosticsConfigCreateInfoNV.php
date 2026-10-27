@@ -26,7 +26,7 @@ final class VkDeviceDiagnosticsConfigCreateInfoNV extends InputStructure impleme
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkDeviceDiagnosticsConfigFlagBitsNV::VK_*> */
+        /** @var int-mask-of<VkDeviceDiagnosticsConfigFlagBitsNV::*> */
         public int $flags = 0,
     ) {}
 

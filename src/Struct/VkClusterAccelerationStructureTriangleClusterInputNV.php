@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +24,7 @@ final class VkClusterAccelerationStructureTriangleClusterInputNV extends InputSt
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV->value;
 
     public function __construct(
-        public VkFormat|int $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var int<0, 4294967295> */
         public int $maxGeometryIndexValue = 0,
         /** @var int<0, 4294967295> */
@@ -46,7 +45,7 @@ final class VkClusterAccelerationStructureTriangleClusterInputNV extends InputSt
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV>,
      *     pNext: CData,
-     *     vertexFormat: int,
+     *     vertexFormat: value-of<VkFormat>,
      *     maxGeometryIndexValue: int<0, 4294967295>,
      *     maxClusterUniqueGeometryCount: int<0, 4294967295>,
      *     maxClusterTriangleCount: int<0, 4294967295>,
@@ -62,7 +61,7 @@ final class VkClusterAccelerationStructureTriangleClusterInputNV extends InputSt
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->vertexFormat = EnumCase::getValue($this->vertexFormat);
+        $data->vertexFormat = $this->vertexFormat->value;
 
         $data->maxGeometryIndexValue = $this->maxGeometryIndexValue;
 

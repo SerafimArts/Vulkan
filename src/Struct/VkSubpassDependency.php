@@ -30,24 +30,24 @@ final class VkSubpassDependency extends InputStructure
         public int $srcSubpass = 0,
         /** @var int<0, 4294967295> */
         public int $dstSubpass = 0,
-        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::*) */
         public int $srcStageMask = 0,
-        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::*) */
         public int $dstStageMask = 0,
         /**
          * Memory accesses from the source of the dependency to synchronize
          *
-         * @var int<0, 4294967295>|(VkAccessFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkAccessFlagBits::*)
          */
         public int $srcAccessMask = 0,
         /**
          * Memory accesses from the destination of the dependency to
          * synchronize
          *
-         * @var int<0, 4294967295>|(VkAccessFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkAccessFlagBits::*)
          */
         public int $dstAccessMask = 0,
-        /** @var int-mask-of<VkDependencyFlagBits::VK_*> */
+        /** @var int-mask-of<VkDependencyFlagBits::*> */
         public int $dependencyFlags = 0,
     ) {}
 

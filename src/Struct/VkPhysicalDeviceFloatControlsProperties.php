@@ -34,9 +34,9 @@ final readonly class VkPhysicalDeviceFloatControlsProperties extends OutputStruc
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkShaderFloatControlsIndependence|int $denormBehaviorIndependence,
+        public VkShaderFloatControlsIndependence $denormBehaviorIndependence,
         /** The value is exactly the required one. */
-        public VkShaderFloatControlsIndependence|int $roundingModeIndependence,
+        public VkShaderFloatControlsIndependence $roundingModeIndependence,
         /**
          * An implementation can preserve signed zero, nan, inf
          *
@@ -131,8 +131,8 @@ final readonly class VkPhysicalDeviceFloatControlsProperties extends OutputStruc
 
     /**
      * @param CData&object{
-     *     denormBehaviorIndependence: int,
-     *     roundingModeIndependence: int,
+     *     denormBehaviorIndependence: value-of<VkShaderFloatControlsIndependence>,
+     *     roundingModeIndependence: value-of<VkShaderFloatControlsIndependence>,
      *     shaderSignedZeroInfNanPreserveFloat16: int<0, 1>,
      *     shaderSignedZeroInfNanPreserveFloat32: int<0, 1>,
      *     shaderSignedZeroInfNanPreserveFloat64: int<0, 1>,

@@ -33,7 +33,7 @@ final readonly class VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT ex
     }
 
     public function __construct(
-        public VkRayTracingInvocationReorderModeEXT|int $rayTracingInvocationReorderReorderingHint,
+        public VkRayTracingInvocationReorderModeEXT $rayTracingInvocationReorderReorderingHint,
         /**
          * The value is at most the required one.
          *
@@ -44,7 +44,7 @@ final readonly class VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT ex
 
     /**
      * @param CData&object{
-     *     rayTracingInvocationReorderReorderingHint: int,
+     *     rayTracingInvocationReorderReorderingHint: value-of<VkRayTracingInvocationReorderModeEXT>,
      *     maxShaderBindingTableRecordIndex: int<0, 4294967295>,
      * } $data
      *

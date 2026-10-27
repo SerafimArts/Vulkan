@@ -45,13 +45,13 @@ final readonly class VkPhysicalDeviceSubgroupProperties extends OutputStructure 
         /**
          * Bitfield of what shader stages support subgroup operations
          *
-         * @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkShaderStageFlagBits::*)
          */
         public int $supportedStages,
         /**
          * Bitfield of what subgroup operations are supported.
          *
-         * @var int-mask-of<VkSubgroupFeatureFlagBits::VK_*>
+         * @var int-mask-of<VkSubgroupFeatureFlagBits::*>
          */
         public int $supportedOperations,
         /**

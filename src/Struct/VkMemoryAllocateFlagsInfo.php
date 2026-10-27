@@ -26,7 +26,7 @@ final class VkMemoryAllocateFlagsInfo extends InputStructure implements VkMemory
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
-        /** @var int-mask-of<VkMemoryAllocateFlagBits::VK_*> */
+        /** @var int-mask-of<VkMemoryAllocateFlagBits::*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $deviceMask = 0,

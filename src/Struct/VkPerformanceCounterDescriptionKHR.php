@@ -21,7 +21,7 @@ final readonly class VkPerformanceCounterDescriptionKHR extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_DESCRIPTION_KHR->value;
 
     public function __construct(
-        /** @var int-mask-of<VkPerformanceCounterDescriptionFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkPerformanceCounterDescriptionFlagBitsKHR::*> */
         public int $flags,
         public string $name,
         public string $category,

@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRasterizationOrderAMD;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -28,14 +27,14 @@ final class VkPipelineRasterizationStateRasterizationOrderAMD extends InputStruc
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
         /** Rasterization order to use for the pipeline */
-        public VkRasterizationOrderAMD|int $rasterizationOrder = VkRasterizationOrderAMD::VK_RASTERIZATION_ORDER_STRICT_AMD,
+        public VkRasterizationOrderAMD $rasterizationOrder = VkRasterizationOrderAMD::VK_RASTERIZATION_ORDER_STRICT_AMD,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD>,
      *     pNext: CData,
-     *     rasterizationOrder: int,
+     *     rasterizationOrder: value-of<VkRasterizationOrderAMD>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -50,6 +49,6 @@ final class VkPipelineRasterizationStateRasterizationOrderAMD extends InputStruc
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->rasterizationOrder = EnumCase::getValue($this->rasterizationOrder);
+        $data->rasterizationOrder = $this->rasterizationOrder->value;
     }
 }

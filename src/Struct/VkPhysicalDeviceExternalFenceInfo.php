@@ -24,7 +24,7 @@ final class VkPhysicalDeviceExternalFenceInfo extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO->value;
 
     public function __construct(
-        /** @var int<0, 4294967295>|(VkExternalFenceHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalFenceHandleTypeFlagBits::*) */
         public int $handleType = 0,
     ) {}
 

@@ -37,7 +37,7 @@ final class VkDecompressMemoryRegionNV extends InputStructure
          * @var int<0, max>
          */
         public int $decompressedSize = 0,
-        /** @var int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::*> */
         public int $decompressionMethod = 0,
     ) {}
 

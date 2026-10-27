@@ -27,7 +27,7 @@ final class VkRenderPassTransformBeginInfoQCOM extends InputStructure implements
     public function __construct(
         /** Pointer to next structure */
         public ?VkRenderPassBeginInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::VK_*) */
+        /** @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::*) */
         public int $transform = 0,
     ) {}
 

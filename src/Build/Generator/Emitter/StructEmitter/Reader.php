@@ -115,7 +115,7 @@ final readonly class Reader
     /**
      * Returns the type of the member of the native struct.
      */
-    public function createType(PropertyPlan $property): string
+    public function createType(PhpNamespace $namespace, PropertyPlan $property): string
     {
         return match ($property->kind) {
             PropertyKind::INTEGER => $this->types->getIntegerRange($property->field->type),
@@ -123,7 +123,8 @@ final readonly class Reader
             PropertyKind::STRING => 'CData|null',
             PropertyKind::FLOAT => 'float',
             PropertyKind::BOOLEAN => 'int<0, 1>',
-            PropertyKind::ENUMERATION => 'int',
+            PropertyKind::ENUMERATION => 'value-of<'
+                . Imports::import($namespace, Locations::ENUM_NAMESPACE, $property->field->type) . '>',
             default => 'CData',
         };
     }

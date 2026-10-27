@@ -25,7 +25,7 @@ final class VkShaderInstrumentationMetricDataHeaderARM extends InputStructure
         public int $resultIndex = 0,
         /** @var int<0, 4294967295> */
         public int $resultSubIndex = 0,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $stages = 0,
         /** @var int<0, 4294967295> */
         public int $basicBlockIndex = 0,

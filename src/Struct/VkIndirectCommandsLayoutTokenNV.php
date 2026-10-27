@@ -16,7 +16,6 @@ use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkIndirectCommandsLayoutTokenNVExtension;
 
@@ -32,7 +31,7 @@ final class VkIndirectCommandsLayoutTokenNV extends InputStructure
 
     public function __construct(
         public ?VkIndirectCommandsLayoutTokenNVExtension $next = null,
-        public VkIndirectCommandsTokenTypeNV|int $tokenType = VkIndirectCommandsTokenTypeNV::VK_INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV,
+        public VkIndirectCommandsTokenTypeNV $tokenType = VkIndirectCommandsTokenTypeNV::VK_INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV,
         /** @var int<0, 4294967295> */
         public int $stream = 0,
         /** @var int<0, 4294967295> */
@@ -41,15 +40,15 @@ final class VkIndirectCommandsLayoutTokenNV extends InputStructure
         public int $vertexBindingUnit = 0,
         public bool $vertexDynamicStride = false,
         public ?VkPipelineLayout $pushconstantPipelineLayout = null,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $pushconstantShaderStageFlags = 0,
         /** @var int<0, 4294967295> */
         public int $pushconstantOffset = 0,
         /** @var int<0, 4294967295> */
         public int $pushconstantSize = 0,
-        /** @var int-mask-of<VkIndirectStateFlagBitsNV::VK_*> */
+        /** @var int-mask-of<VkIndirectStateFlagBitsNV::*> */
         public int $indirectStateFlags = 0,
-        /** @var list<VkIndexType|int> */
+        /** @var list<VkIndexType> */
         public array $indexTypes = [],
         /** @var list<int<0, 4294967295>> */
         public array $indexTypeValues = [],
@@ -59,7 +58,7 @@ final class VkIndirectCommandsLayoutTokenNV extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_TOKEN_NV>,
      *     pNext: CData,
-     *     tokenType: int,
+     *     tokenType: value-of<VkIndirectCommandsTokenTypeNV>,
      *     stream: int<0, 4294967295>,
      *     offset: int<0, 4294967295>,
      *     vertexBindingUnit: int<0, 4294967295>,
@@ -86,7 +85,7 @@ final class VkIndirectCommandsLayoutTokenNV extends InputStructure
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->tokenType = EnumCase::getValue($this->tokenType);
+        $data->tokenType = $this->tokenType->value;
 
         $data->stream = $this->stream;
 
@@ -110,7 +109,7 @@ final class VkIndirectCommandsLayoutTokenNV extends InputStructure
 
         if ($this->indexTypes !== []) {
             $data->indexTypeCount = \count($this->indexTypes);
-            $data->pIndexTypes = $memory->ffi->cast('VkIndexType*', $memory->toNumberArray('VkIndexType', \array_map(EnumCase::getValue(...), $this->indexTypes)));
+            $data->pIndexTypes = $memory->ffi->cast('VkIndexType*', $memory->toNumberArray('VkIndexType', \array_map(static fn(VkIndexType $item): int => $item->value, $this->indexTypes)));
         }
 
         if ($this->indexTypeValues !== []) {

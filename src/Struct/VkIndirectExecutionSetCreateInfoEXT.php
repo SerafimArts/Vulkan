@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndirectExecutionSetInfoTypeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,14 +25,14 @@ final class VkIndirectExecutionSetCreateInfoEXT extends InputStructure
 
     public function __construct(
         public VkIndirectExecutionSetInfoEXT $info,
-        public VkIndirectExecutionSetInfoTypeEXT|int $type = VkIndirectExecutionSetInfoTypeEXT::VK_INDIRECT_EXECUTION_SET_INFO_TYPE_PIPELINES_EXT,
+        public VkIndirectExecutionSetInfoTypeEXT $type = VkIndirectExecutionSetInfoTypeEXT::VK_INDIRECT_EXECUTION_SET_INFO_TYPE_PIPELINES_EXT,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_EXECUTION_SET_CREATE_INFO_EXT>,
      *     pNext: CData,
-     *     type: int,
+     *     type: value-of<VkIndirectExecutionSetInfoTypeEXT>,
      *     info: CData,
      * } $data
      *
@@ -43,7 +42,7 @@ final class VkIndirectExecutionSetCreateInfoEXT extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $this->info->write($memory, $data->info);
     }

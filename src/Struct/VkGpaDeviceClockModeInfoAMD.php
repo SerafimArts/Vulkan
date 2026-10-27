@@ -22,14 +22,14 @@ final readonly class VkGpaDeviceClockModeInfoAMD extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GPA_DEVICE_CLOCK_MODE_INFO_AMD->value;
 
     public function __construct(
-        public VkGpaDeviceClockModeAMD|int $clockMode,
+        public VkGpaDeviceClockModeAMD $clockMode,
         public float $memoryClockRatioToPeak,
         public float $engineClockRatioToPeak,
     ) {}
 
     /**
      * @param CData&object{
-     *     clockMode: int,
+     *     clockMode: value-of<VkGpaDeviceClockModeAMD>,
      *     memoryClockRatioToPeak: float,
      *     engineClockRatioToPeak: float,
      * } $data

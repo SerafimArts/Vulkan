@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkCooperativeMatrixFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkScopeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,12 +25,12 @@ final class VkPhysicalDeviceCooperativeMatrixInfo2EXT extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT->value;
 
     public function __construct(
-        public VkScopeKHR|int $scope,
+        public VkScopeKHR $scope,
         /** @var int<0, 4294967295> */
         public int $invocations = 0,
         /** @var int<0, 4294967295> */
         public int $subgroupSize = 0,
-        /** @var int-mask-of<VkCooperativeMatrixFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkCooperativeMatrixFlagBitsEXT::*> */
         public int $flags = 0,
     ) {}
 
@@ -39,7 +38,7 @@ final class VkPhysicalDeviceCooperativeMatrixInfo2EXT extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT>,
      *     pNext: CData,
-     *     scope: int,
+     *     scope: value-of<VkScopeKHR>,
      *     invocations: int<0, 4294967295>,
      *     subgroupSize: int<0, 4294967295>,
      *     flags: int<0, 4294967295>,
@@ -51,7 +50,7 @@ final class VkPhysicalDeviceCooperativeMatrixInfo2EXT extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->scope = EnumCase::getValue($this->scope);
+        $data->scope = $this->scope->value;
 
         $data->invocations = $this->invocations;
 

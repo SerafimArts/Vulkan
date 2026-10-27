@@ -27,11 +27,11 @@ final class VkSwapchainPresentScalingCreateInfoKHR extends InputStructure implem
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkPresentScalingFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkPresentScalingFlagBitsKHR::*> */
         public int $scalingBehavior = 0,
-        /** @var int-mask-of<VkPresentGravityFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkPresentGravityFlagBitsKHR::*> */
         public int $presentGravityX = 0,
-        /** @var int-mask-of<VkPresentGravityFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkPresentGravityFlagBitsKHR::*> */
         public int $presentGravityY = 0,
     ) {}
 

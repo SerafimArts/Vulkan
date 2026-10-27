@@ -37,28 +37,28 @@ final readonly class VkAndroidHardwareBufferFormatPropertiesANDROID extends Outp
     }
 
     public function __construct(
-        public VkFormat|int $format,
+        public VkFormat $format,
         /** @var int<0, max> */
         public int $externalFormat,
-        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
         public int $formatFeatures,
         public VkComponentMapping $samplerYcbcrConversionComponents,
-        public VkSamplerYcbcrModelConversion|int $suggestedYcbcrModel,
-        public VkSamplerYcbcrRange|int $suggestedYcbcrRange,
-        public VkChromaLocation|int $suggestedXChromaOffset,
-        public VkChromaLocation|int $suggestedYChromaOffset,
+        public VkSamplerYcbcrModelConversion $suggestedYcbcrModel,
+        public VkSamplerYcbcrRange $suggestedYcbcrRange,
+        public VkChromaLocation $suggestedXChromaOffset,
+        public VkChromaLocation $suggestedYChromaOffset,
     ) {}
 
     /**
      * @param CData&object{
-     *     format: int,
+     *     format: value-of<VkFormat>,
      *     externalFormat: int<0, max>,
      *     formatFeatures: int<0, 4294967295>,
      *     samplerYcbcrConversionComponents: CData,
-     *     suggestedYcbcrModel: int,
-     *     suggestedYcbcrRange: int,
-     *     suggestedXChromaOffset: int,
-     *     suggestedYChromaOffset: int,
+     *     suggestedYcbcrModel: value-of<VkSamplerYcbcrModelConversion>,
+     *     suggestedYcbcrRange: value-of<VkSamplerYcbcrRange>,
+     *     suggestedXChromaOffset: value-of<VkChromaLocation>,
+     *     suggestedYChromaOffset: value-of<VkChromaLocation>,
      * } $data
      *
      * @phpstan-param CData $data

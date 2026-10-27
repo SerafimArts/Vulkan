@@ -32,13 +32,13 @@ final class VkSubpassDescriptionDepthStencilResolve extends InputStructure imple
         /**
          * Depth resolve mode
          *
-         * @var int<0, 4294967295>|(VkResolveModeFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkResolveModeFlagBits::*)
          */
         public int $depthResolveMode = 0,
         /**
          * Stencil resolve mode
          *
-         * @var int<0, 4294967295>|(VkResolveModeFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkResolveModeFlagBits::*)
          */
         public int $stencilResolveMode = 0,
         /** Depth/stencil resolve attachment */

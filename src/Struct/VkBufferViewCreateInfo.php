@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferViewCreateInfoExtension;
 
@@ -32,7 +31,7 @@ final class VkBufferViewCreateInfo extends InputStructure
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         /** Optionally specifies format of elements */
-        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
         /**
          * Specified in bytes
          *
@@ -53,7 +52,7 @@ final class VkBufferViewCreateInfo extends InputStructure
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
      *     buffer: CData,
-     *     format: int,
+     *     format: value-of<VkFormat>,
      *     offset: int<0, max>,
      *     range: int<0, max>,
      * } $data
@@ -74,7 +73,7 @@ final class VkBufferViewCreateInfo extends InputStructure
 
         $data->buffer = $memory->ffi->cast('VkBuffer', $this->buffer->pointer);
 
-        $data->format = EnumCase::getValue($this->format);
+        $data->format = $this->format->value;
 
         $data->offset = $this->offset;
 

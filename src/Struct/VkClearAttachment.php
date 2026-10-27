@@ -22,7 +22,7 @@ final class VkClearAttachment extends InputStructure
 
     public function __construct(
         public VkClearValue $clearValue,
-        /** @var int-mask-of<VkImageAspectFlagBits::VK_*> */
+        /** @var int-mask-of<VkImageAspectFlagBits::*> */
         public int $aspectMask = 0,
         /** @var int<0, 4294967295> */
         public int $colorAttachment = 0,

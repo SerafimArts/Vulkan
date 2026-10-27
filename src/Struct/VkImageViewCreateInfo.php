@@ -14,7 +14,6 @@ use Serafim\Vulkan\Enum\VkImageViewCreateFlagBits;
 use Serafim\Vulkan\Enum\VkImageViewType;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageViewCreateInfoExtension;
 
@@ -33,10 +32,10 @@ final class VkImageViewCreateInfo extends InputStructure
         public VkComponentMapping $components,
         public VkImageSubresourceRange $subresourceRange,
         public ?VkImageViewCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkImageViewCreateFlagBits::VK_*> */
+        /** @var int-mask-of<VkImageViewCreateFlagBits::*> */
         public int $flags = 0,
-        public VkImageViewType|int $viewType = VkImageViewType::VK_IMAGE_VIEW_TYPE_1D,
-        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkImageViewType $viewType = VkImageViewType::VK_IMAGE_VIEW_TYPE_1D,
+        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
     /**
@@ -45,8 +44,8 @@ final class VkImageViewCreateInfo extends InputStructure
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
      *     image: CData,
-     *     viewType: int,
-     *     format: int,
+     *     viewType: value-of<VkImageViewType>,
+     *     format: value-of<VkFormat>,
      *     components: CData,
      *     subresourceRange: CData,
      * } $data
@@ -67,9 +66,9 @@ final class VkImageViewCreateInfo extends InputStructure
 
         $data->image = $memory->ffi->cast('VkImage', $this->image->pointer);
 
-        $data->viewType = EnumCase::getValue($this->viewType);
+        $data->viewType = $this->viewType->value;
 
-        $data->format = EnumCase::getValue($this->format);
+        $data->format = $this->format->value;
 
         $this->components->write($memory, $data->components);
 

@@ -21,7 +21,7 @@ final readonly class VkPipelineExecutablePropertiesKHR extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_PROPERTIES_KHR->value;
 
     public function __construct(
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $stages,
         public string $name,
         public string $description,

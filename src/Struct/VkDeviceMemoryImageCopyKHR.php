@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceMemoryImageCopyKHRExtension;
 
@@ -32,13 +31,13 @@ final class VkDeviceMemoryImageCopyKHR extends InputStructure
         public VkOffset3D $imageOffset,
         public VkExtent3D $imageExtent,
         public ?VkDeviceMemoryImageCopyKHRExtension $next = null,
-        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
         public int $addressFlags = 0,
         /** @var int<0, 4294967295> */
         public int $addressRowLength = 0,
         /** @var int<0, 4294967295> */
         public int $addressImageHeight = 0,
-        public VkImageLayout|int $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
@@ -50,7 +49,7 @@ final class VkDeviceMemoryImageCopyKHR extends InputStructure
      *     addressRowLength: int<0, 4294967295>,
      *     addressImageHeight: int<0, 4294967295>,
      *     imageSubresource: CData,
-     *     imageLayout: int,
+     *     imageLayout: value-of<VkImageLayout>,
      *     imageOffset: CData,
      *     imageExtent: CData,
      * } $data
@@ -77,7 +76,7 @@ final class VkDeviceMemoryImageCopyKHR extends InputStructure
 
         $this->imageSubresource->write($memory, $data->imageSubresource);
 
-        $data->imageLayout = EnumCase::getValue($this->imageLayout);
+        $data->imageLayout = $this->imageLayout->value;
 
         $this->imageOffset->write($memory, $data->imageOffset);
 

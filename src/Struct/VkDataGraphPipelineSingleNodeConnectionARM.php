@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineNodeConnectionTypeARM;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +24,7 @@ final class VkDataGraphPipelineSingleNodeConnectionARM extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM->value;
 
     public function __construct(
-        public VkDataGraphPipelineNodeConnectionTypeARM|int $connection,
+        public VkDataGraphPipelineNodeConnectionTypeARM $connection,
         /** @var int<0, 4294967295> */
         public int $set = 0,
         /** @var int<0, 4294967295> */
@@ -38,7 +37,7 @@ final class VkDataGraphPipelineSingleNodeConnectionARM extends InputStructure
      *     pNext: CData,
      *     set: int<0, 4294967295>,
      *     binding: int<0, 4294967295>,
-     *     connection: int,
+     *     connection: value-of<VkDataGraphPipelineNodeConnectionTypeARM>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -51,6 +50,6 @@ final class VkDataGraphPipelineSingleNodeConnectionARM extends InputStructure
 
         $data->binding = $this->binding;
 
-        $data->connection = EnumCase::getValue($this->connection);
+        $data->connection = $this->connection->value;
     }
 }

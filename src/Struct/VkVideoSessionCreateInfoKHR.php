@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoSessionCreateFlagBitsKHR;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoSessionCreateInfoKHRExtension;
 
@@ -31,11 +30,11 @@ final class VkVideoSessionCreateInfoKHR extends InputStructure
         public ?VkVideoSessionCreateInfoKHRExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $queueFamilyIndex = 0,
-        /** @var int-mask-of<VkVideoSessionCreateFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoSessionCreateFlagBitsKHR::*> */
         public int $flags = 0,
         public ?VkVideoProfileInfoKHR $videoProfile = null,
-        public VkFormat|int $pictureFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkFormat|int $referencePictureFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $pictureFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $referencePictureFormat = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var int<0, 4294967295> */
         public int $maxDpbSlots = 0,
         /** @var int<0, 4294967295> */
@@ -50,9 +49,9 @@ final class VkVideoSessionCreateInfoKHR extends InputStructure
      *     queueFamilyIndex: int<0, 4294967295>,
      *     flags: int<0, 4294967295>,
      *     pVideoProfile: CData,
-     *     pictureFormat: int,
+     *     pictureFormat: value-of<VkFormat>,
      *     maxCodedExtent: CData,
-     *     referencePictureFormat: int,
+     *     referencePictureFormat: value-of<VkFormat>,
      *     maxDpbSlots: int<0, 4294967295>,
      *     maxActiveReferencePictures: int<0, 4294967295>,
      *     pStdHeaderVersion: CData,
@@ -78,11 +77,11 @@ final class VkVideoSessionCreateInfoKHR extends InputStructure
             $data->pVideoProfile = \FFI::addr($memory->toStructure($this->videoProfile));
         }
 
-        $data->pictureFormat = EnumCase::getValue($this->pictureFormat);
+        $data->pictureFormat = $this->pictureFormat->value;
 
         $this->maxCodedExtent->write($memory, $data->maxCodedExtent);
 
-        $data->referencePictureFormat = EnumCase::getValue($this->referencePictureFormat);
+        $data->referencePictureFormat = $this->referencePictureFormat->value;
 
         $data->maxDpbSlots = $this->maxDpbSlots;
 

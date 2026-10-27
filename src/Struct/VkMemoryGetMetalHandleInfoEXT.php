@@ -26,7 +26,7 @@ final class VkMemoryGetMetalHandleInfoEXT extends InputStructure
 
     public function __construct(
         public VkDeviceMemory $memory,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $handleType = 0,
     ) {}
 

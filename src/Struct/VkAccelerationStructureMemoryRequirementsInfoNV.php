@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccelerationStructureMemoryRequirementsTypeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkAccelerationStructureNV;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -29,14 +28,14 @@ final class VkAccelerationStructureMemoryRequirementsInfoNV extends InputStructu
 
     public function __construct(
         public VkAccelerationStructureNV $accelerationStructure,
-        public VkAccelerationStructureMemoryRequirementsTypeNV|int $type = VkAccelerationStructureMemoryRequirementsTypeNV::VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_OBJECT_NV,
+        public VkAccelerationStructureMemoryRequirementsTypeNV $type = VkAccelerationStructureMemoryRequirementsTypeNV::VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_OBJECT_NV,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV>,
      *     pNext: CData,
-     *     type: int,
+     *     type: value-of<VkAccelerationStructureMemoryRequirementsTypeNV>,
      *     accelerationStructure: CData,
      * } $data
      *
@@ -46,7 +45,7 @@ final class VkAccelerationStructureMemoryRequirementsInfoNV extends InputStructu
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $data->accelerationStructure = $memory->ffi->cast('VkAccelerationStructureNV', $this->accelerationStructure->pointer);
     }

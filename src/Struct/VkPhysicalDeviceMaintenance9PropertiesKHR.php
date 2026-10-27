@@ -36,13 +36,13 @@ final readonly class VkPhysicalDeviceMaintenance9PropertiesKHR extends OutputStr
         /** The value is at least the required one. */
         public bool $image2DViewOf3DSparse,
         /** The value is exactly the required one. */
-        public VkDefaultVertexAttributeValueKHR|int $defaultVertexAttributeValue,
+        public VkDefaultVertexAttributeValueKHR $defaultVertexAttributeValue,
     ) {}
 
     /**
      * @param CData&object{
      *     image2DViewOf3DSparse: int<0, 1>,
-     *     defaultVertexAttributeValue: int,
+     *     defaultVertexAttributeValue: value-of<VkDefaultVertexAttributeValueKHR>,
      * } $data
      *
      * @phpstan-param CData $data

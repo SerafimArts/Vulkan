@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineSessionBindPointARM;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDataGraphPipelineSessionARM;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -27,7 +26,7 @@ final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM extends InputStr
 
     public function __construct(
         public VkDataGraphPipelineSessionARM $session,
-        public VkDataGraphPipelineSessionBindPointARM|int $bindPoint = VkDataGraphPipelineSessionBindPointARM::VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_TRANSIENT_ARM,
+        public VkDataGraphPipelineSessionBindPointARM $bindPoint = VkDataGraphPipelineSessionBindPointARM::VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_TRANSIENT_ARM,
         /** @var int<0, 4294967295> */
         public int $objectIndex = 0,
     ) {}
@@ -37,7 +36,7 @@ final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM extends InputStr
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM>,
      *     pNext: CData,
      *     session: CData,
-     *     bindPoint: int,
+     *     bindPoint: value-of<VkDataGraphPipelineSessionBindPointARM>,
      *     objectIndex: int<0, 4294967295>,
      * } $data
      *
@@ -49,7 +48,7 @@ final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM extends InputStr
 
         $data->session = $memory->ffi->cast('VkDataGraphPipelineSessionARM', $this->session->pointer);
 
-        $data->bindPoint = EnumCase::getValue($this->bindPoint);
+        $data->bindPoint = $this->bindPoint->value;
 
         $data->objectIndex = $this->objectIndex;
     }

@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,8 +27,8 @@ final class VkHostImageLayoutTransitionInfo extends InputStructure
     public function __construct(
         public VkImage $image,
         public VkImageSubresourceRange $subresourceRange,
-        public VkImageLayout|int $oldLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
-        public VkImageLayout|int $newLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout $oldLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout $newLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
@@ -37,8 +36,8 @@ final class VkHostImageLayoutTransitionInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_HOST_IMAGE_LAYOUT_TRANSITION_INFO>,
      *     pNext: CData,
      *     image: CData,
-     *     oldLayout: int,
-     *     newLayout: int,
+     *     oldLayout: value-of<VkImageLayout>,
+     *     newLayout: value-of<VkImageLayout>,
      *     subresourceRange: CData,
      * } $data
      *
@@ -50,9 +49,9 @@ final class VkHostImageLayoutTransitionInfo extends InputStructure
 
         $data->image = $memory->ffi->cast('VkImage', $this->image->pointer);
 
-        $data->oldLayout = EnumCase::getValue($this->oldLayout);
+        $data->oldLayout = $this->oldLayout->value;
 
-        $data->newLayout = EnumCase::getValue($this->newLayout);
+        $data->newLayout = $this->newLayout->value;
 
         $this->subresourceRange->write($memory, $data->subresourceRange);
     }

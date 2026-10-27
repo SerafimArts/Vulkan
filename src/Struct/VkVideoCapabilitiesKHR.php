@@ -22,7 +22,7 @@ final readonly class VkVideoCapabilitiesKHR extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR->value;
 
     public function __construct(
-        /** @var int-mask-of<VkVideoCapabilityFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoCapabilityFlagBitsKHR::*> */
         public int $flags,
         /**
          * The value is at most the required one. The value is a power of

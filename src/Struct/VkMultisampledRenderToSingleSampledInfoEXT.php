@@ -28,7 +28,7 @@ final class VkMultisampledRenderToSingleSampledInfoEXT extends InputStructure im
     public function __construct(
         public VkSubpassDescription2Extension|VkRenderingInfoExtension|null $next = null,
         public bool $multisampledRenderToSingleSampledEnable = false,
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
         public int $rasterizationSamples = 0,
     ) {}
 

@@ -24,7 +24,7 @@ final readonly class VkPipelineExecutableStatisticKHR extends OutputStructure
     public function __construct(
         public string $name,
         public string $description,
-        public VkPipelineExecutableStatisticFormatKHR|int $format,
+        public VkPipelineExecutableStatisticFormatKHR $format,
         public VkPipelineExecutableStatisticValueKHR $value,
     ) {}
 
@@ -32,7 +32,7 @@ final readonly class VkPipelineExecutableStatisticKHR extends OutputStructure
      * @param CData&object{
      *     name: CData,
      *     description: CData,
-     *     format: int,
+     *     format: value-of<VkPipelineExecutableStatisticFormatKHR>,
      *     value: CData,
      * } $data
      *

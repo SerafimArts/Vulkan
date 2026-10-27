@@ -26,7 +26,7 @@ final class VkMemoryUnmapInfo extends InputStructure
 
     public function __construct(
         public VkDeviceMemory $memory,
-        /** @var int-mask-of<VkMemoryUnmapFlagBits::VK_*> */
+        /** @var int-mask-of<VkMemoryUnmapFlagBits::*> */
         public int $flags = 0,
     ) {}
 

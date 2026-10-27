@@ -15,7 +15,6 @@ use Serafim\Vulkan\Enum\VkBuildAccelerationStructureModeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkAccelerationStructureKHR;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -30,10 +29,10 @@ final class VkAccelerationStructureBuildGeometryInfoKHR extends InputStructure
 
     public function __construct(
         public VkDeviceOrHostAddressKHR $scratchData,
-        public VkAccelerationStructureTypeKHR|int $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
-        /** @var int<0, 4294967295>|(VkBuildAccelerationStructureFlagBitsKHR::VK_*) */
+        public VkAccelerationStructureTypeKHR $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
+        /** @var int<0, 4294967295>|(VkBuildAccelerationStructureFlagBitsKHR::*) */
         public int $flags = 0,
-        public VkBuildAccelerationStructureModeKHR|int $mode = VkBuildAccelerationStructureModeKHR::VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR,
+        public VkBuildAccelerationStructureModeKHR $mode = VkBuildAccelerationStructureModeKHR::VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR,
         public ?VkAccelerationStructureKHR $srcAccelerationStructure = null,
         public ?VkAccelerationStructureKHR $dstAccelerationStructure = null,
         /**
@@ -51,9 +50,9 @@ final class VkAccelerationStructureBuildGeometryInfoKHR extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR>,
      *     pNext: CData,
-     *     type: int,
+     *     type: value-of<VkAccelerationStructureTypeKHR>,
      *     flags: int<0, 4294967295>,
-     *     mode: int,
+     *     mode: value-of<VkBuildAccelerationStructureModeKHR>,
      *     srcAccelerationStructure: CData,
      *     dstAccelerationStructure: CData,
      *     geometryCount: int<0, 4294967295>,
@@ -68,11 +67,11 @@ final class VkAccelerationStructureBuildGeometryInfoKHR extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $data->flags = $this->flags;
 
-        $data->mode = EnumCase::getValue($this->mode);
+        $data->mode = $this->mode->value;
 
         if ($this->srcAccelerationStructure !== null) {
             $data->srcAccelerationStructure = $memory->ffi->cast('VkAccelerationStructureKHR', $this->srcAccelerationStructure->pointer);

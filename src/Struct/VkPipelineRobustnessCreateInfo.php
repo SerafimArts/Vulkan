@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessBufferBehavior;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessImageBehavior;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -31,20 +30,20 @@ final class VkPipelineRobustnessCreateInfo extends InputStructure implements VkG
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkPipelineShaderStageCreateInfoExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
-        public VkPipelineRobustnessBufferBehavior|int $storageBuffers = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
-        public VkPipelineRobustnessBufferBehavior|int $uniformBuffers = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
-        public VkPipelineRobustnessBufferBehavior|int $vertexInputs = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
-        public VkPipelineRobustnessImageBehavior|int $images = VkPipelineRobustnessImageBehavior::VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT,
+        public VkPipelineRobustnessBufferBehavior $storageBuffers = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
+        public VkPipelineRobustnessBufferBehavior $uniformBuffers = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
+        public VkPipelineRobustnessBufferBehavior $vertexInputs = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
+        public VkPipelineRobustnessImageBehavior $images = VkPipelineRobustnessImageBehavior::VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO>,
      *     pNext: CData,
-     *     storageBuffers: int,
-     *     uniformBuffers: int,
-     *     vertexInputs: int,
-     *     images: int,
+     *     storageBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     uniformBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     vertexInputs: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     images: value-of<VkPipelineRobustnessImageBehavior>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -59,12 +58,12 @@ final class VkPipelineRobustnessCreateInfo extends InputStructure implements VkG
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->storageBuffers = EnumCase::getValue($this->storageBuffers);
+        $data->storageBuffers = $this->storageBuffers->value;
 
-        $data->uniformBuffers = EnumCase::getValue($this->uniformBuffers);
+        $data->uniformBuffers = $this->uniformBuffers->value;
 
-        $data->vertexInputs = EnumCase::getValue($this->vertexInputs);
+        $data->vertexInputs = $this->vertexInputs->value;
 
-        $data->images = EnumCase::getValue($this->images);
+        $data->images = $this->images->value;
     }
 }

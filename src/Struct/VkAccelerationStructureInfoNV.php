@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccelerationStructureTypeKHR;
 use Serafim\Vulkan\Enum\VkBuildAccelerationStructureFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,8 +27,8 @@ final class VkAccelerationStructureInfoNV extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_INFO_NV->value;
 
     public function __construct(
-        public VkAccelerationStructureTypeKHR|int $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
-        /** @var int<0, 4294967295>|(VkBuildAccelerationStructureFlagBitsKHR::VK_*) */
+        public VkAccelerationStructureTypeKHR $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
+        /** @var int<0, 4294967295>|(VkBuildAccelerationStructureFlagBitsKHR::*) */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $instanceCount = 0,
@@ -41,7 +40,7 @@ final class VkAccelerationStructureInfoNV extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_INFO_NV>,
      *     pNext: CData,
-     *     type: int,
+     *     type: value-of<VkAccelerationStructureTypeKHR>,
      *     flags: int<0, 4294967295>,
      *     instanceCount: int<0, 4294967295>,
      *     geometryCount: int<0, 4294967295>,
@@ -54,7 +53,7 @@ final class VkAccelerationStructureInfoNV extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $data->flags = $this->flags;
 

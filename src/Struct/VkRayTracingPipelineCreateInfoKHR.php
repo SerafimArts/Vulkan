@@ -32,7 +32,7 @@ final class VkRayTracingPipelineCreateInfoKHR extends InputStructure implements 
         /**
          * Pipeline creation flags
          *
-         * @var int<0, 4294967295>|(VkPipelineCreateFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkPipelineCreateFlagBits::*)
          */
         public int $flags = 0,
         /**

@@ -26,7 +26,7 @@ final class VkPastPresentationTimingInfoEXT extends InputStructure
 
     public function __construct(
         public VkSwapchainKHR $swapchain,
-        /** @var int-mask-of<VkPastPresentationTimingFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkPastPresentationTimingFlagBitsEXT::*> */
         public int $flags = 0,
     ) {}
 

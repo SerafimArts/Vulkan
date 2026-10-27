@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkObjectType;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineShaderStageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkResourceDescriptorInfoEXTExtension;
@@ -29,7 +28,7 @@ final class VkDebugUtilsObjectNameInfoEXT extends InputStructure implements VkPi
 
     public function __construct(
         public VkPipelineShaderStageCreateInfoExtension|VkResourceDescriptorInfoEXTExtension|VkSamplerCreateInfoExtension|null $next = null,
-        public VkObjectType|int $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
+        public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
         /** @var int<0, max> */
         public int $objectHandle = 0,
         public ?string $objectName = null,
@@ -39,7 +38,7 @@ final class VkDebugUtilsObjectNameInfoEXT extends InputStructure implements VkPi
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT>,
      *     pNext: CData,
-     *     objectType: int,
+     *     objectType: value-of<VkObjectType>,
      *     objectHandle: int<0, max>,
      *     pObjectName: CData|null,
      * } $data
@@ -56,7 +55,7 @@ final class VkDebugUtilsObjectNameInfoEXT extends InputStructure implements VkPi
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->objectType = EnumCase::getValue($this->objectType);
+        $data->objectType = $this->objectType->value;
 
         $data->objectHandle = $this->objectHandle;
 

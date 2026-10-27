@@ -32,7 +32,7 @@ final readonly class VkPhysicalDeviceSampleLocationsPropertiesEXT extends Output
     }
 
     public function __construct(
-        /** @var int-mask-of<VkSampleCountFlagBits::VK_*> */
+        /** @var int-mask-of<VkSampleCountFlagBits::*> */
         public int $sampleLocationSampleCounts,
         /** The value is at least the required one. */
         public VkExtent2D $maxSampleLocationGridSize,

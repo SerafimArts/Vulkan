@@ -29,12 +29,12 @@ final readonly class VkCooperativeMatrixFlexibleDimensionsPropertiesNV extends O
         public int $NGranularity,
         /** @var int<0, 4294967295> */
         public int $KGranularity,
-        public VkComponentTypeKHR|int $AType,
-        public VkComponentTypeKHR|int $BType,
-        public VkComponentTypeKHR|int $CType,
-        public VkComponentTypeKHR|int $ResultType,
+        public VkComponentTypeKHR $AType,
+        public VkComponentTypeKHR $BType,
+        public VkComponentTypeKHR $CType,
+        public VkComponentTypeKHR $ResultType,
         public bool $saturatingAccumulation,
-        public VkScopeKHR|int $scope,
+        public VkScopeKHR $scope,
         /** @var int<0, 4294967295> */
         public int $workgroupInvocations,
     ) {}
@@ -44,12 +44,12 @@ final readonly class VkCooperativeMatrixFlexibleDimensionsPropertiesNV extends O
      *     MGranularity: int<0, 4294967295>,
      *     NGranularity: int<0, 4294967295>,
      *     KGranularity: int<0, 4294967295>,
-     *     AType: int,
-     *     BType: int,
-     *     CType: int,
-     *     ResultType: int,
+     *     AType: value-of<VkComponentTypeKHR>,
+     *     BType: value-of<VkComponentTypeKHR>,
+     *     CType: value-of<VkComponentTypeKHR>,
+     *     ResultType: value-of<VkComponentTypeKHR>,
      *     saturatingAccumulation: int<0, 1>,
-     *     scope: int,
+     *     scope: value-of<VkScopeKHR>,
      *     workgroupInvocations: int<0, 4294967295>,
      * } $data
      *

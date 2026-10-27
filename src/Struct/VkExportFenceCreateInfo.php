@@ -26,7 +26,7 @@ final class VkExportFenceCreateInfo extends InputStructure implements VkFenceCre
 
     public function __construct(
         public ?VkFenceCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkExternalFenceHandleTypeFlagBits::VK_*> */
+        /** @var int-mask-of<VkExternalFenceHandleTypeFlagBits::*> */
         public int $handleTypes = 0,
     ) {}
 

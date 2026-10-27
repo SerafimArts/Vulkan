@@ -13,7 +13,6 @@ use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkMicromapEXT;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryTrianglesDataKHRExtension;
 
@@ -30,7 +29,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapEXT extends InputStru
     public function __construct(
         public VkDeviceOrHostAddressConstKHR $indexBuffer,
         public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
-        public VkIndexType|int $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
+        public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
         /** @var int<0, max> */
         public int $indexStride = 0,
         /** @var int<0, 4294967295> */
@@ -51,7 +50,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapEXT extends InputStru
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_EXT>,
      *     pNext: CData,
-     *     indexType: int,
+     *     indexType: value-of<VkIndexType>,
      *     indexBuffer: CData,
      *     indexStride: int<0, max>,
      *     baseTriangle: int<0, 4294967295>,
@@ -73,7 +72,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapEXT extends InputStru
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->indexType = EnumCase::getValue($this->indexType);
+        $data->indexType = $this->indexType->value;
 
         $this->indexBuffer->write($memory, $data->indexBuffer);
 

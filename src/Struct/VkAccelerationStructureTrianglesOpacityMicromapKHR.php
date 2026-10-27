@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkAccelerationStructureKHR;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryTrianglesDataKHRExtension;
 
@@ -28,7 +27,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapKHR extends InputStru
 
     public function __construct(
         public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
-        public VkIndexType|int $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
+        public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
         /** @var int<0, max> */
         public int $indexBuffer = 0,
         /** @var int<0, max> */
@@ -42,7 +41,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapKHR extends InputStru
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR>,
      *     pNext: CData,
-     *     indexType: int,
+     *     indexType: value-of<VkIndexType>,
      *     indexBuffer: int<0, max>,
      *     indexStride: int<0, max>,
      *     baseTriangle: int<0, 4294967295>,
@@ -61,7 +60,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapKHR extends InputStru
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->indexType = EnumCase::getValue($this->indexType);
+        $data->indexType = $this->indexType->value;
 
         $data->indexBuffer = $this->indexBuffer;
 

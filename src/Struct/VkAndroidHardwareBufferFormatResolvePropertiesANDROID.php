@@ -33,12 +33,12 @@ final readonly class VkAndroidHardwareBufferFormatResolvePropertiesANDROID exten
     }
 
     public function __construct(
-        public VkFormat|int $colorAttachmentFormat,
+        public VkFormat $colorAttachmentFormat,
     ) {}
 
     /**
      * @param CData&object{
-     *     colorAttachmentFormat: int,
+     *     colorAttachmentFormat: value-of<VkFormat>,
      * } $data
      *
      * @phpstan-param CData $data

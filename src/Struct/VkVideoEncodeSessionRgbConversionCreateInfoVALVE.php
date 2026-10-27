@@ -28,13 +28,13 @@ final class VkVideoEncodeSessionRgbConversionCreateInfoVALVE extends InputStruct
 
     public function __construct(
         public ?VkVideoSessionCreateInfoKHRExtension $next = null,
-        /** @var int<0, 4294967295>|(VkVideoEncodeRgbModelConversionFlagBitsVALVE::VK_*) */
+        /** @var int<0, 4294967295>|(VkVideoEncodeRgbModelConversionFlagBitsVALVE::*) */
         public int $rgbModel = 0,
-        /** @var int<0, 4294967295>|(VkVideoEncodeRgbRangeCompressionFlagBitsVALVE::VK_*) */
+        /** @var int<0, 4294967295>|(VkVideoEncodeRgbRangeCompressionFlagBitsVALVE::*) */
         public int $rgbRange = 0,
-        /** @var int<0, 4294967295>|(VkVideoEncodeRgbChromaOffsetFlagBitsVALVE::VK_*) */
+        /** @var int<0, 4294967295>|(VkVideoEncodeRgbChromaOffsetFlagBitsVALVE::*) */
         public int $xChromaOffset = 0,
-        /** @var int<0, 4294967295>|(VkVideoEncodeRgbChromaOffsetFlagBitsVALVE::VK_*) */
+        /** @var int<0, 4294967295>|(VkVideoEncodeRgbChromaOffsetFlagBitsVALVE::*) */
         public int $yChromaOffset = 0,
     ) {}
 

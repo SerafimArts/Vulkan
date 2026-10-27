@@ -32,11 +32,11 @@ final readonly class VkFormatProperties3 extends OutputStructure implements VkFo
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
         public int $linearTilingFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
         public int $optimalTilingFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
         public int $bufferFeatures,
     ) {}
 

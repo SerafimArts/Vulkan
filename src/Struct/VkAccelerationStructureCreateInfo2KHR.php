@@ -13,7 +13,6 @@ use Serafim\Vulkan\Enum\VkAccelerationStructureCreateFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkAccelerationStructureTypeKHR;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfo2KHRExtension;
 
@@ -30,11 +29,11 @@ final class VkAccelerationStructureCreateInfo2KHR extends InputStructure
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
         public ?VkAccelerationStructureCreateInfo2KHRExtension $next = null,
-        /** @var int-mask-of<VkAccelerationStructureCreateFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkAccelerationStructureCreateFlagBitsKHR::*> */
         public int $createFlags = 0,
-        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
         public int $addressFlags = 0,
-        public VkAccelerationStructureTypeKHR|int $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
+        public VkAccelerationStructureTypeKHR $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
     ) {}
 
     /**
@@ -44,7 +43,7 @@ final class VkAccelerationStructureCreateInfo2KHR extends InputStructure
      *     createFlags: int<0, 4294967295>,
      *     addressRange: CData,
      *     addressFlags: int<0, 4294967295>,
-     *     type: int,
+     *     type: value-of<VkAccelerationStructureTypeKHR>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -65,6 +64,6 @@ final class VkAccelerationStructureCreateInfo2KHR extends InputStructure
 
         $data->addressFlags = $this->addressFlags;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
     }
 }

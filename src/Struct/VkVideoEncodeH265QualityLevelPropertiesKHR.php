@@ -32,7 +32,7 @@ final readonly class VkVideoEncodeH265QualityLevelPropertiesKHR extends OutputSt
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoEncodeH265RateControlFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoEncodeH265RateControlFlagBitsKHR::*> */
         public int $preferredRateControlFlags,
         /** @var int<0, 4294967295> */
         public int $preferredGopFrameCount,

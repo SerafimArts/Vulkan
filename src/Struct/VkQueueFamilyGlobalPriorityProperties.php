@@ -38,7 +38,7 @@ final readonly class VkQueueFamilyGlobalPriorityProperties extends OutputStructu
          * @var int<0, 4294967295>
          */
         public int $priorityCount,
-        /** @var list<VkQueueGlobalPriority|int> */
+        /** @var list<VkQueueGlobalPriority> */
         public array $priorities,
     ) {}
 

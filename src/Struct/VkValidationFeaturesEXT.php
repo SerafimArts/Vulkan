@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkValidationFeatureDisableEXT;
 use Serafim\Vulkan\Enum\VkValidationFeatureEnableEXT;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -39,13 +38,13 @@ final class VkValidationFeaturesEXT extends InputStructure implements VkInstance
         /**
          * Validation features to enable
          *
-         * @var list<VkValidationFeatureEnableEXT|int>
+         * @var list<VkValidationFeatureEnableEXT>
          */
         public array $enabledValidationFeatures = [],
         /**
          * Validation features to disable
          *
-         * @var list<VkValidationFeatureDisableEXT|int>
+         * @var list<VkValidationFeatureDisableEXT>
          */
         public array $disabledValidationFeatures = [],
     ) {}
@@ -74,12 +73,12 @@ final class VkValidationFeaturesEXT extends InputStructure implements VkInstance
 
         if ($this->enabledValidationFeatures !== []) {
             $data->enabledValidationFeatureCount = \count($this->enabledValidationFeatures);
-            $data->pEnabledValidationFeatures = $memory->ffi->cast('VkValidationFeatureEnableEXT*', $memory->toNumberArray('VkValidationFeatureEnableEXT', \array_map(EnumCase::getValue(...), $this->enabledValidationFeatures)));
+            $data->pEnabledValidationFeatures = $memory->ffi->cast('VkValidationFeatureEnableEXT*', $memory->toNumberArray('VkValidationFeatureEnableEXT', \array_map(static fn(VkValidationFeatureEnableEXT $item): int => $item->value, $this->enabledValidationFeatures)));
         }
 
         if ($this->disabledValidationFeatures !== []) {
             $data->disabledValidationFeatureCount = \count($this->disabledValidationFeatures);
-            $data->pDisabledValidationFeatures = $memory->ffi->cast('VkValidationFeatureDisableEXT*', $memory->toNumberArray('VkValidationFeatureDisableEXT', \array_map(EnumCase::getValue(...), $this->disabledValidationFeatures)));
+            $data->pDisabledValidationFeatures = $memory->ffi->cast('VkValidationFeatureDisableEXT*', $memory->toNumberArray('VkValidationFeatureDisableEXT', \array_map(static fn(VkValidationFeatureDisableEXT $item): int => $item->value, $this->disabledValidationFeatures)));
         }
     }
 }

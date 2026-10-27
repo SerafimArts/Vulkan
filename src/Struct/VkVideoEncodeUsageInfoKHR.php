@@ -13,7 +13,6 @@ use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeContentFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkVideoEncodeTuningModeKHR;
 use Serafim\Vulkan\Enum\VkVideoEncodeUsageFlagBitsKHR;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkQueryPoolCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkVideoProfileInfoKHRExtension;
@@ -30,11 +29,11 @@ final class VkVideoEncodeUsageInfoKHR extends InputStructure implements VkVideoP
 
     public function __construct(
         public VkVideoProfileInfoKHRExtension|VkQueryPoolCreateInfoExtension|null $next = null,
-        /** @var int-mask-of<VkVideoEncodeUsageFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoEncodeUsageFlagBitsKHR::*> */
         public int $videoUsageHints = 0,
-        /** @var int-mask-of<VkVideoEncodeContentFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoEncodeContentFlagBitsKHR::*> */
         public int $videoContentHints = 0,
-        public VkVideoEncodeTuningModeKHR|int $tuningMode = VkVideoEncodeTuningModeKHR::VK_VIDEO_ENCODE_TUNING_MODE_DEFAULT_KHR,
+        public VkVideoEncodeTuningModeKHR $tuningMode = VkVideoEncodeTuningModeKHR::VK_VIDEO_ENCODE_TUNING_MODE_DEFAULT_KHR,
     ) {}
 
     /**
@@ -43,7 +42,7 @@ final class VkVideoEncodeUsageInfoKHR extends InputStructure implements VkVideoP
      *     pNext: CData,
      *     videoUsageHints: int<0, 4294967295>,
      *     videoContentHints: int<0, 4294967295>,
-     *     tuningMode: int,
+     *     tuningMode: value-of<VkVideoEncodeTuningModeKHR>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -62,6 +61,6 @@ final class VkVideoEncodeUsageInfoKHR extends InputStructure implements VkVideoP
 
         $data->videoContentHints = $this->videoContentHints;
 
-        $data->tuningMode = EnumCase::getValue($this->tuningMode);
+        $data->tuningMode = $this->tuningMode->value;
     }
 }

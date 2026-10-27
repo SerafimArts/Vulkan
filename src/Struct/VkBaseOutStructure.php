@@ -19,12 +19,12 @@ use Serafim\Vulkan\Internal\EnumCase;
 final readonly class VkBaseOutStructure extends OutputStructure
 {
     public function __construct(
-        public VkStructureType|int $sType,
+        public VkStructureType $sType,
     ) {}
 
     /**
      * @param CData&object{
-     *     sType: int,
+     *     sType: value-of<VkStructureType>,
      * } $data
      *
      * @phpstan-param CData $data

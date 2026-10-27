@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
@@ -29,7 +28,7 @@ final class VkImageFormatListCreateInfo extends InputStructure implements VkImag
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSwapchainCreateInfoKHRExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,
-        /** @var list<VkFormat|int> */
+        /** @var list<VkFormat> */
         public array $viewFormats = [],
     ) {}
 
@@ -55,7 +54,7 @@ final class VkImageFormatListCreateInfo extends InputStructure implements VkImag
 
         if ($this->viewFormats !== []) {
             $data->viewFormatCount = \count($this->viewFormats);
-            $data->pViewFormats = $memory->ffi->cast('VkFormat*', $memory->toNumberArray('VkFormat', \array_map(EnumCase::getValue(...), $this->viewFormats)));
+            $data->pViewFormats = $memory->ffi->cast('VkFormat*', $memory->toNumberArray('VkFormat', \array_map(static fn(VkFormat $item): int => $item->value, $this->viewFormats)));
         }
     }
 }

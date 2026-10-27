@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAntiLagStageAMD;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +24,7 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD->value;
 
     public function __construct(
-        public VkAntiLagStageAMD|int $stage = VkAntiLagStageAMD::VK_ANTI_LAG_STAGE_INPUT_AMD,
+        public VkAntiLagStageAMD $stage = VkAntiLagStageAMD::VK_ANTI_LAG_STAGE_INPUT_AMD,
         /** @var int<0, max> */
         public int $frameIndex = 0,
     ) {}
@@ -34,7 +33,7 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD>,
      *     pNext: CData,
-     *     stage: int,
+     *     stage: value-of<VkAntiLagStageAMD>,
      *     frameIndex: int<0, max>,
      * } $data
      *
@@ -44,7 +43,7 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->stage = EnumCase::getValue($this->stage);
+        $data->stage = $this->stage->value;
 
         $data->frameIndex = $this->frameIndex;
     }

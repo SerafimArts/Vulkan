@@ -27,7 +27,7 @@ final class VkVideoEncodeH265RateControlInfoKHR extends InputStructure implement
 
     public function __construct(
         public VkVideoCodingControlInfoKHRExtension|VkVideoBeginCodingInfoKHRExtension|null $next = null,
-        /** @var int-mask-of<VkVideoEncodeH265RateControlFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoEncodeH265RateControlFlagBitsKHR::*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $gopFrameCount = 0,

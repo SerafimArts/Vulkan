@@ -184,8 +184,8 @@ final readonly class MultipleBody implements Body
                         . '::class, $' . $output->name . 'Raw);',
                 ],
                 $variable,
-                Locations::createClassName(Locations::ENUM_NAMESPACE, $type) . '|int',
-                $type . '|int',
+                Locations::createClassName(Locations::ENUM_NAMESPACE, $type),
+                $type,
             ),
             default => new QueryArray(
                 $allocate,

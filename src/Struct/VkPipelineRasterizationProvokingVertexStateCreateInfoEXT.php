@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkProvokingVertexModeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -27,14 +26,14 @@ final class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends Inp
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
-        public VkProvokingVertexModeEXT|int $provokingVertexMode = VkProvokingVertexModeEXT::VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT,
+        public VkProvokingVertexModeEXT $provokingVertexMode = VkProvokingVertexModeEXT::VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT>,
      *     pNext: CData,
-     *     provokingVertexMode: int,
+     *     provokingVertexMode: value-of<VkProvokingVertexModeEXT>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -49,6 +48,6 @@ final class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends Inp
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->provokingVertexMode = EnumCase::getValue($this->provokingVertexMode);
+        $data->provokingVertexMode = $this->provokingVertexMode->value;
     }
 }

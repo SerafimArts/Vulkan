@@ -27,7 +27,7 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR extends OutputStruc
         public int $vendorID,
         /** @var int<0, 4294967295> */
         public int $deviceID,
-        public VkPhysicalDeviceLayeredApiKHR|int $layeredAPI,
+        public VkPhysicalDeviceLayeredApiKHR $layeredAPI,
         public string $deviceName,
         /** @var list<VkPhysicalDeviceLayeredApiPropertiesKHRExtension> */
         public array $chain = [],
@@ -37,7 +37,7 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR extends OutputStruc
      * @param CData&object{
      *     vendorID: int<0, 4294967295>,
      *     deviceID: int<0, 4294967295>,
-     *     layeredAPI: int,
+     *     layeredAPI: value-of<VkPhysicalDeviceLayeredApiKHR>,
      *     deviceName: CData,
      * } $data
      * @param list<VkPhysicalDeviceLayeredApiPropertiesKHRExtension> $chain

@@ -26,7 +26,7 @@ final class VkVideoEncodeSessionIntraRefreshCreateInfoKHR extends InputStructure
 
     public function __construct(
         public ?VkVideoSessionCreateInfoKHRExtension $next = null,
-        /** @var int<0, 4294967295>|(VkVideoEncodeIntraRefreshModeFlagBitsKHR::VK_*) */
+        /** @var int<0, 4294967295>|(VkVideoEncodeIntraRefreshModeFlagBitsKHR::*) */
         public int $intraRefreshMode = 0,
     ) {}
 

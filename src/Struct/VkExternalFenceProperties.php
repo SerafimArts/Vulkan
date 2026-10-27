@@ -22,11 +22,11 @@ final readonly class VkExternalFenceProperties extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES->value;
 
     public function __construct(
-        /** @var int-mask-of<VkExternalFenceHandleTypeFlagBits::VK_*> */
+        /** @var int-mask-of<VkExternalFenceHandleTypeFlagBits::*> */
         public int $exportFromImportedHandleTypes,
-        /** @var int-mask-of<VkExternalFenceHandleTypeFlagBits::VK_*> */
+        /** @var int-mask-of<VkExternalFenceHandleTypeFlagBits::*> */
         public int $compatibleHandleTypes,
-        /** @var int-mask-of<VkExternalFenceFeatureFlagBits::VK_*> */
+        /** @var int-mask-of<VkExternalFenceFeatureFlagBits::*> */
         public int $externalFenceFeatures,
     ) {}
 

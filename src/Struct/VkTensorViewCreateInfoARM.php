@@ -13,7 +13,6 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTensorViewCreateFlagBitsARM;
 use Serafim\Vulkan\Handle\VkTensorARM;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkTensorViewCreateInfoARMExtension;
 
@@ -30,9 +29,9 @@ final class VkTensorViewCreateInfoARM extends InputStructure
     public function __construct(
         public VkTensorARM $tensor,
         public ?VkTensorViewCreateInfoARMExtension $next = null,
-        /** @var int-mask-of<VkTensorViewCreateFlagBitsARM::VK_*> */
+        /** @var int-mask-of<VkTensorViewCreateFlagBitsARM::*> */
         public int $flags = 0,
-        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
     /**
@@ -41,7 +40,7 @@ final class VkTensorViewCreateInfoARM extends InputStructure
      *     pNext: CData,
      *     flags: int<0, max>,
      *     tensor: CData,
-     *     format: int,
+     *     format: value-of<VkFormat>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -60,6 +59,6 @@ final class VkTensorViewCreateInfoARM extends InputStructure
 
         $data->tensor = $memory->ffi->cast('VkTensorARM', $this->tensor->pointer);
 
-        $data->format = EnumCase::getValue($this->format);
+        $data->format = $this->format->value;
     }
 }

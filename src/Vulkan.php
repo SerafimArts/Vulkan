@@ -1419,7 +1419,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $query
-     * @param int-mask-of<VkQueryControlFlagBits::VK_*> $flags
+     * @param int-mask-of<VkQueryControlFlagBits::*> $flags
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -1445,7 +1445,7 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $query
      * @param int<0, 4294967295> $index
-     * @param int-mask-of<VkQueryControlFlagBits::VK_*> $flags
+     * @param int-mask-of<VkQueryControlFlagBits::*> $flags
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -2054,7 +2054,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param non-empty-list<int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)> $stages
+     * @param non-empty-list<int<0, 4294967295>|(VkShaderStageFlagBits::*)> $stages
      * @param list<VkShaderEXT> $shaders
      *
      * @throws VulkanException in case of internal error occurs
@@ -3342,7 +3342,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $queryCount
      * @param int<0, max> $dstOffset
      * @param int<0, max> $stride
-     * @param int-mask-of<VkQueryResultFlagBits::VK_*> $flags
+     * @param int-mask-of<VkQueryResultFlagBits::*> $flags
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -3372,8 +3372,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstQuery
      * @param int<0, 4294967295> $queryCount
-     * @param int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> $dstFlags
-     * @param int-mask-of<VkQueryResultFlagBits::VK_*> $queryResultFlags
+     * @param int-mask-of<VkAddressCommandFlagBitsKHR::*> $dstFlags
+     * @param int-mask-of<VkQueryResultFlagBits::*> $queryResultFlags
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -3529,7 +3529,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::VK_*> $decompressionMethod
+     * @param int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::*> $decompressionMethod
      * @param int<0, max> $indirectCommandsAddress
      * @param int<0, max> $indirectCommandsCountAddress
      * @param int<0, 4294967295> $maxDecompressionCount
@@ -5069,7 +5069,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $data
-     * @param int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> $dstFlags
+     * @param int-mask-of<VkAddressCommandFlagBitsKHR::*> $dstFlags
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -5215,9 +5215,9 @@ final class Vulkan extends VulkanBase
      * @param list<VkMemoryBarrier> $memoryBarriers
      * @param list<VkBufferMemoryBarrier> $bufferMemoryBarriers
      * @param list<VkImageMemoryBarrier> $imageMemoryBarriers
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $srcStageMask
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $dstStageMask
-     * @param int-mask-of<VkDependencyFlagBits::VK_*> $dependencyFlags
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $srcStageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $dstStageMask
+     * @param int-mask-of<VkDependencyFlagBits::*> $dependencyFlags
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -5343,7 +5343,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) $stageFlags
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $stageFlags
      * @param int<0, 4294967295> $offset
      *
      * @throws VulkanException in case of internal error occurs
@@ -5616,7 +5616,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $stageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $stageMask
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -5636,7 +5636,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stageMask
+     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stageMask
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -5655,7 +5655,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stageMask
+     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stageMask
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -5803,7 +5803,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkImageAspectFlagBits::VK_*> $aspectMask
+     * @param int-mask-of<VkImageAspectFlagBits::*> $aspectMask
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -6010,7 +6010,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $firstAttachment
-     * @param non-empty-list<int-mask-of<VkColorComponentFlagBits::VK_*>> $colorWriteMasks
+     * @param non-empty-list<int-mask-of<VkColorComponentFlagBits::*>> $colorWriteMasks
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -6207,7 +6207,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkCullModeFlagBits::VK_*> $cullMode
+     * @param int-mask-of<VkCullModeFlagBits::*> $cullMode
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -6226,7 +6226,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkCullModeFlagBits::VK_*> $cullMode
+     * @param int-mask-of<VkCullModeFlagBits::*> $cullMode
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -6748,7 +6748,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $stageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $stageMask
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -7361,7 +7361,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) $rasterizationSamples
+     * @param int<0, 4294967295>|(VkSampleCountFlagBits::*) $rasterizationSamples
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -7713,7 +7713,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
      * @param int<0, 4294967295> $compareMask
      *
      * @throws VulkanException in case of internal error occurs
@@ -7734,7 +7734,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -7759,7 +7759,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -7783,7 +7783,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
      * @param int<0, 4294967295> $reference
      *
      * @throws VulkanException in case of internal error occurs
@@ -7837,7 +7837,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
      * @param int<0, 4294967295> $writeMask
      *
      * @throws VulkanException in case of internal error occurs
@@ -8266,7 +8266,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> $dstFlags
+     * @param int-mask-of<VkAddressCommandFlagBitsKHR::*> $dstFlags
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -8321,8 +8321,8 @@ final class Vulkan extends VulkanBase
      * @param list<VkMemoryBarrier> $memoryBarriers
      * @param list<VkBufferMemoryBarrier> $bufferMemoryBarriers
      * @param list<VkImageMemoryBarrier> $imageMemoryBarriers
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $srcStageMask
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $dstStageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $srcStageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $dstStageMask
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -8487,7 +8487,7 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $dstOffset
      * @param int<0, 4294967295> $marker
-     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stage
+     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stage
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -8514,7 +8514,7 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $dstOffset
      * @param int<0, 4294967295> $marker
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $pipelineStage
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $pipelineStage
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -8594,7 +8594,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $pipelineStage
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $pipelineStage
      * @param int<0, 4294967295> $query
      *
      * @throws VulkanException in case of internal error occurs
@@ -8621,7 +8621,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $query
-     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stage
+     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stage
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -8645,7 +8645,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $query
-     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stage
+     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stage
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -11316,7 +11316,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkDebugReportFlagBitsEXT::VK_*> $flags
+     * @param int-mask-of<VkDebugReportFlagBitsEXT::*> $flags
      * @param int<0, max> $object
      * @param int<0, max> $location
      * @param int<-2147483648, 2147483647> $messageCode
@@ -13094,7 +13094,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkDataGraphPipelinePropertyARM|int>
+     * @return list<VkDataGraphPipelinePropertyARM>
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
      */
@@ -13116,7 +13116,7 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
             'VkDataGraphPipelinePropertyARM',
-            fn(int $item): VkDataGraphPipelinePropertyARM|int => EnumCase::createFromValue(VkDataGraphPipelinePropertyARM::class, $item),
+            fn(int $item): VkDataGraphPipelinePropertyARM => EnumCase::createFromValue(VkDataGraphPipelinePropertyARM::class, $item),
         );
     }
 
@@ -14987,7 +14987,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
@@ -15011,7 +15011,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
@@ -15065,7 +15065,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
@@ -15163,7 +15163,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> $handleType
+     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
@@ -15189,7 +15189,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
@@ -15241,7 +15241,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
@@ -15403,7 +15403,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkTimeDomainKHR|int>
+     * @return list<VkTimeDomainKHR>
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
      */
@@ -15420,7 +15420,7 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
             'VkTimeDomainKHR',
-            fn(int $item): VkTimeDomainKHR|int => EnumCase::createFromValue(VkTimeDomainKHR::class, $item),
+            fn(int $item): VkTimeDomainKHR => EnumCase::createFromValue(VkTimeDomainKHR::class, $item),
         );
     }
 
@@ -15432,7 +15432,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkTimeDomainKHR|int>
+     * @return list<VkTimeDomainKHR>
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
      */
@@ -15831,9 +15831,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) $usage
-     * @param int<0, 4294967295>|(VkImageCreateFlagBits::VK_*) $flags
-     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> $externalHandleType
+     * @param int<0, 4294967295>|(VkImageUsageFlagBits::*) $usage
+     * @param int<0, 4294967295>|(VkImageCreateFlagBits::*) $flags
+     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> $externalHandleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED}
@@ -16099,8 +16099,8 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) $usage
-     * @param int<0, 4294967295>|(VkImageCreateFlagBits::VK_*) $flags
+     * @param int<0, 4294967295>|(VkImageUsageFlagBits::*) $usage
+     * @param int<0, 4294967295>|(VkImageCreateFlagBits::*) $flags
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED}
@@ -16259,7 +16259,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) $samples
+     * @param int<0, 4294967295>|(VkSampleCountFlagBits::*) $samples
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -16695,8 +16695,8 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) $samples
-     * @param int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) $usage
+     * @param int<0, 4294967295>|(VkSampleCountFlagBits::*) $samples
+     * @param int<0, 4294967295>|(VkImageUsageFlagBits::*) $usage
      *
      * @return VkEnumerator<VkSparseImageFormatProperties>
      * @throws VulkanException in case of internal error occurs
@@ -16983,7 +16983,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkPresentModeKHR|int>
+     * @return list<VkPresentModeKHR>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
      * @throws VulkanException in case of internal error occurs
@@ -17006,7 +17006,7 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
             'VkPresentModeKHR',
-            fn(int $item): VkPresentModeKHR|int => EnumCase::createFromValue(VkPresentModeKHR::class, $item),
+            fn(int $item): VkPresentModeKHR => EnumCase::createFromValue(VkPresentModeKHR::class, $item),
         );
     }
 
@@ -17016,7 +17016,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkPresentModeKHR|int>
+     * @return list<VkPresentModeKHR>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
      * @throws VulkanException in case of internal error occurs
@@ -17037,7 +17037,7 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
             'VkPresentModeKHR',
-            fn(int $item): VkPresentModeKHR|int => EnumCase::createFromValue(VkPresentModeKHR::class, $item),
+            fn(int $item): VkPresentModeKHR => EnumCase::createFromValue(VkPresentModeKHR::class, $item),
         );
     }
 
@@ -17653,7 +17653,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $queryCount
      * @param int<0, max> $dataSize
      * @param int<0, max> $stride
-     * @param int-mask-of<VkQueryResultFlagBits::VK_*> $flags
+     * @param int-mask-of<VkQueryResultFlagBits::*> $flags
      *
      * @return CommandResult<string>
      * @throws CommandFailedException in case of the command fails, for example
@@ -18164,7 +18164,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) $shaderStage
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $shaderStage
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FEATURE_NOT_PRESENT}
@@ -18307,7 +18307,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkSurfaceCounterFlagBitsEXT::VK_*) $counter
+     * @param int<0, 4294967295>|(VkSurfaceCounterFlagBitsEXT::*) $counter
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
@@ -18800,7 +18800,7 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $offset
      * @param int<0, max> $size
-     * @param int-mask-of<VkMemoryMapFlagBits::VK_*> $flags
+     * @param int-mask-of<VkMemoryMapFlagBits::*> $flags
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
@@ -19394,7 +19394,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkCommandBufferResetFlagBits::VK_*> $flags
+     * @param int-mask-of<VkCommandBufferResetFlagBits::*> $flags
      *
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
@@ -19412,7 +19412,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkCommandPoolResetFlagBits::VK_*> $flags
+     * @param int-mask-of<VkCommandPoolResetFlagBits::*> $flags
      *
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
@@ -19936,8 +19936,8 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkDebugUtilsMessageSeverityFlagBitsEXT::VK_*) $messageSeverity
-     * @param int-mask-of<VkDebugUtilsMessageTypeFlagBitsEXT::VK_*> $messageTypes
+     * @param int<0, 4294967295>|(VkDebugUtilsMessageSeverityFlagBitsEXT::*) $messageSeverity
+     * @param int-mask-of<VkDebugUtilsMessageTypeFlagBitsEXT::*> $messageTypes
      *
      * @throws VulkanException in case of internal error occurs
      */

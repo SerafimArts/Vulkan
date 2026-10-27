@@ -29,7 +29,7 @@ final class VkVideoSessionParametersCreateInfoKHR extends InputStructure
     public function __construct(
         public VkVideoSessionKHR $videoSession,
         public ?VkVideoSessionParametersCreateInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkVideoSessionParametersCreateFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoSessionParametersCreateFlagBitsKHR::*> */
         public int $flags = 0,
         public ?VkVideoSessionParametersKHR $videoSessionParametersTemplate = null,
     ) {}

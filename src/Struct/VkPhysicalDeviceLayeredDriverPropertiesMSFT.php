@@ -34,12 +34,12 @@ final readonly class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends OutputS
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkLayeredDriverUnderlyingApiMSFT|int $underlyingAPI,
+        public VkLayeredDriverUnderlyingApiMSFT $underlyingAPI,
     ) {}
 
     /**
      * @param CData&object{
-     *     underlyingAPI: int,
+     *     underlyingAPI: value-of<VkLayeredDriverUnderlyingApiMSFT>,
      * } $data
      *
      * @phpstan-param CData $data

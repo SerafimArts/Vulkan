@@ -31,7 +31,7 @@ final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements V
 
     public function __construct(
         public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkFramebufferAttachmentImageInfoExtension|VkVideoFormatPropertiesKHRExtension|null $next = null,
-        /** @var int<0, max>|(VkImageCreateFlagBits2KHR::VK_*) */
+        /** @var int<0, max>|(VkImageCreateFlagBits2KHR::*) */
         public int $flags = 0,
     ) {}
 

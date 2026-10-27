@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDisplayPowerStateEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,14 +24,14 @@ final class VkDisplayPowerInfoEXT extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_POWER_INFO_EXT->value;
 
     public function __construct(
-        public VkDisplayPowerStateEXT|int $powerState = VkDisplayPowerStateEXT::VK_DISPLAY_POWER_STATE_OFF_EXT,
+        public VkDisplayPowerStateEXT $powerState = VkDisplayPowerStateEXT::VK_DISPLAY_POWER_STATE_OFF_EXT,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_POWER_INFO_EXT>,
      *     pNext: CData,
-     *     powerState: int,
+     *     powerState: value-of<VkDisplayPowerStateEXT>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -41,6 +40,6 @@ final class VkDisplayPowerInfoEXT extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->powerState = EnumCase::getValue($this->powerState);
+        $data->powerState = $this->powerState->value;
     }
 }

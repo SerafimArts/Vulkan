@@ -26,7 +26,7 @@ final class VkVideoCodingControlInfoKHR extends InputStructure
 
     public function __construct(
         public ?VkVideoCodingControlInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkVideoCodingControlFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoCodingControlFlagBitsKHR::*> */
         public int $flags = 0,
     ) {}
 

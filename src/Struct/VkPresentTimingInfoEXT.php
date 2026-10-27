@@ -25,7 +25,7 @@ final class VkPresentTimingInfoEXT extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT->value;
 
     public function __construct(
-        /** @var int-mask-of<VkPresentTimingInfoFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkPresentTimingInfoFlagBitsEXT::*> */
         public int $flags = 0,
         /** @var int<0, max> */
         public int $targetTime = 0,
@@ -39,13 +39,13 @@ final class VkPresentTimingInfoEXT extends InputStructure
         /**
          * Present stages to collect timing information for
          *
-         * @var int-mask-of<VkPresentStageFlagBitsEXT::VK_*>
+         * @var int-mask-of<VkPresentStageFlagBitsEXT::*>
          */
         public int $presentStageQueries = 0,
         /**
          * Target stage-local time domain's stage
          *
-         * @var int-mask-of<VkPresentStageFlagBitsEXT::VK_*>
+         * @var int-mask-of<VkPresentStageFlagBitsEXT::*>
          */
         public int $targetTimeDomainPresentStage = 0,
     ) {}

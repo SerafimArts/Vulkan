@@ -28,12 +28,12 @@ final class VkPipelineShaderStageCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkPipelineShaderStageCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkPipelineShaderStageCreateFlagBits::VK_*> */
+        /** @var int-mask-of<VkPipelineShaderStageCreateFlagBits::*> */
         public int $flags = 0,
         /**
          * Shader stage
          *
-         * @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkShaderStageFlagBits::*)
          */
         public int $stage = 0,
         /** Module containing entry point */

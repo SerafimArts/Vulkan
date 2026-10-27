@@ -32,7 +32,7 @@ final readonly class VkVideoFormatH265QuantizationMapPropertiesKHR extends Outpu
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoEncodeH265CtbSizeFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkVideoEncodeH265CtbSizeFlagBitsKHR::*> */
         public int $compatibleCtbSizes,
     ) {}
 

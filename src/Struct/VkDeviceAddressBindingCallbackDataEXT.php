@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceAddressBindingFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDeviceAddressBindingTypeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDebugUtilsMessengerCallbackDataEXTExtension;
 
@@ -28,13 +27,13 @@ final class VkDeviceAddressBindingCallbackDataEXT extends InputStructure impleme
 
     public function __construct(
         public ?VkDebugUtilsMessengerCallbackDataEXTExtension $next = null,
-        /** @var int-mask-of<VkDeviceAddressBindingFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkDeviceAddressBindingFlagBitsEXT::*> */
         public int $flags = 0,
         /** @var int<0, max> */
         public int $baseAddress = 0,
         /** @var int<0, max> */
         public int $size = 0,
-        public VkDeviceAddressBindingTypeEXT|int $bindingType = VkDeviceAddressBindingTypeEXT::VK_DEVICE_ADDRESS_BINDING_TYPE_BIND_EXT,
+        public VkDeviceAddressBindingTypeEXT $bindingType = VkDeviceAddressBindingTypeEXT::VK_DEVICE_ADDRESS_BINDING_TYPE_BIND_EXT,
     ) {}
 
     /**
@@ -44,7 +43,7 @@ final class VkDeviceAddressBindingCallbackDataEXT extends InputStructure impleme
      *     flags: int<0, 4294967295>,
      *     baseAddress: int<0, max>,
      *     size: int<0, max>,
-     *     bindingType: int,
+     *     bindingType: value-of<VkDeviceAddressBindingTypeEXT>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -65,6 +64,6 @@ final class VkDeviceAddressBindingCallbackDataEXT extends InputStructure impleme
 
         $data->size = $this->size;
 
-        $data->bindingType = EnumCase::getValue($this->bindingType);
+        $data->bindingType = $this->bindingType->value;
     }
 }

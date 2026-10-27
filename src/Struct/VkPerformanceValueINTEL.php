@@ -19,13 +19,13 @@ use Serafim\Vulkan\Internal\EnumCase;
 final readonly class VkPerformanceValueINTEL extends OutputStructure
 {
     public function __construct(
-        public VkPerformanceValueTypeINTEL|int $type,
+        public VkPerformanceValueTypeINTEL $type,
         public VkPerformanceValueDataINTEL $data,
     ) {}
 
     /**
      * @param CData&object{
-     *     type: int,
+     *     type: value-of<VkPerformanceValueTypeINTEL>,
      *     data: CData,
      * } $data
      *

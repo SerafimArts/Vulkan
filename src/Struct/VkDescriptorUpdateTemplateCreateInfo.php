@@ -14,7 +14,6 @@ use Serafim\Vulkan\Enum\VkPipelineBindPoint;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorSetLayout;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -39,8 +38,8 @@ final class VkDescriptorUpdateTemplateCreateInfo extends InputStructure
          * @var list<VkDescriptorUpdateTemplateEntry>
          */
         public array $descriptorUpdateEntries = [],
-        public VkDescriptorUpdateTemplateType|int $templateType = VkDescriptorUpdateTemplateType::VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET,
-        public VkPipelineBindPoint|int $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
+        public VkDescriptorUpdateTemplateType $templateType = VkDescriptorUpdateTemplateType::VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET,
+        public VkPipelineBindPoint $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
         /** @var int<0, 4294967295> */
         public int $set = 0,
     ) {}
@@ -52,9 +51,9 @@ final class VkDescriptorUpdateTemplateCreateInfo extends InputStructure
      *     flags: int<0, 4294967295>,
      *     descriptorUpdateEntryCount: int<0, 4294967295>,
      *     pDescriptorUpdateEntries: CData,
-     *     templateType: int,
+     *     templateType: value-of<VkDescriptorUpdateTemplateType>,
      *     descriptorSetLayout: CData,
-     *     pipelineBindPoint: int,
+     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
      *     pipelineLayout: CData,
      *     set: int<0, 4294967295>,
      * } $data
@@ -72,11 +71,11 @@ final class VkDescriptorUpdateTemplateCreateInfo extends InputStructure
             $data->pDescriptorUpdateEntries = $memory->ffi->cast('VkDescriptorUpdateTemplateEntry*', $memory->toStructureArray($this->descriptorUpdateEntries));
         }
 
-        $data->templateType = EnumCase::getValue($this->templateType);
+        $data->templateType = $this->templateType->value;
 
         $data->descriptorSetLayout = $memory->ffi->cast('VkDescriptorSetLayout', $this->descriptorSetLayout->pointer);
 
-        $data->pipelineBindPoint = EnumCase::getValue($this->pipelineBindPoint);
+        $data->pipelineBindPoint = $this->pipelineBindPoint->value;
 
         $data->pipelineLayout = $memory->ffi->cast('VkPipelineLayout', $this->pipelineLayout->pointer);
 

@@ -27,11 +27,11 @@ final class VkResolveImageModeInfoKHR extends InputStructure implements VkResolv
 
     public function __construct(
         public ?VkResolveImageInfo2Extension $next = null,
-        /** @var int-mask-of<VkResolveImageFlagBitsKHR::VK_*> */
+        /** @var int-mask-of<VkResolveImageFlagBitsKHR::*> */
         public int $flags = 0,
-        /** @var int<0, 4294967295>|(VkResolveModeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkResolveModeFlagBits::*) */
         public int $resolveMode = 0,
-        /** @var int<0, 4294967295>|(VkResolveModeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkResolveModeFlagBits::*) */
         public int $stencilResolveMode = 0,
     ) {}
 

@@ -29,11 +29,11 @@ final readonly class VkCooperativeMatrixPropertiesNV extends OutputStructure
         public int $NSize,
         /** @var int<0, 4294967295> */
         public int $KSize,
-        public VkComponentTypeKHR|int $AType,
-        public VkComponentTypeKHR|int $BType,
-        public VkComponentTypeKHR|int $CType,
-        public VkComponentTypeKHR|int $DType,
-        public VkScopeKHR|int $scope,
+        public VkComponentTypeKHR $AType,
+        public VkComponentTypeKHR $BType,
+        public VkComponentTypeKHR $CType,
+        public VkComponentTypeKHR $DType,
+        public VkScopeKHR $scope,
     ) {}
 
     /**
@@ -41,11 +41,11 @@ final readonly class VkCooperativeMatrixPropertiesNV extends OutputStructure
      *     MSize: int<0, 4294967295>,
      *     NSize: int<0, 4294967295>,
      *     KSize: int<0, 4294967295>,
-     *     AType: int,
-     *     BType: int,
-     *     CType: int,
-     *     DType: int,
-     *     scope: int,
+     *     AType: value-of<VkComponentTypeKHR>,
+     *     BType: value-of<VkComponentTypeKHR>,
+     *     CType: value-of<VkComponentTypeKHR>,
+     *     DType: value-of<VkComponentTypeKHR>,
+     *     scope: value-of<VkScopeKHR>,
      * } $data
      *
      * @phpstan-param CData $data

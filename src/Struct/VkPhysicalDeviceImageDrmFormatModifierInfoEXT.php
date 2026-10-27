@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSharingMode;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
 
@@ -29,7 +28,7 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,
         /** @var int<0, max> */
         public int $drmFormatModifier = 0,
-        public VkSharingMode|int $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+        public VkSharingMode $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         /** @var list<int<0, 4294967295>> */
         public array $queueFamilyIndices = [],
     ) {}
@@ -39,7 +38,7 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT>,
      *     pNext: CData,
      *     drmFormatModifier: int<0, max>,
-     *     sharingMode: int,
+     *     sharingMode: value-of<VkSharingMode>,
      *     queueFamilyIndexCount: int<0, 4294967295>,
      *     pQueueFamilyIndices: CData,
      * } $data
@@ -58,7 +57,7 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
 
         $data->drmFormatModifier = $this->drmFormatModifier;
 
-        $data->sharingMode = EnumCase::getValue($this->sharingMode);
+        $data->sharingMode = $this->sharingMode->value;
 
         if ($this->queueFamilyIndices !== []) {
             $data->queueFamilyIndexCount = \count($this->queueFamilyIndices);

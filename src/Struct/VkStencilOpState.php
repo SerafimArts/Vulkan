@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCompareOp;
 use Serafim\Vulkan\Enum\VkStencilOp;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -23,10 +22,10 @@ final class VkStencilOpState extends InputStructure
     protected const string NATIVE_TYPE = 'VkStencilOpState';
 
     public function __construct(
-        public VkStencilOp|int $failOp = VkStencilOp::VK_STENCIL_OP_KEEP,
-        public VkStencilOp|int $passOp = VkStencilOp::VK_STENCIL_OP_KEEP,
-        public VkStencilOp|int $depthFailOp = VkStencilOp::VK_STENCIL_OP_KEEP,
-        public VkCompareOp|int $compareOp = VkCompareOp::VK_COMPARE_OP_NEVER,
+        public VkStencilOp $failOp = VkStencilOp::VK_STENCIL_OP_KEEP,
+        public VkStencilOp $passOp = VkStencilOp::VK_STENCIL_OP_KEEP,
+        public VkStencilOp $depthFailOp = VkStencilOp::VK_STENCIL_OP_KEEP,
+        public VkCompareOp $compareOp = VkCompareOp::VK_COMPARE_OP_NEVER,
         /** @var int<0, 4294967295> */
         public int $compareMask = 0,
         /** @var int<0, 4294967295> */
@@ -37,10 +36,10 @@ final class VkStencilOpState extends InputStructure
 
     /**
      * @param CData&object{
-     *     failOp: int,
-     *     passOp: int,
-     *     depthFailOp: int,
-     *     compareOp: int,
+     *     failOp: value-of<VkStencilOp>,
+     *     passOp: value-of<VkStencilOp>,
+     *     depthFailOp: value-of<VkStencilOp>,
+     *     compareOp: value-of<VkCompareOp>,
      *     compareMask: int<0, 4294967295>,
      *     writeMask: int<0, 4294967295>,
      *     reference: int<0, 4294967295>,
@@ -50,13 +49,13 @@ final class VkStencilOpState extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->failOp = EnumCase::getValue($this->failOp);
+        $data->failOp = $this->failOp->value;
 
-        $data->passOp = EnumCase::getValue($this->passOp);
+        $data->passOp = $this->passOp->value;
 
-        $data->depthFailOp = EnumCase::getValue($this->depthFailOp);
+        $data->depthFailOp = $this->depthFailOp->value;
 
-        $data->compareOp = EnumCase::getValue($this->compareOp);
+        $data->compareOp = $this->compareOp->value;
 
         $data->compareMask = $this->compareMask;
 

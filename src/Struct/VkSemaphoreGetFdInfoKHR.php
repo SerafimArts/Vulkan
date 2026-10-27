@@ -26,7 +26,7 @@ final class VkSemaphoreGetFdInfoKHR extends InputStructure
 
     public function __construct(
         public VkSemaphore $semaphore,
-        /** @var int<0, 4294967295>|(VkExternalSemaphoreHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalSemaphoreHandleTypeFlagBits::*) */
         public int $handleType = 0,
     ) {}
 

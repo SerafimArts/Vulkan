@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,7 +25,7 @@ final class VkImageDescriptorInfoEXT extends InputStructure
 
     public function __construct(
         public ?VkImageViewCreateInfo $view = null,
-        public VkImageLayout|int $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
@@ -34,7 +33,7 @@ final class VkImageDescriptorInfoEXT extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DESCRIPTOR_INFO_EXT>,
      *     pNext: CData,
      *     pView: CData,
-     *     layout: int,
+     *     layout: value-of<VkImageLayout>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -47,6 +46,6 @@ final class VkImageDescriptorInfoEXT extends InputStructure
             $data->pView = \FFI::addr($memory->toStructure($this->view));
         }
 
-        $data->layout = EnumCase::getValue($this->layout);
+        $data->layout = $this->layout->value;
     }
 }

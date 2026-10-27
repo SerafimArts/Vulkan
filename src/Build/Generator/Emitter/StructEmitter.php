@@ -195,7 +195,7 @@ final readonly class StructEmitter
             $property = $properties[$member->name] ?? null;
 
             $type = match (true) {
-                $property !== null => $this->reader->createType($property),
+                $property !== null => $this->reader->createType($namespace, $property),
                 $member->name === 'sType' && $plan->structureType !== null => 'value-of<'
                     . Imports::import($namespace, Locations::ENUM_NAMESPACE, 'VkStructureType')
                     . '::' . $plan->structureType . '>',
@@ -472,7 +472,7 @@ final readonly class StructEmitter
         $shape = ['@param CData&object{'];
 
         foreach ($this->findReadProperties($plan) as $property) {
-            $shape[] = '    ' . $property->field->name . ': ' . $this->reader->createType($property) . ',';
+            $shape[] = '    ' . $property->field->name . ': ' . $this->reader->createType($namespace, $property) . ',';
         }
 
         $shape[] = '} $data';

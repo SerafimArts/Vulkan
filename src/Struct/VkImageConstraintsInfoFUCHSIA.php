@@ -27,7 +27,7 @@ final class VkImageConstraintsInfoFUCHSIA extends InputStructure
         public VkBufferCollectionConstraintsInfoFUCHSIA $bufferCollectionConstraints,
         /** @var list<VkImageFormatConstraintsInfoFUCHSIA> */
         public array $formatConstraints = [],
-        /** @var int-mask-of<VkImageConstraintsInfoFlagBitsFUCHSIA::VK_*> */
+        /** @var int-mask-of<VkImageConstraintsInfoFlagBitsFUCHSIA::*> */
         public int $flags = 0,
     ) {}
 

@@ -22,12 +22,12 @@ final readonly class VkDataGraphOpticalFlowImageFormatPropertiesARM extends Outp
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM->value;
 
     public function __construct(
-        public VkFormat|int $format,
+        public VkFormat $format,
     ) {}
 
     /**
      * @param CData&object{
-     *     format: int,
+     *     format: value-of<VkFormat>,
      * } $data
      *
      * @phpstan-param CData $data

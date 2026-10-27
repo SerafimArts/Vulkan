@@ -35,7 +35,7 @@ final class VkPipelineMultisampleStateCreateInfo extends InputStructure
          * The number of the elements of `$sampleMask`, it follows the
          * array when it is given.
          *
-         * @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*)
+         * @var int<0, 4294967295>|(VkSampleCountFlagBits::*)
          */
         public int $rasterizationSamples = 0,
         /** Optional (GL45) */

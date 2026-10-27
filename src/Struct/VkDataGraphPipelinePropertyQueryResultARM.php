@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelinePropertyARM;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +24,7 @@ final class VkDataGraphPipelinePropertyQueryResultARM extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM->value;
 
     public function __construct(
-        public VkDataGraphPipelinePropertyARM|int $property = VkDataGraphPipelinePropertyARM::VK_DATA_GRAPH_PIPELINE_PROPERTY_CREATION_LOG_ARM,
+        public VkDataGraphPipelinePropertyARM $property = VkDataGraphPipelinePropertyARM::VK_DATA_GRAPH_PIPELINE_PROPERTY_CREATION_LOG_ARM,
         public bool $isText = false,
         /**
          * The number of the elements of `$data`, it follows the array when
@@ -41,7 +40,7 @@ final class VkDataGraphPipelinePropertyQueryResultARM extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM>,
      *     pNext: CData,
-     *     property: int,
+     *     property: value-of<VkDataGraphPipelinePropertyARM>,
      *     isText: int<0, 1>,
      *     dataSize: int<0, max>,
      *     pData: CData|int|null,
@@ -53,7 +52,7 @@ final class VkDataGraphPipelinePropertyQueryResultARM extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->property = EnumCase::getValue($this->property);
+        $data->property = $this->property->value;
 
         $data->isText = (int) $this->isText;
 

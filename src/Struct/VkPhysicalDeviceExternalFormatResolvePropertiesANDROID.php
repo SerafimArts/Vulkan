@@ -35,15 +35,15 @@ final readonly class VkPhysicalDeviceExternalFormatResolvePropertiesANDROID exte
     public function __construct(
         /** The value is at most the required one. */
         public bool $nullColorAttachmentWithExternalFormatResolve,
-        public VkChromaLocation|int $externalFormatResolveChromaOffsetX,
-        public VkChromaLocation|int $externalFormatResolveChromaOffsetY,
+        public VkChromaLocation $externalFormatResolveChromaOffsetX,
+        public VkChromaLocation $externalFormatResolveChromaOffsetY,
     ) {}
 
     /**
      * @param CData&object{
      *     nullColorAttachmentWithExternalFormatResolve: int<0, 1>,
-     *     externalFormatResolveChromaOffsetX: int,
-     *     externalFormatResolveChromaOffsetY: int,
+     *     externalFormatResolveChromaOffsetX: value-of<VkChromaLocation>,
+     *     externalFormatResolveChromaOffsetY: value-of<VkChromaLocation>,
      * } $data
      *
      * @phpstan-param CData $data

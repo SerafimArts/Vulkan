@@ -26,7 +26,7 @@ final class VkExternalMemoryTensorCreateInfoARM extends InputStructure implement
 
     public function __construct(
         public ?VkTensorCreateInfoARMExtension $next = null,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $handleTypes = 0,
     ) {}
 

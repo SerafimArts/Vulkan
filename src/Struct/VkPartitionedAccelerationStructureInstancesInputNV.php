@@ -26,7 +26,7 @@ final class VkPartitionedAccelerationStructureInstancesInputNV extends InputStru
 
     public function __construct(
         public ?VkPartitionedAccelerationStructureInstancesInputNVExtension $next = null,
-        /** @var int<0, 4294967295>|(VkBuildAccelerationStructureFlagBitsKHR::VK_*) */
+        /** @var int<0, 4294967295>|(VkBuildAccelerationStructureFlagBitsKHR::*) */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $instanceCount = 0,

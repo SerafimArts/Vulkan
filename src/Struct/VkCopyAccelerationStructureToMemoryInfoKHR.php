@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkCopyAccelerationStructureModeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkAccelerationStructureKHR;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,7 +27,7 @@ final class VkCopyAccelerationStructureToMemoryInfoKHR extends InputStructure
     public function __construct(
         public VkAccelerationStructureKHR $src,
         public VkDeviceOrHostAddressKHR $dst,
-        public VkCopyAccelerationStructureModeKHR|int $mode = VkCopyAccelerationStructureModeKHR::VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR,
+        public VkCopyAccelerationStructureModeKHR $mode = VkCopyAccelerationStructureModeKHR::VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR,
     ) {}
 
     /**
@@ -37,7 +36,7 @@ final class VkCopyAccelerationStructureToMemoryInfoKHR extends InputStructure
      *     pNext: CData,
      *     src: CData,
      *     dst: CData,
-     *     mode: int,
+     *     mode: value-of<VkCopyAccelerationStructureModeKHR>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -50,6 +49,6 @@ final class VkCopyAccelerationStructureToMemoryInfoKHR extends InputStructure
 
         $this->dst->write($memory, $data->dst);
 
-        $data->mode = EnumCase::getValue($this->mode);
+        $data->mode = $this->mode->value;
     }
 }

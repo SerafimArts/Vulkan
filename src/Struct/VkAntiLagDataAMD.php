@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAntiLagModeAMD;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +24,7 @@ final class VkAntiLagDataAMD extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANTI_LAG_DATA_AMD->value;
 
     public function __construct(
-        public VkAntiLagModeAMD|int $mode = VkAntiLagModeAMD::VK_ANTI_LAG_MODE_DRIVER_CONTROL_AMD,
+        public VkAntiLagModeAMD $mode = VkAntiLagModeAMD::VK_ANTI_LAG_MODE_DRIVER_CONTROL_AMD,
         /** @var int<0, 4294967295> */
         public int $maxFPS = 0,
         public ?VkAntiLagPresentationInfoAMD $presentationInfo = null,
@@ -35,7 +34,7 @@ final class VkAntiLagDataAMD extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ANTI_LAG_DATA_AMD>,
      *     pNext: CData,
-     *     mode: int,
+     *     mode: value-of<VkAntiLagModeAMD>,
      *     maxFPS: int<0, 4294967295>,
      *     pPresentationInfo: CData,
      * } $data
@@ -46,7 +45,7 @@ final class VkAntiLagDataAMD extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->mode = EnumCase::getValue($this->mode);
+        $data->mode = $this->mode->value;
 
         $data->maxFPS = $this->maxFPS;
 

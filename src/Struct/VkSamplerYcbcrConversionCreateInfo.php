@@ -15,7 +15,6 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrModelConversion;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerYcbcrConversionCreateInfoExtension;
 
@@ -32,12 +31,12 @@ final class VkSamplerYcbcrConversionCreateInfo extends InputStructure
     public function __construct(
         public VkComponentMapping $components,
         public ?VkSamplerYcbcrConversionCreateInfoExtension $next = null,
-        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkSamplerYcbcrModelConversion|int $ycbcrModel = VkSamplerYcbcrModelConversion::VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY,
-        public VkSamplerYcbcrRange|int $ycbcrRange = VkSamplerYcbcrRange::VK_SAMPLER_YCBCR_RANGE_ITU_FULL,
-        public VkChromaLocation|int $xChromaOffset = VkChromaLocation::VK_CHROMA_LOCATION_COSITED_EVEN,
-        public VkChromaLocation|int $yChromaOffset = VkChromaLocation::VK_CHROMA_LOCATION_COSITED_EVEN,
-        public VkFilter|int $chromaFilter = VkFilter::VK_FILTER_NEAREST,
+        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkSamplerYcbcrModelConversion $ycbcrModel = VkSamplerYcbcrModelConversion::VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY,
+        public VkSamplerYcbcrRange $ycbcrRange = VkSamplerYcbcrRange::VK_SAMPLER_YCBCR_RANGE_ITU_FULL,
+        public VkChromaLocation $xChromaOffset = VkChromaLocation::VK_CHROMA_LOCATION_COSITED_EVEN,
+        public VkChromaLocation $yChromaOffset = VkChromaLocation::VK_CHROMA_LOCATION_COSITED_EVEN,
+        public VkFilter $chromaFilter = VkFilter::VK_FILTER_NEAREST,
         public bool $forceExplicitReconstruction = false,
     ) {}
 
@@ -45,13 +44,13 @@ final class VkSamplerYcbcrConversionCreateInfo extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO>,
      *     pNext: CData,
-     *     format: int,
-     *     ycbcrModel: int,
-     *     ycbcrRange: int,
+     *     format: value-of<VkFormat>,
+     *     ycbcrModel: value-of<VkSamplerYcbcrModelConversion>,
+     *     ycbcrRange: value-of<VkSamplerYcbcrRange>,
      *     components: CData,
-     *     xChromaOffset: int,
-     *     yChromaOffset: int,
-     *     chromaFilter: int,
+     *     xChromaOffset: value-of<VkChromaLocation>,
+     *     yChromaOffset: value-of<VkChromaLocation>,
+     *     chromaFilter: value-of<VkFilter>,
      *     forceExplicitReconstruction: int<0, 1>,
      * } $data
      *
@@ -67,19 +66,19 @@ final class VkSamplerYcbcrConversionCreateInfo extends InputStructure
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->format = EnumCase::getValue($this->format);
+        $data->format = $this->format->value;
 
-        $data->ycbcrModel = EnumCase::getValue($this->ycbcrModel);
+        $data->ycbcrModel = $this->ycbcrModel->value;
 
-        $data->ycbcrRange = EnumCase::getValue($this->ycbcrRange);
+        $data->ycbcrRange = $this->ycbcrRange->value;
 
         $this->components->write($memory, $data->components);
 
-        $data->xChromaOffset = EnumCase::getValue($this->xChromaOffset);
+        $data->xChromaOffset = $this->xChromaOffset->value;
 
-        $data->yChromaOffset = EnumCase::getValue($this->yChromaOffset);
+        $data->yChromaOffset = $this->yChromaOffset->value;
 
-        $data->chromaFilter = EnumCase::getValue($this->chromaFilter);
+        $data->chromaFilter = $this->chromaFilter->value;
 
         $data->forceExplicitReconstruction = (int) $this->forceExplicitReconstruction;
     }

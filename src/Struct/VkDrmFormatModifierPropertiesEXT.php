@@ -30,7 +30,7 @@ final readonly class VkDrmFormatModifierPropertiesEXT extends OutputStructure
          * @var int<0, 4294967295>
          */
         public int $drmFormatModifierPlaneCount,
-        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
         public int $drmFormatModifierTilingFeatures,
     ) {}
 

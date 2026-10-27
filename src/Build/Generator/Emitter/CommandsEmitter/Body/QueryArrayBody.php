@@ -148,7 +148,7 @@ final readonly class QueryArrayBody implements Body
             TypeKind::ENUMERATION => [
                 ['/** @var int $value */', '$value = {native}[$index];'],
                 'EnumCase::createFromValue(' . Imports::import($namespace, Locations::ENUM_NAMESPACE, $type) . '::class, $value)',
-                $type . '|int',
+                $type,
             ],
             TypeKind::FLOAT => [['/** @var float $value */', '$value = {native}[$index];'], '$value', 'float'],
             TypeKind::BOOLEAN => [['/** @var int $value */', '$value = {native}[$index];'], '$value !== 0', 'bool'],

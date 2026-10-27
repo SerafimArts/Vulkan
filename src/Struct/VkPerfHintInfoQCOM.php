@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPerfHintTypeQCOM;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +24,7 @@ final class VkPerfHintInfoQCOM extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM->value;
 
     public function __construct(
-        public VkPerfHintTypeQCOM|int $type = VkPerfHintTypeQCOM::VK_PERF_HINT_TYPE_DEFAULT_QCOM,
+        public VkPerfHintTypeQCOM $type = VkPerfHintTypeQCOM::VK_PERF_HINT_TYPE_DEFAULT_QCOM,
         /** @var int<0, 4294967295> */
         public int $scale = 0,
     ) {}
@@ -34,7 +33,7 @@ final class VkPerfHintInfoQCOM extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM>,
      *     pNext: CData,
-     *     type: int,
+     *     type: value-of<VkPerfHintTypeQCOM>,
      *     scale: int<0, 4294967295>,
      * } $data
      *
@@ -44,7 +43,7 @@ final class VkPerfHintInfoQCOM extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = EnumCase::getValue($this->type);
+        $data->type = $this->type->value;
 
         $data->scale = $this->scale;
     }

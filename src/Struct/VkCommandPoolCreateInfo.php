@@ -27,7 +27,7 @@ final class VkCommandPoolCreateInfo extends InputStructure
         /**
          * Command pool creation flags
          *
-         * @var int-mask-of<VkCommandPoolCreateFlagBits::VK_*>
+         * @var int-mask-of<VkCommandPoolCreateFlagBits::*>
          */
         public int $flags = 0,
         /** @var int<0, 4294967295> */

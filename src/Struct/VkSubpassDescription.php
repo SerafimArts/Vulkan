@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineBindPoint;
 use Serafim\Vulkan\Enum\VkSubpassDescriptionFlagBits;
 use Serafim\Vulkan\Exception\InvalidStructureException;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -27,10 +26,10 @@ final class VkSubpassDescription extends InputStructure
     protected const string NATIVE_TYPE = 'VkSubpassDescription';
 
     public function __construct(
-        /** @var int-mask-of<VkSubpassDescriptionFlagBits::VK_*> */
+        /** @var int-mask-of<VkSubpassDescriptionFlagBits::*> */
         public int $flags = 0,
         /** Must be VK_PIPELINE_BIND_POINT_GRAPHICS for now */
-        public VkPipelineBindPoint|int $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
+        public VkPipelineBindPoint $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
         /** @var list<VkAttachmentReference> */
         public array $inputAttachments = [],
         /** @var list<VkAttachmentReference> */
@@ -45,7 +44,7 @@ final class VkSubpassDescription extends InputStructure
     /**
      * @param CData&object{
      *     flags: int<0, 4294967295>,
-     *     pipelineBindPoint: int,
+     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
      *     inputAttachmentCount: int<0, 4294967295>,
      *     pInputAttachments: CData,
      *     colorAttachmentCount: int<0, 4294967295>,
@@ -62,7 +61,7 @@ final class VkSubpassDescription extends InputStructure
     {
         $data->flags = $this->flags;
 
-        $data->pipelineBindPoint = EnumCase::getValue($this->pipelineBindPoint);
+        $data->pipelineBindPoint = $this->pipelineBindPoint->value;
 
         if ($this->inputAttachments !== []) {
             $data->inputAttachmentCount = \count($this->inputAttachments);

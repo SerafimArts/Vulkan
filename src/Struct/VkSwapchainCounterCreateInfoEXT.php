@@ -26,7 +26,7 @@ final class VkSwapchainCounterCreateInfoEXT extends InputStructure implements Vk
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkSurfaceCounterFlagBitsEXT::VK_*> */
+        /** @var int-mask-of<VkSurfaceCounterFlagBitsEXT::*> */
         public int $surfaceCounters = 0,
     ) {}
 

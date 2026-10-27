@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkCompareOp;
 use Serafim\Vulkan\Enum\VkPipelineDepthStencilStateCreateFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,11 +27,11 @@ final class VkPipelineDepthStencilStateCreateInfo extends InputStructure
     public function __construct(
         public VkStencilOpState $front,
         public VkStencilOpState $back,
-        /** @var int-mask-of<VkPipelineDepthStencilStateCreateFlagBits::VK_*> */
+        /** @var int-mask-of<VkPipelineDepthStencilStateCreateFlagBits::*> */
         public int $flags = 0,
         public bool $depthTestEnable = false,
         public bool $depthWriteEnable = false,
-        public VkCompareOp|int $depthCompareOp = VkCompareOp::VK_COMPARE_OP_NEVER,
+        public VkCompareOp $depthCompareOp = VkCompareOp::VK_COMPARE_OP_NEVER,
         /** Optional (depth_bounds_test) */
         public bool $depthBoundsTestEnable = false,
         public bool $stencilTestEnable = false,
@@ -47,7 +46,7 @@ final class VkPipelineDepthStencilStateCreateInfo extends InputStructure
      *     flags: int<0, 4294967295>,
      *     depthTestEnable: int<0, 1>,
      *     depthWriteEnable: int<0, 1>,
-     *     depthCompareOp: int,
+     *     depthCompareOp: value-of<VkCompareOp>,
      *     depthBoundsTestEnable: int<0, 1>,
      *     stencilTestEnable: int<0, 1>,
      *     front: CData,
@@ -68,7 +67,7 @@ final class VkPipelineDepthStencilStateCreateInfo extends InputStructure
 
         $data->depthWriteEnable = (int) $this->depthWriteEnable;
 
-        $data->depthCompareOp = EnumCase::getValue($this->depthCompareOp);
+        $data->depthCompareOp = $this->depthCompareOp->value;
 
         $data->depthBoundsTestEnable = (int) $this->depthBoundsTestEnable;
 

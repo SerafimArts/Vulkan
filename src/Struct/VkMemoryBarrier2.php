@@ -28,13 +28,13 @@ final class VkMemoryBarrier2 extends InputStructure implements VkSubpassDependen
 
     public function __construct(
         public VkMemoryBarrier2Extension|VkSubpassDependency2Extension|null $next = null,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
         public int $srcStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkAccessFlagBits2::*) */
         public int $srcAccessMask = 0,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
         public int $dstStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::VK_*) */
+        /** @var int<0, max>|(VkAccessFlagBits2::*) */
         public int $dstAccessMask = 0,
     ) {}
 

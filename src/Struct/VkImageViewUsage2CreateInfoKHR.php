@@ -26,7 +26,7 @@ final class VkImageViewUsage2CreateInfoKHR extends InputStructure implements VkI
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,
-        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::VK_*) */
+        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::*) */
         public int $usage = 0,
     ) {}
 

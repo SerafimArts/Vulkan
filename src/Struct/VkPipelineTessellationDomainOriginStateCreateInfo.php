@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTessellationDomainOrigin;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineTessellationStateCreateInfoExtension;
 
@@ -27,14 +26,14 @@ final class VkPipelineTessellationDomainOriginStateCreateInfo extends InputStruc
 
     public function __construct(
         public ?VkPipelineTessellationStateCreateInfoExtension $next = null,
-        public VkTessellationDomainOrigin|int $domainOrigin = VkTessellationDomainOrigin::VK_TESSELLATION_DOMAIN_ORIGIN_UPPER_LEFT,
+        public VkTessellationDomainOrigin $domainOrigin = VkTessellationDomainOrigin::VK_TESSELLATION_DOMAIN_ORIGIN_UPPER_LEFT,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO>,
      *     pNext: CData,
-     *     domainOrigin: int,
+     *     domainOrigin: value-of<VkTessellationDomainOrigin>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -49,6 +48,6 @@ final class VkPipelineTessellationDomainOriginStateCreateInfo extends InputStruc
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->domainOrigin = EnumCase::getValue($this->domainOrigin);
+        $data->domainOrigin = $this->domainOrigin->value;
     }
 }

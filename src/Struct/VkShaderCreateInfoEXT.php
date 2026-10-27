@@ -14,7 +14,6 @@ use Serafim\Vulkan\Enum\VkShaderCreateFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorSetLayout;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkShaderCreateInfoEXTExtension;
 
@@ -30,13 +29,13 @@ final class VkShaderCreateInfoEXT extends InputStructure
 
     public function __construct(
         public ?VkShaderCreateInfoEXTExtension $next = null,
-        /** @var int<0, 4294967295>|(VkShaderCreateFlagBitsEXT::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderCreateFlagBitsEXT::*) */
         public int $flags = 0,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $stage = 0,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $nextStage = 0,
-        public VkShaderCodeTypeEXT|int $codeType = VkShaderCodeTypeEXT::VK_SHADER_CODE_TYPE_BINARY_EXT,
+        public VkShaderCodeTypeEXT $codeType = VkShaderCodeTypeEXT::VK_SHADER_CODE_TYPE_BINARY_EXT,
         public string $code = '',
         public ?string $name = null,
         /** @var list<VkDescriptorSetLayout> */
@@ -53,7 +52,7 @@ final class VkShaderCreateInfoEXT extends InputStructure
      *     flags: int<0, 4294967295>,
      *     stage: int<0, 4294967295>,
      *     nextStage: int<0, 4294967295>,
-     *     codeType: int,
+     *     codeType: value-of<VkShaderCodeTypeEXT>,
      *     codeSize: int<0, max>,
      *     pCode: CData,
      *     pName: CData|null,
@@ -82,7 +81,7 @@ final class VkShaderCreateInfoEXT extends InputStructure
 
         $data->nextStage = $this->nextStage;
 
-        $data->codeType = EnumCase::getValue($this->codeType);
+        $data->codeType = $this->codeType->value;
 
         if ($this->code !== '') {
             $data->codeSize = \strlen($this->code);

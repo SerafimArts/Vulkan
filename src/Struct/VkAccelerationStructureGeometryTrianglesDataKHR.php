@@ -12,7 +12,6 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryTrianglesDataKHRExtension;
 
@@ -31,23 +30,23 @@ final class VkAccelerationStructureGeometryTrianglesDataKHR extends InputStructu
         public VkDeviceOrHostAddressConstKHR $indexData,
         public VkDeviceOrHostAddressConstKHR $transformData,
         public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
-        public VkFormat|int $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var int<0, max> */
         public int $vertexStride = 0,
         /** @var int<0, 4294967295> */
         public int $maxVertex = 0,
-        public VkIndexType|int $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
+        public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_TRIANGLES_DATA_KHR>,
      *     pNext: CData,
-     *     vertexFormat: int,
+     *     vertexFormat: value-of<VkFormat>,
      *     vertexData: CData,
      *     vertexStride: int<0, max>,
      *     maxVertex: int<0, 4294967295>,
-     *     indexType: int,
+     *     indexType: value-of<VkIndexType>,
      *     indexData: CData,
      *     transformData: CData,
      * } $data
@@ -64,7 +63,7 @@ final class VkAccelerationStructureGeometryTrianglesDataKHR extends InputStructu
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->vertexFormat = EnumCase::getValue($this->vertexFormat);
+        $data->vertexFormat = $this->vertexFormat->value;
 
         $this->vertexData->write($memory, $data->vertexData);
 
@@ -72,7 +71,7 @@ final class VkAccelerationStructureGeometryTrianglesDataKHR extends InputStructu
 
         $data->maxVertex = $this->maxVertex;
 
-        $data->indexType = EnumCase::getValue($this->indexType);
+        $data->indexType = $this->indexType->value;
 
         $this->indexData->write($memory, $data->indexData);
 

@@ -11,7 +11,6 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkMemoryOverallocationBehaviorAMD;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 
@@ -27,14 +26,14 @@ final class VkDeviceMemoryOverallocationCreateInfoAMD extends InputStructure imp
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,
-        public VkMemoryOverallocationBehaviorAMD|int $overallocationBehavior = VkMemoryOverallocationBehaviorAMD::VK_MEMORY_OVERALLOCATION_BEHAVIOR_DEFAULT_AMD,
+        public VkMemoryOverallocationBehaviorAMD $overallocationBehavior = VkMemoryOverallocationBehaviorAMD::VK_MEMORY_OVERALLOCATION_BEHAVIOR_DEFAULT_AMD,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD>,
      *     pNext: CData,
-     *     overallocationBehavior: int,
+     *     overallocationBehavior: value-of<VkMemoryOverallocationBehaviorAMD>,
      * } $data
      *
      * @phpstan-param CData $data
@@ -49,6 +48,6 @@ final class VkDeviceMemoryOverallocationCreateInfoAMD extends InputStructure imp
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->overallocationBehavior = EnumCase::getValue($this->overallocationBehavior);
+        $data->overallocationBehavior = $this->overallocationBehavior->value;
     }
 }
