@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Analysis;
 
+use Serafim\Vulkan\Build\Generator\Registry\FunctionPointer;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 
 /**
@@ -69,11 +70,20 @@ final readonly class TypeResolver
             return TypeKind::STRUCTURE;
         }
 
+        if ($this->registry->findFunctionPointer($type) !== null) {
+            return TypeKind::CALLBACK;
+        }
+
         if ($type === 'void' || $this->registry->isNativeType($type)) {
             return TypeKind::NATIVE;
         }
 
         return TypeKind::UNSUPPORTED;
+    }
+
+    public function findFunctionPointer(string $type): ?FunctionPointer
+    {
+        return $this->registry->findFunctionPointer($type);
     }
 
     /**

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Emitter;
 
-use Serafim\Vulkan\Struct\InputStructure;
-
 /**
  * Writes the marker of the structures that can be chained to a structure with
  * `pNext`. The `pNext` of the structure accepts the structures that implement
@@ -40,15 +38,11 @@ final readonly class ExtensionEmitter
         $file = $this->files->create();
         $namespace = $file->addNamespace(Locations::EXTENSION_NAMESPACE);
 
-        $namespace->addUse(InputStructure::class);
-
         $interface = $namespace->addInterface($name);
 
         $interface->addComment('A structure that can be chained to `' . $structure . '` with `pNext`.');
         $interface->addComment('');
         $interface->addComment('@see https://registry.khronos.org/vulkan/specs/latest/man/html/' . $structure . '.html');
-        $interface->addComment('');
-        $interface->addComment('@phpstan-require-extends InputStructure');
 
         return new GeneratedFile(
             Locations::createPath('Struct/Extension', $name),

@@ -54,6 +54,11 @@ enum PropertyKind
     case BINARY;
 
     /**
+     * `PFN_*`, the function that Vulkan calls: a closure of the user
+     */
+    case CALLBACK;
+
+    /**
      * A value of the system (`HWND`) or a pointer (`void*`, `xcb_connection_t*`)
      * that the user gives as it is
      */
@@ -119,4 +124,10 @@ enum PropertyKind
      * `pNext`, the next structure of the chain
      */
     case NEXT;
+
+    /**
+     * The structures of the chain that a command has filled: `pNext` of a
+     * returned structure
+     */
+    case CHAIN;
 }

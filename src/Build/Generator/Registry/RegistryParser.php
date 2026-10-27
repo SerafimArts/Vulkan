@@ -10,6 +10,7 @@ use Serafim\Vulkan\Build\Generator\Registry\RegistryParser\ConstantParser;
 use Serafim\Vulkan\Build\Generator\Registry\RegistryParser\Elements;
 use Serafim\Vulkan\Build\Generator\Registry\RegistryParser\EnumParser;
 use Serafim\Vulkan\Build\Generator\Registry\RegistryParser\FieldParser;
+use Serafim\Vulkan\Build\Generator\Registry\RegistryParser\FunctionPointerParser;
 use Serafim\Vulkan\Build\Generator\Registry\RegistryParser\HandleParser;
 use Serafim\Vulkan\Build\Generator\Registry\RegistryParser\RequirementParser;
 use Serafim\Vulkan\Build\Generator\Registry\RegistryParser\StructParser;
@@ -51,6 +52,7 @@ final readonly class RegistryParser
             deprecations: $requirements->parseDeprecations(),
             commandAliases: $commands->parseAliases(),
             nativeTypes: $types->parseNativeTypes(),
+            functionPointers: new FunctionPointerParser($elements, $fields)->parse(),
             defines: new ConstantParser($elements)->parse(),
         );
     }

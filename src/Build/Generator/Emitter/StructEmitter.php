@@ -18,6 +18,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Writer;
 use Serafim\Vulkan\Build\Generator\Exception\InvalidRegistryException;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\InputStructure;
 use Serafim\Vulkan\Struct\OutputStructure;
 
@@ -170,6 +171,11 @@ final readonly class StructEmitter
     private function emitDual(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
     {
         $this->emitInput($namespace, $class, $plan);
+
+        if ($plan->implements !== []) {
+            $this->emitChained($namespace, $class, $plan);
+        }
+
         $this->emitFactory($namespace, $class, $plan);
     }
 
@@ -188,8 +194,94 @@ final readonly class StructEmitter
             $constant->addComment('`' . $plan->structureType . '`');
         }
 
-        $this->properties->emit($namespace, $class, $plan->properties);
+        foreach ($plan->implements as $root) {
+            $class->addImplement(
+                Imports::importFullName(
+                    $namespace,
+                    Locations::EXTENSION_NAMESPACE,
+                    ExtensionEmitter::createName($root),
+                ),
+            );
+        }
+
+        if ($plan->implements !== []) {
+            $this->emitChained($namespace, $class, $plan);
+        }
+
+        $this->properties->emit($namespace, $class, $this->properties->sortRequiredFirst($plan->properties), $plan->chains);
         $this->emitFactory($namespace, $class, $plan);
+
+        if ($this->hasChain($plan)) {
+            $this->emitFinder($namespace, $class, $plan);
+        }
+    }
+
+    /**
+     * Makes the structure one that a command can fill in a chain.
+     */
+    private function emitChained(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
+    {
+        $namespace->addUse(Allocator::class);
+        $namespace->addUse(CData::class);
+
+        $class->addImplement(Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, 'Chained'));
+
+        $method = $class->addMethod('createNative')
+            ->setPublic()
+            ->setStatic()
+            ->setReturnType(CData::class)
+            ->setBody(
+                '$data = $memory->new(' . \var_export($plan->struct->name, true) . ");\n"
+                . "\$data->sType = self::STRUCTURE_TYPE;\n\n"
+                . 'return $data;',
+            );
+
+        $method->addParameter('memory')->setType(Allocator::class);
+    }
+
+    private function hasChain(StructPlan $plan): bool
+    {
+        foreach ($plan->properties as $property) {
+            if ($property->kind === PropertyKind::CHAIN) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Adds the method that finds the structure of the chain by its class.
+     */
+    private function emitFinder(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
+    {
+        $marker = Imports::import(
+            $namespace,
+            Locations::EXTENSION_NAMESPACE,
+            ExtensionEmitter::createName($plan->chains[0] ?? ''),
+        );
+
+        $method = $class->addMethod('findChained')
+            ->setPublic()
+            ->setReturnType('object')
+            ->setReturnNullable()
+            ->setBody(
+                "foreach (\$this->chain as \$item) {\n"
+                . "    if (\$item instanceof \$class) {\n"
+                . "        return \$item;\n"
+                . "    }\n"
+                . "}\n\n"
+                . 'return null;',
+            );
+
+        $method->addParameter('class')->setType('string');
+        $method->addComment('Returns the structure of the chain that is an instance of the class.');
+        $method->addComment('');
+        $method->addComment('@template TChained of ' . $marker);
+        $method->addComment('');
+        $method->addComment('@param class-string<TChained> $class');
+        $method->addComment('');
+        $method->addComment('@return TChained|null');
     }
 
     /**
@@ -202,7 +294,8 @@ final readonly class StructEmitter
     {
         return \array_values(\array_filter(
             $plan->properties,
-            static fn(PropertyPlan $property): bool => $property->kind !== PropertyKind::NEXT,
+            static fn(PropertyPlan $property): bool => $property->kind !== PropertyKind::NEXT
+                && $property->kind !== PropertyKind::CHAIN,
         ));
     }
 
@@ -277,7 +370,15 @@ final readonly class StructEmitter
                 $arguments[] = '// @phpstan-ignore-next-line the elements of the array are of any width';
             }
 
+            if ($property->kind === PropertyKind::NATIVE && $property->name !== $property->field->name) {
+                $arguments[] = '// @phpstan-ignore-next-line the member is named differently from the property';
+            }
+
             $arguments[] = $property->name . ': ' . $this->reader->createExpression($namespace, $property) . ',';
+        }
+
+        if ($this->hasChain($plan) && $plan->role === StructRole::OUTPUT) {
+            $arguments[] = 'chain: $chain,';
         }
 
         $body = "return new self(\n    " . \implode("\n    ", $arguments) . "\n);";
@@ -294,6 +395,10 @@ final readonly class StructEmitter
 
         $method->addParameter('data')->setType(CData::class);
 
+        if ($this->hasChain($plan) && $plan->role === StructRole::OUTPUT) {
+            $method->addParameter('chain', [])->setType('array');
+        }
+
         $shape = ['@param CData&object{'];
 
         foreach ($this->findReadProperties($plan) as $property) {
@@ -302,6 +407,14 @@ final readonly class StructEmitter
 
         $shape[] = '} $data';
         $shape[] = '@phpstan-param CData $data';
+
+        if ($this->hasChain($plan) && $plan->role === StructRole::OUTPUT) {
+            $shape[] = '@param list<' . Imports::import(
+                $namespace,
+                Locations::EXTENSION_NAMESPACE,
+                ExtensionEmitter::createName($plan->chains[0] ?? ''),
+            ) . '> $chain';
+        }
 
         foreach ($shape as $line) {
             $method->addComment($line);

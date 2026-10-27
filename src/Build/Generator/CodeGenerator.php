@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Build\Generator;
 
 use Serafim\Vulkan\Build\Generator\Analysis\Planner;
+use Serafim\Vulkan\Build\Generator\Analysis\StructRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\ConstantsEmitter;
@@ -31,8 +32,16 @@ final readonly class CodeGenerator
         $types = new TypeResolver($registry);
         $plan = new Planner($registry, $types)->plan();
 
+        $roots = [];
+
+        foreach ($plan->structs as $struct) {
+            if ($struct->role === StructRole::OUTPUT && \in_array($struct->struct->name, $plan->extensions, true)) {
+                $roots[] = $struct->struct->name;
+            }
+        }
+
         $files = [
-            new CommandsEmitter($registry, $types)->emit($plan->commands),
+            new CommandsEmitter($registry, $types, $roots)->emit($plan->commands),
             new ConstantsEmitter()->emit($registry->getDefines()),
         ];
 

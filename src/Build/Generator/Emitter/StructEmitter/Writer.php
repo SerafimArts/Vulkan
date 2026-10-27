@@ -66,6 +66,7 @@ final readonly class Writer
             ],
             PropertyKind::SAMPLE_MASK => $this->createSampleMaskLines($namespace, $property, $structure),
             PropertyKind::NATIVE => $this->createNativeLines($property),
+            PropertyKind::CALLBACK => $this->createCallbackLines($property),
             PropertyKind::TEXT => $this->createTextLines($namespace, $property, $structure),
             PropertyKind::BYTES => $this->createBytesLines($namespace, $property, $structure),
             PropertyKind::NUMBER_LIST => $this->createListLines(
@@ -176,6 +177,24 @@ final readonly class Writer
             ...\array_map(static fn(string $line): string => '    ' . $line, $lines),
             '}',
         ];
+    }
+
+    /**
+     * Writes the function pointer that calls the closure of the user.
+     *
+     * @return list<string>
+     */
+    private function createCallbackLines(PropertyPlan $property): array
+    {
+        $value = '$this->' . $property->name;
+        $line = '$data->' . $property->field->name . ' = $memory->toCallback('
+            . \var_export($property->field->type, true) . ', ' . $value . ');';
+
+        if ($property->isNullable) {
+            return ['if (' . $value . ' !== null) {', '    ' . $line, '}'];
+        }
+
+        return [$line];
     }
 
     /**

@@ -28,6 +28,7 @@ final readonly class StructAnalyzer
         PropertyKind::STRING_LIST,
         PropertyKind::BINARY,
         PropertyKind::NATIVE,
+        PropertyKind::CALLBACK,
         PropertyKind::SAMPLE_MASK,
         PropertyKind::TEXT,
         PropertyKind::BYTES,
@@ -59,6 +60,7 @@ final readonly class StructAnalyzer
         PropertyKind::ENUMERATION,
         PropertyKind::TEXT,
         PropertyKind::BYTES,
+        PropertyKind::NATIVE,
         PropertyKind::NUMBER_LIST,
         PropertyKind::STRUCTURE_VALUE,
         PropertyKind::STRUCTURE_LIST,
@@ -120,6 +122,10 @@ final readonly class StructAnalyzer
                         true,
                         true,
                     );
+                }
+
+                if ($role === StructRole::OUTPUT) {
+                    $properties[] = new PropertyPlan($member, PropertyKind::CHAIN, 'chain', 'array', false, true, []);
                 }
 
                 continue;
@@ -250,12 +256,20 @@ final readonly class StructAnalyzer
                 default: $this->registry->findZeroCase($member->type),
             ),
             PropertyKind::STRING => new PropertyPlan($member, $kind, $name, 'string', true, true),
+            PropertyKind::CALLBACK => new PropertyPlan(
+                $member,
+                $kind,
+                $name,
+                'Closure',
+                $member->isOptional,
+                $member->isOptional,
+            ),
             PropertyKind::NATIVE => new PropertyPlan(
                 $member,
                 $kind,
                 $name,
                 'FFI\CData|int',
-                $member->isOptional,
+                $member->isOptional || !$isInput,
                 $member->isOptional,
             ),
             PropertyKind::BINARY => new PropertyPlan($member, $kind, $name, 'string', hasDefault: true, default: ''),

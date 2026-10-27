@@ -58,9 +58,14 @@ final readonly class CommandsEmitter
 
     private SpecificationTags $tags;
 
+    /**
+     * @param list<non-empty-string> $roots the returned structures that
+     *        others are chained to
+     */
     public function __construct(
         private Registry $registry,
         TypeResolver $types,
+        private array $roots = [],
     ) {
         $this->files = new PhpFiles();
         $this->tags = new SpecificationTags($registry);
@@ -286,7 +291,7 @@ final readonly class CommandsEmitter
         return match ($kind) {
             CommandKind::CREATE => new CreateBody($this->calls, $this->handles),
             CommandKind::CREATE_ARRAY => new CreateArrayBody($this->calls, $this->handles),
-            CommandKind::QUERY => new QueryBody($this->calls, $this->registry),
+            CommandKind::QUERY => new QueryBody($this->calls, $this->registry, $this->roots),
             CommandKind::QUERY_SCALAR => new ScalarQueryBody($this->calls),
             CommandKind::QUERY_BINARY => new QueryBinaryBody($this->calls),
             CommandKind::QUERY_POINTER => new PointerQueryBody($this->calls),

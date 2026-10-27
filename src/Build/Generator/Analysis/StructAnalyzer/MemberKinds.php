@@ -47,6 +47,10 @@ final readonly class MemberKinds
             return null;
         }
 
+        if ($type === TypeKind::CALLBACK && $member->pointerDepth === 0) {
+            return PropertyKind::CALLBACK;
+        }
+
         if ($type === TypeKind::NATIVE && $member->length === null) {
             return PropertyKind::NATIVE;
         }

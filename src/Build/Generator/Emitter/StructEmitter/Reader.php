@@ -57,6 +57,7 @@ final readonly class Reader
     {
         return match ($property->kind) {
             PropertyKind::INTEGER => $this->types->getIntegerRange($property->field->type),
+            PropertyKind::NATIVE => 'CData|int|null',
             PropertyKind::FLOAT => 'float',
             PropertyKind::BOOLEAN, PropertyKind::ENUMERATION => 'int',
             default => 'CData',

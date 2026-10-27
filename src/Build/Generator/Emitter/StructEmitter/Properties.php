@@ -10,6 +10,7 @@ use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
+use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\DocComments;
 use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
@@ -62,6 +63,13 @@ final readonly class Properties
             }
 
             $parameter->setPublic();
+
+            if ($property->kind === PropertyKind::CHAIN) {
+                $parameter->setType('array');
+                $parameter->addComment('@var list<' . $this->createMarker($namespace, $chains[0] ?? '') . '>');
+
+                continue;
+            }
 
             if ($property->kind === PropertyKind::NEXT) {
                 $parameter->setType($this->createChainType($namespace, $chains));
@@ -126,6 +134,11 @@ final readonly class Properties
         }
 
         return $this->types->getIntegerRange($property->field->type);
+    }
+
+    private function createMarker(PhpNamespace $namespace, string $root): string
+    {
+        return Imports::import($namespace, Locations::EXTENSION_NAMESPACE, ExtensionEmitter::createName($root));
     }
 
     /**
@@ -217,6 +230,51 @@ final readonly class Properties
         }
     }
 
+    /**
+     * Returns the signature of the function Vulkan calls: the pointers are
+     * given as they are.
+     */
+    private function createCallbackType(PropertyPlan $property): ?string
+    {
+        $pointer = $this->types->findFunctionPointer($property->field->type);
+
+        if ($pointer === null) {
+            return null;
+        }
+
+        $parameters = [];
+
+        foreach ($pointer->parameters as $parameter) {
+            $parameters[] = $this->createCallbackValueType($parameter->type, $parameter->pointerDepth);
+        }
+
+        $return = 'void';
+
+        if ($pointer->returnType !== 'void' || $pointer->returnPointerDepth > 0) {
+            $return = $this->createCallbackValueType($pointer->returnType, $pointer->returnPointerDepth);
+        }
+
+        if (\str_contains($return, '|')) {
+            $return = '(' . $return . ')';
+        }
+
+        return '\Closure(' . \implode(', ', $parameters) . '): ' . $return;
+    }
+
+    private function createCallbackValueType(string $type, int $pointerDepth): string
+    {
+        if ($pointerDepth > 0) {
+            return 'CData|null';
+        }
+
+        return match ($this->types->resolve($type)) {
+            TypeKind::BOOLEAN => 'bool|int',
+            TypeKind::FLOAT => 'float',
+            TypeKind::INTEGER, TypeKind::ENUMERATION => 'int',
+            default => 'CData',
+        };
+    }
+
     private function createStringType(PropertyPlan $property): ?string
     {
         if ($property->field->isOptional) {
@@ -231,6 +289,7 @@ final readonly class Properties
         return match ($property->kind) {
             PropertyKind::INTEGER => IntegerTypes::create($namespace, $this->types, $property->field->type),
             PropertyKind::STRING => $this->createStringType($property),
+            PropertyKind::CALLBACK => $this->createCallbackType($property),
             PropertyKind::STRING_LIST => 'list<string>',
             PropertyKind::NUMBER_LIST,
             PropertyKind::NUMBER_ARRAY,

@@ -13,6 +13,11 @@ namespace Serafim\Vulkan\Build\Generator\Analysis;
 enum TypeKind
 {
     /**
+     * A `PFN_*` type: the function that Vulkan calls
+     */
+    case CALLBACK;
+
+    /**
      * A type the system defines (`HWND`, `xcb_connection_t`) or `void`: the
      * user gives it as it is
      */

@@ -58,7 +58,10 @@ final readonly class Planner
             $commands[] = $command;
         }
 
-        [$structs, $extensions] = $this->resolveChains($this->collectExtenders($structs));
+        $structs = $this->collectExtenders($structs);
+        $structs = $this->collectExtenders($this->collectOutputExtenders($structs));
+
+        [$structs, $extensions] = $this->resolveChains($structs);
 
         return new GenerationPlan(
             commands: $commands,
@@ -111,6 +114,50 @@ final readonly class Planner
     }
 
     /**
+     * Adds the structures that a command can fill in the chain of a returned
+     * structure. The ones that cannot be read are left out.
+     *
+     * @param array<non-empty-string, StructPlan> $structs
+     *
+     * @return array<non-empty-string, StructPlan>
+     * @throws InvalidRegistryException
+     */
+    private function collectOutputExtenders(array $structs): array
+    {
+        $queue = \array_keys(\array_filter(
+            $structs,
+            static fn(StructPlan $plan): bool => $plan->role !== StructRole::INPUT,
+        ));
+        $visited = [];
+
+        while ($queue !== []) {
+            $name = \array_shift($queue);
+
+            if (isset($visited[$name])) {
+                continue;
+            }
+
+            $visited[$name] = true;
+
+            foreach ($this->registry->findExtenders($name) as $extender) {
+                try {
+                    $collected = $this->collectStruct($extender->name, StructRole::OUTPUT, $structs);
+                } catch (UnsupportedDeclarationException) {
+                    continue;
+                }
+
+                foreach (\array_keys(\array_diff_key($collected, $structs)) as $added) {
+                    $queue[] = $added;
+                }
+
+                $structs = $collected;
+            }
+        }
+
+        return $structs;
+    }
+
+    /**
      * Decides which structures each `pNext` accepts. A structure that nothing
      * can be chained to has no `pNext`.
      *
@@ -124,22 +171,14 @@ final readonly class Planner
         $extended = [];
 
         foreach ($structs as $plan) {
-            if ($plan->role === StructRole::OUTPUT) {
-                continue;
-            }
-
             foreach ($plan->struct->extends as $root) {
-                if (isset($structs[$root]) && $structs[$root]->role !== StructRole::OUTPUT) {
+                if (isset($structs[$root])) {
                     $extended[$root] = true;
                 }
             }
         }
 
         foreach ($structs as $name => $plan) {
-            if ($plan->role === StructRole::OUTPUT) {
-                continue;
-            }
-
             $implements = \array_values(\array_filter(
                 $plan->struct->extends,
                 static fn(string $root): bool => isset($extended[$root]),
@@ -150,14 +189,15 @@ final readonly class Planner
                 \array_unshift($chains, $name);
             }
 
-            $properties = $plan->properties;
-
-            if ($chains === []) {
-                $properties = \array_values(\array_filter(
-                    $properties,
-                    static fn(PropertyPlan $property): bool => $property->kind !== PropertyKind::NEXT,
-                ));
-            }
+            $isRoot = isset($extended[$name]);
+            $properties = \array_values(\array_filter(
+                $plan->properties,
+                static fn(PropertyPlan $property): bool => match ($property->kind) {
+                    PropertyKind::NEXT => $chains !== [],
+                    PropertyKind::CHAIN => $isRoot,
+                    default => true,
+                },
+            ));
 
             $structs[$name] = new StructPlan(
                 $plan->struct,

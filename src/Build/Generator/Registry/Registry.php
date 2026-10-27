@@ -77,6 +77,12 @@ final readonly class Registry
          */
         private array $nativeTypes = [],
         /**
+         * The `PFN_*` types
+         *
+         * @var array<non-empty-string, FunctionPointer>
+         */
+        private array $functionPointers = [],
+        /**
          * The `#define` constants
          *
          * @var list<Constant>
@@ -120,6 +126,11 @@ final readonly class Registry
     public function getEnums(): array
     {
         return \array_values($this->enums);
+    }
+
+    public function findFunctionPointer(string $name): ?FunctionPointer
+    {
+        return $this->functionPointers[$name] ?? null;
     }
 
     /**
