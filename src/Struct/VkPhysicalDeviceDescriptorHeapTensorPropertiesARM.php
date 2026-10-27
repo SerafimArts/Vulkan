@@ -44,7 +44,7 @@ final readonly class VkPhysicalDeviceDescriptorHeapTensorPropertiesARM extends O
          * @var int
          */
         public int $tensorDescriptorAlignment,
-        /** @var int */
+        /** @var int<0, max> */
         public int $tensorCaptureReplayOpaqueDataSize,
     ) {}
 
@@ -52,7 +52,7 @@ final readonly class VkPhysicalDeviceDescriptorHeapTensorPropertiesARM extends O
      * @param CData&object{
      *     tensorDescriptorSize: int,
      *     tensorDescriptorAlignment: int,
-     *     tensorCaptureReplayOpaqueDataSize: int,
+     *     tensorCaptureReplayOpaqueDataSize: int<0, max>,
      * } $data
      *
      * @phpstan-param CData $data

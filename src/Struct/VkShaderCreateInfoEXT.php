@@ -53,7 +53,7 @@ final class VkShaderCreateInfoEXT extends InputStructure
      *     stage: int<0, 4294967295>,
      *     nextStage: int<0, 4294967295>,
      *     codeType: value-of<VkShaderCodeTypeEXT>,
-     *     codeSize: int,
+     *     codeSize: int<0, max>,
      *     pCode: CData,
      *     pName: CData|null,
      *     setLayoutCount: int<0, 4294967295>,

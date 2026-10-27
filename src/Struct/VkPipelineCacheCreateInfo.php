@@ -35,7 +35,7 @@ final class VkPipelineCacheCreateInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     initialDataSize: int,
+     *     initialDataSize: int<0, max>,
      *     pInitialData: CData,
      * } $data
      *

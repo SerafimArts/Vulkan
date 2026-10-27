@@ -44,14 +44,14 @@ final class VkDescriptorUpdateTemplateEntry extends InputStructure
         /**
          * Offset into pData where the descriptors to update are stored
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $offset = 0,
         /**
          * Stride between two descriptors in pData when writing more than
          * one descriptor
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $stride = 0,
     ) {}
@@ -62,8 +62,8 @@ final class VkDescriptorUpdateTemplateEntry extends InputStructure
      *     dstArrayElement: int<0, 4294967295>,
      *     descriptorCount: int<0, 4294967295>,
      *     descriptorType: value-of<VkDescriptorType>,
-     *     offset: int,
-     *     stride: int,
+     *     offset: int<0, max>,
+     *     stride: int<0, max>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -30,7 +30,7 @@ final class VkDataGraphPipelinePropertyQueryResultARM extends InputStructure
          * The number of the elements of `$data`, it follows the array when
          * it is given.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $dataSize = 0,
         public CData|int|null $data = null,
@@ -42,7 +42,7 @@ final class VkDataGraphPipelinePropertyQueryResultARM extends InputStructure
      *     pNext: CData,
      *     property: value-of<VkDataGraphPipelinePropertyARM>,
      *     isText: int<0, 1>,
-     *     dataSize: int,
+     *     dataSize: int<0, max>,
      *     pData: CData|int|null,
      * } $data
      *

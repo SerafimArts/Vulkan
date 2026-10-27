@@ -11250,6 +11250,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int-mask-of<VkDebugReportFlagBitsEXT::*> $flags
+     * @param int<0, max> $location
      * @param int<-2147483648, 2147483647> $messageCode
      * @param non-empty-string $layerPrefix
      * @param non-empty-string $message
@@ -12624,6 +12625,8 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
+     * @param int<0, max> $dataSize
+     *
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
      */
@@ -13160,6 +13163,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @param int<0, max> $dataSize
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -17569,6 +17574,7 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstQuery
      * @param int<0, 4294967295> $queryCount
+     * @param int<0, max> $dataSize
      * @param int-mask-of<VkQueryResultFlagBits::*> $flags
      *
      * @return CommandResult<string>
@@ -17692,6 +17698,7 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstGroup
      * @param int<0, 4294967295> $groupCount
+     * @param int<0, max> $dataSize
      *
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
@@ -17720,6 +17727,7 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstGroup
      * @param int<0, 4294967295> $groupCount
+     * @param int<0, max> $dataSize
      *
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
@@ -17751,6 +17759,7 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstGroup
      * @param int<0, 4294967295> $groupCount
+     * @param int<0, max> $dataSize
      *
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
@@ -20315,6 +20324,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkAccelerationStructureKHR> $accelerationStructures
+     * @param int<0, max> $dataSize
+     * @param int<0, max> $stride
      *
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs
@@ -20351,6 +20362,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkMicromapEXT> $micromaps
+     * @param int<0, max> $dataSize
+     * @param int<0, max> $stride
      *
      * @throws CommandFailedException in case of the command fails
      * @throws VulkanException in case of internal error occurs

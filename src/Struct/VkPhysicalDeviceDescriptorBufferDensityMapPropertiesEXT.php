@@ -37,14 +37,14 @@ final readonly class VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT ext
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $combinedImageSamplerDensityMapDescriptorSize,
     ) {}
 
     /**
      * @param CData&object{
-     *     combinedImageSamplerDensityMapDescriptorSize: int,
+     *     combinedImageSamplerDensityMapDescriptorSize: int<0, max>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -567,7 +567,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at least the required one. The value is a power of
          * two.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $minMemoryMapAlignment,
         /**
@@ -931,7 +931,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
      *     maxViewportDimensions: CData,
      *     viewportBoundsRange: CData,
      *     viewportSubPixelBits: int<0, 4294967295>,
-     *     minMemoryMapAlignment: int,
+     *     minMemoryMapAlignment: int<0, max>,
      *     minTexelBufferOffsetAlignment: int,
      *     minUniformBufferOffsetAlignment: int,
      *     minStorageBufferOffsetAlignment: int,

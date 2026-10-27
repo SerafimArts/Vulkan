@@ -33,7 +33,7 @@ final class VkValidationCacheCreateInfoEXT extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_CACHE_CREATE_INFO_EXT>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     initialDataSize: int,
+     *     initialDataSize: int<0, max>,
      *     pInitialData: CData,
      * } $data
      *

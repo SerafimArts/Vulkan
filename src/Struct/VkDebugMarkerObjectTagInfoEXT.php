@@ -49,7 +49,7 @@ final class VkDebugMarkerObjectTagInfoEXT extends InputStructure
      *     objectType: value-of<VkDebugReportObjectTypeEXT>,
      *     object: int,
      *     tagName: int,
-     *     tagSize: int,
+     *     tagSize: int<0, max>,
      *     pTag: CData,
      * } $data
      *

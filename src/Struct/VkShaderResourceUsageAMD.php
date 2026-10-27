@@ -23,9 +23,9 @@ final readonly class VkShaderResourceUsageAMD extends OutputStructure
         public int $numUsedSgprs,
         /** @var int<0, 4294967295> */
         public int $ldsSizePerLocalWorkGroup,
-        /** @var int */
+        /** @var int<0, max> */
         public int $ldsUsageSizeInBytes,
-        /** @var int */
+        /** @var int<0, max> */
         public int $scratchMemUsageInBytes,
     ) {}
 
@@ -34,8 +34,8 @@ final readonly class VkShaderResourceUsageAMD extends OutputStructure
      *     numUsedVgprs: int<0, 4294967295>,
      *     numUsedSgprs: int<0, 4294967295>,
      *     ldsSizePerLocalWorkGroup: int<0, 4294967295>,
-     *     ldsUsageSizeInBytes: int,
-     *     scratchMemUsageInBytes: int,
+     *     ldsUsageSizeInBytes: int<0, max>,
+     *     scratchMemUsageInBytes: int<0, max>,
      * } $data
      *
      * @phpstan-param CData $data

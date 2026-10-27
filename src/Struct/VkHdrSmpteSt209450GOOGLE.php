@@ -34,7 +34,7 @@ final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMeta
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_HDR_SMPTE_ST_209450_GOOGLE>,
      *     pNext: CData,
-     *     metadataSize: int,
+     *     metadataSize: int<0, max>,
      *     pMetadata: CData,
      *     powerPreference: value-of<VkHdrSmpteSt209450PowerPreferenceGOOGLE>,
      * } $data

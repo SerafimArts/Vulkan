@@ -72,98 +72,98 @@ final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Outpu
          * @var int<0, 4294967295>
          */
         public int $maxEmbeddedImmutableSamplers,
-        /** @var int */
+        /** @var int<0, max> */
         public int $bufferCaptureReplayDescriptorDataSize,
-        /** @var int */
+        /** @var int<0, max> */
         public int $imageCaptureReplayDescriptorDataSize,
-        /** @var int */
+        /** @var int<0, max> */
         public int $imageViewCaptureReplayDescriptorDataSize,
-        /** @var int */
+        /** @var int<0, max> */
         public int $samplerCaptureReplayDescriptorDataSize,
-        /** @var int */
+        /** @var int<0, max> */
         public int $accelerationStructureCaptureReplayDescriptorDataSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $samplerDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $combinedImageSamplerDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $sampledImageDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $storageImageDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $uniformTexelBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $robustUniformTexelBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $storageTexelBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $robustStorageTexelBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $uniformBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $robustUniformBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $storageBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $robustStorageBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $inputAttachmentDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $accelerationStructureDescriptorSize,
         /**
@@ -209,25 +209,25 @@ final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Outpu
      *     maxSamplerDescriptorBufferBindings: int<0, 4294967295>,
      *     maxEmbeddedImmutableSamplerBindings: int<0, 4294967295>,
      *     maxEmbeddedImmutableSamplers: int<0, 4294967295>,
-     *     bufferCaptureReplayDescriptorDataSize: int,
-     *     imageCaptureReplayDescriptorDataSize: int,
-     *     imageViewCaptureReplayDescriptorDataSize: int,
-     *     samplerCaptureReplayDescriptorDataSize: int,
-     *     accelerationStructureCaptureReplayDescriptorDataSize: int,
-     *     samplerDescriptorSize: int,
-     *     combinedImageSamplerDescriptorSize: int,
-     *     sampledImageDescriptorSize: int,
-     *     storageImageDescriptorSize: int,
-     *     uniformTexelBufferDescriptorSize: int,
-     *     robustUniformTexelBufferDescriptorSize: int,
-     *     storageTexelBufferDescriptorSize: int,
-     *     robustStorageTexelBufferDescriptorSize: int,
-     *     uniformBufferDescriptorSize: int,
-     *     robustUniformBufferDescriptorSize: int,
-     *     storageBufferDescriptorSize: int,
-     *     robustStorageBufferDescriptorSize: int,
-     *     inputAttachmentDescriptorSize: int,
-     *     accelerationStructureDescriptorSize: int,
+     *     bufferCaptureReplayDescriptorDataSize: int<0, max>,
+     *     imageCaptureReplayDescriptorDataSize: int<0, max>,
+     *     imageViewCaptureReplayDescriptorDataSize: int<0, max>,
+     *     samplerCaptureReplayDescriptorDataSize: int<0, max>,
+     *     accelerationStructureCaptureReplayDescriptorDataSize: int<0, max>,
+     *     samplerDescriptorSize: int<0, max>,
+     *     combinedImageSamplerDescriptorSize: int<0, max>,
+     *     sampledImageDescriptorSize: int<0, max>,
+     *     storageImageDescriptorSize: int<0, max>,
+     *     uniformTexelBufferDescriptorSize: int<0, max>,
+     *     robustUniformTexelBufferDescriptorSize: int<0, max>,
+     *     storageTexelBufferDescriptorSize: int<0, max>,
+     *     robustStorageTexelBufferDescriptorSize: int<0, max>,
+     *     uniformBufferDescriptorSize: int<0, max>,
+     *     robustUniformBufferDescriptorSize: int<0, max>,
+     *     storageBufferDescriptorSize: int<0, max>,
+     *     robustStorageBufferDescriptorSize: int<0, max>,
+     *     inputAttachmentDescriptorSize: int<0, max>,
+     *     accelerationStructureDescriptorSize: int<0, max>,
      *     maxSamplerDescriptorBufferRange: int,
      *     maxResourceDescriptorBufferRange: int,
      *     samplerDescriptorBufferAddressSpaceSize: int,

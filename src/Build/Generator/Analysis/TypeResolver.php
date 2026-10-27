@@ -122,6 +122,7 @@ final readonly class TypeResolver
         }
 
         return match (true) {
+            $type === 'size_t' => 'int<0, max>',
             $type === 'uint8_t' => 'int<0, 255>',
             $type === 'uint16_t' => 'int<0, 65535>',
             $type === 'uint32_t', $type === 'VkFlags' => 'int<0, 4294967295>',

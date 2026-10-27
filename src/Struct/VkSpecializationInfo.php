@@ -34,7 +34,7 @@ final class VkSpecializationInfo extends InputStructure
      * @param CData&object{
      *     mapEntryCount: int<0, 4294967295>,
      *     pMapEntries: CData,
-     *     dataSize: int,
+     *     dataSize: int<0, max>,
      *     pData: CData,
      * } $data
      *

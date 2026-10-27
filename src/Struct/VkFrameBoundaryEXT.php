@@ -60,7 +60,7 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
          * The number of the elements of `$tag`, it follows the array when
          * it is given.
          *
-         * @var int
+         * @var int<0, max>
          */
         public int $tagSize = 0,
         public string $tag = '',
@@ -77,7 +77,7 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
      *     bufferCount: int<0, 4294967295>,
      *     pBuffers: CData,
      *     tagName: int,
-     *     tagSize: int,
+     *     tagSize: int<0, max>,
      *     pTag: CData,
      * } $data
      *

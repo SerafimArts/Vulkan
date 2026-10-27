@@ -115,7 +115,7 @@ final readonly class VkPhysicalDeviceDescriptorHeapPropertiesEXT extends OutputS
          * @var int
          */
         public int $maxPushDataSize,
-        /** @var int */
+        /** @var int<0, max> */
         public int $imageCaptureReplayOpaqueDataSize,
         /**
          * The value is at most the required one.
@@ -151,7 +151,7 @@ final readonly class VkPhysicalDeviceDescriptorHeapPropertiesEXT extends OutputS
      *     imageDescriptorAlignment: int,
      *     bufferDescriptorAlignment: int,
      *     maxPushDataSize: int,
-     *     imageCaptureReplayOpaqueDataSize: int,
+     *     imageCaptureReplayOpaqueDataSize: int<0, max>,
      *     maxDescriptorHeapEmbeddedSamplers: int<0, 4294967295>,
      *     samplerYcbcrConversionCount: int<0, 4294967295>,
      *     sparseDescriptorHeaps: int<0, 1>,
