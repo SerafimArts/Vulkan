@@ -10,6 +10,7 @@ namespace Serafim\Vulkan;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccelerationStructureBuildTypeKHR;
+use Serafim\Vulkan\Enum\VkAccelerationStructureCompatibilityKHR;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkCoarseSampleOrderTypeNV;
 use Serafim\Vulkan\Enum\VkColorComponentFlagBits;
@@ -166,6 +167,7 @@ use Serafim\Vulkan\Struct\VkAccelerationStructureCreateInfoNV;
 use Serafim\Vulkan\Struct\VkAccelerationStructureDeviceAddressInfoKHR;
 use Serafim\Vulkan\Struct\VkAccelerationStructureInfoNV;
 use Serafim\Vulkan\Struct\VkAccelerationStructureMemoryRequirementsInfoNV;
+use Serafim\Vulkan\Struct\VkAccelerationStructureVersionInfoKHR;
 use Serafim\Vulkan\Struct\VkAcquireNextImageInfoKHR;
 use Serafim\Vulkan\Struct\VkAcquireProfilingLockInfoKHR;
 use Serafim\Vulkan\Struct\VkAndroidHardwareBufferPropertiesANDROID;
@@ -397,6 +399,7 @@ use Serafim\Vulkan\Struct\VkMetalSurfaceCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkMicromapBuildInfoEXT;
 use Serafim\Vulkan\Struct\VkMicromapBuildSizesInfoEXT;
 use Serafim\Vulkan\Struct\VkMicromapCreateInfoEXT;
+use Serafim\Vulkan\Struct\VkMicromapVersionInfoEXT;
 use Serafim\Vulkan\Struct\VkMultiDrawIndexedInfoEXT;
 use Serafim\Vulkan\Struct\VkMultiDrawInfoEXT;
 use Serafim\Vulkan\Struct\VkMultisamplePropertiesEXT;
@@ -13333,6 +13336,32 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html
+     * @since VK_KHR_acceleration_structure
+     *
+     * @api
+     *
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkGetDeviceAccelerationStructureCompatibilityKHR(
+        VkDevice $device,
+        VkAccelerationStructureVersionInfoKHR $versionInfo,
+    ): VkAccelerationStructureCompatibilityKHR {
+        $nativeVersionInfo = $versionInfo->toCData($this->memory);
+
+        $nativeCompatibility = $this->memory->new('VkAccelerationStructureCompatibilityKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkGetDeviceAccelerationStructureCompatibilityKHR', $device);
+
+        $procedure($device->pointer, \FFI::addr($nativeVersionInfo), \FFI::addr($nativeCompatibility));
+
+        $value = $nativeCompatibility->cdata;
+        \assert(\is_int($value));
+
+        return EnumCase::createFromValue(VkAccelerationStructureCompatibilityKHR::class, $value);
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceBufferMemoryRequirements.html
      * @since 1.3
      *
@@ -13761,6 +13790,32 @@ final class Vulkan extends VulkanBase
         VkDeviceMemoryOpaqueCaptureAddressInfo $info,
     ): int {
         return $this->vkGetDeviceMemoryOpaqueCaptureAddress($device, $info);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMicromapCompatibilityEXT.html
+     * @since VK_EXT_opacity_micromap
+     *
+     * @api
+     *
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkGetDeviceMicromapCompatibilityEXT(
+        VkDevice $device,
+        VkMicromapVersionInfoEXT $versionInfo,
+    ): VkAccelerationStructureCompatibilityKHR {
+        $nativeVersionInfo = $versionInfo->toCData($this->memory);
+
+        $nativeCompatibility = $this->memory->new('VkAccelerationStructureCompatibilityKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkGetDeviceMicromapCompatibilityEXT', $device);
+
+        $procedure($device->pointer, \FFI::addr($nativeVersionInfo), \FFI::addr($nativeCompatibility));
+
+        $value = $nativeCompatibility->cdata;
+        \assert(\is_int($value));
+
+        return EnumCase::createFromValue(VkAccelerationStructureCompatibilityKHR::class, $value);
     }
 
     /**
