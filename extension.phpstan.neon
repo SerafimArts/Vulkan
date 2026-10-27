@@ -1,0 +1,8 @@
+parameters:
+  universalObjectCratesClasses:
+    - FFI\CData
+services:
+  -
+    class: Serafim\Vulkan\Extension\PhpStan\CDataExpressionTypeExtension
+    tags:
+      - phpstan.broker.expressionTypeResolverExtension
