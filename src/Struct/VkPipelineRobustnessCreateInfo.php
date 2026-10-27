@@ -13,13 +13,14 @@ use Serafim\Vulkan\Enum\VkPipelineRobustnessBufferBehavior;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessImageBehavior;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPipelineShaderStageCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineRobustnessCreateInfo.html
  * @since 1.4
  */
-final class VkPipelineRobustnessCreateInfo extends InputStructure implements VkComputePipelineCreateInfoExtension, VkPipelineShaderStageCreateInfoExtension
+final class VkPipelineRobustnessCreateInfo extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension, VkPipelineShaderStageCreateInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkPipelineRobustnessCreateInfo';
 
@@ -27,7 +28,7 @@ final class VkPipelineRobustnessCreateInfo extends InputStructure implements VkC
     private const int STRUCTURE_TYPE = 1000068000;
 
     public function __construct(
-        public VkComputePipelineCreateInfoExtension|VkPipelineShaderStageCreateInfoExtension|null $next = null,
+        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkPipelineShaderStageCreateInfoExtension|null $next = null,
         public VkPipelineRobustnessBufferBehavior $storageBuffers = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
         public VkPipelineRobustnessBufferBehavior $uniformBuffers = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
         public VkPipelineRobustnessBufferBehavior $vertexInputs = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,

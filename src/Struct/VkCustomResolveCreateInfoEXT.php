@@ -12,13 +12,14 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkShaderCreateInfoEXTExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCustomResolveCreateInfoEXT.html
  * @since VK_EXT_custom_resolve
  */
-final class VkCustomResolveCreateInfoEXT extends InputStructure implements VkCommandBufferInheritanceInfoExtension, VkShaderCreateInfoEXTExtension
+final class VkCustomResolveCreateInfoEXT extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkCommandBufferInheritanceInfoExtension, VkShaderCreateInfoEXTExtension
 {
     protected const string NATIVE_TYPE = 'VkCustomResolveCreateInfoEXT';
 
@@ -26,7 +27,7 @@ final class VkCustomResolveCreateInfoEXT extends InputStructure implements VkCom
     private const int STRUCTURE_TYPE = 1000628002;
 
     public function __construct(
-        public VkCommandBufferInheritanceInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,
+        public VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,
         public bool $customResolve = false,
         /** @var list<VkFormat> */
         public array $colorAttachmentFormats = [],

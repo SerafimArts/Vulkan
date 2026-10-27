@@ -11,12 +11,13 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingAttachmentLocationInfo.html
  * @since 1.4
  */
-final class VkRenderingAttachmentLocationInfo extends InputStructure implements VkCommandBufferInheritanceInfoExtension
+final class VkRenderingAttachmentLocationInfo extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkCommandBufferInheritanceInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkRenderingAttachmentLocationInfo';
 
@@ -24,7 +25,7 @@ final class VkRenderingAttachmentLocationInfo extends InputStructure implements 
     private const int STRUCTURE_TYPE = 1000232001;
 
     public function __construct(
-        public ?VkCommandBufferInheritanceInfoExtension $next = null,
+        public VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $colorAttachmentLocations = [],
     ) {}

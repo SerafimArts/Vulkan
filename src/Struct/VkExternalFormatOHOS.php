@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAttachmentDescription2Extension;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSamplerYcbcrConversionCreateInfoExtension;
 
@@ -19,7 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkSamplerYcbcrConversionCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatOHOS.html
  * @since VK_OHOS_external_memory
  */
-final class VkExternalFormatOHOS extends InputStructure implements VkImageCreateInfoExtension, VkSamplerYcbcrConversionCreateInfoExtension, VkAttachmentDescription2Extension, VkCommandBufferInheritanceInfoExtension
+final class VkExternalFormatOHOS extends InputStructure implements VkImageCreateInfoExtension, VkSamplerYcbcrConversionCreateInfoExtension, VkAttachmentDescription2Extension, VkGraphicsPipelineCreateInfoExtension, VkCommandBufferInheritanceInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkExternalFormatOHOS';
 
@@ -27,7 +28,7 @@ final class VkExternalFormatOHOS extends InputStructure implements VkImageCreate
     private const int STRUCTURE_TYPE = 1000452005;
 
     public function __construct(
-        public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkCommandBufferInheritanceInfoExtension|null $next = null,
+        public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
         /** @var int<0, max> */
         public int $externalFormat = 0,
     ) {}

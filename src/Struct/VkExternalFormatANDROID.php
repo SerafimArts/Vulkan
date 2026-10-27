@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAttachmentDescription2Extension;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSamplerYcbcrConversionCreateInfoExtension;
 
@@ -19,7 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkSamplerYcbcrConversionCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFormatANDROID.html
  * @since VK_ANDROID_external_memory_android_hardware_buffer
  */
-final class VkExternalFormatANDROID extends InputStructure implements VkImageCreateInfoExtension, VkSamplerYcbcrConversionCreateInfoExtension, VkAttachmentDescription2Extension, VkCommandBufferInheritanceInfoExtension
+final class VkExternalFormatANDROID extends InputStructure implements VkImageCreateInfoExtension, VkSamplerYcbcrConversionCreateInfoExtension, VkAttachmentDescription2Extension, VkGraphicsPipelineCreateInfoExtension, VkCommandBufferInheritanceInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkExternalFormatANDROID';
 
@@ -27,7 +28,7 @@ final class VkExternalFormatANDROID extends InputStructure implements VkImageCre
     private const int STRUCTURE_TYPE = 1000129005;
 
     public function __construct(
-        public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkCommandBufferInheritanceInfoExtension|null $next = null,
+        public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
         /** @var int<0, max> */
         public int $externalFormat = 0,
     ) {}

@@ -22,11 +22,14 @@ use Serafim\Vulkan\Enum\VkCoverageReductionModeNV;
 use Serafim\Vulkan\Enum\VkCullModeFlagBits;
 use Serafim\Vulkan\Enum\VkDebugReportFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDebugReportObjectTypeEXT;
+use Serafim\Vulkan\Enum\VkDebugUtilsMessageSeverityFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkDebugUtilsMessageTypeFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDependencyFlagBits;
 use Serafim\Vulkan\Enum\VkDepthClampModeEXT;
 use Serafim\Vulkan\Enum\VkDiscardRectangleModeEXT;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBitsNV;
+use Serafim\Vulkan\Enum\VkFilter;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkFrontFace;
 use Serafim\Vulkan\Enum\VkImageAspectFlagBits;
@@ -141,6 +144,7 @@ use Serafim\Vulkan\Struct\VkBindTensorMemoryInfoARM;
 use Serafim\Vulkan\Struct\VkBindTransformFeedbackBuffer2InfoEXT;
 use Serafim\Vulkan\Struct\VkBindVertexBuffer3InfoKHR;
 use Serafim\Vulkan\Struct\VkBindVideoSessionMemoryInfoKHR;
+use Serafim\Vulkan\Struct\VkBlitImageInfo2;
 use Serafim\Vulkan\Struct\VkBufferCollectionPropertiesFUCHSIA;
 use Serafim\Vulkan\Struct\VkBufferConstraintsInfoFUCHSIA;
 use Serafim\Vulkan\Struct\VkBufferCopy;
@@ -189,8 +193,11 @@ use Serafim\Vulkan\Struct\VkDataGraphPipelineSessionBindPointRequirementARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineSessionBindPointRequirementsInfoARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineSessionCreateInfoARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineSessionMemoryRequirementsInfoARM;
+use Serafim\Vulkan\Struct\VkDebugMarkerMarkerInfoEXT;
 use Serafim\Vulkan\Struct\VkDebugMarkerObjectNameInfoEXT;
 use Serafim\Vulkan\Struct\VkDebugMarkerObjectTagInfoEXT;
+use Serafim\Vulkan\Struct\VkDebugUtilsLabelEXT;
+use Serafim\Vulkan\Struct\VkDebugUtilsMessengerCallbackDataEXT;
 use Serafim\Vulkan\Struct\VkDebugUtilsObjectNameInfoEXT;
 use Serafim\Vulkan\Struct\VkDebugUtilsObjectTagInfoEXT;
 use Serafim\Vulkan\Struct\VkDecompressMemoryInfoEXT;
@@ -253,9 +260,11 @@ use Serafim\Vulkan\Struct\VkGpaDeviceClockModeInfoAMD;
 use Serafim\Vulkan\Struct\VkGpaDeviceGetClockInfoAMD;
 use Serafim\Vulkan\Struct\VkGpaSampleBeginInfoAMD;
 use Serafim\Vulkan\Struct\VkGpaSessionCreateInfoAMD;
+use Serafim\Vulkan\Struct\VkGraphicsPipelineCreateInfo;
 use Serafim\Vulkan\Struct\VkHdrMetadataEXT;
 use Serafim\Vulkan\Struct\VkHeadlessSurfaceCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkHostImageLayoutTransitionInfo;
+use Serafim\Vulkan\Struct\VkImageBlit;
 use Serafim\Vulkan\Struct\VkImageConstraintsInfoFUCHSIA;
 use Serafim\Vulkan\Struct\VkImageCopy;
 use Serafim\Vulkan\Struct\VkImageCreateInfo;
@@ -1000,6 +1009,27 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkCmdBeginCustomResolveEXT', $commandBuffer);
 
         $procedure($commandBuffer->pointer, $this->addr($nativeBeginCustomResolveInfo));
+    }
+
+    /**
+     * Queues: transfer, graphics, compute, video_decode_khr,
+     * video_encode_khr, optical_flow_nv. Render pass: both. Command
+     * buffer level: primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginDebugUtilsLabelEXT.html
+     * @since VK_EXT_debug_utils
+     *
+     * @api
+     */
+    public function vkCmdBeginDebugUtilsLabelEXT(
+        VkCommandBuffer $commandBuffer,
+        VkDebugUtilsLabelEXT $labelInfo,
+    ): void {
+        $nativeLabelInfo = $labelInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdBeginDebugUtilsLabelEXT', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeLabelInfo));
     }
 
     /**
@@ -1797,6 +1827,67 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Queues: graphics. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage.html
+     * @since 1.0
+     *
+     * @api
+     *
+     * @param non-empty-list<VkImageBlit> $regions
+     */
+    public function vkCmdBlitImage(
+        VkCommandBuffer $commandBuffer,
+        VkImage $srcImage,
+        VkImageLayout $srcImageLayout,
+        VkImage $dstImage,
+        VkImageLayout $dstImageLayout,
+        array $regions,
+        VkFilter $filter,
+    ): void {
+        $nativeRegions = null;
+        if ($regions !== []) {
+            $nativeRegions = VkImageBlit::createArray($this->memory, $regions);
+        }
+
+        $procedure = $this->vkGetInstanceProc('vkCmdBlitImage', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, $srcImage->pointer, $srcImageLayout->value, $dstImage->pointer, $dstImageLayout->value, \count($regions), $nativeRegions, $filter->value);
+    }
+
+    /**
+     * Queues: graphics. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage2.html
+     * @since 1.3
+     *
+     * @api
+     */
+    public function vkCmdBlitImage2(VkCommandBuffer $commandBuffer, VkBlitImageInfo2 $blitImageInfo): void
+    {
+        $nativeBlitImageInfo = $blitImageInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdBlitImage2', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeBlitImageInfo));
+    }
+
+    /**
+     * Alias of {@see self::vkCmdBlitImage2()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBlitImage2KHR.html
+     * @since VK_KHR_copy_commands2
+     *
+     * @api
+     */
+    public function vkCmdBlitImage2KHR(VkCommandBuffer $commandBuffer, VkBlitImageInfo2 $blitImageInfo): void
+    {
+        $this->vkCmdBlitImage2($commandBuffer, $blitImageInfo);
+    }
+
+    /**
      * Queues: compute. Render pass: outside. Command buffer level:
      * primary, secondary.
      *
@@ -2438,6 +2529,27 @@ final class Vulkan extends VulkanBase
      * video_encode_khr, optical_flow_nv. Render pass: both. Command
      * buffer level: primary, secondary.
      *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerBeginEXT.html
+     * @since VK_EXT_debug_marker
+     *
+     * @api
+     */
+    public function vkCmdDebugMarkerBeginEXT(
+        VkCommandBuffer $commandBuffer,
+        VkDebugMarkerMarkerInfoEXT $markerInfo,
+    ): void {
+        $nativeMarkerInfo = $markerInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdDebugMarkerBeginEXT', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeMarkerInfo));
+    }
+
+    /**
+     * Queues: transfer, graphics, compute, video_decode_khr,
+     * video_encode_khr, optical_flow_nv. Render pass: both. Command
+     * buffer level: primary, secondary.
+     *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerEndEXT.html
      * @since VK_EXT_debug_marker
      *
@@ -2448,6 +2560,27 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkCmdDebugMarkerEndEXT', $commandBuffer);
 
         $procedure($commandBuffer->pointer);
+    }
+
+    /**
+     * Queues: transfer, graphics, compute, video_decode_khr,
+     * video_encode_khr, optical_flow_nv. Render pass: both. Command
+     * buffer level: primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDebugMarkerInsertEXT.html
+     * @since VK_EXT_debug_marker
+     *
+     * @api
+     */
+    public function vkCmdDebugMarkerInsertEXT(
+        VkCommandBuffer $commandBuffer,
+        VkDebugMarkerMarkerInfoEXT $markerInfo,
+    ): void {
+        $nativeMarkerInfo = $markerInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdDebugMarkerInsertEXT', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeMarkerInfo));
     }
 
     /**
@@ -3938,6 +4071,27 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkCmdInitializeGraphScratchMemoryAMDX', $commandBuffer);
 
         $procedure($commandBuffer->pointer, $executionGraph->pointer, $scratch, $scratchSize);
+    }
+
+    /**
+     * Queues: transfer, graphics, compute, video_decode_khr,
+     * video_encode_khr, optical_flow_nv. Render pass: both. Command
+     * buffer level: primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdInsertDebugUtilsLabelEXT.html
+     * @since VK_EXT_debug_utils
+     *
+     * @api
+     */
+    public function vkCmdInsertDebugUtilsLabelEXT(
+        VkCommandBuffer $commandBuffer,
+        VkDebugUtilsLabelEXT $labelInfo,
+    ): void {
+        $nativeLabelInfo = $labelInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdInsertDebugUtilsLabelEXT', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeLabelInfo));
     }
 
     /**
@@ -5882,6 +6036,29 @@ final class Vulkan extends VulkanBase
      * Queues: graphics. Render pass: both. Command buffer level:
      * primary, secondary.
      *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetSampleMaskEXT.html
+     * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
+     *
+     * @api
+     *
+     * @param list<int<0, 4294967295>> $sampleMask
+     */
+    public function vkCmdSetSampleMaskEXT(VkCommandBuffer $commandBuffer, array $sampleMask = []): void
+    {
+        $nativeSampleMask = null;
+        if ($sampleMask !== []) {
+            $nativeSampleMask = $this->memory->toNumberArray('VkSampleMask', $sampleMask);
+        }
+
+        $procedure = $this->vkGetInstanceProc('vkCmdSetSampleMaskEXT', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \count($sampleMask), $nativeSampleMask);
+    }
+
+    /**
+     * Queues: graphics. Render pass: both. Command buffer level:
+     * primary, secondary.
+     *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetScissor.html
      * @since 1.0
      *
@@ -7627,6 +7804,51 @@ final class Vulkan extends VulkanBase
         return new VkGpaSessionAMD($this, $nativeGpaSession, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
             $destroy($devicePointer, $handle->pointer, null);
         });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateGraphicsPipelines.html
+     * @since 1.0
+     *
+     * @api
+     *
+     * @param non-empty-list<VkGraphicsPipelineCreateInfo> $createInfos
+     *
+     * @return list<VkPipeline>
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_SHADER_NV}
+     */
+    public function vkCreateGraphicsPipelines(
+        VkDevice $device,
+        array $createInfos,
+        ?VkPipelineCache $pipelineCache = null,
+    ): array {
+        $nativeCreateInfos = null;
+        if ($createInfos !== []) {
+            $nativeCreateInfos = VkGraphicsPipelineCreateInfo::createArray($this->memory, $createInfos);
+        }
+
+        $total = \count($createInfos);
+        $nativePipelines = $this->memory->new('VkPipeline[' . \max(1, $total) . ']');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateGraphicsPipelines', $device);
+
+        $this->assertSuccess('vkCreateGraphicsPipelines', $procedure($device->pointer, $pipelineCache?->pointer, \count($createInfos), $nativeCreateInfos, null, $nativePipelines));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroyPipeline', $device);
+        $devicePointer = $device->pointer;
+
+        $created = [];
+        for ($index = 0; $index < $total; ++$index) {
+            /** @var CData $element */
+            $element = $nativePipelines[$index];
+
+            $created[] = new VkPipeline($this, $element, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
+                $destroy($devicePointer, $handle->pointer, null);
+            });
+        }
+
+        return $created;
     }
 
     /**
@@ -12977,6 +13199,21 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBeginDebugUtilsLabelEXT.html
+     * @since VK_EXT_debug_utils
+     *
+     * @api
+     */
+    public function vkQueueBeginDebugUtilsLabelEXT(VkQueue $queue, VkDebugUtilsLabelEXT $labelInfo): void
+    {
+        $nativeLabelInfo = $labelInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkQueueBeginDebugUtilsLabelEXT', $queue);
+
+        $procedure($queue->pointer, \FFI::addr($nativeLabelInfo));
+    }
+
+    /**
      * Queues: sparse_binding.
      *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueBindSparse.html
@@ -13012,6 +13249,21 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkQueueEndDebugUtilsLabelEXT', $queue);
 
         $procedure($queue->pointer);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkQueueInsertDebugUtilsLabelEXT.html
+     * @since VK_EXT_debug_utils
+     *
+     * @api
+     */
+    public function vkQueueInsertDebugUtilsLabelEXT(VkQueue $queue, VkDebugUtilsLabelEXT $labelInfo): void
+    {
+        $nativeLabelInfo = $labelInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkQueueInsertDebugUtilsLabelEXT', $queue);
+
+        $procedure($queue->pointer, \FFI::addr($nativeLabelInfo));
     }
 
     /**
@@ -13896,6 +14148,28 @@ final class Vulkan extends VulkanBase
     public function vkSignalSemaphoreKHR(VkDevice $device, VkSemaphoreSignalInfo $signalInfo): void
     {
         $this->vkSignalSemaphore($device, $signalInfo);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkSubmitDebugUtilsMessageEXT.html
+     * @since VK_EXT_debug_utils
+     *
+     * @api
+     *
+     * @param int<0, 4294967295>|(VkDebugUtilsMessageSeverityFlagBitsEXT::*) $messageSeverity
+     * @param int-mask-of<VkDebugUtilsMessageTypeFlagBitsEXT::*> $messageTypes
+     */
+    public function vkSubmitDebugUtilsMessageEXT(
+        VkInstance $instance,
+        int $messageSeverity,
+        int $messageTypes,
+        VkDebugUtilsMessengerCallbackDataEXT $callbackData,
+    ): void {
+        $nativeCallbackData = $callbackData->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkSubmitDebugUtilsMessageEXT', $instance);
+
+        $procedure($instance->pointer, $messageSeverity, $messageTypes, \FFI::addr($nativeCallbackData));
     }
 
     /**

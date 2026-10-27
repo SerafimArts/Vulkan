@@ -11,12 +11,13 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Handle\VkPipeline;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineLibraryCreateInfoKHR.html
  * @since VK_KHR_pipeline_library
  */
-final class VkPipelineLibraryCreateInfoKHR extends InputStructure
+final class VkPipelineLibraryCreateInfoKHR extends InputStructure implements VkGraphicsPipelineCreateInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkPipelineLibraryCreateInfoKHR';
 
@@ -24,6 +25,7 @@ final class VkPipelineLibraryCreateInfoKHR extends InputStructure
     private const int STRUCTURE_TYPE = 1000290000;
 
     public function __construct(
+        public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         /** @var list<VkPipeline> */
         public array $libraries = [],
     ) {}
@@ -31,6 +33,12 @@ final class VkPipelineLibraryCreateInfoKHR extends InputStructure
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
+
+        if ($this->next !== null) {
+            \assert($this->next instanceof InputStructure);
+
+            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
+        }
 
         if ($this->libraries !== []) {
             $data->libraryCount = \count($this->libraries);

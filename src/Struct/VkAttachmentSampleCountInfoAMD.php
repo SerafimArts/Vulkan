@@ -12,12 +12,13 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentSampleCountInfoAMD.html
  * @since VK_AMD_mixed_attachment_samples
  */
-final class VkAttachmentSampleCountInfoAMD extends InputStructure implements VkCommandBufferInheritanceInfoExtension
+final class VkAttachmentSampleCountInfoAMD extends InputStructure implements VkCommandBufferInheritanceInfoExtension, VkGraphicsPipelineCreateInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkAttachmentSampleCountInfoAMD';
 
@@ -25,7 +26,7 @@ final class VkAttachmentSampleCountInfoAMD extends InputStructure implements VkC
     private const int STRUCTURE_TYPE = 1000044008;
 
     public function __construct(
-        public ?VkCommandBufferInheritanceInfoExtension $next = null,
+        public VkCommandBufferInheritanceInfoExtension|VkGraphicsPipelineCreateInfoExtension|null $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $colorAttachmentSamples = [],
         /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */

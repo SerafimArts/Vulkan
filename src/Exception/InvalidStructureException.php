@@ -19,6 +19,28 @@ final class InvalidStructureException extends VulkanException
             MESSAGE, $structure, $member), previous: $prev);
     }
 
+    public static function becauseArrayIsTooLong(
+        string $structure,
+        string $member,
+        int $size,
+        ?\Throwable $prev = null,
+    ): self {
+        return new self(\sprintf(<<<'MESSAGE'
+            The member %s of the structure %s holds at most %d elements
+            MESSAGE, $member, $structure, $size), previous: $prev);
+    }
+
+    public static function becauseArrayHasWrongLength(
+        string $structure,
+        string $member,
+        int $length,
+        ?\Throwable $prev = null,
+    ): self {
+        return new self(\sprintf(<<<'MESSAGE'
+            The member %s of the structure %s must have %d elements
+            MESSAGE, $member, $structure, $length), previous: $prev);
+    }
+
     public static function becauseElementsAreOfDifferentTypes(
         string $expected,
         string $actual,

@@ -13,12 +13,13 @@ use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferImageCopy2Extension;
 use Serafim\Vulkan\Struct\Extension\VkDeviceMemoryImageCopyKHRExtension;
+use Serafim\Vulkan\Struct\Extension\VkImageBlit2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCopyCommandTransformInfoQCOM.html
  * @since VK_QCOM_rotated_copy_commands
  */
-final class VkCopyCommandTransformInfoQCOM extends InputStructure implements VkBufferImageCopy2Extension, VkDeviceMemoryImageCopyKHRExtension
+final class VkCopyCommandTransformInfoQCOM extends InputStructure implements VkBufferImageCopy2Extension, VkImageBlit2Extension, VkDeviceMemoryImageCopyKHRExtension
 {
     protected const string NATIVE_TYPE = 'VkCopyCommandTransformInfoQCOM';
 
@@ -26,7 +27,7 @@ final class VkCopyCommandTransformInfoQCOM extends InputStructure implements VkB
     private const int STRUCTURE_TYPE = 1000333000;
 
     public function __construct(
-        public VkBufferImageCopy2Extension|VkDeviceMemoryImageCopyKHRExtension|null $next = null,
+        public VkBufferImageCopy2Extension|VkImageBlit2Extension|VkDeviceMemoryImageCopyKHRExtension|null $next = null,
         /** @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::*) */
         public int $transform = 0,
     ) {}

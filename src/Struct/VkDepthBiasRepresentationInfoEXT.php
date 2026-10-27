@@ -12,12 +12,13 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkDepthBiasRepresentationEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDepthBiasInfoEXTExtension;
+use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthBiasRepresentationInfoEXT.html
  * @since VK_EXT_depth_bias_control
  */
-final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements VkDepthBiasInfoEXTExtension
+final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements VkDepthBiasInfoEXTExtension, VkPipelineRasterizationStateCreateInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkDepthBiasRepresentationInfoEXT';
 
@@ -25,7 +26,7 @@ final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements V
     private const int STRUCTURE_TYPE = 1000283002;
 
     public function __construct(
-        public ?VkDepthBiasInfoEXTExtension $next = null,
+        public VkDepthBiasInfoEXTExtension|VkPipelineRasterizationStateCreateInfoExtension|null $next = null,
         public VkDepthBiasRepresentationEXT $depthBiasRepresentation = VkDepthBiasRepresentationEXT::VK_DEPTH_BIAS_REPRESENTATION_LEAST_REPRESENTABLE_VALUE_FORMAT_EXT,
         public bool $depthBiasExact = false,
     ) {}

@@ -12,12 +12,13 @@ use FFI\CData;
 use Serafim\Vulkan\Handle\VkPipelineBinaryKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryInfoKHR.html
  * @since VK_KHR_pipeline_binary
  */
-final class VkPipelineBinaryInfoKHR extends InputStructure implements VkComputePipelineCreateInfoExtension
+final class VkPipelineBinaryInfoKHR extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkPipelineBinaryInfoKHR';
 
@@ -25,7 +26,7 @@ final class VkPipelineBinaryInfoKHR extends InputStructure implements VkComputeP
     private const int STRUCTURE_TYPE = 1000483002;
 
     public function __construct(
-        public ?VkComputePipelineCreateInfoExtension $next = null,
+        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|null $next = null,
         /** @var list<VkPipelineBinaryKHR> */
         public array $pipelineBinaries = [],
     ) {}

@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkValidationFeatureDisableEXT;
 use Serafim\Vulkan\Enum\VkValidationFeatureEnableEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPipelineShaderStageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkShaderCreateInfoEXTExtension;
@@ -23,7 +24,7 @@ use Serafim\Vulkan\Struct\Extension\VkShaderModuleCreateInfoExtension;
  * @since VK_EXT_validation_features
  * @deprecated the extension VK_EXT_validation_features is deprecated by VK_EXT_layer_settings
  */
-final class VkValidationFeaturesEXT extends InputStructure implements VkInstanceCreateInfoExtension, VkShaderModuleCreateInfoExtension, VkShaderCreateInfoEXTExtension, VkPipelineShaderStageCreateInfoExtension, VkComputePipelineCreateInfoExtension
+final class VkValidationFeaturesEXT extends InputStructure implements VkInstanceCreateInfoExtension, VkShaderModuleCreateInfoExtension, VkShaderCreateInfoEXTExtension, VkPipelineShaderStageCreateInfoExtension, VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkValidationFeaturesEXT';
 
@@ -31,7 +32,7 @@ final class VkValidationFeaturesEXT extends InputStructure implements VkInstance
     private const int STRUCTURE_TYPE = 1000247000;
 
     public function __construct(
-        public VkInstanceCreateInfoExtension|VkShaderModuleCreateInfoExtension|VkShaderCreateInfoEXTExtension|VkPipelineShaderStageCreateInfoExtension|VkComputePipelineCreateInfoExtension|null $next = null,
+        public VkInstanceCreateInfoExtension|VkShaderModuleCreateInfoExtension|VkShaderCreateInfoEXTExtension|VkPipelineShaderStageCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|null $next = null,
         /**
          * Validation features to enable
          *
