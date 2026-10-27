@@ -26,6 +26,7 @@ use Serafim\Vulkan\Struct\VkDeviceQueueCreateInfo;
 use Serafim\Vulkan\Struct\VkFenceCreateInfo;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Features;
 use Serafim\Vulkan\Struct\VkPipelineCacheCreateInfo;
+use Serafim\Vulkan\Struct\VkQueryPoolCreateInfo;
 use Serafim\Vulkan\Struct\VkInstanceCreateInfo;
 use Serafim\Vulkan\Struct\VkMemoryAllocateInfo;
 use Serafim\Vulkan\Struct\VkShaderModuleCreateInfo;
@@ -264,6 +265,37 @@ final class VulkanTest extends TestCase
         self::assertSame('ABCDEFGH', \FFI::string($vk->ffi->cast('char*', $pointer) + 128, 8));
 
         $vk->vkUnmapMemory($device, $memory);
+    }
+
+    public function testQueryResultsAreReturnedWithTheStatus(): void
+    {
+        $vk = self::loadVulkan();
+
+        $device = $vk->vkCreateDevice(self::getPhysicalDevice($vk), new VkDeviceCreateInfo(
+            queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
+        ));
+
+        $pool = $vk->vkCreateQueryPool($device, new VkQueryPoolCreateInfo(queryCount: 1));
+        $commandPool = $vk->vkCreateCommandPool($device, new VkCommandPoolCreateInfo(queueFamilyIndex: 0));
+        $commands = $vk->vkAllocateCommandBuffers($device, new VkCommandBufferAllocateInfo(
+            commandPool: $commandPool,
+            commandBufferCount: 1,
+        ));
+
+        $vk->vkBeginCommandBuffer($commands[0], new VkCommandBufferBeginInfo());
+        $vk->vkCmdResetQueryPool($commands[0], $pool, 0, 1);
+        $vk->vkCmdBeginQuery($commands[0], $pool, 0);
+        $vk->vkCmdEndQuery($commands[0], $pool, 0);
+        $vk->vkEndCommandBuffer($commands[0]);
+
+        $fence = $vk->vkCreateFence($device, new VkFenceCreateInfo());
+        $vk->vkQueueSubmit($vk->vkGetDeviceQueue($device, 0, 0), [new VkSubmitInfo(commandBuffers: [$commands[0]])], $fence);
+        $vk->vkWaitForFences($device, [$fence], true, 1_000_000_000);
+
+        $results = $vk->vkGetQueryPoolResults($device, $pool, 0, 1, 8, 8, 1 | 2);
+
+        self::assertSame(VkResult::VK_SUCCESS, $results->status);
+        self::assertSame(8, \strlen($results->value));
     }
 
     public function testPipelineCacheDataIsReturnedAsBytes(): void

@@ -132,6 +132,7 @@ use Serafim\Vulkan\Struct\VkAccelerationStructureBuildSizesInfoKHR;
 use Serafim\Vulkan\Struct\VkAccelerationStructureCreateInfo2KHR;
 use Serafim\Vulkan\Struct\VkAccelerationStructureCreateInfoKHR;
 use Serafim\Vulkan\Struct\VkAccelerationStructureMemoryRequirementsInfoNV;
+use Serafim\Vulkan\Struct\VkAcquireNextImageInfoKHR;
 use Serafim\Vulkan\Struct\VkAcquireProfilingLockInfoKHR;
 use Serafim\Vulkan\Struct\VkAntiLagDataAMD;
 use Serafim\Vulkan\Struct\VkBaseOutStructure;
@@ -509,6 +510,77 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkAcquireImageOHOS', $device);
 
         $this->assertSuccess('vkAcquireImageOHOS', $procedure($device->pointer, $image->pointer, $nativeFenceFd, $semaphore?->pointer, $fence?->pointer));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImage2KHR.html
+     * @since VK_KHR_swapchain, VK_KHR_device_group
+     *
+     * @api
+     *
+     * @return CommandResult<int>
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
+     *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
+     *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR},
+     *         {@see VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}
+     */
+    public function vkAcquireNextImage2KHR(VkDevice $device, VkAcquireNextImageInfoKHR $acquireInfo): CommandResult
+    {
+        $nativeAcquireInfo = $acquireInfo->toCData($this->memory);
+
+        $nativeImageIndex = $this->memory->new('uint32_t');
+
+        $procedure = $this->vkGetInstanceProc('vkAcquireNextImage2KHR', $device);
+
+        $result = $procedure($device->pointer, \FFI::addr($nativeAcquireInfo), \FFI::addr($nativeImageIndex));
+        \assert(\is_int($result));
+
+        /** @var VkResult::VK_SUCCESS|VkResult::VK_TIMEOUT|VkResult::VK_NOT_READY|VkResult::VK_SUBOPTIMAL_KHR $status */
+        $status = $this->getResult('vkAcquireNextImage2KHR', $result);
+
+        $value = $nativeImageIndex->cdata;
+        \assert(\is_int($value));
+
+        return new CommandResult($status, $value);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireNextImageKHR.html
+     * @since VK_KHR_swapchain
+     *
+     * @api
+     *
+     * @param int<0, max> $timeout
+     *
+     * @return CommandResult<int>
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
+     *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
+     *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR},
+     *         {@see VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}
+     */
+    public function vkAcquireNextImageKHR(
+        VkDevice $device,
+        VkSwapchainKHR $swapchain,
+        int $timeout,
+        ?VkSemaphore $semaphore = null,
+        ?VkFence $fence = null,
+    ): CommandResult {
+        $nativeImageIndex = $this->memory->new('uint32_t');
+
+        $procedure = $this->vkGetInstanceProc('vkAcquireNextImageKHR', $device);
+
+        $result = $procedure($device->pointer, $swapchain->pointer, $timeout, $semaphore?->pointer, $fence?->pointer, \FFI::addr($nativeImageIndex));
+        \assert(\is_int($result));
+
+        /** @var VkResult::VK_SUCCESS|VkResult::VK_TIMEOUT|VkResult::VK_NOT_READY|VkResult::VK_SUBOPTIMAL_KHR $status */
+        $status = $this->getResult('vkAcquireNextImageKHR', $result);
+
+        $value = $nativeImageIndex->cdata;
+        \assert(\is_int($value));
+
+        return new CommandResult($status, $value);
     }
 
     /**
@@ -10299,8 +10371,6 @@ final class Vulkan extends VulkanBase
      * @since VK_VALVE_descriptor_set_host_mapping
      *
      * @api
-     *
-     * @return CData the pointer to the native memory
      */
     public function vkGetDescriptorSetHostMappingVALVE(VkDevice $device, VkDescriptorSet $descriptorSet): CData
     {
@@ -11500,7 +11570,6 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return CData the pointer to the native memory
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
      */
@@ -13139,6 +13208,44 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueryPoolResults.html
+     * @since 1.0
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $firstQuery
+     * @param int<0, 4294967295> $queryCount
+     * @param int<0, max> $dataSize
+     * @param int<0, max> $stride
+     * @param int-mask-of<VkQueryResultFlagBits::*> $flags
+     *
+     * @return CommandResult<string>
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     */
+    public function vkGetQueryPoolResults(
+        VkDevice $device,
+        VkQueryPool $queryPool,
+        int $firstQuery,
+        int $queryCount,
+        int $dataSize,
+        int $stride,
+        int $flags = 0,
+    ): CommandResult {
+        $nativeData = $this->memory->new('uint8_t[' . \max(1, $dataSize) . ']');
+
+        $procedure = $this->vkGetInstanceProc('vkGetQueryPoolResults', $device);
+
+        $result = $procedure($device->pointer, $queryPool->pointer, $firstQuery, $queryCount, $dataSize, $nativeData, $stride, $flags);
+        \assert(\is_int($result));
+
+        /** @var VkResult::VK_SUCCESS|VkResult::VK_NOT_READY $status */
+        $status = $this->getResult('vkGetQueryPoolResults', $result);
+
+        return new CommandResult($status, \FFI::string($nativeData, $dataSize));
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html
      * @since VK_KHR_ray_tracing_pipeline
      *
@@ -13820,7 +13927,6 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $size
      * @param int-mask-of<VkMemoryMapFlagBits::*> $flags
      *
-     * @return CData the pointer to the native memory
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
      */
@@ -13846,7 +13952,6 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return CData the pointer to the native memory
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
      */
@@ -13871,7 +13976,6 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return CData the pointer to the native memory
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
      */

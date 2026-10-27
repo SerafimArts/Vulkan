@@ -9,6 +9,7 @@ use PHPat\Test\Attributes\TestRule;
 use PHPat\Test\Builder\Rule;
 use PHPat\Test\PHPat;
 use Serafim\Vulkan\Build\Generator\Exception\GeneratorException;
+use Serafim\Vulkan\CommandResult;
 use Serafim\Vulkan\VulkanBase;
 
 /**
@@ -34,6 +35,7 @@ final class GeneratorArchitecture
                 Selector::inNamespace('Serafim\Vulkan\Handle'),
                 Selector::inNamespace('Serafim\Vulkan\Internal\Memory'),
                 Selector::classname(VulkanBase::class),
+                Selector::classname(CommandResult::class),
             );
     }
 

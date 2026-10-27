@@ -32,7 +32,7 @@ final readonly class QueryBinaryBody implements Body
 
         $native = '$native' . \ucfirst($output->name);
 
-        $method->setReturnType('string');
+        $this->calls->setReturnType($namespace, $method, $plan, 'string', 'string');
 
         return [
             ...$this->calls->createPreparationLines($namespace, $plan),
@@ -40,7 +40,7 @@ final readonly class QueryBinaryBody implements Body
             '',
             ...$this->calls->createCallLines($plan, $this->calls->createArguments($plan)),
             '',
-            'return \FFI::string(' . $native . ', ' . $plan->outputLength . ');',
+            $this->calls->createReturnLine($plan, '\FFI::string(' . $native . ', ' . $plan->outputLength . ')'),
         ];
     }
 }

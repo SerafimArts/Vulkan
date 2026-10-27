@@ -84,16 +84,6 @@ final readonly class CommandAnalyzer
             $kind = CommandKind::QUERY_BINARY;
         }
 
-        $isValue = \in_array(
-            $kind,
-            [CommandKind::QUERY_SCALAR, CommandKind::QUERY_POINTER, CommandKind::QUERY_BINARY],
-            true,
-        );
-
-        if ($isValue && \count($command->successCodes) > 1) {
-            throw $this->createException($command, 'the command returns both a status and a value');
-        }
-
         $isReleasable = $kind === CommandKind::CREATE
             && !$command->isGetter()
             && $this->registry->hasReleaseCommand($output->field->type);

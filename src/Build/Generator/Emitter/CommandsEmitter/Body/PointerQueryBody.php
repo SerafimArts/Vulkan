@@ -34,9 +34,7 @@ final readonly class PointerQueryBody implements Body
         $native = '$native' . \ucfirst($output->name);
 
         $namespace->addUse(CData::class);
-        $method->setReturnType(CData::class);
-        $method->addComment('');
-        $method->addComment('@return CData the pointer to the native memory');
+        $this->calls->setReturnType($namespace, $method, $plan, CData::class, 'CData');
 
         return [
             ...$this->calls->createPreparationLines($namespace, $plan),
@@ -44,7 +42,7 @@ final readonly class PointerQueryBody implements Body
             '',
             ...$this->calls->createCallLines($plan, $this->calls->createArguments($plan)),
             '',
-            'return ' . $native . ';',
+            $this->calls->createReturnLine($plan, $native),
         ];
     }
 }

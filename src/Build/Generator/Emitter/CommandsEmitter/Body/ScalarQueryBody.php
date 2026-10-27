@@ -42,11 +42,11 @@ final readonly class ScalarQueryBody implements Body
         $lines[] = '';
 
         if ($output->kind === TypeKind::BOOLEAN) {
-            $method->setReturnType('bool');
+            $this->calls->setReturnType($namespace, $method, $plan, 'bool', 'bool');
             $lines[] = '$value = ' . $native . '->cdata;';
             $lines[] = '\assert(\is_int($value));';
             $lines[] = '';
-            $lines[] = 'return $value !== 0;';
+            $lines[] = $this->calls->createReturnLine($plan, '$value !== 0');
 
             return $lines;
         }
@@ -66,14 +66,20 @@ final readonly class ScalarQueryBody implements Body
         if ($output->kind === TypeKind::ENUMERATION) {
             $class = Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type);
 
-            $method->setReturnType(Locations::createClassName(Locations::ENUM_NAMESPACE, $class));
-            $lines[] = 'return ' . $class . '::from($value);';
+            $this->calls->setReturnType(
+                $namespace,
+                $method,
+                $plan,
+                Locations::createClassName(Locations::ENUM_NAMESPACE, $class),
+                $class,
+            );
+            $lines[] = $this->calls->createReturnLine($plan, $class . '::from($value)');
 
             return $lines;
         }
 
-        $method->setReturnType($type);
-        $lines[] = 'return $value;';
+        $this->calls->setReturnType($namespace, $method, $plan, $type, $type);
+        $lines[] = $this->calls->createReturnLine($plan, '$value');
 
         return $lines;
     }
