@@ -33,6 +33,11 @@ enum CommandKind
     case QUERY;
 
     /**
+     * Fills the bytes of the size the user gives.
+     */
+    case QUERY_BINARY;
+
+    /**
      * Writes a number to a variable.
      */
     case QUERY_SCALAR;

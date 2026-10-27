@@ -25,6 +25,7 @@ use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
 use Serafim\Vulkan\Struct\VkDeviceQueueCreateInfo;
 use Serafim\Vulkan\Struct\VkFenceCreateInfo;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Features;
+use Serafim\Vulkan\Struct\VkPipelineCacheCreateInfo;
 use Serafim\Vulkan\Struct\VkInstanceCreateInfo;
 use Serafim\Vulkan\Struct\VkMemoryAllocateInfo;
 use Serafim\Vulkan\Struct\VkShaderModuleCreateInfo;
@@ -248,7 +249,8 @@ final class VulkanTest extends TestCase
         self::assertCount(1, $commands);
 
         $vk->vkBeginCommandBuffer($commands[0], new VkCommandBufferBeginInfo());
-        $vk->vkCmdFillBuffer($commands[0], $buffer, 0, 256, 0xDEADBEEF);
+        $vk->vkCmdFillBuffer($commands[0], $buffer, 0, 128, 0xDEADBEEF);
+        $vk->vkCmdUpdateBuffer($commands[0], $buffer, 128, 'ABCDEFGH');
         $vk->vkEndCommandBuffer($commands[0]);
 
         $fence = $vk->vkCreateFence($device, new VkFenceCreateInfo());
@@ -259,8 +261,22 @@ final class VulkanTest extends TestCase
         $pointer = $vk->vkMapMemory($device, $memory, 0, 256);
 
         self::assertSame("\xEF\xBE\xAD\xDE\xEF\xBE\xAD\xDE", \FFI::string($pointer, 8));
+        self::assertSame('ABCDEFGH', \FFI::string($vk->ffi->cast('char*', $pointer) + 128, 8));
 
         $vk->vkUnmapMemory($device, $memory);
+    }
+
+    public function testPipelineCacheDataIsReturnedAsBytes(): void
+    {
+        $vk = self::loadVulkan();
+
+        $device = $vk->vkCreateDevice(self::getPhysicalDevice($vk), new VkDeviceCreateInfo(
+            queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
+        ));
+
+        $cache = $vk->vkCreatePipelineCache($device, new VkPipelineCacheCreateInfo());
+
+        self::assertGreaterThanOrEqual(16, \strlen($vk->vkGetPipelineCacheData($device, $cache)));
     }
 
     public function testDeviceIsCreatedWithTheChainOfFeatures(): void

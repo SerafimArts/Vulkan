@@ -8,6 +8,7 @@ use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\ParameterPlan;
+use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Calls;
@@ -34,6 +35,10 @@ final readonly class EnumerateBody implements Body
 
         if ($output === null) {
             return [];
+        }
+
+        if ($output->role === ParameterRole::OUTPUT_BINARY) {
+            return $this->emitBinary($namespace, $method, $plan);
         }
 
         if ($output->kind !== TypeKind::HANDLE && $output->kind !== TypeKind::STRUCTURE) {
@@ -66,7 +71,7 @@ final readonly class EnumerateBody implements Body
             'return VkEnumerator::create(',
             '    $this,',
             '    ' . \var_export($plan->command->name, true) . ',',
-            '    ' . $this->createCall($plan) . ',',
+            ...$this->createCall($plan),
             '    ' . \var_export($output->field->type, true) . ',',
             '    fn(CData $item): ' . $class . ' => ' . $factory . ',',
         ];
@@ -81,14 +86,45 @@ final readonly class EnumerateBody implements Body
     }
 
     /**
-     * Returns the closure that calls the command with the length and the array
-     * the enumerator gives it.
+     * Returns the lines of the closure that calls the command with the length
+     * and the array the enumerator gives it.
+     *
+     * @return list<string>
      */
-    private function createCall(CommandPlan $plan): string
+    private function createCall(CommandPlan $plan): array
     {
-        $arguments = [...$this->calls->createLeadingArguments($plan), '$count', '$items'];
+        $lines = ['    static fn(CData $count, ?CData $items): mixed => $procedure('];
 
-        return 'static fn(CData $count, ?CData $items): mixed => $procedure(' . \implode(', ', $arguments) . ')';
+        foreach ([...$this->calls->createLeadingArguments($plan), '$count', '$items'] as $argument) {
+            $lines[] = '        ' . $argument . ',';
+        }
+
+        $lines[] = '    ),';
+
+        return $lines;
+    }
+
+    /**
+     * The bytes are returned at once as a string.
+     *
+     * @return list<string>
+     */
+    private function emitBinary(PhpNamespace $namespace, Method $method, CommandPlan $plan): array
+    {
+        $namespace->addUse(Locations::ROOT_NAMESPACE . '\Internal\VkEnumerator');
+
+        $method->setReturnType('string');
+
+        return [
+            ...$this->calls->createPreparationLines($namespace, $plan),
+            $this->calls->createProcedureLine($plan),
+            '',
+            'return VkEnumerator::createBinary(',
+            '    $this,',
+            '    ' . \var_export($plan->command->name, true) . ',',
+            ...$this->createCall($plan),
+            ');',
+        ];
     }
 
     /**
@@ -124,7 +160,7 @@ final readonly class EnumerateBody implements Body
             'return VkEnumerator::createList(',
             '    $this,',
             '    ' . \var_export($plan->command->name, true) . ',',
-            '    ' . $this->createCall($plan) . ',',
+            ...$this->createCall($plan),
             '    ' . \var_export($output->field->type, true) . ',',
             '    ' . $factory . ',',
             ');',

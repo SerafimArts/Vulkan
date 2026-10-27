@@ -57,6 +57,7 @@ use Serafim\Vulkan\Enum\VkQueryResultFlagBits;
 use Serafim\Vulkan\Enum\VkQueryType;
 use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkShaderInfoTypeAMD;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStencilFaceFlagBits;
 use Serafim\Vulkan\Enum\VkStencilOp;
@@ -4309,6 +4310,35 @@ final class Vulkan extends VulkanBase
      * Queues: graphics, compute. Render pass: both. Command buffer
      * level: primary, secondary.
      *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
+     * @since 1.0
+     * @deprecated legacy functionality
+     *
+     * @api
+     *
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $stageFlags
+     * @param int<0, 4294967295> $offset
+     */
+    public function vkCmdPushConstants(
+        VkCommandBuffer $commandBuffer,
+        VkPipelineLayout $layout,
+        int $stageFlags,
+        int $offset,
+        string $values,
+    ): void {
+        $nativeValues = $this->memory->newString($values);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdPushConstants', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, $layout->pointer, $stageFlags, $offset, \strlen($values), $nativeValues);
+    }
+
+    /**
+     * Legacy functionality.
+     * Queues: graphics, compute. Render pass: both. Command buffer
+     * level: primary, secondary.
+     *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushConstants2.html
      * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
      * @since 1.4
@@ -6621,6 +6651,58 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkCmdTraceRaysNV', $commandBuffer);
 
         $procedure($commandBuffer->pointer, $raygenShaderBindingTableBuffer->pointer, $raygenShaderBindingOffset, $missShaderBindingTableBuffer?->pointer, $missShaderBindingOffset, $missShaderBindingStride, $hitShaderBindingTableBuffer?->pointer, $hitShaderBindingOffset, $hitShaderBindingStride, $callableShaderBindingTableBuffer?->pointer, $callableShaderBindingOffset, $callableShaderBindingStride, $width, $height, $depth);
+    }
+
+    /**
+     * Legacy functionality, superseded by `vkCmdUpdateMemoryKHR`.
+     * Queues: transfer, graphics, compute. Render pass: outside.
+     * Command buffer level: primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdateBuffer.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-buffer-commands
+     * @since 1.0
+     * @deprecated legacy functionality, use {@see self::vkCmdUpdateMemoryKHR()} instead
+     *
+     * @api
+     *
+     * @param int<0, max> $dstOffset
+     */
+    public function vkCmdUpdateBuffer(
+        VkCommandBuffer $commandBuffer,
+        VkBuffer $dstBuffer,
+        int $dstOffset,
+        string $data,
+    ): void {
+        $nativeData = $this->memory->newString($data);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdUpdateBuffer', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, $dstBuffer->pointer, $dstOffset, \strlen($data), $nativeData);
+    }
+
+    /**
+     * Queues: transfer. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdUpdateMemoryKHR.html
+     * @since VK_KHR_device_address_commands
+     *
+     * @api
+     *
+     * @param int-mask-of<VkAddressCommandFlagBitsKHR::*> $dstFlags
+     */
+    public function vkCmdUpdateMemoryKHR(
+        VkCommandBuffer $commandBuffer,
+        VkDeviceAddressRangeKHR $dstRange,
+        string $data,
+        int $dstFlags = 0,
+    ): void {
+        $nativeDstRange = $dstRange->toCData($this->memory);
+        $nativeData = $this->memory->newString($data);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdUpdateMemoryKHR', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeDstRange), $dstFlags, \strlen($data), $nativeData);
     }
 
     /**
@@ -9655,7 +9737,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkEnumerateDeviceExtensionProperties',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $nativeLayerName, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $nativeLayerName,
+                $count,
+                $items,
+            ),
             'VkExtensionProperties',
             fn(CData $item): VkExtensionProperties => VkExtensionProperties::createFromCData($item),
         );
@@ -9681,7 +9768,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkEnumerateDeviceLayerProperties',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkLayerProperties',
             fn(CData $item): VkLayerProperties => VkLayerProperties::createFromCData($item),
         );
@@ -9709,7 +9800,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkEnumerateInstanceExtensionProperties',
-            static fn(CData $count, ?CData $items): mixed => $procedure($nativeLayerName, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $nativeLayerName,
+                $count,
+                $items,
+            ),
             'VkExtensionProperties',
             fn(CData $item): VkExtensionProperties => VkExtensionProperties::createFromCData($item),
         );
@@ -9731,7 +9826,10 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkEnumerateInstanceLayerProperties',
-            static fn(CData $count, ?CData $items): mixed => $procedure($count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $count,
+                $items,
+            ),
             'VkLayerProperties',
             fn(CData $item): VkLayerProperties => VkLayerProperties::createFromCData($item),
         );
@@ -9777,7 +9875,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkShaderInstrumentationMetricDescriptionARM',
             fn(CData $item): VkShaderInstrumentationMetricDescriptionARM => VkShaderInstrumentationMetricDescriptionARM::createFromCData($item),
             VkShaderInstrumentationMetricDescriptionARM::STRUCTURE_TYPE,
@@ -9801,7 +9903,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkEnumeratePhysicalDevices',
-            static fn(CData $count, ?CData $items): mixed => $procedure($instance->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $instance->pointer,
+                $count,
+                $items,
+            ),
             'VkPhysicalDevice',
             fn(CData $item): VkPhysicalDevice => new VkPhysicalDevice($this, $item, $instance),
         );
@@ -9907,6 +10013,32 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkFreeMemory', $device);
 
         $procedure($device->pointer, $memory?->pointer, null);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureHandleNV.html
+     * @since VK_NV_ray_tracing
+     * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
+     *
+     * @api
+     *
+     * @param int<0, max> $dataSize
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
+    public function vkGetAccelerationStructureHandleNV(
+        VkDevice $device,
+        VkAccelerationStructureNV $accelerationStructure,
+        int $dataSize,
+    ): string {
+        $nativeData = $this->memory->new('uint8_t[' . \max(1, $dataSize) . ']');
+
+        $procedure = $this->vkGetInstanceProc('vkGetAccelerationStructureHandleNV', $device);
+
+        $this->assertSuccess('vkGetAccelerationStructureHandleNV', $procedure($device->pointer, $accelerationStructure->pointer, $dataSize, $nativeData));
+
+        return \FFI::string($nativeData, $dataSize);
     }
 
     /**
@@ -10031,6 +10163,31 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCudaModuleCacheNV.html
+     * @since VK_NV_cuda_kernel_launch
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     */
+    public function vkGetCudaModuleCacheNV(VkDevice $device, VkCudaModuleNV $module): string
+    {
+        $procedure = $this->vkGetInstanceProc('vkGetCudaModuleCacheNV', $device);
+
+        return VkEnumerator::createBinary(
+            $this,
+            'vkGetCudaModuleCacheNV',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $module->pointer,
+                $count,
+                $items,
+            ),
+        );
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineAvailablePropertiesARM.html
      * @since VK_ARM_data_graph
      *
@@ -10050,7 +10207,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::createList(
             $this,
             'vkGetDataGraphPipelineAvailablePropertiesARM',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, \FFI::addr($nativePipelineInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                \FFI::addr($nativePipelineInfo),
+                $count,
+                $items,
+            ),
             'VkDataGraphPipelinePropertyARM',
             fn(int $item): VkDataGraphPipelinePropertyARM => VkDataGraphPipelinePropertyARM::from($item),
         );
@@ -10076,7 +10238,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetDataGraphPipelineSessionBindPointRequirementsARM',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, \FFI::addr($nativeInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                \FFI::addr($nativeInfo),
+                $count,
+                $items,
+            ),
             'VkDataGraphPipelineSessionBindPointRequirementARM',
             fn(CData $item): VkDataGraphPipelineSessionBindPointRequirementARM => VkDataGraphPipelineSessionBindPointRequirementARM::createFromCData($item),
             VkDataGraphPipelineSessionBindPointRequirementARM::STRUCTURE_TYPE,
@@ -10313,7 +10480,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetDeviceFaultReportsKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, $timeout, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $timeout,
+                $count,
+                $items,
+            ),
             'VkDeviceFaultInfoKHR',
             fn(CData $item): VkDeviceFaultInfoKHR => VkDeviceFaultInfoKHR::createFromCData($item),
             VkDeviceFaultInfoKHR::STRUCTURE_TYPE,
@@ -10495,7 +10667,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetDeviceImageSparseMemoryRequirements',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, \FFI::addr($nativeInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                \FFI::addr($nativeInfo),
+                $count,
+                $items,
+            ),
             'VkSparseImageMemoryRequirements2',
             fn(CData $item): VkSparseImageMemoryRequirements2 => VkSparseImageMemoryRequirements2::createFromCData($item),
             VkSparseImageMemoryRequirements2::STRUCTURE_TYPE,
@@ -10727,7 +10904,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetDisplayPlaneSupportedDisplaysKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $planeIndex, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $planeIndex,
+                $count,
+                $items,
+            ),
             'VkDisplayKHR',
             fn(CData $item): VkDisplayKHR => new VkDisplayKHR($this, $item, $physicalDevice),
         );
@@ -10897,7 +11079,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetFramebufferTilePropertiesQCOM',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, $framebuffer->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $framebuffer->pointer,
+                $count,
+                $items,
+            ),
             'VkTilePropertiesQCOM',
             fn(CData $item): VkTilePropertiesQCOM => VkTilePropertiesQCOM::createFromCData($item),
             VkTilePropertiesQCOM::STRUCTURE_TYPE,
@@ -10966,6 +11153,33 @@ final class Vulkan extends VulkanBase
         $this->assertSuccess('vkGetGpaDeviceClockInfoAMD', $procedure($device->pointer, \FFI::addr($nativeInfo)));
 
         return VkGpaDeviceGetClockInfoAMD::createFromCData($nativeInfo);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetGpaSessionResultsAMD.html
+     * @since VK_AMD_gpa_interface
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $sampleID
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetGpaSessionResultsAMD(VkDevice $device, VkGpaSessionAMD $gpaSession, int $sampleID): string
+    {
+        $procedure = $this->vkGetInstanceProc('vkGetGpaSessionResultsAMD', $device);
+
+        return VkEnumerator::createBinary(
+            $this,
+            'vkGetGpaSessionResultsAMD',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $gpaSession->pointer,
+                $sampleID,
+                $count,
+                $items,
+            ),
+        );
     }
 
     /**
@@ -11074,7 +11288,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetImageSparseMemoryRequirements',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, $image->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $image->pointer,
+                $count,
+                $items,
+            ),
             'VkSparseImageMemoryRequirements',
             fn(CData $item): VkSparseImageMemoryRequirements => VkSparseImageMemoryRequirements::createFromCData($item),
         );
@@ -11099,7 +11318,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetImageSparseMemoryRequirements2',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, \FFI::addr($nativeInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                \FFI::addr($nativeInfo),
+                $count,
+                $items,
+            ),
             'VkSparseImageMemoryRequirements2',
             fn(CData $item): VkSparseImageMemoryRequirements2 => VkSparseImageMemoryRequirements2::createFromCData($item),
             VkSparseImageMemoryRequirements2::STRUCTURE_TYPE,
@@ -11336,7 +11560,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPastPresentationTimingGOOGLE',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, $swapchain->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $swapchain->pointer,
+                $count,
+                $items,
+            ),
             'VkPastPresentationTimingGOOGLE',
             fn(CData $item): VkPastPresentationTimingGOOGLE => VkPastPresentationTimingGOOGLE::createFromCData($item),
         );
@@ -11358,7 +11587,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::createList(
             $this,
             'vkGetPhysicalDeviceCalibrateableTimeDomainsKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkTimeDomainKHR',
             fn(int $item): VkTimeDomainKHR => VkTimeDomainKHR::from($item),
         );
@@ -11397,7 +11630,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkCooperativeMatrixFlexibleDimensionsPropertiesNV',
             fn(CData $item): VkCooperativeMatrixFlexibleDimensionsPropertiesNV => VkCooperativeMatrixFlexibleDimensionsPropertiesNV::createFromCData($item),
             VkCooperativeMatrixFlexibleDimensionsPropertiesNV::STRUCTURE_TYPE,
@@ -11424,7 +11661,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceCooperativeMatrixProperties2EXT',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, \FFI::addr($nativeCooperativeMatrixInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                \FFI::addr($nativeCooperativeMatrixInfo),
+                $count,
+                $items,
+            ),
             'VkCooperativeMatrixProperties2EXT',
             fn(CData $item): VkCooperativeMatrixProperties2EXT => VkCooperativeMatrixProperties2EXT::createFromCData($item),
             VkCooperativeMatrixProperties2EXT::STRUCTURE_TYPE,
@@ -11447,7 +11689,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkCooperativeMatrixPropertiesKHR',
             fn(CData $item): VkCooperativeMatrixPropertiesKHR => VkCooperativeMatrixPropertiesKHR::createFromCData($item),
             VkCooperativeMatrixPropertiesKHR::STRUCTURE_TYPE,
@@ -11470,7 +11716,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceCooperativeVectorPropertiesNV',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkCooperativeVectorPropertiesNV',
             fn(CData $item): VkCooperativeVectorPropertiesNV => VkCooperativeVectorPropertiesNV::createFromCData($item),
             VkCooperativeVectorPropertiesNV::STRUCTURE_TYPE,
@@ -11769,7 +12019,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceFragmentShadingRatesKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkPhysicalDeviceFragmentShadingRateKHR',
             fn(CData $item): VkPhysicalDeviceFragmentShadingRateKHR => VkPhysicalDeviceFragmentShadingRateKHR::createFromCData($item),
             VkPhysicalDeviceFragmentShadingRateKHR::STRUCTURE_TYPE,
@@ -11962,7 +12216,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceOpticalFlowImageFormatsNV',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, \FFI::addr($nativeOpticalFlowImageFormatInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                \FFI::addr($nativeOpticalFlowImageFormatInfo),
+                $count,
+                $items,
+            ),
             'VkOpticalFlowImageFormatPropertiesNV',
             fn(CData $item): VkOpticalFlowImageFormatPropertiesNV => VkOpticalFlowImageFormatPropertiesNV::createFromCData($item),
             VkOpticalFlowImageFormatPropertiesNV::STRUCTURE_TYPE,
@@ -11987,7 +12246,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDevicePresentRectanglesKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $surface->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $surface->pointer,
+                $count,
+                $items,
+            ),
             'VkRect2D',
             fn(CData $item): VkRect2D => VkRect2D::createFromCData($item),
         );
@@ -12087,7 +12351,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $queueFamilyIndex, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $queueFamilyIndex,
+                $count,
+                $items,
+            ),
             'VkQueueFamilyDataGraphPropertiesARM',
             fn(CData $item): VkQueueFamilyDataGraphPropertiesARM => VkQueueFamilyDataGraphPropertiesARM::createFromCData($item),
             VkQueueFamilyDataGraphPropertiesARM::STRUCTURE_TYPE,
@@ -12137,7 +12406,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceQueueFamilyProperties',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkQueueFamilyProperties',
             fn(CData $item): VkQueueFamilyProperties => VkQueueFamilyProperties::createFromCData($item),
         );
@@ -12158,7 +12431,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceQueueFamilyProperties2',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkQueueFamilyProperties2',
             fn(CData $item): VkQueueFamilyProperties2 => VkQueueFamilyProperties2::createFromCData($item),
             VkQueueFamilyProperties2::STRUCTURE_TYPE,
@@ -12195,7 +12472,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::createList(
             $this,
             'vkGetPhysicalDeviceRefreshableObjectTypesKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkObjectType',
             fn(int $item): VkObjectType => VkObjectType::from($item),
         );
@@ -12229,7 +12510,16 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceSparseImageFormatProperties',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $format->value, $type->value, $samples, $usage, $tiling->value, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $format->value,
+                $type->value,
+                $samples,
+                $usage,
+                $tiling->value,
+                $count,
+                $items,
+            ),
             'VkSparseImageFormatProperties',
             fn(CData $item): VkSparseImageFormatProperties => VkSparseImageFormatProperties::createFromCData($item),
         );
@@ -12254,7 +12544,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceSparseImageFormatProperties2',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, \FFI::addr($nativeFormatInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                \FFI::addr($nativeFormatInfo),
+                $count,
+                $items,
+            ),
             'VkSparseImageFormatProperties2',
             fn(CData $item): VkSparseImageFormatProperties2 => VkSparseImageFormatProperties2::createFromCData($item),
             VkSparseImageFormatProperties2::STRUCTURE_TYPE,
@@ -12295,7 +12590,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkFramebufferMixedSamplesCombinationNV',
             fn(CData $item): VkFramebufferMixedSamplesCombinationNV => VkFramebufferMixedSamplesCombinationNV::createFromCData($item),
             VkFramebufferMixedSamplesCombinationNV::STRUCTURE_TYPE,
@@ -12397,7 +12696,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceSurfaceFormats2KHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, \FFI::addr($nativeSurfaceInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                \FFI::addr($nativeSurfaceInfo),
+                $count,
+                $items,
+            ),
             'VkSurfaceFormat2KHR',
             fn(CData $item): VkSurfaceFormat2KHR => VkSurfaceFormat2KHR::createFromCData($item),
             VkSurfaceFormat2KHR::STRUCTURE_TYPE,
@@ -12427,7 +12731,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceSurfaceFormatsKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $surface?->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $surface?->pointer,
+                $count,
+                $items,
+            ),
             'VkSurfaceFormatKHR',
             fn(CData $item): VkSurfaceFormatKHR => VkSurfaceFormatKHR::createFromCData($item),
         );
@@ -12454,7 +12763,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::createList(
             $this,
             'vkGetPhysicalDeviceSurfacePresentModes2EXT',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, \FFI::addr($nativeSurfaceInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                \FFI::addr($nativeSurfaceInfo),
+                $count,
+                $items,
+            ),
             'VkPresentModeKHR',
             fn(int $item): VkPresentModeKHR => VkPresentModeKHR::from($item),
         );
@@ -12479,7 +12793,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::createList(
             $this,
             'vkGetPhysicalDeviceSurfacePresentModesKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $surface?->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $surface?->pointer,
+                $count,
+                $items,
+            ),
             'VkPresentModeKHR',
             fn(int $item): VkPresentModeKHR => VkPresentModeKHR::from($item),
         );
@@ -12529,7 +12848,11 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceToolProperties',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                $count,
+                $items,
+            ),
             'VkPhysicalDeviceToolProperties',
             fn(CData $item): VkPhysicalDeviceToolProperties => VkPhysicalDeviceToolProperties::createFromCData($item),
             VkPhysicalDeviceToolProperties::STRUCTURE_TYPE,
@@ -12635,10 +12958,39 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceVideoFormatPropertiesKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($physicalDevice->pointer, \FFI::addr($nativeVideoFormatInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $physicalDevice->pointer,
+                \FFI::addr($nativeVideoFormatInfo),
+                $count,
+                $items,
+            ),
             'VkVideoFormatPropertiesKHR',
             fn(CData $item): VkVideoFormatPropertiesKHR => VkVideoFormatPropertiesKHR::createFromCData($item),
             VkVideoFormatPropertiesKHR::STRUCTURE_TYPE,
+        );
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineCacheData.html
+     * @since 1.0
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetPipelineCacheData(VkDevice $device, VkPipelineCache $pipelineCache): string
+    {
+        $procedure = $this->vkGetInstanceProc('vkGetPipelineCacheData', $device);
+
+        return VkEnumerator::createBinary(
+            $this,
+            'vkGetPipelineCacheData',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $pipelineCache->pointer,
+                $count,
+                $items,
+            ),
         );
     }
 
@@ -12662,7 +13014,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetPipelineExecutablePropertiesKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, \FFI::addr($nativePipelineInfo), $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                \FFI::addr($nativePipelineInfo),
+                $count,
+                $items,
+            ),
             'VkPipelineExecutablePropertiesKHR',
             fn(CData $item): VkPipelineExecutablePropertiesKHR => VkPipelineExecutablePropertiesKHR::createFromCData($item),
             VkPipelineExecutablePropertiesKHR::STRUCTURE_TYPE,
@@ -12779,6 +13136,88 @@ final class Vulkan extends VulkanBase
         VkPrivateDataSlot $privateDataSlot,
     ): int {
         return $this->vkGetPrivateData($device, $objectType, $objectHandle, $privateDataSlot);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html
+     * @since VK_KHR_ray_tracing_pipeline
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $firstGroup
+     * @param int<0, 4294967295> $groupCount
+     * @param int<0, max> $dataSize
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
+        VkDevice $device,
+        VkPipeline $pipeline,
+        int $firstGroup,
+        int $groupCount,
+        int $dataSize,
+    ): string {
+        $nativeData = $this->memory->new('uint8_t[' . \max(1, $dataSize) . ']');
+
+        $procedure = $this->vkGetInstanceProc('vkGetRayTracingCaptureReplayShaderGroupHandlesKHR', $device);
+
+        $this->assertSuccess('vkGetRayTracingCaptureReplayShaderGroupHandlesKHR', $procedure($device->pointer, $pipeline->pointer, $firstGroup, $groupCount, $dataSize, $nativeData));
+
+        return \FFI::string($nativeData, $dataSize);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesKHR.html
+     * @since VK_KHR_ray_tracing_pipeline
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $firstGroup
+     * @param int<0, 4294967295> $groupCount
+     * @param int<0, max> $dataSize
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetRayTracingShaderGroupHandlesKHR(
+        VkDevice $device,
+        VkPipeline $pipeline,
+        int $firstGroup,
+        int $groupCount,
+        int $dataSize,
+    ): string {
+        $nativeData = $this->memory->new('uint8_t[' . \max(1, $dataSize) . ']');
+
+        $procedure = $this->vkGetInstanceProc('vkGetRayTracingShaderGroupHandlesKHR', $device);
+
+        $this->assertSuccess('vkGetRayTracingShaderGroupHandlesKHR', $procedure($device->pointer, $pipeline->pointer, $firstGroup, $groupCount, $dataSize, $nativeData));
+
+        return \FFI::string($nativeData, $dataSize);
+    }
+
+    /**
+     * Alias of {@see self::vkGetRayTracingShaderGroupHandlesKHR()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupHandlesNV.html
+     * @since VK_NV_ray_tracing
+     * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $firstGroup
+     * @param int<0, 4294967295> $groupCount
+     * @param int<0, max> $dataSize
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
+    public function vkGetRayTracingShaderGroupHandlesNV(
+        VkDevice $device,
+        VkPipeline $pipeline,
+        int $firstGroup,
+        int $groupCount,
+        int $dataSize,
+    ): string {
+        return $this->vkGetRayTracingShaderGroupHandlesKHR($device, $pipeline, $firstGroup, $groupCount, $dataSize);
     }
 
     /**
@@ -12923,6 +13362,63 @@ final class Vulkan extends VulkanBase
         \assert(\is_int($value));
 
         return $value;
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderBinaryDataEXT.html
+     * @since VK_EXT_shader_object
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetShaderBinaryDataEXT(VkDevice $device, VkShaderEXT $shader): string
+    {
+        $procedure = $this->vkGetInstanceProc('vkGetShaderBinaryDataEXT', $device);
+
+        return VkEnumerator::createBinary(
+            $this,
+            'vkGetShaderBinaryDataEXT',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $shader->pointer,
+                $count,
+                $items,
+            ),
+        );
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderInfoAMD.html
+     * @since VK_AMD_shader_info
+     *
+     * @api
+     *
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $shaderStage
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_FEATURE_NOT_PRESENT}
+     */
+    public function vkGetShaderInfoAMD(
+        VkDevice $device,
+        VkPipeline $pipeline,
+        int $shaderStage,
+        VkShaderInfoTypeAMD $infoType,
+    ): string {
+        $procedure = $this->vkGetInstanceProc('vkGetShaderInfoAMD', $device);
+
+        return VkEnumerator::createBinary(
+            $this,
+            'vkGetShaderInfoAMD',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $pipeline->pointer,
+                $shaderStage,
+                $infoType->value,
+                $count,
+                $items,
+            ),
+        );
     }
 
     /**
@@ -13078,7 +13574,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetSwapchainImagesKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, $swapchain->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $swapchain->pointer,
+                $count,
+                $items,
+            ),
             'VkImage',
             fn(CData $item): VkImage => new VkImage($this, $item, $device),
         );
@@ -13133,6 +13634,30 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetValidationCacheDataEXT.html
+     * @since VK_EXT_validation_cache
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetValidationCacheDataEXT(VkDevice $device, VkValidationCacheEXT $validationCache): string
+    {
+        $procedure = $this->vkGetInstanceProc('vkGetValidationCacheDataEXT', $device);
+
+        return VkEnumerator::createBinary(
+            $this,
+            'vkGetValidationCacheDataEXT',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $validationCache->pointer,
+                $count,
+                $items,
+            ),
+        );
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetVideoSessionMemoryRequirementsKHR.html
      * @since VK_KHR_video_queue
      *
@@ -13150,7 +13675,12 @@ final class Vulkan extends VulkanBase
         return VkEnumerator::create(
             $this,
             'vkGetVideoSessionMemoryRequirementsKHR',
-            static fn(CData $count, ?CData $items): mixed => $procedure($device->pointer, $videoSession->pointer, $count, $items),
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                $videoSession->pointer,
+                $count,
+                $items,
+            ),
             'VkVideoSessionMemoryRequirementsKHR',
             fn(CData $item): VkVideoSessionMemoryRequirementsKHR => VkVideoSessionMemoryRequirementsKHR::createFromCData($item),
             VkVideoSessionMemoryRequirementsKHR::STRUCTURE_TYPE,
@@ -14785,5 +15315,79 @@ final class Vulkan extends VulkanBase
     public function vkWaitSemaphoresKHR(VkDevice $device, VkSemaphoreWaitInfo $waitInfo, int $timeout): VkResult
     {
         return $this->vkWaitSemaphores($device, $waitInfo, $timeout);
+    }
+
+    /**
+     * Legacy functionality, superseded by `vkCmdWriteAccelerationStructuresPropertiesKHR`.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteAccelerationStructuresPropertiesKHR.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-host-builds
+     * @since VK_KHR_acceleration_structure
+     * @deprecated legacy functionality, use {@see self::vkCmdWriteAccelerationStructuresPropertiesKHR()} instead
+     *
+     * @api
+     *
+     * @param non-empty-list<VkAccelerationStructureKHR> $accelerationStructures
+     * @param int<0, max> $dataSize
+     * @param int<0, max> $stride
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkWriteAccelerationStructuresPropertiesKHR(
+        VkDevice $device,
+        array $accelerationStructures,
+        VkQueryType $queryType,
+        int $dataSize,
+        int $stride,
+    ): string {
+        $nativeAccelerationStructures = null;
+        if ($accelerationStructures !== []) {
+            $nativeAccelerationStructures = $this->memory->toHandleArray('VkAccelerationStructureKHR', $accelerationStructures);
+        }
+
+        $nativeData = $this->memory->new('uint8_t[' . \max(1, $dataSize) . ']');
+
+        $procedure = $this->vkGetInstanceProc('vkWriteAccelerationStructuresPropertiesKHR', $device);
+
+        $this->assertSuccess('vkWriteAccelerationStructuresPropertiesKHR', $procedure($device->pointer, \count($accelerationStructures), $nativeAccelerationStructures, $queryType->value, $dataSize, $nativeData, $stride));
+
+        return \FFI::string($nativeData, $dataSize);
+    }
+
+    /**
+     * Legacy functionality, superseded by `vkCmdWriteMicromapsPropertiesEXT`.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkWriteMicromapsPropertiesEXT.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-host-builds
+     * @since VK_EXT_opacity_micromap
+     * @deprecated legacy functionality, use {@see self::vkCmdWriteMicromapsPropertiesEXT()} instead
+     *
+     * @api
+     *
+     * @param non-empty-list<VkMicromapEXT> $micromaps
+     * @param int<0, max> $dataSize
+     * @param int<0, max> $stride
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkWriteMicromapsPropertiesEXT(
+        VkDevice $device,
+        array $micromaps,
+        VkQueryType $queryType,
+        int $dataSize,
+        int $stride,
+    ): string {
+        $nativeMicromaps = null;
+        if ($micromaps !== []) {
+            $nativeMicromaps = $this->memory->toHandleArray('VkMicromapEXT', $micromaps);
+        }
+
+        $nativeData = $this->memory->new('uint8_t[' . \max(1, $dataSize) . ']');
+
+        $procedure = $this->vkGetInstanceProc('vkWriteMicromapsPropertiesEXT', $device);
+
+        $this->assertSuccess('vkWriteMicromapsPropertiesEXT', $procedure($device->pointer, \count($micromaps), $nativeMicromaps, $queryType->value, $dataSize, $nativeData, $stride));
+
+        return \FFI::string($nativeData, $dataSize);
     }
 }

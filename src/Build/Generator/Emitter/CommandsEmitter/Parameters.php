@@ -111,7 +111,7 @@ final readonly class Parameters
             ParameterRole::INPUT_STRUCTURE => Imports::importFullName($namespace, Locations::STRUCT_NAMESPACE, $type),
             ParameterRole::SCALAR => $this->getScalarType($namespace, $parameter),
             ParameterRole::INPUT_ARRAY => 'array',
-            ParameterRole::INPUT_STRING => 'string',
+            ParameterRole::INPUT_STRING, ParameterRole::INPUT_BINARY => 'string',
             default => null,
         };
     }

@@ -30,7 +30,7 @@ final readonly class Preparation
         foreach ($plan->parameters as $parameter) {
             $parameterLines = match ($parameter->role) {
                 ParameterRole::INPUT_ARRAY => $this->createArrayLines($namespace, $parameter),
-                ParameterRole::INPUT_STRING => $this->createStringLines($parameter),
+                ParameterRole::INPUT_STRING, ParameterRole::INPUT_BINARY => $this->createStringLines($parameter),
                 ParameterRole::INPUT_STRUCTURE => $this->createStructureLines($parameter),
                 default => [],
             };

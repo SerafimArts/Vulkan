@@ -107,6 +107,27 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Calls the command and returns the bytes it has written, the length of
+     * the bytes is `size_t`.
+     *
+     * @param non-empty-string $command
+     * @param \Closure(CData, CData|null): mixed $call calls the command with
+     *        the pointer to the size and the native bytes
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public static function createBinary(VulkanBase $vk, string $command, \Closure $call): string
+    {
+        [$items, $length] = self::fill($vk, $command, $call, 'uint8_t', null, 'size_t');
+
+        if ($items === null) {
+            return '';
+        }
+
+        return \FFI::string($items, $length);
+    }
+
+    /**
      * @return int<0, max>
      */
     public function count(): int
@@ -137,6 +158,7 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
      * @param non-empty-string $command
      * @param \Closure(CData, CData|null): mixed $call
      * @param non-empty-string $type
+     * @param non-empty-string $countType C type of the length
      *
      * @return array{CData|null, int<0, max>}
      * @throws CommandFailedException
@@ -147,8 +169,9 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
         \Closure $call,
         string $type,
         ?int $structureType,
+        string $countType = 'uint32_t',
     ): array {
-        $count = $vk->memory->new('uint32_t');
+        $count = $vk->memory->new($countType);
         $pointer = \FFI::addr($count);
 
         do {

@@ -129,6 +129,10 @@ final readonly class ParameterRoles
             return ParameterRole::INPUT_STRING;
         }
 
+        if ($field->type === 'void' && $this->hasPlainLength($field)) {
+            return ParameterRole::INPUT_BINARY;
+        }
+
         $isArray = $field->length !== null
             && !$field->isNullTerminated
             && \preg_match('/^\w+$/', $field->length) === 1;
@@ -142,6 +146,10 @@ final readonly class ParameterRoles
 
     private function findOutputRole(FieldDefinition $field, TypeKind $kind, bool $isLength): ?ParameterRole
     {
+        if ($field->type === 'void' && $this->hasPlainLength($field)) {
+            return ParameterRole::OUTPUT_BINARY;
+        }
+
         if ($field->length !== null) {
             return match ($kind) {
                 TypeKind::HANDLE, TypeKind::STRUCTURE => ParameterRole::OUTPUT_ARRAY,
@@ -160,6 +168,16 @@ final readonly class ParameterRoles
     }
 
     /**
+     * Whether the length is the name of another parameter.
+     */
+    private function hasPlainLength(FieldDefinition $field): bool
+    {
+        return $field->length !== null
+            && !$field->isNullTerminated
+            && \preg_match('/^\w+$/', $field->length) === 1;
+    }
+
+    /**
      * The length of an input array is not passed by the user: it is the
      * number of the elements of the array.
      *
@@ -172,7 +190,9 @@ final readonly class ParameterRoles
         $arrays = [];
 
         foreach ($parameters as $parameter) {
-            if ($parameter->role === ParameterRole::INPUT_ARRAY && $parameter->field->length !== null) {
+            $isArray = $parameter->role === ParameterRole::INPUT_ARRAY || $parameter->role === ParameterRole::INPUT_BINARY;
+
+            if ($isArray && $parameter->field->length !== null) {
                 $arrays[$parameter->field->length] ??= $parameter->name;
             }
         }

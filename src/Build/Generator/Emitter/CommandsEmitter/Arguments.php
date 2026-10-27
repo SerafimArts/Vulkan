@@ -32,11 +32,14 @@ final readonly class Arguments
                 ParameterRole::HANDLE => $this->createHandleArgument($parameter),
                 ParameterRole::ALLOCATOR => 'null',
                 ParameterRole::INPUT_STRUCTURE => $this->createStructureArgument($parameter, $native),
-                ParameterRole::INPUT_ARRAY, ParameterRole::INPUT_STRING => $native,
-                ParameterRole::INPUT_COUNT => $this->createCountArgument($parameter),
+                ParameterRole::INPUT_ARRAY, ParameterRole::INPUT_STRING, ParameterRole::INPUT_BINARY => $native,
+                ParameterRole::INPUT_COUNT => $this->createCountArgument($plan, $parameter),
                 ParameterRole::SCALAR => $this->createScalarArgument($parameter),
                 ParameterRole::OUTPUT_COUNT => '\FFI::addr($count)',
-                ParameterRole::OUTPUT_ARRAY => $this->createOutputArrayArgument($plan, $native),
+                ParameterRole::OUTPUT_ARRAY, ParameterRole::OUTPUT_BINARY => $this->createOutputArrayArgument(
+                    $plan,
+                    $native,
+                ),
                 default => '\FFI::addr(' . $native . ')',
             };
         }
@@ -57,7 +60,9 @@ final readonly class Arguments
         foreach ($this->create($plan) as $index => $argument) {
             $role = $plan->parameters[$index]->role;
 
-            if ($role !== ParameterRole::OUTPUT_COUNT && $role !== ParameterRole::OUTPUT_ARRAY) {
+            $isOutputArray = $role === ParameterRole::OUTPUT_ARRAY || $role === ParameterRole::OUTPUT_BINARY;
+
+            if ($role !== ParameterRole::OUTPUT_COUNT && !$isOutputArray) {
                 $arguments[] = $argument;
             }
         }
@@ -67,15 +72,25 @@ final readonly class Arguments
 
     private function createOutputArrayArgument(CommandPlan $plan, string $native): string
     {
-        if ($plan->kind === CommandKind::CREATE_ARRAY) {
+        if ($plan->kind === CommandKind::CREATE_ARRAY || $plan->kind === CommandKind::QUERY_BINARY) {
             return $native;
         }
 
         return '$items';
     }
 
-    private function createCountArgument(ParameterPlan $count): string
+    private function createCountArgument(CommandPlan $plan, ParameterPlan $count): string
     {
+        foreach ($plan->parameters as $parameter) {
+            if ($parameter->name === $count->counts && $parameter->role === ParameterRole::INPUT_BINARY) {
+                if ($parameter->field->isOptional) {
+                    return '\strlen($' . $parameter->name . ' ?? \'\')';
+                }
+
+                return '\strlen($' . $parameter->name . ')';
+            }
+        }
+
         return '\count($' . $count->counts . ')';
     }
 

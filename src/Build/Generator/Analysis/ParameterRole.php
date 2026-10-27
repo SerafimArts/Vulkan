@@ -77,4 +77,15 @@ enum ParameterRole
      * `void**` that is filled with a pointer to native memory.
      */
     case OUTPUT_POINTER;
+
+    /**
+     * `const void*` with the size in bytes in another parameter: the bytes of
+     * a string of the user.
+     */
+    case INPUT_BINARY;
+
+    /**
+     * `void*` with the size in bytes that is filled by the command.
+     */
+    case OUTPUT_BINARY;
 }

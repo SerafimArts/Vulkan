@@ -58,10 +58,12 @@ final readonly class CommandAnalyzer
 
         $outputLength = null;
 
-        if ($output->role === ParameterRole::OUTPUT_ARRAY && $count === null) {
+        $isArray = $output->role === ParameterRole::OUTPUT_ARRAY || $output->role === ParameterRole::OUTPUT_BINARY;
+
+        if ($isArray && $count === null) {
             $outputLength = $this->lengths->find($parameters, $output);
 
-            if ($outputLength === null || $output->kind !== TypeKind::HANDLE) {
+            if ($outputLength === null || ($output->kind !== TypeKind::HANDLE && $output->role !== ParameterRole::OUTPUT_BINARY)) {
                 throw $this->createException($command, 'the length of the output array is unknown');
             }
         }
@@ -78,7 +80,15 @@ final readonly class CommandAnalyzer
             $kind = CommandKind::CREATE_ARRAY;
         }
 
-        $isValue = $kind === CommandKind::QUERY_SCALAR || $kind === CommandKind::QUERY_POINTER;
+        if ($outputLength !== null && $output->role === ParameterRole::OUTPUT_BINARY) {
+            $kind = CommandKind::QUERY_BINARY;
+        }
+
+        $isValue = \in_array(
+            $kind,
+            [CommandKind::QUERY_SCALAR, CommandKind::QUERY_POINTER, CommandKind::QUERY_BINARY],
+            true,
+        );
 
         if ($isValue && \count($command->successCodes) > 1) {
             throw $this->createException($command, 'the command returns both a status and a value');
@@ -101,6 +111,7 @@ final readonly class CommandAnalyzer
             ParameterRole::OUTPUT_HANDLE,
             ParameterRole::OUTPUT_STRUCTURE,
             ParameterRole::OUTPUT_ARRAY,
+            ParameterRole::OUTPUT_BINARY,
             ParameterRole::OUTPUT_SCALAR,
             ParameterRole::OUTPUT_POINTER,
         ], true);
