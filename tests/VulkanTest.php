@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Tests;
 
+use FFI\CData;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Serafim\Vulkan\Enum\VkPresentModeKHR;
+use Serafim\Vulkan\Enum\VkDebugUtilsMessageSeverityFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkDebugUtilsMessageTypeFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Struct\VkImageSubresourceRange;
 use Serafim\Vulkan\Struct\VkImageMemoryBarrier;
@@ -23,6 +26,7 @@ use Serafim\Vulkan\Enum\VkAccessFlagBits;
 use Serafim\Vulkan\Enum\VkSharingMode;
 use Serafim\Vulkan\Enum\VkTimeDomainKHR;
 use Serafim\Vulkan\Exception\CommandFailedException;
+use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkPhysicalDevice;
 use Serafim\Vulkan\Struct\VkApplicationInfo;
 use Serafim\Vulkan\Struct\VkBufferCreateInfo;
@@ -35,10 +39,14 @@ use Serafim\Vulkan\Struct\VkDescriptorPoolSize;
 use Serafim\Vulkan\Struct\VkDescriptorSetAllocateInfo;
 use Serafim\Vulkan\Struct\VkDescriptorSetLayoutBinding;
 use Serafim\Vulkan\Struct\VkDescriptorSetLayoutCreateInfo;
+use Serafim\Vulkan\Struct\VkDebugUtilsMessengerCallbackDataEXT;
+use Serafim\Vulkan\Struct\VkDebugUtilsMessengerCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
 use Serafim\Vulkan\Struct\VkDeviceQueueCreateInfo;
 use Serafim\Vulkan\Struct\VkFenceCreateInfo;
+use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan11Properties;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Features;
+use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Properties;
 use Serafim\Vulkan\Struct\VkPipelineCacheCreateInfo;
 use Serafim\Vulkan\Struct\VkQueryPoolCreateInfo;
 use Serafim\Vulkan\Struct\VkInstanceCreateInfo;
@@ -50,6 +58,8 @@ use Serafim\Vulkan\Vulkan;
 use Serafim\Vulkan\VulkanBase;
 
 use const Serafim\Vulkan\VK_API_VERSION_1_1;
+use const Serafim\Vulkan\VK_API_VERSION_1_2;
+use const Serafim\Vulkan\VK_EXT_DEBUG_UTILS_EXTENSION_NAME;
 use const Serafim\Vulkan\VK_KHR_SURFACE_EXTENSION_NAME;
 use const Serafim\Vulkan\VK_KHR_WIN32_SURFACE_EXTENSION_NAME;
 
@@ -125,6 +135,65 @@ final class VulkanTest extends TestCase
         foreach ($families as $family) {
             self::assertGreaterThan(0, $family->queueFamilyProperties->queueCount);
         }
+    }
+
+    public function testStructuresOfTheChainAreFilledByTheQuery(): void
+    {
+        $vk = self::loadVulkan();
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            applicationInfo: new VkApplicationInfo(apiVersion: VK_API_VERSION_1_2),
+        ));
+
+        $devices = \iterator_to_array($vk->vkEnumeratePhysicalDevices($instance), false);
+
+        if ($devices === []) {
+            self::markTestSkipped('There are no physical devices');
+        }
+
+        $properties = $vk->vkGetPhysicalDeviceProperties2($devices[0], [VkPhysicalDeviceVulkan12Properties::class]);
+        $vulkan12 = $properties->findChained(VkPhysicalDeviceVulkan12Properties::class);
+
+        self::assertInstanceOf(VkPhysicalDeviceVulkan12Properties::class, $vulkan12);
+        self::assertNotSame('', $vulkan12->driverName);
+        self::assertNull($properties->findChained(VkPhysicalDeviceVulkan11Properties::class));
+    }
+
+    public function testFeaturesOfTheChainAreReturnedToTheDevice(): void
+    {
+        $vk = self::loadVulkan();
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            applicationInfo: new VkApplicationInfo(apiVersion: VK_API_VERSION_1_2),
+        ));
+
+        $devices = \iterator_to_array($vk->vkEnumeratePhysicalDevices($instance), false);
+
+        if ($devices === []) {
+            self::markTestSkipped('There are no physical devices');
+        }
+
+        $features = $vk->vkGetPhysicalDeviceFeatures2($devices[0], [VkPhysicalDeviceVulkan12Features::class]);
+        $vulkan12 = $features->findChained(VkPhysicalDeviceVulkan12Features::class);
+
+        self::assertInstanceOf(VkPhysicalDeviceVulkan12Features::class, $vulkan12);
+
+        $device = $vk->vkCreateDevice($devices[0], new VkDeviceCreateInfo(
+            next: $vulkan12,
+            queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
+        ));
+
+        self::assertNotNull($device->pointer);
+    }
+
+    public function testStructureThatCannotBeChainedToTheQueryIsRejected(): void
+    {
+        $vk = self::loadVulkan();
+        $device = self::getPhysicalDevice($vk);
+
+        $this->expectException(InvalidStructureException::class);
+
+        $vk->vkGetPhysicalDeviceProperties2($device, [VkPhysicalDeviceVulkan12Features::class]);
     }
 
     public function testQueueFamiliesAreEnumeratedAndCounted(): void
@@ -313,6 +382,37 @@ final class VulkanTest extends TestCase
 
         self::assertSame(VkResult::VK_SUCCESS, $results->status);
         self::assertSame(8, \strlen($results->value));
+    }
+
+    public function testMessengerCallsTheClosureOfTheUser(): void
+    {
+        $vk = self::loadVulkan();
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            enabledExtensionNames: [VK_EXT_DEBUG_UTILS_EXTENSION_NAME],
+        ));
+
+        $messages = [];
+
+        $messenger = $vk->vkCreateDebugUtilsMessengerEXT($instance, new VkDebugUtilsMessengerCreateInfoEXT(
+            pfnUserCallback: static function (int $severity, int $types, ?CData $data) use (&$messages): bool {
+                $messages[] = [$severity, \FFI::string($data->pMessage)];
+
+                return false;
+            },
+            messageSeverity: VkDebugUtilsMessageSeverityFlagBitsEXT::VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT,
+            messageType: VkDebugUtilsMessageTypeFlagBitsEXT::VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT,
+        ));
+
+        $vk->vkSubmitDebugUtilsMessageEXT(
+            $instance,
+            VkDebugUtilsMessageSeverityFlagBitsEXT::VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT,
+            VkDebugUtilsMessageTypeFlagBitsEXT::VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT,
+            new VkDebugUtilsMessengerCallbackDataEXT(message: 'hello'),
+        );
+
+        self::assertSame([[VkDebugUtilsMessageSeverityFlagBitsEXT::VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT, 'hello']], $messages);
+        self::assertNotNull($messenger->pointer);
     }
 
     public function testWin32SurfaceIsCreatedFromTheWindowOfTheSystem(): void
