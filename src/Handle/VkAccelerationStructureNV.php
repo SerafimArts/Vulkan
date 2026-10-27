@@ -9,8 +9,9 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Handle;
 
 /**
+ * The extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureNV.html
  * @since VK_NV_ray_tracing
- * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
  */
 final readonly class VkAccelerationStructureNV extends Handle {}

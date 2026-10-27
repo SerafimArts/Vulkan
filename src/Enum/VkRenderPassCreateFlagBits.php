@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Enum;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassCreateFlagBits.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-renderpass2
  * @since 1.0

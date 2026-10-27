@@ -13,6 +13,7 @@ use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
 use Serafim\Vulkan\Struct\VkFenceCreateInfo;
 use Serafim\Vulkan\Struct\VkImageBlit;
 use Serafim\Vulkan\Struct\VkImageSubresourceLayers;
+use Serafim\Vulkan\Struct\VkImportMemoryHostPointerInfoEXT;
 use Serafim\Vulkan\Struct\VkOffset3D;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Features;
 use Serafim\Vulkan\Struct\VkPipelineMultisampleStateCreateInfo;
@@ -141,6 +142,26 @@ final class InputStructureTest extends TestCase
         $this->expectException(InvalidStructureException::class);
 
         new VkPipelineMultisampleStateCreateInfo(rasterizationSamples: 4, sampleMask: [1, 2])->toCData($vk->memory);
+    }
+
+    public function testPointerOfTheSystemIsWrittenAsItIs(): void
+    {
+        $vk = self::loadVulkan();
+
+        $data = new VkImportMemoryHostPointerInfoEXT(hostPointer: 4096)->toCData($vk->memory);
+
+        self::assertTrue($data->pHostPointer == $vk->ffi->cast('void*', 4096));
+    }
+
+    public function testPointerOfTheSystemIsWrittenFromNativeMemory(): void
+    {
+        $vk = self::loadVulkan();
+        $memory = $vk->memory->new('char[16]');
+        $pointer = $vk->ffi->cast('void*', \FFI::addr($memory));
+
+        $data = new VkImportMemoryHostPointerInfoEXT(hostPointer: $pointer)->toCData($vk->memory);
+
+        self::assertTrue($data->pHostPointer == $pointer);
     }
 
     public function testStructureThatCannotBeChainedIsRejected(): void

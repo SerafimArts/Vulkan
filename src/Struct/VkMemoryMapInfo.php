@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkMemoryMapFlagBits;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkMemoryMapInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryMapInfo.html
@@ -26,6 +27,7 @@ final class VkMemoryMapInfo extends InputStructure
 
     public function __construct(
         public VkDeviceMemory $memory,
+        public ?VkMemoryMapInfoExtension $next = null,
         /** @var int-mask-of<VkMemoryMapFlagBits::*> */
         public int $flags = 0,
         /** @var int<0, max> */
@@ -37,6 +39,12 @@ final class VkMemoryMapInfo extends InputStructure
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
+
+        if ($this->next !== null) {
+            \assert($this->next instanceof InputStructure);
+
+            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
+        }
 
         $data->flags = $this->flags;
 

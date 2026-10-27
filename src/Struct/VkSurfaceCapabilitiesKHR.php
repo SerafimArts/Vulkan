@@ -14,6 +14,8 @@ use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
 use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesKHR.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-gpdsc2
  * @since VK_KHR_surface

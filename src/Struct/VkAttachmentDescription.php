@@ -18,6 +18,8 @@ use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * Legacy functionality, superseded by `VkAttachmentDescription2`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentDescription.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-renderpass2
  * @since 1.0

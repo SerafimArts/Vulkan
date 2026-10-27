@@ -13,13 +13,14 @@ use Serafim\Vulkan\Enum\VkPipelineCreateFlagBits2;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkRayTracingPipelineCreateInfoKHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkRayTracingPipelineCreateInfoNVExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreateFlags2CreateInfo.html
  * @since 1.4
  */
-final class VkPipelineCreateFlags2CreateInfo extends InputStructure implements VkComputePipelineCreateInfoExtension, VkGraphicsPipelineCreateInfoExtension, VkRayTracingPipelineCreateInfoNVExtension
+final class VkPipelineCreateFlags2CreateInfo extends InputStructure implements VkComputePipelineCreateInfoExtension, VkGraphicsPipelineCreateInfoExtension, VkRayTracingPipelineCreateInfoNVExtension, VkRayTracingPipelineCreateInfoKHRExtension
 {
     protected const string NATIVE_TYPE = 'VkPipelineCreateFlags2CreateInfo';
 
@@ -27,7 +28,7 @@ final class VkPipelineCreateFlags2CreateInfo extends InputStructure implements V
     public const int STRUCTURE_TYPE = 1000470005;
 
     public function __construct(
-        public VkComputePipelineCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|null $next = null,
+        public VkComputePipelineCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
         /** @var int<0, max>|(VkPipelineCreateFlagBits2::*) */
         public int $flags = 0,
     ) {}

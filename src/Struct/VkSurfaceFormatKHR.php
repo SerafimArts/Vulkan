@@ -13,6 +13,8 @@ use Serafim\Vulkan\Enum\VkColorSpaceKHR;
 use Serafim\Vulkan\Enum\VkFormat;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormatKHR.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-gpdsc2
  * @since VK_KHR_surface

@@ -13,9 +13,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 
 /**
+ * The extension VK_NV_dedicated_allocation is deprecated by VK_KHR_dedicated_allocation.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDedicatedAllocationImageCreateInfoNV.html
  * @since VK_NV_dedicated_allocation
- * @deprecated the extension VK_NV_dedicated_allocation is deprecated by VK_KHR_dedicated_allocation
  */
 final class VkDedicatedAllocationImageCreateInfoNV extends InputStructure implements VkImageCreateInfoExtension
 {

@@ -14,9 +14,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
 
 /**
+ * The extension VK_EXT_validation_flags is deprecated by VK_EXT_layer_settings.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationFlagsEXT.html
  * @since VK_EXT_validation_flags
- * @deprecated the extension VK_EXT_validation_flags is deprecated by VK_EXT_layer_settings
  */
 final class VkValidationFlagsEXT extends InputStructure implements VkInstanceCreateInfoExtension
 {

@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Enum;
 
 /**
+ * Legacy functionality, superseded by `VkImageCreateFlagBits2KHR`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlagBits.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-flagbits
  * @since 1.0

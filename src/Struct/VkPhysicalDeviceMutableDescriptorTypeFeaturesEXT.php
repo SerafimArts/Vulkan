@@ -13,6 +13,8 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since VK_EXT_mutable_descriptor_type

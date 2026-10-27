@@ -13,9 +13,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 
 /**
+ * The extension VK_NV_displacement_micromap is deprecated by VK_NV_cluster_acceleration_structure.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDisplacementMicromapFeaturesNV.html
  * @since VK_NV_displacement_micromap
- * @deprecated the extension VK_NV_displacement_micromap is deprecated by VK_NV_cluster_acceleration_structure
  */
 final class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
 {

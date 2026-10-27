@@ -52,8 +52,17 @@ final readonly class SpecificationTags
      */
     public function createLines(string $name): array
     {
-        $lines = ['@see ' . self::MANUAL . $name . '.html'];
-        $link = $this->registry->findDeprecation($name)?->link;
+        $deprecation = $this->registry->findDeprecation($name);
+        $isCommand = \str_starts_with($name, 'vk');
+        $lines = [];
+
+        // The deprecated type is not marked with the tag: the types that use it would be reported.
+        if ($deprecation !== null && !$isCommand) {
+            $lines = [$this->createTypeDescription($deprecation), ''];
+        }
+
+        $lines[] = '@see ' . self::MANUAL . $name . '.html';
+        $link = $deprecation?->link;
 
         if ($link !== null) {
             $lines[] = '@see ' . self::LEGACY . $link;
@@ -65,13 +74,24 @@ final readonly class SpecificationTags
             $lines[] = '@since ' . $since;
         }
 
-        $deprecation = $this->registry->findDeprecation($name);
-
-        if ($deprecation !== null && ($deprecation->isLegacy === false || \str_starts_with($name, 'vk'))) {
+        if ($deprecation !== null && $isCommand) {
             $lines[] = '@deprecated ' . $this->createReason($deprecation);
         }
 
         return $lines;
+    }
+
+    private function createTypeDescription(Deprecation $deprecation): string
+    {
+        if (!$deprecation->isLegacy) {
+            return \ucfirst($deprecation->description) . '.';
+        }
+
+        if ($deprecation->supersededBy === null) {
+            return 'Legacy functionality.';
+        }
+
+        return 'Legacy functionality, superseded by `' . $deprecation->supersededBy . '`.';
     }
 
     private function createReason(Deprecation $deprecation): string

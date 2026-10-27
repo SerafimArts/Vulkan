@@ -14,6 +14,8 @@ use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassSubpassFeedbackInfoEXT.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
  * @since VK_EXT_subpass_merge_feedback

@@ -15,6 +15,8 @@ use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * Legacy functionality, superseded by `VkSubpassDependency2`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassDependency.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-renderpass2
  * @since 1.0

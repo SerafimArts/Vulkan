@@ -52,6 +52,33 @@ final readonly class TypeParser
     }
 
     /**
+     * Returns the names of the types that the system defines: the windows, the
+     * connections and the buffers of a platform. The registry only names them.
+     *
+     * @return array<non-empty-string, true>
+     */
+    public function parseNativeTypes(): array
+    {
+        $types = [];
+        $query = "//types/type[@requires and not(@category) and not(starts-with(@requires, 'vk_'))]"
+            . " | //types/type[@category='basetype'][not(type)]";
+
+        foreach ($this->elements->select($query) as $element) {
+            $name = $element->getAttribute('name');
+
+            if ($name === '') {
+                $name = $this->elements->readChildText($element, 'name');
+            }
+
+            if ($name !== '') {
+                $types[$name] = true;
+            }
+        }
+
+        return $types;
+    }
+
+    /**
      * Returns the names of the types of the bits by the names of the flag
      * types.
      *

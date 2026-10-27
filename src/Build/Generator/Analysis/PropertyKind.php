@@ -54,6 +54,12 @@ enum PropertyKind
     case BINARY;
 
     /**
+     * A value of the system (`HWND`) or a pointer (`void*`, `xcb_connection_t*`)
+     * that the user gives as it is
+     */
+    case NATIVE;
+
+    /**
      * `const uint32_t*` of the words of a mask of samples, the number of the
      * words follows the number of the samples
      */

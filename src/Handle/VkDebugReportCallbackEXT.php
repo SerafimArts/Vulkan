@@ -9,8 +9,9 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Handle;
 
 /**
+ * The extension VK_EXT_debug_report is deprecated by VK_EXT_debug_utils.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugReportCallbackEXT.html
  * @since VK_EXT_debug_report
- * @deprecated the extension VK_EXT_debug_report is deprecated by VK_EXT_debug_utils
  */
 final readonly class VkDebugReportCallbackEXT extends Handle {}

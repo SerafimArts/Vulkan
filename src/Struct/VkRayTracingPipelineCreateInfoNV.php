@@ -16,9 +16,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRayTracingPipelineCreateInfoNVExtension;
 
 /**
+ * The extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRayTracingPipelineCreateInfoNV.html
  * @since VK_NV_ray_tracing
- * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
  */
 final class VkRayTracingPipelineCreateInfoNV extends InputStructure
 {

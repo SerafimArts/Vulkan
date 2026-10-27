@@ -13,6 +13,8 @@ use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorBufferInfo.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since 1.0

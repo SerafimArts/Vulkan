@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter;
 
+use FFI\CData;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
@@ -176,6 +177,10 @@ final readonly class Properties
 
     private function createType(PhpNamespace $namespace, PropertyPlan $property): string
     {
+        if ($property->kind === PropertyKind::NATIVE) {
+            $namespace->addUse(CData::class);
+        }
+
         if ($property->builtinType !== null) {
             return $property->builtinType;
         }

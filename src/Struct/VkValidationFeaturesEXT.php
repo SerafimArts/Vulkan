@@ -16,15 +16,17 @@ use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPipelineShaderStageCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkRayTracingPipelineCreateInfoKHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkShaderCreateInfoEXTExtension;
 use Serafim\Vulkan\Struct\Extension\VkShaderModuleCreateInfoExtension;
 
 /**
+ * The extension VK_EXT_validation_features is deprecated by VK_EXT_layer_settings.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationFeaturesEXT.html
  * @since VK_EXT_validation_features
- * @deprecated the extension VK_EXT_validation_features is deprecated by VK_EXT_layer_settings
  */
-final class VkValidationFeaturesEXT extends InputStructure implements VkInstanceCreateInfoExtension, VkShaderModuleCreateInfoExtension, VkShaderCreateInfoEXTExtension, VkPipelineShaderStageCreateInfoExtension, VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension
+final class VkValidationFeaturesEXT extends InputStructure implements VkInstanceCreateInfoExtension, VkShaderModuleCreateInfoExtension, VkShaderCreateInfoEXTExtension, VkPipelineShaderStageCreateInfoExtension, VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension, VkRayTracingPipelineCreateInfoKHRExtension
 {
     protected const string NATIVE_TYPE = 'VkValidationFeaturesEXT';
 
@@ -32,7 +34,7 @@ final class VkValidationFeaturesEXT extends InputStructure implements VkInstance
     public const int STRUCTURE_TYPE = 1000247000;
 
     public function __construct(
-        public VkInstanceCreateInfoExtension|VkShaderModuleCreateInfoExtension|VkShaderCreateInfoEXTExtension|VkPipelineShaderStageCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|null $next = null,
+        public VkInstanceCreateInfoExtension|VkShaderModuleCreateInfoExtension|VkShaderCreateInfoEXTExtension|VkPipelineShaderStageCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
         /**
          * Validation features to enable
          *

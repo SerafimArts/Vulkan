@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkAccelerationStructureCreateFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkAccelerationStructureTypeKHR;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfo2KHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureCreateInfo2KHR.html
@@ -27,6 +28,7 @@ final class VkAccelerationStructureCreateInfo2KHR extends InputStructure
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
+        public ?VkAccelerationStructureCreateInfo2KHRExtension $next = null,
         /** @var int-mask-of<VkAccelerationStructureCreateFlagBitsKHR::*> */
         public int $createFlags = 0,
         /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
@@ -37,6 +39,12 @@ final class VkAccelerationStructureCreateInfo2KHR extends InputStructure
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
+
+        if ($this->next !== null) {
+            \assert($this->next instanceof InputStructure);
+
+            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
+        }
 
         $data->createFlags = $this->createFlags;
 

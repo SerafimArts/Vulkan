@@ -13,9 +13,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferCreateInfoExtension;
 
 /**
+ * The extension VK_EXT_buffer_device_address is deprecated by VK_KHR_buffer_device_address.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferDeviceAddressCreateInfoEXT.html
  * @since VK_EXT_buffer_device_address
- * @deprecated the extension VK_EXT_buffer_device_address is deprecated by VK_KHR_buffer_device_address
  */
 final class VkBufferDeviceAddressCreateInfoEXT extends InputStructure implements VkBufferCreateInfoExtension
 {

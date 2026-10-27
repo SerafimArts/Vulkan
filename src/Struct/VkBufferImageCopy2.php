@@ -13,6 +13,8 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferImageCopy2Extension;
 
 /**
+ * Legacy functionality, superseded by `VkDeviceMemoryImageCopyKHR`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferImageCopy2.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-buffer-commands
  * @since 1.3

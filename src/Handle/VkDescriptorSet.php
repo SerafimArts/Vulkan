@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Handle;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSet.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since 1.0

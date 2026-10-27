@@ -79,6 +79,11 @@ enum ParameterRole
     case OUTPUT_POINTER;
 
     /**
+     * A value of the system or a pointer that the user gives as it is.
+     */
+    case INPUT_NATIVE;
+
+    /**
      * `const void*` with the size in bytes in another parameter: the bytes of
      * a string of the user.
      */

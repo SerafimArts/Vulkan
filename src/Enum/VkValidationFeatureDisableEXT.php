@@ -9,9 +9,10 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Enum;
 
 /**
+ * The extension VK_EXT_validation_features is deprecated by VK_EXT_layer_settings.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationFeatureDisableEXT.html
  * @since VK_EXT_validation_features
- * @deprecated the extension VK_EXT_validation_features is deprecated by VK_EXT_layer_settings
  */
 enum VkValidationFeatureDisableEXT: int
 {

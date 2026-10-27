@@ -14,6 +14,8 @@ use Serafim\Vulkan\Struct\Extension\VkDescriptorPoolCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutCreateInfoExtension;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMutableDescriptorTypeCreateInfoEXT.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since VK_EXT_mutable_descriptor_type

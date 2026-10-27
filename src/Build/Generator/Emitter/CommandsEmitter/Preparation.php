@@ -32,6 +32,7 @@ final readonly class Preparation
                 ParameterRole::INPUT_ARRAY => $this->createArrayLines($namespace, $parameter),
                 ParameterRole::INPUT_STRING, ParameterRole::INPUT_BINARY => $this->createStringLines($parameter),
                 ParameterRole::INPUT_STRUCTURE => $this->createStructureLines($parameter),
+                ParameterRole::INPUT_NATIVE => $this->createNativeLines($parameter),
                 default => [],
             };
 
@@ -60,6 +61,25 @@ final readonly class Preparation
             '$native' . \ucfirst($parameter->name) . ' = $' . $parameter->name . $operator
                 . 'toCData($this->memory);',
         ];
+    }
+
+    /**
+     * Turns a value of the system to the type of the parameter.
+     *
+     * @return list<string>
+     */
+    private function createNativeLines(ParameterPlan $parameter): array
+    {
+        $native = '$native' . \ucfirst($parameter->name);
+        $value = '$' . $parameter->name;
+        $type = $parameter->field->type . \str_repeat('*', $parameter->field->pointerDepth);
+        $cast = $native . ' = $this->ffi->cast(' . \var_export($type, true) . ', ' . $value . ');';
+
+        if (!$parameter->field->isOptional) {
+            return [$cast, ''];
+        }
+
+        return [$native . ' = null;', 'if (' . $value . ' !== null) {', '    ' . $cast, '}', ''];
     }
 
     /**

@@ -24,7 +24,7 @@ final readonly class CommandAnalyzer
 
     public function __construct(
         private Registry $registry,
-        TypeResolver $types,
+        private TypeResolver $types,
     ) {
         $this->roles = new ParameterRoles($types);
         $this->lengths = new OutputLengths($registry);
@@ -38,22 +38,28 @@ final readonly class CommandAnalyzer
     {
         $returnsResult = $command->returnType === 'VkResult';
 
+        $returnKind = null;
+
         if (!$returnsResult && $command->returnType !== 'void') {
-            throw $this->createException($command, 'the return type is not supported');
+            $returnKind = $this->types->resolve($command->returnType);
+
+            if ($returnKind !== TypeKind::BOOLEAN && $returnKind !== TypeKind::INTEGER) {
+                throw $this->createException($command, 'the return type is not supported');
+            }
         }
 
         $parameters = $this->roles->create($command);
         $outputs = \array_values(\array_filter($parameters, $this->isOutput(...)));
         $count = $this->findCount($parameters);
 
-        if (\count($outputs) > 1) {
+        if (\count($outputs) > 1 || ($outputs !== [] && $returnKind !== null)) {
             throw $this->createException($command, 'the command has several outputs');
         }
 
         $output = $outputs[0] ?? null;
 
         if ($output === null) {
-            return new CommandPlan($command, CommandKind::EXECUTE, $parameters, null, $returnsResult);
+            return new CommandPlan($command, CommandKind::EXECUTE, $parameters, null, $returnsResult, null, $returnKind);
         }
 
         $outputLength = null;

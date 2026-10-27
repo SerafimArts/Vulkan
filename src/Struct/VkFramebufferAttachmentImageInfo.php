@@ -16,6 +16,8 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkFramebufferAttachmentImageInfoExtension;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferAttachmentImageInfo.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
  * @since 1.2

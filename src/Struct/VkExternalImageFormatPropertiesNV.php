@@ -13,9 +13,10 @@ use Serafim\Vulkan\Enum\VkExternalMemoryFeatureFlagBitsNV;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBitsNV;
 
 /**
+ * The extension VK_NV_external_memory_capabilities is deprecated by VK_KHR_external_memory_capabilities.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalImageFormatPropertiesNV.html
  * @since VK_NV_external_memory_capabilities
- * @deprecated the extension VK_NV_external_memory_capabilities is deprecated by VK_KHR_external_memory_capabilities
  */
 final readonly class VkExternalImageFormatPropertiesNV extends OutputStructure
 {

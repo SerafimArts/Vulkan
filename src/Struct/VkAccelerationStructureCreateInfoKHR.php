@@ -16,6 +16,8 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfoKHRExtension;
 
 /**
+ * Legacy functionality, superseded by `VkAccelerationStructureCreateInfo2KHR`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureCreateInfoKHR.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-buffer-commands
  * @since VK_KHR_acceleration_structure

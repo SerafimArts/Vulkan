@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Enum;
 
 /**
+ * Legacy functionality, superseded by `VkPipelineStageFlagBits2`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineStageFlagBits.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#deprecation-sync2
  * @since 1.0

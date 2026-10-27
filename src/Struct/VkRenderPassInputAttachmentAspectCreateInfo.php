@@ -13,6 +13,8 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassInputAttachmentAspectCreateInfo.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-renderpass2
  * @since 1.1

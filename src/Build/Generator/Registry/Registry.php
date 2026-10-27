@@ -71,6 +71,12 @@ final readonly class Registry
          */
         private array $commandAliases = [],
         /**
+         * The types that the system defines
+         *
+         * @var array<non-empty-string, true>
+         */
+        private array $nativeTypes = [],
+        /**
          * The `#define` constants
          *
          * @var list<Constant>
@@ -114,6 +120,14 @@ final readonly class Registry
     public function getEnums(): array
     {
         return \array_values($this->enums);
+    }
+
+    /**
+     * Whether the type is defined by the system, not by the specification.
+     */
+    public function isNativeType(string $name): bool
+    {
+        return isset($this->nativeTypes[$name]);
     }
 
     /**

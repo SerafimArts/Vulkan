@@ -14,9 +14,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkMemoryAllocateInfoExtension;
 
 /**
+ * The extension VK_NV_external_memory is deprecated by VK_KHR_external_memory.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMemoryAllocateInfoNV.html
  * @since VK_NV_external_memory
- * @deprecated the extension VK_NV_external_memory is deprecated by VK_KHR_external_memory
  */
 final class VkExportMemoryAllocateInfoNV extends InputStructure implements VkMemoryAllocateInfoExtension
 {

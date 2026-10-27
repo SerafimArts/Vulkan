@@ -47,6 +47,10 @@ final readonly class MemberKinds
             return null;
         }
 
+        if ($type === TypeKind::NATIVE && $member->length === null) {
+            return PropertyKind::NATIVE;
+        }
+
         if ($member->pointerDepth === 0) {
             return match ($type) {
                 TypeKind::INTEGER, TypeKind::CHARACTER => PropertyKind::INTEGER,

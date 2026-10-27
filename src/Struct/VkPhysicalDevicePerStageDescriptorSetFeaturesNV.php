@@ -13,9 +13,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 
 /**
+ * The extension VK_NV_per_stage_descriptor_set is deprecated by VK_EXT_descriptor_heap.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerStageDescriptorSetFeaturesNV.html
  * @since VK_NV_per_stage_descriptor_set
- * @deprecated the extension VK_NV_per_stage_descriptor_set is deprecated by VK_EXT_descriptor_heap
  */
 final class VkPhysicalDevicePerStageDescriptorSetFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
 {

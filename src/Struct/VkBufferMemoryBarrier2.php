@@ -16,6 +16,8 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferMemoryBarrier2Extension;
 
 /**
+ * Legacy functionality, superseded by `VkMemoryRangeBarrierKHR`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferMemoryBarrier2.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-buffer-commands
  * @since 1.3

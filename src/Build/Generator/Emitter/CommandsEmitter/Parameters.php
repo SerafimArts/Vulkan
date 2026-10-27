@@ -112,6 +112,7 @@ final readonly class Parameters
             ParameterRole::SCALAR => $this->getScalarType($namespace, $parameter),
             ParameterRole::INPUT_ARRAY => 'array',
             ParameterRole::INPUT_STRING, ParameterRole::INPUT_BINARY => 'string',
+            ParameterRole::INPUT_NATIVE => 'FFI\CData|int',
             default => null,
         };
     }

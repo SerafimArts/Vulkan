@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Tests;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use Serafim\Vulkan\Enum\VkPresentModeKHR;
 use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Enum\VkSharingMode;
 use Serafim\Vulkan\Enum\VkTimeDomainKHR;
@@ -31,10 +32,13 @@ use Serafim\Vulkan\Struct\VkInstanceCreateInfo;
 use Serafim\Vulkan\Struct\VkMemoryAllocateInfo;
 use Serafim\Vulkan\Struct\VkShaderModuleCreateInfo;
 use Serafim\Vulkan\Struct\VkSubmitInfo;
+use Serafim\Vulkan\Struct\VkWin32SurfaceCreateInfoKHR;
 use Serafim\Vulkan\Vulkan;
 use Serafim\Vulkan\VulkanBase;
 
 use const Serafim\Vulkan\VK_API_VERSION_1_1;
+use const Serafim\Vulkan\VK_KHR_SURFACE_EXTENSION_NAME;
+use const Serafim\Vulkan\VK_KHR_WIN32_SURFACE_EXTENSION_NAME;
 
 #[CoversClass(VulkanBase::class)]
 #[CoversClass(Vulkan::class)]
@@ -296,6 +300,58 @@ final class VulkanTest extends TestCase
 
         self::assertSame(VkResult::VK_SUCCESS, $results->status);
         self::assertSame(8, \strlen($results->value));
+    }
+
+    public function testWin32SurfaceIsCreatedFromTheWindowOfTheSystem(): void
+    {
+        if (\PHP_OS_FAMILY !== 'Windows') {
+            self::markTestSkipped('The Win32 surface exists on Windows only');
+        }
+
+        $vk = self::loadVulkan();
+        $user32 = \FFI::cdef('void* GetDesktopWindow(void);', 'user32.dll');
+        $kernel32 = \FFI::cdef('void* GetModuleHandleW(void* name);', 'kernel32.dll');
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            enabledExtensionNames: [VK_KHR_SURFACE_EXTENSION_NAME, VK_KHR_WIN32_SURFACE_EXTENSION_NAME],
+        ));
+
+        $surface = $vk->vkCreateWin32SurfaceKHR($instance, new VkWin32SurfaceCreateInfoKHR(
+            hinstance: $kernel32->GetModuleHandleW(null),
+            hwnd: $user32->GetDesktopWindow(),
+        ));
+
+        foreach ($vk->vkEnumeratePhysicalDevices($instance) as $device) {
+            self::assertContains(
+                VkPresentModeKHR::VK_PRESENT_MODE_FIFO_KHR,
+                $vk->vkGetPhysicalDeviceSurfacePresentModesKHR($device, $surface),
+            );
+
+            return;
+        }
+
+        self::markTestSkipped('There are no physical devices');
+    }
+
+    public function testPresentationSupportIsReturnedAsFlag(): void
+    {
+        if (\PHP_OS_FAMILY !== 'Windows') {
+            self::markTestSkipped('The Win32 surface exists on Windows only');
+        }
+
+        $vk = self::loadVulkan();
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            enabledExtensionNames: [VK_KHR_SURFACE_EXTENSION_NAME, VK_KHR_WIN32_SURFACE_EXTENSION_NAME],
+        ));
+
+        foreach ($vk->vkEnumeratePhysicalDevices($instance) as $device) {
+            self::assertIsBool($vk->vkGetPhysicalDeviceWin32PresentationSupportKHR($device, 0));
+
+            return;
+        }
+
+        self::markTestSkipped('There are no physical devices');
     }
 
     public function testPipelineCacheDataIsReturnedAsBytes(): void

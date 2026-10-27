@@ -14,6 +14,8 @@ use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * Legacy functionality, superseded by `VkConditionalRenderingBeginInfo2EXT`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkConditionalRenderingBeginInfoEXT.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-buffer-commands
  * @since VK_EXT_conditional_rendering

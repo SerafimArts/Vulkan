@@ -64,6 +64,7 @@ final readonly class Writer
                 '}',
             ],
             PropertyKind::SAMPLE_MASK => $this->createSampleMaskLines($namespace, $property, $structure),
+            PropertyKind::NATIVE => $this->createNativeLines($property),
             PropertyKind::TEXT => $this->createTextLines($namespace, $property, $structure),
             PropertyKind::BYTES => $this->createBytesLines($namespace, $property, $structure),
             PropertyKind::NUMBER_LIST => $this->createListLines(
@@ -126,6 +127,26 @@ final readonly class Writer
                 '}',
             ],
         };
+    }
+
+    /**
+     * Writes a value of the system: the number is turned to the type of the
+     * member.
+     *
+     * @return list<string>
+     */
+    private function createNativeLines(PropertyPlan $property): array
+    {
+        $value = '$this->' . $property->name;
+        $type = $property->field->type . \str_repeat('*', $property->field->pointerDepth);
+        $line = '$data->' . $property->field->name . ' = $memory->ffi->cast(' . \var_export($type, true) . ', '
+            . $value . ');';
+
+        if ($property->isNullable) {
+            return ['if (' . $value . ' !== null) {', '    ' . $line, '}'];
+        }
+
+        return [$line];
     }
 
     /**

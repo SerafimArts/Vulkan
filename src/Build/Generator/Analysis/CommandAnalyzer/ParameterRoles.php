@@ -104,6 +104,10 @@ final readonly class ParameterRoles
             return ParameterRole::OUTPUT_POINTER;
         }
 
+        if ($kind === TypeKind::NATIVE && $field->length === null) {
+            return ParameterRole::INPUT_NATIVE;
+        }
+
         if ($field->pointerDepth !== 1) {
             return null;
         }

@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkOpticalFlowGridSizeFlagBitsNV;
 use Serafim\Vulkan\Enum\VkOpticalFlowPerformanceLevelNV;
 use Serafim\Vulkan\Enum\VkOpticalFlowSessionCreateFlagBitsNV;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkOpticalFlowSessionCreateInfoNVExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreateInfoNV.html
@@ -27,6 +28,7 @@ final class VkOpticalFlowSessionCreateInfoNV extends InputStructure
     public const int STRUCTURE_TYPE = 1000464004;
 
     public function __construct(
+        public ?VkOpticalFlowSessionCreateInfoNVExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $width = 0,
         /** @var int<0, 4294967295> */
@@ -46,6 +48,12 @@ final class VkOpticalFlowSessionCreateInfoNV extends InputStructure
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
+
+        if ($this->next !== null) {
+            \assert($this->next instanceof InputStructure);
+
+            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
+        }
 
         $data->width = $this->width;
 

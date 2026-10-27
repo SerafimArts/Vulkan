@@ -9,9 +9,10 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Enum;
 
 /**
+ * The extension VK_NV_displacement_micromap is deprecated by VK_NV_cluster_acceleration_structure.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplacementMicromapFormatNV.html
  * @since VK_NV_displacement_micromap
- * @deprecated the extension VK_NV_displacement_micromap is deprecated by VK_NV_cluster_acceleration_structure
  */
 enum VkDisplacementMicromapFormatNV: int
 {

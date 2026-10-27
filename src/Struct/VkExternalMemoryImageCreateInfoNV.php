@@ -14,9 +14,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 
 /**
+ * The extension VK_NV_external_memory is deprecated by VK_KHR_external_memory.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryImageCreateInfoNV.html
  * @since VK_NV_external_memory
- * @deprecated the extension VK_NV_external_memory is deprecated by VK_KHR_external_memory
  */
 final class VkExternalMemoryImageCreateInfoNV extends InputStructure implements VkImageCreateInfoExtension
 {

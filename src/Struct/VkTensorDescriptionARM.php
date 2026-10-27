@@ -14,13 +14,14 @@ use Serafim\Vulkan\Enum\VkTensorTilingARM;
 use Serafim\Vulkan\Enum\VkTensorUsageFlagBitsARM;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineConstantARMExtension;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineResourceInfoARMExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorDescriptionARM.html
  * @since VK_ARM_tensors
  */
-final class VkTensorDescriptionARM extends InputStructure implements VkDataGraphPipelineResourceInfoARMExtension
+final class VkTensorDescriptionARM extends InputStructure implements VkDataGraphPipelineResourceInfoARMExtension, VkDataGraphPipelineConstantARMExtension
 {
     protected const string NATIVE_TYPE = 'VkTensorDescriptionARM';
 
@@ -28,7 +29,7 @@ final class VkTensorDescriptionARM extends InputStructure implements VkDataGraph
     public const int STRUCTURE_TYPE = 1000460006;
 
     public function __construct(
-        public ?VkDataGraphPipelineResourceInfoARMExtension $next = null,
+        public VkDataGraphPipelineResourceInfoARMExtension|VkDataGraphPipelineConstantARMExtension|null $next = null,
         public VkTensorTilingARM $tiling = VkTensorTilingARM::VK_TENSOR_TILING_OPTIMAL_ARM,
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var list<int> */

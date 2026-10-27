@@ -12,6 +12,8 @@ use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * Legacy functionality, superseded by `VkDeviceMemoryCopyKHR`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCopy2.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-buffer-commands
  * @since 1.3

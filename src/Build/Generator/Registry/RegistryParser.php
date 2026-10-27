@@ -50,6 +50,7 @@ final readonly class RegistryParser
             since: $requirements->parseSince(),
             deprecations: $requirements->parseDeprecations(),
             commandAliases: $commands->parseAliases(),
+            nativeTypes: $types->parseNativeTypes(),
             defines: new ConstantParser($elements)->parse(),
         );
     }

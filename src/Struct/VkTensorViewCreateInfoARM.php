@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkTensorViewCreateFlagBitsARM;
 use Serafim\Vulkan\Handle\VkTensorARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkTensorViewCreateInfoARMExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorViewCreateInfoARM.html
@@ -27,6 +28,7 @@ final class VkTensorViewCreateInfoARM extends InputStructure
 
     public function __construct(
         public VkTensorARM $tensor,
+        public ?VkTensorViewCreateInfoARMExtension $next = null,
         /** @var int-mask-of<VkTensorViewCreateFlagBitsARM::*> */
         public int $flags = 0,
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
@@ -35,6 +37,12 @@ final class VkTensorViewCreateInfoARM extends InputStructure
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
+
+        if ($this->next !== null) {
+            \assert($this->next instanceof InputStructure);
+
+            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
+        }
 
         $data->flags = $this->flags;
 

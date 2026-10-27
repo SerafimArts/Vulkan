@@ -13,6 +13,8 @@ use Serafim\Vulkan\Enum\VkImageAspectFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * Legacy functionality.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkInputAttachmentAspectReference.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-renderpass2
  * @since 1.1

@@ -14,9 +14,10 @@ use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * The extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindAccelerationStructureMemoryInfoNV.html
  * @since VK_NV_ray_tracing
- * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
  */
 final class VkBindAccelerationStructureMemoryInfoNV extends InputStructure
 {

@@ -13,6 +13,12 @@ namespace Serafim\Vulkan\Build\Generator\Analysis;
 enum TypeKind
 {
     /**
+     * A type the system defines (`HWND`, `xcb_connection_t`) or `void`: the
+     * user gives it as it is
+     */
+    case NATIVE;
+
+    /**
      * An integer, including the flags and the typedefs of integers
      */
     case INTEGER;

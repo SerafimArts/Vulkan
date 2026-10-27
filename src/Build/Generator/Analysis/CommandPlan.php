@@ -34,5 +34,10 @@ final readonly class CommandPlan
          * returned by the command
          */
         public ?string $outputLength = null,
+        /**
+         * What a command that returns a number or a flag, not `VkResult`, is
+         * returning
+         */
+        public ?TypeKind $returnKind = null,
     ) {}
 }

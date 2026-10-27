@@ -69,6 +69,10 @@ final readonly class TypeResolver
             return TypeKind::STRUCTURE;
         }
 
+        if ($type === 'void' || $this->registry->isNativeType($type)) {
+            return TypeKind::NATIVE;
+        }
+
         return TypeKind::UNSUPPORTED;
     }
 

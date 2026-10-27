@@ -16,6 +16,8 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageMemoryBarrierExtension;
 
 /**
+ * Legacy functionality, superseded by `VkImageMemoryBarrier2`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageMemoryBarrier.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#deprecation-sync2
  * @since 1.0

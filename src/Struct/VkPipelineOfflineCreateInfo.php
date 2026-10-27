@@ -14,12 +14,13 @@ use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkRayTracingPipelineCreateInfoKHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkRayTracingPipelineCreateInfoNVExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineOfflineCreateInfo.html
  */
-final class VkPipelineOfflineCreateInfo extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension, VkRayTracingPipelineCreateInfoNVExtension
+final class VkPipelineOfflineCreateInfo extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension, VkRayTracingPipelineCreateInfoKHRExtension, VkRayTracingPipelineCreateInfoNVExtension
 {
     protected const string NATIVE_TYPE = 'VkPipelineOfflineCreateInfo';
 
@@ -27,7 +28,7 @@ final class VkPipelineOfflineCreateInfo extends InputStructure implements VkGrap
     public const int STRUCTURE_TYPE = 1000298010;
 
     public function __construct(
-        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|null $next = null,
+        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoKHRExtension|VkRayTracingPipelineCreateInfoNVExtension|null $next = null,
         public string $pipelineIdentifier = '',
         public VkPipelineMatchControl $matchControl = VkPipelineMatchControl::VK_PIPELINE_MATCH_CONTROL_APPLICATION_UUID_EXACT_MATCH,
         /** @var int<0, max> */

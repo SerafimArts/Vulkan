@@ -27,6 +27,7 @@ use Serafim\Vulkan\Enum\VkDebugUtilsMessageSeverityFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDebugUtilsMessageTypeFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDependencyFlagBits;
 use Serafim\Vulkan\Enum\VkDepthClampModeEXT;
+use Serafim\Vulkan\Enum\VkDescriptorType;
 use Serafim\Vulkan\Enum\VkDiscardRectangleModeEXT;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBitsNV;
@@ -57,6 +58,7 @@ use Serafim\Vulkan\Enum\VkQueryResultFlagBits;
 use Serafim\Vulkan\Enum\VkQueryType;
 use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkShaderGroupShaderKHR;
 use Serafim\Vulkan\Enum\VkShaderInfoTypeAMD;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStencilFaceFlagBits;
@@ -129,11 +131,15 @@ use Serafim\Vulkan\Handle\VkVideoSessionKHR;
 use Serafim\Vulkan\Handle\VkVideoSessionParametersKHR;
 use Serafim\Vulkan\Internal\VkEnumerator;
 use Serafim\Vulkan\Struct\VkAccelerationStructureBuildSizesInfoKHR;
+use Serafim\Vulkan\Struct\VkAccelerationStructureCaptureDescriptorDataInfoEXT;
 use Serafim\Vulkan\Struct\VkAccelerationStructureCreateInfo2KHR;
 use Serafim\Vulkan\Struct\VkAccelerationStructureCreateInfoKHR;
+use Serafim\Vulkan\Struct\VkAccelerationStructureDeviceAddressInfoKHR;
 use Serafim\Vulkan\Struct\VkAccelerationStructureMemoryRequirementsInfoNV;
 use Serafim\Vulkan\Struct\VkAcquireNextImageInfoKHR;
 use Serafim\Vulkan\Struct\VkAcquireProfilingLockInfoKHR;
+use Serafim\Vulkan\Struct\VkAndroidHardwareBufferPropertiesANDROID;
+use Serafim\Vulkan\Struct\VkAndroidSurfaceCreateInfoKHR;
 use Serafim\Vulkan\Struct\VkAntiLagDataAMD;
 use Serafim\Vulkan\Struct\VkBaseOutStructure;
 use Serafim\Vulkan\Struct\VkBeginCustomResolveInfoEXT;
@@ -150,10 +156,13 @@ use Serafim\Vulkan\Struct\VkBindTransformFeedbackBuffer2InfoEXT;
 use Serafim\Vulkan\Struct\VkBindVertexBuffer3InfoKHR;
 use Serafim\Vulkan\Struct\VkBindVideoSessionMemoryInfoKHR;
 use Serafim\Vulkan\Struct\VkBlitImageInfo2;
+use Serafim\Vulkan\Struct\VkBufferCaptureDescriptorDataInfoEXT;
+use Serafim\Vulkan\Struct\VkBufferCollectionCreateInfoFUCHSIA;
 use Serafim\Vulkan\Struct\VkBufferCollectionPropertiesFUCHSIA;
 use Serafim\Vulkan\Struct\VkBufferConstraintsInfoFUCHSIA;
 use Serafim\Vulkan\Struct\VkBufferCopy;
 use Serafim\Vulkan\Struct\VkBufferCreateInfo;
+use Serafim\Vulkan\Struct\VkBufferDeviceAddressInfo;
 use Serafim\Vulkan\Struct\VkBufferImageCopy;
 use Serafim\Vulkan\Struct\VkBufferMemoryBarrier;
 use Serafim\Vulkan\Struct\VkBufferMemoryRequirementsInfo2;
@@ -184,8 +193,10 @@ use Serafim\Vulkan\Struct\VkCopyDeviceMemoryInfoKHR;
 use Serafim\Vulkan\Struct\VkCopyImageInfo2;
 use Serafim\Vulkan\Struct\VkCopyImageToBufferInfo2;
 use Serafim\Vulkan\Struct\VkCopyImageToImageInfo;
+use Serafim\Vulkan\Struct\VkCopyImageToMemoryInfo;
 use Serafim\Vulkan\Struct\VkCopyMemoryIndirectInfoKHR;
 use Serafim\Vulkan\Struct\VkCopyMemoryToImageIndirectInfoKHR;
+use Serafim\Vulkan\Struct\VkCopyMemoryToImageInfo;
 use Serafim\Vulkan\Struct\VkCopyMicromapInfoEXT;
 use Serafim\Vulkan\Struct\VkCopyTensorInfoARM;
 use Serafim\Vulkan\Struct\VkCudaFunctionCreateInfoNV;
@@ -227,8 +238,10 @@ use Serafim\Vulkan\Struct\VkDeviceFaultInfoKHR;
 use Serafim\Vulkan\Struct\VkDeviceGroupPresentCapabilitiesKHR;
 use Serafim\Vulkan\Struct\VkDeviceImageMemoryRequirements;
 use Serafim\Vulkan\Struct\VkDeviceImageSubresourceInfo;
+use Serafim\Vulkan\Struct\VkDeviceMemoryOpaqueCaptureAddressInfo;
 use Serafim\Vulkan\Struct\VkDeviceQueueInfo2;
 use Serafim\Vulkan\Struct\VkDeviceTensorMemoryRequirementsARM;
+use Serafim\Vulkan\Struct\VkDirectFBSurfaceCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkDispatchIndirect2InfoKHR;
 use Serafim\Vulkan\Struct\VkDispatchParametersARM;
 use Serafim\Vulkan\Struct\VkDispatchTileInfoQCOM;
@@ -249,12 +262,15 @@ use Serafim\Vulkan\Struct\VkExtensionProperties;
 use Serafim\Vulkan\Struct\VkExtent2D;
 use Serafim\Vulkan\Struct\VkExternalBufferProperties;
 use Serafim\Vulkan\Struct\VkExternalComputeQueueCreateInfoNV;
+use Serafim\Vulkan\Struct\VkExternalComputeQueueDataParamsNV;
 use Serafim\Vulkan\Struct\VkExternalFenceProperties;
 use Serafim\Vulkan\Struct\VkExternalImageFormatPropertiesNV;
 use Serafim\Vulkan\Struct\VkExternalSemaphoreProperties;
 use Serafim\Vulkan\Struct\VkExternalTensorPropertiesARM;
 use Serafim\Vulkan\Struct\VkFenceCreateInfo;
 use Serafim\Vulkan\Struct\VkFenceGetFdInfoKHR;
+use Serafim\Vulkan\Struct\VkFenceGetSciSyncInfoNV;
+use Serafim\Vulkan\Struct\VkFenceGetWin32HandleInfoKHR;
 use Serafim\Vulkan\Struct\VkFormatProperties;
 use Serafim\Vulkan\Struct\VkFormatProperties2;
 use Serafim\Vulkan\Struct\VkFramebufferCreateInfo;
@@ -272,6 +288,7 @@ use Serafim\Vulkan\Struct\VkHdrMetadataEXT;
 use Serafim\Vulkan\Struct\VkHeadlessSurfaceCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkHostImageLayoutTransitionInfo;
 use Serafim\Vulkan\Struct\VkImageBlit;
+use Serafim\Vulkan\Struct\VkImageCaptureDescriptorDataInfoEXT;
 use Serafim\Vulkan\Struct\VkImageConstraintsInfoFUCHSIA;
 use Serafim\Vulkan\Struct\VkImageCopy;
 use Serafim\Vulkan\Struct\VkImageCreateInfo;
@@ -280,6 +297,7 @@ use Serafim\Vulkan\Struct\VkImageFormatProperties;
 use Serafim\Vulkan\Struct\VkImageFormatProperties2;
 use Serafim\Vulkan\Struct\VkImageMemoryBarrier;
 use Serafim\Vulkan\Struct\VkImageMemoryRequirementsInfo2;
+use Serafim\Vulkan\Struct\VkImagePipeSurfaceCreateInfoFUCHSIA;
 use Serafim\Vulkan\Struct\VkImageResolve;
 use Serafim\Vulkan\Struct\VkImageSparseMemoryRequirementsInfo2;
 use Serafim\Vulkan\Struct\VkImageSubresource;
@@ -287,27 +305,47 @@ use Serafim\Vulkan\Struct\VkImageSubresource2;
 use Serafim\Vulkan\Struct\VkImageSubresourceLayers;
 use Serafim\Vulkan\Struct\VkImageSubresourceRange;
 use Serafim\Vulkan\Struct\VkImageViewAddressPropertiesNVX;
+use Serafim\Vulkan\Struct\VkImageViewCaptureDescriptorDataInfoEXT;
 use Serafim\Vulkan\Struct\VkImageViewCreateInfo;
+use Serafim\Vulkan\Struct\VkImageViewHandleInfoNVX;
 use Serafim\Vulkan\Struct\VkImportFenceFdInfoKHR;
+use Serafim\Vulkan\Struct\VkImportFenceSciSyncInfoNV;
+use Serafim\Vulkan\Struct\VkImportFenceWin32HandleInfoKHR;
 use Serafim\Vulkan\Struct\VkImportSemaphoreFdInfoKHR;
+use Serafim\Vulkan\Struct\VkImportSemaphoreSciSyncInfoNV;
+use Serafim\Vulkan\Struct\VkImportSemaphoreWin32HandleInfoKHR;
+use Serafim\Vulkan\Struct\VkImportSemaphoreZirconHandleInfoFUCHSIA;
 use Serafim\Vulkan\Struct\VkIndirectCommandsLayoutCreateInfoNV;
+use Serafim\Vulkan\Struct\VkInitializePerformanceApiInfoINTEL;
 use Serafim\Vulkan\Struct\VkInstanceCreateInfo;
+use Serafim\Vulkan\Struct\VkIOSSurfaceCreateInfoMVK;
 use Serafim\Vulkan\Struct\VkLatencySleepInfoNV;
 use Serafim\Vulkan\Struct\VkLatencySleepModeInfoNV;
 use Serafim\Vulkan\Struct\VkLayerProperties;
+use Serafim\Vulkan\Struct\VkMacOSSurfaceCreateInfoMVK;
 use Serafim\Vulkan\Struct\VkMappedMemoryRange;
 use Serafim\Vulkan\Struct\VkMemoryAllocateInfo;
 use Serafim\Vulkan\Struct\VkMemoryBarrier;
 use Serafim\Vulkan\Struct\VkMemoryFdPropertiesKHR;
+use Serafim\Vulkan\Struct\VkMemoryGetAndroidHardwareBufferInfoANDROID;
 use Serafim\Vulkan\Struct\VkMemoryGetFdInfoKHR;
 use Serafim\Vulkan\Struct\VkMemoryGetMetalHandleInfoEXT;
+use Serafim\Vulkan\Struct\VkMemoryGetNativeBufferInfoOHOS;
+use Serafim\Vulkan\Struct\VkMemoryGetRemoteAddressInfoNV;
+use Serafim\Vulkan\Struct\VkMemoryGetSciBufInfoNV;
+use Serafim\Vulkan\Struct\VkMemoryGetWin32HandleInfoKHR;
+use Serafim\Vulkan\Struct\VkMemoryGetZirconHandleInfoFUCHSIA;
+use Serafim\Vulkan\Struct\VkMemoryHostPointerPropertiesEXT;
 use Serafim\Vulkan\Struct\VkMemoryMapInfo;
+use Serafim\Vulkan\Struct\VkMemoryMetalHandlePropertiesEXT;
 use Serafim\Vulkan\Struct\VkMemoryRequirements;
 use Serafim\Vulkan\Struct\VkMemoryRequirements2;
 use Serafim\Vulkan\Struct\VkMemoryUnmapInfo;
+use Serafim\Vulkan\Struct\VkMetalSurfaceCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkMicromapCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkMultiDrawInfoEXT;
 use Serafim\Vulkan\Struct\VkMultisamplePropertiesEXT;
+use Serafim\Vulkan\Struct\VkNativeBufferPropertiesOHOS;
 use Serafim\Vulkan\Struct\VkOpticalFlowExecuteInfoNV;
 use Serafim\Vulkan\Struct\VkOpticalFlowImageFormatInfoNV;
 use Serafim\Vulkan\Struct\VkOpticalFlowImageFormatPropertiesNV;
@@ -345,6 +383,7 @@ use Serafim\Vulkan\Struct\VkPipelineBinaryKeyKHR;
 use Serafim\Vulkan\Struct\VkPipelineCacheCreateInfo;
 use Serafim\Vulkan\Struct\VkPipelineCreateInfoKHR;
 use Serafim\Vulkan\Struct\VkPipelineExecutablePropertiesKHR;
+use Serafim\Vulkan\Struct\VkPipelineIndirectDeviceAddressInfoNV;
 use Serafim\Vulkan\Struct\VkPipelineInfoKHR;
 use Serafim\Vulkan\Struct\VkPipelineLayoutCreateInfo;
 use Serafim\Vulkan\Struct\VkPipelineShaderStageNodeCreateInfoAMDX;
@@ -354,12 +393,14 @@ use Serafim\Vulkan\Struct\VkPrivateDataSlotCreateInfo;
 use Serafim\Vulkan\Struct\VkPushConstantsInfo;
 use Serafim\Vulkan\Struct\VkPushDataInfoEXT;
 use Serafim\Vulkan\Struct\VkPushDescriptorSetInfo;
+use Serafim\Vulkan\Struct\VkPushDescriptorSetWithTemplateInfo;
 use Serafim\Vulkan\Struct\VkQueryPoolCreateInfo;
 use Serafim\Vulkan\Struct\VkQueryPoolPerformanceCreateInfoKHR;
 use Serafim\Vulkan\Struct\VkQueueFamilyDataGraphProcessingEnginePropertiesARM;
 use Serafim\Vulkan\Struct\VkQueueFamilyDataGraphPropertiesARM;
 use Serafim\Vulkan\Struct\VkQueueFamilyProperties;
 use Serafim\Vulkan\Struct\VkQueueFamilyProperties2;
+use Serafim\Vulkan\Struct\VkRayTracingPipelineCreateInfoKHR;
 use Serafim\Vulkan\Struct\VkRayTracingPipelineCreateInfoNV;
 use Serafim\Vulkan\Struct\VkRect2D;
 use Serafim\Vulkan\Struct\VkRefreshCycleDurationGOOGLE;
@@ -373,10 +414,17 @@ use Serafim\Vulkan\Struct\VkRenderPassCreateInfo;
 use Serafim\Vulkan\Struct\VkRenderPassCreateInfo2;
 use Serafim\Vulkan\Struct\VkResolveImageInfo2;
 use Serafim\Vulkan\Struct\VkSampleLocationsInfoEXT;
+use Serafim\Vulkan\Struct\VkSamplerCaptureDescriptorDataInfoEXT;
 use Serafim\Vulkan\Struct\VkSamplerCreateInfo;
 use Serafim\Vulkan\Struct\VkSamplerYcbcrConversionCreateInfo;
+use Serafim\Vulkan\Struct\VkScreenBufferPropertiesQNX;
+use Serafim\Vulkan\Struct\VkScreenSurfaceCreateInfoQNX;
 use Serafim\Vulkan\Struct\VkSemaphoreCreateInfo;
 use Serafim\Vulkan\Struct\VkSemaphoreGetFdInfoKHR;
+use Serafim\Vulkan\Struct\VkSemaphoreGetSciSyncInfoNV;
+use Serafim\Vulkan\Struct\VkSemaphoreGetWin32HandleInfoKHR;
+use Serafim\Vulkan\Struct\VkSemaphoreGetZirconHandleInfoFUCHSIA;
+use Serafim\Vulkan\Struct\VkSemaphoreSciSyncPoolCreateInfoNV;
 use Serafim\Vulkan\Struct\VkSemaphoreSignalInfo;
 use Serafim\Vulkan\Struct\VkSemaphoreWaitInfo;
 use Serafim\Vulkan\Struct\VkSetDescriptorBufferOffsetsInfoEXT;
@@ -391,6 +439,7 @@ use Serafim\Vulkan\Struct\VkSparseImageFormatProperties;
 use Serafim\Vulkan\Struct\VkSparseImageFormatProperties2;
 use Serafim\Vulkan\Struct\VkSparseImageMemoryRequirements;
 use Serafim\Vulkan\Struct\VkSparseImageMemoryRequirements2;
+use Serafim\Vulkan\Struct\VkStreamDescriptorSurfaceCreateInfoGGP;
 use Serafim\Vulkan\Struct\VkStridedDeviceAddressRangeKHR;
 use Serafim\Vulkan\Struct\VkStridedDeviceAddressRegionKHR;
 use Serafim\Vulkan\Struct\VkSubmitInfo;
@@ -402,14 +451,18 @@ use Serafim\Vulkan\Struct\VkSubresourceLayout2;
 use Serafim\Vulkan\Struct\VkSurfaceCapabilities2EXT;
 use Serafim\Vulkan\Struct\VkSurfaceCapabilities2KHR;
 use Serafim\Vulkan\Struct\VkSurfaceCapabilitiesKHR;
+use Serafim\Vulkan\Struct\VkSurfaceCreateInfoOHOS;
 use Serafim\Vulkan\Struct\VkSurfaceFormat2KHR;
 use Serafim\Vulkan\Struct\VkSurfaceFormatKHR;
 use Serafim\Vulkan\Struct\VkSwapchainCreateInfoKHR;
+use Serafim\Vulkan\Struct\VkTensorCaptureDescriptorDataInfoARM;
 use Serafim\Vulkan\Struct\VkTensorCreateInfoARM;
 use Serafim\Vulkan\Struct\VkTensorMemoryRequirementsInfoARM;
+use Serafim\Vulkan\Struct\VkTensorViewCaptureDescriptorDataInfoARM;
 use Serafim\Vulkan\Struct\VkTensorViewCreateInfoARM;
 use Serafim\Vulkan\Struct\VkTileMemoryBindInfoQCOM;
 use Serafim\Vulkan\Struct\VkTilePropertiesQCOM;
+use Serafim\Vulkan\Struct\VkUbmSurfaceCreateInfoSEC;
 use Serafim\Vulkan\Struct\VkValidationCacheCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkVertexInputAttributeDescription2EXT;
 use Serafim\Vulkan\Struct\VkVertexInputBindingDescription2EXT;
@@ -428,9 +481,14 @@ use Serafim\Vulkan\Struct\VkVideoSessionParametersUpdateInfoKHR;
 use Serafim\Vulkan\Struct\VkViewport;
 use Serafim\Vulkan\Struct\VkViewportSwizzleNV;
 use Serafim\Vulkan\Struct\VkViewportWScalingNV;
+use Serafim\Vulkan\Struct\VkViSurfaceCreateInfoNN;
+use Serafim\Vulkan\Struct\VkWaylandSurfaceCreateInfoKHR;
+use Serafim\Vulkan\Struct\VkWin32SurfaceCreateInfoKHR;
 use Serafim\Vulkan\Struct\VkWriteDescriptorSet;
 use Serafim\Vulkan\Struct\VkWriteIndirectExecutionSetPipelineEXT;
 use Serafim\Vulkan\Struct\VkWriteIndirectExecutionSetShaderEXT;
+use Serafim\Vulkan\Struct\VkXcbSurfaceCreateInfoKHR;
+use Serafim\Vulkan\Struct\VkXlibSurfaceCreateInfoKHR;
 
 /**
  * The commands of the Vulkan API.
@@ -645,6 +703,27 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkAcquireWinrtDisplayNV', $physicalDevice);
 
         $this->assertSuccess('vkAcquireWinrtDisplayNV', $procedure($physicalDevice->pointer, $display->pointer));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkAcquireXlibDisplayEXT.html
+     * @since VK_EXT_acquire_xlib_display
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     */
+    public function vkAcquireXlibDisplayEXT(
+        VkPhysicalDevice $physicalDevice,
+        CData|int $dpy,
+        VkDisplayKHR $display,
+    ): void {
+        $nativeDpy = $this->ffi->cast('Display*', $dpy);
+
+        $procedure = $this->vkGetInstanceProc('vkAcquireXlibDisplayEXT', $physicalDevice);
+
+        $this->assertSuccess('vkAcquireXlibDisplayEXT', $procedure($physicalDevice->pointer, $nativeDpy, $display->pointer));
     }
 
     /**
@@ -4547,6 +4626,86 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Queues: graphics, compute. Render pass: both. Command buffer
+     * level: primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate.html
+     * @since 1.4
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $set
+     */
+    public function vkCmdPushDescriptorSetWithTemplate(
+        VkCommandBuffer $commandBuffer,
+        VkDescriptorUpdateTemplate $descriptorUpdateTemplate,
+        VkPipelineLayout $layout,
+        int $set,
+        CData|int $data,
+    ): void {
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdPushDescriptorSetWithTemplate', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, $descriptorUpdateTemplate->pointer, $layout->pointer, $set, $nativeData);
+    }
+
+    /**
+     * Alias of {@see self::vkCmdPushDescriptorSetWithTemplate()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html
+     * @since VK_KHR_push_descriptor, VK_KHR_descriptor_update_template
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $set
+     */
+    public function vkCmdPushDescriptorSetWithTemplateKHR(
+        VkCommandBuffer $commandBuffer,
+        VkDescriptorUpdateTemplate $descriptorUpdateTemplate,
+        VkPipelineLayout $layout,
+        int $set,
+        CData|int $data,
+    ): void {
+        $this->vkCmdPushDescriptorSetWithTemplate($commandBuffer, $descriptorUpdateTemplate, $layout, $set, $data);
+    }
+
+    /**
+     * Queues: graphics, compute. Render pass: both. Command buffer
+     * level: primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate2.html
+     * @since 1.4
+     *
+     * @api
+     */
+    public function vkCmdPushDescriptorSetWithTemplate2(
+        VkCommandBuffer $commandBuffer,
+        VkPushDescriptorSetWithTemplateInfo $pushDescriptorSetWithTemplateInfo,
+    ): void {
+        $nativePushDescriptorSetWithTemplateInfo = $pushDescriptorSetWithTemplateInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdPushDescriptorSetWithTemplate2', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativePushDescriptorSetWithTemplateInfo));
+    }
+
+    /**
+     * Alias of {@see self::vkCmdPushDescriptorSetWithTemplate2()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdPushDescriptorSetWithTemplate2KHR.html
+     * @since VK_KHR_maintenance6
+     *
+     * @api
+     */
+    public function vkCmdPushDescriptorSetWithTemplate2KHR(
+        VkCommandBuffer $commandBuffer,
+        VkPushDescriptorSetWithTemplateInfo $pushDescriptorSetWithTemplateInfo,
+    ): void {
+        $this->vkCmdPushDescriptorSetWithTemplate2($commandBuffer, $pushDescriptorSetWithTemplateInfo);
+    }
+
+    /**
      * Queues: graphics, compute, transfer. Render pass: outside.
      * Command buffer level: primary, secondary.
      *
@@ -4753,6 +4912,24 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkCmdSetAttachmentFeedbackLoopEnableEXT', $commandBuffer);
 
         $procedure($commandBuffer->pointer, $aspectMask);
+    }
+
+    /**
+     * Queues: graphics, compute, transfer. Render pass: both. Command
+     * buffer level: primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdSetCheckpointNV.html
+     * @since VK_NV_device_diagnostic_checkpoints
+     *
+     * @api
+     */
+    public function vkCmdSetCheckpointNV(VkCommandBuffer $commandBuffer, CData|int $checkpointMarker): void
+    {
+        $nativeCheckpointMarker = $this->ffi->cast('void*', $checkpointMarker);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdSetCheckpointNV', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, $nativeCheckpointMarker);
     }
 
     /**
@@ -7194,6 +7371,78 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToMemory.html
+     * @since 1.4
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
+     *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     */
+    public function vkCopyImageToMemory(VkDevice $device, VkCopyImageToMemoryInfo $copyImageToMemoryInfo): void
+    {
+        $nativeCopyImageToMemoryInfo = $copyImageToMemoryInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCopyImageToMemory', $device);
+
+        $this->assertSuccess('vkCopyImageToMemory', $procedure($device->pointer, \FFI::addr($nativeCopyImageToMemoryInfo)));
+    }
+
+    /**
+     * Alias of {@see self::vkCopyImageToMemory()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToMemoryEXT.html
+     * @since VK_EXT_host_image_copy
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
+     *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     */
+    public function vkCopyImageToMemoryEXT(VkDevice $device, VkCopyImageToMemoryInfo $copyImageToMemoryInfo): void
+    {
+        $this->vkCopyImageToMemory($device, $copyImageToMemoryInfo);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToImage.html
+     * @since 1.4
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
+     *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     */
+    public function vkCopyMemoryToImage(VkDevice $device, VkCopyMemoryToImageInfo $copyMemoryToImageInfo): void
+    {
+        $nativeCopyMemoryToImageInfo = $copyMemoryToImageInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCopyMemoryToImage', $device);
+
+        $this->assertSuccess('vkCopyMemoryToImage', $procedure($device->pointer, \FFI::addr($nativeCopyMemoryToImageInfo)));
+    }
+
+    /**
+     * Alias of {@see self::vkCopyMemoryToImage()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToImageEXT.html
+     * @since VK_EXT_host_image_copy
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
+     *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     */
+    public function vkCopyMemoryToImageEXT(VkDevice $device, VkCopyMemoryToImageInfo $copyMemoryToImageInfo): void
+    {
+        $this->vkCopyMemoryToImage($device, $copyMemoryToImageInfo);
+    }
+
+    /**
      * Legacy functionality, superseded by `vkCmdCopyMicromapEXT`.
      *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapEXT.html
@@ -7287,6 +7536,35 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateAndroidSurfaceKHR.html
+     * @since VK_KHR_android_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     */
+    public function vkCreateAndroidSurfaceKHR(
+        VkInstance $instance,
+        VkAndroidSurfaceCreateInfoKHR $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateAndroidSurfaceKHR', $instance);
+
+        $this->assertSuccess('vkCreateAndroidSurfaceKHR', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBuffer.html
      * @since 1.0
      *
@@ -7309,6 +7587,36 @@ final class Vulkan extends VulkanBase
         $devicePointer = $device->pointer;
 
         return new VkBuffer($this, $nativeBuffer, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
+            $destroy($devicePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateBufferCollectionFUCHSIA.html
+     * @since VK_FUCHSIA_buffer_collection
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
+     *         {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     */
+    public function vkCreateBufferCollectionFUCHSIA(
+        VkDevice $device,
+        VkBufferCollectionCreateInfoFUCHSIA $createInfo,
+    ): VkBufferCollectionFUCHSIA {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeCollection = $this->memory->new('VkBufferCollectionFUCHSIA');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateBufferCollectionFUCHSIA', $device);
+
+        $this->assertSuccess('vkCreateBufferCollectionFUCHSIA', $procedure($device->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeCollection)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroyBufferCollectionFUCHSIA', $device);
+        $devicePointer = $device->pointer;
+
+        return new VkBufferCollectionFUCHSIA($this, $nativeCollection, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
             $destroy($devicePointer, $handle->pointer, null);
         });
     }
@@ -7758,6 +8066,34 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDirectFBSurfaceEXT.html
+     * @since VK_EXT_directfb_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateDirectFBSurfaceEXT(
+        VkInstance $instance,
+        VkDirectFBSurfaceCreateInfoEXT $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateDirectFBSurfaceEXT', $instance);
+
+        $this->assertSuccess('vkCreateDirectFBSurfaceEXT', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDisplayModeKHR.html
      * @since VK_KHR_display
      *
@@ -8065,6 +8401,35 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIOSSurfaceMVK.html
+     * @since VK_MVK_ios_surface
+     * @deprecated the extension VK_MVK_ios_surface is deprecated by VK_EXT_metal_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     */
+    #[\Deprecated(message: 'the extension VK_MVK_ios_surface is deprecated by VK_EXT_metal_surface')]
+    public function vkCreateIOSSurfaceMVK(VkInstance $instance, VkIOSSurfaceCreateInfoMVK $createInfo): VkSurfaceKHR
+    {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateIOSSurfaceMVK', $instance);
+
+        $this->assertSuccess('vkCreateIOSSurfaceMVK', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImage.html
      * @since 1.0
      *
@@ -8089,6 +8454,34 @@ final class Vulkan extends VulkanBase
 
         return new VkImage($this, $nativeImage, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
             $destroy($devicePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateImagePipeSurfaceFUCHSIA.html
+     * @since VK_FUCHSIA_imagepipe_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateImagePipeSurfaceFUCHSIA(
+        VkInstance $instance,
+        VkImagePipeSurfaceCreateInfoFUCHSIA $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateImagePipeSurfaceFUCHSIA', $instance);
+
+        $this->assertSuccess('vkCreateImagePipeSurfaceFUCHSIA', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
         });
     }
 
@@ -8172,6 +8565,66 @@ final class Vulkan extends VulkanBase
         return new VkInstance($this, $nativeInstance, null, function (Handle $handle): void {
             $destroy = $this->vkGetInstanceProc('vkDestroyInstance', $handle);
             $destroy($handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMacOSSurfaceMVK.html
+     * @since VK_MVK_macos_surface
+     * @deprecated the extension VK_MVK_macos_surface is deprecated by VK_EXT_metal_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     */
+    #[\Deprecated(message: 'the extension VK_MVK_macos_surface is deprecated by VK_EXT_metal_surface')]
+    public function vkCreateMacOSSurfaceMVK(
+        VkInstance $instance,
+        VkMacOSSurfaceCreateInfoMVK $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateMacOSSurfaceMVK', $instance);
+
+        $this->assertSuccess('vkCreateMacOSSurfaceMVK', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateMetalSurfaceEXT.html
+     * @since VK_EXT_metal_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     */
+    public function vkCreateMetalSurfaceEXT(
+        VkInstance $instance,
+        VkMetalSurfaceCreateInfoEXT $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateMetalSurfaceEXT', $instance);
+
+        $this->assertSuccess('vkCreateMetalSurfaceEXT', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
         });
     }
 
@@ -8356,6 +8809,52 @@ final class Vulkan extends VulkanBase
         return new VkQueryPool($this, $nativeQueryPool, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
             $destroy($devicePointer, $handle->pointer, null);
         });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateRayTracingPipelinesKHR.html
+     * @since VK_KHR_ray_tracing_pipeline
+     *
+     * @api
+     *
+     * @param non-empty-list<VkRayTracingPipelineCreateInfoKHR> $createInfos
+     *
+     * @return list<VkPipeline>
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS}
+     */
+    public function vkCreateRayTracingPipelinesKHR(
+        VkDevice $device,
+        array $createInfos,
+        ?VkDeferredOperationKHR $deferredOperation = null,
+        ?VkPipelineCache $pipelineCache = null,
+    ): array {
+        $nativeCreateInfos = null;
+        if ($createInfos !== []) {
+            $nativeCreateInfos = VkRayTracingPipelineCreateInfoKHR::createArray($this->memory, $createInfos);
+        }
+
+        $total = \count($createInfos);
+        $nativePipelines = $this->memory->new('VkPipeline[' . \max(1, $total) . ']');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateRayTracingPipelinesKHR', $device);
+
+        $this->assertSuccess('vkCreateRayTracingPipelinesKHR', $procedure($device->pointer, $deferredOperation?->pointer, $pipelineCache?->pointer, \count($createInfos), $nativeCreateInfos, null, $nativePipelines));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroyPipeline', $device);
+        $devicePointer = $device->pointer;
+
+        $created = [];
+        for ($index = 0; $index < $total; ++$index) {
+            /** @var CData $element */
+            $element = $nativePipelines[$index];
+
+            $created[] = new VkPipeline($this, $element, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
+                $destroy($devicePointer, $handle->pointer, null);
+            });
+        }
+
+        return $created;
     }
 
     /**
@@ -8558,6 +9057,34 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateScreenSurfaceQNX.html
+     * @since VK_QNX_screen_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateScreenSurfaceQNX(
+        VkInstance $instance,
+        VkScreenSurfaceCreateInfoQNX $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateScreenSurfaceQNX', $instance);
+
+        $this->assertSuccess('vkCreateScreenSurfaceQNX', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSemaphore.html
      * @since 1.0
      *
@@ -8579,6 +9106,34 @@ final class Vulkan extends VulkanBase
         $devicePointer = $device->pointer;
 
         return new VkSemaphore($this, $nativeSemaphore, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
+            $destroy($devicePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSemaphoreSciSyncPoolNV.html
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     */
+    public function vkCreateSemaphoreSciSyncPoolNV(
+        VkDevice $device,
+        VkSemaphoreSciSyncPoolCreateInfoNV $createInfo,
+    ): VkSemaphoreSciSyncPoolNV {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSemaphorePool = $this->memory->new('VkSemaphoreSciSyncPoolNV');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateSemaphoreSciSyncPoolNV', $device);
+
+        $this->assertSuccess('vkCreateSemaphoreSciSyncPoolNV', $procedure($device->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSemaphorePool)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySemaphoreSciSyncPoolNV', $device);
+        $devicePointer = $device->pointer;
+
+        return new VkSemaphoreSciSyncPoolNV($this, $nativeSemaphorePool, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
             $destroy($devicePointer, $handle->pointer, null);
         });
     }
@@ -8725,6 +9280,62 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateStreamDescriptorSurfaceGGP.html
+     * @since VK_GGP_stream_descriptor_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     */
+    public function vkCreateStreamDescriptorSurfaceGGP(
+        VkInstance $instance,
+        VkStreamDescriptorSurfaceCreateInfoGGP $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateStreamDescriptorSurfaceGGP', $instance);
+
+        $this->assertSuccess('vkCreateStreamDescriptorSurfaceGGP', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSurfaceOHOS.html
+     * @since VK_OHOS_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     */
+    public function vkCreateSurfaceOHOS(VkInstance $instance, VkSurfaceCreateInfoOHOS $createInfo): VkSurfaceKHR
+    {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateSurfaceOHOS', $instance);
+
+        $this->assertSuccess('vkCreateSurfaceOHOS', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateSwapchainKHR.html
      * @since VK_KHR_swapchain
      *
@@ -8808,6 +9419,32 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateUbmSurfaceSEC.html
+     * @since VK_SEC_ubm_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateUbmSurfaceSEC(VkInstance $instance, VkUbmSurfaceCreateInfoSEC $createInfo): VkSurfaceKHR
+    {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateUbmSurfaceSEC', $instance);
+
+        $this->assertSuccess('vkCreateUbmSurfaceSEC', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateValidationCacheEXT.html
      * @since VK_EXT_validation_cache
      *
@@ -8832,6 +9469,33 @@ final class Vulkan extends VulkanBase
 
         return new VkValidationCacheEXT($this, $nativeValidationCache, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
             $destroy($devicePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateViSurfaceNN.html
+     * @since VK_NN_vi_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     */
+    public function vkCreateViSurfaceNN(VkInstance $instance, VkViSurfaceCreateInfoNN $createInfo): VkSurfaceKHR
+    {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateViSurfaceNN', $instance);
+
+        $this->assertSuccess('vkCreateViSurfaceNN', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
         });
     }
 
@@ -8862,6 +9526,114 @@ final class Vulkan extends VulkanBase
 
         return new VkVideoSessionParametersKHR($this, $nativeVideoSessionParameters, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
             $destroy($devicePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWaylandSurfaceKHR.html
+     * @since VK_KHR_wayland_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateWaylandSurfaceKHR(
+        VkInstance $instance,
+        VkWaylandSurfaceCreateInfoKHR $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateWaylandSurfaceKHR', $instance);
+
+        $this->assertSuccess('vkCreateWaylandSurfaceKHR', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateWin32SurfaceKHR.html
+     * @since VK_KHR_win32_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateWin32SurfaceKHR(
+        VkInstance $instance,
+        VkWin32SurfaceCreateInfoKHR $createInfo,
+    ): VkSurfaceKHR {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateWin32SurfaceKHR', $instance);
+
+        $this->assertSuccess('vkCreateWin32SurfaceKHR', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXcbSurfaceKHR.html
+     * @since VK_KHR_xcb_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateXcbSurfaceKHR(VkInstance $instance, VkXcbSurfaceCreateInfoKHR $createInfo): VkSurfaceKHR
+    {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateXcbSurfaceKHR', $instance);
+
+        $this->assertSuccess('vkCreateXcbSurfaceKHR', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateXlibSurfaceKHR.html
+     * @since VK_KHR_xlib_surface
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateXlibSurfaceKHR(VkInstance $instance, VkXlibSurfaceCreateInfoKHR $createInfo): VkSurfaceKHR
+    {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeSurface = $this->memory->new('VkSurfaceKHR');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateXlibSurfaceKHR', $instance);
+
+        $this->assertSuccess('vkCreateXlibSurfaceKHR', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeSurface)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroySurfaceKHR', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkSurfaceKHR($this, $nativeSurface, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
         });
     }
 
@@ -10088,6 +10860,26 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureDeviceAddressKHR.html
+     * @since VK_KHR_acceleration_structure
+     *
+     * @api
+     */
+    public function vkGetAccelerationStructureDeviceAddressKHR(
+        VkDevice $device,
+        VkAccelerationStructureDeviceAddressInfoKHR $info,
+    ): int {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkGetAccelerationStructureDeviceAddressKHR', $device);
+
+        $result = $procedure($device->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        return $result;
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureHandleNV.html
      * @since VK_NV_ray_tracing
      * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
@@ -10138,6 +10930,56 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Legacy functionality.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
+     * @since VK_EXT_descriptor_buffer
+     * @deprecated legacy functionality
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
+        VkDevice $device,
+        VkAccelerationStructureCaptureDescriptorDataInfoEXT $info,
+        CData|int $data,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT', $device);
+
+        $this->assertSuccess('vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeData));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html
+     * @since VK_ANDROID_external_memory_android_hardware_buffer
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
+     */
+    public function vkGetAndroidHardwareBufferPropertiesANDROID(
+        VkDevice $device,
+        CData|int $buffer,
+    ): VkAndroidHardwareBufferPropertiesANDROID {
+        $nativeBuffer = $this->ffi->cast('AHardwareBuffer*', $buffer);
+
+        $nativeProperties = $this->memory->new('VkAndroidHardwareBufferPropertiesANDROID');
+        $nativeProperties->sType = VkAndroidHardwareBufferPropertiesANDROID::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetAndroidHardwareBufferPropertiesANDROID', $device);
+
+        $this->assertSuccess('vkGetAndroidHardwareBufferPropertiesANDROID', $procedure($device->pointer, $nativeBuffer, \FFI::addr($nativeProperties)));
+
+        return VkAndroidHardwareBufferPropertiesANDROID::createFromCData($nativeProperties);
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html
      * @since VK_FUCHSIA_buffer_collection
      *
@@ -10158,6 +11000,52 @@ final class Vulkan extends VulkanBase
         $this->assertSuccess('vkGetBufferCollectionPropertiesFUCHSIA', $procedure($device->pointer, $collection->pointer, \FFI::addr($nativeProperties)));
 
         return VkBufferCollectionPropertiesFUCHSIA::createFromCData($nativeProperties);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddress.html
+     * @since 1.2
+     *
+     * @api
+     */
+    public function vkGetBufferDeviceAddress(VkDevice $device, VkBufferDeviceAddressInfo $info): int
+    {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkGetBufferDeviceAddress', $device);
+
+        $result = $procedure($device->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        return $result;
+    }
+
+    /**
+     * Alias of {@see self::vkGetBufferDeviceAddress()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressKHR.html
+     * @since VK_KHR_buffer_device_address
+     *
+     * @api
+     */
+    public function vkGetBufferDeviceAddressKHR(VkDevice $device, VkBufferDeviceAddressInfo $info): int
+    {
+        return $this->vkGetBufferDeviceAddress($device, $info);
+    }
+
+    /**
+     * Alias of {@see self::vkGetBufferDeviceAddress()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferDeviceAddressEXT.html
+     * @since VK_EXT_buffer_device_address
+     * @deprecated the extension VK_EXT_buffer_device_address is deprecated by VK_KHR_buffer_device_address
+     *
+     * @api
+     */
+    #[\Deprecated(message: 'the extension VK_EXT_buffer_device_address is deprecated by VK_KHR_buffer_device_address')]
+    public function vkGetBufferDeviceAddressEXT(VkDevice $device, VkBufferDeviceAddressInfo $info): int
+    {
+        return $this->vkGetBufferDeviceAddress($device, $info);
     }
 
     /**
@@ -10212,6 +11100,62 @@ final class Vulkan extends VulkanBase
         VkBufferMemoryRequirementsInfo2 $info,
     ): VkMemoryRequirements2 {
         return $this->vkGetBufferMemoryRequirements2($device, $info);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureAddress.html
+     * @since 1.2
+     *
+     * @api
+     */
+    public function vkGetBufferOpaqueCaptureAddress(VkDevice $device, VkBufferDeviceAddressInfo $info): int
+    {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkGetBufferOpaqueCaptureAddress', $device);
+
+        $result = $procedure($device->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        return $result;
+    }
+
+    /**
+     * Alias of {@see self::vkGetBufferOpaqueCaptureAddress()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureAddressKHR.html
+     * @since VK_KHR_buffer_device_address
+     *
+     * @api
+     */
+    public function vkGetBufferOpaqueCaptureAddressKHR(VkDevice $device, VkBufferDeviceAddressInfo $info): int
+    {
+        return $this->vkGetBufferOpaqueCaptureAddress($device, $info);
+    }
+
+    /**
+     * Legacy functionality.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
+     * @since VK_EXT_descriptor_buffer
+     * @deprecated legacy functionality
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetBufferOpaqueCaptureDescriptorDataEXT(
+        VkDevice $device,
+        VkBufferCaptureDescriptorDataInfoEXT $info,
+        CData|int $data,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkGetBufferOpaqueCaptureDescriptorDataEXT', $device);
+
+        $this->assertSuccess('vkGetBufferOpaqueCaptureDescriptorDataEXT', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeData));
     }
 
     /**
@@ -10342,6 +11286,22 @@ final class Vulkan extends VulkanBase
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
         return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html
+     * @since VK_KHR_deferred_host_operations
+     *
+     * @api
+     */
+    public function vkGetDeferredOperationMaxConcurrencyKHR(VkDevice $device, VkDeferredOperationKHR $operation): int
+    {
+        $procedure = $this->vkGetInstanceProc('vkGetDeferredOperationMaxConcurrencyKHR', $device);
+
+        $result = $procedure($device->pointer, $operation->pointer);
+        \assert(\is_int($result));
+
+        return $result;
     }
 
     /**
@@ -10530,6 +11490,28 @@ final class Vulkan extends VulkanBase
         VkDeviceBufferMemoryRequirements $info,
     ): VkMemoryRequirements2 {
         return $this->vkGetDeviceBufferMemoryRequirements($device, $info);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceCombinedImageSamplerIndexNVX.html
+     * @since VK_NVX_image_view_handle
+     *
+     * @api
+     *
+     * @param int<0, max> $imageViewIndex
+     * @param int<0, max> $samplerIndex
+     */
+    public function vkGetDeviceCombinedImageSamplerIndexNVX(
+        VkDevice $device,
+        int $imageViewIndex,
+        int $samplerIndex,
+    ): int {
+        $procedure = $this->vkGetInstanceProc('vkGetDeviceCombinedImageSamplerIndexNVX', $device);
+
+        $result = $procedure($device->pointer, $imageViewIndex, $samplerIndex);
+        \assert(\is_int($result));
+
+        return $result;
     }
 
     /**
@@ -10824,6 +11806,41 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html
+     * @since 1.2
+     *
+     * @api
+     */
+    public function vkGetDeviceMemoryOpaqueCaptureAddress(
+        VkDevice $device,
+        VkDeviceMemoryOpaqueCaptureAddressInfo $info,
+    ): int {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkGetDeviceMemoryOpaqueCaptureAddress', $device);
+
+        $result = $procedure($device->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        return $result;
+    }
+
+    /**
+     * Alias of {@see self::vkGetDeviceMemoryOpaqueCaptureAddress()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceMemoryOpaqueCaptureAddressKHR.html
+     * @since VK_KHR_buffer_device_address
+     *
+     * @api
+     */
+    public function vkGetDeviceMemoryOpaqueCaptureAddressKHR(
+        VkDevice $device,
+        VkDeviceMemoryOpaqueCaptureAddressInfo $info,
+    ): int {
+        return $this->vkGetDeviceMemoryOpaqueCaptureAddress($device, $info);
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceQueue.html
      * @since 1.0
      *
@@ -11086,6 +12103,28 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetExternalComputeQueueDataNV.html
+     * @since VK_NV_external_compute_queue
+     *
+     * @api
+     */
+    public function vkGetExternalComputeQueueDataNV(
+        VkExternalComputeQueueNV $externalQueue,
+        CData|int $data,
+    ): VkExternalComputeQueueDataParamsNV {
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $nativeParams = $this->memory->new('VkExternalComputeQueueDataParamsNV');
+        $nativeParams->sType = VkExternalComputeQueueDataParamsNV::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetExternalComputeQueueDataNV', $externalQueue);
+
+        $procedure($externalQueue->pointer, \FFI::addr($nativeParams), $nativeData);
+
+        return VkExternalComputeQueueDataParamsNV::createFromCData($nativeParams);
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceFdKHR.html
      * @since VK_KHR_external_fence_fd
      *
@@ -11111,6 +12150,50 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceSciSyncFenceNV.html
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
+     *         {@see VkResult::VK_ERROR_NOT_PERMITTED}
+     */
+    public function vkGetFenceSciSyncFenceNV(
+        VkDevice $device,
+        VkFenceGetSciSyncInfoNV $getSciSyncHandleInfo,
+        CData|int $handle,
+    ): void {
+        $nativeGetSciSyncHandleInfo = $getSciSyncHandleInfo->toCData($this->memory);
+        $nativeHandle = $this->ffi->cast('void*', $handle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetFenceSciSyncFenceNV', $device);
+
+        $this->assertSuccess('vkGetFenceSciSyncFenceNV', $procedure($device->pointer, \FFI::addr($nativeGetSciSyncHandleInfo), $nativeHandle));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceSciSyncObjNV.html
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
+     *         {@see VkResult::VK_ERROR_NOT_PERMITTED}
+     */
+    public function vkGetFenceSciSyncObjNV(
+        VkDevice $device,
+        VkFenceGetSciSyncInfoNV $getSciSyncHandleInfo,
+        CData|int $handle,
+    ): void {
+        $nativeGetSciSyncHandleInfo = $getSciSyncHandleInfo->toCData($this->memory);
+        $nativeHandle = $this->ffi->cast('void*', $handle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetFenceSciSyncObjNV', $device);
+
+        $this->assertSuccess('vkGetFenceSciSyncObjNV', $procedure($device->pointer, \FFI::addr($nativeGetSciSyncHandleInfo), $nativeHandle));
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceStatus.html
      * @since 1.0
      *
@@ -11131,6 +12214,28 @@ final class Vulkan extends VulkanBase
         $code = $this->getResult('vkGetFenceStatus', $result);
 
         return $code;
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetFenceWin32HandleKHR.html
+     * @since VK_KHR_external_fence_win32
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     */
+    public function vkGetFenceWin32HandleKHR(
+        VkDevice $device,
+        VkFenceGetWin32HandleInfoKHR $getWin32HandleInfo,
+        CData|int $handle,
+    ): void {
+        $nativeGetWin32HandleInfo = $getWin32HandleInfo->toCData($this->memory);
+        $nativeHandle = $this->ffi->cast('HANDLE*', $handle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetFenceWin32HandleKHR', $device);
+
+        $this->assertSuccess('vkGetFenceWin32HandleKHR', $procedure($device->pointer, \FFI::addr($nativeGetWin32HandleInfo), $nativeHandle));
     }
 
     /**
@@ -11344,6 +12449,31 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Legacy functionality.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
+     * @since VK_EXT_descriptor_buffer
+     * @deprecated legacy functionality
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetImageOpaqueCaptureDescriptorDataEXT(
+        VkDevice $device,
+        VkImageCaptureDescriptorDataInfoEXT $info,
+        CData|int $data,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkGetImageOpaqueCaptureDescriptorDataEXT', $device);
+
+        $this->assertSuccess('vkGetImageOpaqueCaptureDescriptorDataEXT', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeData));
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageSparseMemoryRequirements.html
      * @since 1.0
      *
@@ -11517,6 +12647,106 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandle64NVX.html
+     * @since VK_NVX_image_view_handle
+     *
+     * @api
+     */
+    public function vkGetImageViewHandle64NVX(VkDevice $device, VkImageViewHandleInfoNVX $info): int
+    {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkGetImageViewHandle64NVX', $device);
+
+        $result = $procedure($device->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        return $result;
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewHandleNVX.html
+     * @since VK_NVX_image_view_handle
+     *
+     * @api
+     */
+    public function vkGetImageViewHandleNVX(VkDevice $device, VkImageViewHandleInfoNVX $info): int
+    {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkGetImageViewHandleNVX', $device);
+
+        $result = $procedure($device->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        return $result;
+    }
+
+    /**
+     * Legacy functionality.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
+     * @since VK_EXT_descriptor_buffer
+     * @deprecated legacy functionality
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetImageViewOpaqueCaptureDescriptorDataEXT(
+        VkDevice $device,
+        VkImageViewCaptureDescriptorDataInfoEXT $info,
+        CData|int $data,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkGetImageViewOpaqueCaptureDescriptorDataEXT', $device);
+
+        $this->assertSuccess('vkGetImageViewOpaqueCaptureDescriptorDataEXT', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeData));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetLatencyTimingsLegacyNV.html
+     * @since VK_NV_low_latency
+     * @deprecated the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2
+     *
+     * @api
+     */
+    #[\Deprecated(message: 'the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2')]
+    public function vkGetLatencyTimingsLegacyNV(VkDevice $device, CData|int $timings): void
+    {
+        $nativeTimings = $this->ffi->cast('void*', $timings);
+
+        $procedure = $this->vkGetInstanceProc('vkGetLatencyTimingsLegacyNV', $device);
+
+        $procedure($device->pointer, $nativeTimings);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html
+     * @since VK_ANDROID_external_memory_android_hardware_buffer
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     */
+    public function vkGetMemoryAndroidHardwareBufferANDROID(
+        VkDevice $device,
+        VkMemoryGetAndroidHardwareBufferInfoANDROID $info,
+        CData|int $buffer,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeBuffer = $this->ffi->cast('AHardwareBuffer**', $buffer);
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemoryAndroidHardwareBufferANDROID', $device);
+
+        $this->assertSuccess('vkGetMemoryAndroidHardwareBufferANDROID', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeBuffer));
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryFdKHR.html
      * @since VK_KHR_external_memory_fd
      *
@@ -11565,6 +12795,34 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryHostPointerPropertiesEXT.html
+     * @since VK_EXT_external_memory_host
+     *
+     * @api
+     *
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     */
+    public function vkGetMemoryHostPointerPropertiesEXT(
+        VkDevice $device,
+        int $handleType,
+        CData|int $hostPointer,
+    ): VkMemoryHostPointerPropertiesEXT {
+        $nativeHostPointer = $this->ffi->cast('void*', $hostPointer);
+
+        $nativeMemoryHostPointerProperties = $this->memory->new('VkMemoryHostPointerPropertiesEXT');
+        $nativeMemoryHostPointerProperties->sType = VkMemoryHostPointerPropertiesEXT::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemoryHostPointerPropertiesEXT', $device);
+
+        $this->assertSuccess('vkGetMemoryHostPointerPropertiesEXT', $procedure($device->pointer, $handleType, $nativeHostPointer, \FFI::addr($nativeMemoryHostPointerProperties)));
+
+        return VkMemoryHostPointerPropertiesEXT::createFromCData($nativeMemoryHostPointerProperties);
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandleEXT.html
      * @since VK_EXT_external_memory_metal
      *
@@ -11586,6 +12844,191 @@ final class Vulkan extends VulkanBase
         $this->assertSuccess('vkGetMemoryMetalHandleEXT', $procedure($device->pointer, \FFI::addr($nativeGetMetalHandleInfo), \FFI::addr($nativeHandle)));
 
         return $nativeHandle;
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryMetalHandlePropertiesEXT.html
+     * @since VK_EXT_external_memory_metal
+     *
+     * @api
+     *
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     */
+    public function vkGetMemoryMetalHandlePropertiesEXT(
+        VkDevice $device,
+        int $handleType,
+        CData|int $handle,
+    ): VkMemoryMetalHandlePropertiesEXT {
+        $nativeHandle = $this->ffi->cast('void*', $handle);
+
+        $nativeMemoryMetalHandleProperties = $this->memory->new('VkMemoryMetalHandlePropertiesEXT');
+        $nativeMemoryMetalHandleProperties->sType = VkMemoryMetalHandlePropertiesEXT::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemoryMetalHandlePropertiesEXT', $device);
+
+        $this->assertSuccess('vkGetMemoryMetalHandlePropertiesEXT', $procedure($device->pointer, $handleType, $nativeHandle, \FFI::addr($nativeMemoryMetalHandleProperties)));
+
+        return VkMemoryMetalHandlePropertiesEXT::createFromCData($nativeMemoryMetalHandleProperties);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryNativeBufferOHOS.html
+     * @since VK_OHOS_external_memory
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetMemoryNativeBufferOHOS(
+        VkDevice $device,
+        VkMemoryGetNativeBufferInfoOHOS $info,
+        CData|int $buffer,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeBuffer = $this->ffi->cast('OH_NativeBuffer**', $buffer);
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemoryNativeBufferOHOS', $device);
+
+        $this->assertSuccess('vkGetMemoryNativeBufferOHOS', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeBuffer));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryRemoteAddressNV.html
+     * @since VK_NV_external_memory_rdma
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     */
+    public function vkGetMemoryRemoteAddressNV(
+        VkDevice $device,
+        VkMemoryGetRemoteAddressInfoNV $memoryGetRemoteAddressInfo,
+        CData|int $address,
+    ): void {
+        $nativeMemoryGetRemoteAddressInfo = $memoryGetRemoteAddressInfo->toCData($this->memory);
+        $nativeAddress = $this->ffi->cast('VkRemoteAddressNV*', $address);
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemoryRemoteAddressNV', $device);
+
+        $this->assertSuccess('vkGetMemoryRemoteAddressNV', $procedure($device->pointer, \FFI::addr($nativeMemoryGetRemoteAddressInfo), $nativeAddress));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemorySciBufNV.html
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     */
+    public function vkGetMemorySciBufNV(
+        VkDevice $device,
+        VkMemoryGetSciBufInfoNV $getSciBufInfo,
+        CData|int $handle,
+    ): void {
+        $nativeGetSciBufInfo = $getSciBufInfo->toCData($this->memory);
+        $nativeHandle = $this->ffi->cast('NvSciBufObj*', $handle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemorySciBufNV', $device);
+
+        $this->assertSuccess('vkGetMemorySciBufNV', $procedure($device->pointer, \FFI::addr($nativeGetSciBufInfo), $nativeHandle));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleKHR.html
+     * @since VK_KHR_external_memory_win32
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     */
+    public function vkGetMemoryWin32HandleKHR(
+        VkDevice $device,
+        VkMemoryGetWin32HandleInfoKHR $getWin32HandleInfo,
+        CData|int $handle,
+    ): void {
+        $nativeGetWin32HandleInfo = $getWin32HandleInfo->toCData($this->memory);
+        $nativeHandle = $this->ffi->cast('HANDLE*', $handle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemoryWin32HandleKHR', $device);
+
+        $this->assertSuccess('vkGetMemoryWin32HandleKHR', $procedure($device->pointer, \FFI::addr($nativeGetWin32HandleInfo), $nativeHandle));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryWin32HandleNV.html
+     * @since VK_NV_external_memory_win32
+     * @deprecated the extension VK_NV_external_memory_win32 is deprecated by VK_KHR_external_memory_win32
+     *
+     * @api
+     *
+     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> $handleType
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     */
+    #[\Deprecated(message: 'the extension VK_NV_external_memory_win32 is deprecated by VK_KHR_external_memory_win32')]
+    public function vkGetMemoryWin32HandleNV(
+        VkDevice $device,
+        VkDeviceMemory $memory,
+        int $handleType,
+        CData|int $handle,
+    ): void {
+        $nativeHandle = $this->ffi->cast('HANDLE*', $handle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemoryWin32HandleNV', $device);
+
+        $this->assertSuccess('vkGetMemoryWin32HandleNV', $procedure($device->pointer, $memory->pointer, $handleType, $nativeHandle));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetMemoryZirconHandleFUCHSIA.html
+     * @since VK_FUCHSIA_external_memory
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     */
+    public function vkGetMemoryZirconHandleFUCHSIA(
+        VkDevice $device,
+        VkMemoryGetZirconHandleInfoFUCHSIA $getZirconHandleInfo,
+        CData|int $zirconHandle,
+    ): void {
+        $nativeGetZirconHandleInfo = $getZirconHandleInfo->toCData($this->memory);
+        $nativeZirconHandle = $this->ffi->cast('zx_handle_t*', $zirconHandle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetMemoryZirconHandleFUCHSIA', $device);
+
+        $this->assertSuccess('vkGetMemoryZirconHandleFUCHSIA', $procedure($device->pointer, \FFI::addr($nativeGetZirconHandleInfo), $nativeZirconHandle));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetNativeBufferPropertiesOHOS.html
+     * @since VK_OHOS_external_memory
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
+     */
+    public function vkGetNativeBufferPropertiesOHOS(VkDevice $device, CData|int $buffer): VkNativeBufferPropertiesOHOS
+    {
+        $nativeBuffer = $this->ffi->cast('OH_NativeBuffer*', $buffer);
+
+        $nativeProperties = $this->memory->new('VkNativeBufferPropertiesOHOS');
+        $nativeProperties->sType = VkNativeBufferPropertiesOHOS::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetNativeBufferPropertiesOHOS', $device);
+
+        $this->assertSuccess('vkGetNativeBufferPropertiesOHOS', $procedure($device->pointer, $nativeBuffer, \FFI::addr($nativeProperties)));
+
+        return VkNativeBufferPropertiesOHOS::createFromCData($nativeProperties);
     }
 
     /**
@@ -11794,6 +13237,47 @@ final class Vulkan extends VulkanBase
             fn(CData $item): VkCooperativeVectorPropertiesNV => VkCooperativeVectorPropertiesNV::createFromCData($item),
             VkCooperativeVectorPropertiesNV::STRUCTURE_TYPE,
         );
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDescriptorSizeEXT.html
+     * @since VK_EXT_descriptor_heap
+     *
+     * @api
+     */
+    public function vkGetPhysicalDeviceDescriptorSizeEXT(
+        VkPhysicalDevice $physicalDevice,
+        VkDescriptorType $descriptorType,
+    ): int {
+        $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceDescriptorSizeEXT', $physicalDevice);
+
+        $result = $procedure($physicalDevice->pointer, $descriptorType->value);
+        \assert(\is_int($result));
+
+        return $result;
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html
+     * @since VK_EXT_directfb_surface
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $queueFamilyIndex
+     */
+    public function vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
+        VkPhysicalDevice $physicalDevice,
+        int $queueFamilyIndex,
+        CData|int $dfb,
+    ): bool {
+        $nativeDfb = $this->ffi->cast('IDirectFB*', $dfb);
+
+        $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceDirectFBPresentationSupportEXT', $physicalDevice);
+
+        $result = $procedure($physicalDevice->pointer, $queueFamilyIndex, $nativeDfb);
+        \assert(\is_int($result));
+
+        return $result !== 0;
     }
 
     /**
@@ -12552,6 +14036,29 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html
+     * @since VK_QNX_screen_surface
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $queueFamilyIndex
+     */
+    public function vkGetPhysicalDeviceScreenPresentationSupportQNX(
+        VkPhysicalDevice $physicalDevice,
+        int $queueFamilyIndex,
+        CData|int $window,
+    ): bool {
+        $nativeWindow = $this->ffi->cast('_screen_window*', $window);
+
+        $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceScreenPresentationSupportQNX', $physicalDevice);
+
+        $result = $procedure($physicalDevice->pointer, $queueFamilyIndex, $nativeWindow);
+        \assert(\is_int($result));
+
+        return $result !== 0;
+    }
+
+    /**
      * Legacy functionality, superseded by `vkGetPhysicalDeviceSparseImageFormatProperties2`.
      *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html
@@ -12945,6 +14452,29 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceUbmPresentationSupportSEC.html
+     * @since VK_SEC_ubm_surface
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $queueFamilyIndex
+     */
+    public function vkGetPhysicalDeviceUbmPresentationSupportSEC(
+        VkPhysicalDevice $physicalDevice,
+        int $queueFamilyIndex,
+        CData|int $device,
+    ): bool {
+        $nativeDevice = $this->ffi->cast('ubm_device*', $device);
+
+        $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceUbmPresentationSupportSEC', $physicalDevice);
+
+        $result = $procedure($physicalDevice->pointer, $queueFamilyIndex, $nativeDevice);
+        \assert(\is_int($result));
+
+        return $result !== 0;
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html
      * @since VK_KHR_video_queue
      *
@@ -13040,6 +14570,49 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html
+     * @since VK_KHR_wayland_surface
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $queueFamilyIndex
+     */
+    public function vkGetPhysicalDeviceWaylandPresentationSupportKHR(
+        VkPhysicalDevice $physicalDevice,
+        int $queueFamilyIndex,
+        CData|int $display,
+    ): bool {
+        $nativeDisplay = $this->ffi->cast('wl_display*', $display);
+
+        $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceWaylandPresentationSupportKHR', $physicalDevice);
+
+        $result = $procedure($physicalDevice->pointer, $queueFamilyIndex, $nativeDisplay);
+        \assert(\is_int($result));
+
+        return $result !== 0;
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html
+     * @since VK_KHR_win32_surface
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $queueFamilyIndex
+     */
+    public function vkGetPhysicalDeviceWin32PresentationSupportKHR(
+        VkPhysicalDevice $physicalDevice,
+        int $queueFamilyIndex,
+    ): bool {
+        $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceWin32PresentationSupportKHR', $physicalDevice);
+
+        $result = $procedure($physicalDevice->pointer, $queueFamilyIndex);
+        \assert(\is_int($result));
+
+        return $result !== 0;
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineCacheData.html
      * @since 1.0
      *
@@ -13093,6 +14666,26 @@ final class Vulkan extends VulkanBase
             fn(CData $item): VkPipelineExecutablePropertiesKHR => VkPipelineExecutablePropertiesKHR::createFromCData($item),
             VkPipelineExecutablePropertiesKHR::STRUCTURE_TYPE,
         );
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineIndirectDeviceAddressNV.html
+     * @since VK_NV_device_generated_commands_compute
+     *
+     * @api
+     */
+    public function vkGetPipelineIndirectDeviceAddressNV(
+        VkDevice $device,
+        VkPipelineIndirectDeviceAddressInfoNV $info,
+    ): int {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkGetPipelineIndirectDeviceAddressNV', $device);
+
+        $result = $procedure($device->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        return $result;
     }
 
     /**
@@ -13328,6 +14921,28 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html
+     * @since VK_KHR_ray_tracing_pipeline
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $group
+     */
+    public function vkGetRayTracingShaderGroupStackSizeKHR(
+        VkDevice $device,
+        VkPipeline $pipeline,
+        int $group,
+        VkShaderGroupShaderKHR $groupShader,
+    ): int {
+        $procedure = $this->vkGetInstanceProc('vkGetRayTracingShaderGroupStackSizeKHR', $device);
+
+        $result = $procedure($device->pointer, $pipeline->pointer, $group, $groupShader->value);
+        \assert(\is_int($result));
+
+        return $result;
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetRefreshCycleDurationGOOGLE.html
      * @since VK_GOOGLE_display_timing
      *
@@ -13408,6 +15023,54 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Legacy functionality.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
+     * @since VK_EXT_descriptor_buffer
+     * @deprecated legacy functionality
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetSamplerOpaqueCaptureDescriptorDataEXT(
+        VkDevice $device,
+        VkSamplerCaptureDescriptorDataInfoEXT $info,
+        CData|int $data,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkGetSamplerOpaqueCaptureDescriptorDataEXT', $device);
+
+        $this->assertSuccess('vkGetSamplerOpaqueCaptureDescriptorDataEXT', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeData));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetScreenBufferPropertiesQNX.html
+     * @since VK_QNX_external_memory_screen_buffer
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
+     */
+    public function vkGetScreenBufferPropertiesQNX(VkDevice $device, CData|int $buffer): VkScreenBufferPropertiesQNX
+    {
+        $nativeBuffer = $this->ffi->cast('_screen_buffer*', $buffer);
+
+        $nativeProperties = $this->memory->new('VkScreenBufferPropertiesQNX');
+        $nativeProperties->sType = VkScreenBufferPropertiesQNX::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetScreenBufferPropertiesQNX', $device);
+
+        $this->assertSuccess('vkGetScreenBufferPropertiesQNX', $procedure($device->pointer, $nativeBuffer, \FFI::addr($nativeProperties)));
+
+        return VkScreenBufferPropertiesQNX::createFromCData($nativeProperties);
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreCounterValue.html
      * @since 1.2
      *
@@ -13472,6 +15135,72 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreSciSyncObjNV.html
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
+     *         {@see VkResult::VK_ERROR_NOT_PERMITTED}
+     */
+    public function vkGetSemaphoreSciSyncObjNV(
+        VkDevice $device,
+        VkSemaphoreGetSciSyncInfoNV $getSciSyncInfo,
+        CData|int $handle,
+    ): void {
+        $nativeGetSciSyncInfo = $getSciSyncInfo->toCData($this->memory);
+        $nativeHandle = $this->ffi->cast('void*', $handle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetSemaphoreSciSyncObjNV', $device);
+
+        $this->assertSuccess('vkGetSemaphoreSciSyncObjNV', $procedure($device->pointer, \FFI::addr($nativeGetSciSyncInfo), $nativeHandle));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreWin32HandleKHR.html
+     * @since VK_KHR_external_semaphore_win32
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     */
+    public function vkGetSemaphoreWin32HandleKHR(
+        VkDevice $device,
+        VkSemaphoreGetWin32HandleInfoKHR $getWin32HandleInfo,
+        CData|int $handle,
+    ): void {
+        $nativeGetWin32HandleInfo = $getWin32HandleInfo->toCData($this->memory);
+        $nativeHandle = $this->ffi->cast('HANDLE*', $handle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetSemaphoreWin32HandleKHR', $device);
+
+        $this->assertSuccess('vkGetSemaphoreWin32HandleKHR', $procedure($device->pointer, \FFI::addr($nativeGetWin32HandleInfo), $nativeHandle));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html
+     * @since VK_FUCHSIA_external_semaphore
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     */
+    public function vkGetSemaphoreZirconHandleFUCHSIA(
+        VkDevice $device,
+        VkSemaphoreGetZirconHandleInfoFUCHSIA $getZirconHandleInfo,
+        CData|int $zirconHandle,
+    ): void {
+        $nativeGetZirconHandleInfo = $getZirconHandleInfo->toCData($this->memory);
+        $nativeZirconHandle = $this->ffi->cast('zx_handle_t*', $zirconHandle);
+
+        $procedure = $this->vkGetInstanceProc('vkGetSemaphoreZirconHandleFUCHSIA', $device);
+
+        $this->assertSuccess('vkGetSemaphoreZirconHandleFUCHSIA', $procedure($device->pointer, \FFI::addr($nativeGetZirconHandleInfo), $nativeZirconHandle));
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderBinaryDataEXT.html
      * @since VK_EXT_shader_object
      *
@@ -13526,6 +15255,44 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
         );
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetShaderInstrumentationValuesARM.html
+     * @since VK_ARM_shader_instrumentation
+     *
+     * @api
+     *
+     * @param int<0, 4294967295> $flags
+     *
+     * @return CommandResult<int>
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetShaderInstrumentationValuesARM(
+        VkDevice $device,
+        VkShaderInstrumentationARM $instrumentation,
+        CData|int|null $metricValues = null,
+        int $flags = 0,
+    ): CommandResult {
+        $nativeMetricValues = null;
+        if ($metricValues !== null) {
+            $nativeMetricValues = $this->ffi->cast('void*', $metricValues);
+        }
+
+        $nativeMetricBlockCount = $this->memory->new('uint32_t');
+
+        $procedure = $this->vkGetInstanceProc('vkGetShaderInstrumentationValuesARM', $device);
+
+        $result = $procedure($device->pointer, $instrumentation->pointer, \FFI::addr($nativeMetricBlockCount), $nativeMetricValues, $flags);
+        \assert(\is_int($result));
+
+        /** @var VkResult::VK_SUCCESS|VkResult::VK_INCOMPLETE $status */
+        $status = $this->getResult('vkGetShaderInstrumentationValuesARM', $result);
+
+        $value = $nativeMetricBlockCount->cdata;
+        \assert(\is_int($value));
+
+        return new CommandResult($status, $value);
     }
 
     /**
@@ -13741,6 +15508,48 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorOpaqueCaptureDescriptorDataARM.html
+     * @since VK_ARM_tensors
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetTensorOpaqueCaptureDescriptorDataARM(
+        VkDevice $device,
+        VkTensorCaptureDescriptorDataInfoARM $info,
+        CData|int $data,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkGetTensorOpaqueCaptureDescriptorDataARM', $device);
+
+        $this->assertSuccess('vkGetTensorOpaqueCaptureDescriptorDataARM', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeData));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetTensorViewOpaqueCaptureDescriptorDataARM.html
+     * @since VK_ARM_tensors
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetTensorViewOpaqueCaptureDescriptorDataARM(
+        VkDevice $device,
+        VkTensorViewCaptureDescriptorDataInfoARM $info,
+        CData|int $data,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkGetTensorViewOpaqueCaptureDescriptorDataARM', $device);
+
+        $this->assertSuccess('vkGetTensorViewOpaqueCaptureDescriptorDataARM', $procedure($device->pointer, \FFI::addr($nativeInfo), $nativeData));
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetValidationCacheDataEXT.html
      * @since VK_EXT_validation_cache
      *
@@ -13841,6 +15650,66 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceSciSyncFenceNV.html
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
+     *         {@see VkResult::VK_ERROR_NOT_PERMITTED}
+     */
+    public function vkImportFenceSciSyncFenceNV(
+        VkDevice $device,
+        VkImportFenceSciSyncInfoNV $importFenceSciSyncInfo,
+    ): void {
+        $nativeImportFenceSciSyncInfo = $importFenceSciSyncInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkImportFenceSciSyncFenceNV', $device);
+
+        $this->assertSuccess('vkImportFenceSciSyncFenceNV', $procedure($device->pointer, \FFI::addr($nativeImportFenceSciSyncInfo)));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceSciSyncObjNV.html
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
+     *         {@see VkResult::VK_ERROR_NOT_PERMITTED}
+     */
+    public function vkImportFenceSciSyncObjNV(
+        VkDevice $device,
+        VkImportFenceSciSyncInfoNV $importFenceSciSyncInfo,
+    ): void {
+        $nativeImportFenceSciSyncInfo = $importFenceSciSyncInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkImportFenceSciSyncObjNV', $device);
+
+        $this->assertSuccess('vkImportFenceSciSyncObjNV', $procedure($device->pointer, \FFI::addr($nativeImportFenceSciSyncInfo)));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportFenceWin32HandleKHR.html
+     * @since VK_KHR_external_fence_win32
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     */
+    public function vkImportFenceWin32HandleKHR(
+        VkDevice $device,
+        VkImportFenceWin32HandleInfoKHR $importFenceWin32HandleInfo,
+    ): void {
+        $nativeImportFenceWin32HandleInfo = $importFenceWin32HandleInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkImportFenceWin32HandleKHR', $device);
+
+        $this->assertSuccess('vkImportFenceWin32HandleKHR', $procedure($device->pointer, \FFI::addr($nativeImportFenceWin32HandleInfo)));
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreFdKHR.html
      * @since VK_KHR_external_semaphore_fd
      *
@@ -13856,6 +15725,86 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkImportSemaphoreFdKHR', $device);
 
         $this->assertSuccess('vkImportSemaphoreFdKHR', $procedure($device->pointer, \FFI::addr($nativeImportSemaphoreFdInfo)));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreSciSyncObjNV.html
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
+     *         {@see VkResult::VK_ERROR_NOT_PERMITTED}
+     */
+    public function vkImportSemaphoreSciSyncObjNV(
+        VkDevice $device,
+        VkImportSemaphoreSciSyncInfoNV $importSemaphoreSciSyncInfo,
+    ): void {
+        $nativeImportSemaphoreSciSyncInfo = $importSemaphoreSciSyncInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkImportSemaphoreSciSyncObjNV', $device);
+
+        $this->assertSuccess('vkImportSemaphoreSciSyncObjNV', $procedure($device->pointer, \FFI::addr($nativeImportSemaphoreSciSyncInfo)));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreWin32HandleKHR.html
+     * @since VK_KHR_external_semaphore_win32
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     */
+    public function vkImportSemaphoreWin32HandleKHR(
+        VkDevice $device,
+        VkImportSemaphoreWin32HandleInfoKHR $importSemaphoreWin32HandleInfo,
+    ): void {
+        $nativeImportSemaphoreWin32HandleInfo = $importSemaphoreWin32HandleInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkImportSemaphoreWin32HandleKHR', $device);
+
+        $this->assertSuccess('vkImportSemaphoreWin32HandleKHR', $procedure($device->pointer, \FFI::addr($nativeImportSemaphoreWin32HandleInfo)));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html
+     * @since VK_FUCHSIA_external_semaphore
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     */
+    public function vkImportSemaphoreZirconHandleFUCHSIA(
+        VkDevice $device,
+        VkImportSemaphoreZirconHandleInfoFUCHSIA $importSemaphoreZirconHandleInfo,
+    ): void {
+        $nativeImportSemaphoreZirconHandleInfo = $importSemaphoreZirconHandleInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkImportSemaphoreZirconHandleFUCHSIA', $device);
+
+        $this->assertSuccess('vkImportSemaphoreZirconHandleFUCHSIA', $procedure($device->pointer, \FFI::addr($nativeImportSemaphoreZirconHandleInfo)));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkInitializePerformanceApiINTEL.html
+     * @since VK_INTEL_performance_query
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     */
+    public function vkInitializePerformanceApiINTEL(
+        VkDevice $device,
+        VkInitializePerformanceApiInfoINTEL $initializeInfo,
+    ): void {
+        $nativeInitializeInfo = $initializeInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkInitializePerformanceApiINTEL', $device);
+
+        $this->assertSuccess('vkInitializePerformanceApiINTEL', $procedure($device->pointer, \FFI::addr($nativeInitializeInfo)));
     }
 
     /**
@@ -15181,6 +17130,42 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkUnregisterCustomBorderColorEXT', $device);
 
         $procedure($device->pointer, $index);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSetWithTemplate.html
+     * @since 1.1
+     *
+     * @api
+     */
+    public function vkUpdateDescriptorSetWithTemplate(
+        VkDevice $device,
+        VkDescriptorSet $descriptorSet,
+        VkDescriptorUpdateTemplate $descriptorUpdateTemplate,
+        CData|int $data,
+    ): void {
+        $nativeData = $this->ffi->cast('void*', $data);
+
+        $procedure = $this->vkGetInstanceProc('vkUpdateDescriptorSetWithTemplate', $device);
+
+        $procedure($device->pointer, $descriptorSet->pointer, $descriptorUpdateTemplate->pointer, $nativeData);
+    }
+
+    /**
+     * Alias of {@see self::vkUpdateDescriptorSetWithTemplate()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkUpdateDescriptorSetWithTemplateKHR.html
+     * @since VK_KHR_descriptor_update_template
+     *
+     * @api
+     */
+    public function vkUpdateDescriptorSetWithTemplateKHR(
+        VkDevice $device,
+        VkDescriptorSet $descriptorSet,
+        VkDescriptorUpdateTemplate $descriptorUpdateTemplate,
+        CData|int $data,
+    ): void {
+        $this->vkUpdateDescriptorSetWithTemplate($device, $descriptorSet, $descriptorUpdateTemplate, $data);
     }
 
     /**

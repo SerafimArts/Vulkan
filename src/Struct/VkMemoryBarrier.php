@@ -13,6 +13,8 @@ use Serafim\Vulkan\Enum\VkAccessFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
+ * Legacy functionality, superseded by `VkMemoryBarrier2`.
+ *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryBarrier.html
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#deprecation-sync2
  * @since 1.0

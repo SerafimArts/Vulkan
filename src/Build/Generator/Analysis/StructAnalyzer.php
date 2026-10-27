@@ -27,6 +27,7 @@ final readonly class StructAnalyzer
         PropertyKind::STRING,
         PropertyKind::STRING_LIST,
         PropertyKind::BINARY,
+        PropertyKind::NATIVE,
         PropertyKind::SAMPLE_MASK,
         PropertyKind::TEXT,
         PropertyKind::BYTES,
@@ -209,6 +210,14 @@ final readonly class StructAnalyzer
                 default: $this->registry->findZeroCase($member->type),
             ),
             PropertyKind::STRING => new PropertyPlan($member, $kind, $name, 'string', true, true),
+            PropertyKind::NATIVE => new PropertyPlan(
+                $member,
+                $kind,
+                $name,
+                'FFI\CData|int',
+                $member->isOptional,
+                $member->isOptional,
+            ),
             PropertyKind::BINARY => new PropertyPlan($member, $kind, $name, 'string', hasDefault: true, default: ''),
             PropertyKind::STRING_LIST => new PropertyPlan(
                 $member,
