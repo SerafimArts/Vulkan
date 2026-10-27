@@ -39,6 +39,16 @@ final readonly class Allocation
     }
 
     /**
+     * Returns the function pointer of the C type that calls the closure.
+     *
+     * @param non-empty-string $type C type of the function pointer
+     */
+    public function toCallback(string $type, \Closure $closure): CData
+    {
+        return $this->allocator->toCallback($type, $closure);
+    }
+
+    /**
      * Returns the `char**` pointer to the copies of the strings.
      *
      * @param list<string> $values

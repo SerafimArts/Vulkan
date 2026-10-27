@@ -41,6 +41,16 @@ final class InvalidStructureException extends VulkanException
             MESSAGE, $member, $structure, $length), previous: $prev);
     }
 
+    public static function becauseStructureCannotBeChained(
+        string $structure,
+        string $marker,
+        ?\Throwable $prev = null,
+    ): self {
+        return new self(\sprintf(<<<'MESSAGE'
+            The structure %s cannot be chained, it does not implement %s
+            MESSAGE, $structure, $marker), previous: $prev);
+    }
+
     public static function becauseUnionDoesNotHaveOneMember(
         string $union,
         int $members,

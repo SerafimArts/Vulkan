@@ -23,10 +23,19 @@ final class Allocator
      */
     private \WeakMap $retained;
 
+    /**
+     * Function pointers by the closure they call and the C type. The engine
+     * keeps a callback until the end of the process, so a closure gets one.
+     *
+     * @var \WeakMap<\Closure, array<string, CData>>
+     */
+    private \WeakMap $callbacks;
+
     public function __construct(
         public readonly \FFI $ffi,
     ) {
         $this->retained = new \WeakMap();
+        $this->callbacks = new \WeakMap();
     }
 
     /**
@@ -45,6 +54,44 @@ final class Allocator
         }
 
         return $data;
+    }
+
+    /**
+     * Returns the function pointer of the C type that calls the closure.
+     *
+     * @param non-empty-string $type C type of the function pointer
+     */
+    public function toCallback(string $type, \Closure $closure): CData
+    {
+        $callbacks = $this->callbacks[$closure] ?? [];
+
+        if (!isset($callbacks[$type])) {
+            $callbacks[$type] = $this->newCallback($type, $closure);
+            $this->callbacks[$closure] = $callbacks;
+        }
+
+        /** @var CData $cell */
+        $cell = $callbacks[$type];
+        /** @var CData $pointer */
+        $pointer = $cell[0];
+
+        return $pointer;
+    }
+
+    /**
+     * Allocates the native array of one function pointer that calls the
+     * closure.
+     *
+     * @param non-empty-string $type C type of the function pointer
+     */
+    private function newCallback(string $type, \Closure $closure): CData
+    {
+        $cell = $this->new($type . '[1]');
+
+        $cell[0] = $closure;
+
+        /** @var CData $cell */
+        return $cell;
     }
 
     /**
