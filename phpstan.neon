@@ -3,6 +3,7 @@ includes:
   - vendor/phpstan/phpstan-deprecation-rules/rules.neon
   - vendor/phpstan/phpstan-strict-rules/rules.neon
   - vendor/phpat/phpat/extension.neon
+  - extension.phpstan.neon
 parameters:
   level: max
   phpVersion:
@@ -47,5 +48,21 @@ services:
       - phpat.test
   -
     class: Serafim\Vulkan\Tests\Architecture\RuntimeArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\GeneratorArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\StructArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\ExtensionArchitecture
+    tags:
+      - phpat.test
+  -
+    class: Serafim\Vulkan\Tests\Architecture\HandleArchitecture
     tags:
       - phpat.test
