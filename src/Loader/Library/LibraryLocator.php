@@ -9,8 +9,7 @@ use Serafim\Vulkan\Loader\Exception\InvalidLibraryException;
 use Serafim\Vulkan\Loader\Library\LibraryDriver\FamilyLibraryDriver;
 
 /**
- * Finds the Vulkan shared library by asking the drivers in order of their
- * priority.
+ * Finds the Vulkan shared library of the environment.
  */
 final readonly class LibraryLocator implements LibraryLocatorInterface
 {

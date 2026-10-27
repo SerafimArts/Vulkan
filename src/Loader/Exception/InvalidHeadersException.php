@@ -13,11 +13,11 @@ final class InvalidHeadersException extends LoaderException
             MESSAGE, $pathname), previous: $prev);
     }
 
-    public static function becauseHeadersNotCompiled(\Throwable $prev): self
+    public static function becauseHeadersNotCompiled(?\Throwable $prev = null): self
     {
         return new self(\sprintf(<<<'MESSAGE'
             Could not preprocess the Vulkan headers: %s
-            MESSAGE, $prev->getMessage()), previous: $prev);
+            MESSAGE, $prev?->getMessage() ?? ''), previous: $prev);
     }
 
     public static function becauseHeadersNotWritable(string $pathname, ?\Throwable $prev = null): self

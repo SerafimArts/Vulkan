@@ -6,18 +6,18 @@ namespace Serafim\Vulkan\Loader\Exception;
 
 final class InvalidRuntimeException extends LoaderException
 {
-    public static function becauseExtensionIsNotAvailable(\Throwable $prev): self
+    public static function becauseExtensionIsNotAvailable(?\Throwable $prev = null): self
     {
         return new self(\sprintf(<<<'MESSAGE'
             The FFI extension is not available: %s
-            MESSAGE, $prev->getMessage()), previous: $prev);
+            MESSAGE, $prev?->getMessage() ?? ''), previous: $prev);
     }
 
-    public static function becausePreprocessorIsNotInstalled(): self
+    public static function becausePreprocessorIsNotInstalled(?\Throwable $prev = null): self
     {
         return new self(<<<'MESSAGE'
             The ffi/preprocessor package is required to compile the Vulkan
             headers, please install it with: composer require ffi/preprocessor
-            MESSAGE);
+            MESSAGE, previous: $prev);
     }
 }

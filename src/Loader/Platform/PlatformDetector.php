@@ -12,8 +12,7 @@ use Serafim\Vulkan\Loader\Platform\PlatformDriver\WindowsPlatformDriver;
 use Serafim\Vulkan\Loader\Platform\PlatformDriver\XlibPlatformDriver;
 
 /**
- * Detects the window system platform of the Vulkan API by asking the drivers
- * in order of their priority.
+ * Detects the window system platform of the Vulkan API.
  */
 final readonly class PlatformDetector implements PlatformDetectorInterface
 {
@@ -28,8 +27,7 @@ final readonly class PlatformDetector implements PlatformDetectorInterface
 
     /**
      * Creates the detector with the drivers of all the platforms known to the
-     * library. Wayland goes before Xlib, because a Wayland session also
-     * provides the X Window System through XWayland.
+     * library. Wayland has the priority over Xlib.
      */
     public static function createDefault(): self
     {

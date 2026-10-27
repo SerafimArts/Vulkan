@@ -8,9 +8,9 @@ use Serafim\Vulkan\Loader\Exception\InvalidHeadersException;
 use Serafim\Vulkan\Loader\Platform\Platform;
 
 /**
- * Reads the Vulkan headers of a platform that were compiled in advance.
- *
- * @see PreprocessorHeadersLoader
+ * Reads the Vulkan headers of a platform that were compiled in advance: the
+ * declarations that all the platforms share, followed by the ones of the
+ * platform.
  */
 final readonly class HeadersLoader implements HeadersLoaderInterface
 {
@@ -24,7 +24,16 @@ final readonly class HeadersLoader implements HeadersLoaderInterface
     ) {}
 
     /**
-     * Returns the name of the file with the headers compiled for the platform.
+     * Returns the name of the file with the declarations that all the
+     * platforms share.
+     */
+    public static function getCoreFilename(): string
+    {
+        return 'vulkan.h';
+    }
+
+    /**
+     * Returns the name of the file with the declarations of the platform.
      */
     public static function getFilename(Platform $platform): string
     {
@@ -33,17 +42,25 @@ final readonly class HeadersLoader implements HeadersLoaderInterface
 
     public function getHeaders(Platform $platform): string
     {
-        $pathname = $this->directory . '/' . self::getFilename($platform);
-        $headers = false;
+        return $this->read(self::getCoreFilename()) . $this->read(self::getFilename($platform));
+    }
+
+    /**
+     * @throws InvalidHeadersException in case of the file cannot be read
+     */
+    private function read(string $filename): string
+    {
+        $pathname = $this->directory . '/' . $filename;
+        $contents = false;
 
         if (\is_readable($pathname)) {
-            $headers = \file_get_contents($pathname);
+            $contents = \file_get_contents($pathname);
         }
 
-        if ($headers === false) {
+        if ($contents === false) {
             throw InvalidHeadersException::becauseHeadersNotReadable($pathname);
         }
 
-        return $headers;
+        return $contents;
     }
 }

@@ -18,11 +18,11 @@ use Serafim\Vulkan\Loader\Platform\Platform;
 final readonly class PreprocessorHeadersLoader implements HeadersLoaderInterface
 {
     /**
-     * Source that includes the whole Vulkan API of the version 1.0.
+     * Source that includes the whole Vulkan API and the function that loads the commands.
      */
     private const string ENTRYPOINT = <<<'C'
         #include <vulkan/vulkan.h>
-        #include <prototypes-1.0.h>
+        #include <prototypes.h>
         C;
 
     public function __construct(
@@ -35,7 +35,7 @@ final readonly class PreprocessorHeadersLoader implements HeadersLoaderInterface
         private string $include = __DIR__ . '/../../../resources/src/include',
         /**
          * Directory with the `platform` stubs of the system headers and the
-         * `prototypes-1.0.h` file
+         * `prototypes.h` file
          *
          * @var non-empty-string
          */
