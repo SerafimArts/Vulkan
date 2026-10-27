@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorMappingSourceEXT;
 use Serafim\Vulkan\Enum\VkSpirvResourceTypeFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetAndBindingMappingEXTExtension;
 
@@ -34,9 +35,9 @@ final class VkDescriptorSetAndBindingMappingEXT extends InputStructure
         public int $firstBinding = 0,
         /** @var int<0, 4294967295> */
         public int $bindingCount = 0,
-        /** @var int-mask-of<VkSpirvResourceTypeFlagBitsEXT::*> */
+        /** @var int-mask-of<VkSpirvResourceTypeFlagBitsEXT::VK_*> */
         public int $resourceMask = 0,
-        public VkDescriptorMappingSourceEXT $source = VkDescriptorMappingSourceEXT::VK_DESCRIPTOR_MAPPING_SOURCE_HEAP_WITH_CONSTANT_OFFSET_EXT,
+        public VkDescriptorMappingSourceEXT|int $source = VkDescriptorMappingSourceEXT::VK_DESCRIPTOR_MAPPING_SOURCE_HEAP_WITH_CONSTANT_OFFSET_EXT,
     ) {}
 
     /**
@@ -47,7 +48,7 @@ final class VkDescriptorSetAndBindingMappingEXT extends InputStructure
      *     firstBinding: int<0, 4294967295>,
      *     bindingCount: int<0, 4294967295>,
      *     resourceMask: int<0, 4294967295>,
-     *     source: value-of<VkDescriptorMappingSourceEXT>,
+     *     source: int,
      *     sourceData: CData,
      * } $data
      *
@@ -71,7 +72,7 @@ final class VkDescriptorSetAndBindingMappingEXT extends InputStructure
 
         $data->resourceMask = $this->resourceMask;
 
-        $data->source = $this->source->value;
+        $data->source = EnumCase::getValue($this->source);
 
         $this->sourceData->write($memory, $data->sourceData);
     }

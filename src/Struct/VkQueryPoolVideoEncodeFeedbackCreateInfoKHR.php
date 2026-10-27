@@ -26,7 +26,7 @@ final class VkQueryPoolVideoEncodeFeedbackCreateInfoKHR extends InputStructure i
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkVideoEncodeFeedbackFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoEncodeFeedbackFlagBitsKHR::VK_*> */
         public int $encodeFeedbackFlags = 0,
     ) {}
 

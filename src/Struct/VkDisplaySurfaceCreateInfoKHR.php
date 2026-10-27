@@ -53,7 +53,7 @@ final class VkDisplaySurfaceCreateInfoKHR extends InputStructure
          * Transform to apply to the images as part of the scanout
          * operation
          *
-         * @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::*)
+         * @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::VK_*)
          */
         public int $transform = 0,
         /**
@@ -66,7 +66,7 @@ final class VkDisplaySurfaceCreateInfoKHR extends InputStructure
          * VkDisplayPlaneCapabilitiesKHR::supportedAlpha for this display
          * plane
          *
-         * @var int<0, 4294967295>|(VkDisplayPlaneAlphaFlagBitsKHR::*)
+         * @var int<0, 4294967295>|(VkDisplayPlaneAlphaFlagBitsKHR::VK_*)
          */
         public int $alphaMode = 0,
     ) {}

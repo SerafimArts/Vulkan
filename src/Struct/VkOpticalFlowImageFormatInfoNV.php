@@ -27,7 +27,7 @@ final class VkOpticalFlowImageFormatInfoNV extends InputStructure implements VkP
 
     public function __construct(
         public VkPhysicalDeviceImageFormatInfo2Extension|VkImageCreateInfoExtension|null $next = null,
-        /** @var int-mask-of<VkOpticalFlowUsageFlagBitsNV::*> */
+        /** @var int-mask-of<VkOpticalFlowUsageFlagBitsNV::VK_*> */
         public int $usage = 0,
     ) {}
 

@@ -36,7 +36,7 @@ final readonly class VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR extends Out
          * Bitmask of VkQueueFlagBits indicating the family of queues that
          * support indirect copy
          *
-         * @var int-mask-of<VkQueueFlagBits::*>
+         * @var int-mask-of<VkQueueFlagBits::VK_*>
          */
         public int $supportedQueues,
     ) {}

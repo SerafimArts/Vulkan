@@ -28,7 +28,7 @@ final class VkExportMemoryAllocateInfoNV extends InputStructure implements VkMem
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
-        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> */
+        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> */
         public int $handleTypes = 0,
     ) {}
 

@@ -32,7 +32,7 @@ final readonly class VkSharedPresentSurfaceCapabilities2KHR extends OutputStruct
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::*) */
+        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::VK_*) */
         public int $sharedPresentSupportedUsageFlags,
     ) {}
 

@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkAccessFlagBits;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageMemoryBarrierExtension;
 
@@ -38,20 +39,20 @@ final class VkImageMemoryBarrier extends InputStructure
         /**
          * Memory accesses from the source of the dependency to synchronize
          *
-         * @var int<0, 4294967295>|(VkAccessFlagBits::*)
+         * @var int<0, 4294967295>|(VkAccessFlagBits::VK_*)
          */
         public int $srcAccessMask = 0,
         /**
          * Memory accesses from the destination of the dependency to
          * synchronize
          *
-         * @var int<0, 4294967295>|(VkAccessFlagBits::*)
+         * @var int<0, 4294967295>|(VkAccessFlagBits::VK_*)
          */
         public int $dstAccessMask = 0,
         /** Current layout of the image */
-        public VkImageLayout $oldLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $oldLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         /** New layout to transition the image to */
-        public VkImageLayout $newLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $newLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         /**
          * Queue family to transition ownership from
          *
@@ -72,8 +73,8 @@ final class VkImageMemoryBarrier extends InputStructure
      *     pNext: CData,
      *     srcAccessMask: int<0, 4294967295>,
      *     dstAccessMask: int<0, 4294967295>,
-     *     oldLayout: value-of<VkImageLayout>,
-     *     newLayout: value-of<VkImageLayout>,
+     *     oldLayout: int,
+     *     newLayout: int,
      *     srcQueueFamilyIndex: int<0, 4294967295>,
      *     dstQueueFamilyIndex: int<0, 4294967295>,
      *     image: CData,
@@ -96,9 +97,9 @@ final class VkImageMemoryBarrier extends InputStructure
 
         $data->dstAccessMask = $this->dstAccessMask;
 
-        $data->oldLayout = $this->oldLayout->value;
+        $data->oldLayout = EnumCase::getValue($this->oldLayout);
 
-        $data->newLayout = $this->newLayout->value;
+        $data->newLayout = EnumCase::getValue($this->newLayout);
 
         $data->srcQueueFamilyIndex = $this->srcQueueFamilyIndex;
 

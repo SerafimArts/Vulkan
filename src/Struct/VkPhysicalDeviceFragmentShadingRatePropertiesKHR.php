@@ -67,7 +67,7 @@ final readonly class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Ou
         /**
          * The value is at least the required one.
          *
-         * @var int<0, 4294967295>|(VkSampleCountFlagBits::*)
+         * @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*)
          */
         public int $maxFragmentShadingRateRasterizationSamples,
         /** The value is at least the required one. */

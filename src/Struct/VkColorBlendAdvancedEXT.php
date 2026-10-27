@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkBlendOp;
 use Serafim\Vulkan\Enum\VkBlendOverlapEXT;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -22,19 +23,19 @@ final class VkColorBlendAdvancedEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkColorBlendAdvancedEXT';
 
     public function __construct(
-        public VkBlendOp $advancedBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
+        public VkBlendOp|int $advancedBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
         public bool $srcPremultiplied = false,
         public bool $dstPremultiplied = false,
-        public VkBlendOverlapEXT $blendOverlap = VkBlendOverlapEXT::VK_BLEND_OVERLAP_UNCORRELATED_EXT,
+        public VkBlendOverlapEXT|int $blendOverlap = VkBlendOverlapEXT::VK_BLEND_OVERLAP_UNCORRELATED_EXT,
         public bool $clampResults = false,
     ) {}
 
     /**
      * @param CData&object{
-     *     advancedBlendOp: value-of<VkBlendOp>,
+     *     advancedBlendOp: int,
      *     srcPremultiplied: int<0, 1>,
      *     dstPremultiplied: int<0, 1>,
-     *     blendOverlap: value-of<VkBlendOverlapEXT>,
+     *     blendOverlap: int,
      *     clampResults: int<0, 1>,
      * } $data
      *
@@ -42,13 +43,13 @@ final class VkColorBlendAdvancedEXT extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->advancedBlendOp = $this->advancedBlendOp->value;
+        $data->advancedBlendOp = EnumCase::getValue($this->advancedBlendOp);
 
         $data->srcPremultiplied = (int) $this->srcPremultiplied;
 
         $data->dstPremultiplied = (int) $this->dstPremultiplied;
 
-        $data->blendOverlap = $this->blendOverlap->value;
+        $data->blendOverlap = EnumCase::getValue($this->blendOverlap);
 
         $data->clampResults = (int) $this->clampResults;
     }

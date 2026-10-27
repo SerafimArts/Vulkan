@@ -17,6 +17,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * A command that fills an array of unknown length.
@@ -236,8 +237,12 @@ final readonly class EnumerateBody implements Body
         }
 
         if ($output->kind === TypeKind::ENUMERATION) {
-            $type = Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type);
-            $factory = 'fn(int $item): ' . $type . ' => ' . $type . '::from($item)';
+            $namespace->addUse(EnumCase::class);
+
+            $type = Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type) . '|int';
+            $factory = 'fn(int $item): ' . $type . ' => EnumCase::createFromValue('
+                . Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type)
+                . '::class, $item)';
         }
 
         return new Enumeration(

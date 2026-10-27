@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,10 +27,10 @@ final class VkRenderingAreaInfo extends InputStructure
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $viewMask = 0,
-        /** @var list<VkFormat> */
+        /** @var list<VkFormat|int> */
         public array $colorAttachmentFormats = [],
-        public VkFormat $depthAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkFormat $stencilAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $depthAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $stencilAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
     /**
@@ -39,8 +40,8 @@ final class VkRenderingAreaInfo extends InputStructure
      *     viewMask: int<0, 4294967295>,
      *     colorAttachmentCount: int<0, 4294967295>,
      *     pColorAttachmentFormats: CData,
-     *     depthAttachmentFormat: value-of<VkFormat>,
-     *     stencilAttachmentFormat: value-of<VkFormat>,
+     *     depthAttachmentFormat: int,
+     *     stencilAttachmentFormat: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -53,11 +54,11 @@ final class VkRenderingAreaInfo extends InputStructure
 
         if ($this->colorAttachmentFormats !== []) {
             $data->colorAttachmentCount = \count($this->colorAttachmentFormats);
-            $data->pColorAttachmentFormats = $memory->ffi->cast('VkFormat*', $memory->toNumberArray('VkFormat', \array_map(static fn(VkFormat $item): int => $item->value, $this->colorAttachmentFormats)));
+            $data->pColorAttachmentFormats = $memory->ffi->cast('VkFormat*', $memory->toNumberArray('VkFormat', \array_map(EnumCase::getValue(...), $this->colorAttachmentFormats)));
         }
 
-        $data->depthAttachmentFormat = $this->depthAttachmentFormat->value;
+        $data->depthAttachmentFormat = EnumCase::getValue($this->depthAttachmentFormat);
 
-        $data->stencilAttachmentFormat = $this->stencilAttachmentFormat->value;
+        $data->stencilAttachmentFormat = EnumCase::getValue($this->stencilAttachmentFormat);
     }
 }

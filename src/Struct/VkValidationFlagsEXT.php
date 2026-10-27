@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkValidationCheckEXT;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
 
@@ -31,7 +32,7 @@ final class VkValidationFlagsEXT extends InputStructure implements VkInstanceCre
         /**
          * Validation checks to disable
          *
-         * @var list<VkValidationCheckEXT>
+         * @var list<VkValidationCheckEXT|int>
          */
         public array $disabledValidationChecks = [],
     ) {}
@@ -58,7 +59,7 @@ final class VkValidationFlagsEXT extends InputStructure implements VkInstanceCre
 
         if ($this->disabledValidationChecks !== []) {
             $data->disabledValidationCheckCount = \count($this->disabledValidationChecks);
-            $data->pDisabledValidationChecks = $memory->ffi->cast('VkValidationCheckEXT*', $memory->toNumberArray('VkValidationCheckEXT', \array_map(static fn(VkValidationCheckEXT $item): int => $item->value, $this->disabledValidationChecks)));
+            $data->pDisabledValidationChecks = $memory->ffi->cast('VkValidationCheckEXT*', $memory->toNumberArray('VkValidationCheckEXT', \array_map(EnumCase::getValue(...), $this->disabledValidationChecks)));
         }
     }
 }

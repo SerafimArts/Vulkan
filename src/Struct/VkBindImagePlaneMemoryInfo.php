@@ -26,7 +26,7 @@ final class VkBindImagePlaneMemoryInfo extends InputStructure implements VkBindI
 
     public function __construct(
         public ?VkBindImageMemoryInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkImageAspectFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkImageAspectFlagBits::VK_*) */
         public int $planeAspect = 0,
     ) {}
 

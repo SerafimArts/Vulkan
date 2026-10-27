@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVertexInputRate;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,7 +29,7 @@ final class VkVertexInputBindingDescription2EXT extends InputStructure
         public int $binding = 0,
         /** @var int<0, 4294967295> */
         public int $stride = 0,
-        public VkVertexInputRate $inputRate = VkVertexInputRate::VK_VERTEX_INPUT_RATE_VERTEX,
+        public VkVertexInputRate|int $inputRate = VkVertexInputRate::VK_VERTEX_INPUT_RATE_VERTEX,
         /** @var int<0, 4294967295> */
         public int $divisor = 0,
     ) {}
@@ -39,7 +40,7 @@ final class VkVertexInputBindingDescription2EXT extends InputStructure
      *     pNext: CData,
      *     binding: int<0, 4294967295>,
      *     stride: int<0, 4294967295>,
-     *     inputRate: value-of<VkVertexInputRate>,
+     *     inputRate: int,
      *     divisor: int<0, 4294967295>,
      * } $data
      *
@@ -53,7 +54,7 @@ final class VkVertexInputBindingDescription2EXT extends InputStructure
 
         $data->stride = $this->stride;
 
-        $data->inputRate = $this->inputRate->value;
+        $data->inputRate = EnumCase::getValue($this->inputRate);
 
         $data->divisor = $this->divisor;
     }

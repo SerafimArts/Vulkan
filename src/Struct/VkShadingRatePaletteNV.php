@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShadingRatePaletteEntryNV;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,7 +22,7 @@ final class VkShadingRatePaletteNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkShadingRatePaletteNV';
 
     public function __construct(
-        /** @var list<VkShadingRatePaletteEntryNV> */
+        /** @var list<VkShadingRatePaletteEntryNV|int> */
         public array $shadingRatePaletteEntries = [],
     ) {}
 
@@ -37,7 +38,7 @@ final class VkShadingRatePaletteNV extends InputStructure
     {
         if ($this->shadingRatePaletteEntries !== []) {
             $data->shadingRatePaletteEntryCount = \count($this->shadingRatePaletteEntries);
-            $data->pShadingRatePaletteEntries = $memory->ffi->cast('VkShadingRatePaletteEntryNV*', $memory->toNumberArray('VkShadingRatePaletteEntryNV', \array_map(static fn(VkShadingRatePaletteEntryNV $item): int => $item->value, $this->shadingRatePaletteEntries)));
+            $data->pShadingRatePaletteEntries = $memory->ffi->cast('VkShadingRatePaletteEntryNV*', $memory->toNumberArray('VkShadingRatePaletteEntryNV', \array_map(EnumCase::getValue(...), $this->shadingRatePaletteEntries)));
         }
     }
 }

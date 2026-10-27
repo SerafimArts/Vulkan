@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDirectDriverLoadingModeLUNARG;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
 
@@ -26,7 +27,7 @@ final class VkDirectDriverLoadingListLUNARG extends InputStructure implements Vk
 
     public function __construct(
         public ?VkInstanceCreateInfoExtension $next = null,
-        public VkDirectDriverLoadingModeLUNARG $mode = VkDirectDriverLoadingModeLUNARG::VK_DIRECT_DRIVER_LOADING_MODE_EXCLUSIVE_LUNARG,
+        public VkDirectDriverLoadingModeLUNARG|int $mode = VkDirectDriverLoadingModeLUNARG::VK_DIRECT_DRIVER_LOADING_MODE_EXCLUSIVE_LUNARG,
         /** @var list<VkDirectDriverLoadingInfoLUNARG> */
         public array $drivers = [],
     ) {}
@@ -35,7 +36,7 @@ final class VkDirectDriverLoadingListLUNARG extends InputStructure implements Vk
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG>,
      *     pNext: CData,
-     *     mode: value-of<VkDirectDriverLoadingModeLUNARG>,
+     *     mode: int,
      *     driverCount: int<0, 4294967295>,
      *     pDrivers: CData,
      * } $data
@@ -52,7 +53,7 @@ final class VkDirectDriverLoadingListLUNARG extends InputStructure implements Vk
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->mode = $this->mode->value;
+        $data->mode = EnumCase::getValue($this->mode);
 
         if ($this->drivers !== []) {
             $data->driverCount = \count($this->drivers);

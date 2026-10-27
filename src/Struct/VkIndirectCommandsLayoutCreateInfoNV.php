@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndirectCommandsLayoutUsageFlagBitsNV;
 use Serafim\Vulkan\Enum\VkPipelineBindPoint;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,9 +26,9 @@ final class VkIndirectCommandsLayoutCreateInfoNV extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV->value;
 
     public function __construct(
-        /** @var int-mask-of<VkIndirectCommandsLayoutUsageFlagBitsNV::*> */
+        /** @var int-mask-of<VkIndirectCommandsLayoutUsageFlagBitsNV::VK_*> */
         public int $flags = 0,
-        public VkPipelineBindPoint $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
+        public VkPipelineBindPoint|int $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
         /** @var list<VkIndirectCommandsLayoutTokenNV> */
         public array $tokens = [],
         /** @var list<int<0, 4294967295>> */
@@ -39,7 +40,7 @@ final class VkIndirectCommandsLayoutCreateInfoNV extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
+     *     pipelineBindPoint: int,
      *     tokenCount: int<0, 4294967295>,
      *     pTokens: CData,
      *     streamCount: int<0, 4294967295>,
@@ -54,7 +55,7 @@ final class VkIndirectCommandsLayoutCreateInfoNV extends InputStructure
 
         $data->flags = $this->flags;
 
-        $data->pipelineBindPoint = $this->pipelineBindPoint->value;
+        $data->pipelineBindPoint = EnumCase::getValue($this->pipelineBindPoint);
 
         if ($this->tokens !== []) {
             $data->tokenCount = \count($this->tokens);

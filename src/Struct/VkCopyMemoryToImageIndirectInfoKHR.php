@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkAddressCopyFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,9 +29,9 @@ final class VkCopyMemoryToImageIndirectInfoKHR extends InputStructure
     public function __construct(
         public VkStridedDeviceAddressRangeKHR $copyAddressRange,
         public VkImage $dstImage,
-        /** @var int-mask-of<VkAddressCopyFlagBitsKHR::*> */
+        /** @var int-mask-of<VkAddressCopyFlagBitsKHR::VK_*> */
         public int $srcCopyFlags = 0,
-        public VkImageLayout $dstImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $dstImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         /** @var list<VkImageSubresourceLayers> */
         public array $imageSubresources = [],
     ) {}
@@ -43,7 +44,7 @@ final class VkCopyMemoryToImageIndirectInfoKHR extends InputStructure
      *     copyCount: int<0, 4294967295>,
      *     copyAddressRange: CData,
      *     dstImage: CData,
-     *     dstImageLayout: value-of<VkImageLayout>,
+     *     dstImageLayout: int,
      *     pImageSubresources: CData,
      * } $data
      *
@@ -59,7 +60,7 @@ final class VkCopyMemoryToImageIndirectInfoKHR extends InputStructure
 
         $data->dstImage = $memory->ffi->cast('VkImage', $this->dstImage->pointer);
 
-        $data->dstImageLayout = $this->dstImageLayout->value;
+        $data->dstImageLayout = EnumCase::getValue($this->dstImageLayout);
 
         if ($this->imageSubresources !== []) {
             $data->copyCount = \count($this->imageSubresources);

@@ -6,6 +6,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Handle\Handle;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\VulkanBase;
 
 /**
@@ -51,7 +52,7 @@ abstract readonly class OutputStructure
      * @param class-string<T> $enum
      * @param int<0, max> $length
      *
-     * @return list<T>
+     * @return list<T|int>
      */
     final protected static function createEnumerationListFromCData(string $enum, CData $array, int $length): array
     {
@@ -61,7 +62,7 @@ abstract readonly class OutputStructure
             /** @var int $value */
             $value = $array[$i];
 
-            $list[] = $enum::from($value);
+            $list[] = EnumCase::createFromValue($enum, $value);
         }
 
         return $list;

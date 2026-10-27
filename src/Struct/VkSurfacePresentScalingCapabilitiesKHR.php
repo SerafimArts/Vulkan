@@ -33,11 +33,11 @@ final readonly class VkSurfacePresentScalingCapabilitiesKHR extends OutputStruct
     }
 
     public function __construct(
-        /** @var int-mask-of<VkPresentScalingFlagBitsKHR::*> */
+        /** @var int-mask-of<VkPresentScalingFlagBitsKHR::VK_*> */
         public int $supportedPresentScaling,
-        /** @var int-mask-of<VkPresentGravityFlagBitsKHR::*> */
+        /** @var int-mask-of<VkPresentGravityFlagBitsKHR::VK_*> */
         public int $supportedPresentGravityX,
-        /** @var int-mask-of<VkPresentGravityFlagBitsKHR::*> */
+        /** @var int-mask-of<VkPresentGravityFlagBitsKHR::VK_*> */
         public int $supportedPresentGravityY,
         /**
          * Supported minimum image width and height for the surface when

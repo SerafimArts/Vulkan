@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphModelCacheTypeQCOM;
 use Serafim\Vulkan\Enum\VkPipelineCacheHeaderVersion;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -23,10 +24,10 @@ final class VkPipelineCacheHeaderVersionDataGraphQCOM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPipelineCacheHeaderVersionDataGraphQCOM';
 
     public function __construct(
-        public VkPipelineCacheHeaderVersion $headerVersion,
+        public VkPipelineCacheHeaderVersion|int $headerVersion,
         /** @var int<0, 4294967295> */
         public int $headerSize = 0,
-        public VkDataGraphModelCacheTypeQCOM $cacheType = VkDataGraphModelCacheTypeQCOM::VK_DATA_GRAPH_MODEL_CACHE_TYPE_GENERIC_BINARY_QCOM,
+        public VkDataGraphModelCacheTypeQCOM|int $cacheType = VkDataGraphModelCacheTypeQCOM::VK_DATA_GRAPH_MODEL_CACHE_TYPE_GENERIC_BINARY_QCOM,
         /** @var int<0, 4294967295> */
         public int $cacheVersion = 0,
         /** @var list<int<0, 4294967295>> */
@@ -36,8 +37,8 @@ final class VkPipelineCacheHeaderVersionDataGraphQCOM extends InputStructure
     /**
      * @param CData&object{
      *     headerSize: int<0, 4294967295>,
-     *     headerVersion: value-of<VkPipelineCacheHeaderVersion>,
-     *     cacheType: value-of<VkDataGraphModelCacheTypeQCOM>,
+     *     headerVersion: int,
+     *     cacheType: int,
      *     cacheVersion: int<0, 4294967295>,
      *     toolchainVersion: CData,
      * } $data
@@ -48,9 +49,9 @@ final class VkPipelineCacheHeaderVersionDataGraphQCOM extends InputStructure
     {
         $data->headerSize = $this->headerSize;
 
-        $data->headerVersion = $this->headerVersion->value;
+        $data->headerVersion = EnumCase::getValue($this->headerVersion);
 
-        $data->cacheType = $this->cacheType->value;
+        $data->cacheType = EnumCase::getValue($this->cacheType);
 
         $data->cacheVersion = $this->cacheVersion;
 

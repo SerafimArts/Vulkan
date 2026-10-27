@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkChromaLocation;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -34,15 +35,15 @@ final readonly class VkPhysicalDeviceExternalFormatResolvePropertiesANDROID exte
     public function __construct(
         /** The value is at most the required one. */
         public bool $nullColorAttachmentWithExternalFormatResolve,
-        public VkChromaLocation $externalFormatResolveChromaOffsetX,
-        public VkChromaLocation $externalFormatResolveChromaOffsetY,
+        public VkChromaLocation|int $externalFormatResolveChromaOffsetX,
+        public VkChromaLocation|int $externalFormatResolveChromaOffsetY,
     ) {}
 
     /**
      * @param CData&object{
      *     nullColorAttachmentWithExternalFormatResolve: int<0, 1>,
-     *     externalFormatResolveChromaOffsetX: value-of<VkChromaLocation>,
-     *     externalFormatResolveChromaOffsetY: value-of<VkChromaLocation>,
+     *     externalFormatResolveChromaOffsetX: int,
+     *     externalFormatResolveChromaOffsetY: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -51,8 +52,8 @@ final readonly class VkPhysicalDeviceExternalFormatResolvePropertiesANDROID exte
     {
         return new self(
             nullColorAttachmentWithExternalFormatResolve: $data->nullColorAttachmentWithExternalFormatResolve !== 0,
-            externalFormatResolveChromaOffsetX: VkChromaLocation::from($data->externalFormatResolveChromaOffsetX),
-            externalFormatResolveChromaOffsetY: VkChromaLocation::from($data->externalFormatResolveChromaOffsetY),
+            externalFormatResolveChromaOffsetX: EnumCase::createFromValue(VkChromaLocation::class, $data->externalFormatResolveChromaOffsetX),
+            externalFormatResolveChromaOffsetY: EnumCase::createFromValue(VkChromaLocation::class, $data->externalFormatResolveChromaOffsetY),
         );
     }
 }

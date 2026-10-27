@@ -25,7 +25,7 @@ final class VkImageFormatConstraintsInfoFUCHSIA extends InputStructure
 
     public function __construct(
         public VkImageCreateInfo $imageCreateInfo,
-        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::VK_*) */
         public int $requiredFormatFeatures = 0,
         /** @var int<0, 4294967295> */
         public int $flags = 0,

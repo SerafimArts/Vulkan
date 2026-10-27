@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkGpaSampleTypeAMD;
 use Serafim\Vulkan\Enum\VkGpaSqShaderStageFlagBitsAMD;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,11 +27,11 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD->value;
 
     public function __construct(
-        public VkGpaSampleTypeAMD $sampleType = VkGpaSampleTypeAMD::VK_GPA_SAMPLE_TYPE_CUMULATIVE_AMD,
+        public VkGpaSampleTypeAMD|int $sampleType = VkGpaSampleTypeAMD::VK_GPA_SAMPLE_TYPE_CUMULATIVE_AMD,
         public bool $sampleInternalOperations = false,
         public bool $cacheFlushOnCounterCollection = false,
         public bool $sqShaderMaskEnable = false,
-        /** @var int-mask-of<VkGpaSqShaderStageFlagBitsAMD::*> */
+        /** @var int-mask-of<VkGpaSqShaderStageFlagBitsAMD::VK_*> */
         public int $sqShaderMask = 0,
         /** @var list<VkGpaPerfCounterAMD> */
         public array $perfCounters = [],
@@ -42,9 +43,9 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
         public bool $sqThreadTraceSuppressInstructionTokens = false,
         /** @var int<0, max> */
         public int $sqThreadTraceDeviceMemoryLimit = 0,
-        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) */
         public int $timingPreSample = 0,
-        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) */
         public int $timingPostSample = 0,
     ) {}
 
@@ -52,7 +53,7 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD>,
      *     pNext: CData,
-     *     sampleType: value-of<VkGpaSampleTypeAMD>,
+     *     sampleType: int,
      *     sampleInternalOperations: int<0, 1>,
      *     cacheFlushOnCounterCollection: int<0, 1>,
      *     sqShaderMaskEnable: int<0, 1>,
@@ -74,7 +75,7 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->sampleType = $this->sampleType->value;
+        $data->sampleType = EnumCase::getValue($this->sampleType);
 
         $data->sampleInternalOperations = (int) $this->sampleInternalOperations;
 

@@ -15,6 +15,7 @@ use Serafim\Vulkan\Enum\VkMicromapTypeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkMicromapEXT;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -31,10 +32,10 @@ final class VkMicromapBuildInfoEXT extends InputStructure
         public VkDeviceOrHostAddressConstKHR $data,
         public VkDeviceOrHostAddressKHR $scratchData,
         public VkDeviceOrHostAddressConstKHR $triangleArray,
-        public VkMicromapTypeEXT $type = VkMicromapTypeEXT::VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT,
-        /** @var int-mask-of<VkBuildMicromapFlagBitsEXT::*> */
+        public VkMicromapTypeEXT|int $type = VkMicromapTypeEXT::VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT,
+        /** @var int-mask-of<VkBuildMicromapFlagBitsEXT::VK_*> */
         public int $flags = 0,
-        public VkBuildMicromapModeEXT $mode = VkBuildMicromapModeEXT::VK_BUILD_MICROMAP_MODE_BUILD_EXT,
+        public VkBuildMicromapModeEXT|int $mode = VkBuildMicromapModeEXT::VK_BUILD_MICROMAP_MODE_BUILD_EXT,
         public ?VkMicromapEXT $dstMicromap = null,
         /**
          * The number of the elements of `$usageCounts`, `$usageCounts`, it
@@ -53,9 +54,9 @@ final class VkMicromapBuildInfoEXT extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_BUILD_INFO_EXT>,
      *     pNext: CData,
-     *     type: value-of<VkMicromapTypeEXT>,
+     *     type: int,
      *     flags: int<0, 4294967295>,
-     *     mode: value-of<VkBuildMicromapModeEXT>,
+     *     mode: int,
      *     dstMicromap: CData,
      *     usageCountsCount: int<0, 4294967295>,
      *     pUsageCounts: CData,
@@ -72,11 +73,11 @@ final class VkMicromapBuildInfoEXT extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         $data->flags = $this->flags;
 
-        $data->mode = $this->mode->value;
+        $data->mode = EnumCase::getValue($this->mode);
 
         if ($this->dstMicromap !== null) {
             $data->dstMicromap = $memory->ffi->cast('VkMicromapEXT', $this->dstMicromap->pointer);

@@ -15,6 +15,7 @@ use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrModelConversion;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
@@ -36,28 +37,28 @@ final readonly class VkNativeBufferFormatPropertiesOHOS extends OutputStructure 
     }
 
     public function __construct(
-        public VkFormat $format,
+        public VkFormat|int $format,
         /** @var int<0, max> */
         public int $externalFormat,
-        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::VK_*) */
         public int $formatFeatures,
         public VkComponentMapping $samplerYcbcrConversionComponents,
-        public VkSamplerYcbcrModelConversion $suggestedYcbcrModel,
-        public VkSamplerYcbcrRange $suggestedYcbcrRange,
-        public VkChromaLocation $suggestedXChromaOffset,
-        public VkChromaLocation $suggestedYChromaOffset,
+        public VkSamplerYcbcrModelConversion|int $suggestedYcbcrModel,
+        public VkSamplerYcbcrRange|int $suggestedYcbcrRange,
+        public VkChromaLocation|int $suggestedXChromaOffset,
+        public VkChromaLocation|int $suggestedYChromaOffset,
     ) {}
 
     /**
      * @param CData&object{
-     *     format: value-of<VkFormat>,
+     *     format: int,
      *     externalFormat: int<0, max>,
      *     formatFeatures: int<0, 4294967295>,
      *     samplerYcbcrConversionComponents: CData,
-     *     suggestedYcbcrModel: value-of<VkSamplerYcbcrModelConversion>,
-     *     suggestedYcbcrRange: value-of<VkSamplerYcbcrRange>,
-     *     suggestedXChromaOffset: value-of<VkChromaLocation>,
-     *     suggestedYChromaOffset: value-of<VkChromaLocation>,
+     *     suggestedYcbcrModel: int,
+     *     suggestedYcbcrRange: int,
+     *     suggestedXChromaOffset: int,
+     *     suggestedYChromaOffset: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -65,14 +66,14 @@ final readonly class VkNativeBufferFormatPropertiesOHOS extends OutputStructure 
     public static function createFromCData(CData $data): self
     {
         return new self(
-            format: VkFormat::from($data->format),
+            format: EnumCase::createFromValue(VkFormat::class, $data->format),
             externalFormat: $data->externalFormat,
             formatFeatures: $data->formatFeatures,
             samplerYcbcrConversionComponents: VkComponentMapping::createFromCData($data->samplerYcbcrConversionComponents),
-            suggestedYcbcrModel: VkSamplerYcbcrModelConversion::from($data->suggestedYcbcrModel),
-            suggestedYcbcrRange: VkSamplerYcbcrRange::from($data->suggestedYcbcrRange),
-            suggestedXChromaOffset: VkChromaLocation::from($data->suggestedXChromaOffset),
-            suggestedYChromaOffset: VkChromaLocation::from($data->suggestedYChromaOffset),
+            suggestedYcbcrModel: EnumCase::createFromValue(VkSamplerYcbcrModelConversion::class, $data->suggestedYcbcrModel),
+            suggestedYcbcrRange: EnumCase::createFromValue(VkSamplerYcbcrRange::class, $data->suggestedYcbcrRange),
+            suggestedXChromaOffset: EnumCase::createFromValue(VkChromaLocation::class, $data->suggestedXChromaOffset),
+            suggestedYChromaOffset: EnumCase::createFromValue(VkChromaLocation::class, $data->suggestedYChromaOffset),
         );
     }
 }

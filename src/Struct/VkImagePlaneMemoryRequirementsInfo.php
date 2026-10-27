@@ -26,7 +26,7 @@ final class VkImagePlaneMemoryRequirementsInfo extends InputStructure implements
 
     public function __construct(
         public ?VkImageMemoryRequirementsInfo2Extension $next = null,
-        /** @var int<0, 4294967295>|(VkImageAspectFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkImageAspectFlagBits::VK_*) */
         public int $planeAspect = 0,
     ) {}
 

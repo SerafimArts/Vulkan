@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkComponentTypeKHR;
 use Serafim\Vulkan\Enum\VkScopeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixPropertiesNV.html
@@ -28,11 +29,11 @@ final readonly class VkCooperativeMatrixPropertiesNV extends OutputStructure
         public int $NSize,
         /** @var int<0, 4294967295> */
         public int $KSize,
-        public VkComponentTypeKHR $AType,
-        public VkComponentTypeKHR $BType,
-        public VkComponentTypeKHR $CType,
-        public VkComponentTypeKHR $DType,
-        public VkScopeKHR $scope,
+        public VkComponentTypeKHR|int $AType,
+        public VkComponentTypeKHR|int $BType,
+        public VkComponentTypeKHR|int $CType,
+        public VkComponentTypeKHR|int $DType,
+        public VkScopeKHR|int $scope,
     ) {}
 
     /**
@@ -40,11 +41,11 @@ final readonly class VkCooperativeMatrixPropertiesNV extends OutputStructure
      *     MSize: int<0, 4294967295>,
      *     NSize: int<0, 4294967295>,
      *     KSize: int<0, 4294967295>,
-     *     AType: value-of<VkComponentTypeKHR>,
-     *     BType: value-of<VkComponentTypeKHR>,
-     *     CType: value-of<VkComponentTypeKHR>,
-     *     DType: value-of<VkComponentTypeKHR>,
-     *     scope: value-of<VkScopeKHR>,
+     *     AType: int,
+     *     BType: int,
+     *     CType: int,
+     *     DType: int,
+     *     scope: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -55,11 +56,11 @@ final readonly class VkCooperativeMatrixPropertiesNV extends OutputStructure
             MSize: $data->MSize,
             NSize: $data->NSize,
             KSize: $data->KSize,
-            AType: VkComponentTypeKHR::from($data->AType),
-            BType: VkComponentTypeKHR::from($data->BType),
-            CType: VkComponentTypeKHR::from($data->CType),
-            DType: VkComponentTypeKHR::from($data->DType),
-            scope: VkScopeKHR::from($data->scope),
+            AType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->AType),
+            BType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->BType),
+            CType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->CType),
+            DType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->DType),
+            scope: EnumCase::createFromValue(VkScopeKHR::class, $data->scope),
         );
     }
 }

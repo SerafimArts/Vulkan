@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkOpacityMicromapFormatKHR;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,7 +22,7 @@ final class VkMicromapUsageKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkMicromapUsageKHR';
 
     public function __construct(
-        public VkOpacityMicromapFormatKHR $format,
+        public VkOpacityMicromapFormatKHR|int $format,
         /** @var int<0, 4294967295> */
         public int $count = 0,
         /** @var int<0, 4294967295> */
@@ -32,7 +33,7 @@ final class VkMicromapUsageKHR extends InputStructure
      * @param CData&object{
      *     count: int<0, 4294967295>,
      *     subdivisionLevel: int<0, 4294967295>,
-     *     format: value-of<VkOpacityMicromapFormatKHR>,
+     *     format: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -43,6 +44,6 @@ final class VkMicromapUsageKHR extends InputStructure
 
         $data->subdivisionLevel = $this->subdivisionLevel;
 
-        $data->format = $this->format->value;
+        $data->format = EnumCase::getValue($this->format);
     }
 }

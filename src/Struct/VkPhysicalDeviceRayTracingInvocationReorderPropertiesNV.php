@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRayTracingInvocationReorderModeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -32,12 +33,12 @@ final readonly class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV ext
     }
 
     public function __construct(
-        public VkRayTracingInvocationReorderModeEXT $rayTracingInvocationReorderReorderingHint,
+        public VkRayTracingInvocationReorderModeEXT|int $rayTracingInvocationReorderReorderingHint,
     ) {}
 
     /**
      * @param CData&object{
-     *     rayTracingInvocationReorderReorderingHint: value-of<VkRayTracingInvocationReorderModeEXT>,
+     *     rayTracingInvocationReorderReorderingHint: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -45,7 +46,7 @@ final readonly class VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV ext
     public static function createFromCData(CData $data): self
     {
         return new self(
-            rayTracingInvocationReorderReorderingHint: VkRayTracingInvocationReorderModeEXT::from($data->rayTracingInvocationReorderReorderingHint),
+            rayTracingInvocationReorderReorderingHint: EnumCase::createFromValue(VkRayTracingInvocationReorderModeEXT::class, $data->rayTracingInvocationReorderReorderingHint),
         );
     }
 }

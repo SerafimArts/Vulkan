@@ -22,7 +22,7 @@ final readonly class VkVideoEncodeQualityLevelPropertiesKHR extends OutputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR->value;
 
     public function __construct(
-        /** @var int<0, 4294967295>|(VkVideoEncodeRateControlModeFlagBitsKHR::*) */
+        /** @var int<0, 4294967295>|(VkVideoEncodeRateControlModeFlagBitsKHR::VK_*) */
         public int $preferredRateControlMode,
         /** @var int<0, 4294967295> */
         public int $preferredRateControlLayerCount,

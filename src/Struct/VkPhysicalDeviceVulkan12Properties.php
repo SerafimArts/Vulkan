@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkResolveModeFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkShaderFloatControlsIndependence;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -35,14 +36,14 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
     }
 
     public function __construct(
-        public VkDriverId $driverID,
+        public VkDriverId|int $driverID,
         public string $driverName,
         public string $driverInfo,
         public VkConformanceVersion $conformanceVersion,
         /** The value is exactly the required one. */
-        public VkShaderFloatControlsIndependence $denormBehaviorIndependence,
+        public VkShaderFloatControlsIndependence|int $denormBehaviorIndependence,
         /** The value is exactly the required one. */
-        public VkShaderFloatControlsIndependence $roundingModeIndependence,
+        public VkShaderFloatControlsIndependence|int $roundingModeIndependence,
         /**
          * An implementation can preserve signed zero, nan, inf
          *
@@ -246,13 +247,13 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
         /**
          * Supported depth resolve modes
          *
-         * @var int-mask-of<VkResolveModeFlagBits::*>
+         * @var int-mask-of<VkResolveModeFlagBits::VK_*>
          */
         public int $supportedDepthResolveModes,
         /**
          * Supported stencil resolve modes
          *
-         * @var int-mask-of<VkResolveModeFlagBits::*>
+         * @var int-mask-of<VkResolveModeFlagBits::VK_*>
          */
         public int $supportedStencilResolveModes,
         /**
@@ -278,18 +279,18 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
          * @var int<0, max>
          */
         public int $maxTimelineSemaphoreValueDifference,
-        /** @var int-mask-of<VkSampleCountFlagBits::*> */
+        /** @var int-mask-of<VkSampleCountFlagBits::VK_*> */
         public int $framebufferIntegerColorSampleCounts,
     ) {}
 
     /**
      * @param CData&object{
-     *     driverID: value-of<VkDriverId>,
+     *     driverID: int,
      *     driverName: CData,
      *     driverInfo: CData,
      *     conformanceVersion: CData,
-     *     denormBehaviorIndependence: value-of<VkShaderFloatControlsIndependence>,
-     *     roundingModeIndependence: value-of<VkShaderFloatControlsIndependence>,
+     *     denormBehaviorIndependence: int,
+     *     roundingModeIndependence: int,
      *     shaderSignedZeroInfNanPreserveFloat16: int<0, 1>,
      *     shaderSignedZeroInfNanPreserveFloat32: int<0, 1>,
      *     shaderSignedZeroInfNanPreserveFloat64: int<0, 1>,
@@ -343,12 +344,12 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
     public static function createFromCData(CData $data): self
     {
         return new self(
-            driverID: VkDriverId::from($data->driverID),
+            driverID: EnumCase::createFromValue(VkDriverId::class, $data->driverID),
             driverName: \FFI::string($data->driverName),
             driverInfo: \FFI::string($data->driverInfo),
             conformanceVersion: VkConformanceVersion::createFromCData($data->conformanceVersion),
-            denormBehaviorIndependence: VkShaderFloatControlsIndependence::from($data->denormBehaviorIndependence),
-            roundingModeIndependence: VkShaderFloatControlsIndependence::from($data->roundingModeIndependence),
+            denormBehaviorIndependence: EnumCase::createFromValue(VkShaderFloatControlsIndependence::class, $data->denormBehaviorIndependence),
+            roundingModeIndependence: EnumCase::createFromValue(VkShaderFloatControlsIndependence::class, $data->roundingModeIndependence),
             shaderSignedZeroInfNanPreserveFloat16: $data->shaderSignedZeroInfNanPreserveFloat16 !== 0,
             shaderSignedZeroInfNanPreserveFloat32: $data->shaderSignedZeroInfNanPreserveFloat32 !== 0,
             shaderSignedZeroInfNanPreserveFloat64: $data->shaderSignedZeroInfNanPreserveFloat64 !== 0,

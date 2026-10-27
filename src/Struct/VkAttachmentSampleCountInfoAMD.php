@@ -29,7 +29,7 @@ final class VkAttachmentSampleCountInfoAMD extends InputStructure implements VkC
         public VkCommandBufferInheritanceInfoExtension|VkGraphicsPipelineCreateInfoExtension|null $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $colorAttachmentSamples = [],
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
         public int $depthStencilAttachmentSamples = 0,
     ) {}
 

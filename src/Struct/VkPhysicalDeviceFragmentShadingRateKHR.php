@@ -21,7 +21,7 @@ final readonly class VkPhysicalDeviceFragmentShadingRateKHR extends OutputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR->value;
 
     public function __construct(
-        /** @var int-mask-of<VkSampleCountFlagBits::*> */
+        /** @var int-mask-of<VkSampleCountFlagBits::VK_*> */
         public int $sampleCounts,
         public VkExtent2D $fragmentSize,
     ) {}

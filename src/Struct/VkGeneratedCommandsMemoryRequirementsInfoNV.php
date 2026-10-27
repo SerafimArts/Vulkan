@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkPipelineBindPoint;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkIndirectCommandsLayoutNV;
 use Serafim\Vulkan\Handle\VkPipeline;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -27,7 +28,7 @@ final class VkGeneratedCommandsMemoryRequirementsInfoNV extends InputStructure
 
     public function __construct(
         public VkIndirectCommandsLayoutNV $indirectCommandsLayout,
-        public VkPipelineBindPoint $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
+        public VkPipelineBindPoint|int $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
         public ?VkPipeline $pipeline = null,
         /** @var int<0, 4294967295> */
         public int $maxSequencesCount = 0,
@@ -37,7 +38,7 @@ final class VkGeneratedCommandsMemoryRequirementsInfoNV extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_MEMORY_REQUIREMENTS_INFO_NV>,
      *     pNext: CData,
-     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
+     *     pipelineBindPoint: int,
      *     pipeline: CData,
      *     indirectCommandsLayout: CData,
      *     maxSequencesCount: int<0, 4294967295>,
@@ -49,7 +50,7 @@ final class VkGeneratedCommandsMemoryRequirementsInfoNV extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->pipelineBindPoint = $this->pipelineBindPoint->value;
+        $data->pipelineBindPoint = EnumCase::getValue($this->pipelineBindPoint);
 
         if ($this->pipeline !== null) {
             $data->pipeline = $memory->ffi->cast('VkPipeline', $this->pipeline->pointer);

@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkLogicOp;
 use Serafim\Vulkan\Enum\VkPipelineColorBlendStateCreateFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineColorBlendStateCreateInfoExtension;
 
@@ -28,10 +29,10 @@ final class VkPipelineColorBlendStateCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkPipelineColorBlendStateCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkPipelineColorBlendStateCreateFlagBits::*> */
+        /** @var int-mask-of<VkPipelineColorBlendStateCreateFlagBits::VK_*> */
         public int $flags = 0,
         public bool $logicOpEnable = false,
-        public VkLogicOp $logicOp = VkLogicOp::VK_LOGIC_OP_CLEAR,
+        public VkLogicOp|int $logicOp = VkLogicOp::VK_LOGIC_OP_CLEAR,
         /**
          * # of pAttachments
          *
@@ -53,7 +54,7 @@ final class VkPipelineColorBlendStateCreateInfo extends InputStructure
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
      *     logicOpEnable: int<0, 1>,
-     *     logicOp: value-of<VkLogicOp>,
+     *     logicOp: int,
      *     attachmentCount: int<0, 4294967295>,
      *     pAttachments: CData,
      *     blendConstants: CData,
@@ -75,7 +76,7 @@ final class VkPipelineColorBlendStateCreateInfo extends InputStructure
 
         $data->logicOpEnable = (int) $this->logicOpEnable;
 
-        $data->logicOp = $this->logicOp->value;
+        $data->logicOp = EnumCase::getValue($this->logicOp);
 
         if ($this->attachmentCount !== 0) {
             $data->attachmentCount = $this->attachmentCount;

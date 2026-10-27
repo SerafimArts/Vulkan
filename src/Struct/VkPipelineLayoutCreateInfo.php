@@ -36,7 +36,7 @@ final class VkPipelineLayoutCreateInfo extends InputStructure implements VkBindD
 
     public function __construct(
         public VkBindDescriptorSetsInfoExtension|VkPushConstantsInfoExtension|VkPushDescriptorSetInfoExtension|VkPushDescriptorSetWithTemplateInfoExtension|VkSetDescriptorBufferOffsetsInfoEXTExtension|VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension|VkIndirectCommandsLayoutCreateInfoEXTExtension|null $next = null,
-        /** @var int-mask-of<VkPipelineLayoutCreateFlagBits::*> */
+        /** @var int-mask-of<VkPipelineLayoutCreateFlagBits::VK_*> */
         public int $flags = 0,
         /**
          * Array of setCount number of descriptor set layout objects

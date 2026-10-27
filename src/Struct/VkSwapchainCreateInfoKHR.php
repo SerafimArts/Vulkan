@@ -20,6 +20,7 @@ use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkSwapchainCreateFlagBitsKHR;
 use Serafim\Vulkan\Handle\VkSurfaceKHR;
 use Serafim\Vulkan\Handle\VkSwapchainKHR;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSwapchainCreateInfoKHRExtension;
 
@@ -39,7 +40,7 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
         /** Dimensions of the presentation images */
         public VkExtent2D $imageExtent,
         public ?VkSwapchainCreateInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkSwapchainCreateFlagBitsKHR::*> */
+        /** @var int-mask-of<VkSwapchainCreateFlagBitsKHR::VK_*> */
         public int $flags = 0,
         /**
          * Minimum number of presentation images the application needs
@@ -48,9 +49,9 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
          */
         public int $minImageCount = 0,
         /** Format of the presentation images */
-        public VkFormat $imageFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $imageFormat = VkFormat::VK_FORMAT_UNDEFINED,
         /** Colorspace of the presentation images */
-        public VkColorSpaceKHR $imageColorSpace = VkColorSpaceKHR::VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
+        public VkColorSpaceKHR|int $imageColorSpace = VkColorSpaceKHR::VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
         /**
          * Determines the number of views for multiview/stereo presentation
          *
@@ -60,11 +61,11 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
         /**
          * Bits indicating how the presentation images will be used
          *
-         * @var int<0, 4294967295>|(VkImageUsageFlagBits::*)
+         * @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*)
          */
         public int $imageUsage = 0,
         /** Sharing mode used for the presentation images */
-        public VkSharingMode $imageSharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+        public VkSharingMode|int $imageSharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         /**
          * Array of queue family indices having access to the images in
          * case of concurrent sharing mode
@@ -76,18 +77,18 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
          * The transform, relative to the device's natural orientation,
          * applied to the image content prior to presentation
          *
-         * @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::*)
+         * @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::VK_*)
          */
         public int $preTransform = 0,
         /**
          * The alpha blending mode used when compositing this surface with
          * other surfaces in the window system
          *
-         * @var int<0, 4294967295>|(VkCompositeAlphaFlagBitsKHR::*)
+         * @var int<0, 4294967295>|(VkCompositeAlphaFlagBitsKHR::VK_*)
          */
         public int $compositeAlpha = 0,
         /** Which presentation mode to use for presents on this swap chain */
-        public VkPresentModeKHR $presentMode = VkPresentModeKHR::VK_PRESENT_MODE_IMMEDIATE_KHR,
+        public VkPresentModeKHR|int $presentMode = VkPresentModeKHR::VK_PRESENT_MODE_IMMEDIATE_KHR,
         /**
          * Specifies whether presentable images may be affected by window
          * clip regions
@@ -104,17 +105,17 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
      *     flags: int<0, 4294967295>,
      *     surface: CData,
      *     minImageCount: int<0, 4294967295>,
-     *     imageFormat: value-of<VkFormat>,
-     *     imageColorSpace: value-of<VkColorSpaceKHR>,
+     *     imageFormat: int,
+     *     imageColorSpace: int,
      *     imageExtent: CData,
      *     imageArrayLayers: int<0, 4294967295>,
      *     imageUsage: int<0, 4294967295>,
-     *     imageSharingMode: value-of<VkSharingMode>,
+     *     imageSharingMode: int,
      *     queueFamilyIndexCount: int<0, 4294967295>,
      *     pQueueFamilyIndices: CData,
      *     preTransform: int<0, 4294967295>,
      *     compositeAlpha: int<0, 4294967295>,
-     *     presentMode: value-of<VkPresentModeKHR>,
+     *     presentMode: int,
      *     clipped: int<0, 1>,
      *     oldSwapchain: CData,
      * } $data
@@ -137,9 +138,9 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
 
         $data->minImageCount = $this->minImageCount;
 
-        $data->imageFormat = $this->imageFormat->value;
+        $data->imageFormat = EnumCase::getValue($this->imageFormat);
 
-        $data->imageColorSpace = $this->imageColorSpace->value;
+        $data->imageColorSpace = EnumCase::getValue($this->imageColorSpace);
 
         $this->imageExtent->write($memory, $data->imageExtent);
 
@@ -147,7 +148,7 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
 
         $data->imageUsage = $this->imageUsage;
 
-        $data->imageSharingMode = $this->imageSharingMode->value;
+        $data->imageSharingMode = EnumCase::getValue($this->imageSharingMode);
 
         if ($this->queueFamilyIndices !== []) {
             $data->queueFamilyIndexCount = \count($this->queueFamilyIndices);
@@ -158,7 +159,7 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
 
         $data->compositeAlpha = $this->compositeAlpha;
 
-        $data->presentMode = $this->presentMode->value;
+        $data->presentMode = EnumCase::getValue($this->presentMode);
 
         $data->clipped = (int) $this->clipped;
 

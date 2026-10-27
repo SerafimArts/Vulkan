@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkLatencyMarkerNV;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,7 +27,7 @@ final class VkSetLatencyMarkerInfoNV extends InputStructure
     public function __construct(
         /** @var int<0, max> */
         public int $presentID = 0,
-        public VkLatencyMarkerNV $marker = VkLatencyMarkerNV::VK_LATENCY_MARKER_SIMULATION_START_NV,
+        public VkLatencyMarkerNV|int $marker = VkLatencyMarkerNV::VK_LATENCY_MARKER_SIMULATION_START_NV,
     ) {}
 
     /**
@@ -34,7 +35,7 @@ final class VkSetLatencyMarkerInfoNV extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV>,
      *     pNext: CData,
      *     presentID: int<0, max>,
-     *     marker: value-of<VkLatencyMarkerNV>,
+     *     marker: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -45,6 +46,6 @@ final class VkSetLatencyMarkerInfoNV extends InputStructure
 
         $data->presentID = $this->presentID;
 
-        $data->marker = $this->marker->value;
+        $data->marker = EnumCase::getValue($this->marker);
     }
 }

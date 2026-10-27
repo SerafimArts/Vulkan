@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDepthBiasRepresentationEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDepthBiasInfoEXTExtension;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
@@ -27,7 +28,7 @@ final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements V
 
     public function __construct(
         public VkDepthBiasInfoEXTExtension|VkPipelineRasterizationStateCreateInfoExtension|null $next = null,
-        public VkDepthBiasRepresentationEXT $depthBiasRepresentation = VkDepthBiasRepresentationEXT::VK_DEPTH_BIAS_REPRESENTATION_LEAST_REPRESENTABLE_VALUE_FORMAT_EXT,
+        public VkDepthBiasRepresentationEXT|int $depthBiasRepresentation = VkDepthBiasRepresentationEXT::VK_DEPTH_BIAS_REPRESENTATION_LEAST_REPRESENTABLE_VALUE_FORMAT_EXT,
         public bool $depthBiasExact = false,
     ) {}
 
@@ -35,7 +36,7 @@ final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements V
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEPTH_BIAS_REPRESENTATION_INFO_EXT>,
      *     pNext: CData,
-     *     depthBiasRepresentation: value-of<VkDepthBiasRepresentationEXT>,
+     *     depthBiasRepresentation: int,
      *     depthBiasExact: int<0, 1>,
      * } $data
      *
@@ -51,7 +52,7 @@ final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements V
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->depthBiasRepresentation = $this->depthBiasRepresentation->value;
+        $data->depthBiasRepresentation = EnumCase::getValue($this->depthBiasRepresentation);
 
         $data->depthBiasExact = (int) $this->depthBiasExact;
     }

@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkFragmentShadingRateNV;
 use Serafim\Vulkan\Enum\VkFragmentShadingRateTypeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -28,19 +29,19 @@ final class VkPipelineFragmentShadingRateEnumStateCreateInfoNV extends InputStru
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
-        /** @var list<VkFragmentShadingRateCombinerOpKHR> */
+        /** @var list<VkFragmentShadingRateCombinerOpKHR|int> */
         public array $combinerOps,
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
-        public VkFragmentShadingRateTypeNV $shadingRateType = VkFragmentShadingRateTypeNV::VK_FRAGMENT_SHADING_RATE_TYPE_FRAGMENT_SIZE_NV,
-        public VkFragmentShadingRateNV $shadingRate = VkFragmentShadingRateNV::VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_PIXEL_NV,
+        public VkFragmentShadingRateTypeNV|int $shadingRateType = VkFragmentShadingRateTypeNV::VK_FRAGMENT_SHADING_RATE_TYPE_FRAGMENT_SIZE_NV,
+        public VkFragmentShadingRateNV|int $shadingRate = VkFragmentShadingRateNV::VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_PIXEL_NV,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_SHADING_RATE_ENUM_STATE_CREATE_INFO_NV>,
      *     pNext: CData,
-     *     shadingRateType: value-of<VkFragmentShadingRateTypeNV>,
-     *     shadingRate: value-of<VkFragmentShadingRateNV>,
+     *     shadingRateType: int,
+     *     shadingRate: int,
      *     combinerOps: CData,
      * } $data
      *
@@ -56,16 +57,16 @@ final class VkPipelineFragmentShadingRateEnumStateCreateInfoNV extends InputStru
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->shadingRateType = $this->shadingRateType->value;
+        $data->shadingRateType = EnumCase::getValue($this->shadingRateType);
 
-        $data->shadingRate = $this->shadingRate->value;
+        $data->shadingRate = EnumCase::getValue($this->shadingRate);
 
         if (\count($this->combinerOps) > 2) {
             throw InvalidStructureException::becauseArrayIsTooLong('VkPipelineFragmentShadingRateEnumStateCreateInfoNV', 'combinerOps', 2);
         }
 
         foreach ($this->combinerOps as $i => $item) {
-            $data->combinerOps[$i] = $item->value;
+            $data->combinerOps[$i] = EnumCase::getValue($item);
         }
     }
 }

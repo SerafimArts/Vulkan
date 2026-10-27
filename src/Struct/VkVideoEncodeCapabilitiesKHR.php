@@ -34,9 +34,9 @@ final readonly class VkVideoEncodeCapabilitiesKHR extends OutputStructure implem
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoEncodeCapabilityFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoEncodeCapabilityFlagBitsKHR::VK_*> */
         public int $flags,
-        /** @var int-mask-of<VkVideoEncodeRateControlModeFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoEncodeRateControlModeFlagBitsKHR::VK_*> */
         public int $rateControlModes,
         /**
          * The value is at least the required one.
@@ -58,7 +58,7 @@ final readonly class VkVideoEncodeCapabilitiesKHR extends OutputStructure implem
         public int $maxQualityLevels,
         /** The value is at most the required one. */
         public VkExtent2D $encodeInputPictureGranularity,
-        /** @var int-mask-of<VkVideoEncodeFeedbackFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoEncodeFeedbackFlagBitsKHR::VK_*> */
         public int $supportedEncodeFeedbackFlags,
     ) {}
 

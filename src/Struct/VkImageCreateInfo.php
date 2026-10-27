@@ -18,6 +18,7 @@ use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkSharingMode;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 
@@ -37,26 +38,26 @@ final class VkImageCreateInfo extends InputStructure
         /**
          * Image creation flags
          *
-         * @var int<0, 4294967295>|(VkImageCreateFlagBits::*)
+         * @var int<0, 4294967295>|(VkImageCreateFlagBits::VK_*)
          */
         public int $flags = 0,
-        public VkImageType $imageType = VkImageType::VK_IMAGE_TYPE_1D,
-        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkImageType|int $imageType = VkImageType::VK_IMAGE_TYPE_1D,
+        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var int<0, 4294967295> */
         public int $mipLevels = 0,
         /** @var int<0, 4294967295> */
         public int $arrayLayers = 0,
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
         public int $samples = 0,
-        public VkImageTiling $tiling = VkImageTiling::VK_IMAGE_TILING_OPTIMAL,
+        public VkImageTiling|int $tiling = VkImageTiling::VK_IMAGE_TILING_OPTIMAL,
         /**
          * Image usage flags
          *
-         * @var int<0, 4294967295>|(VkImageUsageFlagBits::*)
+         * @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*)
          */
         public int $usage = 0,
         /** Cross-queue-family sharing mode */
-        public VkSharingMode $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+        public VkSharingMode|int $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         /**
          * Array of queue family indices to share across
          *
@@ -64,7 +65,7 @@ final class VkImageCreateInfo extends InputStructure
          */
         public array $queueFamilyIndices = [],
         /** Initial image layout for all subresources */
-        public VkImageLayout $initialLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $initialLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
@@ -72,18 +73,18 @@ final class VkImageCreateInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     imageType: value-of<VkImageType>,
-     *     format: value-of<VkFormat>,
+     *     imageType: int,
+     *     format: int,
      *     extent: CData,
      *     mipLevels: int<0, 4294967295>,
      *     arrayLayers: int<0, 4294967295>,
      *     samples: int<0, 4294967295>,
-     *     tiling: value-of<VkImageTiling>,
+     *     tiling: int,
      *     usage: int<0, 4294967295>,
-     *     sharingMode: value-of<VkSharingMode>,
+     *     sharingMode: int,
      *     queueFamilyIndexCount: int<0, 4294967295>,
      *     pQueueFamilyIndices: CData,
-     *     initialLayout: value-of<VkImageLayout>,
+     *     initialLayout: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -100,9 +101,9 @@ final class VkImageCreateInfo extends InputStructure
 
         $data->flags = $this->flags;
 
-        $data->imageType = $this->imageType->value;
+        $data->imageType = EnumCase::getValue($this->imageType);
 
-        $data->format = $this->format->value;
+        $data->format = EnumCase::getValue($this->format);
 
         $this->extent->write($memory, $data->extent);
 
@@ -112,17 +113,17 @@ final class VkImageCreateInfo extends InputStructure
 
         $data->samples = $this->samples;
 
-        $data->tiling = $this->tiling->value;
+        $data->tiling = EnumCase::getValue($this->tiling);
 
         $data->usage = $this->usage;
 
-        $data->sharingMode = $this->sharingMode->value;
+        $data->sharingMode = EnumCase::getValue($this->sharingMode);
 
         if ($this->queueFamilyIndices !== []) {
             $data->queueFamilyIndexCount = \count($this->queueFamilyIndices);
             $data->pQueueFamilyIndices = $memory->ffi->cast('uint32_t*', $memory->toNumberArray('uint32_t', $this->queueFamilyIndices));
         }
 
-        $data->initialLayout = $this->initialLayout->value;
+        $data->initialLayout = EnumCase::getValue($this->initialLayout);
     }
 }

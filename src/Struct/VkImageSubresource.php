@@ -21,7 +21,7 @@ final class VkImageSubresource extends InputStructure
     protected const string NATIVE_TYPE = 'VkImageSubresource';
 
     public function __construct(
-        /** @var int-mask-of<VkImageAspectFlagBits::*> */
+        /** @var int-mask-of<VkImageAspectFlagBits::VK_*> */
         public int $aspectMask = 0,
         /** @var int<0, 4294967295> */
         public int $mipLevel = 0,

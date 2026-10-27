@@ -27,7 +27,7 @@ final class VkDataGraphOpticalFlowImageFormatInfoARM extends InputStructure impl
 
     public function __construct(
         public VkPhysicalDeviceImageFormatInfo2Extension|VkImageCreateInfoExtension|null $next = null,
-        /** @var int-mask-of<VkDataGraphOpticalFlowImageUsageFlagBitsARM::*> */
+        /** @var int-mask-of<VkDataGraphOpticalFlowImageUsageFlagBitsARM::VK_*> */
         public int $usage = 0,
     ) {}
 

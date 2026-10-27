@@ -32,7 +32,7 @@ final class VkSparseImageMemoryBind extends InputStructure
          * @var int<0, max>
          */
         public int $memoryOffset = 0,
-        /** @var int-mask-of<VkSparseMemoryBindFlagBits::*> */
+        /** @var int-mask-of<VkSparseMemoryBindFlagBits::VK_*> */
         public int $flags = 0,
     ) {}
 

@@ -36,7 +36,7 @@ final readonly class VkSwapchainFlagsSurfaceCapabilitiesEXT extends OutputStruct
          * Supported swapchain create flags for this surface and, if
          * provided, a specific present mode in VkSurfacePresentModeKHR
          *
-         * @var int-mask-of<VkSwapchainCreateFlagBitsKHR::*>
+         * @var int-mask-of<VkSwapchainCreateFlagBitsKHR::VK_*>
          */
         public int $swapchainSupportedFlags,
     ) {}

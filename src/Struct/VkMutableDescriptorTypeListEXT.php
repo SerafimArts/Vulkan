@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -24,7 +25,7 @@ final class VkMutableDescriptorTypeListEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkMutableDescriptorTypeListEXT';
 
     public function __construct(
-        /** @var list<VkDescriptorType> */
+        /** @var list<VkDescriptorType|int> */
         public array $descriptorTypes = [],
     ) {}
 
@@ -40,7 +41,7 @@ final class VkMutableDescriptorTypeListEXT extends InputStructure
     {
         if ($this->descriptorTypes !== []) {
             $data->descriptorTypeCount = \count($this->descriptorTypes);
-            $data->pDescriptorTypes = $memory->ffi->cast('VkDescriptorType*', $memory->toNumberArray('VkDescriptorType', \array_map(static fn(VkDescriptorType $item): int => $item->value, $this->descriptorTypes)));
+            $data->pDescriptorTypes = $memory->ffi->cast('VkDescriptorType*', $memory->toNumberArray('VkDescriptorType', \array_map(EnumCase::getValue(...), $this->descriptorTypes)));
         }
     }
 }

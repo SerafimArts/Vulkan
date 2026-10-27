@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPrimitiveTopology;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,7 +27,7 @@ final class VkPipelineInputAssemblyStateCreateInfo extends InputStructure
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        public VkPrimitiveTopology $topology = VkPrimitiveTopology::VK_PRIMITIVE_TOPOLOGY_POINT_LIST,
+        public VkPrimitiveTopology|int $topology = VkPrimitiveTopology::VK_PRIMITIVE_TOPOLOGY_POINT_LIST,
         public bool $primitiveRestartEnable = false,
     ) {}
 
@@ -35,7 +36,7 @@ final class VkPipelineInputAssemblyStateCreateInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     topology: value-of<VkPrimitiveTopology>,
+     *     topology: int,
      *     primitiveRestartEnable: int<0, 1>,
      * } $data
      *
@@ -47,7 +48,7 @@ final class VkPipelineInputAssemblyStateCreateInfo extends InputStructure
 
         $data->flags = $this->flags;
 
-        $data->topology = $this->topology->value;
+        $data->topology = EnumCase::getValue($this->topology);
 
         $data->primitiveRestartEnable = (int) $this->primitiveRestartEnable;
     }

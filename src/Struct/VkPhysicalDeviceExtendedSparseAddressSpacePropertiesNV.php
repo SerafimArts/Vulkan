@@ -46,14 +46,14 @@ final readonly class VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV exte
          * Bitfield of which image usages are supported for extended sparse
          * allocations
          *
-         * @var int<0, 4294967295>|(VkImageUsageFlagBits::*)
+         * @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*)
          */
         public int $extendedSparseImageUsageFlags,
         /**
          * Bitfield of which buffer usages are supported for extended
          * sparse allocations
          *
-         * @var int<0, 4294967295>|(VkBufferUsageFlagBits::*)
+         * @var int<0, 4294967295>|(VkBufferUsageFlagBits::VK_*)
          */
         public int $extendedSparseBufferUsageFlags,
     ) {}

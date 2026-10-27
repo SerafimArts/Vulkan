@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
@@ -32,12 +33,12 @@ final readonly class VkAndroidHardwareBufferFormatResolvePropertiesANDROID exten
     }
 
     public function __construct(
-        public VkFormat $colorAttachmentFormat,
+        public VkFormat|int $colorAttachmentFormat,
     ) {}
 
     /**
      * @param CData&object{
-     *     colorAttachmentFormat: value-of<VkFormat>,
+     *     colorAttachmentFormat: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -45,7 +46,7 @@ final readonly class VkAndroidHardwareBufferFormatResolvePropertiesANDROID exten
     public static function createFromCData(CData $data): self
     {
         return new self(
-            colorAttachmentFormat: VkFormat::from($data->colorAttachmentFormat),
+            colorAttachmentFormat: EnumCase::createFromValue(VkFormat::class, $data->colorAttachmentFormat),
         );
     }
 }

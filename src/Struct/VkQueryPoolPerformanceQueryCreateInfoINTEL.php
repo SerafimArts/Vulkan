@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkQueryPoolSamplingModeINTEL;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkQueryPoolCreateInfoExtension;
 
@@ -26,14 +27,14 @@ final class VkQueryPoolPerformanceQueryCreateInfoINTEL extends InputStructure im
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,
-        public VkQueryPoolSamplingModeINTEL $performanceCountersSampling = VkQueryPoolSamplingModeINTEL::VK_QUERY_POOL_SAMPLING_MODE_MANUAL_INTEL,
+        public VkQueryPoolSamplingModeINTEL|int $performanceCountersSampling = VkQueryPoolSamplingModeINTEL::VK_QUERY_POOL_SAMPLING_MODE_MANUAL_INTEL,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL>,
      *     pNext: CData,
-     *     performanceCountersSampling: value-of<VkQueryPoolSamplingModeINTEL>,
+     *     performanceCountersSampling: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkQueryPoolPerformanceQueryCreateInfoINTEL extends InputStructure im
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->performanceCountersSampling = $this->performanceCountersSampling->value;
+        $data->performanceCountersSampling = EnumCase::getValue($this->performanceCountersSampling);
     }
 }

@@ -15,6 +15,7 @@ use Serafim\Vulkan\Enum\VkImageTiling;
 use Serafim\Vulkan\Enum\VkImageType;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
 
 /**
@@ -27,16 +28,16 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkFormat $format,
+        public VkFormat|int $format,
         /** The value is exactly the required one. */
         public VkComponentMapping $componentMapping,
-        /** @var int<0, 4294967295>|(VkImageCreateFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkImageCreateFlagBits::VK_*) */
         public int $imageCreateFlags,
         /** The value is exactly the required one. */
-        public VkImageType $imageType,
+        public VkImageType|int $imageType,
         /** The value is exactly the required one. */
-        public VkImageTiling $imageTiling,
-        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
+        public VkImageTiling|int $imageTiling,
+        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) */
         public int $imageUsageFlags,
         /** @var list<VkVideoFormatPropertiesKHRExtension> */
         public array $chain = [],
@@ -44,11 +45,11 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
 
     /**
      * @param CData&object{
-     *     format: value-of<VkFormat>,
+     *     format: int,
      *     componentMapping: CData,
      *     imageCreateFlags: int<0, 4294967295>,
-     *     imageType: value-of<VkImageType>,
-     *     imageTiling: value-of<VkImageTiling>,
+     *     imageType: int,
+     *     imageTiling: int,
      *     imageUsageFlags: int<0, 4294967295>,
      * } $data
      * @param list<VkVideoFormatPropertiesKHRExtension> $chain
@@ -58,11 +59,11 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
     public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
-            format: VkFormat::from($data->format),
+            format: EnumCase::createFromValue(VkFormat::class, $data->format),
             componentMapping: VkComponentMapping::createFromCData($data->componentMapping),
             imageCreateFlags: $data->imageCreateFlags,
-            imageType: VkImageType::from($data->imageType),
-            imageTiling: VkImageTiling::from($data->imageTiling),
+            imageType: EnumCase::createFromValue(VkImageType::class, $data->imageType),
+            imageTiling: EnumCase::createFromValue(VkImageTiling::class, $data->imageTiling),
             imageUsageFlags: $data->imageUsageFlags,
             chain: $chain,
         );

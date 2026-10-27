@@ -71,6 +71,10 @@ final readonly class ExecuteBody implements Body
      */
     private function createRetainLines(CommandPlan $plan): array
     {
+        if ($plan->command->name === 'vkUpdateDescriptorSets') {
+            return $this->createDescriptorRetainLines($plan);
+        }
+
         if (!\str_starts_with($plan->command->name, 'vkBind')) {
             return [];
         }
@@ -96,6 +100,29 @@ final readonly class ExecuteBody implements Body
         }
 
         return $lines;
+    }
+
+    /**
+     * A descriptor set keeps alive the resources written to it.
+     *
+     * @return list<string>
+     */
+    private function createDescriptorRetainLines(CommandPlan $plan): array
+    {
+        foreach ($plan->parameters as $parameter) {
+            if ($parameter->field->type !== 'VkWriteDescriptorSet') {
+                continue;
+            }
+
+            return [
+                '',
+                'foreach ($' . $parameter->name . ' as $write) {',
+                '    $write->dstSet->retain($write);',
+                '}',
+            ];
+        }
+
+        return [];
     }
 
     /**

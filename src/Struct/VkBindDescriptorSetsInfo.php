@@ -28,7 +28,7 @@ final class VkBindDescriptorSetsInfo extends InputStructure
 
     public function __construct(
         public ?VkBindDescriptorSetsInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
         public int $stageFlags = 0,
         public ?VkPipelineLayout $layout = null,
         /** @var int<0, 4294967295> */

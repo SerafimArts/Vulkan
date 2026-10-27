@@ -44,14 +44,14 @@ final class VkCommandBufferInheritanceInfo extends InputStructure
          * Query flags used by this secondary command buffer, if executed
          * during an occlusion query
          *
-         * @var int-mask-of<VkQueryControlFlagBits::*>
+         * @var int-mask-of<VkQueryControlFlagBits::VK_*>
          */
         public int $queryFlags = 0,
         /**
          * Pipeline statistics that may be counted for this secondary
          * command buffer
          *
-         * @var int<0, 4294967295>|(VkQueryPipelineStatisticFlagBits::*)
+         * @var int<0, 4294967295>|(VkQueryPipelineStatisticFlagBits::VK_*)
          */
         public int $pipelineStatistics = 0,
     ) {}

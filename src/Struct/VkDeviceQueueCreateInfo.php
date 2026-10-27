@@ -26,7 +26,7 @@ final class VkDeviceQueueCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkDeviceQueueCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkDeviceQueueCreateFlagBits::*> */
+        /** @var int-mask-of<VkDeviceQueueCreateFlagBits::VK_*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $queueFamilyIndex = 0,

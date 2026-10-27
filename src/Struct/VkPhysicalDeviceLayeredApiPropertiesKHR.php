@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPhysicalDeviceLayeredApiKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceLayeredApiPropertiesKHRExtension;
 
 /**
@@ -26,7 +27,7 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR extends OutputStruc
         public int $vendorID,
         /** @var int<0, 4294967295> */
         public int $deviceID,
-        public VkPhysicalDeviceLayeredApiKHR $layeredAPI,
+        public VkPhysicalDeviceLayeredApiKHR|int $layeredAPI,
         public string $deviceName,
         /** @var list<VkPhysicalDeviceLayeredApiPropertiesKHRExtension> */
         public array $chain = [],
@@ -36,7 +37,7 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR extends OutputStruc
      * @param CData&object{
      *     vendorID: int<0, 4294967295>,
      *     deviceID: int<0, 4294967295>,
-     *     layeredAPI: value-of<VkPhysicalDeviceLayeredApiKHR>,
+     *     layeredAPI: int,
      *     deviceName: CData,
      * } $data
      * @param list<VkPhysicalDeviceLayeredApiPropertiesKHRExtension> $chain
@@ -48,7 +49,7 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR extends OutputStruc
         return new self(
             vendorID: $data->vendorID,
             deviceID: $data->deviceID,
-            layeredAPI: VkPhysicalDeviceLayeredApiKHR::from($data->layeredAPI),
+            layeredAPI: EnumCase::createFromValue(VkPhysicalDeviceLayeredApiKHR::class, $data->layeredAPI),
             deviceName: \FFI::string($data->deviceName),
             chain: $chain,
         );

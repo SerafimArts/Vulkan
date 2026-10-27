@@ -32,7 +32,7 @@ final readonly class VkQueueFamilyVideoPropertiesKHR extends OutputStructure imp
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoCodecOperationFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoCodecOperationFlagBitsKHR::VK_*> */
         public int $videoCodecOperations,
     ) {}
 

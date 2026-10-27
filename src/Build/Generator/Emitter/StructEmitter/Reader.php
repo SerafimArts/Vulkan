@@ -11,6 +11,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * Reading of the members of a native struct to the properties.
@@ -30,6 +31,10 @@ final readonly class Reader
     public function createExpression(PhpNamespace $namespace, PropertyPlan $property, bool $isContextual = false): string
     {
         $value = '$data->' . $property->field->name;
+
+        if ($property->kind === PropertyKind::ENUMERATION) {
+            $namespace->addUse(EnumCase::class);
+        }
 
         if ($property->kind === PropertyKind::HANDLE) {
             return 'self::createHandleFromCData('
@@ -63,8 +68,9 @@ final readonly class Reader
 
         return match ($property->kind) {
             PropertyKind::BOOLEAN => $value . ' !== 0',
-            PropertyKind::ENUMERATION => Imports::import($namespace, Locations::ENUM_NAMESPACE, $property->field->type)
-                . '::from(' . $value . ')',
+            PropertyKind::ENUMERATION => 'EnumCase::createFromValue('
+                . Imports::import($namespace, Locations::ENUM_NAMESPACE, $property->field->type)
+                . '::class, ' . $value . ')',
             PropertyKind::STRING => 'self::createStringFromCData(' . $value . ')',
             PropertyKind::TEXT => '\FFI::string(' . $value . ')',
             PropertyKind::BYTES => '\FFI::string(' . $value . ', ' . $property->arrayLength . ')',
@@ -109,7 +115,7 @@ final readonly class Reader
     /**
      * Returns the type of the member of the native struct.
      */
-    public function createType(PhpNamespace $namespace, PropertyPlan $property): string
+    public function createType(PropertyPlan $property): string
     {
         return match ($property->kind) {
             PropertyKind::INTEGER => $this->types->getIntegerRange($property->field->type),
@@ -117,8 +123,7 @@ final readonly class Reader
             PropertyKind::STRING => 'CData|null',
             PropertyKind::FLOAT => 'float',
             PropertyKind::BOOLEAN => 'int<0, 1>',
-            PropertyKind::ENUMERATION => 'value-of<'
-                . Imports::import($namespace, Locations::ENUM_NAMESPACE, $property->field->type) . '>',
+            PropertyKind::ENUMERATION => 'int',
             default => 'CData',
         };
     }

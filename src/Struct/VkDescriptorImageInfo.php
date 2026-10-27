@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Handle\VkSampler;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -41,14 +42,14 @@ final class VkDescriptorImageInfo extends InputStructure
          * Layout the image is expected to be in when accessed using this
          * descriptor (only used if imageView is not VK_NULL_HANDLE).
          */
-        public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
      * @param CData&object{
      *     sampler: CData,
      *     imageView: CData,
-     *     imageLayout: value-of<VkImageLayout>,
+     *     imageLayout: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -59,6 +60,6 @@ final class VkDescriptorImageInfo extends InputStructure
 
         $data->imageView = $memory->ffi->cast('VkImageView', $this->imageView->pointer);
 
-        $data->imageLayout = $this->imageLayout->value;
+        $data->imageLayout = EnumCase::getValue($this->imageLayout);
     }
 }

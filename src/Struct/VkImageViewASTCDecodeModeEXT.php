@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageViewCreateInfoExtension;
 
@@ -26,14 +27,14 @@ final class VkImageViewASTCDecodeModeEXT extends InputStructure implements VkIma
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,
-        public VkFormat $decodeMode = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $decodeMode = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT>,
      *     pNext: CData,
-     *     decodeMode: value-of<VkFormat>,
+     *     decodeMode: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkImageViewASTCDecodeModeEXT extends InputStructure implements VkIma
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->decodeMode = $this->decodeMode->value;
+        $data->decodeMode = EnumCase::getValue($this->decodeMode);
     }
 }

@@ -27,7 +27,7 @@ final class VkImportMemoryHostPointerInfoEXT extends InputStructure implements V
     public function __construct(
         public CData|int $hostPointer,
         public ?VkMemoryAllocateInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
         public int $handleType = 0,
     ) {}
 

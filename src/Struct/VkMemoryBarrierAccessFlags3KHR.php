@@ -30,9 +30,9 @@ final class VkMemoryBarrierAccessFlags3KHR extends InputStructure implements VkS
 
     public function __construct(
         public VkSubpassDependency2Extension|VkBufferMemoryBarrier2Extension|VkImageMemoryBarrier2Extension|VkMemoryBarrier2Extension|VkMemoryRangeBarrierKHRExtension|null $next = null,
-        /** @var int-mask-of<VkAccessFlagBits3KHR::*> */
+        /** @var int-mask-of<VkAccessFlagBits3KHR::VK_*> */
         public int $srcAccessMask3 = 0,
-        /** @var int-mask-of<VkAccessFlagBits3KHR::*> */
+        /** @var int-mask-of<VkAccessFlagBits3KHR::VK_*> */
         public int $dstAccessMask3 = 0,
     ) {}
 

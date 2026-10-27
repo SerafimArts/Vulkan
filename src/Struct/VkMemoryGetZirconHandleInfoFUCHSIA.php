@@ -26,7 +26,7 @@ final class VkMemoryGetZirconHandleInfoFUCHSIA extends InputStructure
 
     public function __construct(
         public VkDeviceMemory $memory,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
         public int $handleType = 0,
     ) {}
 

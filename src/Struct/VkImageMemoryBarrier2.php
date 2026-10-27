@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits2;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageMemoryBarrier2Extension;
 
@@ -31,16 +32,16 @@ final class VkImageMemoryBarrier2 extends InputStructure
         public VkImage $image,
         public VkImageSubresourceRange $subresourceRange,
         public ?VkImageMemoryBarrier2Extension $next = null,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int<0, max>|(VkPipelineStageFlagBits2::VK_*) */
         public int $srcStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::*) */
+        /** @var int<0, max>|(VkAccessFlagBits2::VK_*) */
         public int $srcAccessMask = 0,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int<0, max>|(VkPipelineStageFlagBits2::VK_*) */
         public int $dstStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::*) */
+        /** @var int<0, max>|(VkAccessFlagBits2::VK_*) */
         public int $dstAccessMask = 0,
-        public VkImageLayout $oldLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
-        public VkImageLayout $newLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $oldLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $newLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         /** @var int<0, 4294967295> */
         public int $srcQueueFamilyIndex = 0,
         /** @var int<0, 4294967295> */
@@ -55,8 +56,8 @@ final class VkImageMemoryBarrier2 extends InputStructure
      *     srcAccessMask: int<0, max>,
      *     dstStageMask: int<0, max>,
      *     dstAccessMask: int<0, max>,
-     *     oldLayout: value-of<VkImageLayout>,
-     *     newLayout: value-of<VkImageLayout>,
+     *     oldLayout: int,
+     *     newLayout: int,
      *     srcQueueFamilyIndex: int<0, 4294967295>,
      *     dstQueueFamilyIndex: int<0, 4294967295>,
      *     image: CData,
@@ -83,9 +84,9 @@ final class VkImageMemoryBarrier2 extends InputStructure
 
         $data->dstAccessMask = $this->dstAccessMask;
 
-        $data->oldLayout = $this->oldLayout->value;
+        $data->oldLayout = EnumCase::getValue($this->oldLayout);
 
-        $data->newLayout = $this->newLayout->value;
+        $data->newLayout = EnumCase::getValue($this->newLayout);
 
         $data->srcQueueFamilyIndex = $this->srcQueueFamilyIndex;
 

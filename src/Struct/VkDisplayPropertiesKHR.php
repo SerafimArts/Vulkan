@@ -31,7 +31,7 @@ final readonly class VkDisplayPropertiesKHR extends OutputStructure
         /**
          * One or more bits from VkSurfaceTransformFlagsKHR
          *
-         * @var int-mask-of<VkSurfaceTransformFlagBitsKHR::*>
+         * @var int-mask-of<VkSurfaceTransformFlagBitsKHR::VK_*>
          */
         public int $supportedTransforms,
         /**

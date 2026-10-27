@@ -18,7 +18,7 @@ use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 final readonly class VkShaderStatisticsInfoAMD extends OutputStructure
 {
     public function __construct(
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
         public int $shaderStageMask,
         public VkShaderResourceUsageAMD $resourceUsage,
         /** @var int<0, 4294967295> */

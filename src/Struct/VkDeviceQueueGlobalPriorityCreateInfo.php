@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkQueueGlobalPriority;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceQueueCreateInfoExtension;
 
@@ -25,7 +26,7 @@ final class VkDeviceQueueGlobalPriorityCreateInfo extends InputStructure impleme
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO->value;
 
     public function __construct(
-        public VkQueueGlobalPriority $globalPriority,
+        public VkQueueGlobalPriority|int $globalPriority,
         public ?VkDeviceQueueCreateInfoExtension $next = null,
     ) {}
 
@@ -33,7 +34,7 @@ final class VkDeviceQueueGlobalPriorityCreateInfo extends InputStructure impleme
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO>,
      *     pNext: CData,
-     *     globalPriority: value-of<VkQueueGlobalPriority>,
+     *     globalPriority: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkDeviceQueueGlobalPriorityCreateInfo extends InputStructure impleme
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->globalPriority = $this->globalPriority->value;
+        $data->globalPriority = EnumCase::getValue($this->globalPriority);
     }
 }

@@ -54,27 +54,27 @@ final readonly class VkSurfaceCapabilitiesKHR extends OutputStructure
         /**
          * 1 or more bits representing the transforms supported
          *
-         * @var int-mask-of<VkSurfaceTransformFlagBitsKHR::*>
+         * @var int-mask-of<VkSurfaceTransformFlagBitsKHR::VK_*>
          */
         public int $supportedTransforms,
         /**
          * The surface's current transform relative to the device's natural
          * orientation
          *
-         * @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::*)
+         * @var int<0, 4294967295>|(VkSurfaceTransformFlagBitsKHR::VK_*)
          */
         public int $currentTransform,
         /**
          * 1 or more bits representing the alpha compositing modes
          * supported
          *
-         * @var int-mask-of<VkCompositeAlphaFlagBitsKHR::*>
+         * @var int-mask-of<VkCompositeAlphaFlagBitsKHR::VK_*>
          */
         public int $supportedCompositeAlpha,
         /**
          * Supported image usage flags for the surface
          *
-         * @var int<0, 4294967295>|(VkImageUsageFlagBits::*)
+         * @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*)
          */
         public int $supportedUsageFlags,
     ) {}

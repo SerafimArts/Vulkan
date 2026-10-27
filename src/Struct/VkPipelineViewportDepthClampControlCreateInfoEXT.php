@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDepthClampModeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineViewportStateCreateInfoExtension;
 
@@ -26,7 +27,7 @@ final class VkPipelineViewportDepthClampControlCreateInfoEXT extends InputStruct
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,
-        public VkDepthClampModeEXT $depthClampMode = VkDepthClampModeEXT::VK_DEPTH_CLAMP_MODE_VIEWPORT_RANGE_EXT,
+        public VkDepthClampModeEXT|int $depthClampMode = VkDepthClampModeEXT::VK_DEPTH_CLAMP_MODE_VIEWPORT_RANGE_EXT,
         public ?VkDepthClampRangeEXT $depthClampRange = null,
     ) {}
 
@@ -34,7 +35,7 @@ final class VkPipelineViewportDepthClampControlCreateInfoEXT extends InputStruct
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT>,
      *     pNext: CData,
-     *     depthClampMode: value-of<VkDepthClampModeEXT>,
+     *     depthClampMode: int,
      *     pDepthClampRange: CData,
      * } $data
      *
@@ -50,7 +51,7 @@ final class VkPipelineViewportDepthClampControlCreateInfoEXT extends InputStruct
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->depthClampMode = $this->depthClampMode->value;
+        $data->depthClampMode = EnumCase::getValue($this->depthClampMode);
 
         if ($this->depthClampRange !== null) {
             $data->pDepthClampRange = \FFI::addr($memory->toStructure($this->depthClampRange));

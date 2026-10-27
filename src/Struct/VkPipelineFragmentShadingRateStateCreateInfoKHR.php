@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFragmentShadingRateCombinerOpKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -27,7 +28,7 @@ final class VkPipelineFragmentShadingRateStateCreateInfoKHR extends InputStructu
 
     public function __construct(
         public VkExtent2D $fragmentSize,
-        /** @var list<VkFragmentShadingRateCombinerOpKHR> */
+        /** @var list<VkFragmentShadingRateCombinerOpKHR|int> */
         public array $combinerOps,
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
     ) {}
@@ -59,7 +60,7 @@ final class VkPipelineFragmentShadingRateStateCreateInfoKHR extends InputStructu
         }
 
         foreach ($this->combinerOps as $i => $item) {
-            $data->combinerOps[$i] = $item->value;
+            $data->combinerOps[$i] = EnumCase::getValue($item);
         }
     }
 }

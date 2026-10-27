@@ -32,7 +32,7 @@ final readonly class VkVideoEncodeAV1QualityLevelPropertiesKHR extends OutputStr
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoEncodeAV1RateControlFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoEncodeAV1RateControlFlagBitsKHR::VK_*> */
         public int $preferredRateControlFlags,
         /** @var int<0, 4294967295> */
         public int $preferredGopFrameCount,

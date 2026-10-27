@@ -21,7 +21,7 @@ final readonly class VkQueueFamilyProperties extends OutputStructure
         /**
          * Queue flags
          *
-         * @var int-mask-of<VkQueueFlagBits::*>
+         * @var int-mask-of<VkQueueFlagBits::VK_*>
          */
         public int $queueFlags,
         /**

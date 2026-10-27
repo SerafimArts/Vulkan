@@ -24,7 +24,7 @@ final class VkDecompressMemoryInfoEXT extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DECOMPRESS_MEMORY_INFO_EXT->value;
 
     public function __construct(
-        /** @var int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::*> */
+        /** @var int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::VK_*> */
         public int $decompressionMethod = 0,
         /** @var list<VkDecompressMemoryRegionEXT> */
         public array $regions = [],

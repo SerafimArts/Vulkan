@@ -44,7 +44,7 @@ final readonly class VkPresentTimingSurfaceCapabilitiesEXT extends OutputStructu
         /**
          * Present stages that can be queried
          *
-         * @var int-mask-of<VkPresentStageFlagBitsEXT::*>
+         * @var int-mask-of<VkPresentStageFlagBitsEXT::VK_*>
          */
         public int $presentStageQueries,
     ) {}

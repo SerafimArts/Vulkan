@@ -29,7 +29,7 @@ final class VkCommandBufferBeginInfo extends InputStructure
         /**
          * Command buffer usage flags
          *
-         * @var int-mask-of<VkCommandBufferUsageFlagBits::*>
+         * @var int-mask-of<VkCommandBufferUsageFlagBits::VK_*>
          */
         public int $flags = 0,
         /** Pointer to inheritance info for secondary command buffers */

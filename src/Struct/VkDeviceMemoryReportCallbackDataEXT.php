@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceMemoryReportEventTypeEXT;
 use Serafim\Vulkan\Enum\VkObjectType;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryReportCallbackDataEXT.html
@@ -24,12 +25,12 @@ final readonly class VkDeviceMemoryReportCallbackDataEXT extends OutputStructure
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $flags,
-        public VkDeviceMemoryReportEventTypeEXT $type,
+        public VkDeviceMemoryReportEventTypeEXT|int $type,
         /** @var int<0, max> */
         public int $memoryObjectId,
         /** @var int<0, max> */
         public int $size,
-        public VkObjectType $objectType,
+        public VkObjectType|int $objectType,
         /** @var int<0, max> */
         public int $objectHandle,
         /** @var int<0, 4294967295> */
@@ -39,10 +40,10 @@ final readonly class VkDeviceMemoryReportCallbackDataEXT extends OutputStructure
     /**
      * @param CData&object{
      *     flags: int<0, 4294967295>,
-     *     type: value-of<VkDeviceMemoryReportEventTypeEXT>,
+     *     type: int,
      *     memoryObjectId: int<0, max>,
      *     size: int<0, max>,
-     *     objectType: value-of<VkObjectType>,
+     *     objectType: int,
      *     objectHandle: int<0, max>,
      *     heapIndex: int<0, 4294967295>,
      * } $data
@@ -53,10 +54,10 @@ final readonly class VkDeviceMemoryReportCallbackDataEXT extends OutputStructure
     {
         return new self(
             flags: $data->flags,
-            type: VkDeviceMemoryReportEventTypeEXT::from($data->type),
+            type: EnumCase::createFromValue(VkDeviceMemoryReportEventTypeEXT::class, $data->type),
             memoryObjectId: $data->memoryObjectId,
             size: $data->size,
-            objectType: VkObjectType::from($data->objectType),
+            objectType: EnumCase::createFromValue(VkObjectType::class, $data->objectType),
             objectHandle: $data->objectHandle,
             heapIndex: $data->heapIndex,
         );

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -40,7 +41,7 @@ final class VkDescriptorUpdateTemplateEntry extends InputStructure
          */
         public int $descriptorCount = 0,
         /** Descriptor type to write */
-        public VkDescriptorType $descriptorType = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
+        public VkDescriptorType|int $descriptorType = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
         /**
          * Offset into pData where the descriptors to update are stored
          *
@@ -61,7 +62,7 @@ final class VkDescriptorUpdateTemplateEntry extends InputStructure
      *     dstBinding: int<0, 4294967295>,
      *     dstArrayElement: int<0, 4294967295>,
      *     descriptorCount: int<0, 4294967295>,
-     *     descriptorType: value-of<VkDescriptorType>,
+     *     descriptorType: int,
      *     offset: int<0, max>,
      *     stride: int<0, max>,
      * } $data
@@ -76,7 +77,7 @@ final class VkDescriptorUpdateTemplateEntry extends InputStructure
 
         $data->descriptorCount = $this->descriptorCount;
 
-        $data->descriptorType = $this->descriptorType->value;
+        $data->descriptorType = EnumCase::getValue($this->descriptorType);
 
         $data->offset = $this->offset;
 

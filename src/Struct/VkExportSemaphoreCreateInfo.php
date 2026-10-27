@@ -26,7 +26,7 @@ final class VkExportSemaphoreCreateInfo extends InputStructure implements VkSema
 
     public function __construct(
         public ?VkSemaphoreCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkExternalSemaphoreHandleTypeFlagBits::*> */
+        /** @var int-mask-of<VkExternalSemaphoreHandleTypeFlagBits::VK_*> */
         public int $handleTypes = 0,
     ) {}
 

@@ -69,13 +69,13 @@ final readonly class VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT extend
          * @var int<0, 4294967295>
          */
         public int $maxIndirectCommandsIndirectStride,
-        /** @var int-mask-of<VkIndirectCommandsInputModeFlagBitsEXT::*> */
+        /** @var int-mask-of<VkIndirectCommandsInputModeFlagBitsEXT::VK_*> */
         public int $supportedIndirectCommandsInputModes,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
         public int $supportedIndirectCommandsShaderStages,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
         public int $supportedIndirectCommandsShaderStagesPipelineBinding,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
         public int $supportedIndirectCommandsShaderStagesShaderBinding,
         /** The value is at least the required one. */
         public bool $deviceGeneratedCommandsTransformFeedback,

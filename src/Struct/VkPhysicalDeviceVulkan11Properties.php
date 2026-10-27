@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkPointClippingBehavior;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubgroupFeatureFlagBits;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -60,13 +61,13 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
         /**
          * Bitfield of what shader stages support subgroup operations
          *
-         * @var int<0, 4294967295>|(VkShaderStageFlagBits::*)
+         * @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)
          */
         public int $subgroupSupportedStages,
         /**
          * Bitfield of what subgroup operations are supported.
          *
-         * @var int-mask-of<VkSubgroupFeatureFlagBits::*>
+         * @var int-mask-of<VkSubgroupFeatureFlagBits::VK_*>
          */
         public int $subgroupSupportedOperations,
         /**
@@ -77,7 +78,7 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
          */
         public bool $subgroupQuadOperationsInAllStages,
         /** The value is exactly the required one. */
-        public VkPointClippingBehavior $pointClippingBehavior,
+        public VkPointClippingBehavior|int $pointClippingBehavior,
         /**
          * Max number of views in a subpass
          *
@@ -121,7 +122,7 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
      *     subgroupSupportedStages: int<0, 4294967295>,
      *     subgroupSupportedOperations: int<0, 4294967295>,
      *     subgroupQuadOperationsInAllStages: int<0, 1>,
-     *     pointClippingBehavior: value-of<VkPointClippingBehavior>,
+     *     pointClippingBehavior: int,
      *     maxMultiviewViewCount: int<0, 4294967295>,
      *     maxMultiviewInstanceIndex: int<0, 4294967295>,
      *     protectedNoFault: int<0, 1>,
@@ -143,7 +144,7 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
             subgroupSupportedStages: $data->subgroupSupportedStages,
             subgroupSupportedOperations: $data->subgroupSupportedOperations,
             subgroupQuadOperationsInAllStages: $data->subgroupQuadOperationsInAllStages !== 0,
-            pointClippingBehavior: VkPointClippingBehavior::from($data->pointClippingBehavior),
+            pointClippingBehavior: EnumCase::createFromValue(VkPointClippingBehavior::class, $data->pointClippingBehavior),
             maxMultiviewViewCount: $data->maxMultiviewViewCount,
             maxMultiviewInstanceIndex: $data->maxMultiviewInstanceIndex,
             protectedNoFault: $data->protectedNoFault !== 0,

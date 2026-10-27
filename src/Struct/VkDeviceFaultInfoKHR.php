@@ -21,7 +21,7 @@ final readonly class VkDeviceFaultInfoKHR extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR->value;
 
     public function __construct(
-        /** @var int-mask-of<VkDeviceFaultFlagBitsKHR::*> */
+        /** @var int-mask-of<VkDeviceFaultFlagBitsKHR::VK_*> */
         public int $flags,
         /** @var int<0, max> */
         public int $groupId,

@@ -25,10 +25,10 @@ final class VkPhysicalDeviceExternalTensorInfoARM extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM->value;
 
     public function __construct(
-        /** @var int-mask-of<VkTensorCreateFlagBitsARM::*> */
+        /** @var int-mask-of<VkTensorCreateFlagBitsARM::VK_*> */
         public int $flags = 0,
         public ?VkTensorDescriptionARM $description = null,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
         public int $handleType = 0,
     ) {}
 

@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkCullModeFlagBits;
 use Serafim\Vulkan\Enum\VkFrontFace;
 use Serafim\Vulkan\Enum\VkPolygonMode;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -33,10 +34,10 @@ final class VkPipelineRasterizationStateCreateInfo extends InputStructure
         public bool $depthClampEnable = false,
         public bool $rasterizerDiscardEnable = false,
         /** Optional (GL45) */
-        public VkPolygonMode $polygonMode = VkPolygonMode::VK_POLYGON_MODE_FILL,
-        /** @var int-mask-of<VkCullModeFlagBits::*> */
+        public VkPolygonMode|int $polygonMode = VkPolygonMode::VK_POLYGON_MODE_FILL,
+        /** @var int-mask-of<VkCullModeFlagBits::VK_*> */
         public int $cullMode = 0,
-        public VkFrontFace $frontFace = VkFrontFace::VK_FRONT_FACE_COUNTER_CLOCKWISE,
+        public VkFrontFace|int $frontFace = VkFrontFace::VK_FRONT_FACE_COUNTER_CLOCKWISE,
         public bool $depthBiasEnable = false,
         public float $depthBiasConstantFactor = 0.0,
         public float $depthBiasClamp = 0.0,
@@ -51,9 +52,9 @@ final class VkPipelineRasterizationStateCreateInfo extends InputStructure
      *     flags: int<0, 4294967295>,
      *     depthClampEnable: int<0, 1>,
      *     rasterizerDiscardEnable: int<0, 1>,
-     *     polygonMode: value-of<VkPolygonMode>,
+     *     polygonMode: int,
      *     cullMode: int<0, 4294967295>,
-     *     frontFace: value-of<VkFrontFace>,
+     *     frontFace: int,
      *     depthBiasEnable: int<0, 1>,
      *     depthBiasConstantFactor: float,
      *     depthBiasClamp: float,
@@ -79,11 +80,11 @@ final class VkPipelineRasterizationStateCreateInfo extends InputStructure
 
         $data->rasterizerDiscardEnable = (int) $this->rasterizerDiscardEnable;
 
-        $data->polygonMode = $this->polygonMode->value;
+        $data->polygonMode = EnumCase::getValue($this->polygonMode);
 
         $data->cullMode = $this->cullMode;
 
-        $data->frontFace = $this->frontFace->value;
+        $data->frontFace = EnumCase::getValue($this->frontFace);
 
         $data->depthBiasEnable = (int) $this->depthBiasEnable;
 

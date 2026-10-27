@@ -32,9 +32,9 @@ final readonly class VkTensorFormatPropertiesARM extends OutputStructure impleme
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
         public int $optimalTilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int<0, max>|(VkFormatFeatureFlagBits2::VK_*) */
         public int $linearTilingTensorFeatures,
     ) {}
 

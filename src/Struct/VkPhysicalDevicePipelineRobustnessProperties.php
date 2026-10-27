@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessBufferBehavior;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessImageBehavior;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -34,21 +35,21 @@ final readonly class VkPhysicalDevicePipelineRobustnessProperties extends Output
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkPipelineRobustnessBufferBehavior $defaultRobustnessStorageBuffers,
+        public VkPipelineRobustnessBufferBehavior|int $defaultRobustnessStorageBuffers,
         /** The value is exactly the required one. */
-        public VkPipelineRobustnessBufferBehavior $defaultRobustnessUniformBuffers,
+        public VkPipelineRobustnessBufferBehavior|int $defaultRobustnessUniformBuffers,
         /** The value is exactly the required one. */
-        public VkPipelineRobustnessBufferBehavior $defaultRobustnessVertexInputs,
+        public VkPipelineRobustnessBufferBehavior|int $defaultRobustnessVertexInputs,
         /** The value is exactly the required one. */
-        public VkPipelineRobustnessImageBehavior $defaultRobustnessImages,
+        public VkPipelineRobustnessImageBehavior|int $defaultRobustnessImages,
     ) {}
 
     /**
      * @param CData&object{
-     *     defaultRobustnessStorageBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
-     *     defaultRobustnessUniformBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
-     *     defaultRobustnessVertexInputs: value-of<VkPipelineRobustnessBufferBehavior>,
-     *     defaultRobustnessImages: value-of<VkPipelineRobustnessImageBehavior>,
+     *     defaultRobustnessStorageBuffers: int,
+     *     defaultRobustnessUniformBuffers: int,
+     *     defaultRobustnessVertexInputs: int,
+     *     defaultRobustnessImages: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -56,10 +57,10 @@ final readonly class VkPhysicalDevicePipelineRobustnessProperties extends Output
     public static function createFromCData(CData $data): self
     {
         return new self(
-            defaultRobustnessStorageBuffers: VkPipelineRobustnessBufferBehavior::from($data->defaultRobustnessStorageBuffers),
-            defaultRobustnessUniformBuffers: VkPipelineRobustnessBufferBehavior::from($data->defaultRobustnessUniformBuffers),
-            defaultRobustnessVertexInputs: VkPipelineRobustnessBufferBehavior::from($data->defaultRobustnessVertexInputs),
-            defaultRobustnessImages: VkPipelineRobustnessImageBehavior::from($data->defaultRobustnessImages),
+            defaultRobustnessStorageBuffers: EnumCase::createFromValue(VkPipelineRobustnessBufferBehavior::class, $data->defaultRobustnessStorageBuffers),
+            defaultRobustnessUniformBuffers: EnumCase::createFromValue(VkPipelineRobustnessBufferBehavior::class, $data->defaultRobustnessUniformBuffers),
+            defaultRobustnessVertexInputs: EnumCase::createFromValue(VkPipelineRobustnessBufferBehavior::class, $data->defaultRobustnessVertexInputs),
+            defaultRobustnessImages: EnumCase::createFromValue(VkPipelineRobustnessImageBehavior::class, $data->defaultRobustnessImages),
         );
     }
 }

@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkFilter;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBlitImageInfo2Extension;
 
@@ -30,11 +31,11 @@ final class VkBlitImageInfo2 extends InputStructure
         public VkImage $srcImage,
         public VkImage $dstImage,
         public ?VkBlitImageInfo2Extension $next = null,
-        public VkImageLayout $srcImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
-        public VkImageLayout $dstImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $srcImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $dstImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         /** @var list<VkImageBlit2> */
         public array $regions = [],
-        public VkFilter $filter = VkFilter::VK_FILTER_NEAREST,
+        public VkFilter|int $filter = VkFilter::VK_FILTER_NEAREST,
     ) {}
 
     /**
@@ -42,12 +43,12 @@ final class VkBlitImageInfo2 extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2>,
      *     pNext: CData,
      *     srcImage: CData,
-     *     srcImageLayout: value-of<VkImageLayout>,
+     *     srcImageLayout: int,
      *     dstImage: CData,
-     *     dstImageLayout: value-of<VkImageLayout>,
+     *     dstImageLayout: int,
      *     regionCount: int<0, 4294967295>,
      *     pRegions: CData,
-     *     filter: value-of<VkFilter>,
+     *     filter: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -64,17 +65,17 @@ final class VkBlitImageInfo2 extends InputStructure
 
         $data->srcImage = $memory->ffi->cast('VkImage', $this->srcImage->pointer);
 
-        $data->srcImageLayout = $this->srcImageLayout->value;
+        $data->srcImageLayout = EnumCase::getValue($this->srcImageLayout);
 
         $data->dstImage = $memory->ffi->cast('VkImage', $this->dstImage->pointer);
 
-        $data->dstImageLayout = $this->dstImageLayout->value;
+        $data->dstImageLayout = EnumCase::getValue($this->dstImageLayout);
 
         if ($this->regions !== []) {
             $data->regionCount = \count($this->regions);
             $data->pRegions = $memory->ffi->cast('VkImageBlit2*', $memory->toStructureArray($this->regions));
         }
 
-        $data->filter = $this->filter->value;
+        $data->filter = EnumCase::getValue($this->filter);
     }
 }

@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSubpassMergeStatusEXT;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,7 +26,7 @@ final class VkRenderPassSubpassFeedbackInfoEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkRenderPassSubpassFeedbackInfoEXT';
 
     public function __construct(
-        public VkSubpassMergeStatusEXT $subpassMergeStatus = VkSubpassMergeStatusEXT::VK_SUBPASS_MERGE_STATUS_MERGED_EXT,
+        public VkSubpassMergeStatusEXT|int $subpassMergeStatus = VkSubpassMergeStatusEXT::VK_SUBPASS_MERGE_STATUS_MERGED_EXT,
         public string $description = '',
         /** @var int<0, 4294967295> */
         public int $postMergeIndex = 0,
@@ -33,7 +34,7 @@ final class VkRenderPassSubpassFeedbackInfoEXT extends InputStructure
 
     /**
      * @param CData&object{
-     *     subpassMergeStatus: value-of<VkSubpassMergeStatusEXT>,
+     *     subpassMergeStatus: int,
      *     description: CData,
      *     postMergeIndex: int<0, 4294967295>,
      * } $data
@@ -42,7 +43,7 @@ final class VkRenderPassSubpassFeedbackInfoEXT extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->subpassMergeStatus = $this->subpassMergeStatus->value;
+        $data->subpassMergeStatus = EnumCase::getValue($this->subpassMergeStatus);
 
         if (\strlen($this->description) >= 256) {
             throw InvalidStructureException::becauseArrayIsTooLong('VkRenderPassSubpassFeedbackInfoEXT', 'description', 256 - 1);

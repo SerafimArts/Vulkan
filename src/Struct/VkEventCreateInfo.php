@@ -29,7 +29,7 @@ final class VkEventCreateInfo extends InputStructure
         /**
          * Event creation flags
          *
-         * @var int-mask-of<VkEventCreateFlagBits::*>
+         * @var int-mask-of<VkEventCreateFlagBits::VK_*>
          */
         public int $flags = 0,
     ) {}

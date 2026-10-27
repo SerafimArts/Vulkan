@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDefaultVertexAttributeValueKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -35,13 +36,13 @@ final readonly class VkPhysicalDeviceMaintenance9PropertiesKHR extends OutputStr
         /** The value is at least the required one. */
         public bool $image2DViewOf3DSparse,
         /** The value is exactly the required one. */
-        public VkDefaultVertexAttributeValueKHR $defaultVertexAttributeValue,
+        public VkDefaultVertexAttributeValueKHR|int $defaultVertexAttributeValue,
     ) {}
 
     /**
      * @param CData&object{
      *     image2DViewOf3DSparse: int<0, 1>,
-     *     defaultVertexAttributeValue: value-of<VkDefaultVertexAttributeValueKHR>,
+     *     defaultVertexAttributeValue: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -50,7 +51,7 @@ final readonly class VkPhysicalDeviceMaintenance9PropertiesKHR extends OutputStr
     {
         return new self(
             image2DViewOf3DSparse: $data->image2DViewOf3DSparse !== 0,
-            defaultVertexAttributeValue: VkDefaultVertexAttributeValueKHR::from($data->defaultVertexAttributeValue),
+            defaultVertexAttributeValue: EnumCase::createFromValue(VkDefaultVertexAttributeValueKHR::class, $data->defaultVertexAttributeValue),
         );
     }
 }

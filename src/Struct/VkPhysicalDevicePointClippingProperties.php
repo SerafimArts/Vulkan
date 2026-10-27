@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPointClippingBehavior;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -33,12 +34,12 @@ final readonly class VkPhysicalDevicePointClippingProperties extends OutputStruc
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkPointClippingBehavior $pointClippingBehavior,
+        public VkPointClippingBehavior|int $pointClippingBehavior,
     ) {}
 
     /**
      * @param CData&object{
-     *     pointClippingBehavior: value-of<VkPointClippingBehavior>,
+     *     pointClippingBehavior: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -46,7 +47,7 @@ final readonly class VkPhysicalDevicePointClippingProperties extends OutputStruc
     public static function createFromCData(CData $data): self
     {
         return new self(
-            pointClippingBehavior: VkPointClippingBehavior::from($data->pointClippingBehavior),
+            pointClippingBehavior: EnumCase::createFromValue(VkPointClippingBehavior::class, $data->pointClippingBehavior),
         );
     }
 }

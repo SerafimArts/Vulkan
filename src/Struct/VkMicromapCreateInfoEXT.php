@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkMicromapCreateFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkMicromapTypeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -27,7 +28,7 @@ final class VkMicromapCreateInfoEXT extends InputStructure
 
     public function __construct(
         public VkBuffer $buffer,
-        /** @var int-mask-of<VkMicromapCreateFlagBitsEXT::*> */
+        /** @var int-mask-of<VkMicromapCreateFlagBitsEXT::VK_*> */
         public int $createFlags = 0,
         /**
          * Specified in bytes
@@ -37,7 +38,7 @@ final class VkMicromapCreateInfoEXT extends InputStructure
         public int $offset = 0,
         /** @var int<0, max> */
         public int $size = 0,
-        public VkMicromapTypeEXT $type = VkMicromapTypeEXT::VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT,
+        public VkMicromapTypeEXT|int $type = VkMicromapTypeEXT::VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT,
         /** @var int<0, max> */
         public int $deviceAddress = 0,
     ) {}
@@ -50,7 +51,7 @@ final class VkMicromapCreateInfoEXT extends InputStructure
      *     buffer: CData,
      *     offset: int<0, max>,
      *     size: int<0, max>,
-     *     type: value-of<VkMicromapTypeEXT>,
+     *     type: int,
      *     deviceAddress: int<0, max>,
      * } $data
      *
@@ -68,7 +69,7 @@ final class VkMicromapCreateInfoEXT extends InputStructure
 
         $data->size = $this->size;
 
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         $data->deviceAddress = $this->deviceAddress;
     }

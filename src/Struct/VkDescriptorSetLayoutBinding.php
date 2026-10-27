@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkDescriptorType;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkSampler;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -34,7 +35,7 @@ final class VkDescriptorSetLayoutBinding extends InputStructure
          */
         public int $binding = 0,
         /** Type of the descriptors in this binding */
-        public VkDescriptorType $descriptorType = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
+        public VkDescriptorType|int $descriptorType = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
         /**
          * Number of descriptors in this binding
          *
@@ -47,7 +48,7 @@ final class VkDescriptorSetLayoutBinding extends InputStructure
         /**
          * Shader stages this binding is visible to
          *
-         * @var int<0, 4294967295>|(VkShaderStageFlagBits::*)
+         * @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)
          */
         public int $stageFlags = 0,
         /**
@@ -63,7 +64,7 @@ final class VkDescriptorSetLayoutBinding extends InputStructure
     /**
      * @param CData&object{
      *     binding: int<0, 4294967295>,
-     *     descriptorType: value-of<VkDescriptorType>,
+     *     descriptorType: int,
      *     descriptorCount: int<0, 4294967295>,
      *     stageFlags: int<0, 4294967295>,
      *     pImmutableSamplers: CData,
@@ -75,7 +76,7 @@ final class VkDescriptorSetLayoutBinding extends InputStructure
     {
         $data->binding = $this->binding;
 
-        $data->descriptorType = $this->descriptorType->value;
+        $data->descriptorType = EnumCase::getValue($this->descriptorType);
 
         if ($this->descriptorCount !== 0) {
             $data->descriptorCount = $this->descriptorCount;

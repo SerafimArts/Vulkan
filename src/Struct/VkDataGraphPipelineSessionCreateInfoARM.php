@@ -28,7 +28,7 @@ final class VkDataGraphPipelineSessionCreateInfoARM extends InputStructure
     public function __construct(
         public VkPipeline $dataGraphPipeline,
         public ?VkDataGraphPipelineSessionCreateInfoARMExtension $next = null,
-        /** @var int-mask-of<VkDataGraphPipelineSessionCreateFlagBitsARM::*> */
+        /** @var int-mask-of<VkDataGraphPipelineSessionCreateFlagBitsARM::VK_*> */
         public int $flags = 0,
     ) {}
 

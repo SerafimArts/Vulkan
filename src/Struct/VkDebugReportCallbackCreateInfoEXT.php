@@ -37,7 +37,7 @@ final class VkDebugReportCallbackCreateInfoEXT extends InputStructure implements
         /**
          * Indicates which events call this callback
          *
-         * @var int-mask-of<VkDebugReportFlagBitsEXT::*>
+         * @var int-mask-of<VkDebugReportFlagBitsEXT::VK_*>
          */
         public int $flags = 0,
         /** Data provided to callback function */

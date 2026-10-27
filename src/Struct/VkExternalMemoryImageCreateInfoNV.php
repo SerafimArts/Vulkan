@@ -28,7 +28,7 @@ final class VkExternalMemoryImageCreateInfoNV extends InputStructure implements 
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> */
+        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> */
         public int $handleTypes = 0,
     ) {}
 

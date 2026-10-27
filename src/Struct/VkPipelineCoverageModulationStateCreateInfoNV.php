@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoverageModulationModeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtension;
 
@@ -29,7 +30,7 @@ final class VkPipelineCoverageModulationStateCreateInfoNV extends InputStructure
         public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        public VkCoverageModulationModeNV $coverageModulationMode = VkCoverageModulationModeNV::VK_COVERAGE_MODULATION_MODE_NONE_NV,
+        public VkCoverageModulationModeNV|int $coverageModulationMode = VkCoverageModulationModeNV::VK_COVERAGE_MODULATION_MODE_NONE_NV,
         public bool $coverageModulationTableEnable = false,
         /**
          * The number of the elements of `$coverageModulationTable`, it
@@ -47,7 +48,7 @@ final class VkPipelineCoverageModulationStateCreateInfoNV extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     coverageModulationMode: value-of<VkCoverageModulationModeNV>,
+     *     coverageModulationMode: int,
      *     coverageModulationTableEnable: int<0, 1>,
      *     coverageModulationTableCount: int<0, 4294967295>,
      *     pCoverageModulationTable: CData,
@@ -67,7 +68,7 @@ final class VkPipelineCoverageModulationStateCreateInfoNV extends InputStructure
 
         $data->flags = $this->flags;
 
-        $data->coverageModulationMode = $this->coverageModulationMode->value;
+        $data->coverageModulationMode = EnumCase::getValue($this->coverageModulationMode);
 
         $data->coverageModulationTableEnable = (int) $this->coverageModulationTableEnable;
 

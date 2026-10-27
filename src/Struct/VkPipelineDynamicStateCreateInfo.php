@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDynamicState;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,7 +27,7 @@ final class VkPipelineDynamicStateCreateInfo extends InputStructure
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        /** @var list<VkDynamicState> */
+        /** @var list<VkDynamicState|int> */
         public array $dynamicStates = [],
     ) {}
 
@@ -49,7 +50,7 @@ final class VkPipelineDynamicStateCreateInfo extends InputStructure
 
         if ($this->dynamicStates !== []) {
             $data->dynamicStateCount = \count($this->dynamicStates);
-            $data->pDynamicStates = $memory->ffi->cast('VkDynamicState*', $memory->toNumberArray('VkDynamicState', \array_map(static fn(VkDynamicState $item): int => $item->value, $this->dynamicStates)));
+            $data->pDynamicStates = $memory->ffi->cast('VkDynamicState*', $memory->toNumberArray('VkDynamicState', \array_map(EnumCase::getValue(...), $this->dynamicStates)));
         }
     }
 }

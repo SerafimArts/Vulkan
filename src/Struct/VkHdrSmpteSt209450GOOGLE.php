@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkHdrSmpteSt209450PowerPreferenceGOOGLE;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkHdrMetadataEXTExtension;
 
@@ -27,7 +28,7 @@ final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMeta
     public function __construct(
         public ?VkHdrMetadataEXTExtension $next = null,
         public string $metadata = '',
-        public VkHdrSmpteSt209450PowerPreferenceGOOGLE $powerPreference = VkHdrSmpteSt209450PowerPreferenceGOOGLE::VK_HDR_SMPTE_ST_209450_POWER_PREFERENCE_COLOR_ACCURACY_GOOGLE,
+        public VkHdrSmpteSt209450PowerPreferenceGOOGLE|int $powerPreference = VkHdrSmpteSt209450PowerPreferenceGOOGLE::VK_HDR_SMPTE_ST_209450_POWER_PREFERENCE_COLOR_ACCURACY_GOOGLE,
     ) {}
 
     /**
@@ -36,7 +37,7 @@ final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMeta
      *     pNext: CData,
      *     metadataSize: int<0, max>,
      *     pMetadata: CData,
-     *     powerPreference: value-of<VkHdrSmpteSt209450PowerPreferenceGOOGLE>,
+     *     powerPreference: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -56,6 +57,6 @@ final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMeta
             $data->pMetadata = $memory->ffi->cast('void*', $memory->toCString($this->metadata));
         }
 
-        $data->powerPreference = $this->powerPreference->value;
+        $data->powerPreference = EnumCase::getValue($this->powerPreference);
     }
 }

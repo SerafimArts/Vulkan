@@ -24,7 +24,7 @@ final class VkPrivateDataSlotCreateInfo extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRIVATE_DATA_SLOT_CREATE_INFO->value;
 
     public function __construct(
-        /** @var int-mask-of<VkPrivateDataSlotCreateFlagBits::*> */
+        /** @var int-mask-of<VkPrivateDataSlotCreateFlagBits::VK_*> */
         public int $flags = 0,
     ) {}
 

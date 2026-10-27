@@ -23,7 +23,7 @@ final readonly class VkDeviceGroupPresentCapabilitiesKHR extends OutputStructure
     public function __construct(
         /** @var list<int<0, 4294967295>> */
         public array $presentMask,
-        /** @var int-mask-of<VkDeviceGroupPresentModeFlagBitsKHR::*> */
+        /** @var int-mask-of<VkDeviceGroupPresentModeFlagBitsKHR::VK_*> */
         public int $modes,
     ) {}
 

@@ -31,7 +31,7 @@ final class VkDescriptorBufferBindingInfoEXT extends InputStructure
         public ?VkDescriptorBufferBindingInfoEXTExtension $next = null,
         /** @var int<0, max> */
         public int $address = 0,
-        /** @var int<0, 4294967295>|(VkBufferUsageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkBufferUsageFlagBits::VK_*) */
         public int $usage = 0,
     ) {}
 

@@ -30,7 +30,7 @@ final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure impleme
     public function __construct(
         public VkExtent2D $tileApronSize,
         public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkRenderingInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
-        /** @var int-mask-of<VkTileShadingRenderPassFlagBitsQCOM::*> */
+        /** @var int-mask-of<VkTileShadingRenderPassFlagBitsQCOM::VK_*> */
         public int $flags = 0,
     ) {}
 

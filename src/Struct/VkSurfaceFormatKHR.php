@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkColorSpaceKHR;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * Legacy functionality.
@@ -23,15 +24,15 @@ final readonly class VkSurfaceFormatKHR extends OutputStructure
 {
     public function __construct(
         /** Supported pair of rendering format */
-        public VkFormat $format,
+        public VkFormat|int $format,
         /** And color space for the surface */
-        public VkColorSpaceKHR $colorSpace,
+        public VkColorSpaceKHR|int $colorSpace,
     ) {}
 
     /**
      * @param CData&object{
-     *     format: value-of<VkFormat>,
-     *     colorSpace: value-of<VkColorSpaceKHR>,
+     *     format: int,
+     *     colorSpace: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -39,8 +40,8 @@ final readonly class VkSurfaceFormatKHR extends OutputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            format: VkFormat::from($data->format),
-            colorSpace: VkColorSpaceKHR::from($data->colorSpace),
+            format: EnumCase::createFromValue(VkFormat::class, $data->format),
+            colorSpace: EnumCase::createFromValue(VkColorSpaceKHR::class, $data->colorSpace),
         );
     }
 }

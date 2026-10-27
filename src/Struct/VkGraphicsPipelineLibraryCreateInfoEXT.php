@@ -26,7 +26,7 @@ final class VkGraphicsPipelineLibraryCreateInfoEXT extends InputStructure implem
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkGraphicsPipelineLibraryFlagBitsEXT::*> */
+        /** @var int-mask-of<VkGraphicsPipelineLibraryFlagBitsEXT::VK_*> */
         public int $flags = 0,
     ) {}
 

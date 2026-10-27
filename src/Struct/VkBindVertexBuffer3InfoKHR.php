@@ -26,7 +26,7 @@ final class VkBindVertexBuffer3InfoKHR extends InputStructure
     public function __construct(
         public VkStridedDeviceAddressRangeKHR $addressRange,
         public bool $setStride = false,
-        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
+        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> */
         public int $addressFlags = 0,
     ) {}
 

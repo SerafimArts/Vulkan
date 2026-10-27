@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -31,7 +32,7 @@ final class VkDescriptorAddressInfoEXT extends InputStructure
         public int $address = 0,
         /** @var int<0, max> */
         public int $range = 0,
-        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
     /**
@@ -40,7 +41,7 @@ final class VkDescriptorAddressInfoEXT extends InputStructure
      *     pNext: CData,
      *     address: int<0, max>,
      *     range: int<0, max>,
-     *     format: value-of<VkFormat>,
+     *     format: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -53,6 +54,6 @@ final class VkDescriptorAddressInfoEXT extends InputStructure
 
         $data->range = $this->range;
 
-        $data->format = $this->format->value;
+        $data->format = EnumCase::getValue($this->format);
     }
 }

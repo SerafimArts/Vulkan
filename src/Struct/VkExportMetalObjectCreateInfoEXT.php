@@ -32,7 +32,7 @@ final class VkExportMetalObjectCreateInfoEXT extends InputStructure implements V
 
     public function __construct(
         public VkInstanceCreateInfoExtension|VkMemoryAllocateInfoExtension|VkImageCreateInfoExtension|VkImageViewCreateInfoExtension|VkBufferViewCreateInfoExtension|VkSemaphoreCreateInfoExtension|VkEventCreateInfoExtension|null $next = null,
-        /** @var int<0, 4294967295>|(VkExportMetalObjectTypeFlagBitsEXT::*) */
+        /** @var int<0, 4294967295>|(VkExportMetalObjectTypeFlagBitsEXT::VK_*) */
         public int $exportObjectType = 0,
     ) {}
 

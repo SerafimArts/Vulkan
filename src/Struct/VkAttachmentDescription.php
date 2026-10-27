@@ -15,6 +15,7 @@ use Serafim\Vulkan\Enum\VkAttachmentStoreOp;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -29,34 +30,34 @@ final class VkAttachmentDescription extends InputStructure
     protected const string NATIVE_TYPE = 'VkAttachmentDescription';
 
     public function __construct(
-        /** @var int-mask-of<VkAttachmentDescriptionFlagBits::*> */
+        /** @var int-mask-of<VkAttachmentDescriptionFlagBits::VK_*> */
         public int $flags = 0,
-        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
+        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
         public int $samples = 0,
         /** Load operation for color or depth data */
-        public VkAttachmentLoadOp $loadOp = VkAttachmentLoadOp::VK_ATTACHMENT_LOAD_OP_LOAD,
+        public VkAttachmentLoadOp|int $loadOp = VkAttachmentLoadOp::VK_ATTACHMENT_LOAD_OP_LOAD,
         /** Store operation for color or depth data */
-        public VkAttachmentStoreOp $storeOp = VkAttachmentStoreOp::VK_ATTACHMENT_STORE_OP_STORE,
+        public VkAttachmentStoreOp|int $storeOp = VkAttachmentStoreOp::VK_ATTACHMENT_STORE_OP_STORE,
         /** Load operation for stencil data */
-        public VkAttachmentLoadOp $stencilLoadOp = VkAttachmentLoadOp::VK_ATTACHMENT_LOAD_OP_LOAD,
+        public VkAttachmentLoadOp|int $stencilLoadOp = VkAttachmentLoadOp::VK_ATTACHMENT_LOAD_OP_LOAD,
         /** Store operation for stencil data */
-        public VkAttachmentStoreOp $stencilStoreOp = VkAttachmentStoreOp::VK_ATTACHMENT_STORE_OP_STORE,
-        public VkImageLayout $initialLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
-        public VkImageLayout $finalLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkAttachmentStoreOp|int $stencilStoreOp = VkAttachmentStoreOp::VK_ATTACHMENT_STORE_OP_STORE,
+        public VkImageLayout|int $initialLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $finalLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
      * @param CData&object{
      *     flags: int<0, 4294967295>,
-     *     format: value-of<VkFormat>,
+     *     format: int,
      *     samples: int<0, 4294967295>,
-     *     loadOp: value-of<VkAttachmentLoadOp>,
-     *     storeOp: value-of<VkAttachmentStoreOp>,
-     *     stencilLoadOp: value-of<VkAttachmentLoadOp>,
-     *     stencilStoreOp: value-of<VkAttachmentStoreOp>,
-     *     initialLayout: value-of<VkImageLayout>,
-     *     finalLayout: value-of<VkImageLayout>,
+     *     loadOp: int,
+     *     storeOp: int,
+     *     stencilLoadOp: int,
+     *     stencilStoreOp: int,
+     *     initialLayout: int,
+     *     finalLayout: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -65,20 +66,20 @@ final class VkAttachmentDescription extends InputStructure
     {
         $data->flags = $this->flags;
 
-        $data->format = $this->format->value;
+        $data->format = EnumCase::getValue($this->format);
 
         $data->samples = $this->samples;
 
-        $data->loadOp = $this->loadOp->value;
+        $data->loadOp = EnumCase::getValue($this->loadOp);
 
-        $data->storeOp = $this->storeOp->value;
+        $data->storeOp = EnumCase::getValue($this->storeOp);
 
-        $data->stencilLoadOp = $this->stencilLoadOp->value;
+        $data->stencilLoadOp = EnumCase::getValue($this->stencilLoadOp);
 
-        $data->stencilStoreOp = $this->stencilStoreOp->value;
+        $data->stencilStoreOp = EnumCase::getValue($this->stencilStoreOp);
 
-        $data->initialLayout = $this->initialLayout->value;
+        $data->initialLayout = EnumCase::getValue($this->initialLayout);
 
-        $data->finalLayout = $this->finalLayout->value;
+        $data->finalLayout = EnumCase::getValue($this->finalLayout);
     }
 }

@@ -74,6 +74,7 @@ use Serafim\Vulkan\Enum\VkTessellationDomainOrigin;
 use Serafim\Vulkan\Enum\VkTimeDomainKHR;
 use Serafim\Vulkan\Exception\CommandFailedException;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\VulkanException;
 use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\Handle\VkAccelerationStructureKHR;
 use Serafim\Vulkan\Handle\VkAccelerationStructureNV;
@@ -133,6 +134,7 @@ use Serafim\Vulkan\Handle\VkValidationCacheEXT;
 use Serafim\Vulkan\Handle\VkVideoSessionKHR;
 use Serafim\Vulkan\Handle\VkVideoSessionParametersKHR;
 use Serafim\Vulkan\Internal\Chain;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\VkEnumerator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
@@ -568,6 +570,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAcquireDrmDisplayEXT(VkPhysicalDevice $physicalDevice, int $drmFd, VkDisplayKHR $display): void
     {
@@ -585,6 +588,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAcquireFullScreenExclusiveModeEXT(VkDevice $device, VkSwapchainKHR $swapchain): void
     {
@@ -605,6 +609,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR},
      *         {@see VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAcquireNextImage2KHR(VkDevice $device, VkAcquireNextImageInfoKHR $acquireInfo): CommandResult
     {
@@ -640,6 +645,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR},
      *         {@see VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAcquireNextImageKHR(
         VkDevice $device,
@@ -672,6 +678,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAcquirePerformanceConfigurationINTEL(
         VkDevice $device,
@@ -701,6 +708,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_TIMEOUT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAcquireProfilingLockKHR(VkDevice $device, VkAcquireProfilingLockInfoKHR $info): void
     {
@@ -720,6 +728,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
      *         {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAcquireWinrtDisplayNV(VkPhysicalDevice $physicalDevice, VkDisplayKHR $display): void
     {
@@ -736,6 +745,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAcquireXlibDisplayEXT(
         VkPhysicalDevice $physicalDevice,
@@ -757,6 +767,7 @@ final class Vulkan extends VulkanBase
      *
      * @return list<VkCommandBuffer>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAllocateCommandBuffers(VkDevice $device, VkCommandBufferAllocateInfo $allocateInfo): array
     {
@@ -794,6 +805,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FRAGMENTED_POOL},
      *         {@see VkResult::VK_ERROR_OUT_OF_POOL_MEMORY}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAllocateDescriptorSets(VkDevice $device, VkDescriptorSetAllocateInfo $allocateInfo): array
     {
@@ -826,6 +838,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
      *         {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAllocateMemory(VkDevice $device, VkMemoryAllocateInfo $allocateInfo): VkDeviceMemory
     {
@@ -850,6 +863,8 @@ final class Vulkan extends VulkanBase
      * @since VK_AMD_anti_lag
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkAntiLagUpdateAMD(VkDevice $device, VkAntiLagDataAMD $data): void
     {
@@ -867,6 +882,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBeginCommandBuffer(VkCommandBuffer $commandBuffer, VkCommandBufferBeginInfo $beginInfo): void
     {
@@ -887,6 +903,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkBindAccelerationStructureMemoryInfoNV> $bindInfos
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkBindAccelerationStructureMemoryNV(VkDevice $device, array $bindInfos): void
@@ -911,6 +928,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindBufferMemory(
         VkDevice $device,
@@ -935,6 +953,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindBufferMemory2(VkDevice $device, array $bindInfos): void
     {
@@ -960,6 +979,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindBufferMemory2KHR(VkDevice $device, array $bindInfos): void
     {
@@ -975,6 +995,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkBindDataGraphPipelineSessionMemoryInfoARM> $bindInfos
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindDataGraphPipelineSessionMemoryARM(VkDevice $device, array $bindInfos): void
     {
@@ -997,6 +1018,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $memoryOffset
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindImageMemory(
         VkDevice $device,
@@ -1020,6 +1042,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkBindImageMemoryInfo> $bindInfos
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindImageMemory2(VkDevice $device, array $bindInfos): void
     {
@@ -1044,6 +1067,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkBindImageMemoryInfo> $bindInfos
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindImageMemory2KHR(VkDevice $device, array $bindInfos): void
     {
@@ -1058,6 +1082,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindOpticalFlowSessionImageNV(
         VkDevice $device,
@@ -1082,6 +1107,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkBindTensorMemoryInfoARM> $bindInfos
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindTensorMemoryARM(VkDevice $device, array $bindInfos): void
     {
@@ -1104,6 +1130,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkBindVideoSessionMemoryInfoKHR> $bindSessionMemoryInfos
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBindVideoSessionMemoryKHR(
         VkDevice $device,
@@ -1135,6 +1162,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBuildAccelerationStructuresKHR(
         VkDevice $device,
@@ -1177,6 +1205,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkBuildMicromapsEXT(
         VkDevice $device,
@@ -1204,6 +1233,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_shader_instrumentation
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkClearShaderInstrumentationMetricsARM(
         VkDevice $device,
@@ -1222,6 +1253,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginConditionalRendering2EXT(
         VkCommandBuffer $commandBuffer,
@@ -1245,6 +1278,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdBeginConditionalRendering2EXT()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginConditionalRenderingEXT(
         VkCommandBuffer $commandBuffer,
@@ -1265,6 +1300,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_custom_resolve
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginCustomResolveEXT(
         VkCommandBuffer $commandBuffer,
@@ -1286,6 +1323,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_utils
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginDebugUtilsLabelEXT(
         VkCommandBuffer $commandBuffer,
@@ -1308,6 +1347,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginGpaSampleAMD(
         VkCommandBuffer $commandBuffer,
@@ -1338,6 +1378,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginGpaSessionAMD(VkCommandBuffer $commandBuffer, VkGpaSessionAMD $gpaSession): void
     {
@@ -1354,6 +1395,8 @@ final class Vulkan extends VulkanBase
      * @since VK_QCOM_tile_shading
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginPerTileExecutionQCOM(
         VkCommandBuffer $commandBuffer,
@@ -1376,7 +1419,9 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $query
-     * @param int-mask-of<VkQueryControlFlagBits::*> $flags
+     * @param int-mask-of<VkQueryControlFlagBits::VK_*> $flags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginQuery(
         VkCommandBuffer $commandBuffer,
@@ -1400,7 +1445,9 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $query
      * @param int<0, 4294967295> $index
-     * @param int-mask-of<VkQueryControlFlagBits::*> $flags
+     * @param int-mask-of<VkQueryControlFlagBits::VK_*> $flags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginQueryIndexedEXT(
         VkCommandBuffer $commandBuffer,
@@ -1425,6 +1472,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdBeginRenderPass2()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginRenderPass(
         VkCommandBuffer $commandBuffer,
@@ -1449,6 +1498,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginRenderPass2(
         VkCommandBuffer $commandBuffer,
@@ -1471,6 +1522,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginRenderPass2KHR(
         VkCommandBuffer $commandBuffer,
@@ -1488,6 +1541,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginRendering(VkCommandBuffer $commandBuffer, VkRenderingInfo $renderingInfo): void
     {
@@ -1505,6 +1560,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_dynamic_rendering
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginRenderingKHR(VkCommandBuffer $commandBuffer, VkRenderingInfo $renderingInfo): void
     {
@@ -1519,6 +1576,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_shader_instrumentation
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginShaderInstrumentationARM(
         VkCommandBuffer $commandBuffer,
@@ -1540,6 +1599,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstCounterRange
      * @param list<VkBindTransformFeedbackBuffer2InfoEXT> $counterInfos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginTransformFeedback2EXT(
         VkCommandBuffer $commandBuffer,
@@ -1571,6 +1632,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $firstCounterBuffer
      * @param list<VkBuffer> $counterBuffers
      * @param list<int<0, max>> $counterBufferOffsets
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginTransformFeedbackEXT(
         VkCommandBuffer $commandBuffer,
@@ -1601,6 +1664,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_video_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBeginVideoCodingKHR(
         VkCommandBuffer $commandBuffer,
@@ -1624,6 +1689,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
         VkCommandBuffer $commandBuffer,
@@ -1649,6 +1716,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $set
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindDescriptorBufferEmbeddedSamplersEXT(
         VkCommandBuffer $commandBuffer,
@@ -1674,6 +1743,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkDescriptorBufferBindingInfoEXT> $bindingInfos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindDescriptorBuffersEXT(VkCommandBuffer $commandBuffer, array $bindingInfos): void
     {
@@ -1702,6 +1773,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $firstSet
      * @param non-empty-list<VkDescriptorSet> $descriptorSets
      * @param list<int<0, 4294967295>> $dynamicOffsets
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindDescriptorSets(
         VkCommandBuffer $commandBuffer,
@@ -1737,6 +1810,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindDescriptorSets2(
         VkCommandBuffer $commandBuffer,
@@ -1757,6 +1832,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindDescriptorSets2KHR(
         VkCommandBuffer $commandBuffer,
@@ -1775,6 +1852,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $offset
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindIndexBuffer(
         VkCommandBuffer $commandBuffer,
@@ -1801,6 +1880,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $offset
      * @param int<0, max> $size
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindIndexBuffer2(
         VkCommandBuffer $commandBuffer,
@@ -1825,6 +1906,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $offset
      * @param int<0, max> $size
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindIndexBuffer2KHR(
         VkCommandBuffer $commandBuffer,
@@ -1844,6 +1927,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindIndexBuffer3KHR(VkCommandBuffer $commandBuffer, VkBindIndexBuffer3InfoKHR $info): void
     {
@@ -1862,6 +1947,8 @@ final class Vulkan extends VulkanBase
      * @since VK_HUAWEI_invocation_mask
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindInvocationMaskHUAWEI(
         VkCommandBuffer $commandBuffer,
@@ -1881,6 +1968,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindPipeline(
         VkCommandBuffer $commandBuffer,
@@ -1902,6 +1991,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $groupIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindPipelineShaderGroupNV(
         VkCommandBuffer $commandBuffer,
@@ -1922,6 +2013,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_descriptor_heap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindResourceHeapEXT(VkCommandBuffer $commandBuffer, VkBindHeapInfoEXT $bindInfo): void
     {
@@ -1940,6 +2033,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_descriptor_heap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindSamplerHeapEXT(VkCommandBuffer $commandBuffer, VkBindHeapInfoEXT $bindInfo): void
     {
@@ -1959,8 +2054,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param non-empty-list<int<0, 4294967295>|(VkShaderStageFlagBits::*)> $stages
+     * @param non-empty-list<int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)> $stages
      * @param list<VkShaderEXT> $shaders
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindShadersEXT(VkCommandBuffer $commandBuffer, array $stages, array $shaders = []): void
     {
@@ -1987,6 +2084,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_shading_rate_image
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindShadingRateImageNV(
         VkCommandBuffer $commandBuffer,
@@ -2006,6 +2105,8 @@ final class Vulkan extends VulkanBase
      * @since VK_QCOM_tile_memory_heap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindTileMemoryQCOM(
         VkCommandBuffer $commandBuffer,
@@ -2029,6 +2130,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstBinding
      * @param list<VkBindTransformFeedbackBuffer2InfoEXT> $bindingInfos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindTransformFeedbackBuffers2EXT(
         VkCommandBuffer $commandBuffer,
@@ -2061,6 +2164,8 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkBuffer> $buffers
      * @param non-empty-list<int<0, max>> $offsets
      * @param list<int<0, max>> $sizes
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindTransformFeedbackBuffersEXT(
         VkCommandBuffer $commandBuffer,
@@ -2101,6 +2206,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $firstBinding
      * @param non-empty-list<VkBuffer> $buffers
      * @param non-empty-list<int<0, max>> $offsets
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindVertexBuffers(
         VkCommandBuffer $commandBuffer,
@@ -2137,6 +2244,8 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<int<0, max>> $offsets
      * @param list<int<0, max>> $sizes
      * @param list<int<0, max>> $strides
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindVertexBuffers2(
         VkCommandBuffer $commandBuffer,
@@ -2186,6 +2295,8 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<int<0, max>> $offsets
      * @param list<int<0, max>> $sizes
      * @param list<int<0, max>> $strides
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindVertexBuffers2EXT(
         VkCommandBuffer $commandBuffer,
@@ -2209,6 +2320,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstBinding
      * @param non-empty-list<VkBindVertexBuffer3InfoKHR> $bindingInfos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBindVertexBuffers3KHR(
         VkCommandBuffer $commandBuffer,
@@ -2235,6 +2348,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkImageBlit> $regions
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBlitImage(
         VkCommandBuffer $commandBuffer,
@@ -2263,6 +2378,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBlitImage2(VkCommandBuffer $commandBuffer, VkBlitImageInfo2 $blitImageInfo): void
     {
@@ -2280,6 +2397,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_copy_commands2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBlitImage2KHR(VkCommandBuffer $commandBuffer, VkBlitImageInfo2 $blitImageInfo): void
     {
@@ -2298,6 +2417,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $instanceOffset
      * @param int<0, max> $scratchOffset
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkCmdBuildAccelerationStructureNV(
@@ -2331,6 +2452,8 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<int<0, max>> $indirectDeviceAddresses
      * @param non-empty-list<int<0, 4294967295>> $indirectStrides
      * @param non-empty-list<non-empty-list<int<0, 4294967295>>> $maxPrimitiveCounts
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBuildAccelerationStructuresIndirectKHR(
         VkCommandBuffer $commandBuffer,
@@ -2375,6 +2498,8 @@ final class Vulkan extends VulkanBase
      *
      * @param non-empty-list<VkAccelerationStructureBuildGeometryInfoKHR> $infos
      * @param non-empty-list<non-empty-list<VkAccelerationStructureBuildRangeInfoKHR>> $buildRangeInfos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBuildAccelerationStructuresKHR(
         VkCommandBuffer $commandBuffer,
@@ -2404,6 +2529,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_cluster_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBuildClusterAccelerationStructureIndirectNV(
         VkCommandBuffer $commandBuffer,
@@ -2426,6 +2553,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkMicromapBuildInfoEXT> $infos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBuildMicromapsEXT(VkCommandBuffer $commandBuffer, array $infos): void
     {
@@ -2447,6 +2576,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_partitioned_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdBuildPartitionedAccelerationStructuresNV(
         VkCommandBuffer $commandBuffer,
@@ -2470,6 +2601,8 @@ final class Vulkan extends VulkanBase
      *
      * @param non-empty-list<VkClearAttachment> $attachments
      * @param non-empty-list<VkClearRect> $rects
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdClearAttachments(VkCommandBuffer $commandBuffer, array $attachments, array $rects): void
     {
@@ -2498,6 +2631,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkImageSubresourceRange> $ranges
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdClearColorImage(
         VkCommandBuffer $commandBuffer,
@@ -2527,6 +2662,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkImageSubresourceRange> $ranges
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdClearDepthStencilImage(
         VkCommandBuffer $commandBuffer,
@@ -2554,6 +2691,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_video_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdControlVideoCodingKHR(
         VkCommandBuffer $commandBuffer,
@@ -2574,6 +2713,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyAccelerationStructureKHR(
         VkCommandBuffer $commandBuffer,
@@ -2595,6 +2736,8 @@ final class Vulkan extends VulkanBase
      * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkCmdCopyAccelerationStructureNV(
@@ -2616,6 +2759,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyAccelerationStructureToMemoryKHR(
         VkCommandBuffer $commandBuffer,
@@ -2638,6 +2783,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkBufferCopy> $regions
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyBuffer(
         VkCommandBuffer $commandBuffer,
@@ -2666,6 +2813,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdCopyMemoryKHR()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyBuffer2(VkCommandBuffer $commandBuffer, VkCopyBufferInfo2 $copyBufferInfo): void
     {
@@ -2684,6 +2833,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdCopyMemoryKHR()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyBuffer2KHR(VkCommandBuffer $commandBuffer, VkCopyBufferInfo2 $copyBufferInfo): void
     {
@@ -2700,6 +2851,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkBufferImageCopy> $regions
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyBufferToImage(
         VkCommandBuffer $commandBuffer,
@@ -2729,6 +2882,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdCopyMemoryToImageKHR()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyBufferToImage2(
         VkCommandBuffer $commandBuffer,
@@ -2749,6 +2904,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdCopyMemoryToImageKHR()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyBufferToImage2KHR(
         VkCommandBuffer $commandBuffer,
@@ -2765,6 +2922,8 @@ final class Vulkan extends VulkanBase
      * @since VK_AMD_gpa_interface
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyGpaSessionResultsAMD(VkCommandBuffer $commandBuffer, VkGpaSessionAMD $gpaSession): void
     {
@@ -2783,6 +2942,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkImageCopy> $regions
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyImage(
         VkCommandBuffer $commandBuffer,
@@ -2810,6 +2971,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyImage2(VkCommandBuffer $commandBuffer, VkCopyImageInfo2 $copyImageInfo): void
     {
@@ -2827,6 +2990,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_copy_commands2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyImage2KHR(VkCommandBuffer $commandBuffer, VkCopyImageInfo2 $copyImageInfo): void
     {
@@ -2843,6 +3008,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkBufferImageCopy> $regions
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyImageToBuffer(
         VkCommandBuffer $commandBuffer,
@@ -2872,6 +3039,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdCopyImageToMemoryKHR()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyImageToBuffer2(
         VkCommandBuffer $commandBuffer,
@@ -2892,6 +3061,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdCopyImageToMemoryKHR()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyImageToBuffer2KHR(
         VkCommandBuffer $commandBuffer,
@@ -2908,6 +3079,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyImageToMemoryKHR(
         VkCommandBuffer $commandBuffer,
@@ -2928,6 +3101,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_copy_memory_indirect
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMemoryIndirectKHR(
         VkCommandBuffer $commandBuffer,
@@ -2952,6 +3127,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $copyBufferAddress
      * @param int<0, 4294967295> $copyCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMemoryIndirectNV(
         VkCommandBuffer $commandBuffer,
@@ -2972,6 +3149,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMemoryKHR(
         VkCommandBuffer $commandBuffer,
@@ -2992,6 +3171,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMemoryToAccelerationStructureKHR(
         VkCommandBuffer $commandBuffer,
@@ -3012,6 +3193,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_copy_memory_indirect
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMemoryToImageIndirectKHR(
         VkCommandBuffer $commandBuffer,
@@ -3036,6 +3219,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $copyBufferAddress
      * @param int<0, 4294967295> $stride
      * @param non-empty-list<VkImageSubresourceLayers> $imageSubresources
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMemoryToImageIndirectNV(
         VkCommandBuffer $commandBuffer,
@@ -3063,6 +3248,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMemoryToImageKHR(
         VkCommandBuffer $commandBuffer,
@@ -3083,6 +3270,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_opacity_micromap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMemoryToMicromapEXT(
         VkCommandBuffer $commandBuffer,
@@ -3103,6 +3292,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_opacity_micromap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMicromapEXT(VkCommandBuffer $commandBuffer, VkCopyMicromapInfoEXT $info): void
     {
@@ -3121,6 +3312,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_opacity_micromap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyMicromapToMemoryEXT(
         VkCommandBuffer $commandBuffer,
@@ -3149,7 +3342,9 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $queryCount
      * @param int<0, max> $dstOffset
      * @param int<0, max> $stride
-     * @param int-mask-of<VkQueryResultFlagBits::*> $flags
+     * @param int-mask-of<VkQueryResultFlagBits::VK_*> $flags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyQueryPoolResults(
         VkCommandBuffer $commandBuffer,
@@ -3177,8 +3372,10 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstQuery
      * @param int<0, 4294967295> $queryCount
-     * @param int-mask-of<VkAddressCommandFlagBitsKHR::*> $dstFlags
-     * @param int-mask-of<VkQueryResultFlagBits::*> $queryResultFlags
+     * @param int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> $dstFlags
+     * @param int-mask-of<VkQueryResultFlagBits::VK_*> $queryResultFlags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyQueryPoolResultsToMemoryKHR(
         VkCommandBuffer $commandBuffer,
@@ -3204,6 +3401,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_tensors
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdCopyTensorARM(VkCommandBuffer $commandBuffer, VkCopyTensorInfoARM $copyTensorInfo): void
     {
@@ -3223,6 +3422,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_marker
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDebugMarkerBeginEXT(
         VkCommandBuffer $commandBuffer,
@@ -3244,6 +3445,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_marker
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDebugMarkerEndEXT(VkCommandBuffer $commandBuffer): void
     {
@@ -3261,6 +3464,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_marker
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDebugMarkerInsertEXT(
         VkCommandBuffer $commandBuffer,
@@ -3281,6 +3486,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_video_decode_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDecodeVideoKHR(VkCommandBuffer $commandBuffer, VkVideoDecodeInfoKHR $decodeInfo): void
     {
@@ -3299,6 +3506,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_memory_decompression
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDecompressMemoryEXT(
         VkCommandBuffer $commandBuffer,
@@ -3320,11 +3529,13 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::*> $decompressionMethod
+     * @param int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::VK_*> $decompressionMethod
      * @param int<0, max> $indirectCommandsAddress
      * @param int<0, max> $indirectCommandsCountAddress
      * @param int<0, 4294967295> $maxDecompressionCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDecompressMemoryIndirectCountEXT(
         VkCommandBuffer $commandBuffer,
@@ -3351,6 +3562,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $indirectCommandsAddress
      * @param int<0, max> $indirectCommandsCountAddress
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDecompressMemoryIndirectCountNV(
         VkCommandBuffer $commandBuffer,
@@ -3373,6 +3586,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkDecompressMemoryRegionNV> $decompressMemoryRegions
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDecompressMemoryNV(VkCommandBuffer $commandBuffer, array $decompressMemoryRegions): void
     {
@@ -3398,6 +3613,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $groupCountX
      * @param int<0, 4294967295> $groupCountY
      * @param int<0, 4294967295> $groupCountZ
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDispatch(
         VkCommandBuffer $commandBuffer,
@@ -3425,6 +3642,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $groupCountX
      * @param int<0, 4294967295> $groupCountY
      * @param int<0, 4294967295> $groupCountZ
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDispatchBase(
         VkCommandBuffer $commandBuffer,
@@ -3454,6 +3673,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $groupCountX
      * @param int<0, 4294967295> $groupCountY
      * @param int<0, 4294967295> $groupCountZ
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDispatchBaseKHR(
         VkCommandBuffer $commandBuffer,
@@ -3475,6 +3696,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_data_graph
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDispatchDataGraphARM(
         VkCommandBuffer $commandBuffer,
@@ -3501,6 +3724,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $offset
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDispatchIndirect(VkCommandBuffer $commandBuffer, VkBuffer $buffer, int $offset): void
     {
@@ -3517,6 +3742,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDispatchIndirect2KHR(VkCommandBuffer $commandBuffer, VkDispatchIndirect2InfoKHR $info): void
     {
@@ -3535,6 +3762,8 @@ final class Vulkan extends VulkanBase
      * @since VK_QCOM_tile_shading
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDispatchTileQCOM(
         VkCommandBuffer $commandBuffer,
@@ -3560,6 +3789,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $instanceCount
      * @param int<0, 4294967295> $firstVertex
      * @param int<0, 4294967295> $firstInstance
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDraw(
         VkCommandBuffer $commandBuffer,
@@ -3585,6 +3816,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $groupCountX
      * @param int<0, 4294967295> $groupCountY
      * @param int<0, 4294967295> $groupCountZ
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawClusterHUAWEI(
         VkCommandBuffer $commandBuffer,
@@ -3607,6 +3840,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $offset
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawClusterIndirectHUAWEI(
         VkCommandBuffer $commandBuffer,
@@ -3632,6 +3867,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $firstIndex
      * @param int<-2147483648, 2147483647> $vertexOffset
      * @param int<0, 4294967295> $firstInstance
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndexed(
         VkCommandBuffer $commandBuffer,
@@ -3661,6 +3898,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $offset
      * @param int<0, 4294967295> $drawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndexedIndirect(
         VkCommandBuffer $commandBuffer,
@@ -3682,6 +3921,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndexedIndirect2KHR(VkCommandBuffer $commandBuffer, VkDrawIndirect2InfoKHR $info): void
     {
@@ -3708,6 +3949,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $countBufferOffset
      * @param int<0, 4294967295> $maxDrawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndexedIndirectCount(
         VkCommandBuffer $commandBuffer,
@@ -3736,6 +3979,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $countBufferOffset
      * @param int<0, 4294967295> $maxDrawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndexedIndirectCountKHR(
         VkCommandBuffer $commandBuffer,
@@ -3762,6 +4007,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $countBufferOffset
      * @param int<0, 4294967295> $maxDrawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndexedIndirectCountAMD(
         VkCommandBuffer $commandBuffer,
@@ -3783,6 +4030,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndexedIndirectCount2KHR(
         VkCommandBuffer $commandBuffer,
@@ -3810,6 +4059,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $offset
      * @param int<0, 4294967295> $drawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndirect(
         VkCommandBuffer $commandBuffer,
@@ -3831,6 +4082,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndirect2KHR(VkCommandBuffer $commandBuffer, VkDrawIndirect2InfoKHR $info): void
     {
@@ -3854,6 +4107,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $firstInstance
      * @param int<0, 4294967295> $counterOffset
      * @param int<0, 4294967295> $vertexStride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndirectByteCount2EXT(
         VkCommandBuffer $commandBuffer,
@@ -3887,6 +4142,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $counterBufferOffset
      * @param int<0, 4294967295> $counterOffset
      * @param int<0, 4294967295> $vertexStride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndirectByteCountEXT(
         VkCommandBuffer $commandBuffer,
@@ -3918,6 +4175,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $countBufferOffset
      * @param int<0, 4294967295> $maxDrawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndirectCount(
         VkCommandBuffer $commandBuffer,
@@ -3946,6 +4205,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $countBufferOffset
      * @param int<0, 4294967295> $maxDrawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndirectCountKHR(
         VkCommandBuffer $commandBuffer,
@@ -3972,6 +4233,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $countBufferOffset
      * @param int<0, 4294967295> $maxDrawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndirectCountAMD(
         VkCommandBuffer $commandBuffer,
@@ -3993,6 +4256,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawIndirectCount2KHR(
         VkCommandBuffer $commandBuffer,
@@ -4017,6 +4282,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $groupCountX
      * @param int<0, 4294967295> $groupCountY
      * @param int<0, 4294967295> $groupCountZ
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMeshTasksEXT(
         VkCommandBuffer $commandBuffer,
@@ -4037,6 +4304,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMeshTasksIndirect2EXT(VkCommandBuffer $commandBuffer, VkDrawIndirect2InfoKHR $info): void
     {
@@ -4055,6 +4324,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMeshTasksIndirectCount2EXT(
         VkCommandBuffer $commandBuffer,
@@ -4083,6 +4354,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $countBufferOffset
      * @param int<0, 4294967295> $maxDrawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMeshTasksIndirectCountEXT(
         VkCommandBuffer $commandBuffer,
@@ -4111,6 +4384,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $countBufferOffset
      * @param int<0, 4294967295> $maxDrawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMeshTasksIndirectCountNV(
         VkCommandBuffer $commandBuffer,
@@ -4141,6 +4416,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $offset
      * @param int<0, 4294967295> $drawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMeshTasksIndirectEXT(
         VkCommandBuffer $commandBuffer,
@@ -4166,6 +4443,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $offset
      * @param int<0, 4294967295> $drawCount
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMeshTasksIndirectNV(
         VkCommandBuffer $commandBuffer,
@@ -4190,6 +4469,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $taskCount
      * @param int<0, 4294967295> $firstTask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMeshTasksNV(VkCommandBuffer $commandBuffer, int $taskCount, int $firstTask): void
     {
@@ -4211,6 +4492,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $instanceCount
      * @param int<0, 4294967295> $firstInstance
      * @param int<0, 4294967295> $stride
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMultiEXT(
         VkCommandBuffer $commandBuffer,
@@ -4243,6 +4526,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $firstInstance
      * @param int<0, 4294967295> $stride
      * @param int<-2147483648, 2147483647>|null $vertexOffset
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdDrawMultiIndexedEXT(
         VkCommandBuffer $commandBuffer,
@@ -4275,6 +4560,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_video_encode_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEncodeVideoKHR(VkCommandBuffer $commandBuffer, VkVideoEncodeInfoKHR $encodeInfo): void
     {
@@ -4293,6 +4580,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_conditional_rendering
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndConditionalRenderingEXT(VkCommandBuffer $commandBuffer): void
     {
@@ -4310,6 +4599,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_utils
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndDebugUtilsLabelEXT(VkCommandBuffer $commandBuffer): void
     {
@@ -4328,6 +4619,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $sampleID
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndGpaSampleAMD(
         VkCommandBuffer $commandBuffer,
@@ -4349,6 +4642,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndGpaSessionAMD(VkCommandBuffer $commandBuffer, VkGpaSessionAMD $gpaSession): void
     {
@@ -4365,6 +4659,8 @@ final class Vulkan extends VulkanBase
      * @since VK_QCOM_tile_shading
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndPerTileExecutionQCOM(
         VkCommandBuffer $commandBuffer,
@@ -4387,6 +4683,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $query
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndQuery(VkCommandBuffer $commandBuffer, VkQueryPool $queryPool, int $query): void
     {
@@ -4406,6 +4704,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $query
      * @param int<0, 4294967295> $index
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndQueryIndexedEXT(
         VkCommandBuffer $commandBuffer,
@@ -4429,6 +4729,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdEndRenderPass2()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndRenderPass(VkCommandBuffer $commandBuffer): void
     {
@@ -4448,6 +4750,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndRenderPass2(VkCommandBuffer $commandBuffer, VkSubpassEndInfo $subpassEndInfo): void
     {
@@ -4466,6 +4770,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndRenderPass2KHR(VkCommandBuffer $commandBuffer, VkSubpassEndInfo $subpassEndInfo): void
     {
@@ -4480,6 +4786,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndRendering(VkCommandBuffer $commandBuffer): void
     {
@@ -4495,6 +4803,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_dynamic_rendering
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndRenderingKHR(VkCommandBuffer $commandBuffer): void
     {
@@ -4509,6 +4819,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance10
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndRendering2KHR(
         VkCommandBuffer $commandBuffer,
@@ -4528,6 +4840,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_fragment_density_map_offset
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndRendering2EXT(
         VkCommandBuffer $commandBuffer,
@@ -4544,6 +4858,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_shader_instrumentation
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndShaderInstrumentationARM(VkCommandBuffer $commandBuffer): void
     {
@@ -4563,6 +4879,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstCounterRange
      * @param list<VkBindTransformFeedbackBuffer2InfoEXT> $counterInfos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndTransformFeedback2EXT(
         VkCommandBuffer $commandBuffer,
@@ -4594,6 +4912,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $firstCounterBuffer
      * @param list<VkBuffer> $counterBuffers
      * @param list<int<0, max>> $counterBufferOffsets
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndTransformFeedbackEXT(
         VkCommandBuffer $commandBuffer,
@@ -4624,6 +4944,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_video_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdEndVideoCodingKHR(
         VkCommandBuffer $commandBuffer,
@@ -4646,6 +4968,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkCommandBuffer> $commandBuffers
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdExecuteCommands(VkCommandBuffer $commandBuffer, array $commandBuffers): void
     {
@@ -4667,6 +4991,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_device_generated_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdExecuteGeneratedCommandsEXT(
         VkCommandBuffer $commandBuffer,
@@ -4688,6 +5014,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_device_generated_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdExecuteGeneratedCommandsNV(
         VkCommandBuffer $commandBuffer,
@@ -4716,6 +5044,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $dstOffset
      * @param int<0, max> $size
      * @param int<0, 4294967295> $data
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdFillBuffer(
         VkCommandBuffer $commandBuffer,
@@ -4739,7 +5069,9 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $data
-     * @param int-mask-of<VkAddressCommandFlagBitsKHR::*> $dstFlags
+     * @param int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> $dstFlags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdFillMemoryKHR(
         VkCommandBuffer $commandBuffer,
@@ -4763,6 +5095,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_utils
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdInsertDebugUtilsLabelEXT(
         VkCommandBuffer $commandBuffer,
@@ -4786,6 +5120,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkCmdNextSubpass2()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdNextSubpass(VkCommandBuffer $commandBuffer, VkSubpassContents $contents): void
     {
@@ -4805,6 +5141,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdNextSubpass2(
         VkCommandBuffer $commandBuffer,
@@ -4827,6 +5165,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdNextSubpass2KHR(
         VkCommandBuffer $commandBuffer,
@@ -4844,6 +5184,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_optical_flow
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdOpticalFlowExecuteNV(
         VkCommandBuffer $commandBuffer,
@@ -4873,9 +5215,11 @@ final class Vulkan extends VulkanBase
      * @param list<VkMemoryBarrier> $memoryBarriers
      * @param list<VkBufferMemoryBarrier> $bufferMemoryBarriers
      * @param list<VkImageMemoryBarrier> $imageMemoryBarriers
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $srcStageMask
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $dstStageMask
-     * @param int-mask-of<VkDependencyFlagBits::*> $dependencyFlags
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $srcStageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $dstStageMask
+     * @param int-mask-of<VkDependencyFlagBits::VK_*> $dependencyFlags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPipelineBarrier(
         VkCommandBuffer $commandBuffer,
@@ -4915,6 +5259,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPipelineBarrier2(VkCommandBuffer $commandBuffer, VkDependencyInfo $dependencyInfo): void
     {
@@ -4932,6 +5278,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_synchronization2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPipelineBarrier2KHR(VkCommandBuffer $commandBuffer, VkDependencyInfo $dependencyInfo): void
     {
@@ -4946,6 +5294,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_device_generated_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPreprocessGeneratedCommandsEXT(
         VkCommandBuffer $commandBuffer,
@@ -4967,6 +5317,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_device_generated_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPreprocessGeneratedCommandsNV(
         VkCommandBuffer $commandBuffer,
@@ -4991,8 +5343,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $stageFlags
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) $stageFlags
      * @param int<0, 4294967295> $offset
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushConstants(
         VkCommandBuffer $commandBuffer,
@@ -5019,6 +5373,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushConstants2(VkCommandBuffer $commandBuffer, VkPushConstantsInfo $pushConstantsInfo): void
     {
@@ -5037,6 +5393,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushConstants2KHR(
         VkCommandBuffer $commandBuffer,
@@ -5053,6 +5411,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_descriptor_heap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDataEXT(VkCommandBuffer $commandBuffer, VkPushDataInfoEXT $pushDataInfo): void
     {
@@ -5074,6 +5434,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $set
      * @param non-empty-list<VkWriteDescriptorSet> $descriptorWrites
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDescriptorSet(
         VkCommandBuffer $commandBuffer,
@@ -5102,6 +5464,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $set
      * @param non-empty-list<VkWriteDescriptorSet> $descriptorWrites
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDescriptorSetKHR(
         VkCommandBuffer $commandBuffer,
@@ -5121,6 +5485,8 @@ final class Vulkan extends VulkanBase
      * @since 1.4
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDescriptorSet2(
         VkCommandBuffer $commandBuffer,
@@ -5140,6 +5506,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance6
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDescriptorSet2KHR(
         VkCommandBuffer $commandBuffer,
@@ -5158,6 +5526,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $set
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDescriptorSetWithTemplate(
         VkCommandBuffer $commandBuffer,
@@ -5182,6 +5552,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $set
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDescriptorSetWithTemplateKHR(
         VkCommandBuffer $commandBuffer,
@@ -5201,6 +5573,8 @@ final class Vulkan extends VulkanBase
      * @since 1.4
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDescriptorSetWithTemplate2(
         VkCommandBuffer $commandBuffer,
@@ -5220,6 +5594,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance6
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdPushDescriptorSetWithTemplate2KHR(
         VkCommandBuffer $commandBuffer,
@@ -5240,7 +5616,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $stageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $stageMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdResetEvent(VkCommandBuffer $commandBuffer, VkEvent $event, int $stageMask = 0): void
     {
@@ -5258,7 +5636,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stageMask
+     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stageMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdResetEvent2(VkCommandBuffer $commandBuffer, VkEvent $event, int $stageMask = 0): void
     {
@@ -5275,7 +5655,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stageMask
+     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stageMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdResetEvent2KHR(VkCommandBuffer $commandBuffer, VkEvent $event, int $stageMask = 0): void
     {
@@ -5294,6 +5676,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstQuery
      * @param int<0, 4294967295> $queryCount
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdResetQueryPool(
         VkCommandBuffer $commandBuffer,
@@ -5316,6 +5700,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkImageResolve> $regions
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdResolveImage(
         VkCommandBuffer $commandBuffer,
@@ -5343,6 +5729,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdResolveImage2(VkCommandBuffer $commandBuffer, VkResolveImageInfo2 $resolveImageInfo): void
     {
@@ -5360,6 +5748,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_copy_commands2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdResolveImage2KHR(VkCommandBuffer $commandBuffer, VkResolveImageInfo2 $resolveImageInfo): void
     {
@@ -5374,6 +5764,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetAlphaToCoverageEnableEXT(
         VkCommandBuffer $commandBuffer,
@@ -5392,6 +5784,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetAlphaToOneEnableEXT(VkCommandBuffer $commandBuffer, bool $alphaToOneEnable): void
     {
@@ -5409,7 +5803,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkImageAspectFlagBits::*> $aspectMask
+     * @param int-mask-of<VkImageAspectFlagBits::VK_*> $aspectMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetAttachmentFeedbackLoopEnableEXT(VkCommandBuffer $commandBuffer, int $aspectMask = 0): void
     {
@@ -5428,6 +5824,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<float> $blendConstants
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetBlendConstants(VkCommandBuffer $commandBuffer, array $blendConstants): void
     {
@@ -5450,6 +5848,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_device_diagnostic_checkpoints
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCheckpointNV(VkCommandBuffer $commandBuffer, CData|int $checkpointMarker): void
     {
@@ -5470,6 +5870,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<VkCoarseSampleOrderCustomNV> $customSampleOrders
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCoarseSampleOrderNV(
         VkCommandBuffer $commandBuffer,
@@ -5497,6 +5899,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstAttachment
      * @param non-empty-list<VkColorBlendAdvancedEXT> $colorBlendAdvanced
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetColorBlendAdvancedEXT(
         VkCommandBuffer $commandBuffer,
@@ -5524,6 +5928,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstAttachment
      * @param non-empty-list<bool> $colorBlendEnables
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetColorBlendEnableEXT(
         VkCommandBuffer $commandBuffer,
@@ -5551,6 +5957,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstAttachment
      * @param non-empty-list<VkColorBlendEquationEXT> $colorBlendEquations
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetColorBlendEquationEXT(
         VkCommandBuffer $commandBuffer,
@@ -5577,6 +5985,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<bool> $colorWriteEnables
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetColorWriteEnableEXT(VkCommandBuffer $commandBuffer, array $colorWriteEnables): void
     {
@@ -5600,7 +6010,9 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $firstAttachment
-     * @param non-empty-list<int-mask-of<VkColorComponentFlagBits::*>> $colorWriteMasks
+     * @param non-empty-list<int-mask-of<VkColorComponentFlagBits::VK_*>> $colorWriteMasks
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetColorWriteMaskEXT(
         VkCommandBuffer $commandBuffer,
@@ -5625,6 +6037,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_compute_occupancy_priority
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetComputeOccupancyPriorityNV(
         VkCommandBuffer $commandBuffer,
@@ -5645,6 +6059,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetConservativeRasterizationModeEXT(
         VkCommandBuffer $commandBuffer,
@@ -5663,6 +6079,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCoverageModulationModeNV(
         VkCommandBuffer $commandBuffer,
@@ -5681,6 +6099,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCoverageModulationTableEnableNV(
         VkCommandBuffer $commandBuffer,
@@ -5701,6 +6121,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<float> $coverageModulationTable
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCoverageModulationTableNV(
         VkCommandBuffer $commandBuffer,
@@ -5724,6 +6146,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCoverageReductionModeNV(
         VkCommandBuffer $commandBuffer,
@@ -5742,6 +6166,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCoverageToColorEnableNV(VkCommandBuffer $commandBuffer, bool $coverageToColorEnable): void
     {
@@ -5760,6 +6186,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $coverageToColorLocation
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCoverageToColorLocationNV(
         VkCommandBuffer $commandBuffer,
@@ -5779,7 +6207,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkCullModeFlagBits::*> $cullMode
+     * @param int-mask-of<VkCullModeFlagBits::VK_*> $cullMode
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCullMode(VkCommandBuffer $commandBuffer, int $cullMode = 0): void
     {
@@ -5796,7 +6226,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkCullModeFlagBits::*> $cullMode
+     * @param int-mask-of<VkCullModeFlagBits::VK_*> $cullMode
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetCullModeEXT(VkCommandBuffer $commandBuffer, int $cullMode = 0): void
     {
@@ -5811,6 +6243,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthBias(
         VkCommandBuffer $commandBuffer,
@@ -5831,6 +6265,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_depth_bias_control
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthBias2EXT(VkCommandBuffer $commandBuffer, VkDepthBiasInfoEXT $depthBiasInfo): void
     {
@@ -5849,6 +6285,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthBiasEnable(VkCommandBuffer $commandBuffer, bool $depthBiasEnable): void
     {
@@ -5864,6 +6302,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state2, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthBiasEnableEXT(VkCommandBuffer $commandBuffer, bool $depthBiasEnable): void
     {
@@ -5878,6 +6318,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthBounds(
         VkCommandBuffer $commandBuffer,
@@ -5897,6 +6339,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthBoundsTestEnable(VkCommandBuffer $commandBuffer, bool $depthBoundsTestEnable): void
     {
@@ -5912,6 +6356,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthBoundsTestEnableEXT(
         VkCommandBuffer $commandBuffer,
@@ -5928,6 +6374,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthClampEnableEXT(VkCommandBuffer $commandBuffer, bool $depthClampEnable): void
     {
@@ -5944,6 +6392,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_shader_object, VK_EXT_depth_clamp_control
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthClampRangeEXT(
         VkCommandBuffer $commandBuffer,
@@ -5965,6 +6415,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthClipEnableEXT(VkCommandBuffer $commandBuffer, bool $depthClipEnable): void
     {
@@ -5981,6 +6433,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthClipNegativeOneToOneEXT(VkCommandBuffer $commandBuffer, bool $negativeOneToOne): void
     {
@@ -5997,6 +6451,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthCompareOp(VkCommandBuffer $commandBuffer, VkCompareOp $depthCompareOp): void
     {
@@ -6012,6 +6468,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthCompareOpEXT(VkCommandBuffer $commandBuffer, VkCompareOp $depthCompareOp): void
     {
@@ -6026,6 +6484,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthTestEnable(VkCommandBuffer $commandBuffer, bool $depthTestEnable): void
     {
@@ -6041,6 +6501,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthTestEnableEXT(VkCommandBuffer $commandBuffer, bool $depthTestEnable): void
     {
@@ -6055,6 +6517,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthWriteEnable(VkCommandBuffer $commandBuffer, bool $depthWriteEnable): void
     {
@@ -6070,6 +6534,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDepthWriteEnableEXT(VkCommandBuffer $commandBuffer, bool $depthWriteEnable): void
     {
@@ -6087,6 +6553,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDescriptorBufferOffsets2EXT(
         VkCommandBuffer $commandBuffer,
@@ -6114,6 +6582,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $firstSet
      * @param non-empty-list<int<0, 4294967295>> $bufferIndices
      * @param non-empty-list<int<0, max>> $offsets
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDescriptorBufferOffsetsEXT(
         VkCommandBuffer $commandBuffer,
@@ -6148,6 +6618,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $deviceMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDeviceMask(VkCommandBuffer $commandBuffer, int $deviceMask): void
     {
@@ -6165,6 +6637,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $deviceMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDeviceMaskKHR(VkCommandBuffer $commandBuffer, int $deviceMask): void
     {
@@ -6182,6 +6656,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstDiscardRectangle
      * @param non-empty-list<VkRect2D> $discardRectangles
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDiscardRectangleEXT(
         VkCommandBuffer $commandBuffer,
@@ -6206,6 +6682,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_discard_rectangles
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDiscardRectangleEnableEXT(
         VkCommandBuffer $commandBuffer,
@@ -6224,6 +6702,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_discard_rectangles
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDiscardRectangleModeEXT(
         VkCommandBuffer $commandBuffer,
@@ -6242,6 +6722,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_scheduling_controls
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetDispatchParametersARM(
         VkCommandBuffer $commandBuffer,
@@ -6266,7 +6748,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $stageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $stageMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetEvent(VkCommandBuffer $commandBuffer, VkEvent $event, int $stageMask = 0): void
     {
@@ -6283,6 +6767,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetEvent2(
         VkCommandBuffer $commandBuffer,
@@ -6303,6 +6789,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_synchronization2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetEvent2KHR(
         VkCommandBuffer $commandBuffer,
@@ -6323,6 +6811,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstExclusiveScissor
      * @param non-empty-list<bool> $exclusiveScissorEnables
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetExclusiveScissorEnableNV(
         VkCommandBuffer $commandBuffer,
@@ -6350,6 +6840,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstExclusiveScissor
      * @param non-empty-list<VkRect2D> $exclusiveScissors
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetExclusiveScissorNV(
         VkCommandBuffer $commandBuffer,
@@ -6374,6 +6866,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetExtraPrimitiveOverestimationSizeEXT(
         VkCommandBuffer $commandBuffer,
@@ -6394,6 +6888,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<VkFragmentShadingRateCombinerOpKHR> $combinerOps
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetFragmentShadingRateEnumNV(
         VkCommandBuffer $commandBuffer,
@@ -6421,6 +6917,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<VkFragmentShadingRateCombinerOpKHR> $combinerOps
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetFragmentShadingRateKHR(
         VkCommandBuffer $commandBuffer,
@@ -6447,6 +6945,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetFrontFace(VkCommandBuffer $commandBuffer, VkFrontFace $frontFace): void
     {
@@ -6462,6 +6962,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetFrontFaceEXT(VkCommandBuffer $commandBuffer, VkFrontFace $frontFace): void
     {
@@ -6476,6 +6978,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetLineRasterizationModeEXT(
         VkCommandBuffer $commandBuffer,
@@ -6497,6 +7001,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $lineStippleFactor
      * @param int<0, 65535> $lineStipplePattern
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetLineStipple(
         VkCommandBuffer $commandBuffer,
@@ -6518,6 +7024,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $lineStippleFactor
      * @param int<0, 65535> $lineStipplePattern
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetLineStippleKHR(
         VkCommandBuffer $commandBuffer,
@@ -6537,6 +7045,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $lineStippleFactor
      * @param int<0, 65535> $lineStipplePattern
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetLineStippleEXT(
         VkCommandBuffer $commandBuffer,
@@ -6554,6 +7064,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetLineStippleEnableEXT(VkCommandBuffer $commandBuffer, bool $stippledLineEnable): void
     {
@@ -6570,6 +7082,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetLineWidth(VkCommandBuffer $commandBuffer, float $lineWidth): void
     {
@@ -6586,6 +7100,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state2, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetLogicOpEXT(VkCommandBuffer $commandBuffer, VkLogicOp $logicOp): void
     {
@@ -6602,6 +7118,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetLogicOpEnableEXT(VkCommandBuffer $commandBuffer, bool $logicOpEnable): void
     {
@@ -6620,6 +7138,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $patchControlPoints
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPatchControlPointsEXT(VkCommandBuffer $commandBuffer, int $patchControlPoints): void
     {
@@ -6639,6 +7159,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPerformanceMarkerINTEL(
         VkCommandBuffer $commandBuffer,
@@ -6662,6 +7183,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPerformanceOverrideINTEL(
         VkCommandBuffer $commandBuffer,
@@ -6685,6 +7207,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPerformanceStreamMarkerINTEL(
         VkCommandBuffer $commandBuffer,
@@ -6705,6 +7228,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPolygonModeEXT(VkCommandBuffer $commandBuffer, VkPolygonMode $polygonMode): void
     {
@@ -6721,6 +7246,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPrimitiveRestartEnable(VkCommandBuffer $commandBuffer, bool $primitiveRestartEnable): void
     {
@@ -6736,6 +7263,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state2, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPrimitiveRestartEnableEXT(
         VkCommandBuffer $commandBuffer,
@@ -6754,6 +7283,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $primitiveRestartIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPrimitiveRestartIndexEXT(
         VkCommandBuffer $commandBuffer,
@@ -6772,6 +7303,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPrimitiveTopology(
         VkCommandBuffer $commandBuffer,
@@ -6789,6 +7322,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetPrimitiveTopologyEXT(
         VkCommandBuffer $commandBuffer,
@@ -6805,6 +7340,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetProvokingVertexModeEXT(
         VkCommandBuffer $commandBuffer,
@@ -6824,7 +7361,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkSampleCountFlagBits::*) $rasterizationSamples
+     * @param int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) $rasterizationSamples
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRasterizationSamplesEXT(VkCommandBuffer $commandBuffer, int $rasterizationSamples): void
     {
@@ -6843,6 +7382,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $rasterizationStream
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRasterizationStreamEXT(VkCommandBuffer $commandBuffer, int $rasterizationStream): void
     {
@@ -6859,6 +7400,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRasterizerDiscardEnable(
         VkCommandBuffer $commandBuffer,
@@ -6876,6 +7419,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state2, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRasterizerDiscardEnableEXT(
         VkCommandBuffer $commandBuffer,
@@ -6894,6 +7439,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $pipelineStackSize
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRayTracingPipelineStackSizeKHR(
         VkCommandBuffer $commandBuffer,
@@ -6912,6 +7459,8 @@ final class Vulkan extends VulkanBase
      * @since 1.4
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRenderingAttachmentLocations(
         VkCommandBuffer $commandBuffer,
@@ -6931,6 +7480,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_dynamic_rendering_local_read
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRenderingAttachmentLocationsKHR(
         VkCommandBuffer $commandBuffer,
@@ -6947,6 +7498,8 @@ final class Vulkan extends VulkanBase
      * @since 1.4
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRenderingInputAttachmentIndices(
         VkCommandBuffer $commandBuffer,
@@ -6966,6 +7519,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_dynamic_rendering_local_read
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRenderingInputAttachmentIndicesKHR(
         VkCommandBuffer $commandBuffer,
@@ -6982,6 +7537,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetRepresentativeFragmentTestEnableNV(
         VkCommandBuffer $commandBuffer,
@@ -7000,6 +7557,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_sample_locations
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetSampleLocationsEXT(
         VkCommandBuffer $commandBuffer,
@@ -7020,6 +7579,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetSampleLocationsEnableEXT(
         VkCommandBuffer $commandBuffer,
@@ -7040,6 +7601,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<int<0, 4294967295>> $sampleMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetSampleMaskEXT(VkCommandBuffer $commandBuffer, array $sampleMask = []): void
     {
@@ -7064,6 +7627,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstScissor
      * @param non-empty-list<VkRect2D> $scissors
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetScissor(VkCommandBuffer $commandBuffer, int $firstScissor, array $scissors): void
     {
@@ -7087,6 +7652,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkRect2D> $scissors
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetScissorWithCount(VkCommandBuffer $commandBuffer, array $scissors): void
     {
@@ -7109,6 +7676,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkRect2D> $scissors
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetScissorWithCountEXT(VkCommandBuffer $commandBuffer, array $scissors): void
     {
@@ -7123,6 +7692,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetShadingRateImageEnableNV(
         VkCommandBuffer $commandBuffer,
@@ -7142,8 +7713,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
      * @param int<0, 4294967295> $compareMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetStencilCompareMask(VkCommandBuffer $commandBuffer, int $faceMask, int $compareMask): void
     {
@@ -7161,7 +7734,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetStencilOp(
         VkCommandBuffer $commandBuffer,
@@ -7184,7 +7759,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetStencilOpEXT(
         VkCommandBuffer $commandBuffer,
@@ -7206,8 +7783,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
      * @param int<0, 4294967295> $reference
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetStencilReference(VkCommandBuffer $commandBuffer, int $faceMask, int $reference): void
     {
@@ -7224,6 +7803,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetStencilTestEnable(VkCommandBuffer $commandBuffer, bool $stencilTestEnable): void
     {
@@ -7239,6 +7820,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetStencilTestEnableEXT(VkCommandBuffer $commandBuffer, bool $stencilTestEnable): void
     {
@@ -7254,8 +7837,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkStencilFaceFlagBits::*> $faceMask
+     * @param int-mask-of<VkStencilFaceFlagBits::VK_*> $faceMask
      * @param int<0, 4294967295> $writeMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetStencilWriteMask(VkCommandBuffer $commandBuffer, int $faceMask, int $writeMask): void
     {
@@ -7272,6 +7857,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetTessellationDomainOriginEXT(
         VkCommandBuffer $commandBuffer,
@@ -7293,6 +7880,8 @@ final class Vulkan extends VulkanBase
      *
      * @param list<VkVertexInputBindingDescription2EXT> $vertexBindingDescriptions
      * @param list<VkVertexInputAttributeDescription2EXT> $vertexAttributeDescriptions
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetVertexInputEXT(
         VkCommandBuffer $commandBuffer,
@@ -7325,6 +7914,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstViewport
      * @param non-empty-list<VkViewport> $viewports
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetViewport(VkCommandBuffer $commandBuffer, int $firstViewport, array $viewports): void
     {
@@ -7349,6 +7940,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstViewport
      * @param non-empty-list<VkShadingRatePaletteNV> $shadingRatePalettes
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetViewportShadingRatePaletteNV(
         VkCommandBuffer $commandBuffer,
@@ -7376,6 +7969,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstViewport
      * @param non-empty-list<VkViewportSwizzleNV> $viewportSwizzles
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetViewportSwizzleNV(
         VkCommandBuffer $commandBuffer,
@@ -7400,6 +7995,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetViewportWScalingEnableNV(
         VkCommandBuffer $commandBuffer,
@@ -7421,6 +8018,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstViewport
      * @param non-empty-list<VkViewportWScalingNV> $viewportWScalings
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetViewportWScalingNV(
         VkCommandBuffer $commandBuffer,
@@ -7447,6 +8046,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkViewport> $viewports
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetViewportWithCount(VkCommandBuffer $commandBuffer, array $viewports): void
     {
@@ -7469,6 +8070,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkViewport> $viewports
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSetViewportWithCountEXT(VkCommandBuffer $commandBuffer, array $viewports): void
     {
@@ -7483,6 +8086,8 @@ final class Vulkan extends VulkanBase
      * @since VK_HUAWEI_subpass_shading
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdSubpassShadingHUAWEI(VkCommandBuffer $commandBuffer): void
     {
@@ -7501,6 +8106,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $indirectDeviceAddress
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdTraceRaysIndirect2KHR(VkCommandBuffer $commandBuffer, int $indirectDeviceAddress): void
     {
@@ -7519,6 +8126,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $indirectDeviceAddress
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdTraceRaysIndirectKHR(
         VkCommandBuffer $commandBuffer,
@@ -7550,6 +8159,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $width
      * @param int<0, 4294967295> $height
      * @param int<0, 4294967295> $depth
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdTraceRaysKHR(
         VkCommandBuffer $commandBuffer,
@@ -7591,6 +8202,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $width
      * @param int<0, 4294967295> $height
      * @param int<0, 4294967295> $depth
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkCmdTraceRaysNV(
@@ -7628,6 +8241,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $dstOffset
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdUpdateBuffer(
         VkCommandBuffer $commandBuffer,
@@ -7651,7 +8266,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkAddressCommandFlagBitsKHR::*> $dstFlags
+     * @param int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> $dstFlags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdUpdateMemoryKHR(
         VkCommandBuffer $commandBuffer,
@@ -7675,6 +8292,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_device_generated_commands_compute
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdUpdatePipelineIndirectBufferNV(
         VkCommandBuffer $commandBuffer,
@@ -7702,8 +8321,10 @@ final class Vulkan extends VulkanBase
      * @param list<VkMemoryBarrier> $memoryBarriers
      * @param list<VkBufferMemoryBarrier> $bufferMemoryBarriers
      * @param list<VkImageMemoryBarrier> $imageMemoryBarriers
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $srcStageMask
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $dstStageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $srcStageMask
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $dstStageMask
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWaitEvents(
         VkCommandBuffer $commandBuffer,
@@ -7750,6 +8371,8 @@ final class Vulkan extends VulkanBase
      *
      * @param non-empty-list<VkEvent> $events
      * @param non-empty-list<VkDependencyInfo> $dependencyInfos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWaitEvents2(VkCommandBuffer $commandBuffer, array $events, array $dependencyInfos): void
     {
@@ -7778,6 +8401,8 @@ final class Vulkan extends VulkanBase
      *
      * @param non-empty-list<VkEvent> $events
      * @param non-empty-list<VkDependencyInfo> $dependencyInfos
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWaitEvents2KHR(VkCommandBuffer $commandBuffer, array $events, array $dependencyInfos): void
     {
@@ -7795,6 +8420,8 @@ final class Vulkan extends VulkanBase
      *
      * @param non-empty-list<VkAccelerationStructureKHR> $accelerationStructures
      * @param int<0, 4294967295> $firstQuery
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWriteAccelerationStructuresPropertiesKHR(
         VkCommandBuffer $commandBuffer,
@@ -7825,6 +8452,8 @@ final class Vulkan extends VulkanBase
      *
      * @param non-empty-list<VkAccelerationStructureNV> $accelerationStructures
      * @param int<0, 4294967295> $firstQuery
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkCmdWriteAccelerationStructuresPropertiesNV(
@@ -7858,7 +8487,9 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $dstOffset
      * @param int<0, 4294967295> $marker
-     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stage
+     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stage
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWriteBufferMarker2AMD(
         VkCommandBuffer $commandBuffer,
@@ -7883,7 +8514,9 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $dstOffset
      * @param int<0, 4294967295> $marker
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $pipelineStage
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $pipelineStage
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWriteBufferMarkerAMD(
         VkCommandBuffer $commandBuffer,
@@ -7905,6 +8538,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_device_address_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWriteMarkerToMemoryAMD(VkCommandBuffer $commandBuffer, VkMemoryMarkerInfoAMD $info): void
     {
@@ -7926,6 +8561,8 @@ final class Vulkan extends VulkanBase
      *
      * @param non-empty-list<VkMicromapEXT> $micromaps
      * @param int<0, 4294967295> $firstQuery
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWriteMicromapsPropertiesEXT(
         VkCommandBuffer $commandBuffer,
@@ -7957,8 +8594,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::*) $pipelineStage
+     * @param int<0, 4294967295>|(VkPipelineStageFlagBits::VK_*) $pipelineStage
      * @param int<0, 4294967295> $query
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWriteTimestamp(
         VkCommandBuffer $commandBuffer,
@@ -7982,7 +8621,9 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $query
-     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stage
+     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stage
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWriteTimestamp2(
         VkCommandBuffer $commandBuffer,
@@ -8004,7 +8645,9 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $query
-     * @param int<0, max>|(VkPipelineStageFlagBits2::*) $stage
+     * @param int<0, max>|(VkPipelineStageFlagBits2::VK_*) $stage
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCmdWriteTimestamp2KHR(
         VkCommandBuffer $commandBuffer,
@@ -8025,6 +8668,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $shader
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkCompileDeferredNV(VkDevice $device, VkPipeline $pipeline, int $shader): void
@@ -8046,6 +8690,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyAccelerationStructureKHR(
         VkDevice $device,
@@ -8077,6 +8722,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyAccelerationStructureToMemoryKHR(
         VkDevice $device,
@@ -8105,6 +8751,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyImageToImage(VkDevice $device, VkCopyImageToImageInfo $copyImageToImageInfo): void
     {
@@ -8126,6 +8773,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyImageToImageEXT(VkDevice $device, VkCopyImageToImageInfo $copyImageToImageInfo): void
     {
@@ -8141,6 +8789,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyImageToMemory(VkDevice $device, VkCopyImageToMemoryInfo $copyImageToMemoryInfo): void
     {
@@ -8162,6 +8811,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyImageToMemoryEXT(VkDevice $device, VkCopyImageToMemoryInfo $copyImageToMemoryInfo): void
     {
@@ -8180,6 +8830,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyMemoryToAccelerationStructureKHR(
         VkDevice $device,
@@ -8208,6 +8859,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyMemoryToImage(VkDevice $device, VkCopyMemoryToImageInfo $copyMemoryToImageInfo): void
     {
@@ -8229,6 +8881,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyMemoryToImageEXT(VkDevice $device, VkCopyMemoryToImageInfo $copyMemoryToImageInfo): void
     {
@@ -8247,6 +8900,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyMemoryToMicromapEXT(
         VkDevice $device,
@@ -8278,6 +8932,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyMicromapEXT(
         VkDevice $device,
@@ -8309,6 +8964,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCopyMicromapToMemoryEXT(
         VkDevice $device,
@@ -8336,6 +8992,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateAccelerationStructure2KHR(
         VkDevice $device,
@@ -8369,6 +9026,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateAccelerationStructureKHR(
         VkDevice $device,
@@ -8398,6 +9056,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkCreateAccelerationStructureNV(
@@ -8428,6 +9087,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateAndroidSurfaceKHR(
         VkInstance $instance,
@@ -8457,6 +9117,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateBuffer(VkDevice $device, VkBufferCreateInfo $createInfo): VkBuffer
     {
@@ -8485,6 +9146,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE},
      *         {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateBufferCollectionFUCHSIA(
         VkDevice $device,
@@ -8517,6 +9179,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateBufferView(VkDevice $device, VkBufferViewCreateInfo $createInfo): VkBufferView
     {
@@ -8543,6 +9206,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateCommandPool(VkDevice $device, VkCommandPoolCreateInfo $createInfo): VkCommandPool
     {
@@ -8573,6 +9237,7 @@ final class Vulkan extends VulkanBase
      * @return list<VkPipeline>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_SHADER_NV}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateComputePipelines(
         VkDevice $device,
@@ -8615,6 +9280,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateCuFunctionNVX(VkDevice $device, VkCuFunctionCreateInfoNVX $createInfo): VkCuFunctionNVX
     {
@@ -8642,6 +9308,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateCuModuleNVX(VkDevice $device, VkCuModuleCreateInfoNVX $createInfo): VkCuModuleNVX
     {
@@ -8668,6 +9335,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDataGraphPipelineSessionARM(
         VkDevice $device,
@@ -8699,6 +9367,7 @@ final class Vulkan extends VulkanBase
      *
      * @return list<VkPipeline>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDataGraphPipelinesARM(
         VkDevice $device,
@@ -8742,6 +9411,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_EXT_debug_report is deprecated by VK_EXT_debug_utils')]
     public function vkCreateDebugReportCallbackEXT(
@@ -8771,6 +9441,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDebugUtilsMessengerEXT(
         VkInstance $instance,
@@ -8799,6 +9470,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDeferredOperationKHR(VkDevice $device): VkDeferredOperationKHR
     {
@@ -8828,6 +9500,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FRAGMENTATION_EXT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDescriptorPool(VkDevice $device, VkDescriptorPoolCreateInfo $createInfo): VkDescriptorPool
     {
@@ -8858,6 +9531,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDescriptorSetLayout(
         VkDevice $device,
@@ -8886,6 +9560,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDescriptorUpdateTemplate(
         VkDevice $device,
@@ -8916,6 +9591,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDescriptorUpdateTemplateKHR(
         VkDevice $device,
@@ -8936,6 +9612,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_FEATURE_NOT_PRESENT},
      *         {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS},
      *         {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDevice(VkPhysicalDevice $physicalDevice, VkDeviceCreateInfo $createInfo): VkDevice
     {
@@ -8961,6 +9638,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDirectFBSurfaceEXT(
         VkInstance $instance,
@@ -8990,6 +9668,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDisplayModeKHR(
         VkPhysicalDevice $physicalDevice,
@@ -9014,6 +9693,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateDisplayPlaneSurfaceKHR(
         VkInstance $instance,
@@ -9042,6 +9722,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateEvent(VkDevice $device, VkEventCreateInfo $createInfo): VkEvent
     {
@@ -9069,6 +9750,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateExternalComputeQueueNV(
         VkDevice $device,
@@ -9097,6 +9779,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateFence(VkDevice $device, VkFenceCreateInfo $createInfo): VkFence
     {
@@ -9127,6 +9810,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateFramebuffer(VkDevice $device, VkFramebufferCreateInfo $createInfo): VkFramebuffer
     {
@@ -9153,6 +9837,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateGpaSessionAMD(VkDevice $device, VkGpaSessionCreateInfoAMD $createInfo): VkGpaSessionAMD
     {
@@ -9183,6 +9868,7 @@ final class Vulkan extends VulkanBase
      * @return list<VkPipeline>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_SHADER_NV}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateGraphicsPipelines(
         VkDevice $device,
@@ -9224,6 +9910,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateHeadlessSurfaceEXT(
         VkInstance $instance,
@@ -9254,6 +9941,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_MVK_ios_surface is deprecated by VK_EXT_metal_surface')]
     public function vkCreateIOSSurfaceMVK(VkInstance $instance, VkIOSSurfaceCreateInfoMVK $createInfo): VkSurfaceKHR
@@ -9283,6 +9971,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_COMPRESSION_EXHAUSTED_EXT},
      *         {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateImage(VkDevice $device, VkImageCreateInfo $createInfo): VkImage
     {
@@ -9309,6 +9998,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateImagePipeSurfaceFUCHSIA(
         VkInstance $instance,
@@ -9338,6 +10028,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateImageView(VkDevice $device, VkImageViewCreateInfo $createInfo): VkImageView
     {
@@ -9364,6 +10055,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateIndirectCommandsLayoutEXT(
         VkDevice $device,
@@ -9392,6 +10084,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateIndirectCommandsLayoutNV(
         VkDevice $device,
@@ -9420,6 +10113,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateIndirectExecutionSetEXT(
         VkDevice $device,
@@ -9452,6 +10146,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_LAYER_NOT_PRESENT},
      *         {@see VkResult::VK_ERROR_EXTENSION_NOT_PRESENT},
      *         {@see VkResult::VK_ERROR_INCOMPATIBLE_DRIVER}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateInstance(VkInstanceCreateInfo $createInfo): VkInstance
     {
@@ -9478,6 +10173,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_MVK_macos_surface is deprecated by VK_EXT_metal_surface')]
     public function vkCreateMacOSSurfaceMVK(
@@ -9508,6 +10204,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateMetalSurfaceEXT(
         VkInstance $instance,
@@ -9537,6 +10234,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateMicromapEXT(VkDevice $device, VkMicromapCreateInfoEXT $createInfo): VkMicromapEXT
     {
@@ -9564,6 +10262,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateOpticalFlowSessionNV(
         VkDevice $device,
@@ -9592,6 +10291,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreatePipelineCache(VkDevice $device, VkPipelineCacheCreateInfo $createInfo): VkPipelineCache
     {
@@ -9622,6 +10322,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreatePipelineLayout(VkDevice $device, VkPipelineLayoutCreateInfo $createInfo): VkPipelineLayout
     {
@@ -9648,6 +10349,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreatePrivateDataSlot(
         VkDevice $device,
@@ -9678,6 +10380,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreatePrivateDataSlotEXT(
         VkDevice $device,
@@ -9693,6 +10396,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateQueryPool(VkDevice $device, VkQueryPoolCreateInfo $createInfo): VkQueryPool
     {
@@ -9723,6 +10427,7 @@ final class Vulkan extends VulkanBase
      * @return list<VkPipeline>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateRayTracingPipelinesKHR(
         VkDevice $device,
@@ -9770,6 +10475,7 @@ final class Vulkan extends VulkanBase
      * @return list<VkPipeline>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_SHADER_NV}
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkCreateRayTracingPipelinesNV(
@@ -9816,6 +10522,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateRenderPass(VkDevice $device, VkRenderPassCreateInfo $createInfo): VkRenderPass
     {
@@ -9846,6 +10553,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateRenderPass2(VkDevice $device, VkRenderPassCreateInfo2 $createInfo): VkRenderPass
     {
@@ -9875,6 +10583,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateRenderPass2KHR(VkDevice $device, VkRenderPassCreateInfo2 $createInfo): VkRenderPass
     {
@@ -9893,6 +10602,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateSampler(VkDevice $device, VkSamplerCreateInfo $createInfo): VkSampler
     {
@@ -9919,6 +10629,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateSamplerYcbcrConversion(
         VkDevice $device,
@@ -9949,6 +10660,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateSamplerYcbcrConversionKHR(
         VkDevice $device,
@@ -9964,6 +10676,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateScreenSurfaceQNX(
         VkInstance $instance,
@@ -9992,6 +10705,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateSemaphore(VkDevice $device, VkSemaphoreCreateInfo $createInfo): VkSemaphore
     {
@@ -10018,6 +10732,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateShaderInstrumentationARM(
         VkDevice $device,
@@ -10047,6 +10762,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_SHADER_NV}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateShaderModule(VkDevice $device, VkShaderModuleCreateInfo $createInfo): VkShaderModule
     {
@@ -10077,6 +10793,7 @@ final class Vulkan extends VulkanBase
      * @return list<VkShaderEXT>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateShadersEXT(VkDevice $device, array $createInfos): array
     {
@@ -10121,6 +10838,7 @@ final class Vulkan extends VulkanBase
      *         with {@see VkResult::VK_ERROR_INCOMPATIBLE_DISPLAY_KHR},
      *         {@see VkResult::VK_ERROR_DEVICE_LOST},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateSharedSwapchainsKHR(VkDevice $device, array $createInfos): array
     {
@@ -10160,6 +10878,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateStreamDescriptorSurfaceGGP(
         VkInstance $instance,
@@ -10189,6 +10908,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateSurfaceOHOS(VkInstance $instance, VkSurfaceCreateInfoOHOS $createInfo): VkSurfaceKHR
     {
@@ -10220,6 +10940,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR},
      *         {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_COMPRESSION_EXHAUSTED_EXT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateSwapchainKHR(VkDevice $device, VkSwapchainCreateInfoKHR $createInfo): VkSwapchainKHR
     {
@@ -10246,6 +10967,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateTensorARM(VkDevice $device, VkTensorCreateInfoARM $createInfo): VkTensorARM
     {
@@ -10272,6 +10994,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateTensorViewARM(VkDevice $device, VkTensorViewCreateInfoARM $createInfo): VkTensorViewARM
     {
@@ -10298,6 +11021,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateUbmSurfaceSEC(VkInstance $instance, VkUbmSurfaceCreateInfoSEC $createInfo): VkSurfaceKHR
     {
@@ -10324,6 +11048,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateValidationCacheEXT(
         VkDevice $device,
@@ -10353,6 +11078,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_NATIVE_WINDOW_IN_USE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateViSurfaceNN(VkInstance $instance, VkViSurfaceCreateInfoNN $createInfo): VkSurfaceKHR
     {
@@ -10382,6 +11108,7 @@ final class Vulkan extends VulkanBase
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateVideoSessionKHR(
         VkDevice $device,
@@ -10412,6 +11139,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateVideoSessionParametersKHR(
         VkDevice $device,
@@ -10440,6 +11168,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateWaylandSurfaceKHR(
         VkInstance $instance,
@@ -10468,6 +11197,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateWin32SurfaceKHR(
         VkInstance $instance,
@@ -10496,6 +11226,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateXcbSurfaceKHR(VkInstance $instance, VkXcbSurfaceCreateInfoKHR $createInfo): VkSurfaceKHR
     {
@@ -10522,6 +11253,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkCreateXlibSurfaceKHR(VkInstance $instance, VkXlibSurfaceCreateInfoKHR $createInfo): VkSurfaceKHR
     {
@@ -10548,6 +11280,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDebugMarkerSetObjectNameEXT(VkDevice $device, VkDebugMarkerObjectNameInfoEXT $nameInfo): void
     {
@@ -10565,6 +11298,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDebugMarkerSetObjectTagEXT(VkDevice $device, VkDebugMarkerObjectTagInfoEXT $tagInfo): void
     {
@@ -10582,12 +11316,14 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkDebugReportFlagBitsEXT::*> $flags
+     * @param int-mask-of<VkDebugReportFlagBitsEXT::VK_*> $flags
      * @param int<0, max> $object
      * @param int<0, max> $location
      * @param int<-2147483648, 2147483647> $messageCode
      * @param non-empty-string $layerPrefix
      * @param non-empty-string $message
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_EXT_debug_report is deprecated by VK_EXT_debug_utils')]
     public function vkDebugReportMessageEXT(
@@ -10617,6 +11353,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_THREAD_DONE_KHR|VkResult::VK_THREAD_IDLE_KHR
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDeferredOperationJoinKHR(VkDevice $device, VkDeferredOperationKHR $operation): VkResult
     {
@@ -10636,6 +11373,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyAccelerationStructureKHR(
         VkDevice $device,
@@ -10652,6 +11391,8 @@ final class Vulkan extends VulkanBase
      * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkDestroyAccelerationStructureNV(
@@ -10668,6 +11409,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyBuffer(VkDevice $device, ?VkBuffer $buffer = null): void
     {
@@ -10681,6 +11424,8 @@ final class Vulkan extends VulkanBase
      * @since VK_FUCHSIA_buffer_collection
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyBufferCollectionFUCHSIA(VkDevice $device, VkBufferCollectionFUCHSIA $collection): void
     {
@@ -10698,6 +11443,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyBufferView(VkDevice $device, ?VkBufferView $bufferView = null): void
     {
@@ -10711,6 +11458,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyCommandPool(VkDevice $device, ?VkCommandPool $commandPool = null): void
     {
@@ -10724,6 +11473,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NVX_binary_import
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyCuFunctionNVX(VkDevice $device, VkCuFunctionNVX $function): void
     {
@@ -10737,6 +11488,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NVX_binary_import
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyCuModuleNVX(VkDevice $device, VkCuModuleNVX $module): void
     {
@@ -10750,6 +11503,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_data_graph
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyDataGraphPipelineSessionARM(
         VkDevice $device,
@@ -10766,6 +11521,8 @@ final class Vulkan extends VulkanBase
      * @deprecated the extension VK_EXT_debug_report is deprecated by VK_EXT_debug_utils
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_EXT_debug_report is deprecated by VK_EXT_debug_utils')]
     public function vkDestroyDebugReportCallbackEXT(
@@ -10782,6 +11539,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_utils
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyDebugUtilsMessengerEXT(
         VkInstance $instance,
@@ -10797,6 +11556,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_deferred_host_operations
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyDeferredOperationKHR(VkDevice $device, ?VkDeferredOperationKHR $operation = null): void
     {
@@ -10814,6 +11575,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyDescriptorPool(VkDevice $device, ?VkDescriptorPool $descriptorPool = null): void
     {
@@ -10831,6 +11594,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyDescriptorSetLayout(
         VkDevice $device,
@@ -10846,6 +11611,8 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyDescriptorUpdateTemplate(
         VkDevice $device,
@@ -10863,6 +11630,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_descriptor_update_template
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyDescriptorUpdateTemplateKHR(
         VkDevice $device,
@@ -10876,6 +11645,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyDevice(?VkDevice $device = null): void
     {
@@ -10889,6 +11660,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyEvent(VkDevice $device, ?VkEvent $event = null): void
     {
@@ -10902,6 +11675,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_external_compute_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyExternalComputeQueueNV(VkDevice $device, VkExternalComputeQueueNV $externalQueue): void
     {
@@ -10915,6 +11690,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyFence(VkDevice $device, ?VkFence $fence = null): void
     {
@@ -10932,6 +11709,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyFramebuffer(VkDevice $device, ?VkFramebuffer $framebuffer = null): void
     {
@@ -10945,6 +11724,8 @@ final class Vulkan extends VulkanBase
      * @since VK_AMD_gpa_interface
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyGpaSessionAMD(VkDevice $device, ?VkGpaSessionAMD $gpaSession = null): void
     {
@@ -10958,6 +11739,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyImage(VkDevice $device, ?VkImage $image = null): void
     {
@@ -10971,6 +11754,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyImageView(VkDevice $device, ?VkImageView $imageView = null): void
     {
@@ -10984,6 +11769,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_device_generated_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyIndirectCommandsLayoutEXT(
         VkDevice $device,
@@ -10999,6 +11786,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_device_generated_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyIndirectCommandsLayoutNV(
         VkDevice $device,
@@ -11014,6 +11803,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_device_generated_commands
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyIndirectExecutionSetEXT(
         VkDevice $device,
@@ -11029,6 +11820,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyInstance(?VkInstance $instance = null): void
     {
@@ -11042,6 +11835,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_opacity_micromap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyMicromapEXT(VkDevice $device, ?VkMicromapEXT $micromap = null): void
     {
@@ -11055,6 +11850,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_optical_flow
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyOpticalFlowSessionNV(VkDevice $device, VkOpticalFlowSessionNV $session): void
     {
@@ -11068,6 +11865,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyPipeline(VkDevice $device, ?VkPipeline $pipeline = null): void
     {
@@ -11081,6 +11880,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_pipeline_binary
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyPipelineBinaryKHR(VkDevice $device, ?VkPipelineBinaryKHR $pipelineBinary = null): void
     {
@@ -11094,6 +11895,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyPipelineCache(VkDevice $device, ?VkPipelineCache $pipelineCache = null): void
     {
@@ -11111,6 +11914,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyPipelineLayout(VkDevice $device, ?VkPipelineLayout $pipelineLayout = null): void
     {
@@ -11124,6 +11929,8 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyPrivateDataSlot(VkDevice $device, ?VkPrivateDataSlot $privateDataSlot = null): void
     {
@@ -11139,6 +11946,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_private_data
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyPrivateDataSlotEXT(VkDevice $device, ?VkPrivateDataSlot $privateDataSlot = null): void
     {
@@ -11150,6 +11959,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyQueryPool(VkDevice $device, ?VkQueryPool $queryPool = null): void
     {
@@ -11167,6 +11978,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyRenderPass(VkDevice $device, ?VkRenderPass $renderPass = null): void
     {
@@ -11184,6 +11997,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroySampler(VkDevice $device, ?VkSampler $sampler = null): void
     {
@@ -11197,6 +12012,8 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroySamplerYcbcrConversion(
         VkDevice $device,
@@ -11214,6 +12031,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_sampler_ycbcr_conversion
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroySamplerYcbcrConversionKHR(
         VkDevice $device,
@@ -11227,6 +12046,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroySemaphore(VkDevice $device, ?VkSemaphore $semaphore = null): void
     {
@@ -11240,6 +12061,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_shader_object
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyShaderEXT(VkDevice $device, ?VkShaderEXT $shader = null): void
     {
@@ -11253,6 +12076,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_shader_instrumentation
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyShaderInstrumentationARM(
         VkDevice $device,
@@ -11268,6 +12093,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyShaderModule(VkDevice $device, ?VkShaderModule $shaderModule = null): void
     {
@@ -11281,6 +12108,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_surface
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroySurfaceKHR(VkInstance $instance, ?VkSurfaceKHR $surface = null): void
     {
@@ -11294,6 +12123,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_swapchain
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroySwapchainKHR(VkDevice $device, ?VkSwapchainKHR $swapchain = null): void
     {
@@ -11307,6 +12138,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_tensors
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyTensorARM(VkDevice $device, ?VkTensorARM $tensor = null): void
     {
@@ -11320,6 +12153,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_tensors
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyTensorViewARM(VkDevice $device, ?VkTensorViewARM $tensorView = null): void
     {
@@ -11333,6 +12168,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_validation_cache
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyValidationCacheEXT(VkDevice $device, ?VkValidationCacheEXT $validationCache = null): void
     {
@@ -11346,6 +12183,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_video_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyVideoSessionKHR(VkDevice $device, ?VkVideoSessionKHR $videoSession = null): void
     {
@@ -11359,6 +12198,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_video_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDestroyVideoSessionParametersKHR(
         VkDevice $device,
@@ -11377,6 +12218,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDeviceWaitIdle(VkDevice $device): void
     {
@@ -11392,6 +12234,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkDisplayPowerControlEXT(
         VkDevice $device,
@@ -11413,6 +12256,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEndCommandBuffer(VkCommandBuffer $commandBuffer): void
     {
@@ -11430,6 +12274,7 @@ final class Vulkan extends VulkanBase
      * @return VkEnumerator<VkExtensionProperties>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_LAYER_NOT_PRESENT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumerateDeviceExtensionProperties(
         VkPhysicalDevice $physicalDevice,
@@ -11468,6 +12313,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkLayerProperties>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumerateDeviceLayerProperties(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -11495,6 +12341,7 @@ final class Vulkan extends VulkanBase
      * @return VkEnumerator<VkExtensionProperties>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_LAYER_NOT_PRESENT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumerateInstanceExtensionProperties(?string $layerName = null): VkEnumerator
     {
@@ -11526,6 +12373,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkLayerProperties>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumerateInstanceLayerProperties(): VkEnumerator
     {
@@ -11550,6 +12398,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumerateInstanceVersion(): int
     {
@@ -11574,6 +12423,7 @@ final class Vulkan extends VulkanBase
      * @return VkEnumerator<VkPhysicalDeviceGroupProperties>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumeratePhysicalDeviceGroups(VkInstance $instance): VkEnumerator
     {
@@ -11604,6 +12454,7 @@ final class Vulkan extends VulkanBase
      * @return VkEnumerator<VkPhysicalDeviceGroupProperties>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumeratePhysicalDeviceGroupsKHR(VkInstance $instance): VkEnumerator
     {
@@ -11619,6 +12470,7 @@ final class Vulkan extends VulkanBase
      * @return VkEnumerator<VkShaderInstrumentationMetricDescriptionARM>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumeratePhysicalDeviceShaderInstrumentationMetricsARM(
         VkPhysicalDevice $physicalDevice,
@@ -11648,6 +12500,7 @@ final class Vulkan extends VulkanBase
      * @return VkEnumerator<VkPhysicalDevice>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkEnumeratePhysicalDevices(VkInstance $instance): VkEnumerator
     {
@@ -11673,6 +12526,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkExportMetalObjectsInfoEXTExtension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkExportMetalObjectsEXT(VkDevice $device, array $chain = []): VkExportMetalObjectsInfoEXT
     {
@@ -11696,6 +12551,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkMappedMemoryRange> $memoryRanges
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkFlushMappedMemoryRanges(VkDevice $device, array $memoryRanges): void
     {
@@ -11716,6 +12572,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkCommandBuffer> $commandBuffers
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkFreeCommandBuffers(VkDevice $device, VkCommandPool $commandPool, array $commandBuffers): void
     {
@@ -11742,6 +12600,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkDescriptorSet> $descriptorSets
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkFreeDescriptorSets(
         VkDevice $device,
@@ -11763,6 +12622,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkFreeMemory(VkDevice $device, ?VkDeviceMemory $memory = null): void
     {
@@ -11778,6 +12639,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<int<0, 4294967295>> $maxPrimitiveCounts
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetAccelerationStructureBuildSizesKHR(
         VkDevice $device,
@@ -11806,6 +12669,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetAccelerationStructureDeviceAddressKHR(
         VkDevice $device,
@@ -11831,6 +12696,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $dataSize
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkGetAccelerationStructureHandleNV(
@@ -11855,6 +12721,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkGetAccelerationStructureMemoryRequirementsNV(
@@ -11886,6 +12754,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
         VkDevice $device,
@@ -11910,6 +12779,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetAndroidHardwareBufferPropertiesANDROID(
         VkDevice $device,
@@ -11937,6 +12807,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferCollectionPropertiesFUCHSIA(
         VkDevice $device,
@@ -11957,6 +12828,8 @@ final class Vulkan extends VulkanBase
      * @since 1.2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferDeviceAddress(VkDevice $device, VkBufferDeviceAddressInfo $info): int
     {
@@ -11977,6 +12850,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_buffer_device_address
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferDeviceAddressKHR(VkDevice $device, VkBufferDeviceAddressInfo $info): int
     {
@@ -11991,6 +12866,8 @@ final class Vulkan extends VulkanBase
      * @deprecated the extension VK_EXT_buffer_device_address is deprecated by VK_KHR_buffer_device_address
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_EXT_buffer_device_address is deprecated by VK_KHR_buffer_device_address')]
     public function vkGetBufferDeviceAddressEXT(VkDevice $device, VkBufferDeviceAddressInfo $info): int
@@ -12003,6 +12880,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferMemoryRequirements(VkDevice $device, VkBuffer $buffer): VkMemoryRequirements
     {
@@ -12022,6 +12901,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferMemoryRequirements2(
         VkDevice $device,
@@ -12050,6 +12931,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferMemoryRequirements2KHR(
         VkDevice $device,
@@ -12064,6 +12947,8 @@ final class Vulkan extends VulkanBase
      * @since 1.2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferOpaqueCaptureAddress(VkDevice $device, VkBufferDeviceAddressInfo $info): int
     {
@@ -12084,6 +12969,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_buffer_device_address
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferOpaqueCaptureAddressKHR(VkDevice $device, VkBufferDeviceAddressInfo $info): int
     {
@@ -12101,6 +12988,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetBufferOpaqueCaptureDescriptorDataEXT(
         VkDevice $device,
@@ -12125,6 +13013,7 @@ final class Vulkan extends VulkanBase
      *
      * @return array{timestamps: list<int>, maxDeviation: int}
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetCalibratedTimestampsKHR(VkDevice $device, array $timestampInfos): array
     {
@@ -12168,6 +13057,7 @@ final class Vulkan extends VulkanBase
      *
      * @return array{timestamps: list<int>, maxDeviation: int}
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetCalibratedTimestampsEXT(VkDevice $device, array $timestampInfos): array
     {
@@ -12179,6 +13069,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_cluster_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetClusterAccelerationStructureBuildSizesNV(
         VkDevice $device,
@@ -12202,8 +13094,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkDataGraphPipelinePropertyARM>
+     * @return list<VkDataGraphPipelinePropertyARM|int>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDataGraphPipelineAvailablePropertiesARM(
         VkDevice $device,
@@ -12223,7 +13116,7 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
             'VkDataGraphPipelinePropertyARM',
-            fn(int $item): VkDataGraphPipelinePropertyARM => VkDataGraphPipelinePropertyARM::from($item),
+            fn(int $item): VkDataGraphPipelinePropertyARM|int => EnumCase::createFromValue(VkDataGraphPipelinePropertyARM::class, $item),
         );
     }
 
@@ -12235,6 +13128,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDataGraphPipelineSessionBindPointRequirementARM>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDataGraphPipelineSessionBindPointRequirementsARM(
         VkDevice $device,
@@ -12266,6 +13160,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDataGraphPipelineSessionMemoryRequirementsARM(
         VkDevice $device,
@@ -12290,6 +13186,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_deferred_host_operations
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeferredOperationMaxConcurrencyKHR(VkDevice $device, VkDeferredOperationKHR $operation): int
     {
@@ -12309,6 +13207,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_NOT_READY
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeferredOperationResultKHR(VkDevice $device, VkDeferredOperationKHR $operation): VkResult
     {
@@ -12334,6 +13233,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $dataSize
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDescriptorEXT(
         VkDevice $device,
@@ -12356,6 +13257,8 @@ final class Vulkan extends VulkanBase
      * @since VK_VALVE_descriptor_set_host_mapping
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDescriptorSetHostMappingVALVE(VkDevice $device, VkDescriptorSet $descriptorSet): CData
     {
@@ -12379,6 +13282,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $binding
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDescriptorSetLayoutBindingOffsetEXT(
         VkDevice $device,
@@ -12402,6 +13307,8 @@ final class Vulkan extends VulkanBase
      * @since VK_VALVE_descriptor_set_host_mapping
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDescriptorSetLayoutHostMappingInfoVALVE(
         VkDevice $device,
@@ -12428,6 +13335,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDescriptorSetLayoutSizeEXT(VkDevice $device, VkDescriptorSetLayout $layout): int
     {
@@ -12450,6 +13359,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkDescriptorSetLayoutSupportExtension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDescriptorSetLayoutSupport(
         VkDevice $device,
@@ -12478,6 +13389,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkDescriptorSetLayoutSupportExtension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDescriptorSetLayoutSupportKHR(
         VkDevice $device,
@@ -12494,6 +13407,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceBufferMemoryRequirements(
         VkDevice $device,
@@ -12522,6 +13437,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceBufferMemoryRequirementsKHR(
         VkDevice $device,
@@ -12539,6 +13456,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $imageViewIndex
      * @param int<0, max> $samplerIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceCombinedImageSamplerIndexNVX(
         VkDevice $device,
@@ -12563,6 +13482,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDeviceFaultInfoKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceFaultReportsKHR(VkDevice $device, int $timeout): VkEnumerator
     {
@@ -12592,6 +13512,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $heapIndex
      * @param int<0, 4294967295> $localDeviceIndex
      * @param int<0, 4294967295> $remoteDeviceIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceGroupPeerMemoryFeatures(
         VkDevice $device,
@@ -12622,6 +13544,8 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $heapIndex
      * @param int<0, 4294967295> $localDeviceIndex
      * @param int<0, 4294967295> $remoteDeviceIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceGroupPeerMemoryFeaturesKHR(
         VkDevice $device,
@@ -12639,6 +13563,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceGroupPresentCapabilitiesKHR(VkDevice $device): VkDeviceGroupPresentCapabilitiesKHR
     {
@@ -12660,6 +13585,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceGroupSurfacePresentModes2EXT(
         VkDevice $device,
@@ -12687,6 +13613,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceGroupSurfacePresentModesKHR(VkDevice $device, VkSurfaceKHR $surface): int
     {
@@ -12709,6 +13636,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceImageMemoryRequirements(
         VkDevice $device,
@@ -12737,6 +13666,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceImageMemoryRequirementsKHR(
         VkDevice $device,
@@ -12753,6 +13684,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkSparseImageMemoryRequirements2>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceImageSparseMemoryRequirements(
         VkDevice $device,
@@ -12786,6 +13718,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkSparseImageMemoryRequirements2>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceImageSparseMemoryRequirementsKHR(
         VkDevice $device,
@@ -12801,6 +13734,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceImageSubresourceLayout(
         VkDevice $device,
@@ -12829,6 +13764,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceImageSubresourceLayoutKHR(
         VkDevice $device,
@@ -12843,6 +13780,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceMemoryCommitment(VkDevice $device, VkDeviceMemory $memory): int
     {
@@ -12863,6 +13802,8 @@ final class Vulkan extends VulkanBase
      * @since 1.2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceMemoryOpaqueCaptureAddress(
         VkDevice $device,
@@ -12885,6 +13826,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_buffer_device_address
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceMemoryOpaqueCaptureAddressKHR(
         VkDevice $device,
@@ -12900,6 +13843,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-string $name
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceProcAddr(VkDevice $device, string $name): ?CData
     {
@@ -12921,6 +13866,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $queueFamilyIndex
      * @param int<0, 4294967295> $queueIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceQueue(VkDevice $device, int $queueFamilyIndex, int $queueIndex): VkQueue
     {
@@ -12938,6 +13885,8 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceQueue2(VkDevice $device, VkDeviceQueueInfo2 $queueInfo): VkQueue
     {
@@ -12960,6 +13909,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
         VkDevice $device,
@@ -12981,6 +13931,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDeviceTensorMemoryRequirementsARM(
         VkDevice $device,
@@ -13010,6 +13962,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDisplayModeProperties2KHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDisplayModeProperties2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -13057,6 +14010,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDisplayModePropertiesKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDisplayModePropertiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -13085,6 +14039,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDisplayPlaneCapabilities2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -13111,6 +14066,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $planeIndex
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDisplayPlaneCapabilitiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -13136,6 +14092,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDisplayKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDisplayPlaneSupportedDisplaysKHR(
         VkPhysicalDevice $physicalDevice,
@@ -13168,6 +14125,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDrmDisplayEXT(VkPhysicalDevice $physicalDevice, int $drmFd, int $connectorId): VkDisplayKHR
     {
@@ -13192,6 +14150,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetDynamicRenderingTilePropertiesQCOM(
         VkDevice $device,
@@ -13217,6 +14176,7 @@ final class Vulkan extends VulkanBase
      *
      * @return array{feedbackInfo: VkVideoEncodeSessionParametersFeedbackInfoKHR, data: string}
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetEncodedVideoSessionParametersKHR(
         VkDevice $device,
@@ -13256,6 +14216,7 @@ final class Vulkan extends VulkanBase
      * @return VkResult::VK_EVENT_SET|VkResult::VK_EVENT_RESET
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetEventStatus(VkDevice $device, VkEvent $event): VkResult
     {
@@ -13275,6 +14236,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_external_compute_queue
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetExternalComputeQueueDataNV(
         VkExternalComputeQueueNV $externalQueue,
@@ -13300,6 +14263,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetFenceFdKHR(VkDevice $device, VkFenceGetFdInfoKHR $getFdInfo): int
     {
@@ -13326,6 +14290,7 @@ final class Vulkan extends VulkanBase
      * @return VkResult::VK_SUCCESS|VkResult::VK_NOT_READY
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetFenceStatus(VkDevice $device, VkFence $fence): VkResult
     {
@@ -13348,6 +14313,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetFenceWin32HandleKHR(
         VkDevice $device,
@@ -13370,6 +14336,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkTilePropertiesQCOM>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetFramebufferTilePropertiesQCOM(VkDevice $device, VkFramebuffer $framebuffer): VkEnumerator
     {
@@ -13397,6 +14364,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetGeneratedCommandsMemoryRequirementsEXT(
         VkDevice $device,
@@ -13423,6 +14392,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetGeneratedCommandsMemoryRequirementsNV(
         VkDevice $device,
@@ -13449,6 +14420,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetGpaDeviceClockInfoAMD(VkDevice $device): VkGpaDeviceGetClockInfoAMD
     {
@@ -13471,6 +14443,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $sampleID
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetGpaSessionResultsAMD(VkDevice $device, VkGpaSessionAMD $gpaSession, int $sampleID): string
     {
@@ -13496,6 +14469,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetGpaSessionStatusAMD(VkDevice $device, VkGpaSessionAMD $gpaSession): void
     {
@@ -13511,6 +14485,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageDrmFormatModifierPropertiesEXT(
         VkDevice $device,
@@ -13531,6 +14506,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageMemoryRequirements(VkDevice $device, VkImage $image): VkMemoryRequirements
     {
@@ -13550,6 +14527,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageMemoryRequirements2(
         VkDevice $device,
@@ -13578,6 +14557,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageMemoryRequirements2KHR(
         VkDevice $device,
@@ -13597,6 +14578,7 @@ final class Vulkan extends VulkanBase
      *
      * @return list<VkHostAddressRangeEXT>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageOpaqueCaptureDataEXT(VkDevice $device, array $images): array
     {
@@ -13633,6 +14615,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageOpaqueCaptureDescriptorDataEXT(
         VkDevice $device,
@@ -13654,6 +14637,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkSparseImageMemoryRequirements>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageSparseMemoryRequirements(VkDevice $device, VkImage $image): VkEnumerator
     {
@@ -13680,6 +14664,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkSparseImageMemoryRequirements2>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageSparseMemoryRequirements2(
         VkDevice $device,
@@ -13713,6 +14698,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkSparseImageMemoryRequirements2>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageSparseMemoryRequirements2KHR(
         VkDevice $device,
@@ -13726,6 +14712,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageSubresourceLayout(
         VkDevice $device,
@@ -13750,6 +14738,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageSubresourceLayout2(
         VkDevice $device,
@@ -13779,6 +14769,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageSubresourceLayout2KHR(
         VkDevice $device,
@@ -13798,6 +14790,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageSubresourceLayout2EXT(
         VkDevice $device,
@@ -13815,6 +14809,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageViewAddressNVX(
         VkDevice $device,
@@ -13835,6 +14830,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NVX_image_view_handle
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageViewHandle64NVX(VkDevice $device, VkImageViewHandleInfoNVX $info): int
     {
@@ -13853,6 +14850,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NVX_image_view_handle
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageViewHandleNVX(VkDevice $device, VkImageViewHandleInfoNVX $info): int
     {
@@ -13877,6 +14876,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetImageViewOpaqueCaptureDescriptorDataEXT(
         VkDevice $device,
@@ -13898,6 +14898,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-string $name
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetInstanceProcAddr(string $name, ?VkInstance $instance = null): ?CData
     {
@@ -13917,6 +14919,8 @@ final class Vulkan extends VulkanBase
      * @deprecated the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2')]
     public function vkGetLatencyTimingsLegacyNV(VkDevice $device, CData|int $timings): void
@@ -13936,6 +14940,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryAndroidHardwareBufferANDROID(
         VkDevice $device,
@@ -13958,6 +14963,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryFdKHR(VkDevice $device, VkMemoryGetFdInfoKHR $getFdInfo): int
     {
@@ -13981,10 +14987,11 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryFdPropertiesKHR(VkDevice $device, int $handleType, int $fd): VkMemoryFdPropertiesKHR
     {
@@ -14004,10 +15011,11 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryHostPointerPropertiesEXT(
         VkDevice $device,
@@ -14034,6 +15042,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryMetalHandleEXT(
         VkDevice $device,
@@ -14056,10 +15065,11 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryMetalHandlePropertiesEXT(
         VkDevice $device,
@@ -14085,6 +15095,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryNativeBufferOHOS(
         VkDevice $device,
@@ -14107,6 +15118,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryRemoteAddressNV(
         VkDevice $device,
@@ -14129,6 +15141,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryWin32HandleKHR(
         VkDevice $device,
@@ -14150,10 +15163,11 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> $handleType
+     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_external_memory_win32 is deprecated by VK_KHR_external_memory_win32')]
     public function vkGetMemoryWin32HandleNV(
@@ -14175,10 +15189,11 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryWin32HandlePropertiesKHR(
         VkDevice $device,
@@ -14205,6 +15220,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryZirconHandleFUCHSIA(
         VkDevice $device,
@@ -14225,10 +15241,11 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) $handleType
+     * @param int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) $handleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMemoryZirconHandlePropertiesFUCHSIA(
         VkDevice $device,
@@ -14252,6 +15269,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_opacity_micromap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetMicromapBuildSizesEXT(
         VkDevice $device,
@@ -14280,6 +15299,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetNativeBufferPropertiesOHOS(
         VkDevice $device,
@@ -14304,6 +15324,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_partitioned_acceleration_structure
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPartitionedAccelerationStructuresBuildSizesNV(
         VkDevice $device,
@@ -14332,6 +15354,7 @@ final class Vulkan extends VulkanBase
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
      *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPastPresentationTimingGOOGLE(VkDevice $device, VkSwapchainKHR $swapchain): VkEnumerator
     {
@@ -14359,6 +15382,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPerformanceParameterINTEL(
         VkDevice $device,
@@ -14379,8 +15403,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkTimeDomainKHR>
+     * @return list<VkTimeDomainKHR|int>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(VkPhysicalDevice $physicalDevice): array
     {
@@ -14395,7 +15420,7 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
             'VkTimeDomainKHR',
-            fn(int $item): VkTimeDomainKHR => VkTimeDomainKHR::from($item),
+            fn(int $item): VkTimeDomainKHR|int => EnumCase::createFromValue(VkTimeDomainKHR::class, $item),
         );
     }
 
@@ -14407,8 +15432,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkTimeDomainKHR>
+     * @return list<VkTimeDomainKHR|int>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(VkPhysicalDevice $physicalDevice): array
     {
@@ -14423,6 +15449,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkCooperativeMatrixFlexibleDimensionsPropertiesNV>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(
         VkPhysicalDevice $physicalDevice,
@@ -14451,6 +15478,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkCooperativeMatrixProperties2EXT>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceCooperativeMatrixProperties2EXT(
         VkPhysicalDevice $physicalDevice,
@@ -14483,6 +15511,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkCooperativeMatrixPropertiesKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -14510,6 +15539,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkCooperativeMatrixPropertiesNV>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -14537,6 +15567,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkCooperativeVectorPropertiesNV>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceCooperativeVectorPropertiesNV(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -14561,6 +15592,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_descriptor_heap
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceDescriptorSizeEXT(
         VkPhysicalDevice $physicalDevice,
@@ -14581,6 +15614,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $queueFamilyIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
         VkPhysicalDevice $physicalDevice,
@@ -14605,6 +15640,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDisplayPlaneProperties2KHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceDisplayPlaneProperties2KHR(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -14632,6 +15668,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDisplayPlanePropertiesKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceDisplayPlanePropertiesKHR(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -14658,6 +15695,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDisplayProperties2KHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceDisplayProperties2KHR(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -14685,6 +15723,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkDisplayPropertiesKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceDisplayPropertiesKHR(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -14708,6 +15747,8 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceExternalBufferProperties(
         VkPhysicalDevice $physicalDevice,
@@ -14732,6 +15773,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_external_memory_capabilities
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceExternalBufferPropertiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -14745,6 +15788,8 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceExternalFenceProperties(
         VkPhysicalDevice $physicalDevice,
@@ -14769,6 +15814,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_external_fence_capabilities
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceExternalFencePropertiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -14784,12 +15831,13 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkImageUsageFlagBits::*) $usage
-     * @param int<0, 4294967295>|(VkImageCreateFlagBits::*) $flags
-     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> $externalHandleType
+     * @param int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) $usage
+     * @param int<0, 4294967295>|(VkImageCreateFlagBits::VK_*) $flags
+     * @param int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> $externalHandleType
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED}
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_external_memory_capabilities is deprecated by VK_KHR_external_memory_capabilities')]
     public function vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
@@ -14815,6 +15863,8 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceExternalSemaphoreProperties(
         VkPhysicalDevice $physicalDevice,
@@ -14839,6 +15889,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_external_semaphore_capabilities
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -14852,6 +15904,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_tensors
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceExternalTensorPropertiesARM(
         VkPhysicalDevice $physicalDevice,
@@ -14878,6 +15932,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkGetPhysicalDeviceFeatures2()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceFeatures(VkPhysicalDevice $physicalDevice): VkPhysicalDeviceFeatures
     {
@@ -14897,6 +15953,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkPhysicalDeviceFeatures2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceFeatures2(
         VkPhysicalDevice $physicalDevice,
@@ -14922,6 +15980,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkPhysicalDeviceFeatures2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceFeatures2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -14939,6 +15999,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkGetPhysicalDeviceFormatProperties2()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceFormatProperties(
         VkPhysicalDevice $physicalDevice,
@@ -14960,6 +16022,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkFormatProperties2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceFormatProperties2(
         VkPhysicalDevice $physicalDevice,
@@ -14986,6 +16050,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkFormatProperties2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceFormatProperties2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -15003,6 +16069,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkPhysicalDeviceFragmentShadingRateKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceFragmentShadingRatesKHR(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -15032,11 +16099,12 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkImageUsageFlagBits::*) $usage
-     * @param int<0, 4294967295>|(VkImageCreateFlagBits::*) $flags
+     * @param int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) $usage
+     * @param int<0, 4294967295>|(VkImageCreateFlagBits::VK_*) $flags
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceImageFormatProperties(
         VkPhysicalDevice $physicalDevice,
@@ -15070,6 +16138,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceImageFormatProperties2(
         VkPhysicalDevice $physicalDevice,
@@ -15106,6 +16175,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceImageFormatProperties2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -15124,6 +16194,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkGetPhysicalDeviceMemoryProperties2()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceMemoryProperties(
         VkPhysicalDevice $physicalDevice,
@@ -15144,6 +16216,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkPhysicalDeviceMemoryProperties2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceMemoryProperties2(
         VkPhysicalDevice $physicalDevice,
@@ -15169,6 +16243,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkPhysicalDeviceMemoryProperties2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceMemoryProperties2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -15183,7 +16259,9 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkSampleCountFlagBits::*) $samples
+     * @param int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) $samples
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceMultisamplePropertiesEXT(
         VkPhysicalDevice $physicalDevice,
@@ -15210,6 +16288,7 @@ final class Vulkan extends VulkanBase
      *         with {@see VkResult::VK_ERROR_EXTENSION_NOT_PRESENT},
      *         {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
         VkPhysicalDevice $physicalDevice,
@@ -15242,6 +16321,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkRect2D>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDevicePresentRectanglesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -15272,6 +16352,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality, use {@see self::vkGetPhysicalDeviceProperties2()} instead
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceProperties(VkPhysicalDevice $physicalDevice): VkPhysicalDeviceProperties
     {
@@ -15291,6 +16373,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkPhysicalDeviceProperties2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceProperties2(
         VkPhysicalDevice $physicalDevice,
@@ -15316,6 +16400,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkPhysicalDeviceProperties2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceProperties2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -15333,6 +16419,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $queueFamilyIndex
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceQueueFamilyDataGraphEngineOperationPropertiesARM(
         VkPhysicalDevice $physicalDevice,
@@ -15363,6 +16450,7 @@ final class Vulkan extends VulkanBase
      *         with {@see VkResult::VK_ERROR_EXTENSION_NOT_PRESENT},
      *         {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceQueueFamilyDataGraphOpticalFlowImageFormatsARM(
         VkPhysicalDevice $physicalDevice,
@@ -15397,6 +16485,8 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_data_graph
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM(
         VkPhysicalDevice $physicalDevice,
@@ -15424,6 +16514,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkQueueFamilyDataGraphPropertiesARM>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM(
         VkPhysicalDevice $physicalDevice,
@@ -15451,6 +16542,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_performance_query
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -15481,6 +16574,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkQueueFamilyProperties>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceQueueFamilyProperties(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -15508,6 +16602,7 @@ final class Vulkan extends VulkanBase
      * @param list<class-string<Chained&VkQueueFamilyProperties2Extension>> $chain the structures to fill
      *
      * @return VkEnumerator<VkQueueFamilyProperties2>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceQueueFamilyProperties2(
         VkPhysicalDevice $physicalDevice,
@@ -15556,6 +16651,7 @@ final class Vulkan extends VulkanBase
      * @param list<class-string<Chained&VkQueueFamilyProperties2Extension>> $chain the structures to fill
      *
      * @return VkEnumerator<VkQueueFamilyProperties2>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceQueueFamilyProperties2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -15571,6 +16667,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $queueFamilyIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceScreenPresentationSupportQNX(
         VkPhysicalDevice $physicalDevice,
@@ -15597,10 +16695,11 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkSampleCountFlagBits::*) $samples
-     * @param int<0, 4294967295>|(VkImageUsageFlagBits::*) $usage
+     * @param int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) $samples
+     * @param int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) $usage
      *
      * @return VkEnumerator<VkSparseImageFormatProperties>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSparseImageFormatProperties(
         VkPhysicalDevice $physicalDevice,
@@ -15637,6 +16736,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkSparseImageFormatProperties2>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSparseImageFormatProperties2(
         VkPhysicalDevice $physicalDevice,
@@ -15670,6 +16770,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkSparseImageFormatProperties2>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSparseImageFormatProperties2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -15686,6 +16787,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkFramebufferMixedSamplesCombinationNV>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(
         VkPhysicalDevice $physicalDevice,
@@ -15714,6 +16816,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSurfaceCapabilities2EXT(
         VkPhysicalDevice $physicalDevice,
@@ -15739,6 +16842,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSurfaceCapabilities2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -15770,6 +16874,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -15795,6 +16900,7 @@ final class Vulkan extends VulkanBase
      * @return VkEnumerator<VkSurfaceFormat2KHR>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSurfaceFormats2KHR(
         VkPhysicalDevice $physicalDevice,
@@ -15849,6 +16955,7 @@ final class Vulkan extends VulkanBase
      * @return VkEnumerator<VkSurfaceFormatKHR>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSurfaceFormatsKHR(
         VkPhysicalDevice $physicalDevice,
@@ -15876,9 +16983,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkPresentModeKHR>
+     * @return list<VkPresentModeKHR|int>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSurfacePresentModes2EXT(
         VkPhysicalDevice $physicalDevice,
@@ -15898,7 +17006,7 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
             'VkPresentModeKHR',
-            fn(int $item): VkPresentModeKHR => VkPresentModeKHR::from($item),
+            fn(int $item): VkPresentModeKHR|int => EnumCase::createFromValue(VkPresentModeKHR::class, $item),
         );
     }
 
@@ -15908,9 +17016,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @return list<VkPresentModeKHR>
+     * @return list<VkPresentModeKHR|int>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSurfacePresentModesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -15928,7 +17037,7 @@ final class Vulkan extends VulkanBase
                 $items,
             ),
             'VkPresentModeKHR',
-            fn(int $item): VkPresentModeKHR => VkPresentModeKHR::from($item),
+            fn(int $item): VkPresentModeKHR|int => EnumCase::createFromValue(VkPresentModeKHR::class, $item),
         );
     }
 
@@ -15942,6 +17051,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceSurfaceSupportKHR(
         VkPhysicalDevice $physicalDevice,
@@ -15968,6 +17078,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkPhysicalDeviceToolProperties>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceToolProperties(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -15997,6 +17108,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkPhysicalDeviceToolProperties>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceToolPropertiesEXT(VkPhysicalDevice $physicalDevice): VkEnumerator
     {
@@ -16010,6 +17122,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $queueFamilyIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceUbmPresentationSupportSEC(
         VkPhysicalDevice $physicalDevice,
@@ -16040,6 +17154,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceVideoCapabilitiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -16073,6 +17188,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -16107,6 +17223,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR},
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceVideoFormatPropertiesKHR(
         VkPhysicalDevice $physicalDevice,
@@ -16155,6 +17272,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $queueFamilyIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceWaylandPresentationSupportKHR(
         VkPhysicalDevice $physicalDevice,
@@ -16178,6 +17297,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $queueFamilyIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceWin32PresentationSupportKHR(
         VkPhysicalDevice $physicalDevice,
@@ -16198,6 +17319,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $queueFamilyIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceXcbPresentationSupportKHR(
         VkPhysicalDevice $physicalDevice,
@@ -16224,6 +17347,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $queueFamilyIndex
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPhysicalDeviceXlibPresentationSupportKHR(
         VkPhysicalDevice $physicalDevice,
@@ -16252,6 +17377,7 @@ final class Vulkan extends VulkanBase
      * @return array{pipelineBinaryKey: VkPipelineBinaryKeyKHR, pipelineBinaryData: string}
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_NOT_ENOUGH_SPACE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPipelineBinaryDataKHR(VkDevice $device, VkPipelineBinaryDataInfoKHR $info): array
     {
@@ -16287,6 +17413,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPipelineCacheData(VkDevice $device, VkPipelineCache $pipelineCache): string
     {
@@ -16312,6 +17439,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkPipelineExecutablePropertiesKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPipelineExecutablePropertiesKHR(
         VkDevice $device,
@@ -16344,6 +17472,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkPipelineExecutableStatisticKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPipelineExecutableStatisticsKHR(
         VkDevice $device,
@@ -16373,6 +17502,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_device_generated_commands_compute
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPipelineIndirectDeviceAddressNV(
         VkDevice $device,
@@ -16395,6 +17526,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPipelineIndirectMemoryRequirementsNV(
         VkDevice $device,
@@ -16421,6 +17554,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPipelineKeyKHR(
         VkDevice $device,
@@ -16445,6 +17579,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPipelinePropertiesEXT(VkDevice $device, VkPipelineInfoKHR $pipelineInfo): VkBaseOutStructure
     {
@@ -16466,6 +17601,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $objectHandle
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPrivateData(
         VkDevice $device,
@@ -16494,6 +17631,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $objectHandle
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetPrivateDataEXT(
         VkDevice $device,
@@ -16514,11 +17653,12 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $queryCount
      * @param int<0, max> $dataSize
      * @param int<0, max> $stride
-     * @param int-mask-of<VkQueryResultFlagBits::*> $flags
+     * @param int-mask-of<VkQueryResultFlagBits::VK_*> $flags
      *
      * @return CommandResult<string>
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetQueryPoolResults(
         VkDevice $device,
@@ -16549,6 +17689,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkCheckpointData2NV>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetQueueCheckpointData2NV(VkQueue $queue): VkEnumerator
     {
@@ -16575,6 +17716,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @return VkEnumerator<VkCheckpointDataNV>
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetQueueCheckpointDataNV(VkQueue $queue): VkEnumerator
     {
@@ -16601,6 +17743,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetRandROutputDisplayEXT(
         VkPhysicalDevice $physicalDevice,
@@ -16636,6 +17779,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $dataSize
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
         VkDevice $device,
@@ -16664,6 +17808,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $dataSize
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetRayTracingShaderGroupHandlesKHR(
         VkDevice $device,
@@ -16695,6 +17840,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $dataSize
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkGetRayTracingShaderGroupHandlesNV(
@@ -16714,6 +17860,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $group
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetRayTracingShaderGroupStackSizeKHR(
         VkDevice $device,
@@ -16738,6 +17886,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetRefreshCycleDurationGOOGLE(
         VkDevice $device,
@@ -16761,6 +17910,8 @@ final class Vulkan extends VulkanBase
      * @deprecated legacy functionality
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetRenderAreaGranularity(VkDevice $device, VkRenderPass $renderPass): VkExtent2D
     {
@@ -16778,6 +17929,8 @@ final class Vulkan extends VulkanBase
      * @since 1.4
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetRenderingAreaGranularity(
         VkDevice $device,
@@ -16801,6 +17954,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance5
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetRenderingAreaGranularityKHR(
         VkDevice $device,
@@ -16820,6 +17975,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSamplerOpaqueCaptureDescriptorDataEXT(
         VkDevice $device,
@@ -16844,6 +18000,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetScreenBufferPropertiesQNX(
         VkDevice $device,
@@ -16871,6 +18028,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSemaphoreCounterValue(VkDevice $device, VkSemaphore $semaphore): int
     {
@@ -16896,6 +18054,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSemaphoreCounterValueKHR(VkDevice $device, VkSemaphore $semaphore): int
     {
@@ -16910,6 +18069,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSemaphoreFdKHR(VkDevice $device, VkSemaphoreGetFdInfoKHR $getFdInfo): int
     {
@@ -16935,6 +18095,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSemaphoreWin32HandleKHR(
         VkDevice $device,
@@ -16957,6 +18118,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSemaphoreZirconHandleFUCHSIA(
         VkDevice $device,
@@ -16978,6 +18140,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetShaderBinaryDataEXT(VkDevice $device, VkShaderEXT $shader): string
     {
@@ -17001,10 +18164,11 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $shaderStage
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) $shaderStage
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FEATURE_NOT_PRESENT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetShaderInfoAMD(
         VkDevice $device,
@@ -17038,6 +18202,7 @@ final class Vulkan extends VulkanBase
      *
      * @return CommandResult<int>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetShaderInstrumentationValuesARM(
         VkDevice $device,
@@ -17071,6 +18236,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_shader_module_identifier
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetShaderModuleCreateInfoIdentifierEXT(
         VkDevice $device,
@@ -17093,6 +18260,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_shader_module_identifier
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetShaderModuleIdentifierEXT(
         VkDevice $device,
@@ -17114,6 +18283,8 @@ final class Vulkan extends VulkanBase
      * @deprecated the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2')]
     public function vkGetSleepStatusLegacyNV(VkDevice $device): bool
@@ -17136,11 +18307,12 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkSurfaceCounterFlagBitsEXT::*) $counter
+     * @param int<0, 4294967295>|(VkSurfaceCounterFlagBitsEXT::VK_*) $counter
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
      *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSwapchainCounterEXT(VkDevice $device, VkSwapchainKHR $swapchain, int $counter): int
     {
@@ -17164,6 +18336,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkImage>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSwapchainImagesKHR(VkDevice $device, VkSwapchainKHR $swapchain): VkEnumerator
     {
@@ -17195,6 +18368,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR},
      *         {@see VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSwapchainStatusKHR(VkDevice $device, VkSwapchainKHR $swapchain): VkResult
     {
@@ -17218,6 +18392,7 @@ final class Vulkan extends VulkanBase
      * @return array{swapchainTimingProperties: VkSwapchainTimingPropertiesEXT, swapchainTimingPropertiesCounter: int}
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetSwapchainTimingPropertiesEXT(VkDevice $device, VkSwapchainKHR $swapchain): array
     {
@@ -17246,6 +18421,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetTensorMemoryRequirementsARM(
         VkDevice $device,
@@ -17275,6 +18452,7 @@ final class Vulkan extends VulkanBase
      *
      * @return list<VkHostAddressRangeEXT>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetTensorOpaqueCaptureDataARM(VkDevice $device, array $tensors): array
     {
@@ -17307,6 +18485,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetTensorOpaqueCaptureDescriptorDataARM(
         VkDevice $device,
@@ -17328,6 +18507,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetTensorViewOpaqueCaptureDescriptorDataARM(
         VkDevice $device,
@@ -17349,6 +18529,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetValidationCacheDataEXT(VkDevice $device, VkValidationCacheEXT $validationCache): string
     {
@@ -17374,6 +18555,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkEnumerator<VkVideoSessionMemoryRequirementsKHR>
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetVideoSessionMemoryRequirementsKHR(
         VkDevice $device,
@@ -17407,6 +18589,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
      *         {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkGetWinrtDisplayNV(VkPhysicalDevice $physicalDevice, int $deviceRelativeId): VkDisplayKHR
     {
@@ -17432,6 +18615,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkImportFenceFdKHR(VkDevice $device, VkImportFenceFdInfoKHR $importFenceFdInfo): void
     {
@@ -17450,6 +18634,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkImportFenceWin32HandleKHR(
         VkDevice $device,
@@ -17470,6 +18655,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkImportSemaphoreFdKHR(VkDevice $device, VkImportSemaphoreFdInfoKHR $importSemaphoreFdInfo): void
     {
@@ -17488,6 +18674,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkImportSemaphoreWin32HandleKHR(
         VkDevice $device,
@@ -17508,6 +18695,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkImportSemaphoreZirconHandleFUCHSIA(
         VkDevice $device,
@@ -17528,6 +18716,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkInitializePerformanceApiINTEL(
         VkDevice $device,
@@ -17549,6 +18738,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkMappedMemoryRange> $memoryRanges
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkInvalidateMappedMemoryRanges(VkDevice $device, array $memoryRanges): void
     {
@@ -17570,6 +18760,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, max> $value
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2')]
     public function vkLatencySleepLegacyNV(VkDevice $device, VkSemaphore $signalSemaphore, int $value): void
@@ -17586,6 +18778,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkLatencySleepNV(
         VkDevice $device,
@@ -17607,10 +18800,11 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $offset
      * @param int<0, max> $size
-     * @param int-mask-of<VkMemoryMapFlagBits::*> $flags
+     * @param int-mask-of<VkMemoryMapFlagBits::VK_*> $flags
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkMapMemory(
         VkDevice $device,
@@ -17636,6 +18830,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkMapMemory2(VkDevice $device, VkMemoryMapInfo $memoryMapInfo): CData
     {
@@ -17660,6 +18855,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkMapMemory2KHR(VkDevice $device, VkMemoryMapInfo $memoryMapInfo): CData
     {
@@ -17675,6 +18871,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkPipelineCache> $srcCaches
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkMergePipelineCaches(VkDevice $device, VkPipelineCache $dstCache, array $srcCaches): void
     {
@@ -17697,6 +18894,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkValidationCacheEXT> $srcCaches
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkMergeValidationCachesEXT(
         VkDevice $device,
@@ -17718,6 +18916,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_utils
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueBeginDebugUtilsLabelEXT(VkQueue $queue, VkDebugUtilsLabelEXT $labelInfo): void
     {
@@ -17740,6 +18940,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueBindSparse(VkQueue $queue, array $bindInfo, ?VkFence $fence = null): void
     {
@@ -17758,6 +18959,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_utils
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueEndDebugUtilsLabelEXT(VkQueue $queue): void
     {
@@ -17771,6 +18974,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_debug_utils
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueInsertDebugUtilsLabelEXT(VkQueue $queue, VkDebugUtilsLabelEXT $labelInfo): void
     {
@@ -17789,6 +18994,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $queueType
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2')]
     public function vkQueueNotifyOutOfBandLegacyNV(VkQueue $queue, int $queueType): void
@@ -17803,6 +19010,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_low_latency2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueNotifyOutOfBandNV(VkQueue $queue, VkOutOfBandQueueTypeInfoNV $queueTypeInfo): void
     {
@@ -17826,6 +19035,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR},
      *         {@see VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT},
      *         {@see VkResult::VK_ERROR_PRESENT_TIMING_QUEUE_FULL_EXT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueuePresentKHR(VkQueue $queue, VkPresentInfoKHR $presentInfo): VkResult
     {
@@ -17850,6 +19060,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueSetPerfHintQCOM(VkQueue $queue, VkPerfHintInfoQCOM $perfHintInfo): void
     {
@@ -17868,6 +19079,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueSetPerformanceConfigurationINTEL(
         VkQueue $queue,
@@ -17892,6 +19104,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueSubmit(VkQueue $queue, array $submits, ?VkFence $fence = null): void
     {
@@ -17915,6 +19128,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueSubmit2(VkQueue $queue, array $submits, ?VkFence $fence = null): void
     {
@@ -17940,6 +19154,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueSubmit2KHR(VkQueue $queue, array $submits, ?VkFence $fence = null): void
     {
@@ -17954,6 +19169,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkQueueWaitIdle(VkQueue $queue): void
     {
@@ -17971,6 +19187,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS},
      *         {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkRegisterCustomBorderColorEXT(
         VkDevice $device,
@@ -17998,6 +19215,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkRegisterDeviceEventEXT(VkDevice $device, VkDeviceEventInfoEXT $deviceEventInfo): VkFence
     {
@@ -18024,6 +19242,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkRegisterDisplayEventEXT(
         VkDevice $device,
@@ -18053,6 +19272,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkReleaseCapturedPipelineDataKHR(
         VkDevice $device,
@@ -18072,6 +19292,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkReleaseDisplayEXT(VkPhysicalDevice $physicalDevice, VkDisplayKHR $display): void
     {
@@ -18088,6 +19309,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkReleaseFullScreenExclusiveModeEXT(VkDevice $device, VkSwapchainKHR $swapchain): void
     {
@@ -18104,6 +19326,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkReleasePerformanceConfigurationINTEL(
         VkDevice $device,
@@ -18119,6 +19342,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_performance_query
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkReleaseProfilingLockKHR(VkDevice $device): void
     {
@@ -18135,6 +19360,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkReleaseSwapchainImagesKHR(VkDevice $device, VkReleaseSwapchainImagesInfoKHR $releaseInfo): void
     {
@@ -18155,6 +19381,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkReleaseSwapchainImagesEXT(VkDevice $device, VkReleaseSwapchainImagesInfoKHR $releaseInfo): void
     {
@@ -18167,9 +19394,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkCommandBufferResetFlagBits::*> $flags
+     * @param int-mask-of<VkCommandBufferResetFlagBits::VK_*> $flags
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkResetCommandBuffer(VkCommandBuffer $commandBuffer, int $flags = 0): void
     {
@@ -18184,9 +19412,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int-mask-of<VkCommandPoolResetFlagBits::*> $flags
+     * @param int-mask-of<VkCommandPoolResetFlagBits::VK_*> $flags
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkResetCommandPool(VkDevice $device, VkCommandPool $commandPool, int $flags = 0): void
     {
@@ -18208,6 +19437,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, 4294967295> $flags
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkResetDescriptorPool(VkDevice $device, VkDescriptorPool $descriptorPool, int $flags = 0): void
     {
@@ -18223,6 +19453,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkResetEvent(VkDevice $device, VkEvent $event): void
     {
@@ -18240,6 +19471,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkFence> $fences
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkResetFences(VkDevice $device, array $fences): void
     {
@@ -18260,6 +19492,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkResetGpaSessionAMD(VkDevice $device, VkGpaSessionAMD $gpaSession): void
     {
@@ -18276,6 +19509,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstQuery
      * @param int<0, 4294967295> $queryCount
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkResetQueryPool(VkDevice $device, VkQueryPool $queryPool, int $firstQuery, int $queryCount): void
     {
@@ -18294,6 +19529,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, 4294967295> $firstQuery
      * @param int<0, 4294967295> $queryCount
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkResetQueryPoolEXT(
         VkDevice $device,
@@ -18313,6 +19550,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetBufferCollectionBufferConstraintsFUCHSIA(
         VkDevice $device,
@@ -18335,6 +19573,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetBufferCollectionImageConstraintsFUCHSIA(
         VkDevice $device,
@@ -18355,6 +19594,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetDebugUtilsObjectNameEXT(VkDevice $device, VkDebugUtilsObjectNameInfoEXT $nameInfo): void
     {
@@ -18372,6 +19612,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetDebugUtilsObjectTagEXT(VkDevice $device, VkDebugUtilsObjectTagInfoEXT $tagInfo): void
     {
@@ -18387,6 +19628,8 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_pageable_device_local_memory
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetDeviceMemoryPriorityEXT(VkDevice $device, VkDeviceMemory $memory, float $priority): void
     {
@@ -18402,6 +19645,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetEvent(VkDevice $device, VkEvent $event): void
     {
@@ -18417,6 +19661,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetGpaDeviceClockModeAMD(VkDevice $device): VkGpaDeviceClockModeInfoAMD
     {
@@ -18438,6 +19683,8 @@ final class Vulkan extends VulkanBase
      *
      * @param non-empty-list<VkSwapchainKHR> $swapchains
      * @param non-empty-list<VkHdrMetadataEXT> $metadata
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetHdrMetadataEXT(VkDevice $device, array $swapchains, array $metadata): void
     {
@@ -18465,6 +19712,8 @@ final class Vulkan extends VulkanBase
      *
      * @param int<0, max> $frameID
      * @param int<0, 4294967295> $marker
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2')]
     public function vkSetLatencyMarkerLegacyNV(VkDevice $device, int $frameID, int $marker): void
@@ -18479,6 +19728,8 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_low_latency2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetLatencyMarkerNV(
         VkDevice $device,
@@ -18500,6 +19751,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $minimumIntervalUs
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2')]
     public function vkSetLatencySleepModeLegacyNV(
@@ -18521,6 +19774,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetLatencySleepModeNV(
         VkDevice $device,
@@ -18539,6 +19793,8 @@ final class Vulkan extends VulkanBase
      * @since VK_AMD_display_native_hdr
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetLocalDimmingAMD(VkDevice $device, VkSwapchainKHR $swapChain, bool $localDimmingEnable): void
     {
@@ -18557,6 +19813,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $data
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetPrivateData(
         VkDevice $device,
@@ -18582,6 +19839,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $data
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetPrivateDataEXT(
         VkDevice $device,
@@ -18603,6 +19861,7 @@ final class Vulkan extends VulkanBase
      *
      * @return VkResult::VK_SUCCESS|VkResult::VK_NOT_READY
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSetSwapchainPresentTimingQueueSizeEXT(
         VkDevice $device,
@@ -18626,6 +19885,8 @@ final class Vulkan extends VulkanBase
      * @deprecated the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     #[\Deprecated(message: 'the extension VK_NV_low_latency is deprecated by VK_NV_low_latency2')]
     public function vkShutdownLatencyDeviceLegacyNV(VkDevice $device): void
@@ -18642,6 +19903,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSignalSemaphore(VkDevice $device, VkSemaphoreSignalInfo $signalInfo): void
     {
@@ -18661,6 +19923,7 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSignalSemaphoreKHR(VkDevice $device, VkSemaphoreSignalInfo $signalInfo): void
     {
@@ -18673,8 +19936,10 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param int<0, 4294967295>|(VkDebugUtilsMessageSeverityFlagBitsEXT::*) $messageSeverity
-     * @param int-mask-of<VkDebugUtilsMessageTypeFlagBitsEXT::*> $messageTypes
+     * @param int<0, 4294967295>|(VkDebugUtilsMessageSeverityFlagBitsEXT::VK_*) $messageSeverity
+     * @param int-mask-of<VkDebugUtilsMessageTypeFlagBitsEXT::VK_*> $messageTypes
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkSubmitDebugUtilsMessageEXT(
         VkInstance $instance,
@@ -18700,6 +19965,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkTransitionImageLayout(VkDevice $device, array $transitions): void
     {
@@ -18726,6 +19992,7 @@ final class Vulkan extends VulkanBase
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED},
      *         {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkTransitionImageLayoutEXT(VkDevice $device, array $transitions): void
     {
@@ -18739,6 +20006,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $flags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkTrimCommandPool(VkDevice $device, VkCommandPool $commandPool, int $flags = 0): void
     {
@@ -18756,6 +20025,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $flags
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkTrimCommandPoolKHR(VkDevice $device, VkCommandPool $commandPool, int $flags = 0): void
     {
@@ -18767,6 +20038,8 @@ final class Vulkan extends VulkanBase
      * @since VK_INTEL_performance_query
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUninitializePerformanceApiINTEL(VkDevice $device): void
     {
@@ -18780,6 +20053,8 @@ final class Vulkan extends VulkanBase
      * @since 1.0
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUnmapMemory(VkDevice $device, VkDeviceMemory $memory): void
     {
@@ -18796,6 +20071,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUnmapMemory2(VkDevice $device, VkMemoryUnmapInfo $memoryUnmapInfo): void
     {
@@ -18816,6 +20092,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_MEMORY_MAP_FAILED}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUnmapMemory2KHR(VkDevice $device, VkMemoryUnmapInfo $memoryUnmapInfo): void
     {
@@ -18829,6 +20106,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param int<0, 4294967295> $index
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUnregisterCustomBorderColorEXT(VkDevice $device, int $index): void
     {
@@ -18842,6 +20121,8 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUpdateDescriptorSetWithTemplate(
         VkDevice $device,
@@ -18863,6 +20144,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_descriptor_update_template
      *
      * @api
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUpdateDescriptorSetWithTemplateKHR(
         VkDevice $device,
@@ -18885,6 +20168,8 @@ final class Vulkan extends VulkanBase
      *
      * @param list<VkWriteDescriptorSet> $descriptorWrites
      * @param list<VkCopyDescriptorSet> $descriptorCopies
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUpdateDescriptorSets(VkDevice $device, array $descriptorWrites, array $descriptorCopies): void
     {
@@ -18901,6 +20186,10 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkUpdateDescriptorSets', $device);
 
         $procedure($device->pointer, \count($descriptorWrites), $nativeDescriptorWrites, \count($descriptorCopies), $nativeDescriptorCopies);
+
+        foreach ($descriptorWrites as $write) {
+            $write->dstSet->retain($write);
+        }
     }
 
     /**
@@ -18910,6 +20199,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkWriteIndirectExecutionSetPipelineEXT> $executionSetWrites
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUpdateIndirectExecutionSetPipelineEXT(
         VkDevice $device,
@@ -18933,6 +20224,8 @@ final class Vulkan extends VulkanBase
      * @api
      *
      * @param non-empty-list<VkWriteIndirectExecutionSetShaderEXT> $executionSetWrites
+     *
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUpdateIndirectExecutionSetShaderEXT(
         VkDevice $device,
@@ -18957,6 +20250,7 @@ final class Vulkan extends VulkanBase
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkUpdateVideoSessionParametersKHR(
         VkDevice $device,
@@ -18982,6 +20276,7 @@ final class Vulkan extends VulkanBase
      * @return VkResult::VK_SUCCESS|VkResult::VK_TIMEOUT
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWaitForFences(VkDevice $device, array $fences, bool $waitAll, int $timeout): VkResult
     {
@@ -19013,6 +20308,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR},
      *         {@see VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWaitForPresent2KHR(
         VkDevice $device,
@@ -19047,6 +20343,7 @@ final class Vulkan extends VulkanBase
      *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
      *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR},
      *         {@see VkResult::VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWaitForPresentKHR(
         VkDevice $device,
@@ -19076,6 +20373,7 @@ final class Vulkan extends VulkanBase
      * @return VkResult::VK_SUCCESS|VkResult::VK_TIMEOUT
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWaitSemaphores(VkDevice $device, VkSemaphoreWaitInfo $waitInfo, int $timeout): VkResult
     {
@@ -19105,6 +20403,7 @@ final class Vulkan extends VulkanBase
      * @return VkResult::VK_SUCCESS|VkResult::VK_TIMEOUT
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_DEVICE_LOST}
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWaitSemaphoresKHR(VkDevice $device, VkSemaphoreWaitInfo $waitInfo, int $timeout): VkResult
     {
@@ -19126,6 +20425,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $stride
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWriteAccelerationStructuresPropertiesKHR(
         VkDevice $device,
@@ -19163,6 +20463,7 @@ final class Vulkan extends VulkanBase
      * @param int<0, max> $stride
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWriteMicromapsPropertiesEXT(
         VkDevice $device,
@@ -19195,6 +20496,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkHostAddressRangeEXT> $descriptors
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWriteResourceDescriptorsEXT(VkDevice $device, array $resources, array $descriptors): void
     {
@@ -19223,6 +20525,7 @@ final class Vulkan extends VulkanBase
      * @param non-empty-list<VkHostAddressRangeEXT> $descriptors
      *
      * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
      */
     public function vkWriteSamplerDescriptorsEXT(VkDevice $device, array $samplers, array $descriptors): void
     {

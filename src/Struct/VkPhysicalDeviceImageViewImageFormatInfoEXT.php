@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageViewType;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
 
@@ -26,14 +27,14 @@ final class VkPhysicalDeviceImageViewImageFormatInfoEXT extends InputStructure i
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,
-        public VkImageViewType $imageViewType = VkImageViewType::VK_IMAGE_VIEW_TYPE_1D,
+        public VkImageViewType|int $imageViewType = VkImageViewType::VK_IMAGE_VIEW_TYPE_1D,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT>,
      *     pNext: CData,
-     *     imageViewType: value-of<VkImageViewType>,
+     *     imageViewType: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkPhysicalDeviceImageViewImageFormatInfoEXT extends InputStructure i
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->imageViewType = $this->imageViewType->value;
+        $data->imageViewType = EnumCase::getValue($this->imageViewType);
     }
 }

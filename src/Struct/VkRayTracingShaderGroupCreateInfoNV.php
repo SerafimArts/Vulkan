@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRayTracingShaderGroupTypeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,7 +27,7 @@ final class VkRayTracingShaderGroupCreateInfoNV extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV->value;
 
     public function __construct(
-        public VkRayTracingShaderGroupTypeKHR $type = VkRayTracingShaderGroupTypeKHR::VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR,
+        public VkRayTracingShaderGroupTypeKHR|int $type = VkRayTracingShaderGroupTypeKHR::VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR,
         /** @var int<0, 4294967295> */
         public int $generalShader = 0,
         /** @var int<0, 4294967295> */
@@ -41,7 +42,7 @@ final class VkRayTracingShaderGroupCreateInfoNV extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV>,
      *     pNext: CData,
-     *     type: value-of<VkRayTracingShaderGroupTypeKHR>,
+     *     type: int,
      *     generalShader: int<0, 4294967295>,
      *     closestHitShader: int<0, 4294967295>,
      *     anyHitShader: int<0, 4294967295>,
@@ -54,7 +55,7 @@ final class VkRayTracingShaderGroupCreateInfoNV extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         $data->generalShader = $this->generalShader;
 

@@ -19,7 +19,7 @@ final readonly class VkDataGraphTOSANameQualityARM extends OutputStructure
 {
     public function __construct(
         public string $name,
-        /** @var int-mask-of<VkDataGraphTOSAQualityFlagBitsARM::*> */
+        /** @var int-mask-of<VkDataGraphTOSAQualityFlagBitsARM::VK_*> */
         public int $qualityFlags,
     ) {}
 

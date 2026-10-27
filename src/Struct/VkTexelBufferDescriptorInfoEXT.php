@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,14 +26,14 @@ final class VkTexelBufferDescriptorInfoEXT extends InputStructure
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
-        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TEXEL_BUFFER_DESCRIPTOR_INFO_EXT>,
      *     pNext: CData,
-     *     format: value-of<VkFormat>,
+     *     format: int,
      *     addressRange: CData,
      * } $data
      *
@@ -42,7 +43,7 @@ final class VkTexelBufferDescriptorInfoEXT extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->format = $this->format->value;
+        $data->format = EnumCase::getValue($this->format);
 
         $this->addressRange->write($memory, $data->addressRange);
     }

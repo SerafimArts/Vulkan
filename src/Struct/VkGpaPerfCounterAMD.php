@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkGpaPerfBlockAMD;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,7 +22,7 @@ final class VkGpaPerfCounterAMD extends InputStructure
     protected const string NATIVE_TYPE = 'VkGpaPerfCounterAMD';
 
     public function __construct(
-        public VkGpaPerfBlockAMD $blockType = VkGpaPerfBlockAMD::VK_GPA_PERF_BLOCK_CPF_AMD,
+        public VkGpaPerfBlockAMD|int $blockType = VkGpaPerfBlockAMD::VK_GPA_PERF_BLOCK_CPF_AMD,
         /** @var int<0, 4294967295> */
         public int $blockInstance = 0,
         /** @var int<0, 4294967295> */
@@ -30,7 +31,7 @@ final class VkGpaPerfCounterAMD extends InputStructure
 
     /**
      * @param CData&object{
-     *     blockType: value-of<VkGpaPerfBlockAMD>,
+     *     blockType: int,
      *     blockInstance: int<0, 4294967295>,
      *     eventID: int<0, 4294967295>,
      * } $data
@@ -39,7 +40,7 @@ final class VkGpaPerfCounterAMD extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->blockType = $this->blockType->value;
+        $data->blockType = EnumCase::getValue($this->blockType);
 
         $data->blockInstance = $this->blockInstance;
 

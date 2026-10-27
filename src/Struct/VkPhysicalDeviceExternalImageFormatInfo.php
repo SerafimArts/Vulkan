@@ -26,7 +26,7 @@ final class VkPhysicalDeviceExternalImageFormatInfo extends InputStructure imple
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
         public int $handleType = 0,
     ) {}
 

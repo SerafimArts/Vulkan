@@ -29,13 +29,13 @@ final class VkTensorMemoryBarrierARM extends InputStructure implements VkDepende
     public function __construct(
         public VkTensorARM $tensor,
         public ?VkDependencyInfoExtension $next = null,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int<0, max>|(VkPipelineStageFlagBits2::VK_*) */
         public int $srcStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::*) */
+        /** @var int<0, max>|(VkAccessFlagBits2::VK_*) */
         public int $srcAccessMask = 0,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int<0, max>|(VkPipelineStageFlagBits2::VK_*) */
         public int $dstStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::*) */
+        /** @var int<0, max>|(VkAccessFlagBits2::VK_*) */
         public int $dstAccessMask = 0,
         /** @var int<0, 4294967295> */
         public int $srcQueueFamilyIndex = 0,

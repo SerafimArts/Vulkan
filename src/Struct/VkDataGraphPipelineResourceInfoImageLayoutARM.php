@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineResourceInfoARMExtension;
 
@@ -26,14 +27,14 @@ final class VkDataGraphPipelineResourceInfoImageLayoutARM extends InputStructure
 
     public function __construct(
         public ?VkDataGraphPipelineResourceInfoARMExtension $next = null,
-        public VkImageLayout $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM>,
      *     pNext: CData,
-     *     layout: value-of<VkImageLayout>,
+     *     layout: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkDataGraphPipelineResourceInfoImageLayoutARM extends InputStructure
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->layout = $this->layout->value;
+        $data->layout = EnumCase::getValue($this->layout);
     }
 }

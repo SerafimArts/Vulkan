@@ -677,25 +677,25 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
         /**
          * Supported color sample counts for a framebuffer
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $framebufferColorSampleCounts,
         /**
          * Supported depth sample counts for a framebuffer
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $framebufferDepthSampleCounts,
         /**
          * Supported stencil sample counts for a framebuffer
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $framebufferStencilSampleCounts,
         /**
          * Supported sample counts for a subpass which uses no attachments
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $framebufferNoAttachmentsSampleCounts,
         /**
@@ -709,31 +709,31 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
         /**
          * Supported color sample counts for a non-integer sampled image
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $sampledImageColorSampleCounts,
         /**
          * Supported sample counts for an integer image
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $sampledImageIntegerSampleCounts,
         /**
          * Supported depth sample counts for a sampled image
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $sampledImageDepthSampleCounts,
         /**
          * Supported stencil sample counts for a sampled image
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $sampledImageStencilSampleCounts,
         /**
          * Supported sample counts for a storage image
          *
-         * @var int-mask-of<VkSampleCountFlagBits::*>
+         * @var int-mask-of<VkSampleCountFlagBits::VK_*>
          */
         public int $storageImageSampleCounts,
         /**

@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkDataGraphOpticalFlowGridSizeFlagBitsARM;
 use Serafim\Vulkan\Enum\VkDataGraphOpticalFlowPerformanceLevelARM;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineCreateInfoARMExtension;
 
@@ -33,15 +34,15 @@ final class VkDataGraphPipelineOpticalFlowCreateInfoARM extends InputStructure i
         public int $width = 0,
         /** @var int<0, 4294967295> */
         public int $height = 0,
-        public VkFormat $imageFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkFormat $flowVectorFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkFormat $costFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int-mask-of<VkDataGraphOpticalFlowGridSizeFlagBitsARM::*> */
+        public VkFormat|int $imageFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $flowVectorFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $costFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        /** @var int-mask-of<VkDataGraphOpticalFlowGridSizeFlagBitsARM::VK_*> */
         public int $outputGridSize = 0,
-        /** @var int-mask-of<VkDataGraphOpticalFlowGridSizeFlagBitsARM::*> */
+        /** @var int-mask-of<VkDataGraphOpticalFlowGridSizeFlagBitsARM::VK_*> */
         public int $hintGridSize = 0,
-        public VkDataGraphOpticalFlowPerformanceLevelARM $performanceLevel = VkDataGraphOpticalFlowPerformanceLevelARM::VK_DATA_GRAPH_OPTICAL_FLOW_PERFORMANCE_LEVEL_UNKNOWN_ARM,
-        /** @var int-mask-of<VkDataGraphOpticalFlowCreateFlagBitsARM::*> */
+        public VkDataGraphOpticalFlowPerformanceLevelARM|int $performanceLevel = VkDataGraphOpticalFlowPerformanceLevelARM::VK_DATA_GRAPH_OPTICAL_FLOW_PERFORMANCE_LEVEL_UNKNOWN_ARM,
+        /** @var int-mask-of<VkDataGraphOpticalFlowCreateFlagBitsARM::VK_*> */
         public int $flags = 0,
     ) {}
 
@@ -51,12 +52,12 @@ final class VkDataGraphPipelineOpticalFlowCreateInfoARM extends InputStructure i
      *     pNext: CData,
      *     width: int<0, 4294967295>,
      *     height: int<0, 4294967295>,
-     *     imageFormat: value-of<VkFormat>,
-     *     flowVectorFormat: value-of<VkFormat>,
-     *     costFormat: value-of<VkFormat>,
+     *     imageFormat: int,
+     *     flowVectorFormat: int,
+     *     costFormat: int,
      *     outputGridSize: int<0, 4294967295>,
      *     hintGridSize: int<0, 4294967295>,
-     *     performanceLevel: value-of<VkDataGraphOpticalFlowPerformanceLevelARM>,
+     *     performanceLevel: int,
      *     flags: int<0, 4294967295>,
      * } $data
      *
@@ -76,17 +77,17 @@ final class VkDataGraphPipelineOpticalFlowCreateInfoARM extends InputStructure i
 
         $data->height = $this->height;
 
-        $data->imageFormat = $this->imageFormat->value;
+        $data->imageFormat = EnumCase::getValue($this->imageFormat);
 
-        $data->flowVectorFormat = $this->flowVectorFormat->value;
+        $data->flowVectorFormat = EnumCase::getValue($this->flowVectorFormat);
 
-        $data->costFormat = $this->costFormat->value;
+        $data->costFormat = EnumCase::getValue($this->costFormat);
 
         $data->outputGridSize = $this->outputGridSize;
 
         $data->hintGridSize = $this->hintGridSize;
 
-        $data->performanceLevel = $this->performanceLevel->value;
+        $data->performanceLevel = EnumCase::getValue($this->performanceLevel);
 
         $data->flags = $this->flags;
     }

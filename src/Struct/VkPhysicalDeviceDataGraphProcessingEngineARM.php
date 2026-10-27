@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPhysicalDeviceDataGraphProcessingEngineTypeARM;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,13 +22,13 @@ final class VkPhysicalDeviceDataGraphProcessingEngineARM extends InputStructure
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphProcessingEngineARM';
 
     public function __construct(
-        public VkPhysicalDeviceDataGraphProcessingEngineTypeARM $type = VkPhysicalDeviceDataGraphProcessingEngineTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM,
+        public VkPhysicalDeviceDataGraphProcessingEngineTypeARM|int $type = VkPhysicalDeviceDataGraphProcessingEngineTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM,
         public bool $isForeign = false,
     ) {}
 
     /**
      * @param CData&object{
-     *     type: value-of<VkPhysicalDeviceDataGraphProcessingEngineTypeARM>,
+     *     type: int,
      *     isForeign: int<0, 1>,
      * } $data
      *
@@ -35,14 +36,14 @@ final class VkPhysicalDeviceDataGraphProcessingEngineARM extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         $data->isForeign = (int) $this->isForeign;
     }
 
     /**
      * @param CData&object{
-     *     type: value-of<VkPhysicalDeviceDataGraphProcessingEngineTypeARM>,
+     *     type: int,
      *     isForeign: int<0, 1>,
      * } $data
      *
@@ -51,7 +52,7 @@ final class VkPhysicalDeviceDataGraphProcessingEngineARM extends InputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            type: VkPhysicalDeviceDataGraphProcessingEngineTypeARM::from($data->type),
+            type: EnumCase::createFromValue(VkPhysicalDeviceDataGraphProcessingEngineTypeARM::class, $data->type),
             isForeign: $data->isForeign !== 0,
         );
     }

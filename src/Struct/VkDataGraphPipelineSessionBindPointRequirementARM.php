@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineSessionBindPointARM;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineSessionBindPointTypeARM;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementARM.html
@@ -22,16 +23,16 @@ final readonly class VkDataGraphPipelineSessionBindPointRequirementARM extends O
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM->value;
 
     public function __construct(
-        public VkDataGraphPipelineSessionBindPointARM $bindPoint,
-        public VkDataGraphPipelineSessionBindPointTypeARM $bindPointType,
+        public VkDataGraphPipelineSessionBindPointARM|int $bindPoint,
+        public VkDataGraphPipelineSessionBindPointTypeARM|int $bindPointType,
         /** @var int<0, 4294967295> */
         public int $numObjects,
     ) {}
 
     /**
      * @param CData&object{
-     *     bindPoint: value-of<VkDataGraphPipelineSessionBindPointARM>,
-     *     bindPointType: value-of<VkDataGraphPipelineSessionBindPointTypeARM>,
+     *     bindPoint: int,
+     *     bindPointType: int,
      *     numObjects: int<0, 4294967295>,
      * } $data
      *
@@ -40,8 +41,8 @@ final readonly class VkDataGraphPipelineSessionBindPointRequirementARM extends O
     public static function createFromCData(CData $data): self
     {
         return new self(
-            bindPoint: VkDataGraphPipelineSessionBindPointARM::from($data->bindPoint),
-            bindPointType: VkDataGraphPipelineSessionBindPointTypeARM::from($data->bindPointType),
+            bindPoint: EnumCase::createFromValue(VkDataGraphPipelineSessionBindPointARM::class, $data->bindPoint),
+            bindPointType: EnumCase::createFromValue(VkDataGraphPipelineSessionBindPointTypeARM::class, $data->bindPointType),
             numObjects: $data->numObjects,
         );
     }

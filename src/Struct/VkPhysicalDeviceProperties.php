@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPhysicalDeviceType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties.html
@@ -26,7 +27,7 @@ final readonly class VkPhysicalDeviceProperties extends OutputStructure
         public int $vendorID,
         /** @var int<0, 4294967295> */
         public int $deviceID,
-        public VkPhysicalDeviceType $deviceType,
+        public VkPhysicalDeviceType|int $deviceType,
         public string $deviceName,
         public string $pipelineCacheUUID,
         public VkPhysicalDeviceLimits $limits,
@@ -39,7 +40,7 @@ final readonly class VkPhysicalDeviceProperties extends OutputStructure
      *     driverVersion: int<0, 4294967295>,
      *     vendorID: int<0, 4294967295>,
      *     deviceID: int<0, 4294967295>,
-     *     deviceType: value-of<VkPhysicalDeviceType>,
+     *     deviceType: int,
      *     deviceName: CData,
      *     pipelineCacheUUID: CData,
      *     limits: CData,
@@ -55,7 +56,7 @@ final readonly class VkPhysicalDeviceProperties extends OutputStructure
             driverVersion: $data->driverVersion,
             vendorID: $data->vendorID,
             deviceID: $data->deviceID,
-            deviceType: VkPhysicalDeviceType::from($data->deviceType),
+            deviceType: EnumCase::createFromValue(VkPhysicalDeviceType::class, $data->deviceType),
             deviceName: \FFI::string($data->deviceName),
             pipelineCacheUUID: \FFI::string($data->pipelineCacheUUID, 16),
             limits: VkPhysicalDeviceLimits::createFromCData($data->limits),

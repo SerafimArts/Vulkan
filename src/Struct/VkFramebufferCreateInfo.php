@@ -32,7 +32,7 @@ final class VkFramebufferCreateInfo extends InputStructure
     public function __construct(
         public VkRenderPass $renderPass,
         public ?VkFramebufferCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkFramebufferCreateFlagBits::*> */
+        /** @var int-mask-of<VkFramebufferCreateFlagBits::VK_*> */
         public int $flags = 0,
         /** @var list<VkImageView> */
         public array $attachments = [],

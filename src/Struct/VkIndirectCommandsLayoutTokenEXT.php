@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndirectCommandsTokenTypeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkIndirectCommandsLayoutTokenEXTExtension;
 
@@ -27,7 +28,7 @@ final class VkIndirectCommandsLayoutTokenEXT extends InputStructure
     public function __construct(
         public VkIndirectCommandsTokenDataEXT $data,
         public ?VkIndirectCommandsLayoutTokenEXTExtension $next = null,
-        public VkIndirectCommandsTokenTypeEXT $type = VkIndirectCommandsTokenTypeEXT::VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT,
+        public VkIndirectCommandsTokenTypeEXT|int $type = VkIndirectCommandsTokenTypeEXT::VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT,
         /** @var int<0, 4294967295> */
         public int $offset = 0,
     ) {}
@@ -36,7 +37,7 @@ final class VkIndirectCommandsLayoutTokenEXT extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_TOKEN_EXT>,
      *     pNext: CData,
-     *     type: value-of<VkIndirectCommandsTokenTypeEXT>,
+     *     type: int,
      *     data: CData,
      *     offset: int<0, 4294967295>,
      * } $data
@@ -53,7 +54,7 @@ final class VkIndirectCommandsLayoutTokenEXT extends InputStructure
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         $this->data->write($memory, $data->data);
 

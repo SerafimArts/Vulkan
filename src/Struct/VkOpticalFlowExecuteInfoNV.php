@@ -24,7 +24,7 @@ final class VkOpticalFlowExecuteInfoNV extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV->value;
 
     public function __construct(
-        /** @var int-mask-of<VkOpticalFlowExecuteFlagBitsNV::*> */
+        /** @var int-mask-of<VkOpticalFlowExecuteFlagBitsNV::VK_*> */
         public int $flags = 0,
         /** @var list<VkRect2D> */
         public array $regions = [],

@@ -21,7 +21,7 @@ final class VkIndirectCommandsIndexBufferTokenEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkIndirectCommandsIndexBufferTokenEXT';
 
     public function __construct(
-        /** @var int<0, 4294967295>|(VkIndirectCommandsInputModeFlagBitsEXT::*) */
+        /** @var int<0, 4294967295>|(VkIndirectCommandsInputModeFlagBitsEXT::VK_*) */
         public int $mode = 0,
     ) {}
 

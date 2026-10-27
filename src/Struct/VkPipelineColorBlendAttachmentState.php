@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkBlendFactor;
 use Serafim\Vulkan\Enum\VkBlendOp;
 use Serafim\Vulkan\Enum\VkColorComponentFlagBits;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -24,25 +25,25 @@ final class VkPipelineColorBlendAttachmentState extends InputStructure
 
     public function __construct(
         public bool $blendEnable = false,
-        public VkBlendFactor $srcColorBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
-        public VkBlendFactor $dstColorBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
-        public VkBlendOp $colorBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
-        public VkBlendFactor $srcAlphaBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
-        public VkBlendFactor $dstAlphaBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
-        public VkBlendOp $alphaBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
-        /** @var int-mask-of<VkColorComponentFlagBits::*> */
+        public VkBlendFactor|int $srcColorBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
+        public VkBlendFactor|int $dstColorBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
+        public VkBlendOp|int $colorBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
+        public VkBlendFactor|int $srcAlphaBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
+        public VkBlendFactor|int $dstAlphaBlendFactor = VkBlendFactor::VK_BLEND_FACTOR_ZERO,
+        public VkBlendOp|int $alphaBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
+        /** @var int-mask-of<VkColorComponentFlagBits::VK_*> */
         public int $colorWriteMask = 0,
     ) {}
 
     /**
      * @param CData&object{
      *     blendEnable: int<0, 1>,
-     *     srcColorBlendFactor: value-of<VkBlendFactor>,
-     *     dstColorBlendFactor: value-of<VkBlendFactor>,
-     *     colorBlendOp: value-of<VkBlendOp>,
-     *     srcAlphaBlendFactor: value-of<VkBlendFactor>,
-     *     dstAlphaBlendFactor: value-of<VkBlendFactor>,
-     *     alphaBlendOp: value-of<VkBlendOp>,
+     *     srcColorBlendFactor: int,
+     *     dstColorBlendFactor: int,
+     *     colorBlendOp: int,
+     *     srcAlphaBlendFactor: int,
+     *     dstAlphaBlendFactor: int,
+     *     alphaBlendOp: int,
      *     colorWriteMask: int<0, 4294967295>,
      * } $data
      *
@@ -52,17 +53,17 @@ final class VkPipelineColorBlendAttachmentState extends InputStructure
     {
         $data->blendEnable = (int) $this->blendEnable;
 
-        $data->srcColorBlendFactor = $this->srcColorBlendFactor->value;
+        $data->srcColorBlendFactor = EnumCase::getValue($this->srcColorBlendFactor);
 
-        $data->dstColorBlendFactor = $this->dstColorBlendFactor->value;
+        $data->dstColorBlendFactor = EnumCase::getValue($this->dstColorBlendFactor);
 
-        $data->colorBlendOp = $this->colorBlendOp->value;
+        $data->colorBlendOp = EnumCase::getValue($this->colorBlendOp);
 
-        $data->srcAlphaBlendFactor = $this->srcAlphaBlendFactor->value;
+        $data->srcAlphaBlendFactor = EnumCase::getValue($this->srcAlphaBlendFactor);
 
-        $data->dstAlphaBlendFactor = $this->dstAlphaBlendFactor->value;
+        $data->dstAlphaBlendFactor = EnumCase::getValue($this->dstAlphaBlendFactor);
 
-        $data->alphaBlendOp = $this->alphaBlendOp->value;
+        $data->alphaBlendOp = EnumCase::getValue($this->alphaBlendOp);
 
         $data->colorWriteMask = $this->colorWriteMask;
     }

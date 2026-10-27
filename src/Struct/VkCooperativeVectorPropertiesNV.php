@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkComponentTypeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeVectorPropertiesNV.html
@@ -21,21 +22,21 @@ final readonly class VkCooperativeVectorPropertiesNV extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COOPERATIVE_VECTOR_PROPERTIES_NV->value;
 
     public function __construct(
-        public VkComponentTypeKHR $inputType,
-        public VkComponentTypeKHR $inputInterpretation,
-        public VkComponentTypeKHR $matrixInterpretation,
-        public VkComponentTypeKHR $biasInterpretation,
-        public VkComponentTypeKHR $resultType,
+        public VkComponentTypeKHR|int $inputType,
+        public VkComponentTypeKHR|int $inputInterpretation,
+        public VkComponentTypeKHR|int $matrixInterpretation,
+        public VkComponentTypeKHR|int $biasInterpretation,
+        public VkComponentTypeKHR|int $resultType,
         public bool $transpose,
     ) {}
 
     /**
      * @param CData&object{
-     *     inputType: value-of<VkComponentTypeKHR>,
-     *     inputInterpretation: value-of<VkComponentTypeKHR>,
-     *     matrixInterpretation: value-of<VkComponentTypeKHR>,
-     *     biasInterpretation: value-of<VkComponentTypeKHR>,
-     *     resultType: value-of<VkComponentTypeKHR>,
+     *     inputType: int,
+     *     inputInterpretation: int,
+     *     matrixInterpretation: int,
+     *     biasInterpretation: int,
+     *     resultType: int,
      *     transpose: int<0, 1>,
      * } $data
      *
@@ -44,11 +45,11 @@ final readonly class VkCooperativeVectorPropertiesNV extends OutputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            inputType: VkComponentTypeKHR::from($data->inputType),
-            inputInterpretation: VkComponentTypeKHR::from($data->inputInterpretation),
-            matrixInterpretation: VkComponentTypeKHR::from($data->matrixInterpretation),
-            biasInterpretation: VkComponentTypeKHR::from($data->biasInterpretation),
-            resultType: VkComponentTypeKHR::from($data->resultType),
+            inputType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->inputType),
+            inputInterpretation: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->inputInterpretation),
+            matrixInterpretation: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->matrixInterpretation),
+            biasInterpretation: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->biasInterpretation),
+            resultType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->resultType),
             transpose: $data->transpose !== 0,
         );
     }

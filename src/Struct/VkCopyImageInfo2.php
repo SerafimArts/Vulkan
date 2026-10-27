@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -27,8 +28,8 @@ final class VkCopyImageInfo2 extends InputStructure
     public function __construct(
         public VkImage $srcImage,
         public VkImage $dstImage,
-        public VkImageLayout $srcImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
-        public VkImageLayout $dstImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $srcImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $dstImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         /** @var list<VkImageCopy2> */
         public array $regions = [],
     ) {}
@@ -38,9 +39,9 @@ final class VkCopyImageInfo2 extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COPY_IMAGE_INFO_2>,
      *     pNext: CData,
      *     srcImage: CData,
-     *     srcImageLayout: value-of<VkImageLayout>,
+     *     srcImageLayout: int,
      *     dstImage: CData,
-     *     dstImageLayout: value-of<VkImageLayout>,
+     *     dstImageLayout: int,
      *     regionCount: int<0, 4294967295>,
      *     pRegions: CData,
      * } $data
@@ -53,11 +54,11 @@ final class VkCopyImageInfo2 extends InputStructure
 
         $data->srcImage = $memory->ffi->cast('VkImage', $this->srcImage->pointer);
 
-        $data->srcImageLayout = $this->srcImageLayout->value;
+        $data->srcImageLayout = EnumCase::getValue($this->srcImageLayout);
 
         $data->dstImage = $memory->ffi->cast('VkImage', $this->dstImage->pointer);
 
-        $data->dstImageLayout = $this->dstImageLayout->value;
+        $data->dstImageLayout = EnumCase::getValue($this->dstImageLayout);
 
         if ($this->regions !== []) {
             $data->regionCount = \count($this->regions);

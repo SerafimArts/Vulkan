@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkQueryPipelineStatisticFlagBits;
 use Serafim\Vulkan\Enum\VkQueryPoolCreateFlagBits;
 use Serafim\Vulkan\Enum\VkQueryType;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkQueryPoolCreateInfoExtension;
 
@@ -28,15 +29,15 @@ final class VkQueryPoolCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkQueryPoolCreateFlagBits::*> */
+        /** @var int-mask-of<VkQueryPoolCreateFlagBits::VK_*> */
         public int $flags = 0,
-        public VkQueryType $queryType = VkQueryType::VK_QUERY_TYPE_OCCLUSION,
+        public VkQueryType|int $queryType = VkQueryType::VK_QUERY_TYPE_OCCLUSION,
         /** @var int<0, 4294967295> */
         public int $queryCount = 0,
         /**
          * Optional
          *
-         * @var int<0, 4294967295>|(VkQueryPipelineStatisticFlagBits::*)
+         * @var int<0, 4294967295>|(VkQueryPipelineStatisticFlagBits::VK_*)
          */
         public int $pipelineStatistics = 0,
     ) {}
@@ -46,7 +47,7 @@ final class VkQueryPoolCreateInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     queryType: value-of<VkQueryType>,
+     *     queryType: int,
      *     queryCount: int<0, 4294967295>,
      *     pipelineStatistics: int<0, 4294967295>,
      * } $data
@@ -65,7 +66,7 @@ final class VkQueryPoolCreateInfo extends InputStructure
 
         $data->flags = $this->flags;
 
-        $data->queryType = $this->queryType->value;
+        $data->queryType = EnumCase::getValue($this->queryType);
 
         $data->queryCount = $this->queryCount;
 

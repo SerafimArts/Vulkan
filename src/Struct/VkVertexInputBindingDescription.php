@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkVertexInputRate;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -34,14 +35,14 @@ final class VkVertexInputBindingDescription extends InputStructure
          */
         public int $stride = 0,
         /** The rate at which the vertex data is consumed */
-        public VkVertexInputRate $inputRate = VkVertexInputRate::VK_VERTEX_INPUT_RATE_VERTEX,
+        public VkVertexInputRate|int $inputRate = VkVertexInputRate::VK_VERTEX_INPUT_RATE_VERTEX,
     ) {}
 
     /**
      * @param CData&object{
      *     binding: int<0, 4294967295>,
      *     stride: int<0, 4294967295>,
-     *     inputRate: value-of<VkVertexInputRate>,
+     *     inputRate: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -52,6 +53,6 @@ final class VkVertexInputBindingDescription extends InputStructure
 
         $data->stride = $this->stride;
 
-        $data->inputRate = $this->inputRate->value;
+        $data->inputRate = EnumCase::getValue($this->inputRate);
     }
 }

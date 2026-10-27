@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTimeDomainKHR;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCalibratedTimestampInfoKHRExtension;
 
@@ -26,14 +27,14 @@ final class VkCalibratedTimestampInfoKHR extends InputStructure
 
     public function __construct(
         public ?VkCalibratedTimestampInfoKHRExtension $next = null,
-        public VkTimeDomainKHR $timeDomain = VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR,
+        public VkTimeDomainKHR|int $timeDomain = VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR>,
      *     pNext: CData,
-     *     timeDomain: value-of<VkTimeDomainKHR>,
+     *     timeDomain: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkCalibratedTimestampInfoKHR extends InputStructure
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->timeDomain = $this->timeDomain->value;
+        $data->timeDomain = EnumCase::getValue($this->timeDomain);
     }
 }

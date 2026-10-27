@@ -26,7 +26,7 @@ final class VkExternalMemoryBufferCreateInfo extends InputStructure implements V
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
         public int $handleTypes = 0,
     ) {}
 

@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkNeuralAcceleratorStatisticsModeARM;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineSessionCreateInfoARMExtension;
 
@@ -26,14 +27,14 @@ final class VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM extends Inpu
 
     public function __construct(
         public ?VkDataGraphPipelineSessionCreateInfoARMExtension $next = null,
-        public VkNeuralAcceleratorStatisticsModeARM $mode = VkNeuralAcceleratorStatisticsModeARM::VK_NEURAL_ACCELERATOR_STATISTICS_MODE_DISABLED_ARM,
+        public VkNeuralAcceleratorStatisticsModeARM|int $mode = VkNeuralAcceleratorStatisticsModeARM::VK_NEURAL_ACCELERATOR_STATISTICS_MODE_DISABLED_ARM,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM>,
      *     pNext: CData,
-     *     mode: value-of<VkNeuralAcceleratorStatisticsModeARM>,
+     *     mode: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM extends Inpu
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->mode = $this->mode->value;
+        $data->mode = EnumCase::getValue($this->mode);
     }
 }

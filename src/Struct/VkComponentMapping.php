@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkComponentSwizzle;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,39 +22,39 @@ final class VkComponentMapping extends InputStructure
     protected const string NATIVE_TYPE = 'VkComponentMapping';
 
     public function __construct(
-        public VkComponentSwizzle $r = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
-        public VkComponentSwizzle $g = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
-        public VkComponentSwizzle $b = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
-        public VkComponentSwizzle $a = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
+        public VkComponentSwizzle|int $r = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
+        public VkComponentSwizzle|int $g = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
+        public VkComponentSwizzle|int $b = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
+        public VkComponentSwizzle|int $a = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
     ) {}
 
     /**
      * @param CData&object{
-     *     r: value-of<VkComponentSwizzle>,
-     *     g: value-of<VkComponentSwizzle>,
-     *     b: value-of<VkComponentSwizzle>,
-     *     a: value-of<VkComponentSwizzle>,
+     *     r: int,
+     *     g: int,
+     *     b: int,
+     *     a: int,
      * } $data
      *
      * @phpstan-param CData $data
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->r = $this->r->value;
+        $data->r = EnumCase::getValue($this->r);
 
-        $data->g = $this->g->value;
+        $data->g = EnumCase::getValue($this->g);
 
-        $data->b = $this->b->value;
+        $data->b = EnumCase::getValue($this->b);
 
-        $data->a = $this->a->value;
+        $data->a = EnumCase::getValue($this->a);
     }
 
     /**
      * @param CData&object{
-     *     r: value-of<VkComponentSwizzle>,
-     *     g: value-of<VkComponentSwizzle>,
-     *     b: value-of<VkComponentSwizzle>,
-     *     a: value-of<VkComponentSwizzle>,
+     *     r: int,
+     *     g: int,
+     *     b: int,
+     *     a: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -61,10 +62,10 @@ final class VkComponentMapping extends InputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            r: VkComponentSwizzle::from($data->r),
-            g: VkComponentSwizzle::from($data->g),
-            b: VkComponentSwizzle::from($data->b),
-            a: VkComponentSwizzle::from($data->a),
+            r: EnumCase::createFromValue(VkComponentSwizzle::class, $data->r),
+            g: EnumCase::createFromValue(VkComponentSwizzle::class, $data->g),
+            b: EnumCase::createFromValue(VkComponentSwizzle::class, $data->b),
+            a: EnumCase::createFromValue(VkComponentSwizzle::class, $data->a),
         );
     }
 }

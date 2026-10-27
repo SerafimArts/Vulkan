@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkBufferCreateFlagBits;
 use Serafim\Vulkan\Enum\VkBufferUsageFlagBits;
 use Serafim\Vulkan\Enum\VkSharingMode;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferCreateInfoExtension;
 
@@ -31,7 +32,7 @@ final class VkBufferCreateInfo extends InputStructure
         /**
          * Buffer creation flags
          *
-         * @var int-mask-of<VkBufferCreateFlagBits::*>
+         * @var int-mask-of<VkBufferCreateFlagBits::VK_*>
          */
         public int $flags = 0,
         /**
@@ -43,10 +44,10 @@ final class VkBufferCreateInfo extends InputStructure
         /**
          * Buffer usage flags
          *
-         * @var int<0, 4294967295>|(VkBufferUsageFlagBits::*)
+         * @var int<0, 4294967295>|(VkBufferUsageFlagBits::VK_*)
          */
         public int $usage = 0,
-        public VkSharingMode $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
+        public VkSharingMode|int $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         /** @var list<int<0, 4294967295>> */
         public array $queueFamilyIndices = [],
     ) {}
@@ -58,7 +59,7 @@ final class VkBufferCreateInfo extends InputStructure
      *     flags: int<0, 4294967295>,
      *     size: int<0, max>,
      *     usage: int<0, 4294967295>,
-     *     sharingMode: value-of<VkSharingMode>,
+     *     sharingMode: int,
      *     queueFamilyIndexCount: int<0, 4294967295>,
      *     pQueueFamilyIndices: CData,
      * } $data
@@ -81,7 +82,7 @@ final class VkBufferCreateInfo extends InputStructure
 
         $data->usage = $this->usage;
 
-        $data->sharingMode = $this->sharingMode->value;
+        $data->sharingMode = EnumCase::getValue($this->sharingMode);
 
         if ($this->queueFamilyIndices !== []) {
             $data->queueFamilyIndexCount = \count($this->queueFamilyIndices);

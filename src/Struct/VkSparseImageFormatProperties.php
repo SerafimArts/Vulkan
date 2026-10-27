@@ -19,14 +19,14 @@ use Serafim\Vulkan\Enum\VkSparseImageFormatFlagBits;
 final readonly class VkSparseImageFormatProperties extends OutputStructure
 {
     public function __construct(
-        /** @var int-mask-of<VkImageAspectFlagBits::*> */
+        /** @var int-mask-of<VkImageAspectFlagBits::VK_*> */
         public int $aspectMask,
         /**
          * The value is at most the required one. The value is a multiple
          * of the required one.
          */
         public VkExtent3D $imageGranularity,
-        /** @var int-mask-of<VkSparseImageFormatFlagBits::*> */
+        /** @var int-mask-of<VkSparseImageFormatFlagBits::VK_*> */
         public int $flags,
     ) {}
 

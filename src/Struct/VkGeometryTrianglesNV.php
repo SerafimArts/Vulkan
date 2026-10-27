@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -35,13 +36,13 @@ final class VkGeometryTrianglesNV extends InputStructure
         public int $vertexCount = 0,
         /** @var int<0, max> */
         public int $vertexStride = 0,
-        public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
         public ?VkBuffer $indexData = null,
         /** @var int<0, max> */
         public int $indexOffset = 0,
         /** @var int<0, 4294967295> */
         public int $indexCount = 0,
-        public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
+        public VkIndexType|int $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
         /**
          * Optional reference to array of floats representing a 3x4 row
          * major affine transformation matrix.
@@ -59,11 +60,11 @@ final class VkGeometryTrianglesNV extends InputStructure
      *     vertexOffset: int<0, max>,
      *     vertexCount: int<0, 4294967295>,
      *     vertexStride: int<0, max>,
-     *     vertexFormat: value-of<VkFormat>,
+     *     vertexFormat: int,
      *     indexData: CData,
      *     indexOffset: int<0, max>,
      *     indexCount: int<0, 4294967295>,
-     *     indexType: value-of<VkIndexType>,
+     *     indexType: int,
      *     transformData: CData,
      *     transformOffset: int<0, max>,
      * } $data
@@ -84,7 +85,7 @@ final class VkGeometryTrianglesNV extends InputStructure
 
         $data->vertexStride = $this->vertexStride;
 
-        $data->vertexFormat = $this->vertexFormat->value;
+        $data->vertexFormat = EnumCase::getValue($this->vertexFormat);
 
         if ($this->indexData !== null) {
             $data->indexData = $memory->ffi->cast('VkBuffer', $this->indexData->pointer);
@@ -94,7 +95,7 @@ final class VkGeometryTrianglesNV extends InputStructure
 
         $data->indexCount = $this->indexCount;
 
-        $data->indexType = $this->indexType->value;
+        $data->indexType = EnumCase::getValue($this->indexType);
 
         if ($this->transformData !== null) {
             $data->transformData = $memory->ffi->cast('VkBuffer', $this->transformData->pointer);

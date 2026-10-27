@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShadingRatePaletteEntryNV;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,7 +22,7 @@ final class VkCoarseSampleOrderCustomNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkCoarseSampleOrderCustomNV';
 
     public function __construct(
-        public VkShadingRatePaletteEntryNV $shadingRate = VkShadingRatePaletteEntryNV::VK_SHADING_RATE_PALETTE_ENTRY_NO_INVOCATIONS_NV,
+        public VkShadingRatePaletteEntryNV|int $shadingRate = VkShadingRatePaletteEntryNV::VK_SHADING_RATE_PALETTE_ENTRY_NO_INVOCATIONS_NV,
         /** @var int<0, 4294967295> */
         public int $sampleCount = 0,
         /** @var list<VkCoarseSampleLocationNV> */
@@ -30,7 +31,7 @@ final class VkCoarseSampleOrderCustomNV extends InputStructure
 
     /**
      * @param CData&object{
-     *     shadingRate: value-of<VkShadingRatePaletteEntryNV>,
+     *     shadingRate: int,
      *     sampleCount: int<0, 4294967295>,
      *     sampleLocationCount: int<0, 4294967295>,
      *     pSampleLocations: CData,
@@ -40,7 +41,7 @@ final class VkCoarseSampleOrderCustomNV extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->shadingRate = $this->shadingRate->value;
+        $data->shadingRate = EnumCase::getValue($this->shadingRate);
 
         $data->sampleCount = $this->sampleCount;
 

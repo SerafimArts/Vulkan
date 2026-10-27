@@ -16,6 +16,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Structures;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * A command that fills several outputs: the method returns them by the names
@@ -150,6 +151,10 @@ final readonly class MultipleBody implements Body
         $variable = '$' . $output->name;
         $type = $output->field->type;
 
+        if ($output->kind === TypeKind::ENUMERATION) {
+            $namespace->addUse(EnumCase::class);
+        }
+
         if ($output->role === ParameterRole::OUTPUT_STRUCTURE) {
             return $this->describeStructure($namespace, $plan, $output, $native);
         }
@@ -174,12 +179,13 @@ final readonly class MultipleBody implements Body
                 [
                     '/** @var int $' . $output->name . 'Raw */',
                     '$' . $output->name . 'Raw = ' . $native . '->cdata;',
-                    $variable . ' = ' . Imports::import($namespace, Locations::ENUM_NAMESPACE, $type)
-                        . '::from($' . $output->name . 'Raw);',
+                    $variable . ' = EnumCase::createFromValue('
+                        . Imports::import($namespace, Locations::ENUM_NAMESPACE, $type)
+                        . '::class, $' . $output->name . 'Raw);',
                 ],
                 $variable,
-                Locations::createClassName(Locations::ENUM_NAMESPACE, $type),
-                $type,
+                Locations::createClassName(Locations::ENUM_NAMESPACE, $type) . '|int',
+                $type . '|int',
             ),
             default => new QueryArray(
                 $allocate,

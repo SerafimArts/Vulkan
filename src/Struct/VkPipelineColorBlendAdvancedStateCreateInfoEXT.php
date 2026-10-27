@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkBlendOverlapEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineColorBlendStateCreateInfoExtension;
 
@@ -28,7 +29,7 @@ final class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends InputStructur
         public ?VkPipelineColorBlendStateCreateInfoExtension $next = null,
         public bool $srcPremultiplied = false,
         public bool $dstPremultiplied = false,
-        public VkBlendOverlapEXT $blendOverlap = VkBlendOverlapEXT::VK_BLEND_OVERLAP_UNCORRELATED_EXT,
+        public VkBlendOverlapEXT|int $blendOverlap = VkBlendOverlapEXT::VK_BLEND_OVERLAP_UNCORRELATED_EXT,
     ) {}
 
     /**
@@ -37,7 +38,7 @@ final class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends InputStructur
      *     pNext: CData,
      *     srcPremultiplied: int<0, 1>,
      *     dstPremultiplied: int<0, 1>,
-     *     blendOverlap: value-of<VkBlendOverlapEXT>,
+     *     blendOverlap: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -56,6 +57,6 @@ final class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends InputStructur
 
         $data->dstPremultiplied = (int) $this->dstPremultiplied;
 
-        $data->blendOverlap = $this->blendOverlap->value;
+        $data->blendOverlap = EnumCase::getValue($this->blendOverlap);
     }
 }

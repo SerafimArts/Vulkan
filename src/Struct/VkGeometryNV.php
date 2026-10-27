@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkGeometryFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkGeometryTypeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -28,8 +29,8 @@ final class VkGeometryNV extends InputStructure
 
     public function __construct(
         public VkGeometryDataNV $geometry,
-        public VkGeometryTypeKHR $geometryType = VkGeometryTypeKHR::VK_GEOMETRY_TYPE_TRIANGLES_KHR,
-        /** @var int-mask-of<VkGeometryFlagBitsKHR::*> */
+        public VkGeometryTypeKHR|int $geometryType = VkGeometryTypeKHR::VK_GEOMETRY_TYPE_TRIANGLES_KHR,
+        /** @var int-mask-of<VkGeometryFlagBitsKHR::VK_*> */
         public int $flags = 0,
     ) {}
 
@@ -37,7 +38,7 @@ final class VkGeometryNV extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GEOMETRY_NV>,
      *     pNext: CData,
-     *     geometryType: value-of<VkGeometryTypeKHR>,
+     *     geometryType: int,
      *     geometry: CData,
      *     flags: int<0, 4294967295>,
      * } $data
@@ -48,7 +49,7 @@ final class VkGeometryNV extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->geometryType = $this->geometryType->value;
+        $data->geometryType = EnumCase::getValue($this->geometryType);
 
         $this->geometry->write($memory, $data->geometry);
 

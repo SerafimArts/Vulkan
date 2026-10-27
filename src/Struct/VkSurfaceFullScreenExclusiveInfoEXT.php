@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFullScreenExclusiveEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceSurfaceInfo2KHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkSwapchainCreateInfoKHRExtension;
@@ -27,14 +28,14 @@ final class VkSurfaceFullScreenExclusiveInfoEXT extends InputStructure implement
 
     public function __construct(
         public VkPhysicalDeviceSurfaceInfo2KHRExtension|VkSwapchainCreateInfoKHRExtension|null $next = null,
-        public VkFullScreenExclusiveEXT $fullScreenExclusive = VkFullScreenExclusiveEXT::VK_FULL_SCREEN_EXCLUSIVE_DEFAULT_EXT,
+        public VkFullScreenExclusiveEXT|int $fullScreenExclusive = VkFullScreenExclusiveEXT::VK_FULL_SCREEN_EXCLUSIVE_DEFAULT_EXT,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_INFO_EXT>,
      *     pNext: CData,
-     *     fullScreenExclusive: value-of<VkFullScreenExclusiveEXT>,
+     *     fullScreenExclusive: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -49,6 +50,6 @@ final class VkSurfaceFullScreenExclusiveInfoEXT extends InputStructure implement
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->fullScreenExclusive = $this->fullScreenExclusive->value;
+        $data->fullScreenExclusive = EnumCase::getValue($this->fullScreenExclusive);
     }
 }

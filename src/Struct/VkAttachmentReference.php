@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,13 +27,13 @@ final class VkAttachmentReference extends InputStructure
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $attachment = 0,
-        public VkImageLayout $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
      * @param CData&object{
      *     attachment: int<0, 4294967295>,
-     *     layout: value-of<VkImageLayout>,
+     *     layout: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -41,6 +42,6 @@ final class VkAttachmentReference extends InputStructure
     {
         $data->attachment = $this->attachment;
 
-        $data->layout = $this->layout->value;
+        $data->layout = EnumCase::getValue($this->layout);
     }
 }

@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 
@@ -28,7 +29,7 @@ final class VkRenderingFragmentDensityMapAttachmentInfoEXT extends InputStructur
     public function __construct(
         public VkImageView $imageView,
         public ?VkRenderingInfoExtension $next = null,
-        public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
@@ -36,7 +37,7 @@ final class VkRenderingFragmentDensityMapAttachmentInfoEXT extends InputStructur
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT>,
      *     pNext: CData,
      *     imageView: CData,
-     *     imageLayout: value-of<VkImageLayout>,
+     *     imageLayout: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -53,6 +54,6 @@ final class VkRenderingFragmentDensityMapAttachmentInfoEXT extends InputStructur
 
         $data->imageView = $memory->ffi->cast('VkImageView', $this->imageView->pointer);
 
-        $data->imageLayout = $this->imageLayout->value;
+        $data->imageLayout = EnumCase::getValue($this->imageLayout);
     }
 }

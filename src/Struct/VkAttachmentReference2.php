@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageAspectFlagBits;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAttachmentReference2Extension;
 
@@ -32,8 +33,8 @@ final class VkAttachmentReference2 extends InputStructure
         public ?VkAttachmentReference2Extension $next = null,
         /** @var int<0, 4294967295> */
         public int $attachment = 0,
-        public VkImageLayout $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
-        /** @var int-mask-of<VkImageAspectFlagBits::*> */
+        public VkImageLayout|int $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        /** @var int-mask-of<VkImageAspectFlagBits::VK_*> */
         public int $aspectMask = 0,
     ) {}
 
@@ -42,7 +43,7 @@ final class VkAttachmentReference2 extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2>,
      *     pNext: CData,
      *     attachment: int<0, 4294967295>,
-     *     layout: value-of<VkImageLayout>,
+     *     layout: int,
      *     aspectMask: int<0, 4294967295>,
      * } $data
      *
@@ -60,7 +61,7 @@ final class VkAttachmentReference2 extends InputStructure
 
         $data->attachment = $this->attachment;
 
-        $data->layout = $this->layout->value;
+        $data->layout = EnumCase::getValue($this->layout);
 
         $data->aspectMask = $this->aspectMask;
     }

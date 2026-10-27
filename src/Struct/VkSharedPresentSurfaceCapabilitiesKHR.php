@@ -36,7 +36,7 @@ final readonly class VkSharedPresentSurfaceCapabilitiesKHR extends OutputStructu
          * Supported image usage flags if swapchain created using a shared
          * present mode
          *
-         * @var int<0, 4294967295>|(VkImageUsageFlagBits::*)
+         * @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*)
          */
         public int $sharedPresentSupportedUsageFlags,
     ) {}

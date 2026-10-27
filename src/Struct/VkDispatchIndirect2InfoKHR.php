@@ -25,7 +25,7 @@ final class VkDispatchIndirect2InfoKHR extends InputStructure
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
-        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
+        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> */
         public int $addressFlags = 0,
     ) {}
 

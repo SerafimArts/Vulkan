@@ -28,7 +28,7 @@ final class VkQueryPoolVideoEncodePerPartitionFeedbackCreateInfoKHR extends Inpu
         public ?VkQueryPoolCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $maxPerPartitionFeedbackEntries = 0,
-        /** @var int-mask-of<VkVideoEncodePerPartitionFeedbackFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoEncodePerPartitionFeedbackFlagBitsKHR::VK_*> */
         public int $perPartitionEncodeFeedbackFlags = 0,
     ) {}
 

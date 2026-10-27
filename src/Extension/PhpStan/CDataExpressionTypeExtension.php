@@ -12,6 +12,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Type\ExpressionTypeResolverExtension;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -46,6 +47,12 @@ final readonly class CDataExpressionTypeExtension implements ExpressionTypeResol
         }
 
         $type = TypeCombinator::removeNull($class->getNativeProperty($expr->name->name)->getReadableType());
+
+        $cases = TypeCombinator::remove($type, new IntegerType());
+
+        if (!$cases instanceof NeverType && $cases->isEnum()->yes()) {
+            return new IntegerType();
+        }
 
         if ($type->isObject()->yes()) {
             if ($type->isEnum()->yes()) {

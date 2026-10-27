@@ -21,7 +21,7 @@ final readonly class VkDisplayPlaneCapabilitiesKHR extends OutputStructure
         /**
          * Types of alpha blending supported, if any.
          *
-         * @var int-mask-of<VkDisplayPlaneAlphaFlagBitsKHR::*>
+         * @var int-mask-of<VkDisplayPlaneAlphaFlagBitsKHR::VK_*>
          */
         public int $supportedAlpha,
         /** Does the plane have any position and extent restrictions? */

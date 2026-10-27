@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkPerformanceCounterScopeKHR;
 use Serafim\Vulkan\Enum\VkPerformanceCounterStorageKHR;
 use Serafim\Vulkan\Enum\VkPerformanceCounterUnitKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterKHR.html
@@ -23,17 +24,17 @@ final readonly class VkPerformanceCounterKHR extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_KHR->value;
 
     public function __construct(
-        public VkPerformanceCounterUnitKHR $unit,
-        public VkPerformanceCounterScopeKHR $scope,
-        public VkPerformanceCounterStorageKHR $storage,
+        public VkPerformanceCounterUnitKHR|int $unit,
+        public VkPerformanceCounterScopeKHR|int $scope,
+        public VkPerformanceCounterStorageKHR|int $storage,
         public string $uuid,
     ) {}
 
     /**
      * @param CData&object{
-     *     unit: value-of<VkPerformanceCounterUnitKHR>,
-     *     scope: value-of<VkPerformanceCounterScopeKHR>,
-     *     storage: value-of<VkPerformanceCounterStorageKHR>,
+     *     unit: int,
+     *     scope: int,
+     *     storage: int,
      *     uuid: CData,
      * } $data
      *
@@ -42,9 +43,9 @@ final readonly class VkPerformanceCounterKHR extends OutputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            unit: VkPerformanceCounterUnitKHR::from($data->unit),
-            scope: VkPerformanceCounterScopeKHR::from($data->scope),
-            storage: VkPerformanceCounterStorageKHR::from($data->storage),
+            unit: EnumCase::createFromValue(VkPerformanceCounterUnitKHR::class, $data->unit),
+            scope: EnumCase::createFromValue(VkPerformanceCounterScopeKHR::class, $data->scope),
+            storage: EnumCase::createFromValue(VkPerformanceCounterStorageKHR::class, $data->storage),
             uuid: \FFI::string($data->uuid, 16),
         );
     }

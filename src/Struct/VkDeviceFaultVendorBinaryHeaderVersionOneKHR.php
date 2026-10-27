@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceFaultVendorBinaryHeaderVersionKHR;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -22,7 +23,7 @@ final class VkDeviceFaultVendorBinaryHeaderVersionOneKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceFaultVendorBinaryHeaderVersionOneKHR';
 
     public function __construct(
-        public VkDeviceFaultVendorBinaryHeaderVersionKHR $headerVersion,
+        public VkDeviceFaultVendorBinaryHeaderVersionKHR|int $headerVersion,
         /** @var int<0, 4294967295> */
         public int $headerSize = 0,
         /** @var int<0, 4294967295> */
@@ -47,7 +48,7 @@ final class VkDeviceFaultVendorBinaryHeaderVersionOneKHR extends InputStructure
     /**
      * @param CData&object{
      *     headerSize: int<0, 4294967295>,
-     *     headerVersion: value-of<VkDeviceFaultVendorBinaryHeaderVersionKHR>,
+     *     headerVersion: int,
      *     vendorID: int<0, 4294967295>,
      *     deviceID: int<0, 4294967295>,
      *     driverVersion: int<0, 4294967295>,
@@ -65,7 +66,7 @@ final class VkDeviceFaultVendorBinaryHeaderVersionOneKHR extends InputStructure
     {
         $data->headerSize = $this->headerSize;
 
-        $data->headerVersion = $this->headerVersion->value;
+        $data->headerVersion = EnumCase::getValue($this->headerVersion);
 
         $data->vendorID = $this->vendorID;
 

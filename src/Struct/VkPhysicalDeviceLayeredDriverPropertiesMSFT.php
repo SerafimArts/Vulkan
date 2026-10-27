@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkLayeredDriverUnderlyingApiMSFT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -33,12 +34,12 @@ final readonly class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends OutputS
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkLayeredDriverUnderlyingApiMSFT $underlyingAPI,
+        public VkLayeredDriverUnderlyingApiMSFT|int $underlyingAPI,
     ) {}
 
     /**
      * @param CData&object{
-     *     underlyingAPI: value-of<VkLayeredDriverUnderlyingApiMSFT>,
+     *     underlyingAPI: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -46,7 +47,7 @@ final readonly class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends OutputS
     public static function createFromCData(CData $data): self
     {
         return new self(
-            underlyingAPI: VkLayeredDriverUnderlyingApiMSFT::from($data->underlyingAPI),
+            underlyingAPI: EnumCase::createFromValue(VkLayeredDriverUnderlyingApiMSFT::class, $data->underlyingAPI),
         );
     }
 }

@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoverageReductionModeNV;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferMixedSamplesCombinationNV.html
@@ -22,18 +23,18 @@ final readonly class VkFramebufferMixedSamplesCombinationNV extends OutputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV->value;
 
     public function __construct(
-        public VkCoverageReductionModeNV $coverageReductionMode,
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
+        public VkCoverageReductionModeNV|int $coverageReductionMode,
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
         public int $rasterizationSamples,
-        /** @var int-mask-of<VkSampleCountFlagBits::*> */
+        /** @var int-mask-of<VkSampleCountFlagBits::VK_*> */
         public int $depthStencilSamples,
-        /** @var int-mask-of<VkSampleCountFlagBits::*> */
+        /** @var int-mask-of<VkSampleCountFlagBits::VK_*> */
         public int $colorSamples,
     ) {}
 
     /**
      * @param CData&object{
-     *     coverageReductionMode: value-of<VkCoverageReductionModeNV>,
+     *     coverageReductionMode: int,
      *     rasterizationSamples: int<0, 4294967295>,
      *     depthStencilSamples: int<0, 4294967295>,
      *     colorSamples: int<0, 4294967295>,
@@ -44,7 +45,7 @@ final readonly class VkFramebufferMixedSamplesCombinationNV extends OutputStruct
     public static function createFromCData(CData $data): self
     {
         return new self(
-            coverageReductionMode: VkCoverageReductionModeNV::from($data->coverageReductionMode),
+            coverageReductionMode: EnumCase::createFromValue(VkCoverageReductionModeNV::class, $data->coverageReductionMode),
             rasterizationSamples: $data->rasterizationSamples,
             depthStencilSamples: $data->depthStencilSamples,
             colorSamples: $data->colorSamples,

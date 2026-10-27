@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoarseSampleOrderTypeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineViewportStateCreateInfoExtension;
 
@@ -26,7 +27,7 @@ final class VkPipelineViewportCoarseSampleOrderStateCreateInfoNV extends InputSt
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,
-        public VkCoarseSampleOrderTypeNV $sampleOrderType = VkCoarseSampleOrderTypeNV::VK_COARSE_SAMPLE_ORDER_TYPE_DEFAULT_NV,
+        public VkCoarseSampleOrderTypeNV|int $sampleOrderType = VkCoarseSampleOrderTypeNV::VK_COARSE_SAMPLE_ORDER_TYPE_DEFAULT_NV,
         /** @var list<VkCoarseSampleOrderCustomNV> */
         public array $customSampleOrders = [],
     ) {}
@@ -35,7 +36,7 @@ final class VkPipelineViewportCoarseSampleOrderStateCreateInfoNV extends InputSt
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV>,
      *     pNext: CData,
-     *     sampleOrderType: value-of<VkCoarseSampleOrderTypeNV>,
+     *     sampleOrderType: int,
      *     customSampleOrderCount: int<0, 4294967295>,
      *     pCustomSampleOrders: CData,
      * } $data
@@ -52,7 +53,7 @@ final class VkPipelineViewportCoarseSampleOrderStateCreateInfoNV extends InputSt
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->sampleOrderType = $this->sampleOrderType->value;
+        $data->sampleOrderType = EnumCase::getValue($this->sampleOrderType);
 
         if ($this->customSampleOrders !== []) {
             $data->customSampleOrderCount = \count($this->customSampleOrders);

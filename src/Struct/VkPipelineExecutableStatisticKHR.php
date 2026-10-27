@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineExecutableStatisticFormatKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticKHR.html
@@ -23,7 +24,7 @@ final readonly class VkPipelineExecutableStatisticKHR extends OutputStructure
     public function __construct(
         public string $name,
         public string $description,
-        public VkPipelineExecutableStatisticFormatKHR $format,
+        public VkPipelineExecutableStatisticFormatKHR|int $format,
         public VkPipelineExecutableStatisticValueKHR $value,
     ) {}
 
@@ -31,7 +32,7 @@ final readonly class VkPipelineExecutableStatisticKHR extends OutputStructure
      * @param CData&object{
      *     name: CData,
      *     description: CData,
-     *     format: value-of<VkPipelineExecutableStatisticFormatKHR>,
+     *     format: int,
      *     value: CData,
      * } $data
      *
@@ -42,7 +43,7 @@ final readonly class VkPipelineExecutableStatisticKHR extends OutputStructure
         return new self(
             name: \FFI::string($data->name),
             description: \FFI::string($data->description),
-            format: VkPipelineExecutableStatisticFormatKHR::from($data->format),
+            format: EnumCase::createFromValue(VkPipelineExecutableStatisticFormatKHR::class, $data->format),
             value: VkPipelineExecutableStatisticValueKHR::createFromCData($data->value),
         );
     }

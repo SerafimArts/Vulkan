@@ -29,7 +29,7 @@ final class VkVideoEncodeInfoKHR extends InputStructure
         public VkBuffer $dstBuffer,
         public VkVideoPictureResourceInfoKHR $srcPictureResource,
         public ?VkVideoEncodeInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkVideoEncodeFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoEncodeFlagBitsKHR::VK_*> */
         public int $flags = 0,
         /** @var int<0, max> */
         public int $dstBufferOffset = 0,

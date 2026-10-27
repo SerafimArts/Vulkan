@@ -33,7 +33,7 @@ final class VkComputePipelineCreateInfo extends InputStructure implements VkPipe
         /**
          * Pipeline creation flags
          *
-         * @var int<0, 4294967295>|(VkPipelineCreateFlagBits::*)
+         * @var int<0, 4294967295>|(VkPipelineCreateFlagBits::VK_*)
          */
         public int $flags = 0,
         /** Interface layout of the pipeline */

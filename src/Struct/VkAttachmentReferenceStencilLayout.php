@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAttachmentReference2Extension;
 
@@ -26,14 +27,14 @@ final class VkAttachmentReferenceStencilLayout extends InputStructure implements
 
     public function __construct(
         public ?VkAttachmentReference2Extension $next = null,
-        public VkImageLayout $stencilLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $stencilLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT>,
      *     pNext: CData,
-     *     stencilLayout: value-of<VkImageLayout>,
+     *     stencilLayout: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkAttachmentReferenceStencilLayout extends InputStructure implements
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->stencilLayout = $this->stencilLayout->value;
+        $data->stencilLayout = EnumCase::getValue($this->stencilLayout);
     }
 }

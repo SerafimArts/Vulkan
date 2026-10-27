@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkImageCreateFlagBits;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkFramebufferAttachmentImageInfoExtension;
 
@@ -34,13 +35,13 @@ final class VkFramebufferAttachmentImageInfo extends InputStructure
         /**
          * Image creation flags
          *
-         * @var int<0, 4294967295>|(VkImageCreateFlagBits::*)
+         * @var int<0, 4294967295>|(VkImageCreateFlagBits::VK_*)
          */
         public int $flags = 0,
         /**
          * Image usage flags
          *
-         * @var int<0, 4294967295>|(VkImageUsageFlagBits::*)
+         * @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*)
          */
         public int $usage = 0,
         /** @var int<0, 4294967295> */
@@ -49,7 +50,7 @@ final class VkFramebufferAttachmentImageInfo extends InputStructure
         public int $height = 0,
         /** @var int<0, 4294967295> */
         public int $layerCount = 0,
-        /** @var list<VkFormat> */
+        /** @var list<VkFormat|int> */
         public array $viewFormats = [],
     ) {}
 
@@ -90,7 +91,7 @@ final class VkFramebufferAttachmentImageInfo extends InputStructure
 
         if ($this->viewFormats !== []) {
             $data->viewFormatCount = \count($this->viewFormats);
-            $data->pViewFormats = $memory->ffi->cast('VkFormat*', $memory->toNumberArray('VkFormat', \array_map(static fn(VkFormat $item): int => $item->value, $this->viewFormats)));
+            $data->pViewFormats = $memory->ffi->cast('VkFormat*', $memory->toNumberArray('VkFormat', \array_map(EnumCase::getValue(...), $this->viewFormats)));
         }
     }
 }

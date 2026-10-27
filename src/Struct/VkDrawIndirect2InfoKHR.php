@@ -25,7 +25,7 @@ final class VkDrawIndirect2InfoKHR extends InputStructure
 
     public function __construct(
         public VkStridedDeviceAddressRangeKHR $addressRange,
-        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
+        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> */
         public int $addressFlags = 0,
         /** @var int<0, 4294967295> */
         public int $drawCount = 0,

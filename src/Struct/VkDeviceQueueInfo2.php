@@ -24,7 +24,7 @@ final class VkDeviceQueueInfo2 extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_QUEUE_INFO_2->value;
 
     public function __construct(
-        /** @var int-mask-of<VkDeviceQueueCreateFlagBits::*> */
+        /** @var int-mask-of<VkDeviceQueueCreateFlagBits::VK_*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $queueFamilyIndex = 0,

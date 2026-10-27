@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 
@@ -29,7 +30,7 @@ final class VkRenderingFragmentShadingRateAttachmentInfoKHR extends InputStructu
         public VkExtent2D $shadingRateAttachmentTexelSize,
         public ?VkRenderingInfoExtension $next = null,
         public ?VkImageView $imageView = null,
-        public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+        public VkImageLayout|int $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
     /**
@@ -37,7 +38,7 @@ final class VkRenderingFragmentShadingRateAttachmentInfoKHR extends InputStructu
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR>,
      *     pNext: CData,
      *     imageView: CData,
-     *     imageLayout: value-of<VkImageLayout>,
+     *     imageLayout: int,
      *     shadingRateAttachmentTexelSize: CData,
      * } $data
      *
@@ -57,7 +58,7 @@ final class VkRenderingFragmentShadingRateAttachmentInfoKHR extends InputStructu
             $data->imageView = $memory->ffi->cast('VkImageView', $this->imageView->pointer);
         }
 
-        $data->imageLayout = $this->imageLayout->value;
+        $data->imageLayout = EnumCase::getValue($this->imageLayout);
 
         $this->shadingRateAttachmentTexelSize->write($memory, $data->shadingRateAttachmentTexelSize);
     }

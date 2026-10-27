@@ -12,6 +12,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Calls;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * A command that writes a number or an enum to a variable.
@@ -66,14 +67,18 @@ final readonly class ScalarQueryBody implements Body
         if ($output->kind === TypeKind::ENUMERATION) {
             $class = Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type);
 
+            $namespace->addUse(EnumCase::class);
             $this->calls->setReturnType(
                 $namespace,
                 $method,
                 $plan,
-                Locations::createClassName(Locations::ENUM_NAMESPACE, $class),
-                $class,
+                Locations::createClassName(Locations::ENUM_NAMESPACE, $class) . '|int',
+                $class . '|int',
             );
-            $lines[] = $this->calls->createReturnLine($plan, $class . '::from($value)');
+            $lines[] = $this->calls->createReturnLine(
+                $plan,
+                'EnumCase::createFromValue(' . $class . '::class, $value)',
+            );
 
             return $lines;
         }

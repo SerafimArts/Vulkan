@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkClusterAccelerationStructureTypeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -24,7 +25,7 @@ final class VkClusterAccelerationStructureMoveObjectsInputNV extends InputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV->value;
 
     public function __construct(
-        public VkClusterAccelerationStructureTypeNV $type = VkClusterAccelerationStructureTypeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_TYPE_CLUSTERS_BOTTOM_LEVEL_NV,
+        public VkClusterAccelerationStructureTypeNV|int $type = VkClusterAccelerationStructureTypeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_TYPE_CLUSTERS_BOTTOM_LEVEL_NV,
         public bool $noMoveOverlap = false,
         /** @var int<0, max> */
         public int $maxMovedBytes = 0,
@@ -34,7 +35,7 @@ final class VkClusterAccelerationStructureMoveObjectsInputNV extends InputStruct
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV>,
      *     pNext: CData,
-     *     type: value-of<VkClusterAccelerationStructureTypeNV>,
+     *     type: int,
      *     noMoveOverlap: int<0, 1>,
      *     maxMovedBytes: int<0, max>,
      * } $data
@@ -45,7 +46,7 @@ final class VkClusterAccelerationStructureMoveObjectsInputNV extends InputStruct
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         $data->noMoveOverlap = (int) $this->noMoveOverlap;
 

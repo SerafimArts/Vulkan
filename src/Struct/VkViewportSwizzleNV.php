@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkViewportCoordinateSwizzleNV;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,30 +22,30 @@ final class VkViewportSwizzleNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkViewportSwizzleNV';
 
     public function __construct(
-        public VkViewportCoordinateSwizzleNV $x = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
-        public VkViewportCoordinateSwizzleNV $y = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
-        public VkViewportCoordinateSwizzleNV $z = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
-        public VkViewportCoordinateSwizzleNV $w = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
+        public VkViewportCoordinateSwizzleNV|int $x = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
+        public VkViewportCoordinateSwizzleNV|int $y = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
+        public VkViewportCoordinateSwizzleNV|int $z = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
+        public VkViewportCoordinateSwizzleNV|int $w = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
     ) {}
 
     /**
      * @param CData&object{
-     *     x: value-of<VkViewportCoordinateSwizzleNV>,
-     *     y: value-of<VkViewportCoordinateSwizzleNV>,
-     *     z: value-of<VkViewportCoordinateSwizzleNV>,
-     *     w: value-of<VkViewportCoordinateSwizzleNV>,
+     *     x: int,
+     *     y: int,
+     *     z: int,
+     *     w: int,
      * } $data
      *
      * @phpstan-param CData $data
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->x = $this->x->value;
+        $data->x = EnumCase::getValue($this->x);
 
-        $data->y = $this->y->value;
+        $data->y = EnumCase::getValue($this->y);
 
-        $data->z = $this->z->value;
+        $data->z = EnumCase::getValue($this->z);
 
-        $data->w = $this->w->value;
+        $data->w = EnumCase::getValue($this->w);
     }
 }

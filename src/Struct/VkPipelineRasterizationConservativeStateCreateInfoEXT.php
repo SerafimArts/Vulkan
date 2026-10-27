@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkConservativeRasterizationModeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -33,7 +34,7 @@ final class VkPipelineRasterizationConservativeStateCreateInfoEXT extends InputS
          */
         public int $flags = 0,
         /** Conservative rasterization mode */
-        public VkConservativeRasterizationModeEXT $conservativeRasterizationMode = VkConservativeRasterizationModeEXT::VK_CONSERVATIVE_RASTERIZATION_MODE_DISABLED_EXT,
+        public VkConservativeRasterizationModeEXT|int $conservativeRasterizationMode = VkConservativeRasterizationModeEXT::VK_CONSERVATIVE_RASTERIZATION_MODE_DISABLED_EXT,
         /** Extra overestimation to add to the primitive */
         public float $extraPrimitiveOverestimationSize = 0.0,
     ) {}
@@ -43,7 +44,7 @@ final class VkPipelineRasterizationConservativeStateCreateInfoEXT extends InputS
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     conservativeRasterizationMode: value-of<VkConservativeRasterizationModeEXT>,
+     *     conservativeRasterizationMode: int,
      *     extraPrimitiveOverestimationSize: float,
      * } $data
      *
@@ -61,7 +62,7 @@ final class VkPipelineRasterizationConservativeStateCreateInfoEXT extends InputS
 
         $data->flags = $this->flags;
 
-        $data->conservativeRasterizationMode = $this->conservativeRasterizationMode->value;
+        $data->conservativeRasterizationMode = EnumCase::getValue($this->conservativeRasterizationMode);
 
         $data->extraPrimitiveOverestimationSize = $this->extraPrimitiveOverestimationSize;
     }

@@ -26,9 +26,9 @@ final class VkConditionalRenderingBeginInfo2EXT extends InputStructure
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
-        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
+        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> */
         public int $addressFlags = 0,
-        /** @var int-mask-of<VkConditionalRenderingFlagBitsEXT::*> */
+        /** @var int-mask-of<VkConditionalRenderingFlagBitsEXT::VK_*> */
         public int $flags = 0,
     ) {}
 

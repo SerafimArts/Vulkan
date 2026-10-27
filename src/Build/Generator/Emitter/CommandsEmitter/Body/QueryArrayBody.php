@@ -17,6 +17,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Structures;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * A command that fills an array of structures or numbers, the number of them
@@ -138,12 +139,16 @@ final readonly class QueryArrayBody implements Body
     {
         $type = $output->field->type;
 
+        if ($output->kind === TypeKind::ENUMERATION) {
+            $namespace->addUse(EnumCase::class);
+        }
+
         return match ($output->kind) {
             TypeKind::STRUCTURE => $this->createStructure($namespace, $plan, $type),
             TypeKind::ENUMERATION => [
                 ['/** @var int $value */', '$value = {native}[$index];'],
-                Imports::import($namespace, Locations::ENUM_NAMESPACE, $type) . '::from($value)',
-                $type,
+                'EnumCase::createFromValue(' . Imports::import($namespace, Locations::ENUM_NAMESPACE, $type) . '::class, $value)',
+                $type . '|int',
             ],
             TypeKind::FLOAT => [['/** @var float $value */', '$value = {native}[$index];'], '$value', 'float'],
             TypeKind::BOOLEAN => [['/** @var int $value */', '$value = {native}[$index];'], '$value !== 0', 'bool'],

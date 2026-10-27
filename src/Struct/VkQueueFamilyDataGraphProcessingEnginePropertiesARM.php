@@ -22,9 +22,9 @@ final readonly class VkQueueFamilyDataGraphProcessingEnginePropertiesARM extends
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM->value;
 
     public function __construct(
-        /** @var int-mask-of<VkExternalSemaphoreHandleTypeFlagBits::*> */
+        /** @var int-mask-of<VkExternalSemaphoreHandleTypeFlagBits::VK_*> */
         public int $foreignSemaphoreHandleTypes,
-        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::VK_*) */
         public int $foreignMemoryHandleTypes,
     ) {}
 

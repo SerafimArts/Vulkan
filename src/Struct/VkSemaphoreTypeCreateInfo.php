@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSemaphoreType;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceExternalSemaphoreInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSemaphoreCreateInfoExtension;
@@ -27,7 +28,7 @@ final class VkSemaphoreTypeCreateInfo extends InputStructure implements VkSemaph
 
     public function __construct(
         public VkSemaphoreCreateInfoExtension|VkPhysicalDeviceExternalSemaphoreInfoExtension|null $next = null,
-        public VkSemaphoreType $semaphoreType = VkSemaphoreType::VK_SEMAPHORE_TYPE_BINARY,
+        public VkSemaphoreType|int $semaphoreType = VkSemaphoreType::VK_SEMAPHORE_TYPE_BINARY,
         /** @var int<0, max> */
         public int $initialValue = 0,
     ) {}
@@ -36,7 +37,7 @@ final class VkSemaphoreTypeCreateInfo extends InputStructure implements VkSemaph
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO>,
      *     pNext: CData,
-     *     semaphoreType: value-of<VkSemaphoreType>,
+     *     semaphoreType: int,
      *     initialValue: int<0, max>,
      * } $data
      *
@@ -52,7 +53,7 @@ final class VkSemaphoreTypeCreateInfo extends InputStructure implements VkSemaph
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->semaphoreType = $this->semaphoreType->value;
+        $data->semaphoreType = EnumCase::getValue($this->semaphoreType);
 
         $data->initialValue = $this->initialValue;
     }

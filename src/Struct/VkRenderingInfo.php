@@ -27,7 +27,7 @@ final class VkRenderingInfo extends InputStructure
     public function __construct(
         public VkRect2D $renderArea,
         public ?VkRenderingInfoExtension $next = null,
-        /** @var int-mask-of<VkRenderingFlagBits::*> */
+        /** @var int-mask-of<VkRenderingFlagBits::VK_*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $layerCount = 0,

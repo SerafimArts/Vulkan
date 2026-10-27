@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPerformanceValueTypeINTEL;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceValueINTEL.html
@@ -18,13 +19,13 @@ use Serafim\Vulkan\Enum\VkPerformanceValueTypeINTEL;
 final readonly class VkPerformanceValueINTEL extends OutputStructure
 {
     public function __construct(
-        public VkPerformanceValueTypeINTEL $type,
+        public VkPerformanceValueTypeINTEL|int $type,
         public VkPerformanceValueDataINTEL $data,
     ) {}
 
     /**
      * @param CData&object{
-     *     type: value-of<VkPerformanceValueTypeINTEL>,
+     *     type: int,
      *     data: CData,
      * } $data
      *
@@ -33,7 +34,7 @@ final readonly class VkPerformanceValueINTEL extends OutputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            type: VkPerformanceValueTypeINTEL::from($data->type),
+            type: EnumCase::createFromValue(VkPerformanceValueTypeINTEL::class, $data->type),
             data: VkPerformanceValueDataINTEL::createFromCData($data->data),
         );
     }

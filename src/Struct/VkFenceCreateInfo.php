@@ -29,7 +29,7 @@ final class VkFenceCreateInfo extends InputStructure
         /**
          * Fence creation flags
          *
-         * @var int-mask-of<VkFenceCreateFlagBits::*>
+         * @var int-mask-of<VkFenceCreateFlagBits::VK_*>
          */
         public int $flags = 0,
     ) {}

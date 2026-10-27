@@ -23,7 +23,7 @@ final readonly class VkPhysicalDeviceToolProperties extends OutputStructure
     public function __construct(
         public string $name,
         public string $version,
-        /** @var int-mask-of<VkToolPurposeFlagBits::*> */
+        /** @var int-mask-of<VkToolPurposeFlagBits::VK_*> */
         public int $purposes,
         public string $description,
         public string $layer,

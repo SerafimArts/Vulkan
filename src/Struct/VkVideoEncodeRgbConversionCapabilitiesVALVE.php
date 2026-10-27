@@ -34,13 +34,13 @@ final readonly class VkVideoEncodeRgbConversionCapabilitiesVALVE extends OutputS
     }
 
     public function __construct(
-        /** @var int-mask-of<VkVideoEncodeRgbModelConversionFlagBitsVALVE::*> */
+        /** @var int-mask-of<VkVideoEncodeRgbModelConversionFlagBitsVALVE::VK_*> */
         public int $rgbModels,
-        /** @var int-mask-of<VkVideoEncodeRgbRangeCompressionFlagBitsVALVE::*> */
+        /** @var int-mask-of<VkVideoEncodeRgbRangeCompressionFlagBitsVALVE::VK_*> */
         public int $rgbRanges,
-        /** @var int-mask-of<VkVideoEncodeRgbChromaOffsetFlagBitsVALVE::*> */
+        /** @var int-mask-of<VkVideoEncodeRgbChromaOffsetFlagBitsVALVE::VK_*> */
         public int $xChromaOffsets,
-        /** @var int-mask-of<VkVideoEncodeRgbChromaOffsetFlagBitsVALVE::*> */
+        /** @var int-mask-of<VkVideoEncodeRgbChromaOffsetFlagBitsVALVE::VK_*> */
         public int $yChromaOffsets,
     ) {}
 

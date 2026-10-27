@@ -29,7 +29,7 @@ final class VkPipelineCreateFlags2CreateInfo extends InputStructure implements V
 
     public function __construct(
         public VkComputePipelineCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
-        /** @var int<0, max>|(VkPipelineCreateFlagBits2::*) */
+        /** @var int<0, max>|(VkPipelineCreateFlagBits2::VK_*) */
         public int $flags = 0,
     ) {}
 

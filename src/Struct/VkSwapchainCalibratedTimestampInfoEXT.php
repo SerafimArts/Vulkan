@@ -28,7 +28,7 @@ final class VkSwapchainCalibratedTimestampInfoEXT extends InputStructure impleme
     public function __construct(
         public VkSwapchainKHR $swapchain,
         public ?VkCalibratedTimestampInfoKHRExtension $next = null,
-        /** @var int-mask-of<VkPresentStageFlagBitsEXT::*> */
+        /** @var int-mask-of<VkPresentStageFlagBitsEXT::VK_*> */
         public int $presentStage = 0,
         /** @var int<0, max> */
         public int $timeDomainId = 0,

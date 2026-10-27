@@ -26,7 +26,7 @@ final class VkInstanceCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkInstanceCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkInstanceCreateFlagBits::*> */
+        /** @var int-mask-of<VkInstanceCreateFlagBits::VK_*> */
         public int $flags = 0,
         public ?VkApplicationInfo $applicationInfo = null,
         /**

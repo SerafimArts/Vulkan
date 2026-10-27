@@ -35,13 +35,13 @@ final readonly class VkPhysicalDeviceDepthStencilResolveProperties extends Outpu
         /**
          * Supported depth resolve modes
          *
-         * @var int-mask-of<VkResolveModeFlagBits::*>
+         * @var int-mask-of<VkResolveModeFlagBits::VK_*>
          */
         public int $supportedDepthResolveModes,
         /**
          * Supported stencil resolve modes
          *
-         * @var int-mask-of<VkResolveModeFlagBits::*>
+         * @var int-mask-of<VkResolveModeFlagBits::VK_*>
          */
         public int $supportedStencilResolveModes,
         /**

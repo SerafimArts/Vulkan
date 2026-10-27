@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -24,14 +25,14 @@ final class VkDescriptorPoolSize extends InputStructure
     protected const string NATIVE_TYPE = 'VkDescriptorPoolSize';
 
     public function __construct(
-        public VkDescriptorType $type = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
+        public VkDescriptorType|int $type = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
         /** @var int<0, 4294967295> */
         public int $descriptorCount = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     type: value-of<VkDescriptorType>,
+     *     type: int,
      *     descriptorCount: int<0, 4294967295>,
      * } $data
      *
@@ -39,7 +40,7 @@ final class VkDescriptorPoolSize extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         $data->descriptorCount = $this->descriptorCount;
     }

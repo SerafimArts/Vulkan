@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkBuildAccelerationStructureFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkClusterAccelerationStructureOpModeNV;
 use Serafim\Vulkan\Enum\VkClusterAccelerationStructureOpTypeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -29,10 +30,10 @@ final class VkClusterAccelerationStructureInputInfoNV extends InputStructure
         public VkClusterAccelerationStructureOpInputNV $opInput,
         /** @var int<0, 4294967295> */
         public int $maxAccelerationStructureCount = 0,
-        /** @var int<0, 4294967295>|(VkBuildAccelerationStructureFlagBitsKHR::*) */
+        /** @var int<0, 4294967295>|(VkBuildAccelerationStructureFlagBitsKHR::VK_*) */
         public int $flags = 0,
-        public VkClusterAccelerationStructureOpTypeNV $opType = VkClusterAccelerationStructureOpTypeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV,
-        public VkClusterAccelerationStructureOpModeNV $opMode = VkClusterAccelerationStructureOpModeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_IMPLICIT_DESTINATIONS_NV,
+        public VkClusterAccelerationStructureOpTypeNV|int $opType = VkClusterAccelerationStructureOpTypeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV,
+        public VkClusterAccelerationStructureOpModeNV|int $opMode = VkClusterAccelerationStructureOpModeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_IMPLICIT_DESTINATIONS_NV,
     ) {}
 
     /**
@@ -41,8 +42,8 @@ final class VkClusterAccelerationStructureInputInfoNV extends InputStructure
      *     pNext: CData,
      *     maxAccelerationStructureCount: int<0, 4294967295>,
      *     flags: int<0, 4294967295>,
-     *     opType: value-of<VkClusterAccelerationStructureOpTypeNV>,
-     *     opMode: value-of<VkClusterAccelerationStructureOpModeNV>,
+     *     opType: int,
+     *     opMode: int,
      *     opInput: CData,
      * } $data
      *
@@ -56,9 +57,9 @@ final class VkClusterAccelerationStructureInputInfoNV extends InputStructure
 
         $data->flags = $this->flags;
 
-        $data->opType = $this->opType->value;
+        $data->opType = EnumCase::getValue($this->opType);
 
-        $data->opMode = $this->opMode->value;
+        $data->opMode = EnumCase::getValue($this->opMode);
 
         $this->opInput->write($memory, $data->opInput);
     }

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseOutStructure.html
@@ -18,12 +19,12 @@ use Serafim\Vulkan\Enum\VkStructureType;
 final readonly class VkBaseOutStructure extends OutputStructure
 {
     public function __construct(
-        public VkStructureType $sType,
+        public VkStructureType|int $sType,
     ) {}
 
     /**
      * @param CData&object{
-     *     sType: value-of<VkStructureType>,
+     *     sType: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -31,7 +32,7 @@ final readonly class VkBaseOutStructure extends OutputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            sType: VkStructureType::from($data->sType),
+            sType: EnumCase::createFromValue(VkStructureType::class, $data->sType),
         );
     }
 }

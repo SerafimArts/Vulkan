@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkPipelineBindPoint;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubpassDescriptionFlagBits;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDescription2Extension;
 
@@ -31,9 +32,9 @@ final class VkSubpassDescription2 extends InputStructure
 
     public function __construct(
         public ?VkSubpassDescription2Extension $next = null,
-        /** @var int-mask-of<VkSubpassDescriptionFlagBits::*> */
+        /** @var int-mask-of<VkSubpassDescriptionFlagBits::VK_*> */
         public int $flags = 0,
-        public VkPipelineBindPoint $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
+        public VkPipelineBindPoint|int $pipelineBindPoint = VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
         /** @var int<0, 4294967295> */
         public int $viewMask = 0,
         /** @var list<VkAttachmentReference2> */
@@ -52,7 +53,7 @@ final class VkSubpassDescription2 extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
+     *     pipelineBindPoint: int,
      *     viewMask: int<0, 4294967295>,
      *     inputAttachmentCount: int<0, 4294967295>,
      *     pInputAttachments: CData,
@@ -78,7 +79,7 @@ final class VkSubpassDescription2 extends InputStructure
 
         $data->flags = $this->flags;
 
-        $data->pipelineBindPoint = $this->pipelineBindPoint->value;
+        $data->pipelineBindPoint = EnumCase::getValue($this->pipelineBindPoint);
 
         $data->viewMask = $this->viewMask;
 

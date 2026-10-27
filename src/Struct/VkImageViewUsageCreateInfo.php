@@ -26,7 +26,7 @@ final class VkImageViewUsageCreateInfo extends InputStructure implements VkImage
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,
-        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkImageUsageFlagBits::VK_*) */
         public int $usage = 0,
     ) {}
 

@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTensorTilingARM;
 use Serafim\Vulkan\Enum\VkTensorUsageFlagBitsARM;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineConstantARMExtension;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineResourceInfoARMExtension;
@@ -30,13 +31,13 @@ final class VkTensorDescriptionARM extends InputStructure implements VkDataGraph
 
     public function __construct(
         public VkDataGraphPipelineResourceInfoARMExtension|VkDataGraphPipelineConstantARMExtension|null $next = null,
-        public VkTensorTilingARM $tiling = VkTensorTilingARM::VK_TENSOR_TILING_OPTIMAL_ARM,
-        public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkTensorTilingARM|int $tiling = VkTensorTilingARM::VK_TENSOR_TILING_OPTIMAL_ARM,
+        public VkFormat|int $format = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var list<int> */
         public array $dimensions = [],
         /** @var list<int> */
         public array $strides = [],
-        /** @var int-mask-of<VkTensorUsageFlagBitsARM::*> */
+        /** @var int-mask-of<VkTensorUsageFlagBitsARM::VK_*> */
         public int $usage = 0,
     ) {}
 
@@ -44,8 +45,8 @@ final class VkTensorDescriptionARM extends InputStructure implements VkDataGraph
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM>,
      *     pNext: CData,
-     *     tiling: value-of<VkTensorTilingARM>,
-     *     format: value-of<VkFormat>,
+     *     tiling: int,
+     *     format: int,
      *     dimensionCount: int<0, 4294967295>,
      *     pDimensions: CData,
      *     pStrides: CData,
@@ -64,9 +65,9 @@ final class VkTensorDescriptionARM extends InputStructure implements VkDataGraph
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->tiling = $this->tiling->value;
+        $data->tiling = EnumCase::getValue($this->tiling);
 
-        $data->format = $this->format->value;
+        $data->format = EnumCase::getValue($this->format);
 
         if ($this->dimensions !== []) {
             $data->dimensionCount = \count($this->dimensions);

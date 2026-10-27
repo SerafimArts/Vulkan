@@ -27,7 +27,7 @@ final class VkVideoDecodeUsageInfoKHR extends InputStructure implements VkVideoP
 
     public function __construct(
         public VkVideoProfileInfoKHRExtension|VkQueryPoolCreateInfoExtension|null $next = null,
-        /** @var int-mask-of<VkVideoDecodeUsageFlagBitsKHR::*> */
+        /** @var int-mask-of<VkVideoDecodeUsageFlagBitsKHR::VK_*> */
         public int $videoUsageHints = 0,
     ) {}
 

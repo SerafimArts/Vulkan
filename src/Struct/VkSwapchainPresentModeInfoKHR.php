@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPresentModeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPresentInfoKHRExtension;
 
@@ -29,7 +30,7 @@ final class VkSwapchainPresentModeInfoKHR extends InputStructure implements VkPr
         /**
          * Presentation mode for each swapchain
          *
-         * @var list<VkPresentModeKHR>
+         * @var list<VkPresentModeKHR|int>
          */
         public array $presentModes = [],
     ) {}
@@ -56,7 +57,7 @@ final class VkSwapchainPresentModeInfoKHR extends InputStructure implements VkPr
 
         if ($this->presentModes !== []) {
             $data->swapchainCount = \count($this->presentModes);
-            $data->pPresentModes = $memory->ffi->cast('VkPresentModeKHR*', $memory->toNumberArray('VkPresentModeKHR', \array_map(static fn(VkPresentModeKHR $item): int => $item->value, $this->presentModes)));
+            $data->pPresentModes = $memory->ffi->cast('VkPresentModeKHR*', $memory->toNumberArray('VkPresentModeKHR', \array_map(EnumCase::getValue(...), $this->presentModes)));
         }
     }
 }

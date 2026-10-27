@@ -30,6 +30,7 @@ use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Exception\CommandFailedException;
+use Serafim\Vulkan\Exception\VulkanException;
 use Serafim\Vulkan\VulkanBase;
 
 /**
@@ -87,6 +88,7 @@ final readonly class CommandsEmitter
 
         $namespace->addUse(VulkanBase::class);
         $namespace->addUse(CData::class);
+        $namespace->addUse(VulkanException::class);
 
         $class = $namespace->addClass('Vulkan');
 
@@ -149,6 +151,8 @@ final readonly class CommandsEmitter
                 $method->addComment($line);
             }
         }
+
+        $method->addComment('@throws VulkanException in case of internal error occurs');
 
         $lines = $this->createBody($plan->kind)->emit($namespace, $method, $plan);
 

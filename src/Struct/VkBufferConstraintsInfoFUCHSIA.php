@@ -26,7 +26,7 @@ final class VkBufferConstraintsInfoFUCHSIA extends InputStructure
     public function __construct(
         public VkBufferCreateInfo $createInfo,
         public VkBufferCollectionConstraintsInfoFUCHSIA $bufferCollectionConstraints,
-        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::VK_*) */
         public int $requiredFormatFeatures = 0,
     ) {}
 

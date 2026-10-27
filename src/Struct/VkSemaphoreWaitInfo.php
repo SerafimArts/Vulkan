@@ -26,7 +26,7 @@ final class VkSemaphoreWaitInfo extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_WAIT_INFO->value;
 
     public function __construct(
-        /** @var int-mask-of<VkSemaphoreWaitFlagBits::*> */
+        /** @var int-mask-of<VkSemaphoreWaitFlagBits::VK_*> */
         public int $flags = 0,
         /** @var list<VkSemaphore> */
         public array $semaphores = [],

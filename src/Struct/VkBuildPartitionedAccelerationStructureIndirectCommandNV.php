@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPartitionedAccelerationStructureOpTypeNV;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -22,14 +23,14 @@ final class VkBuildPartitionedAccelerationStructureIndirectCommandNV extends Inp
 
     public function __construct(
         public VkStridedDeviceAddressNV $argData,
-        public VkPartitionedAccelerationStructureOpTypeNV $opType = VkPartitionedAccelerationStructureOpTypeNV::VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_WRITE_INSTANCE_NV,
+        public VkPartitionedAccelerationStructureOpTypeNV|int $opType = VkPartitionedAccelerationStructureOpTypeNV::VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_WRITE_INSTANCE_NV,
         /** @var int<0, 4294967295> */
         public int $argCount = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     opType: value-of<VkPartitionedAccelerationStructureOpTypeNV>,
+     *     opType: int,
      *     argCount: int<0, 4294967295>,
      *     argData: CData,
      * } $data
@@ -38,7 +39,7 @@ final class VkBuildPartitionedAccelerationStructureIndirectCommandNV extends Inp
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->opType = $this->opType->value;
+        $data->opType = EnumCase::getValue($this->opType);
 
         $data->argCount = $this->argCount;
 

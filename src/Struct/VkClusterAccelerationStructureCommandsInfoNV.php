@@ -34,7 +34,7 @@ final class VkClusterAccelerationStructureCommandsInfoNV extends InputStructure
         public int $scratchData = 0,
         /** @var int<0, max> */
         public int $srcInfosCount = 0,
-        /** @var int-mask-of<VkClusterAccelerationStructureAddressResolutionFlagBitsNV::*> */
+        /** @var int-mask-of<VkClusterAccelerationStructureAddressResolutionFlagBitsNV::VK_*> */
         public int $addressResolutionFlags = 0,
     ) {}
 

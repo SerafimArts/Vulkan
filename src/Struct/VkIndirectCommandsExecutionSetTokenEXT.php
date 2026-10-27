@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndirectExecutionSetInfoTypeEXT;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -22,14 +23,14 @@ final class VkIndirectCommandsExecutionSetTokenEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkIndirectCommandsExecutionSetTokenEXT';
 
     public function __construct(
-        public VkIndirectExecutionSetInfoTypeEXT $type = VkIndirectExecutionSetInfoTypeEXT::VK_INDIRECT_EXECUTION_SET_INFO_TYPE_PIPELINES_EXT,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
+        public VkIndirectExecutionSetInfoTypeEXT|int $type = VkIndirectExecutionSetInfoTypeEXT::VK_INDIRECT_EXECUTION_SET_INFO_TYPE_PIPELINES_EXT,
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
         public int $shaderStages = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     type: value-of<VkIndirectExecutionSetInfoTypeEXT>,
+     *     type: int,
      *     shaderStages: int<0, 4294967295>,
      * } $data
      *
@@ -37,7 +38,7 @@ final class VkIndirectCommandsExecutionSetTokenEXT extends InputStructure
      */
     protected function write(Allocation $memory, CData $data): void
     {
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         $data->shaderStages = $this->shaderStages;
     }

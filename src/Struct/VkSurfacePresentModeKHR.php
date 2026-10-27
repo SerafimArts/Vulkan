@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPresentModeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceSurfaceInfo2KHRExtension;
 
@@ -26,14 +27,14 @@ final class VkSurfacePresentModeKHR extends InputStructure implements VkPhysical
 
     public function __construct(
         public ?VkPhysicalDeviceSurfaceInfo2KHRExtension $next = null,
-        public VkPresentModeKHR $presentMode = VkPresentModeKHR::VK_PRESENT_MODE_IMMEDIATE_KHR,
+        public VkPresentModeKHR|int $presentMode = VkPresentModeKHR::VK_PRESENT_MODE_IMMEDIATE_KHR,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR>,
      *     pNext: CData,
-     *     presentMode: value-of<VkPresentModeKHR>,
+     *     presentMode: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,6 +49,6 @@ final class VkSurfacePresentModeKHR extends InputStructure implements VkPhysical
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->presentMode = $this->presentMode->value;
+        $data->presentMode = EnumCase::getValue($this->presentMode);
     }
 }

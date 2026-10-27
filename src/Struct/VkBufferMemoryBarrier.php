@@ -35,14 +35,14 @@ final class VkBufferMemoryBarrier extends InputStructure
         /**
          * Memory accesses from the source of the dependency to synchronize
          *
-         * @var int<0, 4294967295>|(VkAccessFlagBits::*)
+         * @var int<0, 4294967295>|(VkAccessFlagBits::VK_*)
          */
         public int $srcAccessMask = 0,
         /**
          * Memory accesses from the destination of the dependency to
          * synchronize
          *
-         * @var int<0, 4294967295>|(VkAccessFlagBits::*)
+         * @var int<0, 4294967295>|(VkAccessFlagBits::VK_*)
          */
         public int $dstAccessMask = 0,
         /**

@@ -28,7 +28,7 @@ final class VkImportMemoryWin32HandleInfoNV extends InputStructure implements Vk
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
-        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> */
+        /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::VK_*> */
         public int $handleType = 0,
         public CData|int|null $handle = null,
     ) {}

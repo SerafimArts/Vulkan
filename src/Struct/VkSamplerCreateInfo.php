@@ -16,6 +16,7 @@ use Serafim\Vulkan\Enum\VkSamplerAddressMode;
 use Serafim\Vulkan\Enum\VkSamplerCreateFlagBits;
 use Serafim\Vulkan\Enum\VkSamplerMipmapMode;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerCreateInfoExtension;
 
@@ -31,25 +32,25 @@ final class VkSamplerCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkSamplerCreateFlagBits::*> */
+        /** @var int-mask-of<VkSamplerCreateFlagBits::VK_*> */
         public int $flags = 0,
         /** Filter mode for magnification */
-        public VkFilter $magFilter = VkFilter::VK_FILTER_NEAREST,
+        public VkFilter|int $magFilter = VkFilter::VK_FILTER_NEAREST,
         /** Filter mode for minifiation */
-        public VkFilter $minFilter = VkFilter::VK_FILTER_NEAREST,
+        public VkFilter|int $minFilter = VkFilter::VK_FILTER_NEAREST,
         /** Mipmap selection mode */
-        public VkSamplerMipmapMode $mipmapMode = VkSamplerMipmapMode::VK_SAMPLER_MIPMAP_MODE_NEAREST,
-        public VkSamplerAddressMode $addressModeU = VkSamplerAddressMode::VK_SAMPLER_ADDRESS_MODE_REPEAT,
-        public VkSamplerAddressMode $addressModeV = VkSamplerAddressMode::VK_SAMPLER_ADDRESS_MODE_REPEAT,
-        public VkSamplerAddressMode $addressModeW = VkSamplerAddressMode::VK_SAMPLER_ADDRESS_MODE_REPEAT,
+        public VkSamplerMipmapMode|int $mipmapMode = VkSamplerMipmapMode::VK_SAMPLER_MIPMAP_MODE_NEAREST,
+        public VkSamplerAddressMode|int $addressModeU = VkSamplerAddressMode::VK_SAMPLER_ADDRESS_MODE_REPEAT,
+        public VkSamplerAddressMode|int $addressModeV = VkSamplerAddressMode::VK_SAMPLER_ADDRESS_MODE_REPEAT,
+        public VkSamplerAddressMode|int $addressModeW = VkSamplerAddressMode::VK_SAMPLER_ADDRESS_MODE_REPEAT,
         public float $mipLodBias = 0.0,
         public bool $anisotropyEnable = false,
         public float $maxAnisotropy = 0.0,
         public bool $compareEnable = false,
-        public VkCompareOp $compareOp = VkCompareOp::VK_COMPARE_OP_NEVER,
+        public VkCompareOp|int $compareOp = VkCompareOp::VK_COMPARE_OP_NEVER,
         public float $minLod = 0.0,
         public float $maxLod = 0.0,
-        public VkBorderColor $borderColor = VkBorderColor::VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK,
+        public VkBorderColor|int $borderColor = VkBorderColor::VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK,
         public bool $unnormalizedCoordinates = false,
     ) {}
 
@@ -58,20 +59,20 @@ final class VkSamplerCreateInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     magFilter: value-of<VkFilter>,
-     *     minFilter: value-of<VkFilter>,
-     *     mipmapMode: value-of<VkSamplerMipmapMode>,
-     *     addressModeU: value-of<VkSamplerAddressMode>,
-     *     addressModeV: value-of<VkSamplerAddressMode>,
-     *     addressModeW: value-of<VkSamplerAddressMode>,
+     *     magFilter: int,
+     *     minFilter: int,
+     *     mipmapMode: int,
+     *     addressModeU: int,
+     *     addressModeV: int,
+     *     addressModeW: int,
      *     mipLodBias: float,
      *     anisotropyEnable: int<0, 1>,
      *     maxAnisotropy: float,
      *     compareEnable: int<0, 1>,
-     *     compareOp: value-of<VkCompareOp>,
+     *     compareOp: int,
      *     minLod: float,
      *     maxLod: float,
-     *     borderColor: value-of<VkBorderColor>,
+     *     borderColor: int,
      *     unnormalizedCoordinates: int<0, 1>,
      * } $data
      *
@@ -89,17 +90,17 @@ final class VkSamplerCreateInfo extends InputStructure
 
         $data->flags = $this->flags;
 
-        $data->magFilter = $this->magFilter->value;
+        $data->magFilter = EnumCase::getValue($this->magFilter);
 
-        $data->minFilter = $this->minFilter->value;
+        $data->minFilter = EnumCase::getValue($this->minFilter);
 
-        $data->mipmapMode = $this->mipmapMode->value;
+        $data->mipmapMode = EnumCase::getValue($this->mipmapMode);
 
-        $data->addressModeU = $this->addressModeU->value;
+        $data->addressModeU = EnumCase::getValue($this->addressModeU);
 
-        $data->addressModeV = $this->addressModeV->value;
+        $data->addressModeV = EnumCase::getValue($this->addressModeV);
 
-        $data->addressModeW = $this->addressModeW->value;
+        $data->addressModeW = EnumCase::getValue($this->addressModeW);
 
         $data->mipLodBias = $this->mipLodBias;
 
@@ -109,13 +110,13 @@ final class VkSamplerCreateInfo extends InputStructure
 
         $data->compareEnable = (int) $this->compareEnable;
 
-        $data->compareOp = $this->compareOp->value;
+        $data->compareOp = EnumCase::getValue($this->compareOp);
 
         $data->minLod = $this->minLod;
 
         $data->maxLod = $this->maxLod;
 
-        $data->borderColor = $this->borderColor->value;
+        $data->borderColor = EnumCase::getValue($this->borderColor);
 
         $data->unnormalizedCoordinates = (int) $this->unnormalizedCoordinates;
     }

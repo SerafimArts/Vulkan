@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphOpticalFlowImageFormatPropertiesARM.html
@@ -21,12 +22,12 @@ final readonly class VkDataGraphOpticalFlowImageFormatPropertiesARM extends Outp
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_ARM->value;
 
     public function __construct(
-        public VkFormat $format,
+        public VkFormat|int $format,
     ) {}
 
     /**
      * @param CData&object{
-     *     format: value-of<VkFormat>,
+     *     format: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -34,7 +35,7 @@ final readonly class VkDataGraphOpticalFlowImageFormatPropertiesARM extends Outp
     public static function createFromCData(CData $data): self
     {
         return new self(
-            format: VkFormat::from($data->format),
+            format: EnumCase::createFromValue(VkFormat::class, $data->format),
         );
     }
 }

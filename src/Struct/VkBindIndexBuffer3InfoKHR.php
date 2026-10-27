@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,9 +27,9 @@ final class VkBindIndexBuffer3InfoKHR extends InputStructure
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
-        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
+        /** @var int-mask-of<VkAddressCommandFlagBitsKHR::VK_*> */
         public int $addressFlags = 0,
-        public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
+        public VkIndexType|int $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
     ) {}
 
     /**
@@ -37,7 +38,7 @@ final class VkBindIndexBuffer3InfoKHR extends InputStructure
      *     pNext: CData,
      *     addressRange: CData,
      *     addressFlags: int<0, 4294967295>,
-     *     indexType: value-of<VkIndexType>,
+     *     indexType: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -50,6 +51,6 @@ final class VkBindIndexBuffer3InfoKHR extends InputStructure
 
         $data->addressFlags = $this->addressFlags;
 
-        $data->indexType = $this->indexType->value;
+        $data->indexType = EnumCase::getValue($this->indexType);
     }
 }

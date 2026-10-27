@@ -27,7 +27,7 @@ final class VkPushConstantRange extends InputStructure
         /**
          * Which stages use the range
          *
-         * @var int<0, 4294967295>|(VkShaderStageFlagBits::*)
+         * @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*)
          */
         public int $stageFlags = 0,
         /**

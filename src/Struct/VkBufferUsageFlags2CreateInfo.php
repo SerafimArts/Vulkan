@@ -29,7 +29,7 @@ final class VkBufferUsageFlags2CreateInfo extends InputStructure implements VkBu
 
     public function __construct(
         public VkBufferViewCreateInfoExtension|VkBufferCreateInfoExtension|VkPhysicalDeviceExternalBufferInfoExtension|VkDescriptorBufferBindingInfoEXTExtension|null $next = null,
-        /** @var int<0, max>|(VkBufferUsageFlagBits2::*) */
+        /** @var int<0, max>|(VkBufferUsageFlagBits2::VK_*) */
         public int $usage = 0,
     ) {}
 

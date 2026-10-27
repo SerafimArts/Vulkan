@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkRenderingFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 
@@ -28,15 +29,15 @@ final class VkCommandBufferInheritanceRenderingInfo extends InputStructure imple
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,
-        /** @var int-mask-of<VkRenderingFlagBits::*> */
+        /** @var int-mask-of<VkRenderingFlagBits::VK_*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
         public int $viewMask = 0,
-        /** @var list<VkFormat> */
+        /** @var list<VkFormat|int> */
         public array $colorAttachmentFormats = [],
-        public VkFormat $depthAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        public VkFormat $stencilAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
+        public VkFormat|int $depthAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        public VkFormat|int $stencilAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
+        /** @var int<0, 4294967295>|(VkSampleCountFlagBits::VK_*) */
         public int $rasterizationSamples = 0,
     ) {}
 
@@ -48,8 +49,8 @@ final class VkCommandBufferInheritanceRenderingInfo extends InputStructure imple
      *     viewMask: int<0, 4294967295>,
      *     colorAttachmentCount: int<0, 4294967295>,
      *     pColorAttachmentFormats: CData,
-     *     depthAttachmentFormat: value-of<VkFormat>,
-     *     stencilAttachmentFormat: value-of<VkFormat>,
+     *     depthAttachmentFormat: int,
+     *     stencilAttachmentFormat: int,
      *     rasterizationSamples: int<0, 4294967295>,
      * } $data
      *
@@ -71,12 +72,12 @@ final class VkCommandBufferInheritanceRenderingInfo extends InputStructure imple
 
         if ($this->colorAttachmentFormats !== []) {
             $data->colorAttachmentCount = \count($this->colorAttachmentFormats);
-            $data->pColorAttachmentFormats = $memory->ffi->cast('VkFormat*', $memory->toNumberArray('VkFormat', \array_map(static fn(VkFormat $item): int => $item->value, $this->colorAttachmentFormats)));
+            $data->pColorAttachmentFormats = $memory->ffi->cast('VkFormat*', $memory->toNumberArray('VkFormat', \array_map(EnumCase::getValue(...), $this->colorAttachmentFormats)));
         }
 
-        $data->depthAttachmentFormat = $this->depthAttachmentFormat->value;
+        $data->depthAttachmentFormat = EnumCase::getValue($this->depthAttachmentFormat);
 
-        $data->stencilAttachmentFormat = $this->stencilAttachmentFormat->value;
+        $data->stencilAttachmentFormat = EnumCase::getValue($this->stencilAttachmentFormat);
 
         $data->rasterizationSamples = $this->rasterizationSamples;
     }

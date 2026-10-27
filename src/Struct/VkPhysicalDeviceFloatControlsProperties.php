@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderFloatControlsIndependence;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -33,9 +34,9 @@ final readonly class VkPhysicalDeviceFloatControlsProperties extends OutputStruc
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkShaderFloatControlsIndependence $denormBehaviorIndependence,
+        public VkShaderFloatControlsIndependence|int $denormBehaviorIndependence,
         /** The value is exactly the required one. */
-        public VkShaderFloatControlsIndependence $roundingModeIndependence,
+        public VkShaderFloatControlsIndependence|int $roundingModeIndependence,
         /**
          * An implementation can preserve signed zero, nan, inf
          *
@@ -130,8 +131,8 @@ final readonly class VkPhysicalDeviceFloatControlsProperties extends OutputStruc
 
     /**
      * @param CData&object{
-     *     denormBehaviorIndependence: value-of<VkShaderFloatControlsIndependence>,
-     *     roundingModeIndependence: value-of<VkShaderFloatControlsIndependence>,
+     *     denormBehaviorIndependence: int,
+     *     roundingModeIndependence: int,
      *     shaderSignedZeroInfNanPreserveFloat16: int<0, 1>,
      *     shaderSignedZeroInfNanPreserveFloat32: int<0, 1>,
      *     shaderSignedZeroInfNanPreserveFloat64: int<0, 1>,
@@ -154,8 +155,8 @@ final readonly class VkPhysicalDeviceFloatControlsProperties extends OutputStruc
     public static function createFromCData(CData $data): self
     {
         return new self(
-            denormBehaviorIndependence: VkShaderFloatControlsIndependence::from($data->denormBehaviorIndependence),
-            roundingModeIndependence: VkShaderFloatControlsIndependence::from($data->roundingModeIndependence),
+            denormBehaviorIndependence: EnumCase::createFromValue(VkShaderFloatControlsIndependence::class, $data->denormBehaviorIndependence),
+            roundingModeIndependence: EnumCase::createFromValue(VkShaderFloatControlsIndependence::class, $data->roundingModeIndependence),
             shaderSignedZeroInfNanPreserveFloat16: $data->shaderSignedZeroInfNanPreserveFloat16 !== 0,
             shaderSignedZeroInfNanPreserveFloat32: $data->shaderSignedZeroInfNanPreserveFloat32 !== 0,
             shaderSignedZeroInfNanPreserveFloat64: $data->shaderSignedZeroInfNanPreserveFloat64 !== 0,

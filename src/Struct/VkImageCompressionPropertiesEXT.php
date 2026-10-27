@@ -35,9 +35,9 @@ final readonly class VkImageCompressionPropertiesEXT extends OutputStructure imp
     }
 
     public function __construct(
-        /** @var int-mask-of<VkImageCompressionFlagBitsEXT::*> */
+        /** @var int-mask-of<VkImageCompressionFlagBitsEXT::VK_*> */
         public int $imageCompressionFlags,
-        /** @var int<0, 4294967295>|(VkImageCompressionFixedRateFlagBitsEXT::*) */
+        /** @var int<0, 4294967295>|(VkImageCompressionFixedRateFlagBitsEXT::VK_*) */
         public int $imageCompressionFixedRateFlags,
     ) {}
 

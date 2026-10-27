@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndexType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -25,14 +26,14 @@ final class VkBindIndexBufferIndirectCommandEXT extends InputStructure
         public int $bufferAddress = 0,
         /** @var int<0, 4294967295> */
         public int $size = 0,
-        public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
+        public VkIndexType|int $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
     ) {}
 
     /**
      * @param CData&object{
      *     bufferAddress: int<0, max>,
      *     size: int<0, 4294967295>,
-     *     indexType: value-of<VkIndexType>,
+     *     indexType: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -43,6 +44,6 @@ final class VkBindIndexBufferIndirectCommandEXT extends InputStructure
 
         $data->size = $this->size;
 
-        $data->indexType = $this->indexType->value;
+        $data->indexType = EnumCase::getValue($this->indexType);
     }
 }

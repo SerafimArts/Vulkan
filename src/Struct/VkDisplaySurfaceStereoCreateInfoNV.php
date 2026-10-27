@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDisplaySurfaceStereoTypeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDisplaySurfaceCreateInfoKHRExtension;
 
@@ -27,14 +28,14 @@ final class VkDisplaySurfaceStereoCreateInfoNV extends InputStructure implements
     public function __construct(
         public ?VkDisplaySurfaceCreateInfoKHRExtension $next = null,
         /** The 3D stereo type to use when presenting this surface. */
-        public VkDisplaySurfaceStereoTypeNV $stereoType = VkDisplaySurfaceStereoTypeNV::VK_DISPLAY_SURFACE_STEREO_TYPE_NONE_NV,
+        public VkDisplaySurfaceStereoTypeNV|int $stereoType = VkDisplaySurfaceStereoTypeNV::VK_DISPLAY_SURFACE_STEREO_TYPE_NONE_NV,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV>,
      *     pNext: CData,
-     *     stereoType: value-of<VkDisplaySurfaceStereoTypeNV>,
+     *     stereoType: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -49,6 +50,6 @@ final class VkDisplaySurfaceStereoCreateInfoNV extends InputStructure implements
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->stereoType = $this->stereoType->value;
+        $data->stereoType = EnumCase::getValue($this->stereoType);
     }
 }

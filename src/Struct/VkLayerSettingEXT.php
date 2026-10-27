@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkLayerSettingTypeEXT;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -26,7 +27,7 @@ final class VkLayerSettingEXT extends InputStructure
         /** @var non-empty-string|null */
         public ?string $settingName = null,
         /** The type of the object */
-        public VkLayerSettingTypeEXT $type = VkLayerSettingTypeEXT::VK_LAYER_SETTING_TYPE_BOOL32_EXT,
+        public VkLayerSettingTypeEXT|int $type = VkLayerSettingTypeEXT::VK_LAYER_SETTING_TYPE_BOOL32_EXT,
         /** Values to pass for a setting */
         public string $values = '',
     ) {}
@@ -35,7 +36,7 @@ final class VkLayerSettingEXT extends InputStructure
      * @param CData&object{
      *     pLayerName: CData|null,
      *     pSettingName: CData|null,
-     *     type: value-of<VkLayerSettingTypeEXT>,
+     *     type: int,
      *     valueCount: int<0, 4294967295>,
      *     pValues: CData,
      * } $data
@@ -52,7 +53,7 @@ final class VkLayerSettingEXT extends InputStructure
             $data->pSettingName = $memory->toCString($this->settingName);
         }
 
-        $data->type = $this->type->value;
+        $data->type = EnumCase::getValue($this->type);
 
         if ($this->values !== '') {
             $data->valueCount = \strlen($this->values);

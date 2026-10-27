@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkComponentTypeKHR;
 use Serafim\Vulkan\Enum\VkScopeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html
@@ -28,12 +29,12 @@ final readonly class VkCooperativeMatrixFlexibleDimensionsPropertiesNV extends O
         public int $NGranularity,
         /** @var int<0, 4294967295> */
         public int $KGranularity,
-        public VkComponentTypeKHR $AType,
-        public VkComponentTypeKHR $BType,
-        public VkComponentTypeKHR $CType,
-        public VkComponentTypeKHR $ResultType,
+        public VkComponentTypeKHR|int $AType,
+        public VkComponentTypeKHR|int $BType,
+        public VkComponentTypeKHR|int $CType,
+        public VkComponentTypeKHR|int $ResultType,
         public bool $saturatingAccumulation,
-        public VkScopeKHR $scope,
+        public VkScopeKHR|int $scope,
         /** @var int<0, 4294967295> */
         public int $workgroupInvocations,
     ) {}
@@ -43,12 +44,12 @@ final readonly class VkCooperativeMatrixFlexibleDimensionsPropertiesNV extends O
      *     MGranularity: int<0, 4294967295>,
      *     NGranularity: int<0, 4294967295>,
      *     KGranularity: int<0, 4294967295>,
-     *     AType: value-of<VkComponentTypeKHR>,
-     *     BType: value-of<VkComponentTypeKHR>,
-     *     CType: value-of<VkComponentTypeKHR>,
-     *     ResultType: value-of<VkComponentTypeKHR>,
+     *     AType: int,
+     *     BType: int,
+     *     CType: int,
+     *     ResultType: int,
      *     saturatingAccumulation: int<0, 1>,
-     *     scope: value-of<VkScopeKHR>,
+     *     scope: int,
      *     workgroupInvocations: int<0, 4294967295>,
      * } $data
      *
@@ -60,12 +61,12 @@ final readonly class VkCooperativeMatrixFlexibleDimensionsPropertiesNV extends O
             MGranularity: $data->MGranularity,
             NGranularity: $data->NGranularity,
             KGranularity: $data->KGranularity,
-            AType: VkComponentTypeKHR::from($data->AType),
-            BType: VkComponentTypeKHR::from($data->BType),
-            CType: VkComponentTypeKHR::from($data->CType),
-            ResultType: VkComponentTypeKHR::from($data->ResultType),
+            AType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->AType),
+            BType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->BType),
+            CType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->CType),
+            ResultType: EnumCase::createFromValue(VkComponentTypeKHR::class, $data->ResultType),
             saturatingAccumulation: $data->saturatingAccumulation !== 0,
-            scope: VkScopeKHR::from($data->scope),
+            scope: EnumCase::createFromValue(VkScopeKHR::class, $data->scope),
             workgroupInvocations: $data->workgroupInvocations,
         );
     }

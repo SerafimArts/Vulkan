@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDriverId;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -33,7 +34,7 @@ final readonly class VkPhysicalDeviceDriverProperties extends OutputStructure im
 
     public function __construct(
         /** The value is exactly the required one. */
-        public VkDriverId $driverID,
+        public VkDriverId|int $driverID,
         /** The value is exactly the required one. */
         public string $driverName,
         /** The value is exactly the required one. */
@@ -44,7 +45,7 @@ final readonly class VkPhysicalDeviceDriverProperties extends OutputStructure im
 
     /**
      * @param CData&object{
-     *     driverID: value-of<VkDriverId>,
+     *     driverID: int,
      *     driverName: CData,
      *     driverInfo: CData,
      *     conformanceVersion: CData,
@@ -55,7 +56,7 @@ final readonly class VkPhysicalDeviceDriverProperties extends OutputStructure im
     public static function createFromCData(CData $data): self
     {
         return new self(
-            driverID: VkDriverId::from($data->driverID),
+            driverID: EnumCase::createFromValue(VkDriverId::class, $data->driverID),
             driverName: \FFI::string($data->driverName),
             driverInfo: \FFI::string($data->driverInfo),
             conformanceVersion: VkConformanceVersion::createFromCData($data->conformanceVersion),

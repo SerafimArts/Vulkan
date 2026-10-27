@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkGeometryFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkGeometryTypeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryKHRExtension;
 
@@ -28,8 +29,8 @@ final class VkAccelerationStructureGeometryKHR extends InputStructure
     public function __construct(
         public VkAccelerationStructureGeometryDataKHR $geometry,
         public ?VkAccelerationStructureGeometryKHRExtension $next = null,
-        public VkGeometryTypeKHR $geometryType = VkGeometryTypeKHR::VK_GEOMETRY_TYPE_TRIANGLES_KHR,
-        /** @var int-mask-of<VkGeometryFlagBitsKHR::*> */
+        public VkGeometryTypeKHR|int $geometryType = VkGeometryTypeKHR::VK_GEOMETRY_TYPE_TRIANGLES_KHR,
+        /** @var int-mask-of<VkGeometryFlagBitsKHR::VK_*> */
         public int $flags = 0,
     ) {}
 
@@ -37,7 +38,7 @@ final class VkAccelerationStructureGeometryKHR extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR>,
      *     pNext: CData,
-     *     geometryType: value-of<VkGeometryTypeKHR>,
+     *     geometryType: int,
      *     geometry: CData,
      *     flags: int<0, 4294967295>,
      * } $data
@@ -54,7 +55,7 @@ final class VkAccelerationStructureGeometryKHR extends InputStructure
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        $data->geometryType = $this->geometryType->value;
+        $data->geometryType = EnumCase::getValue($this->geometryType);
 
         $this->geometry->write($memory, $data->geometry);
 

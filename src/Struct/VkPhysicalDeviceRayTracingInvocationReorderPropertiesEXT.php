@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRayTracingInvocationReorderModeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -32,7 +33,7 @@ final readonly class VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT ex
     }
 
     public function __construct(
-        public VkRayTracingInvocationReorderModeEXT $rayTracingInvocationReorderReorderingHint,
+        public VkRayTracingInvocationReorderModeEXT|int $rayTracingInvocationReorderReorderingHint,
         /**
          * The value is at most the required one.
          *
@@ -43,7 +44,7 @@ final readonly class VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT ex
 
     /**
      * @param CData&object{
-     *     rayTracingInvocationReorderReorderingHint: value-of<VkRayTracingInvocationReorderModeEXT>,
+     *     rayTracingInvocationReorderReorderingHint: int,
      *     maxShaderBindingTableRecordIndex: int<0, 4294967295>,
      * } $data
      *
@@ -52,7 +53,7 @@ final readonly class VkPhysicalDeviceRayTracingInvocationReorderPropertiesEXT ex
     public static function createFromCData(CData $data): self
     {
         return new self(
-            rayTracingInvocationReorderReorderingHint: VkRayTracingInvocationReorderModeEXT::from($data->rayTracingInvocationReorderReorderingHint),
+            rayTracingInvocationReorderReorderingHint: EnumCase::createFromValue(VkRayTracingInvocationReorderModeEXT::class, $data->rayTracingInvocationReorderReorderingHint),
             maxShaderBindingTableRecordIndex: $data->maxShaderBindingTableRecordIndex,
         );
     }

@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDisplayEventTypeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -24,14 +25,14 @@ final class VkDisplayEventInfoEXT extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_EVENT_INFO_EXT->value;
 
     public function __construct(
-        public VkDisplayEventTypeEXT $displayEvent = VkDisplayEventTypeEXT::VK_DISPLAY_EVENT_TYPE_FIRST_PIXEL_OUT_EXT,
+        public VkDisplayEventTypeEXT|int $displayEvent = VkDisplayEventTypeEXT::VK_DISPLAY_EVENT_TYPE_FIRST_PIXEL_OUT_EXT,
     ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_EVENT_INFO_EXT>,
      *     pNext: CData,
-     *     displayEvent: value-of<VkDisplayEventTypeEXT>,
+     *     displayEvent: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -40,6 +41,6 @@ final class VkDisplayEventInfoEXT extends InputStructure
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        $data->displayEvent = $this->displayEvent->value;
+        $data->displayEvent = EnumCase::getValue($this->displayEvent);
     }
 }

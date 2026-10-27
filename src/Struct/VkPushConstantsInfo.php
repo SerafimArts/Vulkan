@@ -28,7 +28,7 @@ final class VkPushConstantsInfo extends InputStructure
     public function __construct(
         public ?VkPushConstantsInfoExtension $next = null,
         public ?VkPipelineLayout $layout = null,
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
         public int $stageFlags = 0,
         /** @var int<0, 4294967295> */
         public int $offset = 0,

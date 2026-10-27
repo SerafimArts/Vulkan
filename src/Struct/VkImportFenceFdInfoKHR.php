@@ -27,9 +27,9 @@ final class VkImportFenceFdInfoKHR extends InputStructure
 
     public function __construct(
         public VkFence $fence,
-        /** @var int-mask-of<VkFenceImportFlagBits::*> */
+        /** @var int-mask-of<VkFenceImportFlagBits::VK_*> */
         public int $flags = 0,
-        /** @var int<0, 4294967295>|(VkExternalFenceHandleTypeFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkExternalFenceHandleTypeFlagBits::VK_*) */
         public int $handleType = 0,
         /** @var int */
         public int $fd = 0,

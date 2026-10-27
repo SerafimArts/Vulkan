@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceFaultAddressTypeKHR;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultAddressInfoKHR.html
@@ -18,7 +19,7 @@ use Serafim\Vulkan\Enum\VkDeviceFaultAddressTypeKHR;
 final readonly class VkDeviceFaultAddressInfoKHR extends OutputStructure
 {
     public function __construct(
-        public VkDeviceFaultAddressTypeKHR $addressType,
+        public VkDeviceFaultAddressTypeKHR|int $addressType,
         /** @var int<0, max> */
         public int $reportedAddress,
         /** @var int<0, max> */
@@ -27,7 +28,7 @@ final readonly class VkDeviceFaultAddressInfoKHR extends OutputStructure
 
     /**
      * @param CData&object{
-     *     addressType: value-of<VkDeviceFaultAddressTypeKHR>,
+     *     addressType: int,
      *     reportedAddress: int<0, max>,
      *     addressPrecision: int<0, max>,
      * } $data
@@ -37,7 +38,7 @@ final readonly class VkDeviceFaultAddressInfoKHR extends OutputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            addressType: VkDeviceFaultAddressTypeKHR::from($data->addressType),
+            addressType: EnumCase::createFromValue(VkDeviceFaultAddressTypeKHR::class, $data->addressType),
             reportedAddress: $data->reportedAddress,
             addressPrecision: $data->addressPrecision,
         );

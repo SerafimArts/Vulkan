@@ -29,7 +29,7 @@ final class VkDescriptorSetLayoutCreateInfo extends InputStructure
 
     public function __construct(
         public ?VkDescriptorSetLayoutCreateInfoExtension $next = null,
-        /** @var int-mask-of<VkDescriptorSetLayoutCreateFlagBits::*> */
+        /** @var int-mask-of<VkDescriptorSetLayoutCreateFlagBits::VK_*> */
         public int $flags = 0,
         /**
          * Array of descriptor set layout bindings

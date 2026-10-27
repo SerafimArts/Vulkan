@@ -32,7 +32,7 @@ final readonly class VkPhysicalDeviceCooperativeMatrixPropertiesKHR extends Outp
     }
 
     public function __construct(
-        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
+        /** @var int<0, 4294967295>|(VkShaderStageFlagBits::VK_*) */
         public int $cooperativeMatrixSupportedStages,
     ) {}
 

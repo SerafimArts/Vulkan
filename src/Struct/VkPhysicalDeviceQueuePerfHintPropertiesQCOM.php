@@ -32,7 +32,7 @@ final readonly class VkPhysicalDeviceQueuePerfHintPropertiesQCOM extends OutputS
     }
 
     public function __construct(
-        /** @var int-mask-of<VkQueueFlagBits::*> */
+        /** @var int-mask-of<VkQueueFlagBits::VK_*> */
         public int $supportedQueues,
     ) {}
 

@@ -31,9 +31,9 @@ final class VkDebugUtilsMessengerCreateInfoEXT extends InputStructure implements
         public ?VkInstanceCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        /** @var int-mask-of<VkDebugUtilsMessageSeverityFlagBitsEXT::*> */
+        /** @var int-mask-of<VkDebugUtilsMessageSeverityFlagBitsEXT::VK_*> */
         public int $messageSeverity = 0,
-        /** @var int-mask-of<VkDebugUtilsMessageTypeFlagBitsEXT::*> */
+        /** @var int-mask-of<VkDebugUtilsMessageTypeFlagBitsEXT::VK_*> */
         public int $messageType = 0,
         public CData|int|null $userData = null,
     ) {}

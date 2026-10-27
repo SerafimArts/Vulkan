@@ -26,7 +26,7 @@ final class VkDependencyInfo extends InputStructure
 
     public function __construct(
         public ?VkDependencyInfoExtension $next = null,
-        /** @var int-mask-of<VkDependencyFlagBits::*> */
+        /** @var int-mask-of<VkDependencyFlagBits::VK_*> */
         public int $dependencyFlags = 0,
         /** @var list<VkMemoryBarrier2> */
         public array $memoryBarriers = [],
