@@ -15,6 +15,7 @@ use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindSparseInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPresentInfoKHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfo2Extension;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
 
@@ -22,7 +23,7 @@ use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkFrameBoundaryEXT.html
  * @since VK_EXT_frame_boundary
  */
-final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExtension, VkSubmitInfo2Extension, VkBindSparseInfoExtension
+final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExtension, VkSubmitInfo2Extension, VkPresentInfoKHRExtension, VkBindSparseInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkFrameBoundaryEXT';
 
@@ -30,7 +31,7 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
     public const int STRUCTURE_TYPE = 1000375001;
 
     public function __construct(
-        public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkBindSparseInfoExtension|null $next = null,
+        public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkPresentInfoKHRExtension|VkBindSparseInfoExtension|null $next = null,
         /** @var int-mask-of<VkFrameBoundaryFlagBitsEXT::*> */
         public int $flags = 0,
         /** @var int<0, max> */

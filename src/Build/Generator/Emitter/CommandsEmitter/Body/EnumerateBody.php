@@ -66,8 +66,7 @@ final readonly class EnumerateBody implements Body
             'return VkEnumerator::create(',
             '    $this,',
             '    ' . \var_export($plan->command->name, true) . ',',
-            '    $procedure,',
-            '    [' . \implode(', ', $this->calls->createLeadingArguments($plan)) . '],',
+            '    ' . $this->createCall($plan) . ',',
             '    ' . \var_export($output->field->type, true) . ',',
             '    fn(CData $item): ' . $class . ' => ' . $factory . ',',
         ];
@@ -79,6 +78,17 @@ final readonly class EnumerateBody implements Body
         $lines[] = ');';
 
         return $lines;
+    }
+
+    /**
+     * Returns the closure that calls the command with the length and the array
+     * the enumerator gives it.
+     */
+    private function createCall(CommandPlan $plan): string
+    {
+        $arguments = [...$this->calls->createLeadingArguments($plan), '$count', '$items'];
+
+        return 'static fn(CData $count, ?CData $items): mixed => $procedure(' . \implode(', ', $arguments) . ')';
     }
 
     /**
@@ -114,8 +124,7 @@ final readonly class EnumerateBody implements Body
             'return VkEnumerator::createList(',
             '    $this,',
             '    ' . \var_export($plan->command->name, true) . ',',
-            '    $procedure,',
-            '    [' . \implode(', ', $this->calls->createLeadingArguments($plan)) . '],',
+            '    ' . $this->createCall($plan) . ',',
             '    ' . \var_export($output->field->type, true) . ',',
             '    ' . $factory . ',',
             ');',

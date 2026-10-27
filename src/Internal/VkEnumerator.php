@@ -39,10 +39,9 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
      *
      * @template TCreated
      *
-     * @param non-empty-string $command the last two arguments of the
-     *        command, the length and the elements, are added to the given ones
-     * @param callable $procedure the pointer to the command
-     * @param list<mixed> $arguments the arguments of the command before them
+     * @param non-empty-string $command
+     * @param \Closure(CData, CData|null): mixed $call calls the command with
+     *        the pointer to the length and the native array
      * @param non-empty-string $type C type of an element
      * @param \Closure(CData): TCreated $factory creates an element from the
      *        native one
@@ -55,41 +54,56 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
     public static function create(
         VulkanBase $vk,
         string $command,
-        callable $procedure,
-        array $arguments,
+        \Closure $call,
         string $type,
         \Closure $factory,
         ?int $structureType = null,
     ): self {
-        $count = $vk->memory->new('uint32_t');
-        $pointer = \FFI::addr($count);
+        [$items, $length] = self::fill($vk, $command, $call, $type, $structureType);
 
-        do {
-            $vk->assertSuccess($command, self::call($procedure, [...$arguments, $pointer, null]));
+        return new self($items, $length, $factory);
+    }
 
-            $length = self::readLength($count);
+    /**
+     * Calls the command and returns the numbers it has written to the native
+     * array.
+     *
+     * @template TNumber of int|float
+     * @template TCreated
+     *
+     * @param non-empty-string $command
+     * @param \Closure(CData, CData|null): mixed $call calls the command with
+     *        the pointer to the length and the native array
+     * @param non-empty-string $type C type of an element
+     * @param \Closure(TNumber): TCreated $factory creates an element from
+     *        the number
+     *
+     * @return list<TCreated>
+     * @throws CommandFailedException in case of the command fails
+     */
+    public static function createList(
+        VulkanBase $vk,
+        string $command,
+        \Closure $call,
+        string $type,
+        \Closure $factory,
+    ): array {
+        [$items, $length] = self::fill($vk, $command, $call, $type, null);
 
-            if ($length === 0) {
-                return new self(null, 0, $factory);
-            }
+        $list = [];
 
-            $items = $vk->memory->new($type . '[' . $length . ']');
+        if ($items === null) {
+            return $list;
+        }
 
-            if ($structureType !== null) {
-                for ($i = 0; $i < $length; ++$i) {
-                    /** @var CData $item */
-                    $item = $items[$i];
+        for ($i = 0; $i < $length; ++$i) {
+            /** @var TNumber $value */
+            $value = $items[$i];
 
-                    $item->sType = $structureType;
-                }
-            }
+            $list[] = $factory($value);
+        }
 
-            $result = self::call($procedure, [...$arguments, $pointer, $items]);
-        } while ($result === VkResult::VK_INCOMPLETE->value);
-
-        $vk->assertSuccess($command, $result);
-
-        return new self($items, self::readLength($count), $factory);
+        return $list;
     }
 
     /**
@@ -118,14 +132,59 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
     }
 
     /**
-     * Calls the command, a command that returns nothing is successful.
+     * Calls the command until it fills the native array.
      *
-     * @param list<mixed> $arguments
+     * @param non-empty-string $command
+     * @param \Closure(CData, CData|null): mixed $call
+     * @param non-empty-string $type
+     *
+     * @return array{CData|null, int<0, max>}
+     * @throws CommandFailedException
      */
-    private static function call(callable $procedure, array $arguments): int
-    {
-        $result = $procedure(...$arguments);
+    private static function fill(
+        VulkanBase $vk,
+        string $command,
+        \Closure $call,
+        string $type,
+        ?int $structureType,
+    ): array {
+        $count = $vk->memory->new('uint32_t');
+        $pointer = \FFI::addr($count);
 
+        do {
+            $vk->assertSuccess($command, self::getCode($call($pointer, null)));
+
+            $length = self::readLength($count);
+
+            if ($length === 0) {
+                return [null, 0];
+            }
+
+            $items = $vk->memory->new($type . '[' . $length . ']');
+
+            if ($structureType !== null) {
+                for ($i = 0; $i < $length; ++$i) {
+                    /** @var CData $item */
+                    $item = $items[$i];
+
+                    $item->sType = $structureType;
+                }
+            }
+
+            $result = self::getCode($call($pointer, $items));
+        } while ($result === VkResult::VK_INCOMPLETE->value);
+
+        $vk->assertSuccess($command, $result);
+
+        return [$items, self::readLength($count)];
+    }
+
+    /**
+     * Returns the code the command has returned, a command that returns
+     * nothing is successful.
+     */
+    private static function getCode(mixed $result): int
+    {
         if (\is_int($result)) {
             return $result;
         }

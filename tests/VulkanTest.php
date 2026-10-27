@@ -7,6 +7,7 @@ namespace Serafim\Vulkan\Tests;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Enum\VkSharingMode;
+use Serafim\Vulkan\Enum\VkTimeDomainKHR;
 use Serafim\Vulkan\Exception\CommandFailedException;
 use Serafim\Vulkan\Handle\VkPhysicalDevice;
 use Serafim\Vulkan\Struct\VkApplicationInfo;
@@ -56,6 +57,29 @@ final class VulkanTest extends TestCase
         self::assertNotSame('', $properties->deviceName);
         self::assertSame(16, \strlen($properties->pipelineCacheUUID));
         self::assertGreaterThan(0, $properties->limits->maxImageDimension2D);
+    }
+
+    public function testEnumerationsAreReturnedAsAListOfTheCases(): void
+    {
+        $vk = self::loadVulkan();
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            applicationInfo: new VkApplicationInfo(apiVersion: VK_API_VERSION_1_1),
+        ));
+
+        $devices = \iterator_to_array($vk->vkEnumeratePhysicalDevices($instance), false);
+
+        if ($devices === []) {
+            self::markTestSkipped('There are no physical devices');
+        }
+
+        try {
+            $domains = $vk->vkGetPhysicalDeviceCalibrateableTimeDomainsKHR($devices[0]);
+        } catch (CommandFailedException) {
+            self::markTestSkipped('The calibrated timestamps are not supported');
+        }
+
+        self::assertContains(VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR, $domains);
     }
 
     public function testPropertiesAreReadByTheQueryThatRequiresTheStructureType(): void
