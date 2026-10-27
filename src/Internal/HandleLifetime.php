@@ -27,9 +27,24 @@ final class HandleLifetime
      */
     private \WeakMap $children;
 
+    /**
+     * What the native object refers to: it has to be alive as long as the
+     * native object is.
+     *
+     * @var list<mixed>
+     *
+     * @phpstan-ignore-next-line phpstan false positive, required to keep the references in memory
+     */
+    private array $references = [];
+
     public function __construct()
     {
         $this->children = new \WeakMap();
+    }
+
+    public function retain(mixed $reference): void
+    {
+        $this->references[] = $reference;
     }
 
     public function adopt(Handle $child): void

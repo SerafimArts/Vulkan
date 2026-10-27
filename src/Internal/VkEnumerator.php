@@ -29,7 +29,7 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
          */
         private int $length,
         /**
-         * @var \Closure(CData): TItem
+         * @var \Closure(CData, int<0, max>): TItem
          */
         private \Closure $factory,
     ) {}
@@ -43,8 +43,8 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
      * @param \Closure(CData, CData|null): mixed $call calls the command with
      *        the pointer to the length and the native array
      * @param non-empty-string $type C type of an element
-     * @param \Closure(CData): TCreated $factory creates an element from the
-     *        native one
+     * @param \Closure(CData, int<0, max>): TCreated $factory creates an element
+     *        from the native one with its index
      * @param int|null $structureType the `sType` of the elements that the
      *        command requires to be set before it fills them
      *
@@ -148,7 +148,7 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
             /** @var CData $item */
             $item = $this->items[$i];
 
-            yield $i => ($this->factory)($item);
+            yield $i => ($this->factory)($item, $i);
         }
     }
 

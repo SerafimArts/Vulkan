@@ -63,6 +63,43 @@ final readonly class Chain
     }
 
     /**
+     * Allocates the chain of every element of a native array of structures.
+     *
+     * @template TCreated of Chained
+     *
+     * @param CData $items the native array
+     * @param CData $count the pointer to the native length of the array
+     * @param int $structureType the `sType` of the elements
+     * @param list<class-string<TCreated>> $classes the structures to fill in each element
+     * @param class-string $marker the interface that the structures implement
+     *
+     * @return list<self<TCreated>> the chains by the indexes of the elements
+     * @throws InvalidStructureException in case of a class cannot be chained to the element
+     */
+    public static function allocateEach(
+        Allocator $memory,
+        CData $items,
+        CData $count,
+        int $structureType,
+        array $classes,
+        string $marker,
+    ): array {
+        /** @var int<0, max> $length */
+        $length = $count[0];
+        $chains = [];
+
+        for ($i = 0; $i < $length; ++$i) {
+            /** @var CData $item */
+            $item = $items[$i];
+
+            $item->sType = $structureType;
+            $chains[] = self::allocate($memory, $item, $classes, $marker);
+        }
+
+        return $chains;
+    }
+
+    /**
      * Creates the structures from the native ones the command has filled.
      *
      * @return list<TStructure>

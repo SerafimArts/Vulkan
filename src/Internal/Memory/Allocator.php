@@ -157,6 +157,29 @@ final class Allocator
     }
 
     /**
+     * Allocates the native array of the pointers to the native arrays. The
+     * arrays live as long as the array of the pointers does.
+     *
+     * @param non-empty-string $type C type of an element of the arrays
+     * @param list<CData> $arrays
+     */
+    public function toPointerArray(string $type, array $arrays): CData
+    {
+        $pointers = $this->new($type . '*[' . \max(1, \count($arrays)) . ']');
+
+        $this->retained[$pointers] = new \ArrayObject($arrays);
+
+        foreach ($arrays as $i => $array) {
+            // @phpstan-ignore-next-line the assignment changes the native array
+            $pointers[$i] = \FFI::addr($array[0]);
+        }
+
+        \assert($pointers instanceof CData);
+
+        return $pointers;
+    }
+
+    /**
      * Allocates the native array of the numbers.
      *
      * @param non-empty-string $type C type of a number

@@ -89,6 +89,26 @@ final readonly class Allocation
     }
 
     /**
+     * Writes the structures of the user to native memory and returns the array
+     * of the pointers to them.
+     *
+     * @param list<InputStructure> $structures
+     */
+    public function toStructurePointerArray(array $structures): CData
+    {
+        $array = $this->allocator->new('void*[' . \max(1, \count($structures)) . ']', $this->owner);
+
+        foreach ($structures as $i => $structure) {
+            // @phpstan-ignore-next-line the assignment changes the native array
+            $array[$i] = \FFI::addr($this->toStructure($structure));
+        }
+
+        \assert($array instanceof CData);
+
+        return $array;
+    }
+
+    /**
      * Writes the structures of the user to a native array.
      *
      * @param non-empty-list<InputStructure> $structures the structures of one
