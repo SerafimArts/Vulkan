@@ -60,7 +60,7 @@ abstract class VulkanBase
      * @throws LoadingException in case of the library cannot be bound to the
      *         headers
      */
-    public static function load(?VulkanLoader $loader = null): static
+    public static function create(?VulkanLoader $loader = null): static
     {
         $loader ??= VulkanLoader::createDefault();
 

@@ -22,7 +22,7 @@ final class Holder
     public static array $objects = [];
 }
 
-$vk = Vulkan::load();
+$vk = Vulkan::create();
 $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo());
 $devices = \iterator_to_array($vk->vkEnumeratePhysicalDevices($instance), false);
 
