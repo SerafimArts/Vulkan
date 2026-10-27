@@ -217,6 +217,7 @@ return new Config()
                 ['psalm-taint-sink', 'param'],
                 ['return', 'throws'],
                 ['psalm-suppress', 'noinspection', 'phpstan-ignore'],
+                ['deprecated', 'link', 'see', 'since'],
             ],
         ],
         'phpdoc_single_line_var_spacing' => true,
