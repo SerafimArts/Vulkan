@@ -27,6 +27,11 @@ final readonly class StructAnalyzer
         PropertyKind::STRING,
         PropertyKind::STRING_LIST,
         PropertyKind::BINARY,
+        PropertyKind::SAMPLE_MASK,
+        PropertyKind::TEXT,
+        PropertyKind::BYTES,
+        PropertyKind::NUMBER_LIST,
+        PropertyKind::STRUCTURE_LIST,
         PropertyKind::STRUCTURE_POINTER,
         PropertyKind::STRUCTURE_VALUE,
         PropertyKind::HANDLE,
@@ -83,7 +88,9 @@ final readonly class StructAnalyzer
         $lengths = [];
 
         foreach ($struct->members as $member) {
-            if ($member->length !== null && !$member->isOptional) {
+            $isSampleMask = $this->kinds->find($struct, $member) === PropertyKind::SAMPLE_MASK;
+
+            if ($member->length !== null && !$member->isOptional && !$isSampleMask) {
                 $lengths[$member->length] = true;
             }
         }
@@ -195,12 +202,22 @@ final readonly class StructAnalyzer
                 hasDefault: true,
                 default: [],
             ),
-            PropertyKind::TEXT => new PropertyPlan($member, $kind, $name, 'string'),
+            PropertyKind::TEXT => new PropertyPlan(
+                $member,
+                $kind,
+                $name,
+                'string',
+                hasDefault: $isInput,
+                default: '',
+                arrayLength: $this->createArrayLength($declaration, $member),
+            ),
             PropertyKind::BYTES => new PropertyPlan(
                 $member,
                 $kind,
                 $name,
                 'string',
+                hasDefault: $isInput,
+                default: '',
                 arrayLength: $this->createArrayLength($declaration, $member),
             ),
             PropertyKind::STRUCTURE_LIST => new PropertyPlan(
@@ -210,13 +227,7 @@ final readonly class StructAnalyzer
                 'array',
                 arrayLength: $this->createArrayLength($declaration, $member),
             ),
-            PropertyKind::NUMBER_LIST => new PropertyPlan(
-                $member,
-                $kind,
-                $name,
-                'array',
-                arrayLength: $this->createArrayLength($declaration, $member),
-            ),
+            PropertyKind::NUMBER_LIST => $this->createNumberList($declaration, $member, $kind, $name, $isInput),
             PropertyKind::STRUCTURE_POINTER => new PropertyPlan($member, $kind, $name, null, true, true),
             PropertyKind::STRUCTURE_VALUE => new PropertyPlan($member, $kind, $name, null),
             PropertyKind::HANDLE => new PropertyPlan(
@@ -230,6 +241,7 @@ final readonly class StructAnalyzer
             PropertyKind::STRUCTURE_ARRAY,
             PropertyKind::HANDLE_ARRAY,
             PropertyKind::NUMBER_ARRAY,
+            PropertyKind::SAMPLE_MASK,
             PropertyKind::ENUMERATION_ARRAY => new PropertyPlan(
                 $member,
                 $kind,
@@ -243,6 +255,36 @@ final readonly class StructAnalyzer
                 'the member is not described',
             ),
         };
+    }
+
+    /**
+     * An array of numbers of the fixed size: the input one is zeroed by default.
+     *
+     * @throws UnsupportedDeclarationException
+     */
+    private function createNumberList(
+        string $declaration,
+        FieldDefinition $member,
+        PropertyKind $kind,
+        string $name,
+        bool $isInput,
+    ): PropertyPlan {
+        $length = $this->createArrayLength($declaration, $member);
+        $zero = 0;
+
+        if (\in_array($member->type, ['float', 'double'], true)) {
+            $zero = 0.0;
+        }
+
+        return new PropertyPlan(
+            $member,
+            $kind,
+            $name,
+            'array',
+            hasDefault: $isInput,
+            default: \array_fill(0, $length, $zero),
+            arrayLength: $length,
+        );
     }
 
     /**

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter;
 
 use Nette\PhpGenerator\PhpNamespace;
+use Serafim\Vulkan\Build\Generator\Analysis\Names;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
@@ -62,6 +63,24 @@ final readonly class Writer
                     . ', $memory->toCString(' . $value . '));',
                 '}',
             ],
+            PropertyKind::SAMPLE_MASK => $this->createSampleMaskLines($namespace, $property, $structure),
+            PropertyKind::TEXT => $this->createTextLines($namespace, $property, $structure),
+            PropertyKind::BYTES => $this->createBytesLines($namespace, $property, $structure),
+            PropertyKind::NUMBER_LIST => $this->createListLines(
+                $namespace,
+                $property,
+                $structure,
+                ['$data->' . $field . '[$i] = $item;'],
+            ),
+            PropertyKind::STRUCTURE_LIST => $this->createListLines(
+                $namespace,
+                $property,
+                $structure,
+                [
+                    '// @phpstan-ignore-next-line the element of the native array is a structure',
+                    '$item->write($memory, $data->' . $field . '[$i]);',
+                ],
+            ),
             PropertyKind::STRUCTURE_POINTER => [
                 'if (' . $value . ' !== null) {',
                 '    $data->' . $field . ' = \FFI::addr($memory->toStructure(' . $value . '));',
@@ -99,15 +118,113 @@ final readonly class Writer
                     . Imports::import($namespace, Locations::ENUM_NAMESPACE, $type)
                     . ' $item): int => $item->value, ' . $value . '))',
             ),
-            PropertyKind::NEXT => [
+            default => [
                 'if (' . $value . ' !== null) {',
                 '    \assert(' . $value . ' instanceof InputStructure);',
                 '',
                 '    $data->pNext = $memory->ffi->cast(\'void*\', \FFI::addr($memory->toStructure(' . $value . ')));',
                 '}',
             ],
-            default => [],
         };
+    }
+
+    /**
+     * Writes the elements of an array of the fixed size.
+     *
+     * @param list<string> $body the lines that write the element `$item` with the index `$i`
+     *
+     * @return list<string>
+     */
+    private function createListLines(
+        PhpNamespace $namespace,
+        PropertyPlan $property,
+        string $structure,
+        array $body,
+    ): array {
+        $namespace->addUse(InvalidStructureException::class);
+
+        $value = '$this->' . $property->name;
+        $size = (string) $property->arrayLength;
+
+        return [
+            'if (\count(' . $value . ') > ' . $size . ') {',
+            '    throw InvalidStructureException::becauseArrayIsTooLong('
+                . \var_export($structure, true) . ', ' . \var_export($property->name, true) . ', ' . $size . ');',
+            '}',
+            '',
+            'foreach (' . $value . ' as $i => $item) {',
+            ...\array_map(static fn(string $line): string => '    ' . $line, $body),
+            '}',
+        ];
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function createTextLines(PhpNamespace $namespace, PropertyPlan $property, string $structure): array
+    {
+        $namespace->addUse(InvalidStructureException::class);
+
+        $value = '$this->' . $property->name;
+        $size = (string) $property->arrayLength;
+
+        return [
+            'if (\strlen(' . $value . ') >= ' . $size . ') {',
+            '    throw InvalidStructureException::becauseArrayIsTooLong('
+                . \var_export($structure, true) . ', ' . \var_export($property->name, true) . ', ' . $size . ' - 1);',
+            '}',
+            '',
+            '\FFI::memcpy($data->' . $property->field->name . ', ' . $value . ' . "\0", \strlen(' . $value . ') + 1);',
+        ];
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function createBytesLines(PhpNamespace $namespace, PropertyPlan $property, string $structure): array
+    {
+        $namespace->addUse(InvalidStructureException::class);
+
+        $value = '$this->' . $property->name;
+        $size = (string) $property->arrayLength;
+
+        return [
+            'if (\strlen(' . $value . ') > ' . $size . ') {',
+            '    throw InvalidStructureException::becauseArrayIsTooLong('
+                . \var_export($structure, true) . ', ' . \var_export($property->name, true) . ', ' . $size . ');',
+            '}',
+            '',
+            'if (' . $value . ' !== \'\') {',
+            '    \FFI::memcpy($data->' . $property->field->name . ', ' . $value . ', \strlen(' . $value . '));',
+            '}',
+        ];
+    }
+
+    /**
+     * Writes the words of the mask: `(samples + 31) / 32` of them.
+     *
+     * @return list<string>
+     */
+    private function createSampleMaskLines(PhpNamespace $namespace, PropertyPlan $property, string $structure): array
+    {
+        $namespace->addUse(InvalidStructureException::class);
+
+        $value = '$this->' . $property->name;
+        $samples = '$this->' . Names::createVariableName($property->field->length ?? '');
+
+        return [
+            'if (' . $value . ' !== []) {',
+            '    $words = (' . $samples . ' + 31) >> 5;',
+            '',
+            '    if (\count(' . $value . ') !== $words) {',
+            '        throw InvalidStructureException::becauseArrayHasWrongLength('
+                . \var_export($structure, true) . ', ' . \var_export($property->name, true) . ', $words);',
+            '    }',
+            '',
+            '    $data->' . $property->field->name . ' = $memory->ffi->cast(\'uint32_t*\', '
+                . '$memory->toNumberArray(\'uint32_t\', ' . $value . '));',
+            '}',
+        ];
     }
 
     /**

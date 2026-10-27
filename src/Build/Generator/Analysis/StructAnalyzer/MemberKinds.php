@@ -72,8 +72,16 @@ final readonly class MemberKinds
         }
 
         if ($member->pointerDepth === 1 && $member->isConst && $this->hasLengthMember($struct, $member)) {
-            if ($member->type === 'void' || $member->lengthDivisor > 1) {
+            if ($member->type === 'void' || $member->lengthDivisor === 4) {
                 return PropertyKind::BINARY;
+            }
+
+            if ($member->lengthDivisor === 32) {
+                return PropertyKind::SAMPLE_MASK;
+            }
+
+            if ($member->lengthDivisor !== 1) {
+                return null;
             }
 
             return match ($type) {

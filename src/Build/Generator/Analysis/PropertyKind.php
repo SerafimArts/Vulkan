@@ -54,6 +54,12 @@ enum PropertyKind
     case BINARY;
 
     /**
+     * `const uint32_t*` of the words of a mask of samples, the number of the
+     * words follows the number of the samples
+     */
+    case SAMPLE_MASK;
+
+    /**
      * `uint8_t[N]`, the bytes of an identifier
      */
     case BYTES;

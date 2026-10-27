@@ -61,7 +61,8 @@ final readonly class FieldParser
         [$length, $isNullTerminated] = $this->parseLength($declaration);
         $divisor = 1;
 
-        if (\preg_match('/^(\w+) \/ (\d+)$/', $length ?? '', $matches) === 1) {
+        // `codeSize / 4` and `(samples + 31) / 32`
+        if (\preg_match('/^\(?(\w+)(?: \+ \d+\))? \/ (\d+)$/', $length ?? '', $matches) === 1) {
             $length = $matches[1];
             $divisor = \max(1, (int) $matches[2]);
         }
