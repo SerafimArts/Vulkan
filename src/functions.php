@@ -95,6 +95,7 @@ function vk_uint64_to_string(int $value): string
     $prefix = \intdiv($half, 5);
     $digit = $half % 5 * 2 + ($value & 1);
 
+    /** @phpstan-ignore-next-line PHPStan false-positive */
     return $prefix . $digit;
 }
 
