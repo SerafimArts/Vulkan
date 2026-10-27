@@ -86,6 +86,10 @@ final readonly class StructAnalyzer
      */
     public function analyze(StructDefinition $struct, StructRole $role): StructPlan
     {
+        if ($struct->isUnion) {
+            return $this->analyzeUnion($struct, $role);
+        }
+
         $lengths = [];
 
         foreach ($struct->members as $member) {
@@ -133,6 +137,42 @@ final readonly class StructAnalyzer
         }
 
         return new StructPlan($struct, $role, $properties, $structureType);
+    }
+
+    /**
+     * A union is written by the user: the members are optional and exactly
+     * one of them is given.
+     *
+     * @throws UnsupportedDeclarationException in case of the union is read or
+     *         a member cannot be represented
+     */
+    private function analyzeUnion(StructDefinition $struct, StructRole $role): StructPlan
+    {
+        if ($role !== StructRole::INPUT) {
+            throw UnsupportedDeclarationException::becauseDeclarationIsNotSupported(
+                $struct->name,
+                'a union is written by the user, it is not read',
+            );
+        }
+
+        $properties = [];
+
+        foreach ($struct->members as $member) {
+            $property = $this->createProperty($struct, $member, $role);
+
+            $properties[] = new PropertyPlan(
+                $property->field,
+                $property->kind,
+                $property->name,
+                $property->builtinType,
+                true,
+                true,
+                null,
+                $property->arrayLength,
+            );
+        }
+
+        return new StructPlan($struct, $role, $properties, null);
     }
 
     /**

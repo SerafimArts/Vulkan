@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfo2Extension;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
 
@@ -17,7 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemorySizeInfoQCOM.html
  * @since VK_QCOM_tile_memory_heap
  */
-final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderPassCreateInfoExtension, VkRenderPassCreateInfo2Extension
+final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderPassCreateInfoExtension, VkRenderPassCreateInfo2Extension, VkRenderingInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkTileMemorySizeInfoQCOM';
 
@@ -25,7 +26,7 @@ final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderP
     public const int STRUCTURE_TYPE = 1000547004;
 
     public function __construct(
-        public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|null $next = null,
+        public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkRenderingInfoExtension|null $next = null,
         /** @var int<0, max> */
         public int $size = 0,
     ) {}

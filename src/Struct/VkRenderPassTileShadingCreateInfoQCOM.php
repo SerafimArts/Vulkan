@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkTileShadingRenderPassFlagBitsQCOM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfo2Extension;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
 
@@ -19,7 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassTileShadingCreateInfoQCOM.html
  * @since VK_QCOM_tile_shading
  */
-final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure implements VkRenderPassCreateInfoExtension, VkRenderPassCreateInfo2Extension, VkCommandBufferInheritanceInfoExtension
+final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure implements VkRenderPassCreateInfoExtension, VkRenderPassCreateInfo2Extension, VkRenderingInfoExtension, VkCommandBufferInheritanceInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkRenderPassTileShadingCreateInfoQCOM';
 
@@ -28,7 +29,7 @@ final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure impleme
 
     public function __construct(
         public VkExtent2D $tileApronSize,
-        public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkCommandBufferInheritanceInfoExtension|null $next = null,
+        public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkRenderingInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
         /** @var int-mask-of<VkTileShadingRenderPassFlagBitsQCOM::*> */
         public int $flags = 0,
     ) {}

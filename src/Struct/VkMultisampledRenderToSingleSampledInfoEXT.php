@@ -11,13 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDescription2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultisampledRenderToSingleSampledInfoEXT.html
  * @since VK_EXT_multisampled_render_to_single_sampled
  */
-final class VkMultisampledRenderToSingleSampledInfoEXT extends InputStructure implements VkSubpassDescription2Extension
+final class VkMultisampledRenderToSingleSampledInfoEXT extends InputStructure implements VkSubpassDescription2Extension, VkRenderingInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkMultisampledRenderToSingleSampledInfoEXT';
 
@@ -25,7 +26,7 @@ final class VkMultisampledRenderToSingleSampledInfoEXT extends InputStructure im
     public const int STRUCTURE_TYPE = 1000376002;
 
     public function __construct(
-        public ?VkSubpassDescription2Extension $next = null,
+        public VkSubpassDescription2Extension|VkRenderingInfoExtension|null $next = null,
         public bool $multisampledRenderToSingleSampledEnable = false,
         /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
         public int $rasterizationSamples = 0,

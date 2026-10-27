@@ -85,6 +85,10 @@ final readonly class Properties
 
             $docType = $this->createDocType($namespace, $property);
 
+            if ($docType !== null && $property->isNullable) {
+                $docType .= '|null';
+            }
+
             $this->importElementClass($namespace, $property);
 
             if ($docType !== null) {
@@ -219,7 +223,7 @@ final readonly class Properties
             return null;
         }
 
-        return 'non-empty-string|null';
+        return 'non-empty-string';
     }
 
     private function createDocType(PhpNamespace $namespace, PropertyPlan $property): ?string

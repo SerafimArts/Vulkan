@@ -12,12 +12,13 @@ use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiviewPerViewAttributesInfoNVX.html
  * @since VK_NVX_multiview_per_view_attributes
  */
-final class VkMultiviewPerViewAttributesInfoNVX extends InputStructure implements VkCommandBufferInheritanceInfoExtension, VkGraphicsPipelineCreateInfoExtension
+final class VkMultiviewPerViewAttributesInfoNVX extends InputStructure implements VkCommandBufferInheritanceInfoExtension, VkGraphicsPipelineCreateInfoExtension, VkRenderingInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkMultiviewPerViewAttributesInfoNVX';
 
@@ -25,7 +26,7 @@ final class VkMultiviewPerViewAttributesInfoNVX extends InputStructure implement
     public const int STRUCTURE_TYPE = 1000044009;
 
     public function __construct(
-        public VkCommandBufferInheritanceInfoExtension|VkGraphicsPipelineCreateInfoExtension|null $next = null,
+        public VkCommandBufferInheritanceInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkRenderingInfoExtension|null $next = null,
         public bool $perViewAttributes = false,
         public bool $perViewAttributesPositionXOnly = false,
     ) {}

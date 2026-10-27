@@ -25,5 +25,9 @@ final readonly class StructDefinition
          * @var list<non-empty-string>
          */
         public array $extends = [],
+        /**
+         * Whether it is a `union`: its members share the memory
+         */
+        public bool $isUnion = false,
     ) {}
 }

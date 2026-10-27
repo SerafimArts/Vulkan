@@ -8,6 +8,7 @@ use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\Names;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
+use Serafim\Vulkan\Build\Generator\Analysis\StructPlan;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Exception\InvalidStructureException;
@@ -127,6 +128,54 @@ final readonly class Writer
                 '}',
             ],
         };
+    }
+
+    /**
+     * Returns the check that a union has exactly one member.
+     *
+     * @return list<string>
+     */
+    public function createUnionLines(PhpNamespace $namespace, StructPlan $plan): array
+    {
+        $namespace->addUse(InvalidStructureException::class);
+
+        $members = [];
+
+        foreach ($plan->properties as $property) {
+            $members[] = '$this->' . $property->name;
+        }
+
+        return [
+            '$members = \count(\array_filter([' . \implode(', ', $members)
+                . '], static fn(mixed $member): bool => $member !== null));',
+            '',
+            'if ($members !== 1) {',
+            '    throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('
+                . \var_export($plan->struct->name, true) . ', $members);',
+            '}',
+        ];
+    }
+
+    /**
+     * Writes the member of a union when the user has given it.
+     *
+     * @param list<string> $lines
+     *
+     * @return list<string>
+     */
+    public function createGuardedLines(PropertyPlan $property, array $lines): array
+    {
+        $guard = 'if ($this->' . $property->name . ' !== null) {';
+
+        if (($lines[0] ?? '') === $guard) {
+            return $lines;
+        }
+
+        return [
+            $guard,
+            ...\array_map(static fn(string $line): string => '    ' . $line, $lines),
+            '}',
+        ];
     }
 
     /**

@@ -125,6 +125,10 @@ final readonly class StructEmitter
             $lines[] = '$data->sType = self::STRUCTURE_TYPE;';
         }
 
+        if ($plan->struct->isUnion) {
+            $lines = $this->writer->createUnionLines($namespace, $plan);
+        }
+
         $names = $this->findPropertyFields($plan);
         $arrayLengths = $this->findLengths($plan);
         $lengths = [];
@@ -142,10 +146,13 @@ final readonly class StructEmitter
                 $lengths[$length] = true;
             }
 
-            \array_push(
-                $lines,
-                ...$this->writer->createLines($namespace, $property, $plan->struct->name, $isShared, $isLength),
-            );
+            $propertyLines = $this->writer->createLines($namespace, $property, $plan->struct->name, $isShared, $isLength);
+
+            if ($plan->struct->isUnion) {
+                $propertyLines = $this->writer->createGuardedLines($property, $propertyLines);
+            }
+
+            \array_push($lines, ...$propertyLines);
         }
 
         $write = $class->addMethod('write')

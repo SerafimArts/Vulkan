@@ -8,6 +8,9 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Struct\InputStructure;
+use Serafim\Vulkan\Struct\VkClearColorValue;
+use Serafim\Vulkan\Struct\VkClearDepthStencilValue;
+use Serafim\Vulkan\Struct\VkClearValue;
 use Serafim\Vulkan\Struct\VkDebugUtilsLabelEXT;
 use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
 use Serafim\Vulkan\Struct\VkFenceCreateInfo;
@@ -162,6 +165,34 @@ final class InputStructureTest extends TestCase
         $data = new VkImportMemoryHostPointerInfoEXT(hostPointer: $pointer)->toCData($vk->memory);
 
         self::assertTrue($data->pHostPointer == $pointer);
+    }
+
+    public function testMemberOfTheUnionIsWrittenToTheSharedMemory(): void
+    {
+        $vk = self::loadVulkan();
+
+        $data = new VkClearValue(color: new VkClearColorValue(uint32: [1, 2, 3, 4]))->toCData($vk->memory);
+
+        self::assertSame(3, $data->color->uint32[2]);
+    }
+
+    public function testUnionWithoutMembersIsRejected(): void
+    {
+        $vk = self::loadVulkan();
+
+        $this->expectException(InvalidStructureException::class);
+
+        new VkClearValue()->toCData($vk->memory);
+    }
+
+    public function testUnionWithSeveralMembersIsRejected(): void
+    {
+        $vk = self::loadVulkan();
+        $value = new VkClearValue(color: new VkClearColorValue(float32: [1.0]), depthStencil: new VkClearDepthStencilValue());
+
+        $this->expectException(InvalidStructureException::class);
+
+        $value->toCData($vk->memory);
     }
 
     public function testStructureThatCannotBeChainedIsRejected(): void

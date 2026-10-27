@@ -14,6 +14,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 
 /**
  * Types a member read from the native struct inside the structure class that
@@ -44,7 +45,7 @@ final readonly class CDataExpressionTypeExtension implements ExpressionTypeResol
             return null;
         }
 
-        $type = $class->getNativeProperty($expr->name->name)->getReadableType();
+        $type = TypeCombinator::removeNull($class->getNativeProperty($expr->name->name)->getReadableType());
 
         if ($type->isObject()->yes()) {
             if ($type->isEnum()->yes()) {

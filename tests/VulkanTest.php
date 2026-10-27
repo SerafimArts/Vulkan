@@ -7,6 +7,19 @@ namespace Serafim\Vulkan\Tests;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Serafim\Vulkan\Enum\VkPresentModeKHR;
 use Serafim\Vulkan\Enum\VkResult;
+use Serafim\Vulkan\Struct\VkImageSubresourceRange;
+use Serafim\Vulkan\Struct\VkImageMemoryBarrier;
+use Serafim\Vulkan\Struct\VkImageCreateInfo;
+use Serafim\Vulkan\Struct\VkExtent3D;
+use Serafim\Vulkan\Struct\VkClearColorValue;
+use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
+use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
+use Serafim\Vulkan\Enum\VkImageType;
+use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Enum\VkImageAspectFlagBits;
+use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkAccessFlagBits;
 use Serafim\Vulkan\Enum\VkSharingMode;
 use Serafim\Vulkan\Enum\VkTimeDomainKHR;
 use Serafim\Vulkan\Exception\CommandFailedException;
@@ -365,6 +378,75 @@ final class VulkanTest extends TestCase
         $cache = $vk->vkCreatePipelineCache($device, new VkPipelineCacheCreateInfo());
 
         self::assertGreaterThanOrEqual(16, \strlen($vk->vkGetPipelineCacheData($device, $cache)));
+    }
+
+    public function testImageIsClearedWithTheValueOfTheUnion(): void
+    {
+        $vk = self::loadVulkan();
+        $device = $vk->vkCreateDevice(self::getPhysicalDevice($vk), new VkDeviceCreateInfo(
+            queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
+        ));
+
+        $image = $vk->vkCreateImage($device, new VkImageCreateInfo(
+            extent: new VkExtent3D(4, 4, 1),
+            imageType: VkImageType::VK_IMAGE_TYPE_2D,
+            format: VkFormat::VK_FORMAT_R8G8B8A8_UNORM,
+            mipLevels: 1,
+            arrayLayers: 1,
+            samples: VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT,
+            usage: VkImageUsageFlagBits::VK_IMAGE_USAGE_TRANSFER_DST_BIT,
+        ));
+
+        $requirements = $vk->vkGetImageMemoryRequirements($device, $image);
+        $type = \array_search(1, \array_map(
+            static fn(int $index): int => $requirements->memoryTypeBits >> $index & 1,
+            \range(0, 31),
+        ), true);
+
+        self::assertIsInt($type);
+
+        $memory = $vk->vkAllocateMemory($device, new VkMemoryAllocateInfo(allocationSize: $requirements->size, memoryTypeIndex: $type));
+        $vk->vkBindImageMemory($device, $image, $memory, 0);
+
+        $pool = $vk->vkCreateCommandPool($device, new VkCommandPoolCreateInfo(queueFamilyIndex: 0));
+        $commands = $vk->vkAllocateCommandBuffers($device, new VkCommandBufferAllocateInfo(
+            commandPool: $pool,
+            commandBufferCount: 1,
+        ));
+        $range = new VkImageSubresourceRange(
+            VkImageAspectFlagBits::VK_IMAGE_ASPECT_COLOR_BIT,
+            levelCount: 1,
+            layerCount: 1,
+        );
+
+        $vk->vkBeginCommandBuffer($commands[0], new VkCommandBufferBeginInfo());
+        $vk->vkCmdPipelineBarrier(
+            $commands[0],
+            [],
+            [],
+            [new VkImageMemoryBarrier(
+                $image,
+                $range,
+                dstAccessMask: VkAccessFlagBits::VK_ACCESS_TRANSFER_WRITE_BIT,
+                oldLayout: VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+                newLayout: VkImageLayout::VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+            )],
+            VkPipelineStageFlagBits::VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,
+            VkPipelineStageFlagBits::VK_PIPELINE_STAGE_TRANSFER_BIT,
+        );
+        $vk->vkCmdClearColorImage(
+            $commands[0],
+            $image,
+            VkImageLayout::VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+            new VkClearColorValue(float32: [1.0, 0.0, 0.0, 1.0]),
+            [$range],
+        );
+        $vk->vkEndCommandBuffer($commands[0]);
+
+        $fence = $vk->vkCreateFence($device, new VkFenceCreateInfo());
+        $vk->vkQueueSubmit($vk->vkGetDeviceQueue($device, 0, 0), [new VkSubmitInfo(commandBuffers: [$commands[0]])], $fence);
+
+        self::assertSame(VkResult::VK_SUCCESS, $vk->vkWaitForFences($device, [$fence], true, 1_000_000_000));
     }
 
     public function testDeviceIsCreatedWithTheChainOfFeatures(): void

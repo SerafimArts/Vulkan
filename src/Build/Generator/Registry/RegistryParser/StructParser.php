@@ -24,7 +24,7 @@ final readonly class StructParser
     {
         $structs = [];
 
-        foreach ($this->elements->select("//types/type[@category='struct']") as $element) {
+        foreach ($this->elements->select("//types/type[@category='struct' or @category='union']") as $element) {
             $name = $element->getAttribute('name');
 
             if ($name === '' || $element->hasAttribute('alias') || !$this->elements->isSupported($element)) {
@@ -43,6 +43,7 @@ final readonly class StructParser
                 name: $name,
                 members: $members,
                 extends: $this->parseExtends($element->getAttribute('structextends')),
+                isUnion: $element->getAttribute('category') === 'union',
             );
         }
 

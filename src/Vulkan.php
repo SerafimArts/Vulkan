@@ -168,7 +168,12 @@ use Serafim\Vulkan\Struct\VkBufferMemoryBarrier;
 use Serafim\Vulkan\Struct\VkBufferMemoryRequirementsInfo2;
 use Serafim\Vulkan\Struct\VkBufferViewCreateInfo;
 use Serafim\Vulkan\Struct\VkBuildPartitionedAccelerationStructureInfoNV;
+use Serafim\Vulkan\Struct\VkClearAttachment;
+use Serafim\Vulkan\Struct\VkClearColorValue;
 use Serafim\Vulkan\Struct\VkClearDepthStencilValue;
+use Serafim\Vulkan\Struct\VkClearRect;
+use Serafim\Vulkan\Struct\VkClusterAccelerationStructureCommandsInfoNV;
+use Serafim\Vulkan\Struct\VkClusterAccelerationStructureInputInfoNV;
 use Serafim\Vulkan\Struct\VkCoarseSampleOrderCustomNV;
 use Serafim\Vulkan\Struct\VkColorBlendAdvancedEXT;
 use Serafim\Vulkan\Struct\VkColorBlendEquationEXT;
@@ -185,6 +190,7 @@ use Serafim\Vulkan\Struct\VkCooperativeMatrixProperties2EXT;
 use Serafim\Vulkan\Struct\VkCooperativeMatrixPropertiesKHR;
 use Serafim\Vulkan\Struct\VkCooperativeVectorPropertiesNV;
 use Serafim\Vulkan\Struct\VkCopyAccelerationStructureInfoKHR;
+use Serafim\Vulkan\Struct\VkCopyAccelerationStructureToMemoryInfoKHR;
 use Serafim\Vulkan\Struct\VkCopyBufferInfo2;
 use Serafim\Vulkan\Struct\VkCopyBufferToImageInfo2;
 use Serafim\Vulkan\Struct\VkCopyDescriptorSet;
@@ -195,9 +201,12 @@ use Serafim\Vulkan\Struct\VkCopyImageToBufferInfo2;
 use Serafim\Vulkan\Struct\VkCopyImageToImageInfo;
 use Serafim\Vulkan\Struct\VkCopyImageToMemoryInfo;
 use Serafim\Vulkan\Struct\VkCopyMemoryIndirectInfoKHR;
+use Serafim\Vulkan\Struct\VkCopyMemoryToAccelerationStructureInfoKHR;
 use Serafim\Vulkan\Struct\VkCopyMemoryToImageIndirectInfoKHR;
 use Serafim\Vulkan\Struct\VkCopyMemoryToImageInfo;
+use Serafim\Vulkan\Struct\VkCopyMemoryToMicromapInfoEXT;
 use Serafim\Vulkan\Struct\VkCopyMicromapInfoEXT;
+use Serafim\Vulkan\Struct\VkCopyMicromapToMemoryInfoEXT;
 use Serafim\Vulkan\Struct\VkCopyTensorInfoARM;
 use Serafim\Vulkan\Struct\VkCudaFunctionCreateInfoNV;
 use Serafim\Vulkan\Struct\VkCudaModuleCreateInfoNV;
@@ -242,6 +251,7 @@ use Serafim\Vulkan\Struct\VkDeviceMemoryOpaqueCaptureAddressInfo;
 use Serafim\Vulkan\Struct\VkDeviceQueueInfo2;
 use Serafim\Vulkan\Struct\VkDeviceTensorMemoryRequirementsARM;
 use Serafim\Vulkan\Struct\VkDirectFBSurfaceCreateInfoEXT;
+use Serafim\Vulkan\Struct\VkDispatchGraphCountInfoAMDX;
 use Serafim\Vulkan\Struct\VkDispatchIndirect2InfoKHR;
 use Serafim\Vulkan\Struct\VkDispatchParametersARM;
 use Serafim\Vulkan\Struct\VkDispatchTileInfoQCOM;
@@ -315,7 +325,9 @@ use Serafim\Vulkan\Struct\VkImportSemaphoreFdInfoKHR;
 use Serafim\Vulkan\Struct\VkImportSemaphoreSciSyncInfoNV;
 use Serafim\Vulkan\Struct\VkImportSemaphoreWin32HandleInfoKHR;
 use Serafim\Vulkan\Struct\VkImportSemaphoreZirconHandleInfoFUCHSIA;
+use Serafim\Vulkan\Struct\VkIndirectCommandsLayoutCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkIndirectCommandsLayoutCreateInfoNV;
+use Serafim\Vulkan\Struct\VkIndirectExecutionSetCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkInitializePerformanceApiInfoINTEL;
 use Serafim\Vulkan\Struct\VkInstanceCreateInfo;
 use Serafim\Vulkan\Struct\VkIOSSurfaceCreateInfoMVK;
@@ -410,12 +422,15 @@ use Serafim\Vulkan\Struct\VkReleaseSwapchainImagesInfoKHR;
 use Serafim\Vulkan\Struct\VkRenderingAreaInfo;
 use Serafim\Vulkan\Struct\VkRenderingAttachmentLocationInfo;
 use Serafim\Vulkan\Struct\VkRenderingEndInfoKHR;
+use Serafim\Vulkan\Struct\VkRenderingInfo;
+use Serafim\Vulkan\Struct\VkRenderPassBeginInfo;
 use Serafim\Vulkan\Struct\VkRenderPassCreateInfo;
 use Serafim\Vulkan\Struct\VkRenderPassCreateInfo2;
 use Serafim\Vulkan\Struct\VkResolveImageInfo2;
 use Serafim\Vulkan\Struct\VkSampleLocationsInfoEXT;
 use Serafim\Vulkan\Struct\VkSamplerCaptureDescriptorDataInfoEXT;
 use Serafim\Vulkan\Struct\VkSamplerCreateInfo;
+use Serafim\Vulkan\Struct\VkSamplerCustomBorderColorCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkSamplerYcbcrConversionCreateInfo;
 use Serafim\Vulkan\Struct\VkScreenBufferPropertiesQNX;
 use Serafim\Vulkan\Struct\VkScreenSurfaceCreateInfoQNX;
@@ -1307,6 +1322,103 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Legacy functionality, superseded by `vkCmdBeginRenderPass2`.
+     * Queues: graphics. Render pass: outside. Command buffer level:
+     * primary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-renderpass2
+     * @since 1.0
+     * @deprecated legacy functionality, use {@see self::vkCmdBeginRenderPass2()} instead
+     *
+     * @api
+     */
+    public function vkCmdBeginRenderPass(
+        VkCommandBuffer $commandBuffer,
+        VkRenderPassBeginInfo $renderPassBegin,
+        VkSubpassContents $contents,
+    ): void {
+        $nativeRenderPassBegin = $renderPassBegin->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdBeginRenderPass', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeRenderPassBegin), $contents->value);
+    }
+
+    /**
+     * Legacy functionality.
+     * Queues: graphics. Render pass: outside. Command buffer level:
+     * primary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass2.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
+     * @since 1.2
+     * @deprecated legacy functionality
+     *
+     * @api
+     */
+    public function vkCmdBeginRenderPass2(
+        VkCommandBuffer $commandBuffer,
+        VkRenderPassBeginInfo $renderPassBegin,
+        VkSubpassBeginInfo $subpassBeginInfo,
+    ): void {
+        $nativeRenderPassBegin = $renderPassBegin->toCData($this->memory);
+        $nativeSubpassBeginInfo = $subpassBeginInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdBeginRenderPass2', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeRenderPassBegin), \FFI::addr($nativeSubpassBeginInfo));
+    }
+
+    /**
+     * Alias of {@see self::vkCmdBeginRenderPass2()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderPass2KHR.html
+     * @since VK_KHR_create_renderpass2
+     * @deprecated legacy functionality
+     *
+     * @api
+     */
+    public function vkCmdBeginRenderPass2KHR(
+        VkCommandBuffer $commandBuffer,
+        VkRenderPassBeginInfo $renderPassBegin,
+        VkSubpassBeginInfo $subpassBeginInfo,
+    ): void {
+        $this->vkCmdBeginRenderPass2($commandBuffer, $renderPassBegin, $subpassBeginInfo);
+    }
+
+    /**
+     * Queues: graphics. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRendering.html
+     * @since 1.3
+     *
+     * @api
+     */
+    public function vkCmdBeginRendering(VkCommandBuffer $commandBuffer, VkRenderingInfo $renderingInfo): void
+    {
+        $nativeRenderingInfo = $renderingInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdBeginRendering', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeRenderingInfo));
+    }
+
+    /**
+     * Alias of {@see self::vkCmdBeginRendering()}.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBeginRenderingKHR.html
+     * @since VK_KHR_dynamic_rendering
+     *
+     * @api
+     */
+    public function vkCmdBeginRenderingKHR(VkCommandBuffer $commandBuffer, VkRenderingInfo $renderingInfo): void
+    {
+        $this->vkCmdBeginRendering($commandBuffer, $renderingInfo);
+    }
+
+    /**
      * Queues: graphics, compute, data_graph_arm. Render pass: both.
      * Command buffer level: primary, secondary.
      *
@@ -2049,6 +2161,26 @@ final class Vulkan extends VulkanBase
      * Queues: compute. Render pass: outside. Command buffer level:
      * primary, secondary.
      *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildClusterAccelerationStructureIndirectNV.html
+     * @since VK_NV_cluster_acceleration_structure
+     *
+     * @api
+     */
+    public function vkCmdBuildClusterAccelerationStructureIndirectNV(
+        VkCommandBuffer $commandBuffer,
+        VkClusterAccelerationStructureCommandsInfoNV $commandInfos,
+    ): void {
+        $nativeCommandInfos = $commandInfos->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdBuildClusterAccelerationStructureIndirectNV', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeCommandInfos));
+    }
+
+    /**
+     * Queues: compute. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdBuildPartitionedAccelerationStructuresNV.html
      * @since VK_NV_partitioned_acceleration_structure
      *
@@ -2063,6 +2195,64 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkCmdBuildPartitionedAccelerationStructuresNV', $commandBuffer);
 
         $procedure($commandBuffer->pointer, \FFI::addr($nativeBuildInfo));
+    }
+
+    /**
+     * Queues: graphics. Render pass: inside. Command buffer level:
+     * primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearAttachments.html
+     * @since 1.0
+     *
+     * @api
+     *
+     * @param non-empty-list<VkClearAttachment> $attachments
+     * @param non-empty-list<VkClearRect> $rects
+     */
+    public function vkCmdClearAttachments(VkCommandBuffer $commandBuffer, array $attachments, array $rects): void
+    {
+        $nativeAttachments = null;
+        if ($attachments !== []) {
+            $nativeAttachments = VkClearAttachment::createArray($this->memory, $attachments);
+        }
+
+        $nativeRects = null;
+        if ($rects !== []) {
+            $nativeRects = VkClearRect::createArray($this->memory, $rects);
+        }
+
+        $procedure = $this->vkGetInstanceProc('vkCmdClearAttachments', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \count($attachments), $nativeAttachments, \count($rects), $nativeRects);
+    }
+
+    /**
+     * Queues: graphics, compute. Render pass: outside. Command buffer
+     * level: primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdClearColorImage.html
+     * @since 1.0
+     *
+     * @api
+     *
+     * @param non-empty-list<VkImageSubresourceRange> $ranges
+     */
+    public function vkCmdClearColorImage(
+        VkCommandBuffer $commandBuffer,
+        VkImage $image,
+        VkImageLayout $imageLayout,
+        VkClearColorValue $color,
+        array $ranges,
+    ): void {
+        $nativeColor = $color->toCData($this->memory);
+        $nativeRanges = null;
+        if ($ranges !== []) {
+            $nativeRanges = VkImageSubresourceRange::createArray($this->memory, $ranges);
+        }
+
+        $procedure = $this->vkGetInstanceProc('vkCmdClearColorImage', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, $image->pointer, $imageLayout->value, \FFI::addr($nativeColor), \count($ranges), $nativeRanges);
     }
 
     /**
@@ -2154,6 +2344,26 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkCmdCopyAccelerationStructureNV', $commandBuffer);
 
         $procedure($commandBuffer->pointer, $dst->pointer, $src->pointer, $mode->value);
+    }
+
+    /**
+     * Queues: compute. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html
+     * @since VK_KHR_acceleration_structure
+     *
+     * @api
+     */
+    public function vkCmdCopyAccelerationStructureToMemoryKHR(
+        VkCommandBuffer $commandBuffer,
+        VkCopyAccelerationStructureToMemoryInfoKHR $info,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdCopyAccelerationStructureToMemoryKHR', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeInfo));
     }
 
     /**
@@ -2513,6 +2723,26 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Queues: compute. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html
+     * @since VK_KHR_acceleration_structure
+     *
+     * @api
+     */
+    public function vkCmdCopyMemoryToAccelerationStructureKHR(
+        VkCommandBuffer $commandBuffer,
+        VkCopyMemoryToAccelerationStructureInfoKHR $info,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdCopyMemoryToAccelerationStructureKHR', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeInfo));
+    }
+
+    /**
      * Queues: transfer, graphics, compute. Render pass: outside.
      * Command buffer level: primary, secondary.
      *
@@ -2587,6 +2817,26 @@ final class Vulkan extends VulkanBase
      * Queues: compute. Render pass: outside. Command buffer level:
      * primary, secondary.
      *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMemoryToMicromapEXT.html
+     * @since VK_EXT_opacity_micromap
+     *
+     * @api
+     */
+    public function vkCmdCopyMemoryToMicromapEXT(
+        VkCommandBuffer $commandBuffer,
+        VkCopyMemoryToMicromapInfoEXT $info,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdCopyMemoryToMicromapEXT', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeInfo));
+    }
+
+    /**
+     * Queues: compute. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapEXT.html
      * @since VK_EXT_opacity_micromap
      *
@@ -2597,6 +2847,26 @@ final class Vulkan extends VulkanBase
         $nativeInfo = $info->toCData($this->memory);
 
         $procedure = $this->vkGetInstanceProc('vkCmdCopyMicromapEXT', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, \FFI::addr($nativeInfo));
+    }
+
+    /**
+     * Queues: compute. Render pass: outside. Command buffer level:
+     * primary, secondary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdCopyMicromapToMemoryEXT.html
+     * @since VK_EXT_opacity_micromap
+     *
+     * @api
+     */
+    public function vkCmdCopyMicromapToMemoryEXT(
+        VkCommandBuffer $commandBuffer,
+        VkCopyMicromapToMemoryInfoEXT $info,
+    ): void {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdCopyMicromapToMemoryEXT', $commandBuffer);
 
         $procedure($commandBuffer->pointer, \FFI::addr($nativeInfo));
     }
@@ -2954,6 +3224,56 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkCmdDispatchDataGraphARM', $commandBuffer);
 
         $procedure($commandBuffer->pointer, $session->pointer, $this->addr($nativeInfo));
+    }
+
+    /**
+     * Queues: graphics, compute. Render pass: both. Command buffer
+     * level: primary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchGraphAMDX.html
+     * @since VK_AMDX_shader_enqueue
+     *
+     * @api
+     *
+     * @param int<0, max> $scratch
+     * @param int<0, max> $scratchSize
+     */
+    public function vkCmdDispatchGraphAMDX(
+        VkCommandBuffer $commandBuffer,
+        int $scratch,
+        int $scratchSize,
+        VkDispatchGraphCountInfoAMDX $countInfo,
+    ): void {
+        $nativeCountInfo = $countInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdDispatchGraphAMDX', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, $scratch, $scratchSize, \FFI::addr($nativeCountInfo));
+    }
+
+    /**
+     * Queues: graphics, compute. Render pass: both. Command buffer
+     * level: primary.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCmdDispatchGraphIndirectAMDX.html
+     * @since VK_AMDX_shader_enqueue
+     *
+     * @api
+     *
+     * @param int<0, max> $scratch
+     * @param int<0, max> $scratchSize
+     */
+    public function vkCmdDispatchGraphIndirectAMDX(
+        VkCommandBuffer $commandBuffer,
+        int $scratch,
+        int $scratchSize,
+        VkDispatchGraphCountInfoAMDX $countInfo,
+    ): void {
+        $nativeCountInfo = $countInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCmdDispatchGraphIndirectAMDX', $commandBuffer);
+
+        $procedure($commandBuffer->pointer, $scratch, $scratchSize, \FFI::addr($nativeCountInfo));
     }
 
     /**
@@ -7335,6 +7655,37 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Legacy functionality, superseded by `vkCmdCopyAccelerationStructureToMemoryKHR`.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyAccelerationStructureToMemoryKHR.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-host-builds
+     * @since VK_KHR_acceleration_structure
+     * @deprecated legacy functionality, use {@see self::vkCmdCopyAccelerationStructureToMemoryKHR()} instead
+     *
+     * @api
+     *
+     * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCopyAccelerationStructureToMemoryKHR(
+        VkDevice $device,
+        VkCopyAccelerationStructureToMemoryInfoKHR $info,
+        ?VkDeferredOperationKHR $deferredOperation = null,
+    ): VkResult {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCopyAccelerationStructureToMemoryKHR', $device);
+
+        $result = $procedure($device->pointer, $deferredOperation?->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        /** @var VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR $code */
+        $code = $this->getResult('vkCopyAccelerationStructureToMemoryKHR', $result);
+
+        return $code;
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyImageToImage.html
      * @since 1.4
      *
@@ -7407,6 +7758,37 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Legacy functionality, superseded by `vkCmdCopyMemoryToAccelerationStructureKHR`.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToAccelerationStructureKHR.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-host-builds
+     * @since VK_KHR_acceleration_structure
+     * @deprecated legacy functionality, use {@see self::vkCmdCopyMemoryToAccelerationStructureKHR()} instead
+     *
+     * @api
+     *
+     * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCopyMemoryToAccelerationStructureKHR(
+        VkDevice $device,
+        VkCopyMemoryToAccelerationStructureInfoKHR $info,
+        ?VkDeferredOperationKHR $deferredOperation = null,
+    ): VkResult {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCopyMemoryToAccelerationStructureKHR', $device);
+
+        $result = $procedure($device->pointer, $deferredOperation?->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        /** @var VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR $code */
+        $code = $this->getResult('vkCopyMemoryToAccelerationStructureKHR', $result);
+
+        return $code;
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToImage.html
      * @since 1.4
      *
@@ -7443,6 +7825,37 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * Legacy functionality, superseded by `vkCmdCopyMemoryToMicromapEXT`.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMemoryToMicromapEXT.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-host-builds
+     * @since VK_EXT_opacity_micromap
+     * @deprecated legacy functionality, use {@see self::vkCmdCopyMemoryToMicromapEXT()} instead
+     *
+     * @api
+     *
+     * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCopyMemoryToMicromapEXT(
+        VkDevice $device,
+        VkCopyMemoryToMicromapInfoEXT $info,
+        ?VkDeferredOperationKHR $deferredOperation = null,
+    ): VkResult {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCopyMemoryToMicromapEXT', $device);
+
+        $result = $procedure($device->pointer, $deferredOperation?->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        /** @var VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR $code */
+        $code = $this->getResult('vkCopyMemoryToMicromapEXT', $result);
+
+        return $code;
+    }
+
+    /**
      * Legacy functionality, superseded by `vkCmdCopyMicromapEXT`.
      *
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapEXT.html
@@ -7469,6 +7882,37 @@ final class Vulkan extends VulkanBase
 
         /** @var VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR $code */
         $code = $this->getResult('vkCopyMicromapEXT', $result);
+
+        return $code;
+    }
+
+    /**
+     * Legacy functionality, superseded by `vkCmdCopyMicromapToMemoryEXT`.
+     *
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCopyMicromapToMemoryEXT.html
+     * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-host-builds
+     * @since VK_EXT_opacity_micromap
+     * @deprecated legacy functionality, use {@see self::vkCmdCopyMicromapToMemoryEXT()} instead
+     *
+     * @api
+     *
+     * @return VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCopyMicromapToMemoryEXT(
+        VkDevice $device,
+        VkCopyMicromapToMemoryInfoEXT $info,
+        ?VkDeferredOperationKHR $deferredOperation = null,
+    ): VkResult {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkCopyMicromapToMemoryEXT', $device);
+
+        $result = $procedure($device->pointer, $deferredOperation?->pointer, \FFI::addr($nativeInfo));
+        \assert(\is_int($result));
+
+        /** @var VkResult::VK_SUCCESS|VkResult::VK_OPERATION_DEFERRED_KHR|VkResult::VK_OPERATION_NOT_DEFERRED_KHR $code */
+        $code = $this->getResult('vkCopyMicromapToMemoryEXT', $result);
 
         return $code;
     }
@@ -8513,6 +8957,34 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutEXT.html
+     * @since VK_EXT_device_generated_commands
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateIndirectCommandsLayoutEXT(
+        VkDevice $device,
+        VkIndirectCommandsLayoutCreateInfoEXT $createInfo,
+    ): VkIndirectCommandsLayoutEXT {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeIndirectCommandsLayout = $this->memory->new('VkIndirectCommandsLayoutEXT');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateIndirectCommandsLayoutEXT', $device);
+
+        $this->assertSuccess('vkCreateIndirectCommandsLayoutEXT', $procedure($device->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeIndirectCommandsLayout)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroyIndirectCommandsLayoutEXT', $device);
+        $devicePointer = $device->pointer;
+
+        return new VkIndirectCommandsLayoutEXT($this, $nativeIndirectCommandsLayout, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
+            $destroy($devicePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectCommandsLayoutNV.html
      * @since VK_NV_device_generated_commands
      *
@@ -8536,6 +9008,34 @@ final class Vulkan extends VulkanBase
         $devicePointer = $device->pointer;
 
         return new VkIndirectCommandsLayoutNV($this, $nativeIndirectCommandsLayout, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
+            $destroy($devicePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateIndirectExecutionSetEXT.html
+     * @since VK_EXT_device_generated_commands
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateIndirectExecutionSetEXT(
+        VkDevice $device,
+        VkIndirectExecutionSetCreateInfoEXT $createInfo,
+    ): VkIndirectExecutionSetEXT {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeIndirectExecutionSet = $this->memory->new('VkIndirectExecutionSetEXT');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateIndirectExecutionSetEXT', $device);
+
+        $this->assertSuccess('vkCreateIndirectExecutionSetEXT', $procedure($device->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeIndirectExecutionSet)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroyIndirectExecutionSetEXT', $device);
+        $devicePointer = $device->pointer;
+
+        return new VkIndirectExecutionSetEXT($this, $nativeIndirectExecutionSet, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
             $destroy($devicePointer, $handle->pointer, null);
         });
     }
@@ -11159,6 +11659,28 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetClusterAccelerationStructureBuildSizesNV.html
+     * @since VK_NV_cluster_acceleration_structure
+     *
+     * @api
+     */
+    public function vkGetClusterAccelerationStructureBuildSizesNV(
+        VkDevice $device,
+        VkClusterAccelerationStructureInputInfoNV $info,
+    ): VkAccelerationStructureBuildSizesInfoKHR {
+        $nativeInfo = $info->toCData($this->memory);
+
+        $nativeSizeInfo = $this->memory->new('VkAccelerationStructureBuildSizesInfoKHR');
+        $nativeSizeInfo->sType = VkAccelerationStructureBuildSizesInfoKHR::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetClusterAccelerationStructureBuildSizesNV', $device);
+
+        $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeSizeInfo));
+
+        return VkAccelerationStructureBuildSizesInfoKHR::createFromCData($nativeSizeInfo);
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetCommandPoolMemoryConsumption.html
      *
      * @api
@@ -12028,6 +12550,30 @@ final class Vulkan extends VulkanBase
         return new VkDisplayKHR($this, $nativeDisplay, $physicalDevice, function (Handle $handle) use ($destroy, $physicalDevicePointer): void {
             $destroy($physicalDevicePointer, $handle->pointer);
         });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html
+     * @since VK_QCOM_tile_properties
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkGetDynamicRenderingTilePropertiesQCOM(
+        VkDevice $device,
+        VkRenderingInfo $renderingInfo,
+    ): VkTilePropertiesQCOM {
+        $nativeRenderingInfo = $renderingInfo->toCData($this->memory);
+
+        $nativeProperties = $this->memory->new('VkTilePropertiesQCOM');
+        $nativeProperties->sType = VkTilePropertiesQCOM::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetDynamicRenderingTilePropertiesQCOM', $device);
+
+        $this->assertSuccess('vkGetDynamicRenderingTilePropertiesQCOM', $procedure($device->pointer, \FFI::addr($nativeRenderingInfo), \FFI::addr($nativeProperties)));
+
+        return VkTilePropertiesQCOM::createFromCData($nativeProperties);
     }
 
     /**
@@ -16284,6 +16830,35 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkQueueWaitIdle', $queue);
 
         $this->assertSuccess('vkQueueWaitIdle', $procedure($queue->pointer));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkRegisterCustomBorderColorEXT.html
+     * @since VK_EXT_descriptor_heap
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_TOO_MANY_OBJECTS},
+     *         {@see VkResult::VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS}
+     */
+    public function vkRegisterCustomBorderColorEXT(
+        VkDevice $device,
+        VkSamplerCustomBorderColorCreateInfoEXT $borderColor,
+        bool $requestIndex,
+    ): int {
+        $nativeBorderColor = $borderColor->toCData($this->memory);
+
+        $nativeIndex = $this->memory->new('uint32_t');
+
+        $procedure = $this->vkGetInstanceProc('vkRegisterCustomBorderColorEXT', $device);
+
+        $this->assertSuccess('vkRegisterCustomBorderColorEXT', $procedure($device->pointer, \FFI::addr($nativeBorderColor), (int) $requestIndex, \FFI::addr($nativeIndex)));
+
+        $value = $nativeIndex->cdata;
+        \assert(\is_int($value));
+
+        return $value;
     }
 
     /**

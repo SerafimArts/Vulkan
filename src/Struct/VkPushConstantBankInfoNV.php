@@ -10,6 +10,8 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkDescriptorSetAndBindingMappingEXTExtension;
+use Serafim\Vulkan\Struct\Extension\VkIndirectCommandsLayoutTokenEXTExtension;
 use Serafim\Vulkan\Struct\Extension\VkPushConstantsInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPushDataInfoEXTExtension;
 
@@ -17,7 +19,7 @@ use Serafim\Vulkan\Struct\Extension\VkPushDataInfoEXTExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPushConstantBankInfoNV.html
  * @since VK_NV_push_constant_bank
  */
-final class VkPushConstantBankInfoNV extends InputStructure implements VkPushDataInfoEXTExtension, VkPushConstantsInfoExtension
+final class VkPushConstantBankInfoNV extends InputStructure implements VkDescriptorSetAndBindingMappingEXTExtension, VkPushDataInfoEXTExtension, VkPushConstantsInfoExtension, VkIndirectCommandsLayoutTokenEXTExtension
 {
     protected const string NATIVE_TYPE = 'VkPushConstantBankInfoNV';
 
@@ -25,7 +27,7 @@ final class VkPushConstantBankInfoNV extends InputStructure implements VkPushDat
     public const int STRUCTURE_TYPE = 1000580000;
 
     public function __construct(
-        public VkPushDataInfoEXTExtension|VkPushConstantsInfoExtension|null $next = null,
+        public VkDescriptorSetAndBindingMappingEXTExtension|VkPushDataInfoEXTExtension|VkPushConstantsInfoExtension|VkIndirectCommandsLayoutTokenEXTExtension|null $next = null,
         /** @var int<0, 4294967295> */
         public int $bank = 0,
     ) {}

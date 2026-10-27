@@ -14,6 +14,7 @@ use Serafim\Vulkan\Handle\VkDescriptorSetLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension;
 use Serafim\Vulkan\Struct\Extension\VkBindDescriptorSetsInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkIndirectCommandsLayoutCreateInfoEXTExtension;
 use Serafim\Vulkan\Struct\Extension\VkPushConstantsInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPushDescriptorSetInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPushDescriptorSetWithTemplateInfoExtension;
@@ -26,7 +27,7 @@ use Serafim\Vulkan\Struct\Extension\VkSetDescriptorBufferOffsetsInfoEXTExtension
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since 1.0
  */
-final class VkPipelineLayoutCreateInfo extends InputStructure implements VkBindDescriptorSetsInfoExtension, VkPushConstantsInfoExtension, VkPushDescriptorSetInfoExtension, VkPushDescriptorSetWithTemplateInfoExtension, VkSetDescriptorBufferOffsetsInfoEXTExtension, VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension
+final class VkPipelineLayoutCreateInfo extends InputStructure implements VkBindDescriptorSetsInfoExtension, VkPushConstantsInfoExtension, VkPushDescriptorSetInfoExtension, VkPushDescriptorSetWithTemplateInfoExtension, VkSetDescriptorBufferOffsetsInfoEXTExtension, VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension, VkIndirectCommandsLayoutCreateInfoEXTExtension
 {
     protected const string NATIVE_TYPE = 'VkPipelineLayoutCreateInfo';
 
@@ -34,7 +35,7 @@ final class VkPipelineLayoutCreateInfo extends InputStructure implements VkBindD
     public const int STRUCTURE_TYPE = 30;
 
     public function __construct(
-        public VkBindDescriptorSetsInfoExtension|VkPushConstantsInfoExtension|VkPushDescriptorSetInfoExtension|VkPushDescriptorSetWithTemplateInfoExtension|VkSetDescriptorBufferOffsetsInfoEXTExtension|VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension|null $next = null,
+        public VkBindDescriptorSetsInfoExtension|VkPushConstantsInfoExtension|VkPushDescriptorSetInfoExtension|VkPushDescriptorSetWithTemplateInfoExtension|VkSetDescriptorBufferOffsetsInfoEXTExtension|VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension|VkIndirectCommandsLayoutCreateInfoEXTExtension|null $next = null,
         /** @var int-mask-of<VkPipelineLayoutCreateFlagBits::*> */
         public int $flags = 0,
         /**

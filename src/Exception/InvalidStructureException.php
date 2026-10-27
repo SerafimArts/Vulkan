@@ -41,6 +41,16 @@ final class InvalidStructureException extends VulkanException
             MESSAGE, $member, $structure, $length), previous: $prev);
     }
 
+    public static function becauseUnionDoesNotHaveOneMember(
+        string $union,
+        int $members,
+        ?\Throwable $prev = null,
+    ): self {
+        return new self(\sprintf(<<<'MESSAGE'
+            The union %s holds exactly one member, %d are set
+            MESSAGE, $union, $members), previous: $prev);
+    }
+
     public static function becauseElementsAreOfDifferentTypes(
         string $expected,
         string $actual,
