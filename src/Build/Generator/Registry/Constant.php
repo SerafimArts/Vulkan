@@ -12,6 +12,21 @@ namespace Serafim\Vulkan\Build\Generator\Registry;
  */
 final readonly class Constant
 {
+    /**
+     * The versions of the API, the values of `apiVersion`
+     */
+    public const string API_VERSIONS = 'VulkanApiVersions';
+
+    /**
+     * The names of the extensions of an instance
+     */
+    public const string INSTANCE_EXTENSIONS = 'VulkanInstanceExtensions';
+
+    /**
+     * The names of the extensions of a device
+     */
+    public const string DEVICE_EXTENSIONS = 'VulkanDeviceExtensions';
+
     public function __construct(
         /**
          * @var non-empty-string
@@ -33,5 +48,10 @@ final readonly class Constant
          * Comment of the registry
          */
         public ?string $comment = null,
+        /**
+         * The set of the values the constant belongs to, one of the constants
+         * of the class
+         */
+        public ?string $group = null,
     ) {}
 }

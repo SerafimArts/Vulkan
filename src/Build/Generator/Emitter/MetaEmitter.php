@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Build\Generator\Emitter;
 
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
+use Serafim\Vulkan\VulkanBase;
 
 /**
  * Writes `.phpstorm.meta.php`: the bits of flags that the arguments of the
@@ -84,9 +85,49 @@ final readonly class MetaEmitter
             $lines[] = '    override(' . $this->createClass($class) . '::findChained(0), type(0));';
         }
 
+        $commands = $this->createCommands();
+
+        $lines[] = '    registerArgumentsSet(\'VulkanCommands\',';
+
+        foreach ($commands as $command) {
+            $lines[] = "        '" . $command . "',";
+        }
+
+        $lines[] = '    );';
+        $lines[] = '    expectedArguments(' . $this->createClass(VulkanBase::class) . '::vkGetInstanceProc(), 0, '
+            . "argumentsSet('VulkanCommands'));";
+        $lines[] = '    expectedArguments(' . $this->createClass(Locations::createClassName(Locations::ROOT_NAMESPACE, 'Vulkan')) . '::vkGetInstanceProcAddr(), 0, '
+            . "argumentsSet('VulkanCommands'));";
         $lines[] = '}';
 
         return new GeneratedFile('../resources/.phpstorm.meta.php', \implode("\n", $lines) . "\n");
+    }
+
+    /**
+     * Returns the names of the commands, and of their aliases, that the
+     * headers declare.
+     *
+     * @return list<non-empty-string>
+     */
+    private function createCommands(): array
+    {
+        $names = [];
+
+        foreach ($this->registry->getCommands() as $command) {
+            if (!$this->registry->isDeclared('PFN_' . $command->name)) {
+                continue;
+            }
+
+            $names[] = $command->name;
+
+            foreach ($this->registry->findAliases($command->name) as $alias) {
+                $names[] = $alias;
+            }
+        }
+
+        \sort($names);
+
+        return $names;
     }
 
     /**
@@ -96,6 +137,18 @@ final readonly class MetaEmitter
      */
     private function createConstants(string $bits): array
     {
+        $grouped = [];
+
+        foreach ($this->registry->getDefines() as $define) {
+            if ($define->group === $bits) {
+                $grouped[] = $this->createClass(Locations::createClassName(Locations::ROOT_NAMESPACE, $define->name));
+            }
+        }
+
+        if ($grouped !== []) {
+            return $grouped;
+        }
+
         $enum = $this->registry->findEnum($bits);
 
         if ($enum === null) {

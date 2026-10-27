@@ -18,6 +18,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\IntegerTypes;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Build\Generator\Emitter\MetaRecorder;
+use Serafim\Vulkan\Build\Generator\Registry\Constant;
 
 /**
  * The properties of a generated structure: the promoted parameters of the
@@ -169,11 +170,11 @@ final readonly class Properties
      */
     private function recordBits(ClassType $class, PropertyPlan $property, int $index, bool $isReturned): void
     {
-        if ($isReturned || $property->kind !== PropertyKind::INTEGER) {
+        if ($isReturned) {
             return;
         }
 
-        $bits = $this->types->findFlagBits($property->field->type);
+        $bits = $this->findArgumentSet($class, $property);
 
         if ($bits !== null && $class->getName() !== null) {
             $this->meta->recordArgument(
@@ -183,6 +184,33 @@ final readonly class Properties
                 $bits,
             );
         }
+    }
+
+    /**
+     * Returns the name of the set of the values that the argument is made of:
+     * the bits of flags, the versions of the API, the names of the extensions.
+     *
+     * @return non-empty-string|null
+     */
+    private function findArgumentSet(ClassType $class, PropertyPlan $property): ?string
+    {
+        if ($property->kind === PropertyKind::STRING_LIST && $property->field->name === 'ppEnabledExtensionNames') {
+            if (\str_contains($class->getName() ?? '', 'Instance')) {
+                return Constant::INSTANCE_EXTENSIONS;
+            }
+
+            return Constant::DEVICE_EXTENSIONS;
+        }
+
+        if ($property->kind !== PropertyKind::INTEGER) {
+            return null;
+        }
+
+        if ($property->field->name === 'apiVersion') {
+            return Constant::API_VERSIONS;
+        }
+
+        return $this->types->findFlagBits($property->field->type);
     }
 
     private function createMarker(PhpNamespace $namespace, string $root): string

@@ -133,7 +133,7 @@ abstract class VulkanBase
      * @throws CommandNotAvailableException in case of the command is not
      *         supported
      */
-    protected function vkGetInstanceProc(string $command, ?Handle $handle = null): callable
+    public function vkGetInstanceProc(string $command, ?Handle $handle = null): callable
     {
         return $this->procedures[$command] ??= $this->findInstanceProc($command, $handle);
     }

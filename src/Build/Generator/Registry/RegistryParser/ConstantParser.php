@@ -58,6 +58,7 @@ final readonly class ConstantParser
                 '0 << 29 | ' . $major . ' << 22 | ' . $minor . ' << 12',
                 '#define VK_API_VERSION_' . $major . '_' . $minor . ' VK_MAKE_API_VERSION(0, ' . $major . ', '
                     . $minor . ', 0)',
+                group: Constant::API_VERSIONS,
             );
 
             $latest = [$major, $minor];
@@ -129,11 +130,35 @@ final readonly class ConstantParser
             $expression = $this->createExpression($value);
 
             if ($expression !== null) {
-                $constants[] = new Constant($name, $expression, '#define ' . $name . ' ' . $value);
+                $constants[] = new Constant(
+                    $name,
+                    $expression,
+                    '#define ' . $name . ' ' . $value,
+                    group: $this->findExtensionGroup($element),
+                );
             }
         }
 
         return $constants;
+    }
+
+    /**
+     * Returns the set of the extensions that the name of the extension belongs
+     * to: the extension is one of the instance or of the device.
+     */
+    private function findExtensionGroup(\DOMElement $constant): ?string
+    {
+        $extension = $constant->parentNode?->parentNode;
+
+        if (!$extension instanceof \DOMElement || !\str_ends_with($constant->getAttribute('name'), '_EXTENSION_NAME')) {
+            return null;
+        }
+
+        return match ($extension->getAttribute('type')) {
+            'instance' => Constant::INSTANCE_EXTENSIONS,
+            'device' => Constant::DEVICE_EXTENSIONS,
+            default => null,
+        };
     }
 
     /**
