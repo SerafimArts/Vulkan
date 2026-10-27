@@ -10,6 +10,7 @@ use PHPat\Test\Builder\Rule;
 use PHPat\Test\PHPat;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\Handle;
+use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Struct\InputStructure;
 use Serafim\Vulkan\Struct\OutputStructure;
 use Serafim\Vulkan\VulkanBase;
@@ -35,6 +36,7 @@ final class StructArchitecture
                 Selector::classname(InvalidStructureException::class),
                 Selector::classname(Handle::class),
                 Selector::classname(VulkanBase::class),
+                Selector::classname(EnumCase::class),
             );
     }
 
