@@ -44,6 +44,7 @@ return new Config()
         ],
         'class_attributes_separation' => [
             'elements' => [
+                'const' => 'one',
                 'method' => 'one',
             ],
         ],
