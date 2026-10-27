@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE.html
  * @since VK_VALVE_buffer_device_address_allocation_alignment
  */
-final class VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE 
     public const int STRUCTURE_TYPE = 1000709000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $bufferDeviceAddressAllocationAlignment = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE 
         }
 
         $data->bufferDeviceAddressAllocationAlignment = (int) $this->bufferDeviceAddressAllocationAlignment;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     bufferDeviceAddressAllocationAlignment: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            bufferDeviceAddressAllocationAlignment: $data->bufferDeviceAddressAllocationAlignment !== 0,
+        );
     }
 }

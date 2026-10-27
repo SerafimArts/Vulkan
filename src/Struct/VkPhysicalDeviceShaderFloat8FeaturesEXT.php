@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFloat8FeaturesEXT.html
  * @since VK_EXT_shader_float8
  */
-final class VkPhysicalDeviceShaderFloat8FeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderFloat8FeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderFloat8FeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderFloat8FeaturesEXT extends InputStructure imple
     public const int STRUCTURE_TYPE = 1000567000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderFloat8 = false,
         public bool $shaderFloat8CooperativeMatrix = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceShaderFloat8FeaturesEXT extends InputStructure imple
         $data->shaderFloat8 = (int) $this->shaderFloat8;
 
         $data->shaderFloat8CooperativeMatrix = (int) $this->shaderFloat8CooperativeMatrix;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderFloat8FeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderFloat8: int,
+     *     shaderFloat8CooperativeMatrix: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderFloat8: $data->shaderFloat8 !== 0,
+            shaderFloat8CooperativeMatrix: $data->shaderFloat8CooperativeMatrix !== 0,
+        );
     }
 }

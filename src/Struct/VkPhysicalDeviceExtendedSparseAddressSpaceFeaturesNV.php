@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV.html
  * @since VK_NV_extended_sparse_address_space
  */
-final class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends InputSt
     public const int STRUCTURE_TYPE = 1000492000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $extendedSparseAddressSpace = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV extends InputSt
         }
 
         $data->extendedSparseAddressSpace = (int) $this->extendedSparseAddressSpace;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceExtendedSparseAddressSpaceFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     extendedSparseAddressSpace: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            extendedSparseAddressSpace: $data->extendedSparseAddressSpace !== 0,
+        );
     }
 }

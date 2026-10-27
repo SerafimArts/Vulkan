@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMeshShaderFeaturesNV.html
  * @since VK_NV_mesh_shader
  */
-final class VkPhysicalDeviceMeshShaderFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceMeshShaderFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMeshShaderFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceMeshShaderFeaturesNV extends InputStructure implemen
     public const int STRUCTURE_TYPE = 1000202000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $taskShader = false,
         public bool $meshShader = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceMeshShaderFeaturesNV extends InputStructure implemen
         $data->taskShader = (int) $this->taskShader;
 
         $data->meshShader = (int) $this->meshShader;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceMeshShaderFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     taskShader: int,
+     *     meshShader: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            taskShader: $data->taskShader !== 0,
+            meshShader: $data->meshShader !== 0,
+        );
     }
 }

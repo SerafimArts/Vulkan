@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceNestedCommandBufferFeaturesEXT.html
  * @since VK_EXT_nested_command_buffer
  */
-final class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceNestedCommandBufferFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends InputStructur
     public const int STRUCTURE_TYPE = 1000451000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $nestedCommandBuffer = false,
         public bool $nestedCommandBufferRendering = false,
         public bool $nestedCommandBufferSimultaneousUse = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceNestedCommandBufferFeaturesEXT extends InputStructur
         $data->nestedCommandBufferRendering = (int) $this->nestedCommandBufferRendering;
 
         $data->nestedCommandBufferSimultaneousUse = (int) $this->nestedCommandBufferSimultaneousUse;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceNestedCommandBufferFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     nestedCommandBuffer: int,
+     *     nestedCommandBufferRendering: int,
+     *     nestedCommandBufferSimultaneousUse: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            nestedCommandBuffer: $data->nestedCommandBuffer !== 0,
+            nestedCommandBufferRendering: $data->nestedCommandBufferRendering !== 0,
+            nestedCommandBufferSimultaneousUse: $data->nestedCommandBufferSimultaneousUse !== 0,
+        );
     }
 }

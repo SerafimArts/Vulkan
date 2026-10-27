@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV.html
  * @since VK_NV_fragment_shading_rate_enums
  */
-final class VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV extends InputStru
     public const int STRUCTURE_TYPE = 1000326001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $fragmentShadingRateEnums = false,
         public bool $supersampleFragmentShadingRates = false,
         public bool $noInvocationFragmentShadingRates = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV extends InputStru
         $data->supersampleFragmentShadingRates = (int) $this->supersampleFragmentShadingRates;
 
         $data->noInvocationFragmentShadingRates = (int) $this->noInvocationFragmentShadingRates;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     fragmentShadingRateEnums: int,
+     *     supersampleFragmentShadingRates: int,
+     *     noInvocationFragmentShadingRates: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            fragmentShadingRateEnums: $data->fragmentShadingRateEnums !== 0,
+            supersampleFragmentShadingRates: $data->supersampleFragmentShadingRates !== 0,
+            noInvocationFragmentShadingRates: $data->noInvocationFragmentShadingRates !== 0,
+        );
     }
 }

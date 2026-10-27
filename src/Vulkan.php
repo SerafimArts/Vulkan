@@ -129,7 +129,24 @@ use Serafim\Vulkan\Handle\VkTensorViewARM;
 use Serafim\Vulkan\Handle\VkValidationCacheEXT;
 use Serafim\Vulkan\Handle\VkVideoSessionKHR;
 use Serafim\Vulkan\Handle\VkVideoSessionParametersKHR;
+use Serafim\Vulkan\Internal\Chain;
 use Serafim\Vulkan\Internal\VkEnumerator;
+use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
+use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
+use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
+use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
+use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
+use Serafim\Vulkan\Struct\Extension\VkMemoryRequirements2Extension;
+use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceMemoryProperties2Extension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
+use Serafim\Vulkan\Struct\Extension\VkScreenBufferPropertiesQNXExtension;
+use Serafim\Vulkan\Struct\Extension\VkSubresourceLayout2Extension;
+use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
+use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
+use Serafim\Vulkan\Struct\Extension\VkVideoEncodeQualityLevelPropertiesKHRExtension;
 use Serafim\Vulkan\Struct\VkAccelerationStructureBuildSizesInfoKHR;
 use Serafim\Vulkan\Struct\VkAccelerationStructureCaptureDescriptorDataInfoEXT;
 use Serafim\Vulkan\Struct\VkAccelerationStructureCreateInfo2KHR;
@@ -168,6 +185,8 @@ use Serafim\Vulkan\Struct\VkBufferMemoryBarrier;
 use Serafim\Vulkan\Struct\VkBufferMemoryRequirementsInfo2;
 use Serafim\Vulkan\Struct\VkBufferViewCreateInfo;
 use Serafim\Vulkan\Struct\VkBuildPartitionedAccelerationStructureInfoNV;
+use Serafim\Vulkan\Struct\VkCheckpointData2NV;
+use Serafim\Vulkan\Struct\VkCheckpointDataNV;
 use Serafim\Vulkan\Struct\VkClearAttachment;
 use Serafim\Vulkan\Struct\VkClearColorValue;
 use Serafim\Vulkan\Struct\VkClearDepthStencilValue;
@@ -222,8 +241,10 @@ use Serafim\Vulkan\Struct\VkDataGraphPipelineSessionMemoryRequirementsInfoARM;
 use Serafim\Vulkan\Struct\VkDebugMarkerMarkerInfoEXT;
 use Serafim\Vulkan\Struct\VkDebugMarkerObjectNameInfoEXT;
 use Serafim\Vulkan\Struct\VkDebugMarkerObjectTagInfoEXT;
+use Serafim\Vulkan\Struct\VkDebugReportCallbackCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkDebugUtilsLabelEXT;
 use Serafim\Vulkan\Struct\VkDebugUtilsMessengerCallbackDataEXT;
+use Serafim\Vulkan\Struct\VkDebugUtilsMessengerCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkDebugUtilsObjectNameInfoEXT;
 use Serafim\Vulkan\Struct\VkDebugUtilsObjectTagInfoEXT;
 use Serafim\Vulkan\Struct\VkDecompressMemoryInfoEXT;
@@ -8348,6 +8369,64 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugReportCallbackEXT.html
+     * @since VK_EXT_debug_report
+     * @deprecated the extension VK_EXT_debug_report is deprecated by VK_EXT_debug_utils
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    #[\Deprecated(message: 'the extension VK_EXT_debug_report is deprecated by VK_EXT_debug_utils')]
+    public function vkCreateDebugReportCallbackEXT(
+        VkInstance $instance,
+        VkDebugReportCallbackCreateInfoEXT $createInfo,
+    ): VkDebugReportCallbackEXT {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeCallback = $this->memory->new('VkDebugReportCallbackEXT');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateDebugReportCallbackEXT', $instance);
+
+        $this->assertSuccess('vkCreateDebugReportCallbackEXT', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeCallback)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroyDebugReportCallbackEXT', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkDebugReportCallbackEXT($this, $nativeCallback, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDebugUtilsMessengerEXT.html
+     * @since VK_EXT_debug_utils
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails
+     */
+    public function vkCreateDebugUtilsMessengerEXT(
+        VkInstance $instance,
+        VkDebugUtilsMessengerCreateInfoEXT $createInfo,
+    ): VkDebugUtilsMessengerEXT {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeMessenger = $this->memory->new('VkDebugUtilsMessengerEXT');
+
+        $procedure = $this->vkGetInstanceProc('vkCreateDebugUtilsMessengerEXT', $instance);
+
+        $this->assertSuccess('vkCreateDebugUtilsMessengerEXT', $procedure($instance->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeMessenger)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroyDebugUtilsMessengerEXT', $instance);
+        $instancePointer = $instance->pointer;
+
+        return new VkDebugUtilsMessengerEXT($this, $nativeMessenger, $instance, function (Handle $handle) use ($destroy, $instancePointer): void {
+            $destroy($instancePointer, $handle->pointer, null);
+        });
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreateDeferredOperationKHR.html
      * @since VK_KHR_deferred_host_operations
      *
@@ -11262,17 +11341,20 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_metal_objects
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkExportMetalObjectsInfoEXTExtension>> $chain the structures to fill
      */
-    public function vkExportMetalObjectsEXT(VkDevice $device): VkExportMetalObjectsInfoEXT
+    public function vkExportMetalObjectsEXT(VkDevice $device, array $chain = []): VkExportMetalObjectsInfoEXT
     {
         $nativeMetalObjectsInfo = $this->memory->new('VkExportMetalObjectsInfoEXT');
         $nativeMetalObjectsInfo->sType = VkExportMetalObjectsInfoEXT::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMetalObjectsInfo, $chain, VkExportMetalObjectsInfoEXTExtension::class);
 
         $procedure = $this->vkGetInstanceProc('vkExportMetalObjectsEXT', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeMetalObjectsInfo));
 
-        return VkExportMetalObjectsInfoEXT::createFromCData($nativeMetalObjectsInfo);
+        return VkExportMetalObjectsInfoEXT::createFromCData($nativeMetalObjectsInfo, $natives->read());
     }
 
     /**
@@ -11411,22 +11493,26 @@ final class Vulkan extends VulkanBase
      * @deprecated the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     #[\Deprecated(message: 'the extension VK_NV_ray_tracing is deprecated by VK_KHR_ray_tracing_pipeline')]
     public function vkGetAccelerationStructureMemoryRequirementsNV(
         VkDevice $device,
         VkAccelerationStructureMemoryRequirementsInfoNV $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetAccelerationStructureMemoryRequirementsNV', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -11460,23 +11546,27 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
+     * @param list<class-string<Chained&VkAndroidHardwareBufferPropertiesANDROIDExtension>> $chain the structures to fill
+     *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
      */
     public function vkGetAndroidHardwareBufferPropertiesANDROID(
         VkDevice $device,
         CData|int $buffer,
+        array $chain = [],
     ): VkAndroidHardwareBufferPropertiesANDROID {
         $nativeBuffer = $this->ffi->cast('AHardwareBuffer*', $buffer);
 
         $nativeProperties = $this->memory->new('VkAndroidHardwareBufferPropertiesANDROID');
         $nativeProperties->sType = VkAndroidHardwareBufferPropertiesANDROID::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeProperties, $chain, VkAndroidHardwareBufferPropertiesANDROIDExtension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetAndroidHardwareBufferPropertiesANDROID', $device);
 
         $this->assertSuccess('vkGetAndroidHardwareBufferPropertiesANDROID', $procedure($device->pointer, $nativeBuffer, \FFI::addr($nativeProperties)));
 
-        return VkAndroidHardwareBufferPropertiesANDROID::createFromCData($nativeProperties);
+        return VkAndroidHardwareBufferPropertiesANDROID::createFromCData($nativeProperties, $natives->read());
     }
 
     /**
@@ -11570,21 +11660,25 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetBufferMemoryRequirements2(
         VkDevice $device,
         VkBufferMemoryRequirementsInfo2 $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetBufferMemoryRequirements2', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -11594,12 +11688,15 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_get_memory_requirements2
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetBufferMemoryRequirements2KHR(
         VkDevice $device,
         VkBufferMemoryRequirementsInfo2 $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
-        return $this->vkGetBufferMemoryRequirements2($device, $info);
+        return $this->vkGetBufferMemoryRequirements2($device, $info, $chain);
     }
 
     /**
@@ -11793,21 +11890,25 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_data_graph
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetDataGraphPipelineSessionMemoryRequirementsARM(
         VkDevice $device,
         VkDataGraphPipelineSessionMemoryRequirementsInfoARM $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetDataGraphPipelineSessionMemoryRequirementsARM', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -11945,21 +12046,25 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkDescriptorSetLayoutSupportExtension>> $chain the structures to fill
      */
     public function vkGetDescriptorSetLayoutSupport(
         VkDevice $device,
         VkDescriptorSetLayoutCreateInfo $createInfo,
+        array $chain = [],
     ): VkDescriptorSetLayoutSupport {
         $nativeCreateInfo = $createInfo->toCData($this->memory);
 
         $nativeSupport = $this->memory->new('VkDescriptorSetLayoutSupport');
         $nativeSupport->sType = VkDescriptorSetLayoutSupport::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeSupport, $chain, VkDescriptorSetLayoutSupportExtension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetDescriptorSetLayoutSupport', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeCreateInfo), \FFI::addr($nativeSupport));
 
-        return VkDescriptorSetLayoutSupport::createFromCData($nativeSupport);
+        return VkDescriptorSetLayoutSupport::createFromCData($nativeSupport, $natives->read());
     }
 
     /**
@@ -11969,12 +12074,15 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance3
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkDescriptorSetLayoutSupportExtension>> $chain the structures to fill
      */
     public function vkGetDescriptorSetLayoutSupportKHR(
         VkDevice $device,
         VkDescriptorSetLayoutCreateInfo $createInfo,
+        array $chain = [],
     ): VkDescriptorSetLayoutSupport {
-        return $this->vkGetDescriptorSetLayoutSupport($device, $createInfo);
+        return $this->vkGetDescriptorSetLayoutSupport($device, $createInfo, $chain);
     }
 
     /**
@@ -11982,21 +12090,25 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetDeviceBufferMemoryRequirements(
         VkDevice $device,
         VkDeviceBufferMemoryRequirements $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceBufferMemoryRequirements', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -12006,12 +12118,15 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance4
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetDeviceBufferMemoryRequirementsKHR(
         VkDevice $device,
         VkDeviceBufferMemoryRequirements $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
-        return $this->vkGetDeviceBufferMemoryRequirements($device, $info);
+        return $this->vkGetDeviceBufferMemoryRequirements($device, $info, $chain);
     }
 
     /**
@@ -12190,21 +12305,25 @@ final class Vulkan extends VulkanBase
      * @since 1.3
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetDeviceImageMemoryRequirements(
         VkDevice $device,
         VkDeviceImageMemoryRequirements $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceImageMemoryRequirements', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -12214,12 +12333,15 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance4
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetDeviceImageMemoryRequirementsKHR(
         VkDevice $device,
         VkDeviceImageMemoryRequirements $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
-        return $this->vkGetDeviceImageMemoryRequirements($device, $info);
+        return $this->vkGetDeviceImageMemoryRequirements($device, $info, $chain);
     }
 
     /**
@@ -12275,21 +12397,25 @@ final class Vulkan extends VulkanBase
      * @since 1.4
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
      */
     public function vkGetDeviceImageSubresourceLayout(
         VkDevice $device,
         VkDeviceImageSubresourceInfo $info,
+        array $chain = [],
     ): VkSubresourceLayout2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeLayout = $this->memory->new('VkSubresourceLayout2');
         $nativeLayout->sType = VkSubresourceLayout2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeLayout, $chain, VkSubresourceLayout2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceImageSubresourceLayout', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeLayout));
 
-        return VkSubresourceLayout2::createFromCData($nativeLayout);
+        return VkSubresourceLayout2::createFromCData($nativeLayout, $natives->read());
     }
 
     /**
@@ -12299,12 +12425,15 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance5
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
      */
     public function vkGetDeviceImageSubresourceLayoutKHR(
         VkDevice $device,
         VkDeviceImageSubresourceInfo $info,
+        array $chain = [],
     ): VkSubresourceLayout2 {
-        return $this->vkGetDeviceImageSubresourceLayout($device, $info);
+        return $this->vkGetDeviceImageSubresourceLayout($device, $info, $chain);
     }
 
     /**
@@ -12428,21 +12557,25 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_tensors
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetDeviceTensorMemoryRequirementsARM(
         VkDevice $device,
         VkDeviceTensorMemoryRequirementsARM $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceTensorMemoryRequirementsARM', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -12817,21 +12950,25 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_device_generated_commands
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetGeneratedCommandsMemoryRequirementsEXT(
         VkDevice $device,
         VkGeneratedCommandsMemoryRequirementsInfoEXT $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetGeneratedCommandsMemoryRequirementsEXT', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -12839,21 +12976,25 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_device_generated_commands
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetGeneratedCommandsMemoryRequirementsNV(
         VkDevice $device,
         VkGeneratedCommandsMemoryRequirementsInfoNV $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetGeneratedCommandsMemoryRequirementsNV', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -12962,21 +13103,25 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetImageMemoryRequirements2(
         VkDevice $device,
         VkImageMemoryRequirementsInfo2 $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetImageMemoryRequirements2', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -12986,12 +13131,15 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_get_memory_requirements2
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetImageMemoryRequirements2KHR(
         VkDevice $device,
         VkImageMemoryRequirementsInfo2 $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
-        return $this->vkGetImageMemoryRequirements2($device, $info);
+        return $this->vkGetImageMemoryRequirements2($device, $info, $chain);
     }
 
     /**
@@ -13120,22 +13268,26 @@ final class Vulkan extends VulkanBase
      * @since 1.4
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
      */
     public function vkGetImageSubresourceLayout2(
         VkDevice $device,
         VkImage $image,
         VkImageSubresource2 $subresource,
+        array $chain = [],
     ): VkSubresourceLayout2 {
         $nativeSubresource = $subresource->toCData($this->memory);
 
         $nativeLayout = $this->memory->new('VkSubresourceLayout2');
         $nativeLayout->sType = VkSubresourceLayout2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeLayout, $chain, VkSubresourceLayout2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetImageSubresourceLayout2', $device);
 
         $procedure($device->pointer, $image->pointer, \FFI::addr($nativeSubresource), \FFI::addr($nativeLayout));
 
-        return VkSubresourceLayout2::createFromCData($nativeLayout);
+        return VkSubresourceLayout2::createFromCData($nativeLayout, $natives->read());
     }
 
     /**
@@ -13145,13 +13297,16 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_maintenance5
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
      */
     public function vkGetImageSubresourceLayout2KHR(
         VkDevice $device,
         VkImage $image,
         VkImageSubresource2 $subresource,
+        array $chain = [],
     ): VkSubresourceLayout2 {
-        return $this->vkGetImageSubresourceLayout2($device, $image, $subresource);
+        return $this->vkGetImageSubresourceLayout2($device, $image, $subresource, $chain);
     }
 
     /**
@@ -13161,13 +13316,16 @@ final class Vulkan extends VulkanBase
      * @since VK_EXT_host_image_copy, VK_EXT_image_compression_control
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
      */
     public function vkGetImageSubresourceLayout2EXT(
         VkDevice $device,
         VkImage $image,
         VkImageSubresource2 $subresource,
+        array $chain = [],
     ): VkSubresourceLayout2 {
-        return $this->vkGetImageSubresourceLayout2($device, $image, $subresource);
+        return $this->vkGetImageSubresourceLayout2($device, $image, $subresource, $chain);
     }
 
     /**
@@ -13560,21 +13718,27 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
+     * @param list<class-string<Chained&VkNativeBufferPropertiesOHOSExtension>> $chain the structures to fill
+     *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
      */
-    public function vkGetNativeBufferPropertiesOHOS(VkDevice $device, CData|int $buffer): VkNativeBufferPropertiesOHOS
-    {
+    public function vkGetNativeBufferPropertiesOHOS(
+        VkDevice $device,
+        CData|int $buffer,
+        array $chain = [],
+    ): VkNativeBufferPropertiesOHOS {
         $nativeBuffer = $this->ffi->cast('OH_NativeBuffer*', $buffer);
 
         $nativeProperties = $this->memory->new('VkNativeBufferPropertiesOHOS');
         $nativeProperties->sType = VkNativeBufferPropertiesOHOS::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeProperties, $chain, VkNativeBufferPropertiesOHOSExtension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetNativeBufferPropertiesOHOS', $device);
 
         $this->assertSuccess('vkGetNativeBufferPropertiesOHOS', $procedure($device->pointer, $nativeBuffer, \FFI::addr($nativeProperties)));
 
-        return VkNativeBufferPropertiesOHOS::createFromCData($nativeProperties);
+        return VkNativeBufferPropertiesOHOS::createFromCData($nativeProperties, $natives->read());
     }
 
     /**
@@ -14018,17 +14182,22 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkPhysicalDeviceFeatures2Extension>> $chain the structures to fill
      */
-    public function vkGetPhysicalDeviceFeatures2(VkPhysicalDevice $physicalDevice): VkPhysicalDeviceFeatures2
-    {
+    public function vkGetPhysicalDeviceFeatures2(
+        VkPhysicalDevice $physicalDevice,
+        array $chain = [],
+    ): VkPhysicalDeviceFeatures2 {
         $nativeFeatures = $this->memory->new('VkPhysicalDeviceFeatures2');
         $nativeFeatures->sType = VkPhysicalDeviceFeatures2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeFeatures, $chain, VkPhysicalDeviceFeatures2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceFeatures2', $physicalDevice);
 
         $procedure($physicalDevice->pointer, \FFI::addr($nativeFeatures));
 
-        return VkPhysicalDeviceFeatures2::createFromCData($nativeFeatures);
+        return VkPhysicalDeviceFeatures2::createFromCData($nativeFeatures, $natives->read());
     }
 
     /**
@@ -14038,10 +14207,14 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_get_physical_device_properties2
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkPhysicalDeviceFeatures2Extension>> $chain the structures to fill
      */
-    public function vkGetPhysicalDeviceFeatures2KHR(VkPhysicalDevice $physicalDevice): VkPhysicalDeviceFeatures2
-    {
-        return $this->vkGetPhysicalDeviceFeatures2($physicalDevice);
+    public function vkGetPhysicalDeviceFeatures2KHR(
+        VkPhysicalDevice $physicalDevice,
+        array $chain = [],
+    ): VkPhysicalDeviceFeatures2 {
+        return $this->vkGetPhysicalDeviceFeatures2($physicalDevice, $chain);
     }
 
     /**
@@ -14072,19 +14245,23 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkFormatProperties2Extension>> $chain the structures to fill
      */
     public function vkGetPhysicalDeviceFormatProperties2(
         VkPhysicalDevice $physicalDevice,
         VkFormat $format,
+        array $chain = [],
     ): VkFormatProperties2 {
         $nativeFormatProperties = $this->memory->new('VkFormatProperties2');
         $nativeFormatProperties->sType = VkFormatProperties2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeFormatProperties, $chain, VkFormatProperties2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceFormatProperties2', $physicalDevice);
 
         $procedure($physicalDevice->pointer, $format->value, \FFI::addr($nativeFormatProperties));
 
-        return VkFormatProperties2::createFromCData($nativeFormatProperties);
+        return VkFormatProperties2::createFromCData($nativeFormatProperties, $natives->read());
     }
 
     /**
@@ -14094,12 +14271,15 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_get_physical_device_properties2
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkFormatProperties2Extension>> $chain the structures to fill
      */
     public function vkGetPhysicalDeviceFormatProperties2KHR(
         VkPhysicalDevice $physicalDevice,
         VkFormat $format,
+        array $chain = [],
     ): VkFormatProperties2 {
-        return $this->vkGetPhysicalDeviceFormatProperties2($physicalDevice, $format);
+        return $this->vkGetPhysicalDeviceFormatProperties2($physicalDevice, $format, $chain);
     }
 
     /**
@@ -14168,6 +14348,8 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
+     * @param list<class-string<Chained&VkImageFormatProperties2Extension>> $chain the structures to fill
+     *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED},
      *         {@see VkResult::VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR},
@@ -14179,17 +14361,19 @@ final class Vulkan extends VulkanBase
     public function vkGetPhysicalDeviceImageFormatProperties2(
         VkPhysicalDevice $physicalDevice,
         VkPhysicalDeviceImageFormatInfo2 $imageFormatInfo,
+        array $chain = [],
     ): VkImageFormatProperties2 {
         $nativeImageFormatInfo = $imageFormatInfo->toCData($this->memory);
 
         $nativeImageFormatProperties = $this->memory->new('VkImageFormatProperties2');
         $nativeImageFormatProperties->sType = VkImageFormatProperties2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeImageFormatProperties, $chain, VkImageFormatProperties2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceImageFormatProperties2', $physicalDevice);
 
         $this->assertSuccess('vkGetPhysicalDeviceImageFormatProperties2', $procedure($physicalDevice->pointer, \FFI::addr($nativeImageFormatInfo), \FFI::addr($nativeImageFormatProperties)));
 
-        return VkImageFormatProperties2::createFromCData($nativeImageFormatProperties);
+        return VkImageFormatProperties2::createFromCData($nativeImageFormatProperties, $natives->read());
     }
 
     /**
@@ -14199,6 +14383,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_get_physical_device_properties2
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkImageFormatProperties2Extension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED},
@@ -14211,8 +14397,9 @@ final class Vulkan extends VulkanBase
     public function vkGetPhysicalDeviceImageFormatProperties2KHR(
         VkPhysicalDevice $physicalDevice,
         VkPhysicalDeviceImageFormatInfo2 $imageFormatInfo,
+        array $chain = [],
     ): VkImageFormatProperties2 {
-        return $this->vkGetPhysicalDeviceImageFormatProperties2($physicalDevice, $imageFormatInfo);
+        return $this->vkGetPhysicalDeviceImageFormatProperties2($physicalDevice, $imageFormatInfo, $chain);
     }
 
     /**
@@ -14242,18 +14429,22 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkPhysicalDeviceMemoryProperties2Extension>> $chain the structures to fill
      */
     public function vkGetPhysicalDeviceMemoryProperties2(
         VkPhysicalDevice $physicalDevice,
+        array $chain = [],
     ): VkPhysicalDeviceMemoryProperties2 {
         $nativeMemoryProperties = $this->memory->new('VkPhysicalDeviceMemoryProperties2');
         $nativeMemoryProperties->sType = VkPhysicalDeviceMemoryProperties2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryProperties, $chain, VkPhysicalDeviceMemoryProperties2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceMemoryProperties2', $physicalDevice);
 
         $procedure($physicalDevice->pointer, \FFI::addr($nativeMemoryProperties));
 
-        return VkPhysicalDeviceMemoryProperties2::createFromCData($nativeMemoryProperties);
+        return VkPhysicalDeviceMemoryProperties2::createFromCData($nativeMemoryProperties, $natives->read());
     }
 
     /**
@@ -14263,11 +14454,14 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_get_physical_device_properties2
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkPhysicalDeviceMemoryProperties2Extension>> $chain the structures to fill
      */
     public function vkGetPhysicalDeviceMemoryProperties2KHR(
         VkPhysicalDevice $physicalDevice,
+        array $chain = [],
     ): VkPhysicalDeviceMemoryProperties2 {
-        return $this->vkGetPhysicalDeviceMemoryProperties2($physicalDevice);
+        return $this->vkGetPhysicalDeviceMemoryProperties2($physicalDevice, $chain);
     }
 
     /**
@@ -14382,17 +14576,22 @@ final class Vulkan extends VulkanBase
      * @since 1.1
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkPhysicalDeviceProperties2Extension>> $chain the structures to fill
      */
-    public function vkGetPhysicalDeviceProperties2(VkPhysicalDevice $physicalDevice): VkPhysicalDeviceProperties2
-    {
+    public function vkGetPhysicalDeviceProperties2(
+        VkPhysicalDevice $physicalDevice,
+        array $chain = [],
+    ): VkPhysicalDeviceProperties2 {
         $nativeProperties = $this->memory->new('VkPhysicalDeviceProperties2');
         $nativeProperties->sType = VkPhysicalDeviceProperties2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeProperties, $chain, VkPhysicalDeviceProperties2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceProperties2', $physicalDevice);
 
         $procedure($physicalDevice->pointer, \FFI::addr($nativeProperties));
 
-        return VkPhysicalDeviceProperties2::createFromCData($nativeProperties);
+        return VkPhysicalDeviceProperties2::createFromCData($nativeProperties, $natives->read());
     }
 
     /**
@@ -14402,10 +14601,14 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_get_physical_device_properties2
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkPhysicalDeviceProperties2Extension>> $chain the structures to fill
      */
-    public function vkGetPhysicalDeviceProperties2KHR(VkPhysicalDevice $physicalDevice): VkPhysicalDeviceProperties2
-    {
-        return $this->vkGetPhysicalDeviceProperties2($physicalDevice);
+    public function vkGetPhysicalDeviceProperties2KHR(
+        VkPhysicalDevice $physicalDevice,
+        array $chain = [],
+    ): VkPhysicalDeviceProperties2 {
+        return $this->vkGetPhysicalDeviceProperties2($physicalDevice, $chain);
     }
 
     /**
@@ -14752,23 +14955,27 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
+     * @param list<class-string<Chained&VkSurfaceCapabilities2KHRExtension>> $chain the structures to fill
+     *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
      */
     public function vkGetPhysicalDeviceSurfaceCapabilities2KHR(
         VkPhysicalDevice $physicalDevice,
         VkPhysicalDeviceSurfaceInfo2KHR $surfaceInfo,
+        array $chain = [],
     ): VkSurfaceCapabilities2KHR {
         $nativeSurfaceInfo = $surfaceInfo->toCData($this->memory);
 
         $nativeSurfaceCapabilities = $this->memory->new('VkSurfaceCapabilities2KHR');
         $nativeSurfaceCapabilities->sType = VkSurfaceCapabilities2KHR::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeSurfaceCapabilities, $chain, VkSurfaceCapabilities2KHRExtension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $physicalDevice);
 
         $this->assertSuccess('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $procedure($physicalDevice->pointer, \FFI::addr($nativeSurfaceInfo), \FFI::addr($nativeSurfaceCapabilities)));
 
-        return VkSurfaceCapabilities2KHR::createFromCData($nativeSurfaceCapabilities);
+        return VkSurfaceCapabilities2KHR::createFromCData($nativeSurfaceCapabilities, $natives->read());
     }
 
     /**
@@ -15026,6 +15233,8 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
+     * @param list<class-string<Chained&VkVideoCapabilitiesKHRExtension>> $chain the structures to fill
+     *
      * @throws CommandFailedException in case of the command fails, for example
      *         with
      *         {@see VkResult::VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR},
@@ -15036,17 +15245,19 @@ final class Vulkan extends VulkanBase
     public function vkGetPhysicalDeviceVideoCapabilitiesKHR(
         VkPhysicalDevice $physicalDevice,
         VkVideoProfileInfoKHR $videoProfile,
+        array $chain = [],
     ): VkVideoCapabilitiesKHR {
         $nativeVideoProfile = $videoProfile->toCData($this->memory);
 
         $nativeCapabilities = $this->memory->new('VkVideoCapabilitiesKHR');
         $nativeCapabilities->sType = VkVideoCapabilitiesKHR::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeCapabilities, $chain, VkVideoCapabilitiesKHRExtension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceVideoCapabilitiesKHR', $physicalDevice);
 
         $this->assertSuccess('vkGetPhysicalDeviceVideoCapabilitiesKHR', $procedure($physicalDevice->pointer, \FFI::addr($nativeVideoProfile), \FFI::addr($nativeCapabilities)));
 
-        return VkVideoCapabilitiesKHR::createFromCData($nativeCapabilities);
+        return VkVideoCapabilitiesKHR::createFromCData($nativeCapabilities, $natives->read());
     }
 
     /**
@@ -15054,6 +15265,8 @@ final class Vulkan extends VulkanBase
      * @since VK_KHR_video_encode_queue
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkVideoEncodeQualityLevelPropertiesKHRExtension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with
@@ -15065,17 +15278,19 @@ final class Vulkan extends VulkanBase
     public function vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR(
         VkPhysicalDevice $physicalDevice,
         VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR $qualityLevelInfo,
+        array $chain = [],
     ): VkVideoEncodeQualityLevelPropertiesKHR {
         $nativeQualityLevelInfo = $qualityLevelInfo->toCData($this->memory);
 
         $nativeQualityLevelProperties = $this->memory->new('VkVideoEncodeQualityLevelPropertiesKHR');
         $nativeQualityLevelProperties->sType = VkVideoEncodeQualityLevelPropertiesKHR::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeQualityLevelProperties, $chain, VkVideoEncodeQualityLevelPropertiesKHRExtension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR', $physicalDevice);
 
         $this->assertSuccess('vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR', $procedure($physicalDevice->pointer, \FFI::addr($nativeQualityLevelInfo), \FFI::addr($nativeQualityLevelProperties)));
 
-        return VkVideoEncodeQualityLevelPropertiesKHR::createFromCData($nativeQualityLevelProperties);
+        return VkVideoEncodeQualityLevelPropertiesKHR::createFromCData($nativeQualityLevelProperties, $natives->read());
     }
 
     /**
@@ -15239,21 +15454,25 @@ final class Vulkan extends VulkanBase
      * @since VK_NV_device_generated_commands_compute
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetPipelineIndirectMemoryRequirementsNV(
         VkDevice $device,
         VkComputePipelineCreateInfo $createInfo,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeCreateInfo = $createInfo->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetPipelineIndirectMemoryRequirementsNV', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeCreateInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**
@@ -15382,6 +15601,58 @@ final class Vulkan extends VulkanBase
         $status = $this->getResult('vkGetQueryPoolResults', $result);
 
         return new CommandResult($status, \FFI::string($nativeData, $dataSize));
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointData2NV.html
+     * @since VK_NV_device_diagnostic_checkpoints
+     *
+     * @api
+     *
+     * @return VkEnumerator<VkCheckpointData2NV>
+     */
+    public function vkGetQueueCheckpointData2NV(VkQueue $queue): VkEnumerator
+    {
+        $procedure = $this->vkGetInstanceProc('vkGetQueueCheckpointData2NV', $queue);
+
+        return VkEnumerator::create(
+            $this,
+            'vkGetQueueCheckpointData2NV',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $queue->pointer,
+                $count,
+                $items,
+            ),
+            'VkCheckpointData2NV',
+            fn(CData $item): VkCheckpointData2NV => VkCheckpointData2NV::createFromCData($item),
+            VkCheckpointData2NV::STRUCTURE_TYPE,
+        );
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetQueueCheckpointDataNV.html
+     * @since VK_NV_device_diagnostic_checkpoints
+     *
+     * @api
+     *
+     * @return VkEnumerator<VkCheckpointDataNV>
+     */
+    public function vkGetQueueCheckpointDataNV(VkQueue $queue): VkEnumerator
+    {
+        $procedure = $this->vkGetInstanceProc('vkGetQueueCheckpointDataNV', $queue);
+
+        return VkEnumerator::create(
+            $this,
+            'vkGetQueueCheckpointDataNV',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $queue->pointer,
+                $count,
+                $items,
+            ),
+            'VkCheckpointDataNV',
+            fn(CData $item): VkCheckpointDataNV => VkCheckpointDataNV::createFromCData($item),
+            VkCheckpointDataNV::STRUCTURE_TYPE,
+        );
     }
 
     /**
@@ -15599,21 +15870,27 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
+     * @param list<class-string<Chained&VkScreenBufferPropertiesQNXExtension>> $chain the structures to fill
+     *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
      */
-    public function vkGetScreenBufferPropertiesQNX(VkDevice $device, CData|int $buffer): VkScreenBufferPropertiesQNX
-    {
+    public function vkGetScreenBufferPropertiesQNX(
+        VkDevice $device,
+        CData|int $buffer,
+        array $chain = [],
+    ): VkScreenBufferPropertiesQNX {
         $nativeBuffer = $this->ffi->cast('_screen_buffer*', $buffer);
 
         $nativeProperties = $this->memory->new('VkScreenBufferPropertiesQNX');
         $nativeProperties->sType = VkScreenBufferPropertiesQNX::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeProperties, $chain, VkScreenBufferPropertiesQNXExtension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetScreenBufferPropertiesQNX', $device);
 
         $this->assertSuccess('vkGetScreenBufferPropertiesQNX', $procedure($device->pointer, $nativeBuffer, \FFI::addr($nativeProperties)));
 
-        return VkScreenBufferPropertiesQNX::createFromCData($nativeProperties);
+        return VkScreenBufferPropertiesQNX::createFromCData($nativeProperties, $natives->read());
     }
 
     /**
@@ -16036,21 +16313,25 @@ final class Vulkan extends VulkanBase
      * @since VK_ARM_tensors
      *
      * @api
+     *
+     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
      */
     public function vkGetTensorMemoryRequirementsARM(
         VkDevice $device,
         VkTensorMemoryRequirementsInfoARM $info,
+        array $chain = [],
     ): VkMemoryRequirements2 {
         $nativeInfo = $info->toCData($this->memory);
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
 
         $procedure = $this->vkGetInstanceProc('vkGetTensorMemoryRequirementsARM', $device);
 
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeMemoryRequirements));
 
-        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements);
+        return VkMemoryRequirements2::createFromCData($nativeMemoryRequirements, $natives->read());
     }
 
     /**

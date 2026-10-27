@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevice8BitStorageFeatures.html
  * @since 1.2
  */
-final class VkPhysicalDevice8BitStorageFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevice8BitStorageFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevice8BitStorageFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevice8BitStorageFeatures extends InputStructure implement
     public const int STRUCTURE_TYPE = 1000177000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** 8-bit integer variables supported in StorageBuffer */
         public bool $storageBuffer8BitAccess = false,
         /** 8-bit integer variables supported in StorageBuffer and Uniform */
@@ -48,5 +51,31 @@ final class VkPhysicalDevice8BitStorageFeatures extends InputStructure implement
         $data->uniformAndStorageBuffer8BitAccess = (int) $this->uniformAndStorageBuffer8BitAccess;
 
         $data->storagePushConstant8 = (int) $this->storagePushConstant8;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevice8BitStorageFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     storageBuffer8BitAccess: int,
+     *     uniformAndStorageBuffer8BitAccess: int,
+     *     storagePushConstant8: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            storageBuffer8BitAccess: $data->storageBuffer8BitAccess !== 0,
+            uniformAndStorageBuffer8BitAccess: $data->uniformAndStorageBuffer8BitAccess !== 0,
+            storagePushConstant8: $data->storagePushConstant8 !== 0,
+        );
     }
 }

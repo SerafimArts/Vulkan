@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePortabilitySubsetFeaturesKHR.html
  * @since VK_KHR_portability_subset
  */
-final class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePortabilitySubsetFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends InputStructure 
     public const int STRUCTURE_TYPE = 1000163000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $constantAlphaColorBlendFactors = false,
         public bool $events = false,
         public bool $imageViewFormatReinterpretation = false,
@@ -81,5 +84,55 @@ final class VkPhysicalDevicePortabilitySubsetFeaturesKHR extends InputStructure 
         $data->triangleFans = (int) $this->triangleFans;
 
         $data->vertexAttributeAccessBeyondStride = (int) $this->vertexAttributeAccessBeyondStride;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePortabilitySubsetFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     constantAlphaColorBlendFactors: int,
+     *     events: int,
+     *     imageViewFormatReinterpretation: int,
+     *     imageViewFormatSwizzle: int,
+     *     imageView2DOn3DImage: int,
+     *     multisampleArrayImage: int,
+     *     mutableComparisonSamplers: int,
+     *     pointPolygons: int,
+     *     samplerMipLodBias: int,
+     *     separateStencilMaskRef: int,
+     *     shaderSampleRateInterpolationFunctions: int,
+     *     tessellationIsolines: int,
+     *     tessellationPointMode: int,
+     *     triangleFans: int,
+     *     vertexAttributeAccessBeyondStride: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            constantAlphaColorBlendFactors: $data->constantAlphaColorBlendFactors !== 0,
+            events: $data->events !== 0,
+            imageViewFormatReinterpretation: $data->imageViewFormatReinterpretation !== 0,
+            imageViewFormatSwizzle: $data->imageViewFormatSwizzle !== 0,
+            imageView2DOn3DImage: $data->imageView2DOn3DImage !== 0,
+            multisampleArrayImage: $data->multisampleArrayImage !== 0,
+            mutableComparisonSamplers: $data->mutableComparisonSamplers !== 0,
+            pointPolygons: $data->pointPolygons !== 0,
+            samplerMipLodBias: $data->samplerMipLodBias !== 0,
+            separateStencilMaskRef: $data->separateStencilMaskRef !== 0,
+            shaderSampleRateInterpolationFunctions: $data->shaderSampleRateInterpolationFunctions !== 0,
+            tessellationIsolines: $data->tessellationIsolines !== 0,
+            tessellationPointMode: $data->tessellationPointMode !== 0,
+            triangleFans: $data->triangleFans !== 0,
+            vertexAttributeAccessBeyondStride: $data->vertexAttributeAccessBeyondStride !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageProcessing3FeaturesQCOM.html
  * @since VK_QCOM_image_processing3
  */
-final class VkPhysicalDeviceImageProcessing3FeaturesQCOM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceImageProcessing3FeaturesQCOM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageProcessing3FeaturesQCOM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceImageProcessing3FeaturesQCOM extends InputStructure 
     public const int STRUCTURE_TYPE = 1000303000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $imageGatherLinear = false,
         public bool $imageGatherExtendedModes = false,
         public bool $blockMatchExtendedClampToEdge = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceImageProcessing3FeaturesQCOM extends InputStructure 
         $data->imageGatherExtendedModes = (int) $this->imageGatherExtendedModes;
 
         $data->blockMatchExtendedClampToEdge = (int) $this->blockMatchExtendedClampToEdge;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceImageProcessing3FeaturesQCOM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     imageGatherLinear: int,
+     *     imageGatherExtendedModes: int,
+     *     blockMatchExtendedClampToEdge: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            imageGatherLinear: $data->imageGatherLinear !== 0,
+            imageGatherExtendedModes: $data->imageGatherExtendedModes !== 0,
+            blockMatchExtendedClampToEdge: $data->blockMatchExtendedClampToEdge !== 0,
+        );
     }
 }

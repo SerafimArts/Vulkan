@@ -10,7 +10,10 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * Legacy functionality.
@@ -19,7 +22,7 @@ use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since VK_EXT_descriptor_buffer
  */
-final class VkPhysicalDeviceDescriptorBufferFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDescriptorBufferFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorBufferFeaturesEXT';
 
@@ -27,7 +30,7 @@ final class VkPhysicalDeviceDescriptorBufferFeaturesEXT extends InputStructure i
     public const int STRUCTURE_TYPE = 1000316002;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $descriptorBuffer = false,
         public bool $descriptorBufferCaptureReplay = false,
         public bool $descriptorBufferImageLayoutIgnored = false,
@@ -51,5 +54,33 @@ final class VkPhysicalDeviceDescriptorBufferFeaturesEXT extends InputStructure i
         $data->descriptorBufferImageLayoutIgnored = (int) $this->descriptorBufferImageLayoutIgnored;
 
         $data->descriptorBufferPushDescriptors = (int) $this->descriptorBufferPushDescriptors;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDescriptorBufferFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     descriptorBuffer: int,
+     *     descriptorBufferCaptureReplay: int,
+     *     descriptorBufferImageLayoutIgnored: int,
+     *     descriptorBufferPushDescriptors: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            descriptorBuffer: $data->descriptorBuffer !== 0,
+            descriptorBufferCaptureReplay: $data->descriptorBufferCaptureReplay !== 0,
+            descriptorBufferImageLayoutIgnored: $data->descriptorBufferImageLayoutIgnored !== 0,
+            descriptorBufferPushDescriptors: $data->descriptorBufferPushDescriptors !== 0,
+        );
     }
 }

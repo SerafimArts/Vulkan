@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphFeaturesARM.html
  * @since VK_ARM_data_graph
  */
-final class VkPhysicalDeviceDataGraphFeaturesARM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDataGraphFeaturesARM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphFeaturesARM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceDataGraphFeaturesARM extends InputStructure implemen
     public const int STRUCTURE_TYPE = 1000507006;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $dataGraph = false,
         public bool $dataGraphUpdateAfterBind = false,
         public bool $dataGraphSpecializationConstants = false,
@@ -51,5 +54,35 @@ final class VkPhysicalDeviceDataGraphFeaturesARM extends InputStructure implemen
         $data->dataGraphDescriptorBuffer = (int) $this->dataGraphDescriptorBuffer;
 
         $data->dataGraphShaderModule = (int) $this->dataGraphShaderModule;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDataGraphFeaturesARM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     dataGraph: int,
+     *     dataGraphUpdateAfterBind: int,
+     *     dataGraphSpecializationConstants: int,
+     *     dataGraphDescriptorBuffer: int,
+     *     dataGraphShaderModule: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            dataGraph: $data->dataGraph !== 0,
+            dataGraphUpdateAfterBind: $data->dataGraphUpdateAfterBind !== 0,
+            dataGraphSpecializationConstants: $data->dataGraphSpecializationConstants !== 0,
+            dataGraphDescriptorBuffer: $data->dataGraphDescriptorBuffer !== 0,
+            dataGraphShaderModule: $data->dataGraphShaderModule !== 0,
+        );
     }
 }

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties2.html
@@ -21,19 +22,43 @@ final readonly class VkPhysicalDeviceProperties2 extends OutputStructure
 
     public function __construct(
         public VkPhysicalDeviceProperties $properties,
+        /** @var list<VkPhysicalDeviceProperties2Extension> */
+        public array $chain = [],
     ) {}
 
     /**
      * @param CData&object{
      *     properties: CData,
      * } $data
+     * @param list<VkPhysicalDeviceProperties2Extension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             properties: VkPhysicalDeviceProperties::createFromCData($data->properties),
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkPhysicalDeviceProperties2Extension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

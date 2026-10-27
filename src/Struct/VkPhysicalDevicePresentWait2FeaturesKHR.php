@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentWait2FeaturesKHR.html
  * @since VK_KHR_present_wait2
  */
-final class VkPhysicalDevicePresentWait2FeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePresentWait2FeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePresentWait2FeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePresentWait2FeaturesKHR extends InputStructure imple
     public const int STRUCTURE_TYPE = 1000480001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** VkWaitForPresent2KHR is supported */
         public bool $presentWait2 = false,
     ) {}
@@ -40,5 +43,27 @@ final class VkPhysicalDevicePresentWait2FeaturesKHR extends InputStructure imple
         }
 
         $data->presentWait2 = (int) $this->presentWait2;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePresentWait2FeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     presentWait2: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            presentWait2: $data->presentWait2 !== 0,
+        );
     }
 }

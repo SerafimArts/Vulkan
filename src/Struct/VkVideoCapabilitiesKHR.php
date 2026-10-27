@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkVideoCapabilityFlagBitsKHR;
+use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCapabilitiesKHR.html
@@ -56,6 +57,8 @@ final readonly class VkVideoCapabilitiesKHR extends OutputStructure
          */
         public int $maxActiveReferencePictures,
         public VkExtensionProperties $stdHeaderVersion,
+        /** @var list<VkVideoCapabilitiesKHRExtension> */
+        public array $chain = [],
     ) {}
 
     /**
@@ -70,10 +73,11 @@ final readonly class VkVideoCapabilitiesKHR extends OutputStructure
      *     maxActiveReferencePictures: int<0, 4294967295>,
      *     stdHeaderVersion: CData,
      * } $data
+     * @param list<VkVideoCapabilitiesKHRExtension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             flags: $data->flags,
@@ -85,6 +89,27 @@ final readonly class VkVideoCapabilitiesKHR extends OutputStructure
             maxDpbSlots: $data->maxDpbSlots,
             maxActiveReferencePictures: $data->maxActiveReferencePictures,
             stdHeaderVersion: VkExtensionProperties::createFromCData($data->stdHeaderVersion),
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkVideoCapabilitiesKHRExtension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

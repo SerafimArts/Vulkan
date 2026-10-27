@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT.html
  * @since VK_EXT_ray_tracing_invocation_reorder
  */
-final class VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT extends Input
     public const int STRUCTURE_TYPE = 1000581000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $rayTracingInvocationReorder = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT extends Input
         }
 
         $data->rayTracingInvocationReorder = (int) $this->rayTracingInvocationReorder;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceRayTracingInvocationReorderFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     rayTracingInvocationReorder: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            rayTracingInvocationReorder: $data->rayTracingInvocationReorder !== 0,
+        );
     }
 }

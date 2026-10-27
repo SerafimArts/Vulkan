@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM.html
  * @since VK_ARM_data_graph_neural_accelerator_statistics
  */
-final class VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM exte
     public const int STRUCTURE_TYPE = 1000676002;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $dataGraphNeuralAcceleratorStatistics = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM exte
         }
 
         $data->dataGraphNeuralAcceleratorStatistics = (int) $this->dataGraphNeuralAcceleratorStatistics;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDataGraphNeuralAcceleratorStatisticsFeaturesARM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     dataGraphNeuralAcceleratorStatistics: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            dataGraphNeuralAcceleratorStatistics: $data->dataGraphNeuralAcceleratorStatistics !== 0,
+        );
     }
 }

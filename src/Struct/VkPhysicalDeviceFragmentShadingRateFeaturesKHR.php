@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateFeaturesKHR.html
  * @since VK_KHR_fragment_shading_rate
  */
-final class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShadingRateFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends InputStructur
     public const int STRUCTURE_TYPE = 1000226003;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $pipelineFragmentShadingRate = false,
         public bool $primitiveFragmentShadingRate = false,
         public bool $attachmentFragmentShadingRate = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends InputStructur
         $data->primitiveFragmentShadingRate = (int) $this->primitiveFragmentShadingRate;
 
         $data->attachmentFragmentShadingRate = (int) $this->attachmentFragmentShadingRate;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceFragmentShadingRateFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     pipelineFragmentShadingRate: int,
+     *     primitiveFragmentShadingRate: int,
+     *     attachmentFragmentShadingRate: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            pipelineFragmentShadingRate: $data->pipelineFragmentShadingRate !== 0,
+            primitiveFragmentShadingRate: $data->primitiveFragmentShadingRate !== 0,
+            attachmentFragmentShadingRate: $data->attachmentFragmentShadingRate !== 0,
+        );
     }
 }

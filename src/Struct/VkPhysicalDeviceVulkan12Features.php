@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan12Features.html
  * @since 1.2
  */
-final class VkPhysicalDeviceVulkan12Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVulkan12Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan12Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVulkan12Features extends InputStructure implements V
     public const int STRUCTURE_TYPE = 51;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $samplerMirrorClampToEdge = false,
         public bool $drawIndirectCount = false,
         /** 8-bit integer variables supported in StorageBuffer */
@@ -182,5 +185,119 @@ final class VkPhysicalDeviceVulkan12Features extends InputStructure implements V
         $data->shaderOutputLayer = (int) $this->shaderOutputLayer;
 
         $data->subgroupBroadcastDynamicId = (int) $this->subgroupBroadcastDynamicId;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVulkan12Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     samplerMirrorClampToEdge: int,
+     *     drawIndirectCount: int,
+     *     storageBuffer8BitAccess: int,
+     *     uniformAndStorageBuffer8BitAccess: int,
+     *     storagePushConstant8: int,
+     *     shaderBufferInt64Atomics: int,
+     *     shaderSharedInt64Atomics: int,
+     *     shaderFloat16: int,
+     *     shaderInt8: int,
+     *     descriptorIndexing: int,
+     *     shaderInputAttachmentArrayDynamicIndexing: int,
+     *     shaderUniformTexelBufferArrayDynamicIndexing: int,
+     *     shaderStorageTexelBufferArrayDynamicIndexing: int,
+     *     shaderUniformBufferArrayNonUniformIndexing: int,
+     *     shaderSampledImageArrayNonUniformIndexing: int,
+     *     shaderStorageBufferArrayNonUniformIndexing: int,
+     *     shaderStorageImageArrayNonUniformIndexing: int,
+     *     shaderInputAttachmentArrayNonUniformIndexing: int,
+     *     shaderUniformTexelBufferArrayNonUniformIndexing: int,
+     *     shaderStorageTexelBufferArrayNonUniformIndexing: int,
+     *     descriptorBindingUniformBufferUpdateAfterBind: int,
+     *     descriptorBindingSampledImageUpdateAfterBind: int,
+     *     descriptorBindingStorageImageUpdateAfterBind: int,
+     *     descriptorBindingStorageBufferUpdateAfterBind: int,
+     *     descriptorBindingUniformTexelBufferUpdateAfterBind: int,
+     *     descriptorBindingStorageTexelBufferUpdateAfterBind: int,
+     *     descriptorBindingUpdateUnusedWhilePending: int,
+     *     descriptorBindingPartiallyBound: int,
+     *     descriptorBindingVariableDescriptorCount: int,
+     *     runtimeDescriptorArray: int,
+     *     samplerFilterMinmax: int,
+     *     scalarBlockLayout: int,
+     *     imagelessFramebuffer: int,
+     *     uniformBufferStandardLayout: int,
+     *     shaderSubgroupExtendedTypes: int,
+     *     separateDepthStencilLayouts: int,
+     *     hostQueryReset: int,
+     *     timelineSemaphore: int,
+     *     bufferDeviceAddress: int,
+     *     bufferDeviceAddressCaptureReplay: int,
+     *     bufferDeviceAddressMultiDevice: int,
+     *     vulkanMemoryModel: int,
+     *     vulkanMemoryModelDeviceScope: int,
+     *     vulkanMemoryModelAvailabilityVisibilityChains: int,
+     *     shaderOutputViewportIndex: int,
+     *     shaderOutputLayer: int,
+     *     subgroupBroadcastDynamicId: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            samplerMirrorClampToEdge: $data->samplerMirrorClampToEdge !== 0,
+            drawIndirectCount: $data->drawIndirectCount !== 0,
+            storageBuffer8BitAccess: $data->storageBuffer8BitAccess !== 0,
+            uniformAndStorageBuffer8BitAccess: $data->uniformAndStorageBuffer8BitAccess !== 0,
+            storagePushConstant8: $data->storagePushConstant8 !== 0,
+            shaderBufferInt64Atomics: $data->shaderBufferInt64Atomics !== 0,
+            shaderSharedInt64Atomics: $data->shaderSharedInt64Atomics !== 0,
+            shaderFloat16: $data->shaderFloat16 !== 0,
+            shaderInt8: $data->shaderInt8 !== 0,
+            descriptorIndexing: $data->descriptorIndexing !== 0,
+            shaderInputAttachmentArrayDynamicIndexing: $data->shaderInputAttachmentArrayDynamicIndexing !== 0,
+            shaderUniformTexelBufferArrayDynamicIndexing: $data->shaderUniformTexelBufferArrayDynamicIndexing !== 0,
+            shaderStorageTexelBufferArrayDynamicIndexing: $data->shaderStorageTexelBufferArrayDynamicIndexing !== 0,
+            shaderUniformBufferArrayNonUniformIndexing: $data->shaderUniformBufferArrayNonUniformIndexing !== 0,
+            shaderSampledImageArrayNonUniformIndexing: $data->shaderSampledImageArrayNonUniformIndexing !== 0,
+            shaderStorageBufferArrayNonUniformIndexing: $data->shaderStorageBufferArrayNonUniformIndexing !== 0,
+            shaderStorageImageArrayNonUniformIndexing: $data->shaderStorageImageArrayNonUniformIndexing !== 0,
+            shaderInputAttachmentArrayNonUniformIndexing: $data->shaderInputAttachmentArrayNonUniformIndexing !== 0,
+            shaderUniformTexelBufferArrayNonUniformIndexing: $data->shaderUniformTexelBufferArrayNonUniformIndexing !== 0,
+            shaderStorageTexelBufferArrayNonUniformIndexing: $data->shaderStorageTexelBufferArrayNonUniformIndexing !== 0,
+            descriptorBindingUniformBufferUpdateAfterBind: $data->descriptorBindingUniformBufferUpdateAfterBind !== 0,
+            descriptorBindingSampledImageUpdateAfterBind: $data->descriptorBindingSampledImageUpdateAfterBind !== 0,
+            descriptorBindingStorageImageUpdateAfterBind: $data->descriptorBindingStorageImageUpdateAfterBind !== 0,
+            descriptorBindingStorageBufferUpdateAfterBind: $data->descriptorBindingStorageBufferUpdateAfterBind !== 0,
+            descriptorBindingUniformTexelBufferUpdateAfterBind: $data->descriptorBindingUniformTexelBufferUpdateAfterBind !== 0,
+            descriptorBindingStorageTexelBufferUpdateAfterBind: $data->descriptorBindingStorageTexelBufferUpdateAfterBind !== 0,
+            descriptorBindingUpdateUnusedWhilePending: $data->descriptorBindingUpdateUnusedWhilePending !== 0,
+            descriptorBindingPartiallyBound: $data->descriptorBindingPartiallyBound !== 0,
+            descriptorBindingVariableDescriptorCount: $data->descriptorBindingVariableDescriptorCount !== 0,
+            runtimeDescriptorArray: $data->runtimeDescriptorArray !== 0,
+            samplerFilterMinmax: $data->samplerFilterMinmax !== 0,
+            scalarBlockLayout: $data->scalarBlockLayout !== 0,
+            imagelessFramebuffer: $data->imagelessFramebuffer !== 0,
+            uniformBufferStandardLayout: $data->uniformBufferStandardLayout !== 0,
+            shaderSubgroupExtendedTypes: $data->shaderSubgroupExtendedTypes !== 0,
+            separateDepthStencilLayouts: $data->separateDepthStencilLayouts !== 0,
+            hostQueryReset: $data->hostQueryReset !== 0,
+            timelineSemaphore: $data->timelineSemaphore !== 0,
+            bufferDeviceAddress: $data->bufferDeviceAddress !== 0,
+            bufferDeviceAddressCaptureReplay: $data->bufferDeviceAddressCaptureReplay !== 0,
+            bufferDeviceAddressMultiDevice: $data->bufferDeviceAddressMultiDevice !== 0,
+            vulkanMemoryModel: $data->vulkanMemoryModel !== 0,
+            vulkanMemoryModelDeviceScope: $data->vulkanMemoryModelDeviceScope !== 0,
+            vulkanMemoryModelAvailabilityVisibilityChains: $data->vulkanMemoryModelAvailabilityVisibilityChains !== 0,
+            shaderOutputViewportIndex: $data->shaderOutputViewportIndex !== 0,
+            shaderOutputLayer: $data->shaderOutputLayer !== 0,
+            subgroupBroadcastDynamicId: $data->subgroupBroadcastDynamicId !== 0,
+        );
     }
 }

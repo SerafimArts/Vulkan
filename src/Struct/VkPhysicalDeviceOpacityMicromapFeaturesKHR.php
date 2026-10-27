@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceOpacityMicromapFeaturesKHR.html
  * @since VK_KHR_opacity_micromap
  */
-final class VkPhysicalDeviceOpacityMicromapFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceOpacityMicromapFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceOpacityMicromapFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceOpacityMicromapFeaturesKHR extends InputStructure im
     public const int STRUCTURE_TYPE = 1000623000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $micromap = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceOpacityMicromapFeaturesKHR extends InputStructure im
         }
 
         $data->micromap = (int) $this->micromap;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceOpacityMicromapFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     micromap: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            micromap: $data->micromap !== 0,
+        );
     }
 }

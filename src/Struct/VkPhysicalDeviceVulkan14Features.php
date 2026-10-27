@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan14Features.html
  * @since 1.4
  */
-final class VkPhysicalDeviceVulkan14Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVulkan14Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan14Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVulkan14Features extends InputStructure implements V
     public const int STRUCTURE_TYPE = 55;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $globalPriorityQuery = false,
         public bool $shaderSubgroupRotate = false,
         public bool $shaderSubgroupRotateClustered = false,
@@ -99,5 +102,67 @@ final class VkPhysicalDeviceVulkan14Features extends InputStructure implements V
         $data->hostImageCopy = (int) $this->hostImageCopy;
 
         $data->pushDescriptor = (int) $this->pushDescriptor;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVulkan14Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     globalPriorityQuery: int,
+     *     shaderSubgroupRotate: int,
+     *     shaderSubgroupRotateClustered: int,
+     *     shaderFloatControls2: int,
+     *     shaderExpectAssume: int,
+     *     rectangularLines: int,
+     *     bresenhamLines: int,
+     *     smoothLines: int,
+     *     stippledRectangularLines: int,
+     *     stippledBresenhamLines: int,
+     *     stippledSmoothLines: int,
+     *     vertexAttributeInstanceRateDivisor: int,
+     *     vertexAttributeInstanceRateZeroDivisor: int,
+     *     indexTypeUint8: int,
+     *     dynamicRenderingLocalRead: int,
+     *     maintenance5: int,
+     *     maintenance6: int,
+     *     pipelineProtectedAccess: int,
+     *     pipelineRobustness: int,
+     *     hostImageCopy: int,
+     *     pushDescriptor: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            globalPriorityQuery: $data->globalPriorityQuery !== 0,
+            shaderSubgroupRotate: $data->shaderSubgroupRotate !== 0,
+            shaderSubgroupRotateClustered: $data->shaderSubgroupRotateClustered !== 0,
+            shaderFloatControls2: $data->shaderFloatControls2 !== 0,
+            shaderExpectAssume: $data->shaderExpectAssume !== 0,
+            rectangularLines: $data->rectangularLines !== 0,
+            bresenhamLines: $data->bresenhamLines !== 0,
+            smoothLines: $data->smoothLines !== 0,
+            stippledRectangularLines: $data->stippledRectangularLines !== 0,
+            stippledBresenhamLines: $data->stippledBresenhamLines !== 0,
+            stippledSmoothLines: $data->stippledSmoothLines !== 0,
+            vertexAttributeInstanceRateDivisor: $data->vertexAttributeInstanceRateDivisor !== 0,
+            vertexAttributeInstanceRateZeroDivisor: $data->vertexAttributeInstanceRateZeroDivisor !== 0,
+            indexTypeUint8: $data->indexTypeUint8 !== 0,
+            dynamicRenderingLocalRead: $data->dynamicRenderingLocalRead !== 0,
+            maintenance5: $data->maintenance5 !== 0,
+            maintenance6: $data->maintenance6 !== 0,
+            pipelineProtectedAccess: $data->pipelineProtectedAccess !== 0,
+            pipelineRobustness: $data->pipelineRobustness !== 0,
+            hostImageCopy: $data->hostImageCopy !== 0,
+            pushDescriptor: $data->pushDescriptor !== 0,
+        );
     }
 }

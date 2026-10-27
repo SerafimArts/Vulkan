@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileShadingFeaturesQCOM.html
  * @since VK_QCOM_tile_shading
  */
-final class VkPhysicalDeviceTileShadingFeaturesQCOM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceTileShadingFeaturesQCOM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTileShadingFeaturesQCOM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceTileShadingFeaturesQCOM extends InputStructure imple
     public const int STRUCTURE_TYPE = 1000309000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $tileShading = false,
         public bool $tileShadingFragmentStage = false,
         public bool $tileShadingColorAttachments = false,
@@ -78,5 +81,53 @@ final class VkPhysicalDeviceTileShadingFeaturesQCOM extends InputStructure imple
         $data->tileShadingAtomicOps = (int) $this->tileShadingAtomicOps;
 
         $data->tileShadingImageProcessing = (int) $this->tileShadingImageProcessing;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceTileShadingFeaturesQCOM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     tileShading: int,
+     *     tileShadingFragmentStage: int,
+     *     tileShadingColorAttachments: int,
+     *     tileShadingDepthAttachments: int,
+     *     tileShadingStencilAttachments: int,
+     *     tileShadingInputAttachments: int,
+     *     tileShadingSampledAttachments: int,
+     *     tileShadingPerTileDraw: int,
+     *     tileShadingPerTileDispatch: int,
+     *     tileShadingDispatchTile: int,
+     *     tileShadingApron: int,
+     *     tileShadingAnisotropicApron: int,
+     *     tileShadingAtomicOps: int,
+     *     tileShadingImageProcessing: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            tileShading: $data->tileShading !== 0,
+            tileShadingFragmentStage: $data->tileShadingFragmentStage !== 0,
+            tileShadingColorAttachments: $data->tileShadingColorAttachments !== 0,
+            tileShadingDepthAttachments: $data->tileShadingDepthAttachments !== 0,
+            tileShadingStencilAttachments: $data->tileShadingStencilAttachments !== 0,
+            tileShadingInputAttachments: $data->tileShadingInputAttachments !== 0,
+            tileShadingSampledAttachments: $data->tileShadingSampledAttachments !== 0,
+            tileShadingPerTileDraw: $data->tileShadingPerTileDraw !== 0,
+            tileShadingPerTileDispatch: $data->tileShadingPerTileDispatch !== 0,
+            tileShadingDispatchTile: $data->tileShadingDispatchTile !== 0,
+            tileShadingApron: $data->tileShadingApron !== 0,
+            tileShadingAnisotropicApron: $data->tileShadingAnisotropicApron !== 0,
+            tileShadingAtomicOps: $data->tileShadingAtomicOps !== 0,
+            tileShadingImageProcessing: $data->tileShadingImageProcessing !== 0,
+        );
     }
 }

@@ -10,12 +10,15 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalSciSync2FeaturesNV.html
  */
-final class VkPhysicalDeviceExternalSciSync2FeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceExternalSciSync2FeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalSciSync2FeaturesNV';
 
@@ -23,7 +26,7 @@ final class VkPhysicalDeviceExternalSciSync2FeaturesNV extends InputStructure im
     public const int STRUCTURE_TYPE = 1000489002;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $sciSyncFence = false,
         public bool $sciSyncSemaphore2 = false,
         public bool $sciSyncImport = false,
@@ -47,5 +50,33 @@ final class VkPhysicalDeviceExternalSciSync2FeaturesNV extends InputStructure im
         $data->sciSyncImport = (int) $this->sciSyncImport;
 
         $data->sciSyncExport = (int) $this->sciSyncExport;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceExternalSciSync2FeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     sciSyncFence: int,
+     *     sciSyncSemaphore2: int,
+     *     sciSyncImport: int,
+     *     sciSyncExport: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            sciSyncFence: $data->sciSyncFence !== 0,
+            sciSyncSemaphore2: $data->sciSyncSemaphore2 !== 0,
+            sciSyncImport: $data->sciSyncImport !== 0,
+            sciSyncExport: $data->sciSyncExport !== 0,
+        );
     }
 }

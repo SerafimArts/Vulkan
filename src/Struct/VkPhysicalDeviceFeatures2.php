@@ -9,31 +9,67 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures2.html
  * @since 1.1
  */
-final readonly class VkPhysicalDeviceFeatures2 extends OutputStructure
+final readonly class VkPhysicalDeviceFeatures2 extends OutputStructure implements VkDeviceCreateInfoExtension, Chained
 {
     /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2` */
     public const int STRUCTURE_TYPE = 1000059000;
 
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceFeatures2');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
     public function __construct(
         public VkPhysicalDeviceFeatures $features,
+        /** @var list<VkPhysicalDeviceFeatures2Extension> */
+        public array $chain = [],
     ) {}
 
     /**
      * @param CData&object{
      *     features: CData,
      * } $data
+     * @param list<VkPhysicalDeviceFeatures2Extension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             features: VkPhysicalDeviceFeatures::createFromCData($data->features),
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkPhysicalDeviceFeatures2Extension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

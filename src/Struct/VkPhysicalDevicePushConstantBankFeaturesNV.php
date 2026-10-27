@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePushConstantBankFeaturesNV.html
  * @since VK_NV_push_constant_bank
  */
-final class VkPhysicalDevicePushConstantBankFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePushConstantBankFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePushConstantBankFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePushConstantBankFeaturesNV extends InputStructure im
     public const int STRUCTURE_TYPE = 1000580001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $pushConstantBank = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDevicePushConstantBankFeaturesNV extends InputStructure im
         }
 
         $data->pushConstantBank = (int) $this->pushConstantBank;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePushConstantBankFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     pushConstantBank: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            pushConstantBank: $data->pushConstantBank !== 0,
+        );
     }
 }

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Struct\Extension\VkSubresourceLayout2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout2.html
@@ -21,19 +22,43 @@ final readonly class VkSubresourceLayout2 extends OutputStructure
 
     public function __construct(
         public VkSubresourceLayout $subresourceLayout,
+        /** @var list<VkSubresourceLayout2Extension> */
+        public array $chain = [],
     ) {}
 
     /**
      * @param CData&object{
      *     subresourceLayout: CData,
      * } $data
+     * @param list<VkSubresourceLayout2Extension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             subresourceLayout: VkSubresourceLayout::createFromCData($data->subresourceLayout),
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkSubresourceLayout2Extension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

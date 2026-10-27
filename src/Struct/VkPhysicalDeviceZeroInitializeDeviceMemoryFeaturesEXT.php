@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT.html
  * @since VK_EXT_zero_initialize_device_memory
  */
-final class VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT extends InputS
     public const int STRUCTURE_TYPE = 1000620000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $zeroInitializeDeviceMemory = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT extends InputS
         }
 
         $data->zeroInitializeDeviceMemory = (int) $this->zeroInitializeDeviceMemory;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     zeroInitializeDeviceMemory: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            zeroInitializeDeviceMemory: $data->zeroInitializeDeviceMemory !== 0,
+        );
     }
 }

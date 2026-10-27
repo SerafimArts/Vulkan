@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceQueryFeaturesKHR.html
  * @since VK_KHR_performance_query
  */
-final class VkPhysicalDevicePerformanceQueryFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePerformanceQueryFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePerformanceQueryFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePerformanceQueryFeaturesKHR extends InputStructure i
     public const int STRUCTURE_TYPE = 1000116000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** Performance counters supported in query pools */
         public bool $performanceCounterQueryPools = false,
         /**
@@ -47,5 +50,29 @@ final class VkPhysicalDevicePerformanceQueryFeaturesKHR extends InputStructure i
         $data->performanceCounterQueryPools = (int) $this->performanceCounterQueryPools;
 
         $data->performanceCounterMultipleQueryPools = (int) $this->performanceCounterMultipleQueryPools;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePerformanceQueryFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     performanceCounterQueryPools: int,
+     *     performanceCounterMultipleQueryPools: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            performanceCounterQueryPools: $data->performanceCounterQueryPools !== 0,
+            performanceCounterMultipleQueryPools: $data->performanceCounterMultipleQueryPools !== 0,
+        );
     }
 }

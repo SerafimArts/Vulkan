@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkImageCreateFlagBits;
 use Serafim\Vulkan\Enum\VkImageTiling;
 use Serafim\Vulkan\Enum\VkImageType;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
+use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatPropertiesKHR.html
@@ -37,6 +38,8 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
         public VkImageTiling $imageTiling,
         /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
         public int $imageUsageFlags,
+        /** @var list<VkVideoFormatPropertiesKHRExtension> */
+        public array $chain = [],
     ) {}
 
     /**
@@ -48,10 +51,11 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
      *     imageTiling: int,
      *     imageUsageFlags: int<0, 4294967295>,
      * } $data
+     * @param list<VkVideoFormatPropertiesKHRExtension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             format: VkFormat::from($data->format),
@@ -60,6 +64,27 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
             imageType: VkImageType::from($data->imageType),
             imageTiling: VkImageTiling::from($data->imageTiling),
             imageUsageFlags: $data->imageUsageFlags,
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkVideoFormatPropertiesKHRExtension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

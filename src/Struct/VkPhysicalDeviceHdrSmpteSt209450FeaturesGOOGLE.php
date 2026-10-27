@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE.html
  * @since VK_GOOGLE_hdr_smpte_st_209450_metadata
  */
-final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE extends InputStructur
     public const int STRUCTURE_TYPE = 1000718000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $hdrSmpteSt209450 = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE extends InputStructur
         }
 
         $data->hdrSmpteSt209450 = (int) $this->hdrSmpteSt209450;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     hdrSmpteSt209450: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            hdrSmpteSt209450: $data->hdrSmpteSt209450 !== 0,
+        );
     }
 }

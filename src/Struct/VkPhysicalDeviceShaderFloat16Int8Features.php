@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFloat16Int8Features.html
  * @since 1.2
  */
-final class VkPhysicalDeviceShaderFloat16Int8Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderFloat16Int8Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderFloat16Int8Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderFloat16Int8Features extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000082000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** 16-bit floats (halfs) in shaders */
         public bool $shaderFloat16 = false,
         /** 8-bit integers in shaders */
@@ -44,5 +47,29 @@ final class VkPhysicalDeviceShaderFloat16Int8Features extends InputStructure imp
         $data->shaderFloat16 = (int) $this->shaderFloat16;
 
         $data->shaderInt8 = (int) $this->shaderInt8;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderFloat16Int8Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderFloat16: int,
+     *     shaderInt8: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderFloat16: $data->shaderFloat16 !== 0,
+            shaderInt8: $data->shaderInt8 !== 0,
+        );
     }
 }

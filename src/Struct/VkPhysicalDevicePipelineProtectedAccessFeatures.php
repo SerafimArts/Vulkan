@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelineProtectedAccessFeatures.html
  * @since 1.4
  */
-final class VkPhysicalDevicePipelineProtectedAccessFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePipelineProtectedAccessFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePipelineProtectedAccessFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePipelineProtectedAccessFeatures extends InputStructu
     public const int STRUCTURE_TYPE = 1000466000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $pipelineProtectedAccess = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDevicePipelineProtectedAccessFeatures extends InputStructu
         }
 
         $data->pipelineProtectedAccess = (int) $this->pipelineProtectedAccess;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePipelineProtectedAccessFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     pipelineProtectedAccess: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            pipelineProtectedAccess: $data->pipelineProtectedAccess !== 0,
+        );
     }
 }

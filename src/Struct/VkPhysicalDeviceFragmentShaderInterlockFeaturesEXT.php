@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT.html
  * @since VK_EXT_fragment_shader_interlock
  */
-final class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT';
 
@@ -25,7 +28,7 @@ final class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends InputStru
 
     public function __construct(
         /** Pointer to next structure */
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $fragmentShaderSampleInterlock = false,
         public bool $fragmentShaderPixelInterlock = false,
         public bool $fragmentShaderShadingRateInterlock = false,
@@ -46,5 +49,31 @@ final class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends InputStru
         $data->fragmentShaderPixelInterlock = (int) $this->fragmentShaderPixelInterlock;
 
         $data->fragmentShaderShadingRateInterlock = (int) $this->fragmentShaderShadingRateInterlock;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     fragmentShaderSampleInterlock: int,
+     *     fragmentShaderPixelInterlock: int,
+     *     fragmentShaderShadingRateInterlock: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            fragmentShaderSampleInterlock: $data->fragmentShaderSampleInterlock !== 0,
+            fragmentShaderPixelInterlock: $data->fragmentShaderPixelInterlock !== 0,
+            fragmentShaderShadingRateInterlock: $data->fragmentShaderShadingRateInterlock !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceInlineUniformBlockFeatures.html
  * @since 1.3
  */
-final class VkPhysicalDeviceInlineUniformBlockFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceInlineUniformBlockFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceInlineUniformBlockFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceInlineUniformBlockFeatures extends InputStructure im
     public const int STRUCTURE_TYPE = 1000138000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $inlineUniformBlock = false,
         public bool $descriptorBindingInlineUniformBlockUpdateAfterBind = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceInlineUniformBlockFeatures extends InputStructure im
         $data->inlineUniformBlock = (int) $this->inlineUniformBlock;
 
         $data->descriptorBindingInlineUniformBlockUpdateAfterBind = (int) $this->descriptorBindingInlineUniformBlockUpdateAfterBind;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceInlineUniformBlockFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     inlineUniformBlock: int,
+     *     descriptorBindingInlineUniformBlockUpdateAfterBind: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            inlineUniformBlock: $data->inlineUniformBlock !== 0,
+            descriptorBindingInlineUniformBlockUpdateAfterBind: $data->descriptorBindingInlineUniformBlockUpdateAfterBind !== 0,
+        );
     }
 }

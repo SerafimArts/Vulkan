@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT.html
  * @since VK_EXT_shader_ocp_microscaling_types
  */
-final class VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT extends InputS
     public const int STRUCTURE_TYPE = 1000672000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderFloat4 = false,
         public bool $shaderFloat6 = false,
         public bool $shaderFloat8UnsignedE8M0 = false,
@@ -48,5 +51,33 @@ final class VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT extends InputS
         $data->shaderFloat8UnsignedE8M0 = (int) $this->shaderFloat8UnsignedE8M0;
 
         $data->shaderMXInt8 = (int) $this->shaderMXInt8;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderFloat4: int,
+     *     shaderFloat6: int,
+     *     shaderFloat8UnsignedE8M0: int,
+     *     shaderMXInt8: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderFloat4: $data->shaderFloat4 !== 0,
+            shaderFloat6: $data->shaderFloat6 !== 0,
+            shaderFloat8UnsignedE8M0: $data->shaderFloat8UnsignedE8M0 !== 0,
+            shaderMXInt8: $data->shaderMXInt8 !== 0,
+        );
     }
 }

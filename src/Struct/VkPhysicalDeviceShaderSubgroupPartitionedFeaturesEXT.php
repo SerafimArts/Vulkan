@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT.html
  * @since VK_EXT_shader_subgroup_partitioned
  */
-final class VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT extends InputSt
     public const int STRUCTURE_TYPE = 1000662000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderSubgroupPartitioned = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT extends InputSt
         }
 
         $data->shaderSubgroupPartitioned = (int) $this->shaderSubgroupPartitioned;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderSubgroupPartitioned: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderSubgroupPartitioned: $data->shaderSubgroupPartitioned !== 0,
+        );
     }
 }

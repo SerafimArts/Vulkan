@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT.html
  * @since VK_EXT_legacy_vertex_attributes
  */
-final class VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT extends InputStruc
     public const int STRUCTURE_TYPE = 1000495000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $legacyVertexAttributes = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT extends InputStruc
         }
 
         $data->legacyVertexAttributes = (int) $this->legacyVertexAttributes;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceLegacyVertexAttributesFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     legacyVertexAttributes: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            legacyVertexAttributes: $data->legacyVertexAttributes !== 0,
+        );
     }
 }

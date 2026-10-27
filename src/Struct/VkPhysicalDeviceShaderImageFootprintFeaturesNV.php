@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderImageFootprintFeaturesNV.html
  * @since VK_NV_shader_image_footprint
  */
-final class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderImageFootprintFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends InputStructur
     public const int STRUCTURE_TYPE = 1000204000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $imageFootprint = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderImageFootprintFeaturesNV extends InputStructur
         }
 
         $data->imageFootprint = (int) $this->imageFootprint;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderImageFootprintFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     imageFootprint: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            imageFootprint: $data->imageFootprint !== 0,
+        );
     }
 }

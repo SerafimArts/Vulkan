@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultiviewFeatures.html
  * @since 1.1
  */
-final class VkPhysicalDeviceMultiviewFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceMultiviewFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultiviewFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceMultiviewFeatures extends InputStructure implements 
     public const int STRUCTURE_TYPE = 1000053001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** Multiple views in a render pass */
         public bool $multiview = false,
         /** Multiple views in a render pass w/ geometry shader */
@@ -48,5 +51,31 @@ final class VkPhysicalDeviceMultiviewFeatures extends InputStructure implements 
         $data->multiviewGeometryShader = (int) $this->multiviewGeometryShader;
 
         $data->multiviewTessellationShader = (int) $this->multiviewTessellationShader;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceMultiviewFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     multiview: int,
+     *     multiviewGeometryShader: int,
+     *     multiviewTessellationShader: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            multiview: $data->multiview !== 0,
+            multiviewGeometryShader: $data->multiviewGeometryShader !== 0,
+            multiviewTessellationShader: $data->multiviewTessellationShader !== 0,
+        );
     }
 }

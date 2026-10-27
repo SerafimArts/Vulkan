@@ -8,13 +8,9 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Struct\Extension;
 
-use Serafim\Vulkan\Struct\InputStructure;
-
 /**
  * A structure that can be chained to `VkPhysicalDeviceExternalBufferInfo` with `pNext`.
  *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalBufferInfo.html
- *
- * @phpstan-require-extends InputStructure
  */
 interface VkPhysicalDeviceExternalBufferInfoExtension {}

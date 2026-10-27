@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorHeapFeaturesEXT.html
  * @since VK_EXT_descriptor_heap
  */
-final class VkPhysicalDeviceDescriptorHeapFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDescriptorHeapFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorHeapFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceDescriptorHeapFeaturesEXT extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000135009;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $descriptorHeap = false,
         public bool $descriptorHeapCaptureReplay = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceDescriptorHeapFeaturesEXT extends InputStructure imp
         $data->descriptorHeap = (int) $this->descriptorHeap;
 
         $data->descriptorHeapCaptureReplay = (int) $this->descriptorHeapCaptureReplay;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDescriptorHeapFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     descriptorHeap: int,
+     *     descriptorHeapCaptureReplay: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            descriptorHeap: $data->descriptorHeap !== 0,
+            descriptorHeapCaptureReplay: $data->descriptorHeapCaptureReplay !== 0,
+        );
     }
 }

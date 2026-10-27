@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFormatResolveFeaturesANDROID.html
  * @since VK_ANDROID_external_format_resolve
  */
-final class VkPhysicalDeviceExternalFormatResolveFeaturesANDROID extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceExternalFormatResolveFeaturesANDROID extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalFormatResolveFeaturesANDROID';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceExternalFormatResolveFeaturesANDROID extends InputSt
     public const int STRUCTURE_TYPE = 1000468000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $externalFormatResolve = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceExternalFormatResolveFeaturesANDROID extends InputSt
         }
 
         $data->externalFormatResolve = (int) $this->externalFormatResolve;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceExternalFormatResolveFeaturesANDROID');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     externalFormatResolve: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            externalFormatResolve: $data->externalFormatResolve !== 0,
+        );
     }
 }

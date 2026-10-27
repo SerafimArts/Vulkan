@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImage2DViewOf3DFeaturesEXT.html
  * @since VK_EXT_image_2d_view_of_3d
  */
-final class VkPhysicalDeviceImage2DViewOf3DFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceImage2DViewOf3DFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImage2DViewOf3DFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceImage2DViewOf3DFeaturesEXT extends InputStructure im
     public const int STRUCTURE_TYPE = 1000393000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $image2DViewOf3D = false,
         public bool $sampler2DViewOf3D = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceImage2DViewOf3DFeaturesEXT extends InputStructure im
         $data->image2DViewOf3D = (int) $this->image2DViewOf3D;
 
         $data->sampler2DViewOf3D = (int) $this->sampler2DViewOf3D;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceImage2DViewOf3DFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     image2DViewOf3D: int,
+     *     sampler2DViewOf3D: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            image2DViewOf3D: $data->image2DViewOf3D !== 0,
+            sampler2DViewOf3D: $data->sampler2DViewOf3D !== 0,
+        );
     }
 }

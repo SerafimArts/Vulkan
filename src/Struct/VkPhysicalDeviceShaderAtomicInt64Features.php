@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicInt64Features.html
  * @since 1.2
  */
-final class VkPhysicalDeviceShaderAtomicInt64Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderAtomicInt64Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicInt64Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderAtomicInt64Features extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000180000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderBufferInt64Atomics = false,
         public bool $shaderSharedInt64Atomics = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceShaderAtomicInt64Features extends InputStructure imp
         $data->shaderBufferInt64Atomics = (int) $this->shaderBufferInt64Atomics;
 
         $data->shaderSharedInt64Atomics = (int) $this->shaderSharedInt64Atomics;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderAtomicInt64Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderBufferInt64Atomics: int,
+     *     shaderSharedInt64Atomics: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderBufferInt64Atomics: $data->shaderBufferInt64Atomics !== 0,
+            shaderSharedInt64Atomics: $data->shaderSharedInt64Atomics !== 0,
+        );
     }
 }

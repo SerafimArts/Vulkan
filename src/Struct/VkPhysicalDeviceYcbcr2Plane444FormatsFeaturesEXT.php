@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT.html
  * @since VK_EXT_ycbcr_2plane_444_formats
  */
-final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT extends InputStruct
     public const int STRUCTURE_TYPE = 1000330000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $ycbcr2plane444Formats = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT extends InputStruct
         }
 
         $data->ycbcr2plane444Formats = (int) $this->ycbcr2plane444Formats;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     ycbcr2plane444Formats: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            ycbcr2plane444Formats: $data->ycbcr2plane444Formats !== 0,
+        );
     }
 }

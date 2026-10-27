@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceAmigoProfilingFeaturesSEC.html
  * @since VK_SEC_amigo_profiling
  */
-final class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAmigoProfilingFeaturesSEC';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000485000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $amigoProfiling = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceAmigoProfilingFeaturesSEC extends InputStructure imp
         }
 
         $data->amigoProfiling = (int) $this->amigoProfiling;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceAmigoProfilingFeaturesSEC');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     amigoProfiling: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            amigoProfiling: $data->amigoProfiling !== 0,
+        );
     }
 }

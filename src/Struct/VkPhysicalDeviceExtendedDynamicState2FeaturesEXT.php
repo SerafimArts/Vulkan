@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicState2FeaturesEXT.html
  * @since VK_EXT_extended_dynamic_state2
  */
-final class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExtendedDynamicState2FeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends InputStruct
     public const int STRUCTURE_TYPE = 1000377000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $extendedDynamicState2 = false,
         public bool $extendedDynamicState2LogicOp = false,
         public bool $extendedDynamicState2PatchControlPoints = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT extends InputStruct
         $data->extendedDynamicState2LogicOp = (int) $this->extendedDynamicState2LogicOp;
 
         $data->extendedDynamicState2PatchControlPoints = (int) $this->extendedDynamicState2PatchControlPoints;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceExtendedDynamicState2FeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     extendedDynamicState2: int,
+     *     extendedDynamicState2LogicOp: int,
+     *     extendedDynamicState2PatchControlPoints: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            extendedDynamicState2: $data->extendedDynamicState2 !== 0,
+            extendedDynamicState2LogicOp: $data->extendedDynamicState2LogicOp !== 0,
+            extendedDynamicState2PatchControlPoints: $data->extendedDynamicState2PatchControlPoints !== 0,
+        );
     }
 }

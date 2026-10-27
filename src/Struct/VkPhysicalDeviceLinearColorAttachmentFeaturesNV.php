@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLinearColorAttachmentFeaturesNV.html
  * @since VK_NV_linear_color_attachment
  */
-final class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceLinearColorAttachmentFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends InputStructu
     public const int STRUCTURE_TYPE = 1000430000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $linearColorAttachment = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceLinearColorAttachmentFeaturesNV extends InputStructu
         }
 
         $data->linearColorAttachment = (int) $this->linearColorAttachment;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceLinearColorAttachmentFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     linearColorAttachment: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            linearColorAttachment: $data->linearColorAttachment !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV.html
  * @since VK_NV_device_generated_commands
  */
-final class VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV extends InputStruc
     public const int STRUCTURE_TYPE = 1000277007;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $deviceGeneratedCommands = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV extends InputStruc
         }
 
         $data->deviceGeneratedCommands = (int) $this->deviceGeneratedCommands;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDeviceGeneratedCommandsFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     deviceGeneratedCommands: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            deviceGeneratedCommands: $data->deviceGeneratedCommands !== 0,
+        );
     }
 }

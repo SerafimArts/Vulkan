@@ -10,14 +10,17 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEIExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI.html
  * @since VK_HUAWEI_cluster_culling_shader
  */
-final class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI';
 
@@ -25,7 +28,7 @@ final class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends InputStru
     public const int STRUCTURE_TYPE = 1000404000;
 
     public function __construct(
-        public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEIExtension|VkDeviceCreateInfoExtension|null $next = null,
+        public VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEIExtension|VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $clustercullingShader = false,
         public bool $multiviewClusterCullingShader = false,
     ) {}
@@ -43,5 +46,29 @@ final class VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI extends InputStru
         $data->clustercullingShader = (int) $this->clustercullingShader;
 
         $data->multiviewClusterCullingShader = (int) $this->multiviewClusterCullingShader;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     clustercullingShader: int,
+     *     multiviewClusterCullingShader: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            clustercullingShader: $data->clustercullingShader !== 0,
+            multiviewClusterCullingShader: $data->multiviewClusterCullingShader !== 0,
+        );
     }
 }

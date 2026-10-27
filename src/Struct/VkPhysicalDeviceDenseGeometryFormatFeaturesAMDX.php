@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX.html
  * @since VK_AMDX_dense_geometry_format
  */
-final class VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX extends InputStructu
     public const int STRUCTURE_TYPE = 1000478000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $denseGeometryFormat = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX extends InputStructu
         }
 
         $data->denseGeometryFormat = (int) $this->denseGeometryFormat;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     denseGeometryFormat: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            denseGeometryFormat: $data->denseGeometryFormat !== 0,
+        );
     }
 }

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkVideoEncodeRateControlModeFlagBitsKHR;
+use Serafim\Vulkan\Struct\Extension\VkVideoEncodeQualityLevelPropertiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQualityLevelPropertiesKHR.html
@@ -25,6 +26,8 @@ final readonly class VkVideoEncodeQualityLevelPropertiesKHR extends OutputStruct
         public int $preferredRateControlMode,
         /** @var int<0, 4294967295> */
         public int $preferredRateControlLayerCount,
+        /** @var list<VkVideoEncodeQualityLevelPropertiesKHRExtension> */
+        public array $chain = [],
     ) {}
 
     /**
@@ -32,14 +35,36 @@ final readonly class VkVideoEncodeQualityLevelPropertiesKHR extends OutputStruct
      *     preferredRateControlMode: int<0, 4294967295>,
      *     preferredRateControlLayerCount: int<0, 4294967295>,
      * } $data
+     * @param list<VkVideoEncodeQualityLevelPropertiesKHRExtension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             preferredRateControlMode: $data->preferredRateControlMode,
             preferredRateControlLayerCount: $data->preferredRateControlLayerCount,
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkVideoEncodeQualityLevelPropertiesKHRExtension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

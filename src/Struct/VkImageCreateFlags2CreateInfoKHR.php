@@ -11,15 +11,18 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageCreateFlagBits2KHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkFramebufferAttachmentImageInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
+use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlags2CreateInfoKHR.html
  * @since VK_KHR_extended_flags
  */
-final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements VkImageCreateInfoExtension, VkPhysicalDeviceImageFormatInfo2Extension, VkFramebufferAttachmentImageInfoExtension
+final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements VkImageCreateInfoExtension, VkPhysicalDeviceImageFormatInfo2Extension, VkFramebufferAttachmentImageInfoExtension, VkVideoFormatPropertiesKHRExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkImageCreateFlags2CreateInfoKHR';
 
@@ -27,7 +30,7 @@ final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements V
     public const int STRUCTURE_TYPE = 1000668001;
 
     public function __construct(
-        public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkFramebufferAttachmentImageInfoExtension|null $next = null,
+        public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkFramebufferAttachmentImageInfoExtension|VkVideoFormatPropertiesKHRExtension|null $next = null,
         /** @var int<0, max>|(VkImageCreateFlagBits2KHR::*) */
         public int $flags = 0,
     ) {}
@@ -43,5 +46,27 @@ final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements V
         }
 
         $data->flags = $this->flags;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkImageCreateFlags2CreateInfoKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     flags: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            flags: $data->flags,
+        );
     }
 }

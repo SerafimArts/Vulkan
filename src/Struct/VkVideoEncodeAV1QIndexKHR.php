@@ -36,4 +36,22 @@ final class VkVideoEncodeAV1QIndexKHR extends InputStructure
 
         $data->bipredictiveQIndex = $this->bipredictiveQIndex;
     }
+
+    /**
+     * @param CData&object{
+     *     intraQIndex: int<0, 4294967295>,
+     *     predictiveQIndex: int<0, 4294967295>,
+     *     bipredictiveQIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            intraQIndex: $data->intraQIndex,
+            predictiveQIndex: $data->predictiveQIndex,
+            bipredictiveQIndex: $data->bipredictiveQIndex,
+        );
+    }
 }

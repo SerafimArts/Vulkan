@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentBarrierFeaturesNV.html
  * @since VK_NV_present_barrier
  */
-final class VkPhysicalDevicePresentBarrierFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePresentBarrierFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePresentBarrierFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePresentBarrierFeaturesNV extends InputStructure impl
     public const int STRUCTURE_TYPE = 1000292000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $presentBarrier = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDevicePresentBarrierFeaturesNV extends InputStructure impl
         }
 
         $data->presentBarrier = (int) $this->presentBarrier;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePresentBarrierFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     presentBarrier: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            presentBarrier: $data->presentBarrier !== 0,
+        );
     }
 }

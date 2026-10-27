@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryDecompressionFeaturesEXT.html
  * @since VK_EXT_memory_decompression
  */
-final class VkPhysicalDeviceMemoryDecompressionFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceMemoryDecompressionFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMemoryDecompressionFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceMemoryDecompressionFeaturesEXT extends InputStructur
     public const int STRUCTURE_TYPE = 1000427000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $memoryDecompression = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceMemoryDecompressionFeaturesEXT extends InputStructur
         }
 
         $data->memoryDecompression = (int) $this->memoryDecompression;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceMemoryDecompressionFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     memoryDecompression: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            memoryDecompression: $data->memoryDecompression !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL.html
  * @since VK_INTEL_shader_integer_functions2
  */
-final class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends InputSt
     public const int STRUCTURE_TYPE = 1000209000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderIntegerFunctions2 = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL extends InputSt
         }
 
         $data->shaderIntegerFunctions2 = (int) $this->shaderIntegerFunctions2;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderIntegerFunctions2: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderIntegerFunctions2: $data->shaderIntegerFunctions2 !== 0,
+        );
     }
 }

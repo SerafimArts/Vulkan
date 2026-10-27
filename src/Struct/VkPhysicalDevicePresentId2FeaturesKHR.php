@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentId2FeaturesKHR.html
  * @since VK_KHR_present_id2
  */
-final class VkPhysicalDevicePresentId2FeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePresentId2FeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePresentId2FeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePresentId2FeaturesKHR extends InputStructure impleme
     public const int STRUCTURE_TYPE = 1000479002;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** Present ID2 in VkPresentInfoKHR */
         public bool $presentId2 = false,
     ) {}
@@ -40,5 +43,27 @@ final class VkPhysicalDevicePresentId2FeaturesKHR extends InputStructure impleme
         }
 
         $data->presentId2 = (int) $this->presentId2;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePresentId2FeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     presentId2: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            presentId2: $data->presentId2 !== 0,
+        );
     }
 }

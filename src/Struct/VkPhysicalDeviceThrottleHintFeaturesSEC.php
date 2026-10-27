@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceThrottleHintFeaturesSEC.html
  * @since VK_SEC_throttle_hint
  */
-final class VkPhysicalDeviceThrottleHintFeaturesSEC extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceThrottleHintFeaturesSEC extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceThrottleHintFeaturesSEC';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceThrottleHintFeaturesSEC extends InputStructure imple
     public const int STRUCTURE_TYPE = 1000674000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $throttleHint = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceThrottleHintFeaturesSEC extends InputStructure imple
         }
 
         $data->throttleHint = (int) $this->throttleHint;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceThrottleHintFeaturesSEC');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     throttleHint: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            throttleHint: $data->throttleHint !== 0,
+        );
     }
 }

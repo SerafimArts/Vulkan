@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderClockFeaturesKHR.html
  * @since VK_KHR_shader_clock
  */
-final class VkPhysicalDeviceShaderClockFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderClockFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderClockFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderClockFeaturesKHR extends InputStructure implem
     public const int STRUCTURE_TYPE = 1000181000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderSubgroupClock = false,
         public bool $shaderDeviceClock = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceShaderClockFeaturesKHR extends InputStructure implem
         $data->shaderSubgroupClock = (int) $this->shaderSubgroupClock;
 
         $data->shaderDeviceClock = (int) $this->shaderDeviceClock;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderClockFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderSubgroupClock: int,
+     *     shaderDeviceClock: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderSubgroupClock: $data->shaderSubgroupClock !== 0,
+            shaderDeviceClock: $data->shaderDeviceClock !== 0,
+        );
     }
 }

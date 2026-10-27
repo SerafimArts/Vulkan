@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR.html
  * @since VK_KHR_compute_shader_derivatives
  */
-final class VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR extends InputStr
     public const int STRUCTURE_TYPE = 1000201000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $computeDerivativeGroupQuads = false,
         public bool $computeDerivativeGroupLinear = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR extends InputStr
         $data->computeDerivativeGroupQuads = (int) $this->computeDerivativeGroupQuads;
 
         $data->computeDerivativeGroupLinear = (int) $this->computeDerivativeGroupLinear;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     computeDerivativeGroupQuads: int,
+     *     computeDerivativeGroupLinear: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            computeDerivativeGroupQuads: $data->computeDerivativeGroupQuads !== 0,
+            computeDerivativeGroupLinear: $data->computeDerivativeGroupLinear !== 0,
+        );
     }
 }

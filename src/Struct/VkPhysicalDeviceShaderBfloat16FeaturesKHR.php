@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderBfloat16FeaturesKHR.html
  * @since VK_KHR_shader_bfloat16
  */
-final class VkPhysicalDeviceShaderBfloat16FeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderBfloat16FeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderBfloat16FeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderBfloat16FeaturesKHR extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000141000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderBFloat16Type = false,
         public bool $shaderBFloat16DotProduct = false,
         public bool $shaderBFloat16CooperativeMatrix = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceShaderBfloat16FeaturesKHR extends InputStructure imp
         $data->shaderBFloat16DotProduct = (int) $this->shaderBFloat16DotProduct;
 
         $data->shaderBFloat16CooperativeMatrix = (int) $this->shaderBFloat16CooperativeMatrix;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderBfloat16FeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderBFloat16Type: int,
+     *     shaderBFloat16DotProduct: int,
+     *     shaderBFloat16CooperativeMatrix: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderBFloat16Type: $data->shaderBFloat16Type !== 0,
+            shaderBFloat16DotProduct: $data->shaderBFloat16DotProduct !== 0,
+            shaderBFloat16CooperativeMatrix: $data->shaderBFloat16CooperativeMatrix !== 0,
+        );
     }
 }

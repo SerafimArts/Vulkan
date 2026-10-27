@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV.html
  * @since VK_NV_shader_atomic_float16_vector
  */
-final class VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV extends InputStr
     public const int STRUCTURE_TYPE = 1000563000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderFloat16VectorAtomics = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV extends InputStr
         }
 
         $data->shaderFloat16VectorAtomics = (int) $this->shaderFloat16VectorAtomics;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderFloat16VectorAtomics: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderFloat16VectorAtomics: $data->shaderFloat16VectorAtomics !== 0,
+        );
     }
 }

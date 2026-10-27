@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceAddressBindingReportFeaturesEXT.html
  * @since VK_EXT_device_address_binding_report
  */
-final class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAddressBindingReportFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends InputStructu
     public const int STRUCTURE_TYPE = 1000354000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $reportAddressBinding = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceAddressBindingReportFeaturesEXT extends InputStructu
         }
 
         $data->reportAddressBinding = (int) $this->reportAddressBinding;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceAddressBindingReportFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     reportAddressBinding: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            reportAddressBinding: $data->reportAddressBinding !== 0,
+        );
     }
 }

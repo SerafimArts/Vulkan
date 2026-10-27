@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExclusiveScissorFeaturesNV.html
  * @since VK_NV_scissor_exclusive
  */
-final class VkPhysicalDeviceExclusiveScissorFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceExclusiveScissorFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExclusiveScissorFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceExclusiveScissorFeaturesNV extends InputStructure im
     public const int STRUCTURE_TYPE = 1000205002;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $exclusiveScissor = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceExclusiveScissorFeaturesNV extends InputStructure im
         }
 
         $data->exclusiveScissor = (int) $this->exclusiveScissor;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceExclusiveScissorFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     exclusiveScissor: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            exclusiveScissor: $data->exclusiveScissor !== 0,
+        );
     }
 }

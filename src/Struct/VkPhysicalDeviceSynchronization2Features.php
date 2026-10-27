@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSynchronization2Features.html
  * @since 1.3
  */
-final class VkPhysicalDeviceSynchronization2Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceSynchronization2Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSynchronization2Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceSynchronization2Features extends InputStructure impl
     public const int STRUCTURE_TYPE = 1000314007;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $synchronization2 = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceSynchronization2Features extends InputStructure impl
         }
 
         $data->synchronization2 = (int) $this->synchronization2;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceSynchronization2Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     synchronization2: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            synchronization2: $data->synchronization2 !== 0,
+        );
     }
 }

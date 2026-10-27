@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutSupport.html
@@ -21,19 +22,43 @@ final readonly class VkDescriptorSetLayoutSupport extends OutputStructure
 
     public function __construct(
         public bool $supported,
+        /** @var list<VkDescriptorSetLayoutSupportExtension> */
+        public array $chain = [],
     ) {}
 
     /**
      * @param CData&object{
      *     supported: int,
      * } $data
+     * @param list<VkDescriptorSetLayoutSupportExtension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             supported: $data->supported !== 0,
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkDescriptorSetLayoutSupportExtension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

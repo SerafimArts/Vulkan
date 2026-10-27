@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Struct\Extension\VkMemoryRequirements2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryRequirements2.html
@@ -21,19 +22,43 @@ final readonly class VkMemoryRequirements2 extends OutputStructure
 
     public function __construct(
         public VkMemoryRequirements $memoryRequirements,
+        /** @var list<VkMemoryRequirements2Extension> */
+        public array $chain = [],
     ) {}
 
     /**
      * @param CData&object{
      *     memoryRequirements: CData,
      * } $data
+     * @param list<VkMemoryRequirements2Extension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             memoryRequirements: VkMemoryRequirements::createFromCData($data->memoryRequirements),
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkMemoryRequirements2Extension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

@@ -10,7 +10,10 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * Legacy functionality.
@@ -19,7 +22,7 @@ use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since VK_EXT_mutable_descriptor_type
  */
-final class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT';
 
@@ -27,7 +30,7 @@ final class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends InputStruct
     public const int STRUCTURE_TYPE = 1000351000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $mutableDescriptorType = false,
     ) {}
 
@@ -42,5 +45,27 @@ final class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT extends InputStruct
         }
 
         $data->mutableDescriptorType = (int) $this->mutableDescriptorType;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     mutableDescriptorType: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            mutableDescriptorType: $data->mutableDescriptorType !== 0,
+        );
     }
 }

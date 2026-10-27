@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderIntegerDotProductFeatures.html
  * @since 1.3
  */
-final class VkPhysicalDeviceShaderIntegerDotProductFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderIntegerDotProductFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderIntegerDotProductFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderIntegerDotProductFeatures extends InputStructu
     public const int STRUCTURE_TYPE = 1000280000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderIntegerDotProduct = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderIntegerDotProductFeatures extends InputStructu
         }
 
         $data->shaderIntegerDotProduct = (int) $this->shaderIntegerDotProduct;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderIntegerDotProductFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderIntegerDotProduct: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderIntegerDotProduct: $data->shaderIntegerDotProduct !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFloatControls2Features.html
  * @since 1.4
  */
-final class VkPhysicalDeviceShaderFloatControls2Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderFloatControls2Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderFloatControls2Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderFloatControls2Features extends InputStructure 
     public const int STRUCTURE_TYPE = 1000528000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderFloatControls2 = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderFloatControls2Features extends InputStructure 
         }
 
         $data->shaderFloatControls2 = (int) $this->shaderFloatControls2;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderFloatControls2Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderFloatControls2: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderFloatControls2: $data->shaderFloatControls2 !== 0,
+        );
     }
 }

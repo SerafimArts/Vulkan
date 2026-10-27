@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceInheritedViewportScissorFeaturesNV.html
  * @since VK_NV_inherited_viewport_scissor
  */
-final class VkPhysicalDeviceInheritedViewportScissorFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceInheritedViewportScissorFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceInheritedViewportScissorFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceInheritedViewportScissorFeaturesNV extends InputStru
     public const int STRUCTURE_TYPE = 1000278000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $inheritedViewportScissor2D = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceInheritedViewportScissorFeaturesNV extends InputStru
         }
 
         $data->inheritedViewportScissor2D = (int) $this->inheritedViewportScissor2D;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceInheritedViewportScissorFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     inheritedViewportScissor2D: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            inheritedViewportScissor2D: $data->inheritedViewportScissor2D !== 0,
+        );
     }
 }

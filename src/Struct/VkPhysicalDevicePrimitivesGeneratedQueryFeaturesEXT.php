@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT.html
  * @since VK_EXT_primitives_generated_query
  */
-final class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends InputStr
     public const int STRUCTURE_TYPE = 1000382000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $primitivesGeneratedQuery = false,
         public bool $primitivesGeneratedQueryWithRasterizerDiscard = false,
         public bool $primitivesGeneratedQueryWithNonZeroStreams = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT extends InputStr
         $data->primitivesGeneratedQueryWithRasterizerDiscard = (int) $this->primitivesGeneratedQueryWithRasterizerDiscard;
 
         $data->primitivesGeneratedQueryWithNonZeroStreams = (int) $this->primitivesGeneratedQueryWithNonZeroStreams;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     primitivesGeneratedQuery: int,
+     *     primitivesGeneratedQueryWithRasterizerDiscard: int,
+     *     primitivesGeneratedQueryWithNonZeroStreams: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            primitivesGeneratedQuery: $data->primitivesGeneratedQuery !== 0,
+            primitivesGeneratedQueryWithRasterizerDiscard: $data->primitivesGeneratedQueryWithRasterizerDiscard !== 0,
+            primitivesGeneratedQueryWithNonZeroStreams: $data->primitivesGeneratedQueryWithNonZeroStreams !== 0,
+        );
     }
 }

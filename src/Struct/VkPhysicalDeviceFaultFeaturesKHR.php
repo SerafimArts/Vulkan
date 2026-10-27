@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFaultFeaturesKHR.html
  * @since VK_KHR_device_fault
  */
-final class VkPhysicalDeviceFaultFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceFaultFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFaultFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceFaultFeaturesKHR extends InputStructure implements V
     public const int STRUCTURE_TYPE = 1000573000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $deviceFault = false,
         public bool $deviceFaultVendorBinary = false,
         public bool $deviceFaultReportMasked = false,
@@ -48,5 +51,33 @@ final class VkPhysicalDeviceFaultFeaturesKHR extends InputStructure implements V
         $data->deviceFaultReportMasked = (int) $this->deviceFaultReportMasked;
 
         $data->deviceFaultDeviceLostOnMasked = (int) $this->deviceFaultDeviceLostOnMasked;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceFaultFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     deviceFault: int,
+     *     deviceFaultVendorBinary: int,
+     *     deviceFaultReportMasked: int,
+     *     deviceFaultDeviceLostOnMasked: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            deviceFault: $data->deviceFault !== 0,
+            deviceFaultVendorBinary: $data->deviceFaultVendorBinary !== 0,
+            deviceFaultReportMasked: $data->deviceFaultReportMasked !== 0,
+            deviceFaultDeviceLostOnMasked: $data->deviceFaultDeviceLostOnMasked !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT.html
  * @since VK_EXT_rgba10x6_formats
  */
-final class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends InputStructure im
     public const int STRUCTURE_TYPE = 1000344000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $formatRgba10x6WithoutYCbCrSampler = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT extends InputStructure im
         }
 
         $data->formatRgba10x6WithoutYCbCrSampler = (int) $this->formatRgba10x6WithoutYCbCrSampler;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     formatRgba10x6WithoutYCbCrSampler: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            formatRgba10x6WithoutYCbCrSampler: $data->formatRgba10x6WithoutYCbCrSampler !== 0,
+        );
     }
 }

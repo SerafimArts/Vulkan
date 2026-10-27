@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRenderPassStripedFeaturesARM.html
  * @since VK_ARM_render_pass_striped
  */
-final class VkPhysicalDeviceRenderPassStripedFeaturesARM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceRenderPassStripedFeaturesARM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRenderPassStripedFeaturesARM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceRenderPassStripedFeaturesARM extends InputStructure 
     public const int STRUCTURE_TYPE = 1000424000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $renderPassStriped = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceRenderPassStripedFeaturesARM extends InputStructure 
         }
 
         $data->renderPassStriped = (int) $this->renderPassStriped;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceRenderPassStripedFeaturesARM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     renderPassStriped: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            renderPassStriped: $data->renderPassStriped !== 0,
+        );
     }
 }

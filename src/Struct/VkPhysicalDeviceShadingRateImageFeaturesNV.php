@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShadingRateImageFeaturesNV.html
  * @since VK_NV_shading_rate_image
  */
-final class VkPhysicalDeviceShadingRateImageFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShadingRateImageFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShadingRateImageFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShadingRateImageFeaturesNV extends InputStructure im
     public const int STRUCTURE_TYPE = 1000164001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shadingRateImage = false,
         public bool $shadingRateCoarseSampleOrder = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceShadingRateImageFeaturesNV extends InputStructure im
         $data->shadingRateImage = (int) $this->shadingRateImage;
 
         $data->shadingRateCoarseSampleOrder = (int) $this->shadingRateCoarseSampleOrder;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShadingRateImageFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shadingRateImage: int,
+     *     shadingRateCoarseSampleOrder: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shadingRateImage: $data->shadingRateImage !== 0,
+            shadingRateCoarseSampleOrder: $data->shadingRateCoarseSampleOrder !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceIndexTypeUint8Features.html
  * @since 1.4
  */
-final class VkPhysicalDeviceIndexTypeUint8Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceIndexTypeUint8Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceIndexTypeUint8Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceIndexTypeUint8Features extends InputStructure implem
     public const int STRUCTURE_TYPE = 1000265000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $indexTypeUint8 = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceIndexTypeUint8Features extends InputStructure implem
         }
 
         $data->indexTypeUint8 = (int) $this->indexTypeUint8;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceIndexTypeUint8Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     indexTypeUint8: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            indexTypeUint8: $data->indexTypeUint8 !== 0,
+        );
     }
 }

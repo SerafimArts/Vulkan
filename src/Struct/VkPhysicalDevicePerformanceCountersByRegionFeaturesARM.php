@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePerformanceCountersByRegionFeaturesARM.html
  * @since VK_ARM_performance_counters_by_region
  */
-final class VkPhysicalDevicePerformanceCountersByRegionFeaturesARM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePerformanceCountersByRegionFeaturesARM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePerformanceCountersByRegionFeaturesARM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePerformanceCountersByRegionFeaturesARM extends Input
     public const int STRUCTURE_TYPE = 1000605000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $performanceCountersByRegion = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDevicePerformanceCountersByRegionFeaturesARM extends Input
         }
 
         $data->performanceCountersByRegion = (int) $this->performanceCountersByRegion;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePerformanceCountersByRegionFeaturesARM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     performanceCountersByRegion: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            performanceCountersByRegion: $data->performanceCountersByRegion !== 0,
+        );
     }
 }

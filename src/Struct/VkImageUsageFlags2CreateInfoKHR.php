@@ -11,18 +11,22 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits2KHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkFramebufferAttachmentImageInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceSparseImageFormatInfo2Extension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceVideoFormatInfoKHRExtension;
+use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkSwapchainCreateInfoKHRExtension;
+use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlags2CreateInfoKHR.html
  * @since VK_KHR_extended_flags
  */
-final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements VkFramebufferAttachmentImageInfoExtension, VkImageCreateInfoExtension, VkPhysicalDeviceImageFormatInfo2Extension, VkPhysicalDeviceSparseImageFormatInfo2Extension, VkPhysicalDeviceVideoFormatInfoKHRExtension, VkSwapchainCreateInfoKHRExtension
+final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements VkFramebufferAttachmentImageInfoExtension, VkImageCreateInfoExtension, VkPhysicalDeviceImageFormatInfo2Extension, VkPhysicalDeviceSparseImageFormatInfo2Extension, VkPhysicalDeviceVideoFormatInfoKHRExtension, VkSurfaceCapabilities2KHRExtension, VkSwapchainCreateInfoKHRExtension, VkVideoFormatPropertiesKHRExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkImageUsageFlags2CreateInfoKHR';
 
@@ -30,7 +34,7 @@ final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements Vk
     public const int STRUCTURE_TYPE = 1000668002;
 
     public function __construct(
-        public VkFramebufferAttachmentImageInfoExtension|VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceSparseImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkSwapchainCreateInfoKHRExtension|null $next = null,
+        public VkFramebufferAttachmentImageInfoExtension|VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceSparseImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkSurfaceCapabilities2KHRExtension|VkSwapchainCreateInfoKHRExtension|VkVideoFormatPropertiesKHRExtension|null $next = null,
         /** @var int<0, max>|(VkImageUsageFlagBits2KHR::*) */
         public int $usage = 0,
     ) {}
@@ -46,5 +50,27 @@ final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements Vk
         }
 
         $data->usage = $this->usage;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkImageUsageFlags2CreateInfoKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     usage: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            usage: $data->usage,
+        );
     }
 }

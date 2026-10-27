@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT.html
  * @since VK_EXT_multisampled_render_to_single_sampled
  */
-final class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extends
     public const int STRUCTURE_TYPE = 1000376000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $multisampledRenderToSingleSampled = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT extends
         }
 
         $data->multisampledRenderToSingleSampled = (int) $this->multisampledRenderToSingleSampled;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceMultisampledRenderToSingleSampledFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     multisampledRenderToSingleSampled: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            multisampledRenderToSingleSampled: $data->multisampledRenderToSingleSampled !== 0,
+        );
     }
 }

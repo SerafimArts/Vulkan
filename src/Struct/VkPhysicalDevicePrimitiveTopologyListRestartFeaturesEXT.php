@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT.html
  * @since VK_EXT_primitive_topology_list_restart
  */
-final class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends Inpu
     public const int STRUCTURE_TYPE = 1000356000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $primitiveTopologyListRestart = false,
         public bool $primitiveTopologyPatchListRestart = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT extends Inpu
         $data->primitiveTopologyListRestart = (int) $this->primitiveTopologyListRestart;
 
         $data->primitiveTopologyPatchListRestart = (int) $this->primitiveTopologyPatchListRestart;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePrimitiveTopologyListRestartFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     primitiveTopologyListRestart: int,
+     *     primitiveTopologyPatchListRestart: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            primitiveTopologyListRestart: $data->primitiveTopologyListRestart !== 0,
+            primitiveTopologyPatchListRestart: $data->primitiveTopologyPatchListRestart !== 0,
+        );
     }
 }

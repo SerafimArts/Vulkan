@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTransformFeedbackFeaturesEXT.html
  * @since VK_EXT_transform_feedback
  */
-final class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTransformFeedbackFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends InputStructure 
     public const int STRUCTURE_TYPE = 1000028000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $transformFeedback = false,
         public bool $geometryStreams = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceTransformFeedbackFeaturesEXT extends InputStructure 
         $data->transformFeedback = (int) $this->transformFeedback;
 
         $data->geometryStreams = (int) $this->geometryStreams;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceTransformFeedbackFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     transformFeedback: int,
+     *     geometryStreams: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            transformFeedback: $data->transformFeedback !== 0,
+            geometryStreams: $data->geometryStreams !== 0,
+        );
     }
 }

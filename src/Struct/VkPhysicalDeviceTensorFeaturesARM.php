@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTensorFeaturesARM.html
  * @since VK_ARM_tensors
  */
-final class VkPhysicalDeviceTensorFeaturesARM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceTensorFeaturesARM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTensorFeaturesARM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceTensorFeaturesARM extends InputStructure implements 
     public const int STRUCTURE_TYPE = 1000460009;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $tensorNonPacked = false,
         public bool $shaderTensorAccess = false,
         public bool $shaderStorageTensorArrayDynamicIndexing = false,
@@ -54,5 +57,37 @@ final class VkPhysicalDeviceTensorFeaturesARM extends InputStructure implements 
         $data->descriptorBindingStorageTensorUpdateAfterBind = (int) $this->descriptorBindingStorageTensorUpdateAfterBind;
 
         $data->tensors = (int) $this->tensors;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceTensorFeaturesARM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     tensorNonPacked: int,
+     *     shaderTensorAccess: int,
+     *     shaderStorageTensorArrayDynamicIndexing: int,
+     *     shaderStorageTensorArrayNonUniformIndexing: int,
+     *     descriptorBindingStorageTensorUpdateAfterBind: int,
+     *     tensors: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            tensorNonPacked: $data->tensorNonPacked !== 0,
+            shaderTensorAccess: $data->shaderTensorAccess !== 0,
+            shaderStorageTensorArrayDynamicIndexing: $data->shaderStorageTensorArrayDynamicIndexing !== 0,
+            shaderStorageTensorArrayNonUniformIndexing: $data->shaderStorageTensorArrayNonUniformIndexing !== 0,
+            descriptorBindingStorageTensorUpdateAfterBind: $data->descriptorBindingStorageTensorUpdateAfterBind !== 0,
+            tensors: $data->tensors !== 0,
+        );
     }
 }

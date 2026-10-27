@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR.html
  * @since VK_KHR_present_mode_fifo_latest_ready
  */
-final class VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR extends InputS
     public const int STRUCTURE_TYPE = 1000361000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $presentModeFifoLatestReady = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR extends InputS
         }
 
         $data->presentModeFifoLatestReady = (int) $this->presentModeFifoLatestReady;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     presentModeFifoLatestReady: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            presentModeFifoLatestReady: $data->presentModeFifoLatestReady !== 0,
+        );
     }
 }

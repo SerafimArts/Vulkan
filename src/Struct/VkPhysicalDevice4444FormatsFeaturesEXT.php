@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevice4444FormatsFeaturesEXT.html
  * @since VK_EXT_4444_formats
  */
-final class VkPhysicalDevice4444FormatsFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevice4444FormatsFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevice4444FormatsFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevice4444FormatsFeaturesEXT extends InputStructure implem
     public const int STRUCTURE_TYPE = 1000340000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $formatA4R4G4B4 = false,
         public bool $formatA4B4G4R4 = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDevice4444FormatsFeaturesEXT extends InputStructure implem
         $data->formatA4R4G4B4 = (int) $this->formatA4R4G4B4;
 
         $data->formatA4B4G4R4 = (int) $this->formatA4B4G4R4;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevice4444FormatsFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     formatA4R4G4B4: int,
+     *     formatA4B4G4R4: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            formatA4R4G4B4: $data->formatA4R4G4B4 !== 0,
+            formatA4B4G4R4: $data->formatA4B4G4R4 !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV.html
  * @since VK_NV_device_generated_commands_compute
  */
-final class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends Inp
     public const int STRUCTURE_TYPE = 1000428000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $deviceGeneratedCompute = false,
         public bool $deviceGeneratedComputePipelines = false,
         public bool $deviceGeneratedComputeCaptureReplay = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV extends Inp
         $data->deviceGeneratedComputePipelines = (int) $this->deviceGeneratedComputePipelines;
 
         $data->deviceGeneratedComputeCaptureReplay = (int) $this->deviceGeneratedComputeCaptureReplay;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     deviceGeneratedCompute: int,
+     *     deviceGeneratedComputePipelines: int,
+     *     deviceGeneratedComputeCaptureReplay: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            deviceGeneratedCompute: $data->deviceGeneratedCompute !== 0,
+            deviceGeneratedComputePipelines: $data->deviceGeneratedComputePipelines !== 0,
+            deviceGeneratedComputeCaptureReplay: $data->deviceGeneratedComputeCaptureReplay !== 0,
+        );
     }
 }

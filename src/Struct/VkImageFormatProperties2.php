@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatProperties2.html
@@ -21,19 +22,43 @@ final readonly class VkImageFormatProperties2 extends OutputStructure
 
     public function __construct(
         public VkImageFormatProperties $imageFormatProperties,
+        /** @var list<VkImageFormatProperties2Extension> */
+        public array $chain = [],
     ) {}
 
     /**
      * @param CData&object{
      *     imageFormatProperties: CData,
      * } $data
+     * @param list<VkImageFormatProperties2Extension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             imageFormatProperties: VkImageFormatProperties::createFromCData($data->imageFormatProperties),
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkImageFormatProperties2Extension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

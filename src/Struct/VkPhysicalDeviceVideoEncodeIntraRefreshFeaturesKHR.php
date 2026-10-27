@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR.html
  * @since VK_KHR_video_encode_intra_refresh
  */
-final class VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR extends InputStru
     public const int STRUCTURE_TYPE = 1000552004;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $videoEncodeIntraRefresh = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR extends InputStru
         }
 
         $data->videoEncodeIntraRefresh = (int) $this->videoEncodeIntraRefresh;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     videoEncodeIntraRefresh: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            videoEncodeIntraRefresh: $data->videoEncodeIntraRefresh !== 0,
+        );
     }
 }

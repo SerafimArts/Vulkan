@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT.html
  * @since VK_EXT_fragment_density_map_offset
  */
-final class VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT extends InputStr
     public const int STRUCTURE_TYPE = 1000425000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $fragmentDensityMapOffset = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT extends InputStr
         }
 
         $data->fragmentDensityMapOffset = (int) $this->fragmentDensityMapOffset;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceFragmentDensityMapOffsetFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     fragmentDensityMapOffset: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            fragmentDensityMapOffset: $data->fragmentDensityMapOffset !== 0,
+        );
     }
 }

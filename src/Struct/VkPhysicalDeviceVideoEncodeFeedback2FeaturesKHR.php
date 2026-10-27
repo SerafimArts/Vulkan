@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR.html
  * @since VK_KHR_video_encode_feedback2
  */
-final class VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR extends InputStructu
     public const int STRUCTURE_TYPE = 1000598000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $videoEncodeFeedback2 = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR extends InputStructu
         }
 
         $data->videoEncodeFeedback2 = (int) $this->videoEncodeFeedback2;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     videoEncodeFeedback2: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            videoEncodeFeedback2: $data->videoEncodeFeedback2 !== 0,
+        );
     }
 }

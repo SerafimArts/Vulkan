@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT.html
  * @since VK_EXT_shader_atomic_float2
  */
-final class VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT extends InputStructure
     public const int STRUCTURE_TYPE = 1000273000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderBufferFloat16Atomics = false,
         public bool $shaderBufferFloat16AtomicAdd = false,
         public bool $shaderBufferFloat16AtomicMinMax = false,
@@ -72,5 +75,49 @@ final class VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT extends InputStructure
         $data->shaderImageFloat32AtomicMinMax = (int) $this->shaderImageFloat32AtomicMinMax;
 
         $data->sparseImageFloat32AtomicMinMax = (int) $this->sparseImageFloat32AtomicMinMax;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderBufferFloat16Atomics: int,
+     *     shaderBufferFloat16AtomicAdd: int,
+     *     shaderBufferFloat16AtomicMinMax: int,
+     *     shaderBufferFloat32AtomicMinMax: int,
+     *     shaderBufferFloat64AtomicMinMax: int,
+     *     shaderSharedFloat16Atomics: int,
+     *     shaderSharedFloat16AtomicAdd: int,
+     *     shaderSharedFloat16AtomicMinMax: int,
+     *     shaderSharedFloat32AtomicMinMax: int,
+     *     shaderSharedFloat64AtomicMinMax: int,
+     *     shaderImageFloat32AtomicMinMax: int,
+     *     sparseImageFloat32AtomicMinMax: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderBufferFloat16Atomics: $data->shaderBufferFloat16Atomics !== 0,
+            shaderBufferFloat16AtomicAdd: $data->shaderBufferFloat16AtomicAdd !== 0,
+            shaderBufferFloat16AtomicMinMax: $data->shaderBufferFloat16AtomicMinMax !== 0,
+            shaderBufferFloat32AtomicMinMax: $data->shaderBufferFloat32AtomicMinMax !== 0,
+            shaderBufferFloat64AtomicMinMax: $data->shaderBufferFloat64AtomicMinMax !== 0,
+            shaderSharedFloat16Atomics: $data->shaderSharedFloat16Atomics !== 0,
+            shaderSharedFloat16AtomicAdd: $data->shaderSharedFloat16AtomicAdd !== 0,
+            shaderSharedFloat16AtomicMinMax: $data->shaderSharedFloat16AtomicMinMax !== 0,
+            shaderSharedFloat32AtomicMinMax: $data->shaderSharedFloat32AtomicMinMax !== 0,
+            shaderSharedFloat64AtomicMinMax: $data->shaderSharedFloat64AtomicMinMax !== 0,
+            shaderImageFloat32AtomicMinMax: $data->shaderImageFloat32AtomicMinMax !== 0,
+            sparseImageFloat32AtomicMinMax: $data->sparseImageFloat32AtomicMinMax !== 0,
+        );
     }
 }

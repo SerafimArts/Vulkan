@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectsInfoEXT.html
@@ -19,16 +20,42 @@ final readonly class VkExportMetalObjectsInfoEXT extends OutputStructure
     /** `VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECTS_INFO_EXT` */
     public const int STRUCTURE_TYPE = 1000311001;
 
-    public function __construct() {}
+    public function __construct(
+        /** @var list<VkExportMetalObjectsInfoEXTExtension> */
+        public array $chain = [],
+    ) {}
 
     /**
      * @param CData&object{
      * } $data
+     * @param list<VkExportMetalObjectsInfoEXTExtension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
-        return new self();
+        return new self(
+            chain: $chain,
+        );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkExportMetalObjectsInfoEXTExtension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV.html
  * @since VK_NV_ray_tracing_linear_swept_spheres
  */
-final class VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV extends Input
     public const int STRUCTURE_TYPE = 1000429008;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $spheres = false,
         public bool $linearSweptSpheres = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV extends Input
         $data->spheres = (int) $this->spheres;
 
         $data->linearSweptSpheres = (int) $this->linearSweptSpheres;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     spheres: int,
+     *     linearSweptSpheres: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            spheres: $data->spheres !== 0,
+            linearSweptSpheres: $data->linearSweptSpheres !== 0,
+        );
     }
 }

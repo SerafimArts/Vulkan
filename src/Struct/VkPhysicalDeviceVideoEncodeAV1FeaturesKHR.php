@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVideoEncodeAV1FeaturesKHR.html
  * @since VK_KHR_video_encode_av1
  */
-final class VkPhysicalDeviceVideoEncodeAV1FeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVideoEncodeAV1FeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoEncodeAV1FeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVideoEncodeAV1FeaturesKHR extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000513004;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $videoEncodeAV1 = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceVideoEncodeAV1FeaturesKHR extends InputStructure imp
         }
 
         $data->videoEncodeAV1 = (int) $this->videoEncodeAV1;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVideoEncodeAV1FeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     videoEncodeAV1: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            videoEncodeAV1: $data->videoEncodeAV1 !== 0,
+        );
     }
 }

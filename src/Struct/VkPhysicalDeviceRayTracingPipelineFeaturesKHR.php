@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPipelineFeaturesKHR.html
  * @since VK_KHR_ray_tracing_pipeline
  */
-final class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingPipelineFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends InputStructure
     public const int STRUCTURE_TYPE = 1000347000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $rayTracingPipeline = false,
         public bool $rayTracingPipelineShaderGroupHandleCaptureReplay = false,
         public bool $rayTracingPipelineShaderGroupHandleCaptureReplayMixed = false,
@@ -51,5 +54,35 @@ final class VkPhysicalDeviceRayTracingPipelineFeaturesKHR extends InputStructure
         $data->rayTracingPipelineTraceRaysIndirect = (int) $this->rayTracingPipelineTraceRaysIndirect;
 
         $data->rayTraversalPrimitiveCulling = (int) $this->rayTraversalPrimitiveCulling;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceRayTracingPipelineFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     rayTracingPipeline: int,
+     *     rayTracingPipelineShaderGroupHandleCaptureReplay: int,
+     *     rayTracingPipelineShaderGroupHandleCaptureReplayMixed: int,
+     *     rayTracingPipelineTraceRaysIndirect: int,
+     *     rayTraversalPrimitiveCulling: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            rayTracingPipeline: $data->rayTracingPipeline !== 0,
+            rayTracingPipelineShaderGroupHandleCaptureReplay: $data->rayTracingPipelineShaderGroupHandleCaptureReplay !== 0,
+            rayTracingPipelineShaderGroupHandleCaptureReplayMixed: $data->rayTracingPipelineShaderGroupHandleCaptureReplayMixed !== 0,
+            rayTracingPipelineTraceRaysIndirect: $data->rayTracingPipelineTraceRaysIndirect !== 0,
+            rayTraversalPrimitiveCulling: $data->rayTraversalPrimitiveCulling !== 0,
+        );
     }
 }

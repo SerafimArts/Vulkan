@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceColorWriteEnableFeaturesEXT.html
  * @since VK_EXT_color_write_enable
  */
-final class VkPhysicalDeviceColorWriteEnableFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceColorWriteEnableFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceColorWriteEnableFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceColorWriteEnableFeaturesEXT extends InputStructure i
     public const int STRUCTURE_TYPE = 1000381000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $colorWriteEnable = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceColorWriteEnableFeaturesEXT extends InputStructure i
         }
 
         $data->colorWriteEnable = (int) $this->colorWriteEnable;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceColorWriteEnableFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     colorWriteEnable: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            colorWriteEnable: $data->colorWriteEnable !== 0,
+        );
     }
 }

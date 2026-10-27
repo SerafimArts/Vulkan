@@ -8,13 +8,9 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Struct\Extension;
 
-use Serafim\Vulkan\Struct\InputStructure;
-
 /**
  * A structure that can be chained to `VkPresentInfoKHR` with `pNext`.
  *
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentInfoKHR.html
- *
- * @phpstan-require-extends InputStructure
  */
 interface VkPresentInfoKHRExtension {}

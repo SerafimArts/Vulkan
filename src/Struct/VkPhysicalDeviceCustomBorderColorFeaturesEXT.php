@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCustomBorderColorFeaturesEXT.html
  * @since VK_EXT_custom_border_color
  */
-final class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCustomBorderColorFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends InputStructure 
     public const int STRUCTURE_TYPE = 1000287002;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $customBorderColors = false,
         public bool $customBorderColorWithoutFormat = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceCustomBorderColorFeaturesEXT extends InputStructure 
         $data->customBorderColors = (int) $this->customBorderColors;
 
         $data->customBorderColorWithoutFormat = (int) $this->customBorderColorWithoutFormat;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceCustomBorderColorFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     customBorderColors: int,
+     *     customBorderColorWithoutFormat: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            customBorderColors: $data->customBorderColors !== 0,
+            customBorderColorWithoutFormat: $data->customBorderColorWithoutFormat !== 0,
+        );
     }
 }

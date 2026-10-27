@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT.html
  * @since VK_EXT_attachment_feedback_loop_dynamic_state
  */
-final class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT extend
     public const int STRUCTURE_TYPE = 1000524000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $attachmentFeedbackLoopDynamicState = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT extend
         }
 
         $data->attachmentFeedbackLoopDynamicState = (int) $this->attachmentFeedbackLoopDynamicState;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceAttachmentFeedbackLoopDynamicStateFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     attachmentFeedbackLoopDynamicState: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            attachmentFeedbackLoopDynamicState: $data->attachmentFeedbackLoopDynamicState !== 0,
+        );
     }
 }

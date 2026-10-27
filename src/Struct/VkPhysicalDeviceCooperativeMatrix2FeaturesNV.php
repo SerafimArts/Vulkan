@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrix2FeaturesNV.html
  * @since VK_NV_cooperative_matrix2
  */
-final class VkPhysicalDeviceCooperativeMatrix2FeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceCooperativeMatrix2FeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrix2FeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceCooperativeMatrix2FeaturesNV extends InputStructure 
     public const int STRUCTURE_TYPE = 1000593000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $cooperativeMatrixWorkgroupScope = false,
         public bool $cooperativeMatrixFlexibleDimensions = false,
         public bool $cooperativeMatrixReductions = false,
@@ -57,5 +60,39 @@ final class VkPhysicalDeviceCooperativeMatrix2FeaturesNV extends InputStructure 
         $data->cooperativeMatrixTensorAddressing = (int) $this->cooperativeMatrixTensorAddressing;
 
         $data->cooperativeMatrixBlockLoads = (int) $this->cooperativeMatrixBlockLoads;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceCooperativeMatrix2FeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     cooperativeMatrixWorkgroupScope: int,
+     *     cooperativeMatrixFlexibleDimensions: int,
+     *     cooperativeMatrixReductions: int,
+     *     cooperativeMatrixConversions: int,
+     *     cooperativeMatrixPerElementOperations: int,
+     *     cooperativeMatrixTensorAddressing: int,
+     *     cooperativeMatrixBlockLoads: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            cooperativeMatrixWorkgroupScope: $data->cooperativeMatrixWorkgroupScope !== 0,
+            cooperativeMatrixFlexibleDimensions: $data->cooperativeMatrixFlexibleDimensions !== 0,
+            cooperativeMatrixReductions: $data->cooperativeMatrixReductions !== 0,
+            cooperativeMatrixConversions: $data->cooperativeMatrixConversions !== 0,
+            cooperativeMatrixPerElementOperations: $data->cooperativeMatrixPerElementOperations !== 0,
+            cooperativeMatrixTensorAddressing: $data->cooperativeMatrixTensorAddressing !== 0,
+            cooperativeMatrixBlockLoads: $data->cooperativeMatrixBlockLoads !== 0,
+        );
     }
 }

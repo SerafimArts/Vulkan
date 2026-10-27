@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTextureCompressionASTCHDRFeatures.html
  * @since 1.3
  */
-final class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTextureCompressionASTCHDRFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends InputStruc
     public const int STRUCTURE_TYPE = 1000066000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $textureCompressionASTC_HDR = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceTextureCompressionASTCHDRFeatures extends InputStruc
         }
 
         $data->textureCompressionASTC_HDR = (int) $this->textureCompressionASTC_HDR;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceTextureCompressionASTCHDRFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     textureCompressionASTC_HDR: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            textureCompressionASTC_HDR: $data->textureCompressionASTC_HDR !== 0,
+        );
     }
 }

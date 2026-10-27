@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD.html
  * @since VK_AMD_shader_early_and_late_fragment_tests
  */
-final class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends I
     public const int STRUCTURE_TYPE = 1000321000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderEarlyAndLateFragmentTests = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD extends I
         }
 
         $data->shaderEarlyAndLateFragmentTests = (int) $this->shaderEarlyAndLateFragmentTests;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderEarlyAndLateFragmentTestsFeaturesAMD');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderEarlyAndLateFragmentTests: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderEarlyAndLateFragmentTests: $data->shaderEarlyAndLateFragmentTests !== 0,
+        );
     }
 }

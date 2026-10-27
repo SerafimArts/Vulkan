@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV.html
  * @since VK_NV_descriptor_pool_overallocation
  */
-final class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends Input
     public const int STRUCTURE_TYPE = 1000546000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $descriptorPoolOverallocation = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV extends Input
         }
 
         $data->descriptorPoolOverallocation = (int) $this->descriptorPoolOverallocation;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     descriptorPoolOverallocation: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            descriptorPoolOverallocation: $data->descriptorPoolOverallocation !== 0,
+        );
     }
 }

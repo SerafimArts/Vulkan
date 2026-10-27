@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalMemoryRDMAFeaturesNV.html
  * @since VK_NV_external_memory_rdma
  */
-final class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalMemoryRDMAFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends InputStructure 
     public const int STRUCTURE_TYPE = 1000371001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $externalMemoryRDMA = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceExternalMemoryRDMAFeaturesNV extends InputStructure 
         }
 
         $data->externalMemoryRDMA = (int) $this->externalMemoryRDMA;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceExternalMemoryRDMAFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     externalMemoryRDMA: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            externalMemoryRDMA: $data->externalMemoryRDMA !== 0,
+        );
     }
 }

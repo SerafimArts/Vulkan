@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT.html
  * @since VK_EXT_vertex_attribute_robustness
  */
-final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT extends InputSt
     public const int STRUCTURE_TYPE = 1000608000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $vertexAttributeRobustness = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT extends InputSt
         }
 
         $data->vertexAttributeRobustness = (int) $this->vertexAttributeRobustness;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     vertexAttributeRobustness: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            vertexAttributeRobustness: $data->vertexAttributeRobustness !== 0,
+        );
     }
 }

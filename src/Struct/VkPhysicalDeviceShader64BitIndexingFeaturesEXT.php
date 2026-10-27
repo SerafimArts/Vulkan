@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShader64BitIndexingFeaturesEXT.html
  * @since VK_EXT_shader_64bit_indexing
  */
-final class VkPhysicalDeviceShader64BitIndexingFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShader64BitIndexingFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShader64BitIndexingFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShader64BitIndexingFeaturesEXT extends InputStructur
     public const int STRUCTURE_TYPE = 1000627000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shader64BitIndexing = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShader64BitIndexingFeaturesEXT extends InputStructur
         }
 
         $data->shader64BitIndexing = (int) $this->shader64BitIndexing;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShader64BitIndexingFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shader64BitIndexing: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shader64BitIndexing: $data->shader64BitIndexing !== 0,
+        );
     }
 }

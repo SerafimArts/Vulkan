@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSamplerYcbcrConversionFeatures.html
  * @since 1.1
  */
-final class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSamplerYcbcrConversionFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends InputStructur
     public const int STRUCTURE_TYPE = 1000156004;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** Sampler color conversion supported */
         public bool $samplerYcbcrConversion = false,
     ) {}
@@ -40,5 +43,27 @@ final class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends InputStructur
         }
 
         $data->samplerYcbcrConversion = (int) $this->samplerYcbcrConversion;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceSamplerYcbcrConversionFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     samplerYcbcrConversion: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            samplerYcbcrConversion: $data->samplerYcbcrConversion !== 0,
+        );
     }
 }

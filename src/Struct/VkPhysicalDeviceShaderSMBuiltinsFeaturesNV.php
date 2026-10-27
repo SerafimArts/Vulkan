@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSMBuiltinsFeaturesNV.html
  * @since VK_NV_shader_sm_builtins
  */
-final class VkPhysicalDeviceShaderSMBuiltinsFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderSMBuiltinsFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderSMBuiltinsFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderSMBuiltinsFeaturesNV extends InputStructure im
     public const int STRUCTURE_TYPE = 1000154000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderSMBuiltins = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderSMBuiltinsFeaturesNV extends InputStructure im
         }
 
         $data->shaderSMBuiltins = (int) $this->shaderSMBuiltins;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderSMBuiltinsFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderSMBuiltins: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderSMBuiltins: $data->shaderSMBuiltins !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT.html
  * @since VK_EXT_shader_module_identifier
  */
-final class VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT extends InputStruc
     public const int STRUCTURE_TYPE = 1000462000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderModuleIdentifier = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT extends InputStruc
         }
 
         $data->shaderModuleIdentifier = (int) $this->shaderModuleIdentifier;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderModuleIdentifierFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderModuleIdentifier: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderModuleIdentifier: $data->shaderModuleIdentifier !== 0,
+        );
     }
 }

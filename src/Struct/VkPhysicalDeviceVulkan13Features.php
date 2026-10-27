@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan13Features.html
  * @since 1.3
  */
-final class VkPhysicalDeviceVulkan13Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVulkan13Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan13Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVulkan13Features extends InputStructure implements V
     public const int STRUCTURE_TYPE = 53;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $robustImageAccess = false,
         public bool $inlineUniformBlock = false,
         public bool $descriptorBindingInlineUniformBlockUpdateAfterBind = false,
@@ -81,5 +84,55 @@ final class VkPhysicalDeviceVulkan13Features extends InputStructure implements V
         $data->shaderIntegerDotProduct = (int) $this->shaderIntegerDotProduct;
 
         $data->maintenance4 = (int) $this->maintenance4;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVulkan13Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     robustImageAccess: int,
+     *     inlineUniformBlock: int,
+     *     descriptorBindingInlineUniformBlockUpdateAfterBind: int,
+     *     pipelineCreationCacheControl: int,
+     *     privateData: int,
+     *     shaderDemoteToHelperInvocation: int,
+     *     shaderTerminateInvocation: int,
+     *     subgroupSizeControl: int,
+     *     computeFullSubgroups: int,
+     *     synchronization2: int,
+     *     textureCompressionASTC_HDR: int,
+     *     shaderZeroInitializeWorkgroupMemory: int,
+     *     dynamicRendering: int,
+     *     shaderIntegerDotProduct: int,
+     *     maintenance4: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            robustImageAccess: $data->robustImageAccess !== 0,
+            inlineUniformBlock: $data->inlineUniformBlock !== 0,
+            descriptorBindingInlineUniformBlockUpdateAfterBind: $data->descriptorBindingInlineUniformBlockUpdateAfterBind !== 0,
+            pipelineCreationCacheControl: $data->pipelineCreationCacheControl !== 0,
+            privateData: $data->privateData !== 0,
+            shaderDemoteToHelperInvocation: $data->shaderDemoteToHelperInvocation !== 0,
+            shaderTerminateInvocation: $data->shaderTerminateInvocation !== 0,
+            subgroupSizeControl: $data->subgroupSizeControl !== 0,
+            computeFullSubgroups: $data->computeFullSubgroups !== 0,
+            synchronization2: $data->synchronization2 !== 0,
+            textureCompressionASTC_HDR: $data->textureCompressionASTC_HDR !== 0,
+            shaderZeroInitializeWorkgroupMemory: $data->shaderZeroInitializeWorkgroupMemory !== 0,
+            dynamicRendering: $data->dynamicRendering !== 0,
+            shaderIntegerDotProduct: $data->shaderIntegerDotProduct !== 0,
+            maintenance4: $data->maintenance4 !== 0,
+        );
     }
 }

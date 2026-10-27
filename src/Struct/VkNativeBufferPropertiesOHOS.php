@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferPropertiesOHOS.html
@@ -24,6 +25,8 @@ final readonly class VkNativeBufferPropertiesOHOS extends OutputStructure
         public int $allocationSize,
         /** @var int<0, 4294967295> */
         public int $memoryTypeBits,
+        /** @var list<VkNativeBufferPropertiesOHOSExtension> */
+        public array $chain = [],
     ) {}
 
     /**
@@ -31,14 +34,36 @@ final readonly class VkNativeBufferPropertiesOHOS extends OutputStructure
      *     allocationSize: int<0, max>,
      *     memoryTypeBits: int<0, 4294967295>,
      * } $data
+     * @param list<VkNativeBufferPropertiesOHOSExtension> $chain
      *
      * @phpstan-param CData $data
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, array $chain = []): self
     {
         return new self(
             allocationSize: $data->allocationSize,
             memoryTypeBits: $data->memoryTypeBits,
+            chain: $chain,
         );
+    }
+
+    /**
+     * Returns the structure of the chain that is an instance of the class.
+     *
+     * @template TChained of VkNativeBufferPropertiesOHOSExtension
+     *
+     * @param class-string<TChained> $class
+     *
+     * @return TChained|null
+     */
+    public function findChained(string $class): ?object
+    {
+        foreach ($this->chain as $item) {
+            if ($item instanceof $class) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

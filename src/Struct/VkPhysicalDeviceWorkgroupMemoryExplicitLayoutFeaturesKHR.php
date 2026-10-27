@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR.html
  * @since VK_KHR_workgroup_memory_explicit_layout
  */
-final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR extends Inp
     public const int STRUCTURE_TYPE = 1000336000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $workgroupMemoryExplicitLayout = false,
         public bool $workgroupMemoryExplicitLayoutScalarBlockLayout = false,
         public bool $workgroupMemoryExplicitLayout8BitAccess = false,
@@ -48,5 +51,33 @@ final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR extends Inp
         $data->workgroupMemoryExplicitLayout8BitAccess = (int) $this->workgroupMemoryExplicitLayout8BitAccess;
 
         $data->workgroupMemoryExplicitLayout16BitAccess = (int) $this->workgroupMemoryExplicitLayout16BitAccess;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     workgroupMemoryExplicitLayout: int,
+     *     workgroupMemoryExplicitLayoutScalarBlockLayout: int,
+     *     workgroupMemoryExplicitLayout8BitAccess: int,
+     *     workgroupMemoryExplicitLayout16BitAccess: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            workgroupMemoryExplicitLayout: $data->workgroupMemoryExplicitLayout !== 0,
+            workgroupMemoryExplicitLayoutScalarBlockLayout: $data->workgroupMemoryExplicitLayoutScalarBlockLayout !== 0,
+            workgroupMemoryExplicitLayout8BitAccess: $data->workgroupMemoryExplicitLayout8BitAccess !== 0,
+            workgroupMemoryExplicitLayout16BitAccess: $data->workgroupMemoryExplicitLayout16BitAccess !== 0,
+        );
     }
 }

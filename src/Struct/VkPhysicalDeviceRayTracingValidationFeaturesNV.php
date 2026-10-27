@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingValidationFeaturesNV.html
  * @since VK_NV_ray_tracing_validation
  */
-final class VkPhysicalDeviceRayTracingValidationFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceRayTracingValidationFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingValidationFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceRayTracingValidationFeaturesNV extends InputStructur
     public const int STRUCTURE_TYPE = 1000568000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $rayTracingValidation = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceRayTracingValidationFeaturesNV extends InputStructur
         }
 
         $data->rayTracingValidation = (int) $this->rayTracingValidation;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceRayTracingValidationFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     rayTracingValidation: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            rayTracingValidation: $data->rayTracingValidation !== 0,
+        );
     }
 }

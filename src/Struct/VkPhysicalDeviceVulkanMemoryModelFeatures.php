@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkanMemoryModelFeatures.html
  * @since 1.2
  */
-final class VkPhysicalDeviceVulkanMemoryModelFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVulkanMemoryModelFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkanMemoryModelFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVulkanMemoryModelFeatures extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000211000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $vulkanMemoryModel = false,
         public bool $vulkanMemoryModelDeviceScope = false,
         public bool $vulkanMemoryModelAvailabilityVisibilityChains = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceVulkanMemoryModelFeatures extends InputStructure imp
         $data->vulkanMemoryModelDeviceScope = (int) $this->vulkanMemoryModelDeviceScope;
 
         $data->vulkanMemoryModelAvailabilityVisibilityChains = (int) $this->vulkanMemoryModelAvailabilityVisibilityChains;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVulkanMemoryModelFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     vulkanMemoryModel: int,
+     *     vulkanMemoryModelDeviceScope: int,
+     *     vulkanMemoryModelAvailabilityVisibilityChains: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            vulkanMemoryModel: $data->vulkanMemoryModel !== 0,
+            vulkanMemoryModelDeviceScope: $data->vulkanMemoryModelDeviceScope !== 0,
+            vulkanMemoryModelAvailabilityVisibilityChains: $data->vulkanMemoryModelAvailabilityVisibilityChains !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixFeaturesKHR.html
  * @since VK_KHR_cooperative_matrix
  */
-final class VkPhysicalDeviceCooperativeMatrixFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceCooperativeMatrixFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrixFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceCooperativeMatrixFeaturesKHR extends InputStructure 
     public const int STRUCTURE_TYPE = 1000506000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $cooperativeMatrix = false,
         public bool $cooperativeMatrixRobustBufferAccess = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceCooperativeMatrixFeaturesKHR extends InputStructure 
         $data->cooperativeMatrix = (int) $this->cooperativeMatrix;
 
         $data->cooperativeMatrixRobustBufferAccess = (int) $this->cooperativeMatrixRobustBufferAccess;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceCooperativeMatrixFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     cooperativeMatrix: int,
+     *     cooperativeMatrixRobustBufferAccess: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            cooperativeMatrix: $data->cooperativeMatrix !== 0,
+            cooperativeMatrixRobustBufferAccess: $data->cooperativeMatrixRobustBufferAccess !== 0,
+        );
     }
 }

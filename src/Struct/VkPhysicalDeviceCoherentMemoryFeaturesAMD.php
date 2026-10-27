@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCoherentMemoryFeaturesAMD.html
  * @since VK_AMD_device_coherent_memory
  */
-final class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCoherentMemoryFeaturesAMD';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000229000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $deviceCoherentMemory = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceCoherentMemoryFeaturesAMD extends InputStructure imp
         }
 
         $data->deviceCoherentMemory = (int) $this->deviceCoherentMemory;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceCoherentMemoryFeaturesAMD');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     deviceCoherentMemory: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            deviceCoherentMemory: $data->deviceCoherentMemory !== 0,
+        );
     }
 }

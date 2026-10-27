@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT.html
  * @since VK_EXT_dynamic_rendering_unused_attachments
  */
-final class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extends
     public const int STRUCTURE_TYPE = 1000499000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $dynamicRenderingUnusedAttachments = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT extends
         }
 
         $data->dynamicRenderingUnusedAttachments = (int) $this->dynamicRenderingUnusedAttachments;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     dynamicRenderingUnusedAttachments: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            dynamicRenderingUnusedAttachments: $data->dynamicRenderingUnusedAttachments !== 0,
+        );
     }
 }

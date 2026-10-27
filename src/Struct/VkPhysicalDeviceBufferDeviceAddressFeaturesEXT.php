@@ -10,7 +10,10 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * The extension VK_EXT_buffer_device_address is deprecated by VK_KHR_buffer_device_address.
@@ -18,7 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceBufferDeviceAddressFeaturesEXT.html
  * @since VK_EXT_buffer_device_address
  */
-final class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceBufferDeviceAddressFeaturesEXT';
 
@@ -26,7 +29,7 @@ final class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends InputStructur
     public const int STRUCTURE_TYPE = 1000244000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $bufferDeviceAddress = false,
         public bool $bufferDeviceAddressCaptureReplay = false,
         public bool $bufferDeviceAddressMultiDevice = false,
@@ -47,5 +50,31 @@ final class VkPhysicalDeviceBufferDeviceAddressFeaturesEXT extends InputStructur
         $data->bufferDeviceAddressCaptureReplay = (int) $this->bufferDeviceAddressCaptureReplay;
 
         $data->bufferDeviceAddressMultiDevice = (int) $this->bufferDeviceAddressMultiDevice;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceBufferDeviceAddressFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     bufferDeviceAddress: int,
+     *     bufferDeviceAddressCaptureReplay: int,
+     *     bufferDeviceAddressMultiDevice: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            bufferDeviceAddress: $data->bufferDeviceAddress !== 0,
+            bufferDeviceAddressCaptureReplay: $data->bufferDeviceAddressCaptureReplay !== 0,
+            bufferDeviceAddressMultiDevice: $data->bufferDeviceAddressMultiDevice !== 0,
+        );
     }
 }

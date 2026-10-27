@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicFloatFeaturesEXT.html
  * @since VK_EXT_shader_atomic_float
  */
-final class VkPhysicalDeviceShaderAtomicFloatFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderAtomicFloatFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicFloatFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderAtomicFloatFeaturesEXT extends InputStructure 
     public const int STRUCTURE_TYPE = 1000260000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderBufferFloat32Atomics = false,
         public bool $shaderBufferFloat32AtomicAdd = false,
         public bool $shaderBufferFloat64Atomics = false,
@@ -72,5 +75,49 @@ final class VkPhysicalDeviceShaderAtomicFloatFeaturesEXT extends InputStructure 
         $data->sparseImageFloat32Atomics = (int) $this->sparseImageFloat32Atomics;
 
         $data->sparseImageFloat32AtomicAdd = (int) $this->sparseImageFloat32AtomicAdd;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderAtomicFloatFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderBufferFloat32Atomics: int,
+     *     shaderBufferFloat32AtomicAdd: int,
+     *     shaderBufferFloat64Atomics: int,
+     *     shaderBufferFloat64AtomicAdd: int,
+     *     shaderSharedFloat32Atomics: int,
+     *     shaderSharedFloat32AtomicAdd: int,
+     *     shaderSharedFloat64Atomics: int,
+     *     shaderSharedFloat64AtomicAdd: int,
+     *     shaderImageFloat32Atomics: int,
+     *     shaderImageFloat32AtomicAdd: int,
+     *     sparseImageFloat32Atomics: int,
+     *     sparseImageFloat32AtomicAdd: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderBufferFloat32Atomics: $data->shaderBufferFloat32Atomics !== 0,
+            shaderBufferFloat32AtomicAdd: $data->shaderBufferFloat32AtomicAdd !== 0,
+            shaderBufferFloat64Atomics: $data->shaderBufferFloat64Atomics !== 0,
+            shaderBufferFloat64AtomicAdd: $data->shaderBufferFloat64AtomicAdd !== 0,
+            shaderSharedFloat32Atomics: $data->shaderSharedFloat32Atomics !== 0,
+            shaderSharedFloat32AtomicAdd: $data->shaderSharedFloat32AtomicAdd !== 0,
+            shaderSharedFloat64Atomics: $data->shaderSharedFloat64Atomics !== 0,
+            shaderSharedFloat64AtomicAdd: $data->shaderSharedFloat64AtomicAdd !== 0,
+            shaderImageFloat32Atomics: $data->shaderImageFloat32Atomics !== 0,
+            shaderImageFloat32AtomicAdd: $data->shaderImageFloat32AtomicAdd !== 0,
+            sparseImageFloat32Atomics: $data->sparseImageFloat32Atomics !== 0,
+            sparseImageFloat32AtomicAdd: $data->sparseImageFloat32AtomicAdd !== 0,
+        );
     }
 }

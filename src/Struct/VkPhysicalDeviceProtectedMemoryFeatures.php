@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProtectedMemoryFeatures.html
  * @since 1.1
  */
-final class VkPhysicalDeviceProtectedMemoryFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceProtectedMemoryFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceProtectedMemoryFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceProtectedMemoryFeatures extends InputStructure imple
     public const int STRUCTURE_TYPE = 1000145001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $protectedMemory = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceProtectedMemoryFeatures extends InputStructure imple
         }
 
         $data->protectedMemory = (int) $this->protectedMemory;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceProtectedMemoryFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     protectedMemory: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            protectedMemory: $data->protectedMemory !== 0,
+        );
     }
 }

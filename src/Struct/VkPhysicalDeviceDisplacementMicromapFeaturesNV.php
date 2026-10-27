@@ -10,7 +10,10 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * The extension VK_NV_displacement_micromap is deprecated by VK_NV_cluster_acceleration_structure.
@@ -18,7 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDisplacementMicromapFeaturesNV.html
  * @since VK_NV_displacement_micromap
  */
-final class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDisplacementMicromapFeaturesNV';
 
@@ -26,7 +29,7 @@ final class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends InputStructur
     public const int STRUCTURE_TYPE = 1000397000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $displacementMicromap = false,
     ) {}
 
@@ -41,5 +44,27 @@ final class VkPhysicalDeviceDisplacementMicromapFeaturesNV extends InputStructur
         }
 
         $data->displacementMicromap = (int) $this->displacementMicromap;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceDisplacementMicromapFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     displacementMicromap: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            displacementMicromap: $data->displacementMicromap !== 0,
+        );
     }
 }

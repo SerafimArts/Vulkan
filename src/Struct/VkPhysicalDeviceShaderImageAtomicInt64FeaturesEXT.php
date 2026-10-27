@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT.html
  * @since VK_EXT_shader_image_atomic_int64
  */
-final class VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT extends InputStruc
     public const int STRUCTURE_TYPE = 1000234000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderImageInt64Atomics = false,
         public bool $sparseImageInt64Atomics = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT extends InputStruc
         $data->shaderImageInt64Atomics = (int) $this->shaderImageInt64Atomics;
 
         $data->sparseImageInt64Atomics = (int) $this->sparseImageInt64Atomics;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderImageInt64Atomics: int,
+     *     sparseImageInt64Atomics: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderImageInt64Atomics: $data->shaderImageInt64Atomics !== 0,
+            sparseImageInt64Atomics: $data->sparseImageInt64Atomics !== 0,
+        );
     }
 }

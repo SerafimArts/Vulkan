@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceImageAlignmentControlFeaturesMESA.html
  * @since VK_MESA_image_alignment_control
  */
-final class VkPhysicalDeviceImageAlignmentControlFeaturesMESA extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceImageAlignmentControlFeaturesMESA extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageAlignmentControlFeaturesMESA';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceImageAlignmentControlFeaturesMESA extends InputStruc
     public const int STRUCTURE_TYPE = 1000575000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $imageAlignmentControl = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceImageAlignmentControlFeaturesMESA extends InputStruc
         }
 
         $data->imageAlignmentControl = (int) $this->imageAlignmentControl;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceImageAlignmentControlFeaturesMESA');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     imageAlignmentControl: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            imageAlignmentControl: $data->imageAlignmentControl !== 0,
+        );
     }
 }

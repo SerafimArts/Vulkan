@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderFmaFeaturesKHR.html
  * @since VK_KHR_shader_fma
  */
-final class VkPhysicalDeviceShaderFmaFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderFmaFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderFmaFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderFmaFeaturesKHR extends InputStructure implemen
     public const int STRUCTURE_TYPE = 1000579000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderFmaFloat16 = false,
         public bool $shaderFmaFloat32 = false,
         public bool $shaderFmaFloat64 = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceShaderFmaFeaturesKHR extends InputStructure implemen
         $data->shaderFmaFloat32 = (int) $this->shaderFmaFloat32;
 
         $data->shaderFmaFloat64 = (int) $this->shaderFmaFloat64;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderFmaFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderFmaFloat16: int,
+     *     shaderFmaFloat32: int,
+     *     shaderFmaFloat64: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderFmaFloat16: $data->shaderFmaFloat16 !== 0,
+            shaderFmaFloat32: $data->shaderFmaFloat32 !== 0,
+            shaderFmaFloat64: $data->shaderFmaFloat64 !== 0,
+        );
     }
 }

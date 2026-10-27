@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCoverageReductionModeFeaturesNV.html
  * @since VK_NV_coverage_reduction_mode
  */
-final class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCoverageReductionModeFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends InputStructu
     public const int STRUCTURE_TYPE = 1000250000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $coverageReductionMode = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends InputStructu
         }
 
         $data->coverageReductionMode = (int) $this->coverageReductionMode;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceCoverageReductionModeFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     coverageReductionMode: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            coverageReductionMode: $data->coverageReductionMode !== 0,
+        );
     }
 }

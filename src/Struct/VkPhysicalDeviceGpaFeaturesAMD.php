@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceGpaFeaturesAMD.html
  * @since VK_AMD_gpa_interface
  */
-final class VkPhysicalDeviceGpaFeaturesAMD extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceGpaFeaturesAMD extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceGpaFeaturesAMD';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceGpaFeaturesAMD extends InputStructure implements VkD
     public const int STRUCTURE_TYPE = 1000133000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $perfCounters = false,
         public bool $streamingPerfCounters = false,
         public bool $sqThreadTracing = false,
@@ -48,5 +51,33 @@ final class VkPhysicalDeviceGpaFeaturesAMD extends InputStructure implements VkD
         $data->sqThreadTracing = (int) $this->sqThreadTracing;
 
         $data->clockModes = (int) $this->clockModes;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceGpaFeaturesAMD');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     perfCounters: int,
+     *     streamingPerfCounters: int,
+     *     sqThreadTracing: int,
+     *     clockModes: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            perfCounters: $data->perfCounters !== 0,
+            streamingPerfCounters: $data->streamingPerfCounters !== 0,
+            sqThreadTracing: $data->sqThreadTracing !== 0,
+            clockModes: $data->clockModes !== 0,
+        );
     }
 }

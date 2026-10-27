@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTileMemoryHeapFeaturesQCOM.html
  * @since VK_QCOM_tile_memory_heap
  */
-final class VkPhysicalDeviceTileMemoryHeapFeaturesQCOM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceTileMemoryHeapFeaturesQCOM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTileMemoryHeapFeaturesQCOM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceTileMemoryHeapFeaturesQCOM extends InputStructure im
     public const int STRUCTURE_TYPE = 1000547000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $tileMemoryHeap = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceTileMemoryHeapFeaturesQCOM extends InputStructure im
         }
 
         $data->tileMemoryHeap = (int) $this->tileMemoryHeap;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceTileMemoryHeapFeaturesQCOM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     tileMemoryHeap: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            tileMemoryHeap: $data->tileMemoryHeap !== 0,
+        );
     }
 }

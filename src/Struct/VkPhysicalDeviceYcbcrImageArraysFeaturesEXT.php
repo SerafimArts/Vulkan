@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceYcbcrImageArraysFeaturesEXT.html
  * @since VK_EXT_ycbcr_image_arrays
  */
-final class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceYcbcrImageArraysFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends InputStructure i
     public const int STRUCTURE_TYPE = 1000252000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $ycbcrImageArrays = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceYcbcrImageArraysFeaturesEXT extends InputStructure i
         }
 
         $data->ycbcrImageArrays = (int) $this->ycbcrImageArrays;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceYcbcrImageArraysFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     ycbcrImageArrays: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            ycbcrImageArrays: $data->ycbcrImageArrays !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Features.html
  * @since 1.2
  */
-final class VkPhysicalDeviceVulkan11Features extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceVulkan11Features extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan11Features';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceVulkan11Features extends InputStructure implements V
     public const int STRUCTURE_TYPE = 49;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** 16-bit integer/floating-point variables supported in BufferBlock */
         public bool $storageBuffer16BitAccess = false,
         /**
@@ -89,5 +92,49 @@ final class VkPhysicalDeviceVulkan11Features extends InputStructure implements V
         $data->samplerYcbcrConversion = (int) $this->samplerYcbcrConversion;
 
         $data->shaderDrawParameters = (int) $this->shaderDrawParameters;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceVulkan11Features');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     storageBuffer16BitAccess: int,
+     *     uniformAndStorageBuffer16BitAccess: int,
+     *     storagePushConstant16: int,
+     *     storageInputOutput16: int,
+     *     multiview: int,
+     *     multiviewGeometryShader: int,
+     *     multiviewTessellationShader: int,
+     *     variablePointersStorageBuffer: int,
+     *     variablePointers: int,
+     *     protectedMemory: int,
+     *     samplerYcbcrConversion: int,
+     *     shaderDrawParameters: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            storageBuffer16BitAccess: $data->storageBuffer16BitAccess !== 0,
+            uniformAndStorageBuffer16BitAccess: $data->uniformAndStorageBuffer16BitAccess !== 0,
+            storagePushConstant16: $data->storagePushConstant16 !== 0,
+            storageInputOutput16: $data->storageInputOutput16 !== 0,
+            multiview: $data->multiview !== 0,
+            multiviewGeometryShader: $data->multiviewGeometryShader !== 0,
+            multiviewTessellationShader: $data->multiviewTessellationShader !== 0,
+            variablePointersStorageBuffer: $data->variablePointersStorageBuffer !== 0,
+            variablePointers: $data->variablePointers !== 0,
+            protectedMemory: $data->protectedMemory !== 0,
+            samplerYcbcrConversion: $data->samplerYcbcrConversion !== 0,
+            shaderDrawParameters: $data->shaderDrawParameters !== 0,
+        );
     }
 }

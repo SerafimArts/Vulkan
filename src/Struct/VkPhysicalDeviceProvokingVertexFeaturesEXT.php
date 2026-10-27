@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProvokingVertexFeaturesEXT.html
  * @since VK_EXT_provoking_vertex
  */
-final class VkPhysicalDeviceProvokingVertexFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceProvokingVertexFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceProvokingVertexFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceProvokingVertexFeaturesEXT extends InputStructure im
     public const int STRUCTURE_TYPE = 1000254000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $provokingVertexLast = false,
         public bool $transformFeedbackPreservesProvokingVertex = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceProvokingVertexFeaturesEXT extends InputStructure im
         $data->provokingVertexLast = (int) $this->provokingVertexLast;
 
         $data->transformFeedbackPreservesProvokingVertex = (int) $this->transformFeedbackPreservesProvokingVertex;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceProvokingVertexFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     provokingVertexLast: int,
+     *     transformFeedbackPreservesProvokingVertex: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            provokingVertexLast: $data->provokingVertexLast !== 0,
+            transformFeedbackPreservesProvokingVertex: $data->transformFeedbackPreservesProvokingVertex !== 0,
+        );
     }
 }

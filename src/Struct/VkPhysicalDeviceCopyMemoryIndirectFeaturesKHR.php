@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR.html
  * @since VK_KHR_copy_memory_indirect
  */
-final class VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR extends InputStructure
     public const int STRUCTURE_TYPE = 1000549000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $indirectMemoryCopy = false,
         public bool $indirectMemoryToImageCopy = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR extends InputStructure
         $data->indirectMemoryCopy = (int) $this->indirectMemoryCopy;
 
         $data->indirectMemoryToImageCopy = (int) $this->indirectMemoryToImageCopy;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceCopyMemoryIndirectFeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     indirectMemoryCopy: int,
+     *     indirectMemoryToImageCopy: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            indirectMemoryCopy: $data->indirectMemoryCopy !== 0,
+            indirectMemoryToImageCopy: $data->indirectMemoryToImageCopy !== 0,
+        );
     }
 }

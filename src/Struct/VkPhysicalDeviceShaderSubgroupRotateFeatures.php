@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderSubgroupRotateFeatures.html
  * @since 1.4
  */
-final class VkPhysicalDeviceShaderSubgroupRotateFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderSubgroupRotateFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderSubgroupRotateFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderSubgroupRotateFeatures extends InputStructure 
     public const int STRUCTURE_TYPE = 1000416000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderSubgroupRotate = false,
         public bool $shaderSubgroupRotateClustered = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceShaderSubgroupRotateFeatures extends InputStructure 
         $data->shaderSubgroupRotate = (int) $this->shaderSubgroupRotate;
 
         $data->shaderSubgroupRotateClustered = (int) $this->shaderSubgroupRotateClustered;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderSubgroupRotateFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderSubgroupRotate: int,
+     *     shaderSubgroupRotateClustered: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderSubgroupRotate: $data->shaderSubgroupRotate !== 0,
+            shaderSubgroupRotateClustered: $data->shaderSubgroupRotateClustered !== 0,
+        );
     }
 }

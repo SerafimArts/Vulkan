@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE.html
  * @since VK_VALVE_shader_mixed_float_dot_product
  */
-final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE extends Inpu
     public const int STRUCTURE_TYPE = 1000673000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderMixedFloatDotProductFloat16AccFloat32 = false,
         public bool $shaderMixedFloatDotProductFloat16AccFloat16 = false,
         public bool $shaderMixedFloatDotProductBFloat16Acc = false,
@@ -48,5 +51,33 @@ final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE extends Inpu
         $data->shaderMixedFloatDotProductBFloat16Acc = (int) $this->shaderMixedFloatDotProductBFloat16Acc;
 
         $data->shaderMixedFloatDotProductFloat8AccFloat32 = (int) $this->shaderMixedFloatDotProductFloat8AccFloat32;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     shaderMixedFloatDotProductFloat16AccFloat32: int,
+     *     shaderMixedFloatDotProductFloat16AccFloat16: int,
+     *     shaderMixedFloatDotProductBFloat16Acc: int,
+     *     shaderMixedFloatDotProductFloat8AccFloat32: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            shaderMixedFloatDotProductFloat16AccFloat32: $data->shaderMixedFloatDotProductFloat16AccFloat32 !== 0,
+            shaderMixedFloatDotProductFloat16AccFloat16: $data->shaderMixedFloatDotProductFloat16AccFloat16 !== 0,
+            shaderMixedFloatDotProductBFloat16Acc: $data->shaderMixedFloatDotProductBFloat16Acc !== 0,
+            shaderMixedFloatDotProductFloat8AccFloat32: $data->shaderMixedFloatDotProductFloat8AccFloat32 !== 0,
+        );
     }
 }

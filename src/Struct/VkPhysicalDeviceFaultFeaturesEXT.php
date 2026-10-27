@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFaultFeaturesEXT.html
  * @since VK_EXT_device_fault
  */
-final class VkPhysicalDeviceFaultFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceFaultFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFaultFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceFaultFeaturesEXT extends InputStructure implements V
     public const int STRUCTURE_TYPE = 1000341000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $deviceFault = false,
         public bool $deviceFaultVendorBinary = false,
     ) {}
@@ -42,5 +45,29 @@ final class VkPhysicalDeviceFaultFeaturesEXT extends InputStructure implements V
         $data->deviceFault = (int) $this->deviceFault;
 
         $data->deviceFaultVendorBinary = (int) $this->deviceFaultVendorBinary;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceFaultFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     deviceFault: int,
+     *     deviceFaultVendorBinary: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            deviceFault: $data->deviceFault !== 0,
+            deviceFaultVendorBinary: $data->deviceFaultVendorBinary !== 0,
+        );
     }
 }

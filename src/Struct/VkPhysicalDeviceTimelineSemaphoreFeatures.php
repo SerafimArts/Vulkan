@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTimelineSemaphoreFeatures.html
  * @since 1.2
  */
-final class VkPhysicalDeviceTimelineSemaphoreFeatures extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceTimelineSemaphoreFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTimelineSemaphoreFeatures';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceTimelineSemaphoreFeatures extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000207000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $timelineSemaphore = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceTimelineSemaphoreFeatures extends InputStructure imp
         }
 
         $data->timelineSemaphore = (int) $this->timelineSemaphore;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceTimelineSemaphoreFeatures');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     timelineSemaphore: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            timelineSemaphore: $data->timelineSemaphore !== 0,
+        );
     }
 }

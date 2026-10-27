@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT.html
  * @since VK_EXT_texture_compression_astc_3d
  */
-final class VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT extends InputStr
     public const int STRUCTURE_TYPE = 1000288000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $textureCompressionASTC_3D = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT extends InputStr
         }
 
         $data->textureCompressionASTC_3D = (int) $this->textureCompressionASTC_3D;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     textureCompressionASTC_3D: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            textureCompressionASTC_3D: $data->textureCompressionASTC_3D !== 0,
+        );
     }
 }

@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceQueuePerfHintFeaturesQCOM.html
  * @since VK_QCOM_queue_perf_hint
  */
-final class VkPhysicalDeviceQueuePerfHintFeaturesQCOM extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceQueuePerfHintFeaturesQCOM extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceQueuePerfHintFeaturesQCOM';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceQueuePerfHintFeaturesQCOM extends InputStructure imp
     public const int STRUCTURE_TYPE = 1000302001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $queuePerfHint = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceQueuePerfHintFeaturesQCOM extends InputStructure imp
         }
 
         $data->queuePerfHint = (int) $this->queuePerfHint;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceQueuePerfHintFeaturesQCOM');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     queuePerfHint: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            queuePerfHint: $data->queuePerfHint !== 0,
+        );
     }
 }

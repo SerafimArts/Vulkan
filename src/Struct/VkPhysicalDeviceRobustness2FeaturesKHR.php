@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRobustness2FeaturesKHR.html
  * @since VK_KHR_robustness2
  */
-final class VkPhysicalDeviceRobustness2FeaturesKHR extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceRobustness2FeaturesKHR extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRobustness2FeaturesKHR';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceRobustness2FeaturesKHR extends InputStructure implem
     public const int STRUCTURE_TYPE = 1000286000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $robustBufferAccess2 = false,
         public bool $robustImageAccess2 = false,
         public bool $nullDescriptor = false,
@@ -45,5 +48,31 @@ final class VkPhysicalDeviceRobustness2FeaturesKHR extends InputStructure implem
         $data->robustImageAccess2 = (int) $this->robustImageAccess2;
 
         $data->nullDescriptor = (int) $this->nullDescriptor;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceRobustness2FeaturesKHR');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     robustBufferAccess2: int,
+     *     robustImageAccess2: int,
+     *     nullDescriptor: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            robustBufferAccess2: $data->robustBufferAccess2 !== 0,
+            robustImageAccess2: $data->robustImageAccess2 !== 0,
+            nullDescriptor: $data->nullDescriptor !== 0,
+        );
     }
 }

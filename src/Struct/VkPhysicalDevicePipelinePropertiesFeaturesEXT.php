@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDevicePipelinePropertiesFeaturesEXT.html
  * @since VK_EXT_pipeline_properties
  */
-final class VkPhysicalDevicePipelinePropertiesFeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDevicePipelinePropertiesFeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePipelinePropertiesFeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDevicePipelinePropertiesFeaturesEXT extends InputStructure
     public const int STRUCTURE_TYPE = 1000372001;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $pipelinePropertiesIdentifier = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDevicePipelinePropertiesFeaturesEXT extends InputStructure
         }
 
         $data->pipelinePropertiesIdentifier = (int) $this->pipelinePropertiesIdentifier;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDevicePipelinePropertiesFeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     pipelinePropertiesIdentifier: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            pipelinePropertiesIdentifier: $data->pipelinePropertiesIdentifier !== 0,
+        );
     }
 }

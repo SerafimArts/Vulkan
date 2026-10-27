@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExtendedDynamicState3FeaturesEXT.html
  * @since VK_EXT_extended_dynamic_state3
  */
-final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExtendedDynamicState3FeaturesEXT';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends InputStruct
     public const int STRUCTURE_TYPE = 1000455000;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $extendedDynamicState3TessellationDomainOrigin = false,
         public bool $extendedDynamicState3DepthClampEnable = false,
         public bool $extendedDynamicState3PolygonMode = false,
@@ -129,5 +132,87 @@ final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends InputStruct
         $data->extendedDynamicState3RepresentativeFragmentTestEnable = (int) $this->extendedDynamicState3RepresentativeFragmentTestEnable;
 
         $data->extendedDynamicState3ShadingRateImageEnable = (int) $this->extendedDynamicState3ShadingRateImageEnable;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceExtendedDynamicState3FeaturesEXT');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     extendedDynamicState3TessellationDomainOrigin: int,
+     *     extendedDynamicState3DepthClampEnable: int,
+     *     extendedDynamicState3PolygonMode: int,
+     *     extendedDynamicState3RasterizationSamples: int,
+     *     extendedDynamicState3SampleMask: int,
+     *     extendedDynamicState3AlphaToCoverageEnable: int,
+     *     extendedDynamicState3AlphaToOneEnable: int,
+     *     extendedDynamicState3LogicOpEnable: int,
+     *     extendedDynamicState3ColorBlendEnable: int,
+     *     extendedDynamicState3ColorBlendEquation: int,
+     *     extendedDynamicState3ColorWriteMask: int,
+     *     extendedDynamicState3RasterizationStream: int,
+     *     extendedDynamicState3ConservativeRasterizationMode: int,
+     *     extendedDynamicState3ExtraPrimitiveOverestimationSize: int,
+     *     extendedDynamicState3DepthClipEnable: int,
+     *     extendedDynamicState3SampleLocationsEnable: int,
+     *     extendedDynamicState3ColorBlendAdvanced: int,
+     *     extendedDynamicState3ProvokingVertexMode: int,
+     *     extendedDynamicState3LineRasterizationMode: int,
+     *     extendedDynamicState3LineStippleEnable: int,
+     *     extendedDynamicState3DepthClipNegativeOneToOne: int,
+     *     extendedDynamicState3ViewportWScalingEnable: int,
+     *     extendedDynamicState3ViewportSwizzle: int,
+     *     extendedDynamicState3CoverageToColorEnable: int,
+     *     extendedDynamicState3CoverageToColorLocation: int,
+     *     extendedDynamicState3CoverageModulationMode: int,
+     *     extendedDynamicState3CoverageModulationTableEnable: int,
+     *     extendedDynamicState3CoverageModulationTable: int,
+     *     extendedDynamicState3CoverageReductionMode: int,
+     *     extendedDynamicState3RepresentativeFragmentTestEnable: int,
+     *     extendedDynamicState3ShadingRateImageEnable: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            extendedDynamicState3TessellationDomainOrigin: $data->extendedDynamicState3TessellationDomainOrigin !== 0,
+            extendedDynamicState3DepthClampEnable: $data->extendedDynamicState3DepthClampEnable !== 0,
+            extendedDynamicState3PolygonMode: $data->extendedDynamicState3PolygonMode !== 0,
+            extendedDynamicState3RasterizationSamples: $data->extendedDynamicState3RasterizationSamples !== 0,
+            extendedDynamicState3SampleMask: $data->extendedDynamicState3SampleMask !== 0,
+            extendedDynamicState3AlphaToCoverageEnable: $data->extendedDynamicState3AlphaToCoverageEnable !== 0,
+            extendedDynamicState3AlphaToOneEnable: $data->extendedDynamicState3AlphaToOneEnable !== 0,
+            extendedDynamicState3LogicOpEnable: $data->extendedDynamicState3LogicOpEnable !== 0,
+            extendedDynamicState3ColorBlendEnable: $data->extendedDynamicState3ColorBlendEnable !== 0,
+            extendedDynamicState3ColorBlendEquation: $data->extendedDynamicState3ColorBlendEquation !== 0,
+            extendedDynamicState3ColorWriteMask: $data->extendedDynamicState3ColorWriteMask !== 0,
+            extendedDynamicState3RasterizationStream: $data->extendedDynamicState3RasterizationStream !== 0,
+            extendedDynamicState3ConservativeRasterizationMode: $data->extendedDynamicState3ConservativeRasterizationMode !== 0,
+            extendedDynamicState3ExtraPrimitiveOverestimationSize: $data->extendedDynamicState3ExtraPrimitiveOverestimationSize !== 0,
+            extendedDynamicState3DepthClipEnable: $data->extendedDynamicState3DepthClipEnable !== 0,
+            extendedDynamicState3SampleLocationsEnable: $data->extendedDynamicState3SampleLocationsEnable !== 0,
+            extendedDynamicState3ColorBlendAdvanced: $data->extendedDynamicState3ColorBlendAdvanced !== 0,
+            extendedDynamicState3ProvokingVertexMode: $data->extendedDynamicState3ProvokingVertexMode !== 0,
+            extendedDynamicState3LineRasterizationMode: $data->extendedDynamicState3LineRasterizationMode !== 0,
+            extendedDynamicState3LineStippleEnable: $data->extendedDynamicState3LineStippleEnable !== 0,
+            extendedDynamicState3DepthClipNegativeOneToOne: $data->extendedDynamicState3DepthClipNegativeOneToOne !== 0,
+            extendedDynamicState3ViewportWScalingEnable: $data->extendedDynamicState3ViewportWScalingEnable !== 0,
+            extendedDynamicState3ViewportSwizzle: $data->extendedDynamicState3ViewportSwizzle !== 0,
+            extendedDynamicState3CoverageToColorEnable: $data->extendedDynamicState3CoverageToColorEnable !== 0,
+            extendedDynamicState3CoverageToColorLocation: $data->extendedDynamicState3CoverageToColorLocation !== 0,
+            extendedDynamicState3CoverageModulationMode: $data->extendedDynamicState3CoverageModulationMode !== 0,
+            extendedDynamicState3CoverageModulationTableEnable: $data->extendedDynamicState3CoverageModulationTableEnable !== 0,
+            extendedDynamicState3CoverageModulationTable: $data->extendedDynamicState3CoverageModulationTable !== 0,
+            extendedDynamicState3CoverageReductionMode: $data->extendedDynamicState3CoverageReductionMode !== 0,
+            extendedDynamicState3RepresentativeFragmentTestEnable: $data->extendedDynamicState3RepresentativeFragmentTestEnable !== 0,
+            extendedDynamicState3ShadingRateImageEnable: $data->extendedDynamicState3ShadingRateImageEnable !== 0,
+        );
     }
 }

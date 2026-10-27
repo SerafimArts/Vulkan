@@ -10,13 +10,16 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCudaKernelLaunchFeaturesNV.html
  * @since VK_NV_cuda_kernel_launch
  */
-final class VkPhysicalDeviceCudaKernelLaunchFeaturesNV extends InputStructure implements VkDeviceCreateInfoExtension
+final class VkPhysicalDeviceCudaKernelLaunchFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCudaKernelLaunchFeaturesNV';
 
@@ -24,7 +27,7 @@ final class VkPhysicalDeviceCudaKernelLaunchFeaturesNV extends InputStructure im
     public const int STRUCTURE_TYPE = 1000307003;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $cudaKernelLaunchFeatures = false,
     ) {}
 
@@ -39,5 +42,27 @@ final class VkPhysicalDeviceCudaKernelLaunchFeaturesNV extends InputStructure im
         }
 
         $data->cudaKernelLaunchFeatures = (int) $this->cudaKernelLaunchFeatures;
+    }
+
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceCudaKernelLaunchFeaturesNV');
+        $data->sType = self::STRUCTURE_TYPE;
+
+        return $data;
+    }
+
+    /**
+     * @param CData&object{
+     *     cudaKernelLaunchFeatures: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            cudaKernelLaunchFeatures: $data->cudaKernelLaunchFeatures !== 0,
+        );
     }
 }
