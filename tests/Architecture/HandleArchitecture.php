@@ -9,6 +9,7 @@ use PHPat\Test\Attributes\TestRule;
 use PHPat\Test\Builder\Rule;
 use PHPat\Test\PHPat;
 use Serafim\Vulkan\Handle\Handle;
+use Serafim\Vulkan\Internal\HandleLifetime;
 use Serafim\Vulkan\VulkanBase;
 
 /**
@@ -25,6 +26,7 @@ final class HandleArchitecture
             ->classes(
                 Selector::classname(Handle::class),
                 Selector::classname(VulkanBase::class),
+                Selector::classname(HandleLifetime::class),
             );
     }
 

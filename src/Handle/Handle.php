@@ -39,7 +39,7 @@ abstract readonly class Handle
         $this->lifetime = new HandleLifetime();
 
         if ($parent !== null) {
-            $parent->lifetime->children[$this] = true;
+            $parent->lifetime->adopt($this);
         }
     }
 
@@ -61,13 +61,7 @@ abstract readonly class Handle
 
         $this->lifetime->isReleased = true;
 
-        $children = [];
-
-        foreach ($this->lifetime->children as $child => $_) {
-            $children[] = $child;
-        }
-
-        foreach (\array_reverse($children) as $child) {
+        foreach (\array_reverse($this->lifetime->getChildren()) as $child) {
             $child->destroy();
         }
 

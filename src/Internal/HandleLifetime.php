@@ -25,13 +25,31 @@ final class HandleLifetime
      *
      * @var \WeakMap<Handle, true>
      */
-    public readonly \WeakMap $children;
+    private \WeakMap $children;
 
     public function __construct()
     {
-        /** @var \WeakMap<Handle, true> $children */
-        $children = new \WeakMap();
+        $this->children = new \WeakMap();
+    }
 
-        $this->children = $children;
+    public function adopt(Handle $child): void
+    {
+        $this->children[$child] = true;
+    }
+
+    /**
+     * Returns the children in the order of the creation.
+     *
+     * @return list<Handle>
+     */
+    public function getChildren(): array
+    {
+        $children = [];
+
+        foreach ($this->children as $child => $_) {
+            $children[] = $child;
+        }
+
+        return $children;
     }
 }
