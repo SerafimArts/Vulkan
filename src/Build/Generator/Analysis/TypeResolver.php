@@ -109,10 +109,17 @@ final readonly class TypeResolver
     /**
      * Returns the PHPStan type of an integer of the C type, the range follows
      * its width. A 64-bit unsigned value is a plain `int` holding the bit
-     * pattern, the values from 2^63 are negative (`~0ULL` is `-1`).
+     * pattern, the values from 2^63 are negative (`~0ULL` is `-1`). The range
+     * of a bit-field follows the number of its bits.
+     *
+     * @param int<1, 64>|null $bits
      */
-    public function getIntegerRange(string $type): string
+    public function getIntegerRange(string $type, ?int $bits = null): string
     {
+        if ($bits !== null && $bits < 63) {
+            return 'int<0, ' . (2 ** $bits - 1) . '>';
+        }
+
         $type = $this->registry->findBitmaskType($type) ?? $type;
         $base = $this->registry->findBaseType($type);
 

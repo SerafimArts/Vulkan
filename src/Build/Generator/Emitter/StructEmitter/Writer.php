@@ -11,6 +11,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\StructPlan;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
+use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 
 /**
@@ -39,6 +40,10 @@ final readonly class Writer
         $field = $property->field->name;
         $value = '$this->' . $property->name;
         $type = $property->field->type;
+
+        if ($property->field->bitWord !== null) {
+            return [$this->createBitFieldLine($property->field, $value)];
+        }
 
         return match ($property->kind) {
             PropertyKind::INTEGER => $this->createIntegerLines($field, $value, $isLength),
@@ -69,12 +74,7 @@ final readonly class Writer
             PropertyKind::CALLBACK => $this->createCallbackLines($property),
             PropertyKind::TEXT => $this->createTextLines($namespace, $property, $structure),
             PropertyKind::BYTES => $this->createBytesLines($namespace, $property, $structure),
-            PropertyKind::NUMBER_LIST => $this->createListLines(
-                $namespace,
-                $property,
-                $structure,
-                ['$data->' . $field . '[$i] = $item;'],
-            ),
+            PropertyKind::NUMBER_LIST => $this->createNumberListLines($namespace, $property, $structure, $field),
             PropertyKind::ENUMERATION_LIST => $this->createListLines(
                 $namespace,
                 $property,
@@ -257,6 +257,45 @@ final readonly class Writer
             'foreach (' . $value . ' as $i => $item) {',
             ...\array_map(static fn(string $line): string => '    ' . $line, $body),
             '}',
+        ];
+    }
+
+    /**
+     * Puts a bit-field to the word of the native structure, the first
+     * bit-field of the word replaces the previous contents.
+     */
+    private function createBitFieldLine(FieldDefinition $field, string $value): string
+    {
+        $mask = \sprintf('0x%X', 2 ** ($field->bits ?? 1) - 1);
+        $word = '$data->' . $field->bitWord;
+
+        if ($field->bitOffset === 0) {
+            return $word . ' = ' . $value . ' & ' . $mask . ';';
+        }
+
+        return $word . ' |= (' . $value . ' & ' . $mask . ') << ' . $field->bitOffset . ';';
+    }
+
+    /**
+     * A multidimensional native array is written as a flat one.
+     *
+     * @return list<string>
+     */
+    private function createNumberListLines(
+        PhpNamespace $namespace,
+        PropertyPlan $property,
+        string $structure,
+        string $field,
+    ): array {
+        if (!$property->field->isMultidimensional) {
+            return $this->createListLines($namespace, $property, $structure, ['$data->' . $field . '[$i] = $item;']);
+        }
+
+        return [
+            '$flat = $memory->ffi->cast(\'' . $property->field->type . '[' . $property->arrayLength . ']\', $data->'
+                . $field . ');',
+            '',
+            ...$this->createListLines($namespace, $property, $structure, ['// @phpstan-ignore-next-line the flat view of the native array is a number list', '$flat[$i] = $item;']),
         ];
     }
 

@@ -57,23 +57,11 @@ final readonly class VkPhysicalDeviceRayTracingPropertiesNV extends OutputStruct
          * @var int<0, 4294967295>
          */
         public int $shaderGroupBaseAlignment,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxGeometryCount,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxInstanceCount,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxTriangleCount,
         /**
          * The value is at least the required one.

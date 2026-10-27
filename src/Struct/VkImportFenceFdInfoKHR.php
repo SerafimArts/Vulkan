@@ -31,7 +31,6 @@ final class VkImportFenceFdInfoKHR extends InputStructure
         public int $flags = 0,
         /** @var int<0, 4294967295>|(VkExternalFenceHandleTypeFlagBits::*) */
         public int $handleType = 0,
-        /** @var int */
         public int $fd = 0,
     ) {}
 

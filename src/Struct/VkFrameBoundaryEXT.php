@@ -34,7 +34,6 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkPresentInfoKHRExtension|VkBindSparseInfoExtension|null $next = null,
         /** @var int-mask-of<VkFrameBoundaryFlagBitsEXT::*> */
         public int $flags = 0,
-        /** @var int */
         public int $frameID = 0,
         /**
          * The number of the elements of `$images`, it follows the array
@@ -54,7 +53,6 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
         public int $bufferCount = 0,
         /** @var list<VkBuffer> */
         public array $buffers = [],
-        /** @var int */
         public int $tagName = 0,
         /**
          * The number of the elements of `$tag`, it follows the array when

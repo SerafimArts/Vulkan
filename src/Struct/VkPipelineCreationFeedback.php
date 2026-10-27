@@ -20,7 +20,6 @@ final readonly class VkPipelineCreationFeedback extends OutputStructure
     public function __construct(
         /** @var int-mask-of<VkPipelineCreationFeedbackFlagBits::*> */
         public int $flags,
-        /** @var int */
         public int $duration,
     ) {}
 

@@ -24,7 +24,6 @@ final class VkPartitionedAccelerationStructureUpdateInstanceDataNV extends Input
         public int $instanceIndex = 0,
         /** @var int<0, 4294967295> */
         public int $instanceContributionToHitGroupIndex = 0,
-        /** @var int */
         public int $accelerationStructure = 0,
     ) {}
 

@@ -20,33 +20,19 @@ final readonly class VkLatencyTimingsFrameReportNV extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_LATENCY_TIMINGS_FRAME_REPORT_NV->value;
 
     public function __construct(
-        /** @var int */
         public int $presentID,
-        /** @var int */
         public int $inputSampleTimeUs,
-        /** @var int */
         public int $simStartTimeUs,
-        /** @var int */
         public int $simEndTimeUs,
-        /** @var int */
         public int $renderSubmitStartTimeUs,
-        /** @var int */
         public int $renderSubmitEndTimeUs,
-        /** @var int */
         public int $presentStartTimeUs,
-        /** @var int */
         public int $presentEndTimeUs,
-        /** @var int */
         public int $driverStartTimeUs,
-        /** @var int */
         public int $driverEndTimeUs,
-        /** @var int */
         public int $osRenderQueueStartTimeUs,
-        /** @var int */
         public int $osRenderQueueEndTimeUs,
-        /** @var int */
         public int $gpuRenderStartTimeUs,
-        /** @var int */
         public int $gpuRenderEndTimeUs,
     ) {}
 

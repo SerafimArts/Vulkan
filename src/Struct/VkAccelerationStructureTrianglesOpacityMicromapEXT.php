@@ -30,7 +30,6 @@ final class VkAccelerationStructureTrianglesOpacityMicromapEXT extends InputStru
         public VkDeviceOrHostAddressConstKHR $indexBuffer,
         public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
         public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
-        /** @var int */
         public int $indexStride = 0,
         /** @var int<0, 4294967295> */
         public int $baseTriangle = 0,

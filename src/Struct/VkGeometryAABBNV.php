@@ -35,11 +35,7 @@ final class VkGeometryAABBNV extends InputStructure
          * @var int<0, 4294967295>
          */
         public int $stride = 0,
-        /**
-         * Offset in bytes of the first AABB in aabbData
-         *
-         * @var int
-         */
+        /** Offset in bytes of the first AABB in aabbData */
         public int $offset = 0,
     ) {}
 

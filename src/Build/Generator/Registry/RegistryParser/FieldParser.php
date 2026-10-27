@@ -56,7 +56,8 @@ final readonly class FieldParser
             }
         }
 
-        [$arraySize, $unsupported] = $this->parseArraySize(\trim($trailing));
+        [$arraySize, $bits, $unsupported] = $this->parseDeclarator(\trim($trailing));
+        $isMultidimensional = \preg_match('/^(?:\[\d+\]){2,}$/', \trim($trailing)) === 1;
         $declaration = $element->getAttribute('len');
 
         if (\str_starts_with($declaration, 'latexmath')) {
@@ -86,6 +87,8 @@ final readonly class FieldParser
             comment: $this->elements->createNullable($comment),
             limitType: $this->elements->createNullable($element->getAttribute('limittype')),
             lengthDivisor: $divisor,
+            bits: $bits,
+            isMultidimensional: $isMultidimensional,
         );
     }
 
@@ -106,20 +109,39 @@ final readonly class FieldParser
     }
 
     /**
-     * @return array{string|null, string|null} the size and the reason why
-     *         the declaration is not supported
+     * Parses what follows the name of the member: the size of the array or
+     * the width of the bit-field. The size of a multidimensional array is the
+     * product of its dimensions.
+     *
+     * @return array{string|null, int<1, 64>|null, string|null} the size, the
+     *         width of the bit-field and the reason why the declaration is not
+     *         supported
      */
-    private function parseArraySize(string $declaration): array
+    private function parseDeclarator(string $declaration): array
     {
         if ($declaration === '') {
-            return [null, null];
+            return [null, null, null];
+        }
+
+        if (\preg_match('/^:\s*(\d{1,2})$/', $declaration, $matches) === 1) {
+            $bits = (int) $matches[1];
+
+            if ($bits >= 1 && $bits <= 64) {
+                return [null, $bits, null];
+            }
         }
 
         if (\preg_match('/^\[([A-Za-z_0-9]+)\]$/', $declaration, $matches) === 1) {
-            return [$matches[1], null];
+            return [$matches[1], null, null];
         }
 
-        return [null, 'array dimensions or bit-field [' . $declaration . ']'];
+        if (\preg_match('/^(?:\[\d+\]){2,}$/', $declaration) === 1) {
+            \preg_match_all('/\d+/', $declaration, $dimensions);
+
+            return [(string) \array_product(\array_map(\intval(...), $dimensions[0])), null, null];
+        }
+
+        return [null, null, 'array dimensions or bit-field [' . $declaration . ']'];
     }
 
     /**

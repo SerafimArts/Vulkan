@@ -28,11 +28,8 @@ final class VkClusterAccelerationStructureCommandsInfoNV extends InputStructure
         public VkStridedDeviceAddressRegionKHR $dstAddressesArray,
         public VkStridedDeviceAddressRegionKHR $dstSizesArray,
         public VkStridedDeviceAddressRegionKHR $srcInfosArray,
-        /** @var int */
         public int $dstImplicitData = 0,
-        /** @var int */
         public int $scratchData = 0,
-        /** @var int */
         public int $srcInfosCount = 0,
         /** @var int-mask-of<VkClusterAccelerationStructureAddressResolutionFlagBitsNV::*> */
         public int $addressResolutionFlags = 0,

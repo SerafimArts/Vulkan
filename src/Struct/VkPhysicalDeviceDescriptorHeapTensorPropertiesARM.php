@@ -31,17 +31,11 @@ final readonly class VkPhysicalDeviceDescriptorHeapTensorPropertiesARM extends O
     }
 
     public function __construct(
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $tensorDescriptorSize,
         /**
          * The value is at least the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $tensorDescriptorAlignment,
         /** @var int<0, max> */

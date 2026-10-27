@@ -25,9 +25,7 @@ final class VkAmigoProfilingSubmitInfoSEC extends InputStructure implements VkSu
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,
-        /** @var int */
         public int $firstDrawTimestamp = 0,
-        /** @var int */
         public int $swapBufferTimestamp = 0,
     ) {}
 

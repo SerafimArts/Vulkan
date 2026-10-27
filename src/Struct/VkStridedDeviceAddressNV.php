@@ -20,13 +20,8 @@ final class VkStridedDeviceAddressNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkStridedDeviceAddressNV';
 
     public function __construct(
-        /** @var int */
         public int $startAddress = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $strideInBytes = 0,
     ) {}
 

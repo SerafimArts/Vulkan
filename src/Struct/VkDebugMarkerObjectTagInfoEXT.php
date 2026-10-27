@@ -26,17 +26,9 @@ final class VkDebugMarkerObjectTagInfoEXT extends InputStructure
     public function __construct(
         /** The type of the object */
         public VkDebugReportObjectTypeEXT $objectType = VkDebugReportObjectTypeEXT::VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT,
-        /**
-         * The handle of the object, cast to uint64_t
-         *
-         * @var int
-         */
+        /** The handle of the object, cast to uint64_t */
         public int $object = 0,
-        /**
-         * The name of the tag to set on the object
-         *
-         * @var int
-         */
+        /** The name of the tag to set on the object */
         public int $tagName = 0,
         /** Tag data to attach to the object */
         public string $tag = '',

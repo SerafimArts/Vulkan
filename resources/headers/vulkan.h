@@ -8166,18 +8166,7 @@ typedef enum StdVideoH264NonVclNaluType {
 } StdVideoH264NonVclNaluType;
 
 typedef struct StdVideoH264SpsVuiFlags {
-    uint32_t    aspect_ratio_info_present_flag : 1;
-    uint32_t    overscan_info_present_flag : 1;
-    uint32_t    overscan_appropriate_flag : 1;
-    uint32_t    video_signal_type_present_flag : 1;
-    uint32_t    video_full_range_flag : 1;
-    uint32_t    color_description_present_flag : 1;
-    uint32_t    chroma_loc_info_present_flag : 1;
-    uint32_t    timing_info_present_flag : 1;
-    uint32_t    fixed_frame_rate_flag : 1;
-    uint32_t    bitstream_restriction_flag : 1;
-    uint32_t    nal_hrd_parameters_present_flag : 1;
-    uint32_t    vcl_hrd_parameters_present_flag : 1;
+    uint32_t bits0;
 } StdVideoH264SpsVuiFlags;
 
 typedef struct StdVideoH264HrdParameters {
@@ -8214,22 +8203,7 @@ typedef struct StdVideoH264SequenceParameterSetVui {
 } StdVideoH264SequenceParameterSetVui;
 
 typedef struct StdVideoH264SpsFlags {
-    uint32_t    constraint_set0_flag : 1;
-    uint32_t    constraint_set1_flag : 1;
-    uint32_t    constraint_set2_flag : 1;
-    uint32_t    constraint_set3_flag : 1;
-    uint32_t    constraint_set4_flag : 1;
-    uint32_t    constraint_set5_flag : 1;
-    uint32_t    direct_8x8_inference_flag : 1;
-    uint32_t    mb_adaptive_frame_field_flag : 1;
-    uint32_t    frame_mbs_only_flag : 1;
-    uint32_t    delta_pic_order_always_zero_flag : 1;
-    uint32_t    separate_colour_plane_flag : 1;
-    uint32_t    gaps_in_frame_num_value_allowed_flag : 1;
-    uint32_t    qpprime_y_zero_transform_bypass_flag : 1;
-    uint32_t    frame_cropping_flag : 1;
-    uint32_t    seq_scaling_matrix_present_flag : 1;
-    uint32_t    vui_parameters_present_flag : 1;
+    uint32_t bits0;
 } StdVideoH264SpsFlags;
 
 typedef struct StdVideoH264ScalingLists {
@@ -8268,14 +8242,7 @@ typedef struct StdVideoH264SequenceParameterSet {
 } StdVideoH264SequenceParameterSet;
 
 typedef struct StdVideoH264PpsFlags {
-    uint32_t    transform_8x8_mode_flag : 1;
-    uint32_t    redundant_pic_cnt_present_flag : 1;
-    uint32_t    constrained_intra_pred_flag : 1;
-    uint32_t    deblocking_filter_control_present_flag : 1;
-    uint32_t    weighted_pred_flag : 1;
-    uint32_t    bottom_field_pic_order_in_frame_present_flag : 1;
-    uint32_t    entropy_coding_mode_flag : 1;
-    uint32_t    pic_scaling_matrix_present_flag : 1;
+    uint32_t bits0;
 } StdVideoH264PpsFlags;
 
 typedef struct StdVideoH264PictureParameterSet {
@@ -8316,29 +8283,19 @@ typedef struct StdVideoEncodeH264WeightTable {
 } StdVideoEncodeH264WeightTable;
 
 typedef struct StdVideoEncodeH264SliceHeaderFlags {
-    uint32_t    direct_spatial_mv_pred_flag : 1;
-    uint32_t    num_ref_idx_active_override_flag : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoEncodeH264SliceHeaderFlags;
 
 typedef struct StdVideoEncodeH264PictureInfoFlags {
-    uint32_t    IdrPicFlag : 1;
-    uint32_t    is_reference : 1;
-    uint32_t    no_output_of_prior_pics_flag : 1;
-    uint32_t    long_term_reference_flag : 1;
-    uint32_t    adaptive_ref_pic_marking_mode_flag : 1;
-    uint32_t    reserved : 27;
+    uint32_t bits0;
 } StdVideoEncodeH264PictureInfoFlags;
 
 typedef struct StdVideoEncodeH264ReferenceInfoFlags {
-    uint32_t    used_for_long_term_reference : 1;
-    uint32_t    reserved : 31;
+    uint32_t bits0;
 } StdVideoEncodeH264ReferenceInfoFlags;
 
 typedef struct StdVideoEncodeH264ReferenceListsInfoFlags {
-    uint32_t    ref_pic_list_modification_flag_l0 : 1;
-    uint32_t    ref_pic_list_modification_flag_l1 : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoEncodeH264ReferenceListsInfoFlags;
 
 typedef struct StdVideoEncodeH264RefListModEntry {
@@ -8697,13 +8654,7 @@ typedef struct StdVideoH265SubLayerHrdParameters {
 } StdVideoH265SubLayerHrdParameters;
 
 typedef struct StdVideoH265HrdFlags {
-    uint32_t    nal_hrd_parameters_present_flag : 1;
-    uint32_t    vcl_hrd_parameters_present_flag : 1;
-    uint32_t    sub_pic_hrd_params_present_flag : 1;
-    uint32_t    sub_pic_cpb_params_in_pic_timing_sei_flag : 1;
-    uint32_t    fixed_pic_rate_general_flag : 8;
-    uint32_t    fixed_pic_rate_within_cvs_flag : 8;
-    uint32_t    low_delay_hrd_flag : 8;
+    uint32_t bits0;
 } StdVideoH265HrdFlags;
 
 typedef struct StdVideoH265HrdParameters {
@@ -8725,18 +8676,11 @@ typedef struct StdVideoH265HrdParameters {
 } StdVideoH265HrdParameters;
 
 typedef struct StdVideoH265VpsFlags {
-    uint32_t    vps_temporal_id_nesting_flag : 1;
-    uint32_t    vps_sub_layer_ordering_info_present_flag : 1;
-    uint32_t    vps_timing_info_present_flag : 1;
-    uint32_t    vps_poc_proportional_to_timing_flag : 1;
+    uint32_t bits0;
 } StdVideoH265VpsFlags;
 
 typedef struct StdVideoH265ProfileTierLevelFlags {
-    uint32_t    general_tier_flag : 1;
-    uint32_t    general_progressive_source_flag : 1;
-    uint32_t    general_interlaced_source_flag : 1;
-    uint32_t    general_non_packed_constraint_flag : 1;
-    uint32_t    general_frame_only_constraint_flag : 1;
+    uint32_t bits0;
 } StdVideoH265ProfileTierLevelFlags;
 
 typedef struct StdVideoH265ProfileTierLevel {
@@ -8770,24 +8714,7 @@ typedef struct StdVideoH265ScalingLists {
 } StdVideoH265ScalingLists;
 
 typedef struct StdVideoH265SpsVuiFlags {
-    uint32_t    aspect_ratio_info_present_flag : 1;
-    uint32_t    overscan_info_present_flag : 1;
-    uint32_t    overscan_appropriate_flag : 1;
-    uint32_t    video_signal_type_present_flag : 1;
-    uint32_t    video_full_range_flag : 1;
-    uint32_t    colour_description_present_flag : 1;
-    uint32_t    chroma_loc_info_present_flag : 1;
-    uint32_t    neutral_chroma_indication_flag : 1;
-    uint32_t    field_seq_flag : 1;
-    uint32_t    frame_field_info_present_flag : 1;
-    uint32_t    default_display_window_flag : 1;
-    uint32_t    vui_timing_info_present_flag : 1;
-    uint32_t    vui_poc_proportional_to_timing_flag : 1;
-    uint32_t    vui_hrd_parameters_present_flag : 1;
-    uint32_t    bitstream_restriction_flag : 1;
-    uint32_t    tiles_fixed_structure_flag : 1;
-    uint32_t    motion_vectors_over_pic_boundaries_flag : 1;
-    uint32_t    restricted_ref_pic_lists_flag : 1;
+    uint32_t bits0;
 } StdVideoH265SpsVuiFlags;
 
 typedef struct StdVideoH265SequenceParameterSetVui {
@@ -8824,41 +8751,11 @@ typedef struct StdVideoH265PredictorPaletteEntries {
 } StdVideoH265PredictorPaletteEntries;
 
 typedef struct StdVideoH265SpsFlags {
-    uint32_t    sps_temporal_id_nesting_flag : 1;
-    uint32_t    separate_colour_plane_flag : 1;
-    uint32_t    conformance_window_flag : 1;
-    uint32_t    sps_sub_layer_ordering_info_present_flag : 1;
-    uint32_t    scaling_list_enabled_flag : 1;
-    uint32_t    sps_scaling_list_data_present_flag : 1;
-    uint32_t    amp_enabled_flag : 1;
-    uint32_t    sample_adaptive_offset_enabled_flag : 1;
-    uint32_t    pcm_enabled_flag : 1;
-    uint32_t    pcm_loop_filter_disabled_flag : 1;
-    uint32_t    long_term_ref_pics_present_flag : 1;
-    uint32_t    sps_temporal_mvp_enabled_flag : 1;
-    uint32_t    strong_intra_smoothing_enabled_flag : 1;
-    uint32_t    vui_parameters_present_flag : 1;
-    uint32_t    sps_extension_present_flag : 1;
-    uint32_t    sps_range_extension_flag : 1;
-    uint32_t    transform_skip_rotation_enabled_flag : 1;
-    uint32_t    transform_skip_context_enabled_flag : 1;
-    uint32_t    implicit_rdpcm_enabled_flag : 1;
-    uint32_t    explicit_rdpcm_enabled_flag : 1;
-    uint32_t    extended_precision_processing_flag : 1;
-    uint32_t    intra_smoothing_disabled_flag : 1;
-    uint32_t    high_precision_offsets_enabled_flag : 1;
-    uint32_t    persistent_rice_adaptation_enabled_flag : 1;
-    uint32_t    cabac_bypass_alignment_enabled_flag : 1;
-    uint32_t    sps_scc_extension_flag : 1;
-    uint32_t    sps_curr_pic_ref_enabled_flag : 1;
-    uint32_t    palette_mode_enabled_flag : 1;
-    uint32_t    sps_palette_predictor_initializers_present_flag : 1;
-    uint32_t    intra_boundary_filtering_disabled_flag : 1;
+    uint32_t bits0;
 } StdVideoH265SpsFlags;
 
 typedef struct StdVideoH265ShortTermRefPicSetFlags {
-    uint32_t    inter_ref_pic_set_prediction_flag : 1;
-    uint32_t    delta_rps_sign : 1;
+    uint32_t bits0;
 } StdVideoH265ShortTermRefPicSetFlags;
 
 typedef struct StdVideoH265ShortTermRefPicSet {
@@ -8926,37 +8823,7 @@ typedef struct StdVideoH265SequenceParameterSet {
 } StdVideoH265SequenceParameterSet;
 
 typedef struct StdVideoH265PpsFlags {
-    uint32_t    dependent_slice_segments_enabled_flag : 1;
-    uint32_t    output_flag_present_flag : 1;
-    uint32_t    sign_data_hiding_enabled_flag : 1;
-    uint32_t    cabac_init_present_flag : 1;
-    uint32_t    constrained_intra_pred_flag : 1;
-    uint32_t    transform_skip_enabled_flag : 1;
-    uint32_t    cu_qp_delta_enabled_flag : 1;
-    uint32_t    pps_slice_chroma_qp_offsets_present_flag : 1;
-    uint32_t    weighted_pred_flag : 1;
-    uint32_t    weighted_bipred_flag : 1;
-    uint32_t    transquant_bypass_enabled_flag : 1;
-    uint32_t    tiles_enabled_flag : 1;
-    uint32_t    entropy_coding_sync_enabled_flag : 1;
-    uint32_t    uniform_spacing_flag : 1;
-    uint32_t    loop_filter_across_tiles_enabled_flag : 1;
-    uint32_t    pps_loop_filter_across_slices_enabled_flag : 1;
-    uint32_t    deblocking_filter_control_present_flag : 1;
-    uint32_t    deblocking_filter_override_enabled_flag : 1;
-    uint32_t    pps_deblocking_filter_disabled_flag : 1;
-    uint32_t    pps_scaling_list_data_present_flag : 1;
-    uint32_t    lists_modification_present_flag : 1;
-    uint32_t    slice_segment_header_extension_present_flag : 1;
-    uint32_t    pps_extension_present_flag : 1;
-    uint32_t    cross_component_prediction_enabled_flag : 1;
-    uint32_t    chroma_qp_offset_list_enabled_flag : 1;
-    uint32_t    pps_curr_pic_ref_enabled_flag : 1;
-    uint32_t    residual_adaptive_colour_transform_enabled_flag : 1;
-    uint32_t    pps_slice_act_qp_offsets_present_flag : 1;
-    uint32_t    pps_palette_predictor_initializers_present_flag : 1;
-    uint32_t    monochrome_palette_flag : 1;
-    uint32_t    pps_range_extension_flag : 1;
+    uint32_t bits0;
 } StdVideoH265PpsFlags;
 
 typedef struct StdVideoH265PictureParameterSet {
@@ -9022,19 +8889,7 @@ typedef struct StdVideoEncodeH265WeightTable {
 } StdVideoEncodeH265WeightTable;
 
 typedef struct StdVideoEncodeH265SliceSegmentHeaderFlags {
-    uint32_t    first_slice_segment_in_pic_flag : 1;
-    uint32_t    dependent_slice_segment_flag : 1;
-    uint32_t    slice_sao_luma_flag : 1;
-    uint32_t    slice_sao_chroma_flag : 1;
-    uint32_t    num_ref_idx_active_override_flag : 1;
-    uint32_t    mvd_l1_zero_flag : 1;
-    uint32_t    cabac_init_flag : 1;
-    uint32_t    cu_chroma_qp_offset_enabled_flag : 1;
-    uint32_t    deblocking_filter_override_flag : 1;
-    uint32_t    slice_deblocking_filter_disabled_flag : 1;
-    uint32_t    collocated_from_l0_flag : 1;
-    uint32_t    slice_loop_filter_across_slices_enabled_flag : 1;
-    uint32_t    reserved : 20;
+    uint32_t bits0;
 } StdVideoEncodeH265SliceSegmentHeaderFlags;
 
 typedef struct StdVideoEncodeH265SliceSegmentHeader {
@@ -9056,9 +8911,7 @@ typedef struct StdVideoEncodeH265SliceSegmentHeader {
 } StdVideoEncodeH265SliceSegmentHeader;
 
 typedef struct StdVideoEncodeH265ReferenceListsInfoFlags {
-    uint32_t    ref_pic_list_modification_flag_l0 : 1;
-    uint32_t    ref_pic_list_modification_flag_l1 : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoEncodeH265ReferenceListsInfoFlags;
 
 typedef struct StdVideoEncodeH265ReferenceListsInfo {
@@ -9072,16 +8925,7 @@ typedef struct StdVideoEncodeH265ReferenceListsInfo {
 } StdVideoEncodeH265ReferenceListsInfo;
 
 typedef struct StdVideoEncodeH265PictureInfoFlags {
-    uint32_t    is_reference : 1;
-    uint32_t    IrapPicFlag : 1;
-    uint32_t    used_for_long_term_reference : 1;
-    uint32_t    discardable_flag : 1;
-    uint32_t    cross_layer_bla_flag : 1;
-    uint32_t    pic_output_flag : 1;
-    uint32_t    no_output_of_prior_pics_flag : 1;
-    uint32_t    short_term_ref_pic_set_sps_flag : 1;
-    uint32_t    slice_temporal_mvp_enabled_flag : 1;
-    uint32_t    reserved : 23;
+    uint32_t bits0;
 } StdVideoEncodeH265PictureInfoFlags;
 
 typedef struct StdVideoEncodeH265LongTermRefPics {
@@ -9110,9 +8954,7 @@ typedef struct StdVideoEncodeH265PictureInfo {
 } StdVideoEncodeH265PictureInfo;
 
 typedef struct StdVideoEncodeH265ReferenceInfoFlags {
-    uint32_t    used_for_long_term_reference : 1;
-    uint32_t    unused_for_reference : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoEncodeH265ReferenceInfoFlags;
 
 typedef struct StdVideoEncodeH265ReferenceInfo {
@@ -9355,12 +9197,7 @@ typedef enum StdVideoDecodeH264FieldOrderCount {
 } StdVideoDecodeH264FieldOrderCount;
 
 typedef struct StdVideoDecodeH264PictureInfoFlags {
-    uint32_t    field_pic_flag : 1;
-    uint32_t    is_intra : 1;
-    uint32_t    IdrPicFlag : 1;
-    uint32_t    bottom_field_flag : 1;
-    uint32_t    is_reference : 1;
-    uint32_t    complementary_field_pair : 1;
+    uint32_t bits0;
 } StdVideoDecodeH264PictureInfoFlags;
 
 typedef struct StdVideoDecodeH264PictureInfo {
@@ -9375,10 +9212,7 @@ typedef struct StdVideoDecodeH264PictureInfo {
 } StdVideoDecodeH264PictureInfo;
 
 typedef struct StdVideoDecodeH264ReferenceInfoFlags {
-    uint32_t    top_field_flag : 1;
-    uint32_t    bottom_field_flag : 1;
-    uint32_t    used_for_long_term_reference : 1;
-    uint32_t    is_non_existing : 1;
+    uint32_t bits0;
 } StdVideoDecodeH264ReferenceInfoFlags;
 
 typedef struct StdVideoDecodeH264ReferenceInfo {
@@ -10111,10 +9945,7 @@ typedef struct VkPhysicalDeviceShaderClockFeaturesKHR {
  
 
 typedef struct StdVideoDecodeH265PictureInfoFlags {
-    uint32_t    IrapPicFlag : 1;
-    uint32_t    IdrPicFlag  : 1;
-    uint32_t    IsReference : 1;
-    uint32_t    short_term_ref_pic_set_sps_flag : 1;
+    uint32_t bits0;
 } StdVideoDecodeH265PictureInfoFlags;
 
 typedef struct StdVideoDecodeH265PictureInfo {
@@ -10132,8 +9963,7 @@ typedef struct StdVideoDecodeH265PictureInfo {
 } StdVideoDecodeH265PictureInfo;
 
 typedef struct StdVideoDecodeH265ReferenceInfoFlags {
-    uint32_t    used_for_long_term_reference : 1;
-    uint32_t    unused_for_reference : 1;
+    uint32_t bits0;
 } StdVideoDecodeH265ReferenceInfoFlags;
 
 typedef struct StdVideoDecodeH265ReferenceInfo {
@@ -11675,11 +11505,7 @@ typedef enum StdVideoAV1ChromaSamplePosition {
 } StdVideoAV1ChromaSamplePosition;
 
 typedef struct StdVideoAV1ColorConfigFlags {
-    uint32_t    mono_chrome : 1;
-    uint32_t    color_range : 1;
-    uint32_t    separate_uv_delta_q : 1;
-    uint32_t    color_description_present_flag : 1;
-    uint32_t    reserved : 28;
+    uint32_t bits0;
 } StdVideoAV1ColorConfigFlags;
 
 typedef struct StdVideoAV1ColorConfig {
@@ -11695,8 +11521,7 @@ typedef struct StdVideoAV1ColorConfig {
 } StdVideoAV1ColorConfig;
 
 typedef struct StdVideoAV1TimingInfoFlags {
-    uint32_t    equal_picture_interval : 1;
-    uint32_t    reserved : 31;
+    uint32_t bits0;
 } StdVideoAV1TimingInfoFlags;
 
 typedef struct StdVideoAV1TimingInfo {
@@ -11707,9 +11532,7 @@ typedef struct StdVideoAV1TimingInfo {
 } StdVideoAV1TimingInfo;
 
 typedef struct StdVideoAV1LoopFilterFlags {
-    uint32_t    loop_filter_delta_enabled : 1;
-    uint32_t    loop_filter_delta_update : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoAV1LoopFilterFlags;
 
 typedef struct StdVideoAV1LoopFilter {
@@ -11723,9 +11546,7 @@ typedef struct StdVideoAV1LoopFilter {
 } StdVideoAV1LoopFilter;
 
 typedef struct StdVideoAV1QuantizationFlags {
-    uint32_t    using_qmatrix : 1;
-    uint32_t    diff_uv_delta : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoAV1QuantizationFlags;
 
 typedef struct StdVideoAV1Quantization {
@@ -11747,8 +11568,7 @@ typedef struct StdVideoAV1Segmentation {
 } StdVideoAV1Segmentation;
 
 typedef struct StdVideoAV1TileInfoFlags {
-    uint32_t    uniform_tile_spacing_flag : 1;
-    uint32_t    reserved : 31;
+    uint32_t bits0;
 } StdVideoAV1TileInfoFlags;
 
 typedef struct StdVideoAV1TileInfo {
@@ -11784,11 +11604,7 @@ typedef struct StdVideoAV1GlobalMotion {
 } StdVideoAV1GlobalMotion;
 
 typedef struct StdVideoAV1FilmGrainFlags {
-    uint32_t    chroma_scaling_from_luma : 1;
-    uint32_t    overlap_flag : 1;
-    uint32_t    clip_to_restricted_range : 1;
-    uint32_t    update_grain : 1;
-    uint32_t    reserved : 28;
+    uint32_t bits0;
 } StdVideoAV1FilmGrainFlags;
 
 typedef struct StdVideoAV1FilmGrain {
@@ -11820,26 +11636,7 @@ typedef struct StdVideoAV1FilmGrain {
 } StdVideoAV1FilmGrain;
 
 typedef struct StdVideoAV1SequenceHeaderFlags {
-    uint32_t    still_picture : 1;
-    uint32_t    reduced_still_picture_header : 1;
-    uint32_t    use_128x128_superblock : 1;
-    uint32_t    enable_filter_intra : 1;
-    uint32_t    enable_intra_edge_filter : 1;
-    uint32_t    enable_interintra_compound : 1;
-    uint32_t    enable_masked_compound : 1;
-    uint32_t    enable_warped_motion : 1;
-    uint32_t    enable_dual_filter : 1;
-    uint32_t    enable_order_hint : 1;
-    uint32_t    enable_jnt_comp : 1;
-    uint32_t    enable_ref_frame_mvs : 1;
-    uint32_t    frame_id_numbers_present_flag : 1;
-    uint32_t    enable_superres : 1;
-    uint32_t    enable_cdef : 1;
-    uint32_t    enable_restoration : 1;
-    uint32_t    film_grain_params_present : 1;
-    uint32_t    timing_info_present_flag : 1;
-    uint32_t    initial_display_delay_present_flag : 1;
-    uint32_t    reserved : 13;
+    uint32_t bits0;
 } StdVideoAV1SequenceHeaderFlags;
 
 typedef struct StdVideoAV1SequenceHeader {
@@ -11862,36 +11659,7 @@ typedef struct StdVideoAV1SequenceHeader {
 
 
 typedef struct StdVideoDecodeAV1PictureInfoFlags {
-    uint32_t    error_resilient_mode : 1;
-    uint32_t    disable_cdf_update : 1;
-    uint32_t    use_superres : 1;
-    uint32_t    render_and_frame_size_different : 1;
-    uint32_t    allow_screen_content_tools : 1;
-    uint32_t    is_filter_switchable : 1;
-    uint32_t    force_integer_mv : 1;
-    uint32_t    frame_size_override_flag : 1;
-    uint32_t    buffer_removal_time_present_flag : 1;
-    uint32_t    allow_intrabc : 1;
-    uint32_t    frame_refs_short_signaling : 1;
-    uint32_t    allow_high_precision_mv : 1;
-    uint32_t    is_motion_mode_switchable : 1;
-    uint32_t    use_ref_frame_mvs : 1;
-    uint32_t    disable_frame_end_update_cdf : 1;
-    uint32_t    allow_warped_motion : 1;
-    uint32_t    reduced_tx_set : 1;
-    uint32_t    reference_select : 1;
-    uint32_t    skip_mode_present : 1;
-    uint32_t    delta_q_present : 1;
-    uint32_t    delta_lf_present : 1;
-    uint32_t    delta_lf_multi : 1;
-    uint32_t    segmentation_enabled : 1;
-    uint32_t    segmentation_update_map : 1;
-    uint32_t    segmentation_temporal_update : 1;
-    uint32_t    segmentation_update_data : 1;
-    uint32_t    UsesLr : 1;
-    uint32_t    usesChromaLr : 1;
-    uint32_t    apply_grain : 1;
-    uint32_t    reserved : 3;
+    uint32_t bits0;
 } StdVideoDecodeAV1PictureInfoFlags;
 
 typedef struct StdVideoDecodeAV1PictureInfo {
@@ -11922,9 +11690,7 @@ typedef struct StdVideoDecodeAV1PictureInfo {
 } StdVideoDecodeAV1PictureInfo;
 
 typedef struct StdVideoDecodeAV1ReferenceInfoFlags {
-    uint32_t    disable_frame_end_update_cdf : 1;
-    uint32_t    segmentation_enabled : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoDecodeAV1ReferenceInfoFlags;
 
 typedef struct StdVideoDecodeAV1ReferenceInfo {
@@ -11991,10 +11757,7 @@ typedef struct StdVideoEncodeAV1ExtensionHeader {
 } StdVideoEncodeAV1ExtensionHeader;
 
 typedef struct StdVideoEncodeAV1OperatingPointInfoFlags {
-    uint32_t    decoder_model_present_for_this_op : 1;
-    uint32_t    low_delay_mode_flag : 1;
-    uint32_t    initial_display_delay_present_for_this_op : 1;
-    uint32_t    reserved : 29;
+    uint32_t bits0;
 } StdVideoEncodeAV1OperatingPointInfoFlags;
 
 typedef struct StdVideoEncodeAV1OperatingPointInfo {
@@ -12008,36 +11771,7 @@ typedef struct StdVideoEncodeAV1OperatingPointInfo {
 } StdVideoEncodeAV1OperatingPointInfo;
 
 typedef struct StdVideoEncodeAV1PictureInfoFlags {
-    uint32_t    error_resilient_mode : 1;
-    uint32_t    disable_cdf_update : 1;
-    uint32_t    use_superres : 1;
-    uint32_t    render_and_frame_size_different : 1;
-    uint32_t    allow_screen_content_tools : 1;
-    uint32_t    is_filter_switchable : 1;
-    uint32_t    force_integer_mv : 1;
-    uint32_t    frame_size_override_flag : 1;
-    uint32_t    buffer_removal_time_present_flag : 1;
-    uint32_t    allow_intrabc : 1;
-    uint32_t    frame_refs_short_signaling : 1;
-    uint32_t    allow_high_precision_mv : 1;
-    uint32_t    is_motion_mode_switchable : 1;
-    uint32_t    use_ref_frame_mvs : 1;
-    uint32_t    disable_frame_end_update_cdf : 1;
-    uint32_t    allow_warped_motion : 1;
-    uint32_t    reduced_tx_set : 1;
-    uint32_t    skip_mode_present : 1;
-    uint32_t    delta_q_present : 1;
-    uint32_t    delta_lf_present : 1;
-    uint32_t    delta_lf_multi : 1;
-    uint32_t    segmentation_enabled : 1;
-    uint32_t    segmentation_update_map : 1;
-    uint32_t    segmentation_temporal_update : 1;
-    uint32_t    segmentation_update_data : 1;
-    uint32_t    UsesLr : 1;
-    uint32_t    usesChromaLr : 1;
-    uint32_t    show_frame : 1;
-    uint32_t    showable_frame : 1;
-    uint32_t    reserved : 3;
+    uint32_t bits0;
 } StdVideoEncodeAV1PictureInfoFlags;
 
 typedef struct StdVideoEncodeAV1PictureInfo {
@@ -12071,9 +11805,7 @@ typedef struct StdVideoEncodeAV1PictureInfo {
 } StdVideoEncodeAV1PictureInfo;
 
 typedef struct StdVideoEncodeAV1ReferenceInfoFlags {
-    uint32_t    disable_frame_end_update_cdf : 1;
-    uint32_t    segmentation_enabled : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoEncodeAV1ReferenceInfoFlags;
 
 typedef struct StdVideoEncodeAV1ReferenceInfo {
@@ -12347,8 +12079,7 @@ typedef enum StdVideoVP9ColorSpace {
 } StdVideoVP9ColorSpace;
 
 typedef struct StdVideoVP9ColorConfigFlags {
-    uint32_t    color_range : 1;
-    uint32_t    reserved : 31;
+    uint32_t bits0;
 } StdVideoVP9ColorConfigFlags;
 
 typedef struct StdVideoVP9ColorConfig {
@@ -12361,9 +12092,7 @@ typedef struct StdVideoVP9ColorConfig {
 } StdVideoVP9ColorConfig;
 
 typedef struct StdVideoVP9LoopFilterFlags {
-    uint32_t    loop_filter_delta_enabled : 1;
-    uint32_t    loop_filter_delta_update : 1;
-    uint32_t    reserved : 30;
+    uint32_t bits0;
 } StdVideoVP9LoopFilterFlags;
 
 typedef struct StdVideoVP9LoopFilter {
@@ -12377,11 +12106,7 @@ typedef struct StdVideoVP9LoopFilter {
 } StdVideoVP9LoopFilter;
 
 typedef struct StdVideoVP9SegmentationFlags {
-    uint32_t    segmentation_update_map : 1;
-    uint32_t    segmentation_temporal_update : 1;
-    uint32_t    segmentation_update_data : 1;
-    uint32_t    segmentation_abs_or_delta_update : 1;
-    uint32_t    reserved : 28;
+    uint32_t bits0;
 } StdVideoVP9SegmentationFlags;
 
 typedef struct StdVideoVP9Segmentation {
@@ -12395,15 +12120,7 @@ typedef struct StdVideoVP9Segmentation {
 
 
 typedef struct StdVideoDecodeVP9PictureInfoFlags {
-    uint32_t    error_resilient_mode : 1;
-    uint32_t    intra_only : 1;
-    uint32_t    allow_high_precision_mv : 1;
-    uint32_t    refresh_frame_context : 1;
-    uint32_t    frame_parallel_decoding_mode : 1;
-    uint32_t    segmentation_enabled : 1;
-    uint32_t    show_frame : 1;
-    uint32_t    UsePrevFrameMvs : 1;
-    uint32_t    reserved : 24;
+    uint32_t bits0;
 } StdVideoDecodeVP9PictureInfoFlags;
 
 typedef struct StdVideoDecodeVP9PictureInfo {
@@ -15321,10 +15038,8 @@ typedef VkAabbPositionsKHR VkAabbPositionsNV;
 
 typedef struct VkAccelerationStructureInstanceKHR {
     VkTransformMatrixKHR          transform;
-    uint32_t                      instanceCustomIndex:24;
-    uint32_t                      mask:8;
-    uint32_t                      instanceShaderBindingTableRecordOffset:24;
-    VkGeometryInstanceFlagsKHR    flags:8;
+    uint32_t bits0;
+    uint32_t bits1;
     uint64_t                      accelerationStructureReference;
 } VkAccelerationStructureInstanceKHR;
 
@@ -17216,10 +16931,8 @@ typedef struct VkAccelerationStructureMotionInfoNV {
 typedef struct VkAccelerationStructureMatrixMotionInstanceNV {
     VkTransformMatrixKHR          transformT0;
     VkTransformMatrixKHR          transformT1;
-    uint32_t                      instanceCustomIndex:24;
-    uint32_t                      mask:8;
-    uint32_t                      instanceShaderBindingTableRecordOffset:24;
-    VkGeometryInstanceFlagsKHR    flags:8;
+    uint32_t bits0;
+    uint32_t bits1;
     uint64_t                      accelerationStructureReference;
 } VkAccelerationStructureMatrixMotionInstanceNV;
 
@@ -17245,10 +16958,8 @@ typedef struct VkSRTDataNV {
 typedef struct VkAccelerationStructureSRTMotionInstanceNV {
     VkSRTDataNV                   transformT0;
     VkSRTDataNV                   transformT1;
-    uint32_t                      instanceCustomIndex:24;
-    uint32_t                      mask:8;
-    uint32_t                      instanceShaderBindingTableRecordOffset:24;
-    VkGeometryInstanceFlagsKHR    flags:8;
+    uint32_t bits0;
+    uint32_t bits1;
     uint64_t                      accelerationStructureReference;
 } VkAccelerationStructureSRTMotionInstanceNV;
 
@@ -20330,9 +20041,7 @@ typedef struct VkStridedDeviceAddressNV {
 } VkStridedDeviceAddressNV;
 
 typedef struct VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV {
-    uint32_t    geometryIndex:24;
-    uint32_t    reserved:5;
-    uint32_t    geometryFlags:3;
+    uint32_t bits0;
 } VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV;
 
 typedef struct VkClusterAccelerationStructureMoveObjectsInfoNV {
@@ -20348,11 +20057,7 @@ typedef struct VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV {
 typedef struct VkClusterAccelerationStructureBuildTriangleClusterInfoNV {
     uint32_t                                                         clusterID;
     VkClusterAccelerationStructureClusterFlagsNV                     clusterFlags;
-    uint32_t                                                         triangleCount:9;
-    uint32_t                                                         vertexCount:9;
-    uint32_t                                                         positionTruncateBitCount:6;
-    uint32_t                                                         indexType:4;
-    uint32_t                                                         opacityMicromapIndexType:4;
+    uint32_t bits0;
     VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV    baseGeometryIndexAndGeometryFlags;
     uint16_t                                                         indexBufferStride;
     uint16_t                                                         vertexBufferStride;
@@ -20368,11 +20073,7 @@ typedef struct VkClusterAccelerationStructureBuildTriangleClusterInfoNV {
 typedef struct VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV {
     uint32_t                                                         clusterID;
     VkClusterAccelerationStructureClusterFlagsNV                     clusterFlags;
-    uint32_t                                                         triangleCount:9;
-    uint32_t                                                         vertexCount:9;
-    uint32_t                                                         positionTruncateBitCount:6;
-    uint32_t                                                         indexType:4;
-    uint32_t                                                         opacityMicromapIndexType:4;
+    uint32_t bits0;
     VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV    baseGeometryIndexAndGeometryFlags;
     uint16_t                                                         indexBufferStride;
     uint16_t                                                         vertexBufferStride;
@@ -20388,8 +20089,7 @@ typedef struct VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV 
 
 typedef struct VkClusterAccelerationStructureInstantiateClusterInfoNV {
     uint32_t                    clusterIdOffset;
-    uint32_t                    geometryIndexOffset:24;
-    uint32_t                    reserved:8;
+    uint32_t bits0;
     VkDeviceAddress             clusterTemplateAddress;
     VkStridedDeviceAddressNV    vertexBuffer;
 } VkClusterAccelerationStructureInstantiateClusterInfoNV;

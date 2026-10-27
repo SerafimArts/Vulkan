@@ -25,7 +25,6 @@ final class VkDataGraphPipelineDispatchInfoARM extends InputStructure
 
     public function __construct(
         public ?VkDataGraphPipelineDispatchInfoARMExtension $next = null,
-        /** @var int */
         public int $flags = 0,
     ) {}
 

@@ -26,7 +26,6 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
     public function __construct(
         public VkPerformanceOverrideTypeINTEL $type = VkPerformanceOverrideTypeINTEL::VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL,
         public bool $enable = false,
-        /** @var int */
         public int $parameter = 0,
     ) {}
 

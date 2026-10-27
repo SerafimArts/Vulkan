@@ -29,7 +29,6 @@ final class VkImageFormatConstraintsInfoFUCHSIA extends InputStructure
         public int $requiredFormatFeatures = 0,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        /** @var int */
         public int $sysmemPixelFormat = 0,
         /** @var list<VkSysmemColorSpaceFUCHSIA> */
         public array $colorSpaces = [],

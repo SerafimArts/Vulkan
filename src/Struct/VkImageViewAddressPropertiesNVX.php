@@ -20,9 +20,7 @@ final readonly class VkImageViewAddressPropertiesNVX extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_ADDRESS_PROPERTIES_NVX->value;
 
     public function __construct(
-        /** @var int */
         public int $deviceAddress,
-        /** @var int */
         public int $size,
     ) {}
 

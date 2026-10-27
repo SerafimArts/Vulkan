@@ -22,24 +22,12 @@ final class VkSparseMemoryBind extends InputStructure
     protected const string NATIVE_TYPE = 'VkSparseMemoryBind';
 
     public function __construct(
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $resourceOffset = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $size = 0,
         public ?VkDeviceMemory $memory = null,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $memoryOffset = 0,
         /** @var int-mask-of<VkSparseMemoryBindFlagBits::*> */
         public int $flags = 0,

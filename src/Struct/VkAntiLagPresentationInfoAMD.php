@@ -25,7 +25,6 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
 
     public function __construct(
         public VkAntiLagStageAMD $stage = VkAntiLagStageAMD::VK_ANTI_LAG_STAGE_INPUT_AMD,
-        /** @var int */
         public int $frameIndex = 0,
     ) {}
 

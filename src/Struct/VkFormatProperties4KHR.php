@@ -31,11 +31,8 @@ final readonly class VkFormatProperties4KHR extends OutputStructure implements V
     }
 
     public function __construct(
-        /** @var int */
         public int $linearTilingFeatures,
-        /** @var int */
         public int $optimalTilingFeatures,
-        /** @var int */
         public int $bufferFeatures,
     ) {}
 

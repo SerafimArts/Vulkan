@@ -49,11 +49,7 @@ final readonly class VkPhysicalDeviceOpacityMicromapPropertiesKHR extends Output
          * @var int<0, 4294967295>
          */
         public int $maxOpacityLossy4StateSubdivisionLevel,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxMicromapTriangles,
     ) {}
 

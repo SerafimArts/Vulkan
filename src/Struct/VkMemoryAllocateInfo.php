@@ -25,11 +25,7 @@ final class VkMemoryAllocateInfo extends InputStructure
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
-        /**
-         * Size of memory allocation
-         *
-         * @var int
-         */
+        /** Size of memory allocation */
         public int $allocationSize = 0,
         /**
          * Index of the of the memory type to allocate from

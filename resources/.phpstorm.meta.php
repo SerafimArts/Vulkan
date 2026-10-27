@@ -275,6 +275,9 @@ namespace PHPSTORM_META {
         \Serafim\Vulkan\Enum\VkClusterAccelerationStructureAddressResolutionFlagBitsNV::VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_SRC_INFOS_ARRAY_BIT_NV,
         \Serafim\Vulkan\Enum\VkClusterAccelerationStructureAddressResolutionFlagBitsNV::VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_SRC_INFOS_COUNT_BIT_NV,
     );
+    registerArgumentsSet('VkClusterAccelerationStructureClusterFlagBitsNV',
+        \Serafim\Vulkan\Enum\VkClusterAccelerationStructureClusterFlagBitsNV::VK_CLUSTER_ACCELERATION_STRUCTURE_CLUSTER_ALLOW_DISABLE_OPACITY_MICROMAPS_NV,
+    );
     registerArgumentsSet('VkColorComponentFlagBits',
         \Serafim\Vulkan\Enum\VkColorComponentFlagBits::VK_COLOR_COMPONENT_R_BIT,
         \Serafim\Vulkan\Enum\VkColorComponentFlagBits::VK_COLOR_COMPONENT_G_BIT,
@@ -557,6 +560,23 @@ namespace PHPSTORM_META {
         \Serafim\Vulkan\Enum\VkGeometryFlagBitsKHR::VK_GEOMETRY_OPAQUE_BIT_NV,
         \Serafim\Vulkan\Enum\VkGeometryFlagBitsKHR::VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_NV,
     );
+    registerArgumentsSet('VkGeometryInstanceFlagBitsKHR',
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_TRIANGLE_FACING_CULL_DISABLE_BIT_KHR,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_TRIANGLE_FLIP_FACING_BIT_KHR,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_KHR,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_KHR,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_KHR,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_KHR,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_TRIANGLE_FRONT_COUNTERCLOCKWISE_BIT_KHR,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_TRIANGLE_CULL_DISABLE_BIT_NV,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_TRIANGLE_FRONT_COUNTERCLOCKWISE_BIT_NV,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_NV,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_NV,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_EXT,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT,
+        \Serafim\Vulkan\Enum\VkGeometryInstanceFlagBitsKHR::VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT,
+    );
     registerArgumentsSet('VkGpaSqShaderStageFlagBitsAMD',
         \Serafim\Vulkan\Enum\VkGpaSqShaderStageFlagBitsAMD::VK_GPA_SQ_SHADER_STAGE_PS_BIT_AMD,
         \Serafim\Vulkan\Enum\VkGpaSqShaderStageFlagBitsAMD::VK_GPA_SQ_SHADER_STAGE_VS_BIT_AMD,
@@ -783,6 +803,13 @@ namespace PHPSTORM_META {
         \Serafim\Vulkan\Enum\VkOpticalFlowUsageFlagBitsNV::VK_OPTICAL_FLOW_USAGE_HINT_BIT_NV,
         \Serafim\Vulkan\Enum\VkOpticalFlowUsageFlagBitsNV::VK_OPTICAL_FLOW_USAGE_COST_BIT_NV,
         \Serafim\Vulkan\Enum\VkOpticalFlowUsageFlagBitsNV::VK_OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV,
+    );
+    registerArgumentsSet('VkPartitionedAccelerationStructureInstanceFlagBitsNV',
+        \Serafim\Vulkan\Enum\VkPartitionedAccelerationStructureInstanceFlagBitsNV::VK_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCE_FLAG_TRIANGLE_FACING_CULL_DISABLE_BIT_NV,
+        \Serafim\Vulkan\Enum\VkPartitionedAccelerationStructureInstanceFlagBitsNV::VK_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCE_FLAG_TRIANGLE_FLIP_FACING_BIT_NV,
+        \Serafim\Vulkan\Enum\VkPartitionedAccelerationStructureInstanceFlagBitsNV::VK_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCE_FLAG_FORCE_OPAQUE_BIT_NV,
+        \Serafim\Vulkan\Enum\VkPartitionedAccelerationStructureInstanceFlagBitsNV::VK_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCE_FLAG_FORCE_NO_OPAQUE_BIT_NV,
+        \Serafim\Vulkan\Enum\VkPartitionedAccelerationStructureInstanceFlagBitsNV::VK_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCE_FLAG_ENABLE_EXPLICIT_BOUNDING_BOX_NV,
     );
     registerArgumentsSet('VkPastPresentationTimingFlagBitsEXT',
         \Serafim\Vulkan\Enum\VkPastPresentationTimingFlagBitsEXT::VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT,
@@ -1912,6 +1939,9 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkAccelerationStructureCreateInfoKHR::__construct(), 2, argumentsSet('VkAccelerationStructureCreateFlagBitsKHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkAccelerationStructureGeometryKHR::__construct(), 3, argumentsSet('VkGeometryFlagBitsKHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkAccelerationStructureInfoNV::__construct(), 1, argumentsSet('VkBuildAccelerationStructureFlagBitsKHR'));
+    expectedArguments(\Serafim\Vulkan\Struct\VkAccelerationStructureInstanceKHR::__construct(), 4, argumentsSet('VkGeometryInstanceFlagBitsKHR'));
+    expectedArguments(\Serafim\Vulkan\Struct\VkAccelerationStructureMatrixMotionInstanceNV::__construct(), 5, argumentsSet('VkGeometryInstanceFlagBitsKHR'));
+    expectedArguments(\Serafim\Vulkan\Struct\VkAccelerationStructureSRTMotionInstanceNV::__construct(), 5, argumentsSet('VkGeometryInstanceFlagBitsKHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkApplicationInfo::__construct(), 4, argumentsSet('VulkanApiVersions'));
     expectedArguments(\Serafim\Vulkan\Struct\VkAttachmentDescription::__construct(), 0, argumentsSet('VkAttachmentDescriptionFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkAttachmentDescription::__construct(), 2, argumentsSet('VkSampleCountFlagBits'));
@@ -1936,6 +1966,8 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkBufferMemoryBarrier2::__construct(), 5, argumentsSet('VkAccessFlagBits2'));
     expectedArguments(\Serafim\Vulkan\Struct\VkBufferUsageFlags2CreateInfo::__construct(), 1, argumentsSet('VkBufferUsageFlagBits2'));
     expectedArguments(\Serafim\Vulkan\Struct\VkClearAttachment::__construct(), 1, argumentsSet('VkImageAspectFlagBits'));
+    expectedArguments(\Serafim\Vulkan\Struct\VkClusterAccelerationStructureBuildTriangleClusterInfoNV::__construct(), 2, argumentsSet('VkClusterAccelerationStructureClusterFlagBitsNV'));
+    expectedArguments(\Serafim\Vulkan\Struct\VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV::__construct(), 2, argumentsSet('VkClusterAccelerationStructureClusterFlagBitsNV'));
     expectedArguments(\Serafim\Vulkan\Struct\VkClusterAccelerationStructureCommandsInfoNV::__construct(), 7, argumentsSet('VkClusterAccelerationStructureAddressResolutionFlagBitsNV'));
     expectedArguments(\Serafim\Vulkan\Struct\VkClusterAccelerationStructureInputInfoNV::__construct(), 2, argumentsSet('VkBuildAccelerationStructureFlagBitsKHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkCommandBufferBeginInfo::__construct(), 1, argumentsSet('VkCommandBufferUsageFlagBits'));
@@ -2097,6 +2129,7 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkOpticalFlowSessionCreateInfoNV::__construct(), 7, argumentsSet('VkOpticalFlowGridSizeFlagBitsNV'));
     expectedArguments(\Serafim\Vulkan\Struct\VkOpticalFlowSessionCreateInfoNV::__construct(), 9, argumentsSet('VkOpticalFlowSessionCreateFlagBitsNV'));
     expectedArguments(\Serafim\Vulkan\Struct\VkPartitionedAccelerationStructureInstancesInputNV::__construct(), 1, argumentsSet('VkBuildAccelerationStructureFlagBitsKHR'));
+    expectedArguments(\Serafim\Vulkan\Struct\VkPartitionedAccelerationStructureWriteInstanceDataNV::__construct(), 5, argumentsSet('VkPartitionedAccelerationStructureInstanceFlagBitsNV'));
     expectedArguments(\Serafim\Vulkan\Struct\VkPastPresentationTimingInfoEXT::__construct(), 1, argumentsSet('VkPastPresentationTimingFlagBitsEXT'));
     expectedArguments(\Serafim\Vulkan\Struct\VkPhysicalDeviceCooperativeMatrixInfo2EXT::__construct(), 3, argumentsSet('VkCooperativeMatrixFlagBitsEXT'));
     expectedArguments(\Serafim\Vulkan\Struct\VkPhysicalDeviceExternalBufferInfo::__construct(), 1, argumentsSet('VkBufferCreateFlagBits'));

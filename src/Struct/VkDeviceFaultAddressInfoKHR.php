@@ -20,9 +20,7 @@ final readonly class VkDeviceFaultAddressInfoKHR extends OutputStructure
 {
     public function __construct(
         public VkDeviceFaultAddressTypeKHR $addressType,
-        /** @var int */
         public int $reportedAddress,
-        /** @var int */
         public int $addressPrecision,
     ) {}
 

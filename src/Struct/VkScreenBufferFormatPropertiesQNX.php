@@ -38,9 +38,7 @@ final readonly class VkScreenBufferFormatPropertiesQNX extends OutputStructure i
 
     public function __construct(
         public VkFormat $format,
-        /** @var int */
         public int $externalFormat,
-        /** @var int */
         public int $screenUsage,
         /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
         public int $formatFeatures,

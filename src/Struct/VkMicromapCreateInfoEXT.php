@@ -29,16 +29,10 @@ final class VkMicromapCreateInfoEXT extends InputStructure
         public VkBuffer $buffer,
         /** @var int-mask-of<VkMicromapCreateFlagBitsEXT::*> */
         public int $createFlags = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $offset = 0,
-        /** @var int */
         public int $size = 0,
         public VkMicromapTypeEXT $type = VkMicromapTypeEXT::VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT,
-        /** @var int */
         public int $deviceAddress = 0,
     ) {}
 

@@ -18,9 +18,7 @@ final readonly class VkPipelineExecutableStatisticValueKHR extends OutputStructu
 {
     public function __construct(
         public bool $b32,
-        /** @var int */
         public int $i64,
-        /** @var int */
         public int $u64,
         public float $f64,
     ) {}

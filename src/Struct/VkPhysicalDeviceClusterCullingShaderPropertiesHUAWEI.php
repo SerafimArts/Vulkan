@@ -51,11 +51,7 @@ final readonly class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extend
          * @var int<0, 4294967295>
          */
         public int $maxOutputClusterCount,
-        /**
-         * The value is exactly the required one.
-         *
-         * @var int
-         */
+        /** The value is exactly the required one. */
         public int $indirectBufferOffsetAlignment,
     ) {}
 

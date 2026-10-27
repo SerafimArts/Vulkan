@@ -29,7 +29,6 @@ final class VkDebugUtilsObjectNameInfoEXT extends InputStructure implements VkPi
     public function __construct(
         public VkPipelineShaderStageCreateInfoExtension|VkResourceDescriptorInfoEXTExtension|VkSamplerCreateInfoExtension|null $next = null,
         public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
-        /** @var int */
         public int $objectHandle = 0,
         public ?string $objectName = null,
     ) {}

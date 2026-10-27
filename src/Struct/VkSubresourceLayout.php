@@ -20,35 +20,15 @@ final class VkSubresourceLayout extends InputStructure
     protected const string NATIVE_TYPE = 'VkSubresourceLayout';
 
     public function __construct(
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $offset = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $size = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $rowPitch = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $arrayPitch = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $depthPitch = 0,
     ) {}
 

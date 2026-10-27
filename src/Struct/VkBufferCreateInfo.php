@@ -34,11 +34,7 @@ final class VkBufferCreateInfo extends InputStructure
          * @var int-mask-of<VkBufferCreateFlagBits::*>
          */
         public int $flags = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $size = 0,
         /**
          * Buffer usage flags

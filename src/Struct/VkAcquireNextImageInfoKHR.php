@@ -27,7 +27,6 @@ final class VkAcquireNextImageInfoKHR extends InputStructure
 
     public function __construct(
         public VkSwapchainKHR $swapchain,
-        /** @var int */
         public int $timeout = 0,
         public ?VkSemaphore $semaphore = null,
         public ?VkFence $fence = null,

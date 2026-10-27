@@ -26,11 +26,7 @@ final class VkPresentTimeGOOGLE extends InputStructure
          * @var int<0, 4294967295>
          */
         public int $presentID = 0,
-        /**
-         * Earliest time an image should be presented
-         *
-         * @var int
-         */
+        /** Earliest time an image should be presented */
         public int $desiredPresentTime = 0,
     ) {}
 

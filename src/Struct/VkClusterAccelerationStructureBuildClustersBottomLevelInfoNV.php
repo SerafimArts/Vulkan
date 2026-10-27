@@ -24,7 +24,6 @@ final class VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV extends
         public int $clusterReferencesCount = 0,
         /** @var int<0, 4294967295> */
         public int $clusterReferencesStride = 0,
-        /** @var int */
         public int $clusterReferences = 0,
     ) {}
 

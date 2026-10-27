@@ -20,7 +20,6 @@ final class VkClusterAccelerationStructureGetTemplateIndicesInfoNV extends Input
     protected const string NATIVE_TYPE = 'VkClusterAccelerationStructureGetTemplateIndicesInfoNV';
 
     public function __construct(
-        /** @var int */
         public int $clusterTemplateAddress = 0,
     ) {}
 

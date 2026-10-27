@@ -20,11 +20,7 @@ final readonly class VkPresentStageTimeEXT extends OutputStructure
     public function __construct(
         /** @var int-mask-of<VkPresentStageFlagBitsEXT::*> */
         public int $stage,
-        /**
-         * Time in nanoseconds of the associated stage
-         *
-         * @var int
-         */
+        /** Time in nanoseconds of the associated stage */
         public int $time,
     ) {}
 

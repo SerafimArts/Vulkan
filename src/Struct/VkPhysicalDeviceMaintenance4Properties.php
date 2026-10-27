@@ -31,11 +31,7 @@ final readonly class VkPhysicalDeviceMaintenance4Properties extends OutputStruct
     }
 
     public function __construct(
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxBufferSize,
     ) {}
 

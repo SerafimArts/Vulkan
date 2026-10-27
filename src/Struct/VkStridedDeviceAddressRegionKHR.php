@@ -20,11 +20,8 @@ final class VkStridedDeviceAddressRegionKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkStridedDeviceAddressRegionKHR';
 
     public function __construct(
-        /** @var int */
         public int $deviceAddress = 0,
-        /** @var int */
         public int $stride = 0,
-        /** @var int */
         public int $size = 0,
     ) {}
 

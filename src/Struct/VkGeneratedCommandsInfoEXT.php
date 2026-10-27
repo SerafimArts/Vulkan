@@ -32,17 +32,12 @@ final class VkGeneratedCommandsInfoEXT extends InputStructure
         /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $shaderStages = 0,
         public ?VkIndirectExecutionSetEXT $indirectExecutionSet = null,
-        /** @var int */
         public int $indirectAddress = 0,
-        /** @var int */
         public int $indirectAddressSize = 0,
-        /** @var int */
         public int $preprocessAddress = 0,
-        /** @var int */
         public int $preprocessSize = 0,
         /** @var int<0, 4294967295> */
         public int $maxSequenceCount = 0,
-        /** @var int */
         public int $sequenceCountAddress = 0,
         /** @var int<0, 4294967295> */
         public int $maxDrawCount = 0,

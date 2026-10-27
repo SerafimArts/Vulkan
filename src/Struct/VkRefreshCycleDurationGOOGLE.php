@@ -20,8 +20,6 @@ final readonly class VkRefreshCycleDurationGOOGLE extends OutputStructure
         /**
          * Number of nanoseconds from the start of one refresh cycle to the
          * next
-         *
-         * @var int
          */
         public int $refreshDuration,
     ) {}

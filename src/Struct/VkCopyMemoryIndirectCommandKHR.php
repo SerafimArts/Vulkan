@@ -20,11 +20,8 @@ final class VkCopyMemoryIndirectCommandKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkCopyMemoryIndirectCommandKHR';
 
     public function __construct(
-        /** @var int */
         public int $srcAddress = 0,
-        /** @var int */
         public int $dstAddress = 0,
-        /** @var int */
         public int $size = 0,
     ) {}
 

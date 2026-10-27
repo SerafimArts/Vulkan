@@ -26,7 +26,6 @@ final class VkExternalFormatQNX extends InputStructure implements VkImageCreateI
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|null $next = null,
-        /** @var int */
         public int $externalFormat = 0,
     ) {}
 

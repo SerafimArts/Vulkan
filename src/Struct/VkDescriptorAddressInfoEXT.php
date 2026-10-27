@@ -27,9 +27,7 @@ final class VkDescriptorAddressInfoEXT extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_ADDRESS_INFO_EXT->value;
 
     public function __construct(
-        /** @var int */
         public int $address = 0,
-        /** @var int */
         public int $range = 0,
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}

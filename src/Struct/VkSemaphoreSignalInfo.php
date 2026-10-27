@@ -25,7 +25,6 @@ final class VkSemaphoreSignalInfo extends InputStructure
 
     public function __construct(
         public VkSemaphore $semaphore,
-        /** @var int */
         public int $value = 0,
     ) {}
 

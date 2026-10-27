@@ -66,5 +66,27 @@ final readonly class FieldDefinition
          * @var int<1, max>
          */
         public int $lengthDivisor = 1,
+        /**
+         * Width of the bit-field, {@see null} for an ordinary member
+         *
+         * @var int<1, 64>|null
+         */
+        public ?int $bits = null,
+        /**
+         * Whether the array has several dimensions, the size is their product
+         */
+        public bool $isMultidimensional = false,
+        /**
+         * Name of the word of the native structure the bit-field is packed to
+         *
+         * @var non-empty-string|null
+         */
+        public ?string $bitWord = null,
+        /**
+         * Offset of the lowest bit of the bit-field in the word
+         *
+         * @var int<0, max>
+         */
+        public int $bitOffset = 0,
     ) {}
 }

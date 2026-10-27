@@ -21,7 +21,6 @@ final class VkBindIndexBufferIndirectCommandNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindIndexBufferIndirectCommandNV';
 
     public function __construct(
-        /** @var int */
         public int $bufferAddress = 0,
         /** @var int<0, 4294967295> */
         public int $size = 0,

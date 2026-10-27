@@ -31,9 +31,7 @@ final readonly class VkTileMemoryRequirementsQCOM extends OutputStructure implem
     }
 
     public function __construct(
-        /** @var int */
         public int $size,
-        /** @var int */
         public int $alignment,
     ) {}
 

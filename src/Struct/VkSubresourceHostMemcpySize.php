@@ -31,11 +31,7 @@ final readonly class VkSubresourceHostMemcpySize extends OutputStructure impleme
     }
 
     public function __construct(
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $size,
     ) {}
 

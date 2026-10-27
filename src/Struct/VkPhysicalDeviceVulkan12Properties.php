@@ -273,11 +273,7 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
         public bool $filterMinmaxSingleComponentFormats,
         /** The value is at least the required one. */
         public bool $filterMinmaxImageComponentMapping,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxTimelineSemaphoreValueDifference,
         /** @var int-mask-of<VkSampleCountFlagBits::*> */
         public int $framebufferIntegerColorSampleCounts,

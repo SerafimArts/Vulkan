@@ -34,8 +34,6 @@ final readonly class VkPhysicalDeviceTexelBufferAlignmentProperties extends Outp
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $storageTexelBufferOffsetAlignmentBytes,
         /** The value is exactly the required one. */
@@ -43,8 +41,6 @@ final readonly class VkPhysicalDeviceTexelBufferAlignmentProperties extends Outp
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $uniformTexelBufferOffsetAlignmentBytes,
         /** The value is exactly the required one. */

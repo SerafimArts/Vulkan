@@ -57,17 +57,9 @@ final class VkBufferMemoryBarrier extends InputStructure
          * @var int<0, 4294967295>
          */
         public int $dstQueueFamilyIndex = 0,
-        /**
-         * Offset within the buffer to sync
-         *
-         * @var int
-         */
+        /** Offset within the buffer to sync */
         public int $offset = 0,
-        /**
-         * Amount of bytes to sync
-         *
-         * @var int
-         */
+        /** Amount of bytes to sync */
         public int $size = 0,
     ) {}
 

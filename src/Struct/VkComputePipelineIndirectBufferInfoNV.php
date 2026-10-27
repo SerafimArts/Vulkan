@@ -25,11 +25,8 @@ final class VkComputePipelineIndirectBufferInfoNV extends InputStructure impleme
 
     public function __construct(
         public ?VkComputePipelineCreateInfoExtension $next = null,
-        /** @var int */
         public int $deviceAddress = 0,
-        /** @var int */
         public int $size = 0,
-        /** @var int */
         public int $pipelineDeviceAddressCaptureReplay = 0,
     ) {}
 

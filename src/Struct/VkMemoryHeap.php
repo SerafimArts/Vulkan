@@ -18,11 +18,7 @@ use Serafim\Vulkan\Enum\VkMemoryHeapFlagBits;
 final readonly class VkMemoryHeap extends OutputStructure
 {
     public function __construct(
-        /**
-         * Available memory in the heap
-         *
-         * @var int
-         */
+        /** Available memory in the heap */
         public int $size,
         /**
          * Flags for the heap

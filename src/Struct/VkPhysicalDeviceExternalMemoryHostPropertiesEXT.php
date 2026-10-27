@@ -34,8 +34,6 @@ final readonly class VkPhysicalDeviceExternalMemoryHostPropertiesEXT extends Out
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $minImportedHostPointerAlignment,
     ) {}

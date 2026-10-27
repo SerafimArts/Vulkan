@@ -103,11 +103,7 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
          * @var int<0, 4294967295>
          */
         public int $maxPerSetDescriptors,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxMemoryAllocationSize,
     ) {}
 

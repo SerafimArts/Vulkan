@@ -23,7 +23,6 @@ final class VkPerformanceMarkerInfoINTEL extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL->value;
 
     public function __construct(
-        /** @var int */
         public int $marker = 0,
     ) {}
 

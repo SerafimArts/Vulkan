@@ -34,11 +34,7 @@ final readonly class VkPhysicalDeviceMemoryDecompressionPropertiesEXT extends Ou
     public function __construct(
         /** @var int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::*> */
         public int $decompressionMethods,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxDecompressionIndirectCount,
     ) {}
 

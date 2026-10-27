@@ -25,7 +25,6 @@ final class VkBufferOpaqueCaptureAddressCreateInfo extends InputStructure implem
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,
-        /** @var int */
         public int $opaqueCaptureAddress = 0,
     ) {}
 

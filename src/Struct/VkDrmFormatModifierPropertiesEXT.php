@@ -18,11 +18,7 @@ use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits;
 final readonly class VkDrmFormatModifierPropertiesEXT extends OutputStructure
 {
     public function __construct(
-        /**
-         * The value is exactly the required one.
-         *
-         * @var int
-         */
+        /** The value is exactly the required one. */
         public int $drmFormatModifier,
         /**
          * The value is exactly the required one.

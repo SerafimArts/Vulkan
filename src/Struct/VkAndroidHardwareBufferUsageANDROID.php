@@ -31,7 +31,6 @@ final readonly class VkAndroidHardwareBufferUsageANDROID extends OutputStructure
     }
 
     public function __construct(
-        /** @var int */
         public int $androidHardwareBufferUsage,
     ) {}
 

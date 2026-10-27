@@ -126,7 +126,7 @@ final readonly class Properties
 
             $this->importElementClass($namespace, $property);
 
-            if ($docType !== null) {
+            if ($docType !== null && $docType !== $property->builtinType) {
                 if ($description !== []) {
                     $parameter->addComment('');
                 }
@@ -373,7 +373,12 @@ final readonly class Properties
     private function createDocType(PhpNamespace $namespace, PropertyPlan $property, bool $isReturned): ?string
     {
         return match ($property->kind) {
-            PropertyKind::INTEGER => IntegerTypes::create($namespace, $this->types, $property->field->type),
+            PropertyKind::INTEGER => IntegerTypes::create(
+                $namespace,
+                $this->types,
+                $property->field->type,
+                $property->field->bits,
+            ),
             PropertyKind::SCALAR_POINTER => $this->createScalarPointerType($namespace, $property),
             PropertyKind::STRING => $this->createStringType($property, $isReturned),
             PropertyKind::CALLBACK => $this->createCallbackType($property),

@@ -38,7 +38,6 @@ final readonly class VkAndroidHardwareBufferFormatPropertiesANDROID extends Outp
 
     public function __construct(
         public VkFormat $format,
-        /** @var int */
         public int $externalFormat,
         /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
         public int $formatFeatures,

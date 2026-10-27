@@ -26,11 +26,7 @@ final class VkSparseImageMemoryBind extends InputStructure
         public VkOffset3D $offset,
         public VkExtent3D $extent,
         public ?VkDeviceMemory $memory = null,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $memoryOffset = 0,
         /** @var int-mask-of<VkSparseMemoryBindFlagBits::*> */
         public int $flags = 0,

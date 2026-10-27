@@ -31,7 +31,6 @@ final readonly class VkNativeBufferUsageOHOS extends OutputStructure implements 
     }
 
     public function __construct(
-        /** @var int */
         public int $OHOSNativeBufferUsage,
     ) {}
 

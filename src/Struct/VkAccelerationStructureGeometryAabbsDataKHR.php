@@ -24,7 +24,6 @@ final class VkAccelerationStructureGeometryAabbsDataKHR extends InputStructure
 
     public function __construct(
         public VkDeviceOrHostAddressConstKHR $data,
-        /** @var int */
         public int $stride = 0,
     ) {}
 

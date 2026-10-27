@@ -35,13 +35,9 @@ final readonly class VkPhysicalDeviceDrmPropertiesEXT extends OutputStructure im
         public bool $hasPrimary,
         /** The value is at least the required one. */
         public bool $hasRender,
-        /** @var int */
         public int $primaryMajor,
-        /** @var int */
         public int $primaryMinor,
-        /** @var int */
         public int $renderMajor,
-        /** @var int */
         public int $renderMinor,
     ) {}
 

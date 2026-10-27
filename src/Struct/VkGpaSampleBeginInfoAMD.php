@@ -36,11 +36,9 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
         public array $perfCounters = [],
         /** @var int<0, 4294967295> */
         public int $streamingPerfTraceSampleInterval = 0,
-        /** @var int */
         public int $perfCounterDeviceMemoryLimit = 0,
         public bool $sqThreadTraceEnable = false,
         public bool $sqThreadTraceSuppressInstructionTokens = false,
-        /** @var int */
         public int $sqThreadTraceDeviceMemoryLimit = 0,
         /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::*) */
         public int $timingPreSample = 0,

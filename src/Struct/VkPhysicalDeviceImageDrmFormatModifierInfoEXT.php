@@ -26,7 +26,6 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,
-        /** @var int */
         public int $drmFormatModifier = 0,
         public VkSharingMode $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         /** @var list<int<0, 4294967295>> */

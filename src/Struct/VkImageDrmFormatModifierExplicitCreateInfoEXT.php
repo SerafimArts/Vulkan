@@ -25,7 +25,6 @@ final class VkImageDrmFormatModifierExplicitCreateInfoEXT extends InputStructure
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,
-        /** @var int */
         public int $drmFormatModifier = 0,
         /** @var list<VkSubresourceLayout> */
         public array $planeLayouts = [],

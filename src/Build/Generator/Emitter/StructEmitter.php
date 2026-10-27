@@ -191,7 +191,19 @@ final readonly class StructEmitter
 
         $shape = ['@param CData&object{'];
 
+        $words = [];
+
         foreach ($plan->struct->members as $member) {
+            if ($member->bitWord !== null) {
+                if (!isset($words[$member->bitWord])) {
+                    $shape[] = '    ' . $member->bitWord . ': int<0, 4294967295>,';
+                }
+
+                $words[$member->bitWord] = true;
+
+                continue;
+            }
+
             $property = $properties[$member->name] ?? null;
 
             $type = match (true) {
@@ -471,7 +483,19 @@ final readonly class StructEmitter
 
         $shape = ['@param CData&object{'];
 
+        $words = [];
+
         foreach ($this->findReadProperties($plan) as $property) {
+            if ($property->field->bitWord !== null) {
+                if (!isset($words[$property->field->bitWord])) {
+                    $shape[] = '    ' . $property->field->bitWord . ': int<0, 4294967295>,';
+                }
+
+                $words[$property->field->bitWord] = true;
+
+                continue;
+            }
+
             $shape[] = '    ' . $property->field->name . ': ' . $this->reader->createType($namespace, $property) . ',';
         }
 

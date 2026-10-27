@@ -21,7 +21,6 @@ final readonly class VkScreenBufferPropertiesQNX extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SCREEN_BUFFER_PROPERTIES_QNX->value;
 
     public function __construct(
-        /** @var int */
         public int $allocationSize,
         /** @var int<0, 4294967295> */
         public int $memoryTypeBits,

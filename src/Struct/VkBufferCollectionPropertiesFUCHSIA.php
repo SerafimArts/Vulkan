@@ -31,7 +31,6 @@ final readonly class VkBufferCollectionPropertiesFUCHSIA extends OutputStructure
         public int $bufferCount,
         /** @var int<0, 4294967295> */
         public int $createInfoIndex,
-        /** @var int */
         public int $sysmemPixelFormat,
         /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
         public int $formatFeatures,

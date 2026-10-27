@@ -38,8 +38,6 @@ final readonly class VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV exte
          * (bytes)
          *
          * The value is at least the required one.
-         *
-         * @var int
          */
         public int $extendedSparseAddressSpaceSize,
         /**

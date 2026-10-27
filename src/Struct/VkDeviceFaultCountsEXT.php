@@ -27,11 +27,7 @@ final class VkDeviceFaultCountsEXT extends InputStructure
         public int $addressInfoCount = 0,
         /** @var int<0, 4294967295> */
         public int $vendorInfoCount = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $vendorBinarySize = 0,
     ) {}
 

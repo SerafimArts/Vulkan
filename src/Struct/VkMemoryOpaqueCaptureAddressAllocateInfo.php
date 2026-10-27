@@ -25,7 +25,6 @@ final class VkMemoryOpaqueCaptureAddressAllocateInfo extends InputStructure impl
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
-        /** @var int */
         public int $opaqueCaptureAddress = 0,
     ) {}
 

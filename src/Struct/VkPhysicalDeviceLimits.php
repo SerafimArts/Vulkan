@@ -112,16 +112,12 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          *
          * The value is at most the required one. The value is a multiple
          * of the required one.
-         *
-         * @var int
          */
         public int $bufferImageGranularity,
         /**
          * Total address space available for sparse allocations (bytes)
          *
          * The value is at least the required one.
-         *
-         * @var int
          */
         public int $sparseAddressSpaceSize,
         /**
@@ -575,8 +571,6 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          *
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $minTexelBufferOffsetAlignment,
         /**
@@ -585,8 +579,6 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          *
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $minUniformBufferOffsetAlignment,
         /**
@@ -594,8 +586,6 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          *
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $minStorageBufferOffsetAlignment,
         /**
@@ -838,8 +828,6 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          *
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $optimalBufferCopyOffsetAlignment,
         /**
@@ -847,8 +835,6 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          *
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $optimalBufferCopyRowPitchAlignment,
         /**
@@ -857,8 +843,6 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          *
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $nonCoherentAtomSize,
     ) {}

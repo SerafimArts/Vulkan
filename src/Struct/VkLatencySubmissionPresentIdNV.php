@@ -26,7 +26,6 @@ final class VkLatencySubmissionPresentIdNV extends InputStructure implements VkS
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|null $next = null,
-        /** @var int */
         public int $presentID = 0,
     ) {}
 

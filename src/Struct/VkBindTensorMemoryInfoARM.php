@@ -27,7 +27,6 @@ final class VkBindTensorMemoryInfoARM extends InputStructure
     public function __construct(
         public VkTensorARM $tensor,
         public VkDeviceMemory $memory,
-        /** @var int */
         public int $memoryOffset = 0,
     ) {}
 

@@ -23,7 +23,6 @@ final readonly class VkDeviceFaultInfoKHR extends OutputStructure
     public function __construct(
         /** @var int-mask-of<VkDeviceFaultFlagBitsKHR::*> */
         public int $flags,
-        /** @var int */
         public int $groupId,
         /** Free-form description of the fault */
         public string $description,

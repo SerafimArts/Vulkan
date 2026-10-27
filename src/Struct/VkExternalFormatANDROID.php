@@ -29,7 +29,6 @@ final class VkExternalFormatANDROID extends InputStructure implements VkImageCre
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
-        /** @var int */
         public int $externalFormat = 0,
     ) {}
 

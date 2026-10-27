@@ -28,7 +28,6 @@ final class VkSemaphoreTypeCreateInfo extends InputStructure implements VkSemaph
     public function __construct(
         public VkSemaphoreCreateInfoExtension|VkPhysicalDeviceExternalSemaphoreInfoExtension|null $next = null,
         public VkSemaphoreType $semaphoreType = VkSemaphoreType::VK_SEMAPHORE_TYPE_BINARY,
-        /** @var int */
         public int $initialValue = 0,
     ) {}
 

@@ -19,7 +19,6 @@ final readonly class VkPerformanceValueDataINTEL extends OutputStructure
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $value32,
-        /** @var int */
         public int $value64,
         public float $valueFloat,
         public bool $valueBool,

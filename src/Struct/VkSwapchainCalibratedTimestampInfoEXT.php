@@ -30,7 +30,6 @@ final class VkSwapchainCalibratedTimestampInfoEXT extends InputStructure impleme
         public ?VkCalibratedTimestampInfoKHRExtension $next = null,
         /** @var int-mask-of<VkPresentStageFlagBitsEXT::*> */
         public int $presentStage = 0,
-        /** @var int */
         public int $timeDomainId = 0,
     ) {}
 

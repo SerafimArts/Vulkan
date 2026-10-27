@@ -22,7 +22,6 @@ final class VkIndirectCommandsStreamNV extends InputStructure
 
     public function __construct(
         public VkBuffer $buffer,
-        /** @var int */
         public int $offset = 0,
     ) {}
 

@@ -24,9 +24,7 @@ final class VkBindHeapInfoEXT extends InputStructure
 
     public function __construct(
         public VkDeviceAddressRangeKHR $heapRange,
-        /** @var int */
         public int $reservedRangeOffset = 0,
-        /** @var int */
         public int $reservedRangeSize = 0,
     ) {}
 

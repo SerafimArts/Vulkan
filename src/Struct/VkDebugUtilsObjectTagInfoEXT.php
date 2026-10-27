@@ -25,9 +25,7 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
 
     public function __construct(
         public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
-        /** @var int */
         public int $objectHandle = 0,
-        /** @var int */
         public int $tagName = 0,
         public string $tag = '',
     ) {}

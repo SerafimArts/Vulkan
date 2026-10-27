@@ -28,7 +28,6 @@ final class VkAccelerationStructureCreateInfoNV extends InputStructure
     public function __construct(
         public VkAccelerationStructureInfoNV $info,
         public ?VkAccelerationStructureCreateInfoNVExtension $next = null,
-        /** @var int */
         public int $compactedSize = 0,
     ) {}
 

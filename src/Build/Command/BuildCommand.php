@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Command;
 
+use Serafim\Vulkan\Build\Command\BuildCommand\BitFieldsPacker;
 use Serafim\Vulkan\Build\Command\BuildCommand\HeadersSplitter;
 use Serafim\Vulkan\Loader\Exception\InvalidHeadersException;
 use Serafim\Vulkan\Loader\Headers\HeadersLoader;
@@ -71,7 +72,7 @@ final class BuildCommand extends Command
 
         foreach (Platform::cases() as $platform) {
             try {
-                $headers[$platform->name] = $this->headers->getHeaders($platform);
+                $headers[$platform->name] = new BitFieldsPacker()->pack($this->headers->getHeaders($platform));
             } catch (InvalidHeadersException $e) {
                 $output->writeln(\sprintf('<error>%s: %s</error>', $platform->name, $e->getMessage()));
                 $status = self::FAILURE;

@@ -20,7 +20,6 @@ final class VkClusterAccelerationStructureMoveObjectsInfoNV extends InputStructu
     protected const string NATIVE_TYPE = 'VkClusterAccelerationStructureMoveObjectsInfoNV';
 
     public function __construct(
-        /** @var int */
         public int $srcAccelerationStructure = 0,
     ) {}
 

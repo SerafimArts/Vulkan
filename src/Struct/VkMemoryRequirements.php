@@ -17,17 +17,9 @@ use FFI\CData;
 final readonly class VkMemoryRequirements extends OutputStructure
 {
     public function __construct(
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $size,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $alignment,
         /**
          * Bitmask of the allowed memory type indices into memoryTypes[]

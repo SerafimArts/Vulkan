@@ -21,21 +21,11 @@ final class VkDecompressMemoryRegionNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkDecompressMemoryRegionNV';
 
     public function __construct(
-        /** @var int */
         public int $srcAddress = 0,
-        /** @var int */
         public int $dstAddress = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $compressedSize = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $decompressedSize = 0,
         /** @var int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::*> */
         public int $decompressionMethod = 0,

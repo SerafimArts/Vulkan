@@ -27,15 +27,11 @@ final readonly class VkVideoCapabilitiesKHR extends OutputStructure
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $minBitstreamBufferOffsetAlignment,
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $minBitstreamBufferSizeAlignment,
         /** The value is at most the required one. */

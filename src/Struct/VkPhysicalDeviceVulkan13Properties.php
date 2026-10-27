@@ -163,8 +163,6 @@ final readonly class VkPhysicalDeviceVulkan13Properties extends OutputStructure 
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $storageTexelBufferOffsetAlignmentBytes,
         /** The value is exactly the required one. */
@@ -172,17 +170,11 @@ final readonly class VkPhysicalDeviceVulkan13Properties extends OutputStructure 
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $uniformTexelBufferOffsetAlignmentBytes,
         /** The value is exactly the required one. */
         public bool $uniformTexelBufferOffsetSingleTexelAlignment,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxBufferSize,
     ) {}
 

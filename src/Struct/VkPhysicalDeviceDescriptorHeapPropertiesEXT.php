@@ -31,89 +31,33 @@ final readonly class VkPhysicalDeviceDescriptorHeapPropertiesEXT extends OutputS
     }
 
     public function __construct(
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $samplerHeapAlignment,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $resourceHeapAlignment,
-        /**
-         * The value is at most the required one.
-         *
-         * @var int
-         */
+        /** The value is at most the required one. */
         public int $maxSamplerHeapSize,
-        /**
-         * The value is at most the required one.
-         *
-         * @var int
-         */
+        /** The value is at most the required one. */
         public int $maxResourceHeapSize,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $minSamplerHeapReservedRange,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $minSamplerHeapReservedRangeWithEmbedded,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $minResourceHeapReservedRange,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $samplerDescriptorSize,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $imageDescriptorSize,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $bufferDescriptorSize,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $samplerDescriptorAlignment,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $imageDescriptorAlignment,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $bufferDescriptorAlignment,
-        /**
-         * The value is at most the required one.
-         *
-         * @var int
-         */
+        /** The value is at most the required one. */
         public int $maxPushDataSize,
         /** @var int<0, max> */
         public int $imageCaptureReplayOpaqueDataSize,

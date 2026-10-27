@@ -29,7 +29,6 @@ final class VkBindAccelerationStructureMemoryInfoNV extends InputStructure
     public function __construct(
         public VkAccelerationStructureNV $accelerationStructure,
         public VkDeviceMemory $memory,
-        /** @var int */
         public int $memoryOffset = 0,
         /** @var list<int<0, 4294967295>> */
         public array $deviceIndices = [],

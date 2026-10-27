@@ -34,15 +34,11 @@ final readonly class VkPhysicalDeviceRobustness2PropertiesKHR extends OutputStru
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $robustStorageBufferAccessSizeAlignment,
         /**
          * The value is at most the required one. The value is a power of
          * two.
-         *
-         * @var int
          */
         public int $robustUniformBufferAccessSizeAlignment,
     ) {}

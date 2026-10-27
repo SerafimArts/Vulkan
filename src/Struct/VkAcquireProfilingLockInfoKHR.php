@@ -29,7 +29,6 @@ final class VkAcquireProfilingLockInfoKHR extends InputStructure
          * @var int<0, 4294967295>
          */
         public int $flags = 0,
-        /** @var int */
         public int $timeout = 0,
     ) {}
 

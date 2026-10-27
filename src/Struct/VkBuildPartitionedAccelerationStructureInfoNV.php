@@ -24,15 +24,10 @@ final class VkBuildPartitionedAccelerationStructureInfoNV extends InputStructure
 
     public function __construct(
         public VkPartitionedAccelerationStructureInstancesInputNV $input,
-        /** @var int */
         public int $srcAccelerationStructureData = 0,
-        /** @var int */
         public int $dstAccelerationStructureData = 0,
-        /** @var int */
         public int $scratchData = 0,
-        /** @var int */
         public int $srcInfos = 0,
-        /** @var int */
         public int $srcInfosCount = 0,
     ) {}
 

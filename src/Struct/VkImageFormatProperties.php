@@ -38,11 +38,7 @@ final readonly class VkImageFormatProperties extends OutputStructure
          * @var int-mask-of<VkSampleCountFlagBits::*>
          */
         public int $sampleCounts,
-        /**
-         * Max size (in bytes) of this resource type
-         *
-         * @var int
-         */
+        /** Max size (in bytes) of this resource type */
         public int $maxResourceSize,
     ) {}
 

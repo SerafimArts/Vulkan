@@ -31,7 +31,6 @@ final class VkBindDataGraphPipelineSessionMemoryInfoARM extends InputStructure
         public VkDataGraphPipelineSessionBindPointARM $bindPoint = VkDataGraphPipelineSessionBindPointARM::VK_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_TRANSIENT_ARM,
         /** @var int<0, 4294967295> */
         public int $objectIndex = 0,
-        /** @var int */
         public int $memoryOffset = 0,
     ) {}
 

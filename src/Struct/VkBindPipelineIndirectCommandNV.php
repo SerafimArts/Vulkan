@@ -20,7 +20,6 @@ final class VkBindPipelineIndirectCommandNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindPipelineIndirectCommandNV';
 
     public function __construct(
-        /** @var int */
         public int $pipelineAddress = 0,
     ) {}
 

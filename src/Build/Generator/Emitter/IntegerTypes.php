@@ -24,20 +24,27 @@ final class IntegerTypes
     /**
      * Returns the mask of the bits for flags of a few bits, the range of the C
      * type with the bits for a single bit and for flags of many bits, the
-     * range of the C type for the rest.
+     * range of the C type for the rest. The range of a bit-field follows its
+     * width.
+     *
+     * @param int<1, 64>|null $width
      */
-    public static function create(PhpNamespace $namespace, TypeResolver $types, string $type): string
-    {
+    public static function create(
+        PhpNamespace $namespace,
+        TypeResolver $types,
+        string $type,
+        ?int $width = null,
+    ): string {
         $bits = $types->findFlagBits($type);
 
         if ($bits === null || $types->countFlagBits($bits) === 0) {
-            return $types->getIntegerRange($type);
+            return $types->getIntegerRange($type, $width);
         }
 
         Imports::import($namespace, Locations::ENUM_NAMESPACE, $bits);
 
         if ($bits === $type || $types->countFlagBits($bits) > self::MAX_MASK_BITS) {
-            return $types->getIntegerRange($type) . '|(' . $bits . '::*)';
+            return $types->getIntegerRange($type, $width) . '|(' . $bits . '::*)';
         }
 
         return 'int-mask-of<' . $bits . '::*>';

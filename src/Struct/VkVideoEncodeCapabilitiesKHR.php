@@ -44,11 +44,7 @@ final readonly class VkVideoEncodeCapabilitiesKHR extends OutputStructure implem
          * @var int<0, 4294967295>
          */
         public int $maxRateControlLayers,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxBitrate,
         /**
          * The value is at least the required one.

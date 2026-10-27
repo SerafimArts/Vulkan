@@ -19,9 +19,7 @@ final readonly class VkDeviceFaultVendorInfoKHR extends OutputStructure
     public function __construct(
         /** Free-form description of the fault */
         public string $description,
-        /** @var int */
         public int $vendorFaultCode,
-        /** @var int */
         public int $vendorFaultData,
     ) {}
 

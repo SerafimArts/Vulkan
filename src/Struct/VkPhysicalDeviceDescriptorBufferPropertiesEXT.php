@@ -40,7 +40,6 @@ final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Outpu
         public bool $bufferlessPushDescriptors,
         /** The value is at least the required one. */
         public bool $allowSamplerImageViewPostSubmitCreation,
-        /** @var int */
         public int $descriptorBufferOffsetAlignment,
         /**
          * The value is at least the required one.
@@ -166,35 +165,15 @@ final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Outpu
          * @var int<0, max>
          */
         public int $accelerationStructureDescriptorSize,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxSamplerDescriptorBufferRange,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxResourceDescriptorBufferRange,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $samplerDescriptorBufferAddressSpaceSize,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $resourceDescriptorBufferAddressSpaceSize,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $descriptorBufferAddressSpaceSize,
     ) {}
 

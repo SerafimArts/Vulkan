@@ -32,6 +32,10 @@ final readonly class Reader
     {
         $value = '$data->' . $property->field->name;
 
+        if ($property->field->bitWord !== null) {
+            return $this->createBitFieldExpression($property->field);
+        }
+
         if ($property->kind === PropertyKind::ENUMERATION) {
             $namespace->addUse(EnumCase::class);
         }
@@ -74,7 +78,8 @@ final readonly class Reader
             PropertyKind::STRING => 'self::createStringFromCData(' . $value . ')',
             PropertyKind::TEXT => '\FFI::string(' . $value . ')',
             PropertyKind::BYTES => '\FFI::string(' . $value . ', ' . $property->arrayLength . ')',
-            PropertyKind::NUMBER_LIST => 'self::createListFromCData(' . $value . ', ' . $property->arrayLength . ')',
+            PropertyKind::NUMBER_LIST => 'self::createListFromCData(' . $this->createFlatView($property, $value) . ', '
+                . $property->arrayLength . ')',
             PropertyKind::STRUCTURE_LIST => 'self::createStructureListFromCData(' . $value . ', '
                 . $property->arrayLength . ', '
                 . Imports::import($namespace, Locations::STRUCT_NAMESPACE, $property->field->type)
@@ -101,6 +106,34 @@ final readonly class Reader
         }
 
         return '\min($data->' . $count . ', ' . $property->arrayLength . ')';
+    }
+
+    /**
+     * Returns the expression that extracts a bit-field from the word of the
+     * native structure.
+     */
+    private function createBitFieldExpression(FieldDefinition $field): string
+    {
+        $mask = \sprintf('0x%X', 2 ** ($field->bits ?? 1) - 1);
+
+        if ($field->bitOffset === 0) {
+            return '$data->' . $field->bitWord . ' & ' . $mask;
+        }
+
+        return '$data->' . $field->bitWord . ' >> ' . $field->bitOffset . ' & ' . $mask;
+    }
+
+    /**
+     * Returns the expression of the elements of a list of numbers: a
+     * multidimensional native array is read as a flat one.
+     */
+    private function createFlatView(PropertyPlan $property, string $value): string
+    {
+        if (!$property->field->isMultidimensional) {
+            return $value;
+        }
+
+        return '\FFI::cast(\'' . $property->field->type . '[' . $property->arrayLength . ']\', ' . $value . ')';
     }
 
     /**

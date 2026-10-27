@@ -33,13 +33,10 @@ final class VkAccelerationStructureGeometryLinearSweptSpheresDataNV extends Inpu
         public VkDeviceOrHostAddressConstKHR $indexData,
         public ?VkAccelerationStructureGeometryKHRExtension $next = null,
         public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int */
         public int $vertexStride = 0,
         public VkFormat $radiusFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int */
         public int $radiusStride = 0,
         public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
-        /** @var int */
         public int $indexStride = 0,
         public VkRayTracingLssIndexingModeNV $indexingMode = VkRayTracingLssIndexingModeNV::VK_RAY_TRACING_LSS_INDEXING_MODE_LIST_NV,
         public VkRayTracingLssPrimitiveEndCapsModeNV $endCapsMode = VkRayTracingLssPrimitiveEndCapsModeNV::VK_RAY_TRACING_LSS_PRIMITIVE_END_CAPS_MODE_NONE_NV,

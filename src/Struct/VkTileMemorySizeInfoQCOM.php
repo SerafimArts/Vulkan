@@ -27,7 +27,6 @@ final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderP
 
     public function __construct(
         public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkRenderingInfoExtension|null $next = null,
-        /** @var int */
         public int $size = 0,
     ) {}
 

@@ -31,7 +31,6 @@ final readonly class VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM extends Out
     }
 
     public function __construct(
-        /** @var int */
         public int $shaderCoreMask,
         /**
          * The value is at least the required one.

@@ -25,9 +25,7 @@ final class VkVideoEncodeRateControlLayerInfoKHR extends InputStructure
 
     public function __construct(
         public ?VkVideoEncodeRateControlLayerInfoKHRExtension $next = null,
-        /** @var int */
         public int $averageBitrate = 0,
-        /** @var int */
         public int $maxBitrate = 0,
         /** @var int<0, 4294967295> */
         public int $frameRateNumerator = 0,

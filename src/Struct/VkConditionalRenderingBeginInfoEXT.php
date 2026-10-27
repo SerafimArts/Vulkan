@@ -29,7 +29,6 @@ final class VkConditionalRenderingBeginInfoEXT extends InputStructure
 
     public function __construct(
         public VkBuffer $buffer,
-        /** @var int */
         public int $offset = 0,
         /** @var int-mask-of<VkConditionalRenderingFlagBitsEXT::*> */
         public int $flags = 0,

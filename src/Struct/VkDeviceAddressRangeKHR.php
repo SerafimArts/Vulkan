@@ -20,9 +20,7 @@ final class VkDeviceAddressRangeKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceAddressRangeKHR';
 
     public function __construct(
-        /** @var int */
         public int $address = 0,
-        /** @var int */
         public int $size = 0,
     ) {}
 

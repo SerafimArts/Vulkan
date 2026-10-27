@@ -23,15 +23,9 @@ final readonly class VkSwapchainTimingPropertiesEXT extends OutputStructure
         /**
          * Number of nanoseconds from the start of one refresh cycle to the
          * next
-         *
-         * @var int
          */
         public int $refreshDuration,
-        /**
-         * Interval in nanoseconds between refresh cycles durations
-         *
-         * @var int
-         */
+        /** Interval in nanoseconds between refresh cycles durations */
         public int $refreshInterval,
     ) {}
 

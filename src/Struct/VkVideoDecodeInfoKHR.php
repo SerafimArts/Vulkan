@@ -30,9 +30,7 @@ final class VkVideoDecodeInfoKHR extends InputStructure
         public ?VkVideoDecodeInfoKHRExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        /** @var int */
         public int $srcBufferOffset = 0,
-        /** @var int */
         public int $srcBufferRange = 0,
         public ?VkVideoReferenceSlotInfoKHR $setupReferenceSlot = null,
         /** @var list<VkVideoReferenceSlotInfoKHR> */

@@ -23,22 +23,16 @@ final readonly class VkSparseImageMemoryRequirements extends OutputStructure
         /**
          * Specified in bytes, must be a multiple of sparse block size in
          * bytes / alignment
-         *
-         * @var int
          */
         public int $imageMipTailSize,
         /**
          * Specified in bytes, must be a multiple of sparse block size in
          * bytes / alignment
-         *
-         * @var int
          */
         public int $imageMipTailOffset,
         /**
          * Specified in bytes, must be a multiple of sparse block size in
          * bytes / alignment
-         *
-         * @var int
          */
         public int $imageMipTailStride,
     ) {}

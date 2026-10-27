@@ -32,17 +32,9 @@ final class VkBufferViewCreateInfo extends InputStructure
         public int $flags = 0,
         /** Optionally specifies format of elements */
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $offset = 0,
-        /**
-         * View size specified in bytes
-         *
-         * @var int
-         */
+        /** View size specified in bytes */
         public int $range = 0,
     ) {}
 

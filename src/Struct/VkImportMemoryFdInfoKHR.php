@@ -28,7 +28,6 @@ final class VkImportMemoryFdInfoKHR extends InputStructure implements VkMemoryAl
         public ?VkMemoryAllocateInfoExtension $next = null,
         /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $handleType = 0,
-        /** @var int */
         public int $fd = 0,
     ) {}
 

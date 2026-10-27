@@ -29,9 +29,7 @@ final class VkDeviceAddressBindingCallbackDataEXT extends InputStructure impleme
         public ?VkDebugUtilsMessengerCallbackDataEXTExtension $next = null,
         /** @var int-mask-of<VkDeviceAddressBindingFlagBitsEXT::*> */
         public int $flags = 0,
-        /** @var int */
         public int $baseAddress = 0,
-        /** @var int */
         public int $size = 0,
         public VkDeviceAddressBindingTypeEXT $bindingType = VkDeviceAddressBindingTypeEXT::VK_DEVICE_ADDRESS_BINDING_TYPE_BIND_EXT,
     ) {}

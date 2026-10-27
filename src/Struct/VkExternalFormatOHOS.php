@@ -29,7 +29,6 @@ final class VkExternalFormatOHOS extends InputStructure implements VkImageCreate
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
-        /** @var int */
         public int $externalFormat = 0,
     ) {}
 

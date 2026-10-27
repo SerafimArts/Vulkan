@@ -29,7 +29,6 @@ final class VkBindBufferMemoryInfo extends InputStructure
         public VkBuffer $buffer,
         public VkDeviceMemory $memory,
         public ?VkBindBufferMemoryInfoExtension $next = null,
-        /** @var int */
         public int $memoryOffset = 0,
     ) {}
 

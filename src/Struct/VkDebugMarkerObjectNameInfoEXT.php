@@ -26,11 +26,7 @@ final class VkDebugMarkerObjectNameInfoEXT extends InputStructure
     public function __construct(
         /** The type of the object */
         public VkDebugReportObjectTypeEXT $objectType = VkDebugReportObjectTypeEXT::VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT,
-        /**
-         * The handle of the object, cast to uint64_t
-         *
-         * @var int
-         */
+        /** The handle of the object, cast to uint64_t */
         public int $object = 0,
         /**
          * Name to apply to the object

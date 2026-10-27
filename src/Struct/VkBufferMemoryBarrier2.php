@@ -44,9 +44,7 @@ final class VkBufferMemoryBarrier2 extends InputStructure
         public int $srcQueueFamilyIndex = 0,
         /** @var int<0, 4294967295> */
         public int $dstQueueFamilyIndex = 0,
-        /** @var int */
         public int $offset = 0,
-        /** @var int */
         public int $size = 0,
     ) {}
 

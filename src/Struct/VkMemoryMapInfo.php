@@ -30,9 +30,7 @@ final class VkMemoryMapInfo extends InputStructure
         public ?VkMemoryMapInfoExtension $next = null,
         /** @var int-mask-of<VkMemoryMapFlagBits::*> */
         public int $flags = 0,
-        /** @var int */
         public int $offset = 0,
-        /** @var int */
         public int $size = 0,
     ) {}
 

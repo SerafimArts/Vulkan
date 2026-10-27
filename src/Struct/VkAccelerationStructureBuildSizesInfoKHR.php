@@ -20,11 +20,8 @@ final readonly class VkAccelerationStructureBuildSizesInfoKHR extends OutputStru
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR->value;
 
     public function __construct(
-        /** @var int */
         public int $accelerationStructureSize,
-        /** @var int */
         public int $updateScratchSize,
-        /** @var int */
         public int $buildScratchSize,
     ) {}
 

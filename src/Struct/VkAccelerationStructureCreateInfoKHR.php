@@ -34,16 +34,10 @@ final class VkAccelerationStructureCreateInfoKHR extends InputStructure
         public ?VkAccelerationStructureCreateInfoKHRExtension $next = null,
         /** @var int-mask-of<VkAccelerationStructureCreateFlagBitsKHR::*> */
         public int $createFlags = 0,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $offset = 0,
-        /** @var int */
         public int $size = 0,
         public VkAccelerationStructureTypeKHR $type = VkAccelerationStructureTypeKHR::VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR,
-        /** @var int */
         public int $deviceAddress = 0,
     ) {}
 

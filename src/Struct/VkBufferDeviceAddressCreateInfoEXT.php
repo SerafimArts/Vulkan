@@ -27,7 +27,6 @@ final class VkBufferDeviceAddressCreateInfoEXT extends InputStructure implements
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,
-        /** @var int */
         public int $deviceAddress = 0,
     ) {}
 

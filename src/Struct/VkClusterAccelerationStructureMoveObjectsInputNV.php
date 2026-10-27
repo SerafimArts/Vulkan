@@ -26,7 +26,6 @@ final class VkClusterAccelerationStructureMoveObjectsInputNV extends InputStruct
     public function __construct(
         public VkClusterAccelerationStructureTypeNV $type = VkClusterAccelerationStructureTypeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_TYPE_CLUSTERS_BOTTOM_LEVEL_NV,
         public bool $noMoveOverlap = false,
-        /** @var int */
         public int $maxMovedBytes = 0,
     ) {}
 

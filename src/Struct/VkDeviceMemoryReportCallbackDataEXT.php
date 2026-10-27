@@ -26,12 +26,9 @@ final readonly class VkDeviceMemoryReportCallbackDataEXT extends OutputStructure
         /** @var int<0, 4294967295> */
         public int $flags,
         public VkDeviceMemoryReportEventTypeEXT $type,
-        /** @var int */
         public int $memoryObjectId,
-        /** @var int */
         public int $size,
         public VkObjectType $objectType,
-        /** @var int */
         public int $objectHandle,
         /** @var int<0, 4294967295> */
         public int $heapIndex,

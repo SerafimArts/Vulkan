@@ -35,11 +35,8 @@ final class VkAccelerationStructureGeometryMicromapDataKHR extends InputStructur
         public int $usageCountsCount = 0,
         /** @var list<VkMicromapUsageKHR> */
         public array $usageCounts = [],
-        /** @var int */
         public int $data = 0,
-        /** @var int */
         public int $triangleArray = 0,
-        /** @var int */
         public int $triangleArrayStride = 0,
     ) {}
 

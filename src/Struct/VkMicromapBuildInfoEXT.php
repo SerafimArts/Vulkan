@@ -45,7 +45,6 @@ final class VkMicromapBuildInfoEXT extends InputStructure
         public int $usageCountsCount = 0,
         /** @var list<VkMicromapUsageEXT> */
         public array $usageCounts = [],
-        /** @var int */
         public int $triangleArrayStride = 0,
     ) {}
 

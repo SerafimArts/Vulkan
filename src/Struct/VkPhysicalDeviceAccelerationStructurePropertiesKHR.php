@@ -31,23 +31,11 @@ final readonly class VkPhysicalDeviceAccelerationStructurePropertiesKHR extends 
     }
 
     public function __construct(
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxGeometryCount,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxInstanceCount,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxPrimitiveCount,
         /**
          * The value is at least the required one.

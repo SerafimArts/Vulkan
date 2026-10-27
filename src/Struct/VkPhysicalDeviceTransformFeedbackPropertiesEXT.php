@@ -43,11 +43,7 @@ final readonly class VkPhysicalDeviceTransformFeedbackPropertiesEXT extends Outp
          * @var int<0, 4294967295>
          */
         public int $maxTransformFeedbackBuffers,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxTransformFeedbackBufferSize,
         /**
          * The value is at least the required one.

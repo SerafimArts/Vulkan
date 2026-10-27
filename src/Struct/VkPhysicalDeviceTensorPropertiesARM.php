@@ -38,29 +38,13 @@ final readonly class VkPhysicalDeviceTensorPropertiesARM extends OutputStructure
          * @var int<0, 4294967295>
          */
         public int $maxTensorDimensionCount,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxTensorElements,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxPerDimensionTensorElements,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxTensorStride,
-        /**
-         * The value is at least the required one.
-         *
-         * @var int
-         */
+        /** The value is at least the required one. */
         public int $maxTensorSize,
         /**
          * The value is at least the required one.

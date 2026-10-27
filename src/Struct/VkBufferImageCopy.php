@@ -25,11 +25,7 @@ final class VkBufferImageCopy extends InputStructure
         public VkOffset3D $imageOffset,
         /** Specified in pixels for both compressed and uncompressed images */
         public VkExtent3D $imageExtent,
-        /**
-         * Specified in bytes
-         *
-         * @var int
-         */
+        /** Specified in bytes */
         public int $bufferOffset = 0,
         /**
          * Specified in texels

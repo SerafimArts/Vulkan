@@ -27,27 +27,15 @@ final readonly class VkPastPresentationTimingGOOGLE extends OutputStructure
         /**
          * Earliest time an image should have been presented, previously
          * given to vkQueuePresentKHR
-         *
-         * @var int
          */
         public int $desiredPresentTime,
-        /**
-         * Time the image was actually displayed
-         *
-         * @var int
-         */
+        /** Time the image was actually displayed */
         public int $actualPresentTime,
-        /**
-         * Earliest time the image could have been displayed
-         *
-         * @var int
-         */
+        /** Earliest time the image could have been displayed */
         public int $earliestPresentTime,
         /**
          * How early vkQueuePresentKHR was processed vs. how soon it needed
          * to be and make earliestPresentTime
-         *
-         * @var int
          */
         public int $presentMargin,
     ) {}

@@ -26,7 +26,6 @@ final class VkSemaphoreSubmitInfo extends InputStructure
 
     public function __construct(
         public VkSemaphore $semaphore,
-        /** @var int */
         public int $value = 0,
         /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $stageMask = 0,

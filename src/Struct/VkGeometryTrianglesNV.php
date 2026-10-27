@@ -29,15 +29,12 @@ final class VkGeometryTrianglesNV extends InputStructure
 
     public function __construct(
         public ?VkBuffer $vertexData = null,
-        /** @var int */
         public int $vertexOffset = 0,
         /** @var int<0, 4294967295> */
         public int $vertexCount = 0,
-        /** @var int */
         public int $vertexStride = 0,
         public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
         public ?VkBuffer $indexData = null,
-        /** @var int */
         public int $indexOffset = 0,
         /** @var int<0, 4294967295> */
         public int $indexCount = 0,
@@ -47,7 +44,6 @@ final class VkGeometryTrianglesNV extends InputStructure
          * major affine transformation matrix.
          */
         public ?VkBuffer $transformData = null,
-        /** @var int */
         public int $transformOffset = 0,
     ) {}
 

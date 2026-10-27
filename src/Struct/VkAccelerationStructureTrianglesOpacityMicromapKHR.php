@@ -28,9 +28,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapKHR extends InputStru
     public function __construct(
         public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
         public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
-        /** @var int */
         public int $indexBuffer = 0,
-        /** @var int */
         public int $indexStride = 0,
         /** @var int<0, 4294967295> */
         public int $baseTriangle = 0,

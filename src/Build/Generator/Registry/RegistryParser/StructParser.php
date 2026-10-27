@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Registry\RegistryParser;
 
+use Serafim\Vulkan\Build\Generator\Registry\BitFields;
+use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 use Serafim\Vulkan\Build\Generator\Registry\StructDefinition;
 
 /**
@@ -41,7 +43,7 @@ final readonly class StructParser
 
             $structs[$name] = new StructDefinition(
                 name: $name,
-                members: $members,
+                members: $this->packBitFields($members),
                 extends: $this->parseExtends($element->getAttribute('structextends')),
                 isUnion: $element->getAttribute('category') === 'union',
                 isReturnedOnly: $element->getAttribute('returnedonly') === 'true',
@@ -49,6 +51,65 @@ final readonly class StructParser
         }
 
         return $structs;
+    }
+
+    /**
+     * Assigns the words of the native structure to the runs of bit-fields.
+     *
+     * @param list<FieldDefinition> $members
+     *
+     * @return list<FieldDefinition>
+     */
+    private function packBitFields(array $members): array
+    {
+        $result = [];
+        $run = [];
+        $words = 0;
+
+        foreach ([...$members, null] as $member) {
+            if ($member !== null && $member->bits !== null) {
+                $run[] = $member;
+
+                continue;
+            }
+
+            $placements = BitFields::place(\array_map(static fn(FieldDefinition $field): int => $field->bits ?? 1, $run));
+            $next = $words;
+
+            foreach ($run as $index => $field) {
+                [$word, $offset] = $placements[$index];
+                $next = \max($next, $words + $word + 1);
+
+                $result[] = new FieldDefinition(
+                    name: $field->name,
+                    type: $field->type,
+                    pointerDepth: $field->pointerDepth,
+                    isConst: $field->isConst,
+                    arraySize: $field->arraySize,
+                    length: $field->length,
+                    isNullTerminated: $field->isNullTerminated,
+                    isOptional: $field->isOptional,
+                    value: $field->value,
+                    unsupported: $field->unsupported,
+                    comment: $field->comment,
+                    limitType: $field->limitType,
+                    lengthDivisor: $field->lengthDivisor,
+                    bits: $field->bits,
+                    isMultidimensional: $field->isMultidimensional,
+                    bitWord: BitFields::createWordName($words + $word),
+                    bitOffset: $offset,
+                );
+            }
+
+            $words = $next;
+            $run = [];
+
+            if ($member !== null) {
+                $result[] = $member;
+            }
+        }
+
+        return $result;
     }
 
     /**

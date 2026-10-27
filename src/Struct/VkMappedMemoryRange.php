@@ -26,17 +26,9 @@ final class VkMappedMemoryRange extends InputStructure
     public function __construct(
         /** Mapped memory object */
         public VkDeviceMemory $memory,
-        /**
-         * Offset within the memory object where the range starts
-         *
-         * @var int
-         */
+        /** Offset within the memory object where the range starts */
         public int $offset = 0,
-        /**
-         * Size of the range within the memory object
-         *
-         * @var int
-         */
+        /** Size of the range within the memory object */
         public int $size = 0,
     ) {}
 

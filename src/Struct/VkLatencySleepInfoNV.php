@@ -25,7 +25,6 @@ final class VkLatencySleepInfoNV extends InputStructure
 
     public function __construct(
         public VkSemaphore $signalSemaphore,
-        /** @var int */
         public int $value = 0,
     ) {}
 
