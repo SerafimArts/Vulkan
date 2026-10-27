@@ -99,6 +99,16 @@ final readonly class MemberKinds
             }
         }
 
+        if (
+            $member->type === 'uint8_t'
+            && $member->pointerDepth === 1
+            && $member->isConst
+            && $member->length !== null
+            && \preg_match('/^(?:\d+\s*\*\s*)?[A-Z][A-Z_0-9]*$/', $member->length) === 1
+        ) {
+            return PropertyKind::BYTES;
+        }
+
         if ($member->pointerDepth === 1 && $member->isConst && $this->hasLengthMember($struct, $member)) {
             if ($member->type === 'void' || $member->lengthDivisor === 4) {
                 return PropertyKind::BINARY;

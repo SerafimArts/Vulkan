@@ -346,7 +346,7 @@ final readonly class StructAnalyzer
                 $kind,
                 $name,
                 'string',
-                hasDefault: $isInput,
+                hasDefault: $isInput && $member->pointerDepth === 0,
                 default: '',
                 arrayLength: $this->createArrayLength($declaration, $member),
             ),
@@ -441,6 +441,25 @@ final readonly class StructAnalyzer
     }
 
     /**
+     * Evaluates the length of a buffer that is a constant or a constant
+     * multiplied by a number.
+     */
+    private function evaluateLength(string $expression): ?int
+    {
+        if (\preg_match('/^(?:(\d+)\s*\*\s*)?(\w+)$/', $expression, $matches) !== 1) {
+            return null;
+        }
+
+        $constant = $this->registry->findConstant($matches[2]);
+
+        if ($constant === null) {
+            return null;
+        }
+
+        return ($matches[1] === '' ? 1 : (int) $matches[1]) * $constant;
+    }
+
+    /**
      * @return int<0, max>
      * @throws UnsupportedDeclarationException
      */
@@ -448,6 +467,10 @@ final readonly class StructAnalyzer
     {
         $size = $member->arraySize ?? '';
         $length = $this->registry->findConstant($size);
+
+        if ($member->arraySize === null && $member->pointerDepth === 1) {
+            $length = $this->evaluateLength($member->length ?? '');
+        }
 
         if (\ctype_digit($size)) {
             $length = (int) $size;

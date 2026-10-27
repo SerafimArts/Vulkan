@@ -329,6 +329,18 @@ final readonly class Writer
         $value = '$this->' . $property->name;
         $size = (string) $property->arrayLength;
 
+        if ($property->field->pointerDepth === 1) {
+            return [
+                'if (\strlen(' . $value . ') !== ' . $size . ') {',
+                '    throw InvalidStructureException::becauseArrayHasWrongLength('
+                    . \var_export($structure, true) . ', ' . \var_export($property->name, true) . ', ' . $size . ');',
+                '}',
+                '',
+                '$data->' . $property->field->name
+                    . ' = $memory->ffi->cast(\'uint8_t*\', $memory->toCString(' . $value . '));',
+            ];
+        }
+
         return [
             'if (\strlen(' . $value . ') > ' . $size . ') {',
             '    throw InvalidStructureException::becauseArrayIsTooLong('
