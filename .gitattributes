@@ -14,6 +14,7 @@ phpunit.xml export-ignore
 
 /.github export-ignore
 /tests export-ignore
+/examples export-ignore
 
 # JavaScript
 tsconfig.json export-ignore
