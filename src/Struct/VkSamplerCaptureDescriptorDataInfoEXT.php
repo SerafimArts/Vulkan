@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSampler;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -23,13 +24,21 @@ final class VkSamplerCaptureDescriptorDataInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSamplerCaptureDescriptorDataInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000316008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT->value;
 
     public function __construct(
         public VkSampler $sampler,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CAPTURE_DESCRIPTOR_DATA_INFO_EXT>,
+     *     pNext: CData,
+     *     sampler: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

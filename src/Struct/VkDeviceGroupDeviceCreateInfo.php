@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPhysicalDevice;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
@@ -21,8 +22,7 @@ final class VkDeviceGroupDeviceCreateInfo extends InputStructure implements VkDe
 {
     protected const string NATIVE_TYPE = 'VkDeviceGroupDeviceCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000070001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,
@@ -30,6 +30,16 @@ final class VkDeviceGroupDeviceCreateInfo extends InputStructure implements VkDe
         public array $physicalDevices = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_DEVICE_CREATE_INFO>,
+     *     pNext: CData,
+     *     physicalDeviceCount: int<0, 4294967295>,
+     *     pPhysicalDevices: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

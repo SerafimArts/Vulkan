@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageViewCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkImageViewUsageCreateInfo extends InputStructure implements VkImage
 {
     protected const string NATIVE_TYPE = 'VkImageViewUsageCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000117002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,
@@ -30,6 +30,15 @@ final class VkImageViewUsageCreateInfo extends InputStructure implements VkImage
         public int $usage = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_CREATE_INFO>,
+     *     pNext: CData,
+     *     usage: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoEncodeInfoKHRExtension;
 
@@ -20,8 +21,7 @@ final class VkVideoEncodeIntraRefreshInfoKHR extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkVideoEncodeIntraRefreshInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000552002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR->value;
 
     public function __construct(
         public ?VkVideoEncodeInfoKHRExtension $next = null,
@@ -31,6 +31,16 @@ final class VkVideoEncodeIntraRefreshInfoKHR extends InputStructure implements V
         public int $intraRefreshIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR>,
+     *     pNext: CData,
+     *     intraRefreshCycleDuration: int<0, 4294967295>,
+     *     intraRefreshIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

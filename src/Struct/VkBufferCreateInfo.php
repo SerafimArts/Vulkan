@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkBufferCreateFlagBits;
 use Serafim\Vulkan\Enum\VkBufferUsageFlagBits;
 use Serafim\Vulkan\Enum\VkSharingMode;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferCreateInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkBufferCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBufferCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 12;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO->value;
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,
@@ -51,6 +51,20 @@ final class VkBufferCreateInfo extends InputStructure
         public array $queueFamilyIndices = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     size: int<0, max>,
+     *     usage: int<0, 4294967295>,
+     *     sharingMode: value-of<VkSharingMode>,
+     *     queueFamilyIndexCount: int<0, 4294967295>,
+     *     pQueueFamilyIndices: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

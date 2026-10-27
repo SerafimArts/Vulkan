@@ -44,6 +44,15 @@ final class VkPushConstantRange extends InputStructure
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     stageFlags: int<0, 4294967295>,
+     *     offset: int<0, 4294967295>,
+     *     size: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->stageFlags = $this->stageFlags;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -22,8 +23,7 @@ final class VkMultiviewPerViewAttributesInfoNVX extends InputStructure implement
 {
     protected const string NATIVE_TYPE = 'VkMultiviewPerViewAttributesInfoNVX';
 
-    /** `VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX` */
-    public const int STRUCTURE_TYPE = 1000044009;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX->value;
 
     public function __construct(
         public VkCommandBufferInheritanceInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkRenderingInfoExtension|null $next = null,
@@ -31,6 +31,16 @@ final class VkMultiviewPerViewAttributesInfoNVX extends InputStructure implement
         public bool $perViewAttributesPositionXOnly = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX>,
+     *     pNext: CData,
+     *     perViewAttributes: int<0, 1>,
+     *     perViewAttributesPositionXOnly: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

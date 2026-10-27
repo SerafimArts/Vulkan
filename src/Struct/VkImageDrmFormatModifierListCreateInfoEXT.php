@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkImageDrmFormatModifierListCreateInfoEXT extends InputStructure imp
 {
     protected const string NATIVE_TYPE = 'VkImageDrmFormatModifierListCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000158003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,
@@ -29,6 +29,16 @@ final class VkImageDrmFormatModifierListCreateInfoEXT extends InputStructure imp
         public array $drmFormatModifiers = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_LIST_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     drmFormatModifierCount: int<0, 4294967295>,
+     *     pDrmFormatModifiers: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

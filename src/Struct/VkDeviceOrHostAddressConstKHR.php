@@ -26,6 +26,14 @@ final class VkDeviceOrHostAddressConstKHR extends InputStructure
         public CData|int|null $hostAddress = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     deviceAddress: int<0, max>,
+     *     hostAddress: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->deviceAddress, $this->hostAddress], static fn(mixed $member): bool => $member !== null));

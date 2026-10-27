@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000226002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -91,20 +91,20 @@ final readonly class VkPhysicalDeviceFragmentShadingRatePropertiesKHR extends Ou
      *     minFragmentShadingRateAttachmentTexelSize: CData,
      *     maxFragmentShadingRateAttachmentTexelSize: CData,
      *     maxFragmentShadingRateAttachmentTexelSizeAspectRatio: int<0, 4294967295>,
-     *     primitiveFragmentShadingRateWithMultipleViewports: int,
-     *     layeredShadingRateAttachments: int,
-     *     fragmentShadingRateNonTrivialCombinerOps: int,
+     *     primitiveFragmentShadingRateWithMultipleViewports: int<0, 1>,
+     *     layeredShadingRateAttachments: int<0, 1>,
+     *     fragmentShadingRateNonTrivialCombinerOps: int<0, 1>,
      *     maxFragmentSize: CData,
      *     maxFragmentSizeAspectRatio: int<0, 4294967295>,
      *     maxFragmentShadingRateCoverageSamples: int<0, 4294967295>,
      *     maxFragmentShadingRateRasterizationSamples: int<0, 4294967295>,
-     *     fragmentShadingRateWithShaderDepthStencilWrites: int,
-     *     fragmentShadingRateWithSampleMask: int,
-     *     fragmentShadingRateWithShaderSampleMask: int,
-     *     fragmentShadingRateWithConservativeRasterization: int,
-     *     fragmentShadingRateWithFragmentShaderInterlock: int,
-     *     fragmentShadingRateWithCustomSampleLocations: int,
-     *     fragmentShadingRateStrictMultiplyCombiner: int,
+     *     fragmentShadingRateWithShaderDepthStencilWrites: int<0, 1>,
+     *     fragmentShadingRateWithSampleMask: int<0, 1>,
+     *     fragmentShadingRateWithShaderSampleMask: int<0, 1>,
+     *     fragmentShadingRateWithConservativeRasterization: int<0, 1>,
+     *     fragmentShadingRateWithFragmentShaderInterlock: int<0, 1>,
+     *     fragmentShadingRateWithCustomSampleLocations: int<0, 1>,
+     *     fragmentShadingRateStrictMultiplyCombiner: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

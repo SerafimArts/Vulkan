@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrModelConversion;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkScreenBufferPropertiesQNXExtension;
@@ -24,8 +25,7 @@ use Serafim\Vulkan\Struct\Extension\VkScreenBufferPropertiesQNXExtension;
  */
 final readonly class VkScreenBufferFormatPropertiesQNX extends OutputStructure implements VkScreenBufferPropertiesQNXExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_SCREEN_BUFFER_FORMAT_PROPERTIES_QNX` */
-    public const int STRUCTURE_TYPE = 1000529001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SCREEN_BUFFER_FORMAT_PROPERTIES_QNX->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -52,15 +52,15 @@ final readonly class VkScreenBufferFormatPropertiesQNX extends OutputStructure i
 
     /**
      * @param CData&object{
-     *     format: int,
+     *     format: value-of<VkFormat>,
      *     externalFormat: int<0, max>,
      *     screenUsage: int<0, max>,
      *     formatFeatures: int<0, 4294967295>,
      *     samplerYcbcrConversionComponents: CData,
-     *     suggestedYcbcrModel: int,
-     *     suggestedYcbcrRange: int,
-     *     suggestedXChromaOffset: int,
-     *     suggestedYChromaOffset: int,
+     *     suggestedYcbcrModel: value-of<VkSamplerYcbcrModelConversion>,
+     *     suggestedYcbcrRange: value-of<VkSamplerYcbcrRange>,
+     *     suggestedXChromaOffset: value-of<VkChromaLocation>,
+     *     suggestedYChromaOffset: value-of<VkChromaLocation>,
      * } $data
      *
      * @phpstan-param CData $data

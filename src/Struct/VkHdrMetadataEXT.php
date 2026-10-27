@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkHdrMetadataEXTExtension;
 
@@ -20,8 +21,7 @@ final class VkHdrMetadataEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkHdrMetadataEXT';
 
-    /** `VK_STRUCTURE_TYPE_HDR_METADATA_EXT` */
-    public const int STRUCTURE_TYPE = 1000105000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_HDR_METADATA_EXT->value;
 
     public function __construct(
         /** Display primary's Red */
@@ -42,6 +42,22 @@ final class VkHdrMetadataEXT extends InputStructure
         public float $maxFrameAverageLightLevel = 0.0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_HDR_METADATA_EXT>,
+     *     pNext: CData,
+     *     displayPrimaryRed: CData,
+     *     displayPrimaryGreen: CData,
+     *     displayPrimaryBlue: CData,
+     *     whitePoint: CData,
+     *     maxLuminance: float,
+     *     minLuminance: float,
+     *     maxContentLightLevel: float,
+     *     maxFrameAverageLightLevel: float,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

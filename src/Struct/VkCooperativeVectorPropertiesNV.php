@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkComponentTypeKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeVectorPropertiesNV.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkComponentTypeKHR;
  */
 final readonly class VkCooperativeVectorPropertiesNV extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_COOPERATIVE_VECTOR_PROPERTIES_NV` */
-    public const int STRUCTURE_TYPE = 1000491002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COOPERATIVE_VECTOR_PROPERTIES_NV->value;
 
     public function __construct(
         public VkComponentTypeKHR $inputType,
@@ -31,12 +31,12 @@ final readonly class VkCooperativeVectorPropertiesNV extends OutputStructure
 
     /**
      * @param CData&object{
-     *     inputType: int,
-     *     inputInterpretation: int,
-     *     matrixInterpretation: int,
-     *     biasInterpretation: int,
-     *     resultType: int,
-     *     transpose: int,
+     *     inputType: value-of<VkComponentTypeKHR>,
+     *     inputInterpretation: value-of<VkComponentTypeKHR>,
+     *     matrixInterpretation: value-of<VkComponentTypeKHR>,
+     *     biasInterpretation: value-of<VkComponentTypeKHR>,
+     *     resultType: value-of<VkComponentTypeKHR>,
+     *     transpose: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

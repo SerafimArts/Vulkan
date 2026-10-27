@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceAntiLagFeaturesAMD extends InputStructure implements
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAntiLagFeaturesAMD';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD` */
-    public const int STRUCTURE_TYPE = 1000476000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $antiLag = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ANTI_LAG_FEATURES_AMD>,
+     *     pNext: CData,
+     *     antiLag: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceAntiLagFeaturesAMD extends InputStructure implements
 
     /**
      * @param CData&object{
-     *     antiLag: int,
+     *     antiLag: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

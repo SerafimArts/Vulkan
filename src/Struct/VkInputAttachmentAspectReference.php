@@ -32,6 +32,15 @@ final class VkInputAttachmentAspectReference extends InputStructure
         public int $aspectMask = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     subpass: int<0, 4294967295>,
+     *     inputAttachmentIndex: int<0, 4294967295>,
+     *     aspectMask: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->subpass = $this->subpass;

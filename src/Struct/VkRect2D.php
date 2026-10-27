@@ -24,6 +24,14 @@ final class VkRect2D extends InputStructure
         public VkExtent2D $extent,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     offset: CData,
+     *     extent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $this->offset->write($memory, $data->offset);

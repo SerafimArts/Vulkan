@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceShaderAtomicFloatFeaturesEXT extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicFloatFeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000260000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -42,6 +42,26 @@ final class VkPhysicalDeviceShaderAtomicFloatFeaturesEXT extends InputStructure 
         public bool $sparseImageFloat32AtomicAdd = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT>,
+     *     pNext: CData,
+     *     shaderBufferFloat32Atomics: int<0, 1>,
+     *     shaderBufferFloat32AtomicAdd: int<0, 1>,
+     *     shaderBufferFloat64Atomics: int<0, 1>,
+     *     shaderBufferFloat64AtomicAdd: int<0, 1>,
+     *     shaderSharedFloat32Atomics: int<0, 1>,
+     *     shaderSharedFloat32AtomicAdd: int<0, 1>,
+     *     shaderSharedFloat64Atomics: int<0, 1>,
+     *     shaderSharedFloat64AtomicAdd: int<0, 1>,
+     *     shaderImageFloat32Atomics: int<0, 1>,
+     *     shaderImageFloat32AtomicAdd: int<0, 1>,
+     *     sparseImageFloat32Atomics: int<0, 1>,
+     *     sparseImageFloat32AtomicAdd: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -87,18 +107,18 @@ final class VkPhysicalDeviceShaderAtomicFloatFeaturesEXT extends InputStructure 
 
     /**
      * @param CData&object{
-     *     shaderBufferFloat32Atomics: int,
-     *     shaderBufferFloat32AtomicAdd: int,
-     *     shaderBufferFloat64Atomics: int,
-     *     shaderBufferFloat64AtomicAdd: int,
-     *     shaderSharedFloat32Atomics: int,
-     *     shaderSharedFloat32AtomicAdd: int,
-     *     shaderSharedFloat64Atomics: int,
-     *     shaderSharedFloat64AtomicAdd: int,
-     *     shaderImageFloat32Atomics: int,
-     *     shaderImageFloat32AtomicAdd: int,
-     *     sparseImageFloat32Atomics: int,
-     *     sparseImageFloat32AtomicAdd: int,
+     *     shaderBufferFloat32Atomics: int<0, 1>,
+     *     shaderBufferFloat32AtomicAdd: int<0, 1>,
+     *     shaderBufferFloat64Atomics: int<0, 1>,
+     *     shaderBufferFloat64AtomicAdd: int<0, 1>,
+     *     shaderSharedFloat32Atomics: int<0, 1>,
+     *     shaderSharedFloat32AtomicAdd: int<0, 1>,
+     *     shaderSharedFloat64Atomics: int<0, 1>,
+     *     shaderSharedFloat64AtomicAdd: int<0, 1>,
+     *     shaderImageFloat32Atomics: int<0, 1>,
+     *     shaderImageFloat32AtomicAdd: int<0, 1>,
+     *     sparseImageFloat32Atomics: int<0, 1>,
+     *     sparseImageFloat32AtomicAdd: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

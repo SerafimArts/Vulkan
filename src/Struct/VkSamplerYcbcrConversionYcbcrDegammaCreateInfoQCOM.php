@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerYcbcrConversionCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM extends InputStru
 {
     protected const string NATIVE_TYPE = 'VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000520001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM->value;
 
     public function __construct(
         public ?VkSamplerYcbcrConversionCreateInfoExtension $next = null,
@@ -29,6 +29,16 @@ final class VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM extends InputStru
         public bool $enableCbCrDegamma = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_YCBCR_DEGAMMA_CREATE_INFO_QCOM>,
+     *     pNext: CData,
+     *     enableYDegamma: int<0, 1>,
+     *     enableCbCrDegamma: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

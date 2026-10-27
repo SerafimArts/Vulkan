@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Handle\VkSwapchainKHR;
@@ -23,8 +24,7 @@ final class VkPresentInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPresentInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_PRESENT_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000001001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_INFO_KHR->value;
 
     public function __construct(
         public ?VkPresentInfoKHRExtension $next = null,
@@ -48,6 +48,20 @@ final class VkPresentInfoKHR extends InputStructure
         public array $imageIndices = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PRESENT_INFO_KHR>,
+     *     pNext: CData,
+     *     waitSemaphoreCount: int<0, 4294967295>,
+     *     pWaitSemaphores: CData,
+     *     swapchainCount: int<0, 4294967295>,
+     *     pSwapchains: CData,
+     *     pImageIndices: CData,
+     *     pResults: int,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineViewportStateCreateInfoExtension;
@@ -21,18 +22,33 @@ final class VkPipelineViewportWScalingStateCreateInfoNV extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkPipelineViewportWScalingStateCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000087000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,
         public bool $viewportWScalingEnable = false,
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$viewportWScalings`, it follows
+         * the array when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $viewportCount = 0,
         /** @var list<VkViewportWScalingNV> */
         public array $viewportWScalings = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_W_SCALING_STATE_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     viewportWScalingEnable: int<0, 1>,
+     *     viewportCount: int<0, 4294967295>,
+     *     pViewportWScalings: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

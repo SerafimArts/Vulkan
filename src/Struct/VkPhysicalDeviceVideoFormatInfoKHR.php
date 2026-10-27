@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceVideoFormatInfoKHRExtension;
 
@@ -21,8 +22,7 @@ final class VkPhysicalDeviceVideoFormatInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVideoFormatInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000023014;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR->value;
 
     public function __construct(
         public ?VkPhysicalDeviceVideoFormatInfoKHRExtension $next = null,
@@ -30,6 +30,15 @@ final class VkPhysicalDeviceVideoFormatInfoKHR extends InputStructure
         public int $imageUsage = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR>,
+     *     pNext: CData,
+     *     imageUsage: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

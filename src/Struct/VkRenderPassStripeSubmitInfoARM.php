@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferSubmitInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkRenderPassStripeSubmitInfoARM extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkRenderPassStripeSubmitInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_SUBMIT_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000424004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_SUBMIT_INFO_ARM->value;
 
     public function __construct(
         public ?VkCommandBufferSubmitInfoExtension $next = null,
@@ -29,6 +29,16 @@ final class VkRenderPassStripeSubmitInfoARM extends InputStructure implements Vk
         public array $stripeSemaphoreInfos = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_SUBMIT_INFO_ARM>,
+     *     pNext: CData,
+     *     stripeSemaphoreInfoCount: int<0, 4294967295>,
+     *     pStripeSemaphoreInfos: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

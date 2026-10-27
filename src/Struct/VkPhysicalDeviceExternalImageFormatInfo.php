@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
 
@@ -21,8 +22,7 @@ final class VkPhysicalDeviceExternalImageFormatInfo extends InputStructure imple
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalImageFormatInfo';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO` */
-    public const int STRUCTURE_TYPE = 1000071000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO->value;
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,
@@ -30,6 +30,15 @@ final class VkPhysicalDeviceExternalImageFormatInfo extends InputStructure imple
         public int $handleType = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO>,
+     *     pNext: CData,
+     *     handleType: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkDebugUtilsLabelEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDebugUtilsLabelEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT` */
-    public const int STRUCTURE_TYPE = 1000128002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT->value;
 
     public function __construct(
         /** @var non-empty-string|null */
@@ -30,6 +30,16 @@ final class VkDebugUtilsLabelEXT extends InputStructure
         public array $color = [0.0, 0.0, 0.0, 0.0],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT>,
+     *     pNext: CData,
+     *     pLabelName: CData|null,
+     *     color: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

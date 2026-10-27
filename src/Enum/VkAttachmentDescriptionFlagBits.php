@@ -22,7 +22,9 @@ final class VkAttachmentDescriptionFlagBits
      * in the same render pass
      */
     public const int VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT = 1;
+
     public const int VK_ATTACHMENT_DESCRIPTION_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR = 2;
+
     public const int VK_ATTACHMENT_DESCRIPTION_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR = 4;
 
     private function __construct() {}

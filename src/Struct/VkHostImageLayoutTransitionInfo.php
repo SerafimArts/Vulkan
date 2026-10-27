@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkHostImageLayoutTransitionInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkHostImageLayoutTransitionInfo';
 
-    /** `VK_STRUCTURE_TYPE_HOST_IMAGE_LAYOUT_TRANSITION_INFO` */
-    public const int STRUCTURE_TYPE = 1000270006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_HOST_IMAGE_LAYOUT_TRANSITION_INFO->value;
 
     public function __construct(
         public VkImage $image,
@@ -31,6 +31,18 @@ final class VkHostImageLayoutTransitionInfo extends InputStructure
         public VkImageLayout $newLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_HOST_IMAGE_LAYOUT_TRANSITION_INFO>,
+     *     pNext: CData,
+     *     image: CData,
+     *     oldLayout: value-of<VkImageLayout>,
+     *     newLayout: value-of<VkImageLayout>,
+     *     subresourceRange: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

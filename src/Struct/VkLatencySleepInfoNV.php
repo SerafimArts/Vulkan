@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkLatencySleepInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkLatencySleepInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_LATENCY_SLEEP_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000505001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SLEEP_INFO_NV->value;
 
     public function __construct(
         public VkSemaphore $signalSemaphore,
@@ -29,6 +29,16 @@ final class VkLatencySleepInfoNV extends InputStructure
         public int $value = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SLEEP_INFO_NV>,
+     *     pNext: CData,
+     *     signalSemaphore: CData,
+     *     value: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

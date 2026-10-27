@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkRenderingAttachmentFlagBitsKHR
 {
     public const int VK_RENDERING_ATTACHMENT_INPUT_ATTACHMENT_FEEDBACK_BIT_KHR = 1;
+
     public const int VK_RENDERING_ATTACHMENT_RESOLVE_SKIP_TRANSFER_FUNCTION_BIT_KHR = 2;
+
     public const int VK_RENDERING_ATTACHMENT_RESOLVE_ENABLE_TRANSFER_FUNCTION_BIT_KHR = 4;
 
     private function __construct() {}

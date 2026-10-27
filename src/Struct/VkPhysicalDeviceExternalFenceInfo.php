@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalFenceHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,14 +21,22 @@ final class VkPhysicalDeviceExternalFenceInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalFenceInfo';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO` */
-    public const int STRUCTURE_TYPE = 1000112000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO->value;
 
     public function __construct(
         /** @var int<0, 4294967295>|(VkExternalFenceHandleTypeFlagBits::*) */
         public int $handleType = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_FENCE_INFO>,
+     *     pNext: CData,
+     *     handleType: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

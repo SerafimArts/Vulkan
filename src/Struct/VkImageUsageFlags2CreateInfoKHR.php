@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits2KHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -30,8 +31,7 @@ final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkImageUsageFlags2CreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000668002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR->value;
 
     public function __construct(
         public VkFramebufferAttachmentImageInfoExtension|VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceSparseImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkSurfaceCapabilities2KHRExtension|VkSwapchainCreateInfoKHRExtension|VkVideoFormatPropertiesKHRExtension|null $next = null,
@@ -39,6 +39,15 @@ final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements Vk
         public int $usage = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     usage: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

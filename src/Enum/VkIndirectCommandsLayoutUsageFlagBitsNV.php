@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkIndirectCommandsLayoutUsageFlagBitsNV
 {
     public const int VK_INDIRECT_COMMANDS_LAYOUT_USAGE_EXPLICIT_PREPROCESS_BIT_NV = 1;
+
     public const int VK_INDIRECT_COMMANDS_LAYOUT_USAGE_INDEXED_SEQUENCES_BIT_NV = 2;
+
     public const int VK_INDIRECT_COMMANDS_LAYOUT_USAGE_UNORDERED_SEQUENCES_BIT_NV = 4;
 
     private function __construct() {}

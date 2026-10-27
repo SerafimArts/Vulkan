@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCubicFilterWeightsQCOM;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBlitImageInfo2Extension;
 
@@ -21,14 +22,22 @@ final class VkBlitImageCubicWeightsInfoQCOM extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkBlitImageCubicWeightsInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000519002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM->value;
 
     public function __construct(
         public ?VkBlitImageInfo2Extension $next = null,
         public VkCubicFilterWeightsQCOM $cubicWeights = VkCubicFilterWeightsQCOM::VK_CUBIC_FILTER_WEIGHTS_CATMULL_ROM_QCOM,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BLIT_IMAGE_CUBIC_WEIGHTS_INFO_QCOM>,
+     *     pNext: CData,
+     *     cubicWeights: value-of<VkCubicFilterWeightsQCOM>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

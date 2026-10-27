@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorPoolCreateInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkDescriptorPoolInlineUniformBlockCreateInfo extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkDescriptorPoolInlineUniformBlockCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000138003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO->value;
 
     public function __construct(
         public ?VkDescriptorPoolCreateInfoExtension $next = null,
@@ -32,6 +32,15 @@ final class VkDescriptorPoolInlineUniformBlockCreateInfo extends InputStructure 
         public int $maxInlineUniformBlockBindings = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_INLINE_UNIFORM_BLOCK_CREATE_INFO>,
+     *     pNext: CData,
+     *     maxInlineUniformBlockBindings: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

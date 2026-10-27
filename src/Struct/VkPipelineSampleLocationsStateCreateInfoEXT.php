@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkPipelineSampleLocationsStateCreateInfoEXT extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkPipelineSampleLocationsStateCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000143002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT->value;
 
     public function __construct(
         public VkSampleLocationsInfoEXT $sampleLocationsInfo,
@@ -29,6 +29,16 @@ final class VkPipelineSampleLocationsStateCreateInfoEXT extends InputStructure i
         public bool $sampleLocationsEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SAMPLE_LOCATIONS_STATE_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     sampleLocationsEnable: int<0, 1>,
+     *     sampleLocationsInfo: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

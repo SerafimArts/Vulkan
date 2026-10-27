@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkLatencyMarkerNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkSetLatencyMarkerInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSetLatencyMarkerInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000505002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV->value;
 
     public function __construct(
         /** @var int<0, max> */
@@ -29,6 +29,16 @@ final class VkSetLatencyMarkerInfoNV extends InputStructure
         public VkLatencyMarkerNV $marker = VkLatencyMarkerNV::VK_LATENCY_MARKER_SIMULATION_START_NV,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV>,
+     *     pNext: CData,
+     *     presentID: int<0, max>,
+     *     marker: value-of<VkLatencyMarkerNV>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

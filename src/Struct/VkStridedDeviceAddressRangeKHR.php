@@ -28,6 +28,15 @@ final class VkStridedDeviceAddressRangeKHR extends InputStructure
         public int $stride = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     address: int<0, max>,
+     *     size: int<0, max>,
+     *     stride: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->address = $this->address;

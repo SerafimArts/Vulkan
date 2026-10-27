@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkMemoryAllocateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkImportMemoryZirconHandleInfoFUCHSIA extends InputStructure impleme
 {
     protected const string NATIVE_TYPE = 'VkImportMemoryZirconHandleInfoFUCHSIA';
 
-    /** `VK_STRUCTURE_TYPE_IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA` */
-    public const int STRUCTURE_TYPE = 1000364000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA->value;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
@@ -31,6 +31,16 @@ final class VkImportMemoryZirconHandleInfoFUCHSIA extends InputStructure impleme
         public CData|int|null $handle = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA>,
+     *     pNext: CData,
+     *     handleType: int<0, 4294967295>,
+     *     handle: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

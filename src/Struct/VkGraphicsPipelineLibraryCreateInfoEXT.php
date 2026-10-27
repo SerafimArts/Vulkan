@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkGraphicsPipelineLibraryFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkGraphicsPipelineLibraryCreateInfoEXT extends InputStructure implem
 {
     protected const string NATIVE_TYPE = 'VkGraphicsPipelineLibraryCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000320002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
@@ -30,6 +30,15 @@ final class VkGraphicsPipelineLibraryCreateInfoEXT extends InputStructure implem
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_LIBRARY_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

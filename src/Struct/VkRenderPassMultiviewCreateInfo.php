@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkRenderPassMultiviewCreateInfo extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkRenderPassMultiviewCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000053000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO->value;
 
     public function __construct(
         public ?VkRenderPassCreateInfoExtension $next = null,
@@ -36,6 +36,20 @@ final class VkRenderPassMultiviewCreateInfo extends InputStructure implements Vk
         public array $correlationMasks = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_MULTIVIEW_CREATE_INFO>,
+     *     pNext: CData,
+     *     subpassCount: int<0, 4294967295>,
+     *     pViewMasks: CData,
+     *     dependencyCount: int<0, 4294967295>,
+     *     pViewOffsets: CData,
+     *     correlationMaskCount: int<0, 4294967295>,
+     *     pCorrelationMasks: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

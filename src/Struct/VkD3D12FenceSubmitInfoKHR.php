@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
@@ -21,21 +22,42 @@ final class VkD3D12FenceSubmitInfoKHR extends InputStructure implements VkSubmit
 {
     protected const string NATIVE_TYPE = 'VkD3D12FenceSubmitInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000078002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR->value;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$waitSemaphoreValues`, it follows
+         * the array when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $waitSemaphoreValuesCount = 0,
         /** @var list<int<0, max>> */
         public array $waitSemaphoreValues = [],
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$signalSemaphoreValues`, it
+         * follows the array when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $signalSemaphoreValuesCount = 0,
         /** @var list<int<0, max>> */
         public array $signalSemaphoreValues = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR>,
+     *     pNext: CData,
+     *     waitSemaphoreValuesCount: int<0, 4294967295>,
+     *     pWaitSemaphoreValues: CData,
+     *     signalSemaphoreValuesCount: int<0, 4294967295>,
+     *     pSignalSemaphoreValues: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

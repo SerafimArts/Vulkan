@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoEncodeInfoKHRExtension;
@@ -21,8 +22,7 @@ final class VkVideoEncodeQuantizationMapInfoKHR extends InputStructure implement
 {
     protected const string NATIVE_TYPE = 'VkVideoEncodeQuantizationMapInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000553002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR->value;
 
     public function __construct(
         public VkExtent2D $quantizationMapExtent,
@@ -30,6 +30,16 @@ final class VkVideoEncodeQuantizationMapInfoKHR extends InputStructure implement
         public ?VkImageView $quantizationMap = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUANTIZATION_MAP_INFO_KHR>,
+     *     pNext: CData,
+     *     quantizationMap: CData,
+     *     quantizationMapExtent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

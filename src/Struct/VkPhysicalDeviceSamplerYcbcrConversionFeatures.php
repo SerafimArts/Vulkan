@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends InputStructur
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSamplerYcbcrConversionFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000156004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,15 @@ final class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends InputStructur
         public bool $samplerYcbcrConversion = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_YCBCR_CONVERSION_FEATURES>,
+     *     pNext: CData,
+     *     samplerYcbcrConversion: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -55,7 +64,7 @@ final class VkPhysicalDeviceSamplerYcbcrConversionFeatures extends InputStructur
 
     /**
      * @param CData&object{
-     *     samplerYcbcrConversion: int,
+     *     samplerYcbcrConversion: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

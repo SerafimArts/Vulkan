@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoChromaSubsamplingFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkVideoCodecOperationFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkVideoComponentBitDepthFlagBitsKHR;
@@ -24,8 +25,7 @@ final class VkVideoProfileInfoKHR extends InputStructure implements VkQueryPoolC
 {
     protected const string NATIVE_TYPE = 'VkVideoProfileInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000023000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR->value;
 
     public function __construct(
         public VkVideoProfileInfoKHRExtension|VkQueryPoolCreateInfoExtension|null $next = null,
@@ -39,6 +39,18 @@ final class VkVideoProfileInfoKHR extends InputStructure implements VkQueryPoolC
         public int $chromaBitDepth = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR>,
+     *     pNext: CData,
+     *     videoCodecOperation: int<0, 4294967295>,
+     *     chromaSubsampling: int<0, 4294967295>,
+     *     lumaBitDepth: int<0, 4294967295>,
+     *     chromaBitDepth: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

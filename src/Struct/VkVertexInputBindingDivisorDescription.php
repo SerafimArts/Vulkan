@@ -26,6 +26,14 @@ final class VkVertexInputBindingDivisorDescription extends InputStructure
         public int $divisor = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     binding: int<0, 4294967295>,
+     *     divisor: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->binding = $this->binding;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineVertexInputStateCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkPipelineVertexInputStateCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPipelineVertexInputStateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 19;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkPipelineVertexInputStateCreateInfoExtension $next = null,
@@ -33,6 +33,19 @@ final class VkPipelineVertexInputStateCreateInfo extends InputStructure
         public array $vertexAttributeDescriptions = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     vertexBindingDescriptionCount: int<0, 4294967295>,
+     *     pVertexBindingDescriptions: CData,
+     *     vertexAttributeDescriptionCount: int<0, 4294967295>,
+     *     pVertexAttributeDescriptions: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

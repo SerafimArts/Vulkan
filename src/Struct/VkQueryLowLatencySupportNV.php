@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSemaphoreCreateInfoExtension;
 
@@ -22,14 +23,22 @@ final class VkQueryLowLatencySupportNV extends InputStructure implements VkSemap
 {
     protected const string NATIVE_TYPE = 'VkQueryLowLatencySupportNV';
 
-    /** `VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV` */
-    public const int STRUCTURE_TYPE = 1000310000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV->value;
 
     public function __construct(
         public CData|int $queriedLowLatencyData,
         public ?VkSemaphoreCreateInfoExtension $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV>,
+     *     pNext: CData,
+     *     pQueriedLowLatencyData: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

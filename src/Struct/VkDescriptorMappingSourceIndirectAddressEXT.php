@@ -26,6 +26,14 @@ final class VkDescriptorMappingSourceIndirectAddressEXT extends InputStructure
         public int $addressOffset = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     pushOffset: int<0, 4294967295>,
+     *     addressOffset: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->pushOffset = $this->pushOffset;

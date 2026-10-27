@@ -15,14 +15,23 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodeFeedbackFlagBitsKHR
 {
     public const int VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR = 1;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR = 2;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_HAS_OVERRIDES_BIT_KHR = 4;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_AVERAGE_QUANTIZATION_BIT_KHR = 8;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_MIN_QUANTIZATION_BIT_KHR = 16;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_MAX_QUANTIZATION_BIT_KHR = 32;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_INTRA_PIXELS_BIT_KHR = 64;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_INTER_PIXELS_BIT_KHR = 128;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_SKIPPED_PIXELS_BIT_KHR = 256;
+
     public const int VK_VIDEO_ENCODE_FEEDBACK_PICTURE_PARTITION_COUNT_BIT_KHR = 512;
 
     private function __construct() {}

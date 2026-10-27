@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
  */
 final readonly class VkSamplerYcbcrConversionImageFormatProperties extends OutputStructure implements VkImageFormatProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000156005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_IMAGE_FORMAT_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {

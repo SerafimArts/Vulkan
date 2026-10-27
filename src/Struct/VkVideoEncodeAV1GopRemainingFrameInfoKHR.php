@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoBeginCodingInfoKHRExtension;
 
@@ -20,8 +21,7 @@ final class VkVideoEncodeAV1GopRemainingFrameInfoKHR extends InputStructure impl
 {
     protected const string NATIVE_TYPE = 'VkVideoEncodeAV1GopRemainingFrameInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000513010;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR->value;
 
     public function __construct(
         public ?VkVideoBeginCodingInfoKHRExtension $next = null,
@@ -34,6 +34,18 @@ final class VkVideoEncodeAV1GopRemainingFrameInfoKHR extends InputStructure impl
         public int $gopRemainingBipredictive = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR>,
+     *     pNext: CData,
+     *     useGopRemainingFrames: int<0, 1>,
+     *     gopRemainingIntra: int<0, 4294967295>,
+     *     gopRemainingPredictive: int<0, 4294967295>,
+     *     gopRemainingBipredictive: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

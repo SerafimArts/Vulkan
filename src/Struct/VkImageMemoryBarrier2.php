@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccessFlagBits2;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits2;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageMemoryBarrier2Extension;
@@ -24,8 +25,7 @@ final class VkImageMemoryBarrier2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkImageMemoryBarrier2';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2` */
-    public const int STRUCTURE_TYPE = 1000314002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2->value;
 
     public function __construct(
         public VkImage $image,
@@ -47,6 +47,24 @@ final class VkImageMemoryBarrier2 extends InputStructure
         public int $dstQueueFamilyIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2>,
+     *     pNext: CData,
+     *     srcStageMask: int<0, max>,
+     *     srcAccessMask: int<0, max>,
+     *     dstStageMask: int<0, max>,
+     *     dstAccessMask: int<0, max>,
+     *     oldLayout: value-of<VkImageLayout>,
+     *     newLayout: value-of<VkImageLayout>,
+     *     srcQueueFamilyIndex: int<0, 4294967295>,
+     *     dstQueueFamilyIndex: int<0, 4294967295>,
+     *     image: CData,
+     *     subresourceRange: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

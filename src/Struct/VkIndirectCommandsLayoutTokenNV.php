@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkIndirectCommandsTokenTypeNV;
 use Serafim\Vulkan\Enum\VkIndirectStateFlagBitsNV;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -26,8 +27,7 @@ final class VkIndirectCommandsLayoutTokenNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkIndirectCommandsLayoutTokenNV';
 
-    /** `VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_TOKEN_NV` */
-    public const int STRUCTURE_TYPE = 1000277003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_TOKEN_NV->value;
 
     public function __construct(
         public ?VkIndirectCommandsLayoutTokenNVExtension $next = null,
@@ -54,6 +54,27 @@ final class VkIndirectCommandsLayoutTokenNV extends InputStructure
         public array $indexTypeValues = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_TOKEN_NV>,
+     *     pNext: CData,
+     *     tokenType: value-of<VkIndirectCommandsTokenTypeNV>,
+     *     stream: int<0, 4294967295>,
+     *     offset: int<0, 4294967295>,
+     *     vertexBindingUnit: int<0, 4294967295>,
+     *     vertexDynamicStride: int<0, 1>,
+     *     pushconstantPipelineLayout: CData,
+     *     pushconstantShaderStageFlags: int<0, 4294967295>,
+     *     pushconstantOffset: int<0, 4294967295>,
+     *     pushconstantSize: int<0, 4294967295>,
+     *     indirectStateFlags: int<0, 4294967295>,
+     *     indexTypeCount: int<0, 4294967295>,
+     *     pIndexTypes: CData,
+     *     pIndexTypeValues: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

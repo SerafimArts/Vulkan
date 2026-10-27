@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends InputStructu
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCoverageReductionModeFeaturesNV';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV` */
-    public const int STRUCTURE_TYPE = 1000250000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $coverageReductionMode = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COVERAGE_REDUCTION_MODE_FEATURES_NV>,
+     *     pNext: CData,
+     *     coverageReductionMode: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceCoverageReductionModeFeaturesNV extends InputStructu
 
     /**
      * @param CData&object{
-     *     coverageReductionMode: int,
+     *     coverageReductionMode: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

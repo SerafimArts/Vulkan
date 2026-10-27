@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkExternalMemoryBufferCreateInfo extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkExternalMemoryBufferCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_BUFFER_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000072000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_BUFFER_CREATE_INFO->value;
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,
@@ -30,6 +30,15 @@ final class VkExternalMemoryBufferCreateInfo extends InputStructure implements V
         public int $handleTypes = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_BUFFER_CREATE_INFO>,
+     *     pNext: CData,
+     *     handleTypes: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkComponentTypeKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixProperties2EXT.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkComponentTypeKHR;
  */
 final readonly class VkCooperativeMatrixProperties2EXT extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_2_EXT` */
-    public const int STRUCTURE_TYPE = 1000659002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_2_EXT->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -38,10 +38,10 @@ final readonly class VkCooperativeMatrixProperties2EXT extends OutputStructure
      *     MGranularity: int<0, 4294967295>,
      *     NGranularity: int<0, 4294967295>,
      *     KGranularity: int<0, 4294967295>,
-     *     AType: int,
-     *     BType: int,
-     *     CType: int,
-     *     ResultType: int,
+     *     AType: value-of<VkComponentTypeKHR>,
+     *     BType: value-of<VkComponentTypeKHR>,
+     *     CType: value-of<VkComponentTypeKHR>,
+     *     ResultType: value-of<VkComponentTypeKHR>,
      * } $data
      *
      * @phpstan-param CData $data

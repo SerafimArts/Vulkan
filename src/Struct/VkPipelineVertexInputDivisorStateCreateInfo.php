@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineVertexInputStateCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkPipelineVertexInputDivisorStateCreateInfo extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkPipelineVertexInputDivisorStateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000190001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkPipelineVertexInputStateCreateInfoExtension $next = null,
@@ -29,6 +29,16 @@ final class VkPipelineVertexInputDivisorStateCreateInfo extends InputStructure i
         public array $vertexBindingDivisors = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_DIVISOR_STATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     vertexBindingDivisorCount: int<0, 4294967295>,
+     *     pVertexBindingDivisors: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

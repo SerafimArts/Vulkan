@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkToolPurposeFlagBits;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkToolPurposeFlagBits;
  */
 final readonly class VkPhysicalDeviceToolProperties extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000245000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES->value;
 
     public function __construct(
         public string $name,

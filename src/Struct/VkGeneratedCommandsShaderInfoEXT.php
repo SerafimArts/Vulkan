@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkShaderEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGeneratedCommandsInfoEXTExtension;
@@ -22,8 +23,7 @@ final class VkGeneratedCommandsShaderInfoEXT extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkGeneratedCommandsShaderInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_GENERATED_COMMANDS_SHADER_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000572014;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_SHADER_INFO_EXT->value;
 
     public function __construct(
         public VkGeneratedCommandsInfoEXTExtension|VkGeneratedCommandsMemoryRequirementsInfoEXTExtension|null $next = null,
@@ -31,6 +31,16 @@ final class VkGeneratedCommandsShaderInfoEXT extends InputStructure implements V
         public array $shaders = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_SHADER_INFO_EXT>,
+     *     pNext: CData,
+     *     shaderCount: int<0, 4294967295>,
+     *     pShaders: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

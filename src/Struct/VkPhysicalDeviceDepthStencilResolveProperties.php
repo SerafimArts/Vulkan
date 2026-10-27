@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkResolveModeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceDepthStencilResolveProperties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000199000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -63,8 +63,8 @@ final readonly class VkPhysicalDeviceDepthStencilResolveProperties extends Outpu
      * @param CData&object{
      *     supportedDepthResolveModes: int<0, 4294967295>,
      *     supportedStencilResolveModes: int<0, 4294967295>,
-     *     independentResolveNone: int,
-     *     independentResolve: int,
+     *     independentResolveNone: int<0, 1>,
+     *     independentResolve: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

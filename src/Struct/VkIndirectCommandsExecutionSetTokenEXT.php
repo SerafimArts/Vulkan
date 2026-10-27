@@ -27,6 +27,14 @@ final class VkIndirectCommandsExecutionSetTokenEXT extends InputStructure
         public int $shaderStages = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     type: value-of<VkIndirectExecutionSetInfoTypeEXT>,
+     *     shaderStages: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->type = $this->type->value;

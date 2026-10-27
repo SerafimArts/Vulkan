@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassBeginInfoExtension;
@@ -24,8 +25,7 @@ final class VkRenderPassAttachmentBeginInfo extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkRenderPassAttachmentBeginInfo';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO` */
-    public const int STRUCTURE_TYPE = 1000108003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO->value;
 
     public function __construct(
         public ?VkRenderPassBeginInfoExtension $next = null,
@@ -33,6 +33,16 @@ final class VkRenderPassAttachmentBeginInfo extends InputStructure implements Vk
         public array $attachments = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_ATTACHMENT_BEGIN_INFO>,
+     *     pNext: CData,
+     *     attachmentCount: int<0, 4294967295>,
+     *     pAttachments: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineCacheCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkPipelineCacheCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPipelineCacheCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 17;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO->value;
 
     public function __construct(
         /** @var int-mask-of<VkPipelineCacheCreateFlagBits::*> */
@@ -30,6 +30,17 @@ final class VkPipelineCacheCreateInfo extends InputStructure
         public string $initialData = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     initialDataSize: int<0, max>,
+     *     pInitialData: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

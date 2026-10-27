@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkCommandBuffer;
 use Serafim\Vulkan\Handle\VkSemaphore;
@@ -26,8 +27,7 @@ final class VkSubmitInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSubmitInfo';
 
-    /** `VK_STRUCTURE_TYPE_SUBMIT_INFO` */
-    public const int STRUCTURE_TYPE = 4;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBMIT_INFO->value;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,
@@ -41,6 +41,21 @@ final class VkSubmitInfo extends InputStructure
         public array $signalSemaphores = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SUBMIT_INFO>,
+     *     pNext: CData,
+     *     waitSemaphoreCount: int<0, 4294967295>,
+     *     pWaitSemaphores: CData,
+     *     pWaitDstStageMask: CData,
+     *     commandBufferCount: int<0, 4294967295>,
+     *     pCommandBuffers: CData,
+     *     signalSemaphoreCount: int<0, 4294967295>,
+     *     pSignalSemaphores: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

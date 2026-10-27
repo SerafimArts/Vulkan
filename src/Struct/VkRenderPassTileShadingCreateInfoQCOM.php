@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTileShadingRenderPassFlagBitsQCOM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
@@ -24,8 +25,7 @@ final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure impleme
 {
     protected const string NATIVE_TYPE = 'VkRenderPassTileShadingCreateInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000309002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM->value;
 
     public function __construct(
         public VkExtent2D $tileApronSize,
@@ -34,6 +34,16 @@ final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure impleme
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     tileApronSize: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

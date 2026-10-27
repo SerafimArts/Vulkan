@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineResourceInfoARMExtension;
 
@@ -21,14 +22,22 @@ final class VkDataGraphPipelineResourceInfoImageLayoutARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineResourceInfoImageLayoutARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM` */
-    public const int STRUCTURE_TYPE = 1000631006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM->value;
 
     public function __construct(
         public ?VkDataGraphPipelineResourceInfoARMExtension $next = null,
         public VkImageLayout $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM>,
+     *     pNext: CData,
+     *     layout: value-of<VkImageLayout>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

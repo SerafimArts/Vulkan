@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceIndexTypeUint8Features extends InputStructure implem
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceIndexTypeUint8Features';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000265000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $indexTypeUint8 = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INDEX_TYPE_UINT8_FEATURES>,
+     *     pNext: CData,
+     *     indexTypeUint8: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceIndexTypeUint8Features extends InputStructure implem
 
     /**
      * @param CData&object{
-     *     indexTypeUint8: int,
+     *     indexTypeUint8: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

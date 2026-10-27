@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
@@ -23,8 +24,7 @@ final class VkVideoProfileListInfoKHR extends InputStructure implements VkPhysic
 {
     protected const string NATIVE_TYPE = 'VkVideoProfileListInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_PROFILE_LIST_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000023013;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_PROFILE_LIST_INFO_KHR->value;
 
     public function __construct(
         public VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkImageCreateInfoExtension|VkBufferCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkVideoProfileListInfoKHR extends InputStructure implements VkPhysic
         public array $profiles = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_PROFILE_LIST_INFO_KHR>,
+     *     pNext: CData,
+     *     profileCount: int<0, 4294967295>,
+     *     pProfiles: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

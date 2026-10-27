@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkDeviceCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDeviceCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 3;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,
@@ -40,6 +40,22 @@ final class VkDeviceCreateInfo extends InputStructure
         public ?VkPhysicalDeviceFeatures $enabledFeatures = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     queueCreateInfoCount: int<0, 4294967295>,
+     *     pQueueCreateInfos: CData,
+     *     enabledLayerCount: int<0, 4294967295>,
+     *     ppEnabledLayerNames: CData,
+     *     enabledExtensionCount: int<0, 4294967295>,
+     *     ppEnabledExtensionNames: CData,
+     *     pEnabledFeatures: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -17,8 +17,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkExternalMemoryHandleTypeFlagBitsNV
 {
     public const int VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT_NV = 1;
+
     public const int VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT_NV = 2;
+
     public const int VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_IMAGE_BIT_NV = 4;
+
     public const int VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_IMAGE_KMT_BIT_NV = 8;
 
     private function __construct() {}

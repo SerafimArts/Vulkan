@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkDataGraphTOSAQualityFlagBitsARM
 {
     public const int VK_DATA_GRAPH_TOSA_QUALITY_ACCELERATED_ARM = 1;
+
     public const int VK_DATA_GRAPH_TOSA_QUALITY_CONFORMANT_ARM = 2;
+
     public const int VK_DATA_GRAPH_TOSA_QUALITY_EXPERIMENTAL_ARM = 4;
+
     public const int VK_DATA_GRAPH_TOSA_QUALITY_DEPRECATED_ARM = 8;
 
     private function __construct() {}

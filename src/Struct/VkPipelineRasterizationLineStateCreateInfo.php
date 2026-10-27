@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkLineRasterizationMode;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkPipelineRasterizationLineStateCreateInfo extends InputStructure im
 {
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationLineStateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000259001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
@@ -34,6 +34,18 @@ final class VkPipelineRasterizationLineStateCreateInfo extends InputStructure im
         public int $lineStipplePattern = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_LINE_STATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     lineRasterizationMode: value-of<VkLineRasterizationMode>,
+     *     stippledLineEnable: int<0, 1>,
+     *     lineStippleFactor: int<0, 4294967295>,
+     *     lineStipplePattern: int<0, 65535>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

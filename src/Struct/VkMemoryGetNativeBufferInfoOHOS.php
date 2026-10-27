@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,13 +21,21 @@ final class VkMemoryGetNativeBufferInfoOHOS extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkMemoryGetNativeBufferInfoOHOS';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_GET_NATIVE_BUFFER_INFO_OHOS` */
-    public const int STRUCTURE_TYPE = 1000452004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_GET_NATIVE_BUFFER_INFO_OHOS->value;
 
     public function __construct(
         public VkDeviceMemory $memory,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_GET_NATIVE_BUFFER_INFO_OHOS>,
+     *     pNext: CData,
+     *     memory: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

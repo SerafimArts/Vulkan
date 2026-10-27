@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubgroupFeatureFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -21,8 +22,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceSubgroupProperties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000094000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -68,7 +68,7 @@ final readonly class VkPhysicalDeviceSubgroupProperties extends OutputStructure 
      *     subgroupSize: int<0, 4294967295>,
      *     supportedStages: int<0, 4294967295>,
      *     supportedOperations: int<0, 4294967295>,
-     *     quadOperationsInAllStages: int,
+     *     quadOperationsInAllStages: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

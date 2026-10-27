@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkTensorViewARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkWriteDescriptorSetExtension;
@@ -21,8 +22,7 @@ final class VkWriteDescriptorSetTensorARM extends InputStructure implements VkWr
 {
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSetTensorARM';
 
-    /** `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM` */
-    public const int STRUCTURE_TYPE = 1000460003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM->value;
 
     public function __construct(
         public ?VkWriteDescriptorSetExtension $next = null,
@@ -30,6 +30,16 @@ final class VkWriteDescriptorSetTensorARM extends InputStructure implements VkWr
         public array $tensorViews = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM>,
+     *     pNext: CData,
+     *     tensorViewCount: int<0, 4294967295>,
+     *     pTensorViews: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

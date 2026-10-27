@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSamplerReductionMode;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerCreateInfoExtension;
 
@@ -21,14 +22,22 @@ final class VkSamplerReductionModeCreateInfo extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkSamplerReductionModeCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000130001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,
         public VkSamplerReductionMode $reductionMode = VkSamplerReductionMode::VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO>,
+     *     pNext: CData,
+     *     reductionMode: value-of<VkSamplerReductionMode>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

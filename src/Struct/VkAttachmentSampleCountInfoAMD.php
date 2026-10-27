@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -22,8 +23,7 @@ final class VkAttachmentSampleCountInfoAMD extends InputStructure implements VkC
 {
     protected const string NATIVE_TYPE = 'VkAttachmentSampleCountInfoAMD';
 
-    /** `VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD` */
-    public const int STRUCTURE_TYPE = 1000044008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD->value;
 
     public function __construct(
         public VkCommandBufferInheritanceInfoExtension|VkGraphicsPipelineCreateInfoExtension|null $next = null,
@@ -33,6 +33,17 @@ final class VkAttachmentSampleCountInfoAMD extends InputStructure implements VkC
         public int $depthStencilAttachmentSamples = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD>,
+     *     pNext: CData,
+     *     colorAttachmentCount: int<0, 4294967295>,
+     *     pColorAttachmentSamples: CData,
+     *     depthStencilAttachmentSamples: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

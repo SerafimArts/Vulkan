@@ -27,6 +27,17 @@ final class VkImageResolve extends InputStructure
         public VkExtent3D $extent,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     srcSubresource: CData,
+     *     srcOffset: CData,
+     *     dstSubresource: CData,
+     *     dstOffset: CData,
+     *     extent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $this->srcSubresource->write($memory, $data->srcSubresource);

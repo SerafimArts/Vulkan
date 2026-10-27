@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkTileShadingRenderPassFlagBitsQCOM
 {
     public const int VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM = 1;
+
     public const int VK_TILE_SHADING_RENDER_PASS_PER_TILE_EXECUTION_BIT_QCOM = 2;
 
     private function __construct() {}

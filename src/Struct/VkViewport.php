@@ -28,6 +28,18 @@ final class VkViewport extends InputStructure
         public float $maxDepth = 0.0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     x: float,
+     *     y: float,
+     *     width: float,
+     *     height: float,
+     *     minDepth: float,
+     *     maxDepth: float,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->x = $this->x;

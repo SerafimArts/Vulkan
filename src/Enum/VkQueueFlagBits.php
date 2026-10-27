@@ -28,9 +28,13 @@ final class VkQueueFlagBits
 
     /** Queues may support protected operations */
     public const int VK_QUEUE_PROTECTED_BIT = 16;
+
     public const int VK_QUEUE_VIDEO_DECODE_BIT_KHR = 32;
+
     public const int VK_QUEUE_VIDEO_ENCODE_BIT_KHR = 64;
+
     public const int VK_QUEUE_OPTICAL_FLOW_BIT_NV = 256;
+
     public const int VK_QUEUE_DATA_GRAPH_BIT_ARM = 1024;
 
     private function __construct() {}

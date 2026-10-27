@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkPipelineShaderStageCreateFlagBits
 {
     public const int VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT = 1;
+
     public const int VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT = 2;
 
     /** Alias of {@see self::VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT} */

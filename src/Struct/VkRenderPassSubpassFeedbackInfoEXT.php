@@ -31,6 +31,15 @@ final class VkRenderPassSubpassFeedbackInfoEXT extends InputStructure
         public int $postMergeIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     subpassMergeStatus: value-of<VkSubpassMergeStatusEXT>,
+     *     description: CData,
+     *     postMergeIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->subpassMergeStatus = $this->subpassMergeStatus->value;

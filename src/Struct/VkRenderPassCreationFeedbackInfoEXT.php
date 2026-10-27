@@ -27,6 +27,13 @@ final class VkRenderPassCreationFeedbackInfoEXT extends InputStructure
         public int $postMergeSubpassCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     postMergeSubpassCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->postMergeSubpassCount = $this->postMergeSubpassCount;

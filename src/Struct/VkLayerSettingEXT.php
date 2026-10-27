@@ -31,6 +31,17 @@ final class VkLayerSettingEXT extends InputStructure
         public string $values = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     pLayerName: CData|null,
+     *     pSettingName: CData|null,
+     *     type: value-of<VkLayerSettingTypeEXT>,
+     *     valueCount: int<0, 4294967295>,
+     *     pValues: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         if ($this->layerName !== null) {

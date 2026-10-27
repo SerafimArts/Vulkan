@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPresentModeKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceSurfaceInfo2KHRExtension;
 
@@ -21,14 +22,22 @@ final class VkSurfacePresentModeKHR extends InputStructure implements VkPhysical
 {
     protected const string NATIVE_TYPE = 'VkSurfacePresentModeKHR';
 
-    /** `VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR` */
-    public const int STRUCTURE_TYPE = 1000274000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR->value;
 
     public function __construct(
         public ?VkPhysicalDeviceSurfaceInfo2KHRExtension $next = null,
         public VkPresentModeKHR $presentMode = VkPresentModeKHR::VK_PRESENT_MODE_IMMEDIATE_KHR,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR>,
+     *     pNext: CData,
+     *     presentMode: value-of<VkPresentModeKHR>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 
@@ -20,14 +21,22 @@ final class VkImportMetalIOSurfaceInfoEXT extends InputStructure implements VkIm
 {
     protected const string NATIVE_TYPE = 'VkImportMetalIOSurfaceInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_IMPORT_METAL_IO_SURFACE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000311009;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_IO_SURFACE_INFO_EXT->value;
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,
         public CData|int|null $ioSurface = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_IO_SURFACE_INFO_EXT>,
+     *     pNext: CData,
+     *     ioSurface: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

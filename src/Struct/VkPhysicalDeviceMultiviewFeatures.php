@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceMultiviewFeatures extends InputStructure implements 
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultiviewFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000053001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -36,6 +36,17 @@ final class VkPhysicalDeviceMultiviewFeatures extends InputStructure implements 
         public bool $multiviewTessellationShader = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_FEATURES>,
+     *     pNext: CData,
+     *     multiview: int<0, 1>,
+     *     multiviewGeometryShader: int<0, 1>,
+     *     multiviewTessellationShader: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -63,9 +74,9 @@ final class VkPhysicalDeviceMultiviewFeatures extends InputStructure implements 
 
     /**
      * @param CData&object{
-     *     multiview: int,
-     *     multiviewGeometryShader: int,
-     *     multiviewTessellationShader: int,
+     *     multiview: int<0, 1>,
+     *     multiviewGeometryShader: int<0, 1>,
+     *     multiviewTessellationShader: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

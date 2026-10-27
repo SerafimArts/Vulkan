@@ -28,8 +28,11 @@ final class VkBufferCreateFlagBits
 
     /** Buffer requires protected memory */
     public const int VK_BUFFER_CREATE_PROTECTED_BIT = 8;
+
     public const int VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT = 16;
+
     public const int VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT = 32;
+
     public const int VK_BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR = 64;
 
     /** Alias of {@see self::VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT} */

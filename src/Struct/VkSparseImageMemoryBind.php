@@ -36,6 +36,18 @@ final class VkSparseImageMemoryBind extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     subresource: CData,
+     *     offset: CData,
+     *     extent: CData,
+     *     memory: CData,
+     *     memoryOffset: int<0, max>,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $this->subresource->write($memory, $data->subresource);

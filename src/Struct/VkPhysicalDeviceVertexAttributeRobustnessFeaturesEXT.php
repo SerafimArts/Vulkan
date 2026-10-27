@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT extends InputSt
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000608000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $vertexAttributeRobustness = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT>,
+     *     pNext: CData,
+     *     vertexAttributeRobustness: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT extends InputSt
 
     /**
      * @param CData&object{
-     *     vertexAttributeRobustness: int,
+     *     vertexAttributeRobustness: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkImageAlignmentControlCreateInfoMESA extends InputStructure impleme
 {
     protected const string NATIVE_TYPE = 'VkImageAlignmentControlCreateInfoMESA';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA` */
-    public const int STRUCTURE_TYPE = 1000575002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA->value;
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,
@@ -29,6 +29,15 @@ final class VkImageAlignmentControlCreateInfoMESA extends InputStructure impleme
         public int $maximumRequestedAlignment = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA>,
+     *     pNext: CData,
+     *     maximumRequestedAlignment: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

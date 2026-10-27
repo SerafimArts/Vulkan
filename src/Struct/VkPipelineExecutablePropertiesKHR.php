@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutablePropertiesKHR.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
  */
 final readonly class VkPipelineExecutablePropertiesKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000269002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_PROPERTIES_KHR->value;
 
     public function __construct(
         /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */

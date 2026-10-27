@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkPresentWait2InfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPresentWait2InfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000480002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR->value;
 
     public function __construct(
         /** @var int<0, max> */
@@ -29,6 +29,16 @@ final class VkPresentWait2InfoKHR extends InputStructure
         public int $timeout = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR>,
+     *     pNext: CData,
+     *     presentId: int<0, max>,
+     *     timeout: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkMemoryAllocateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkMemoryOpaqueCaptureAddressAllocateInfo extends InputStructure impl
 {
     protected const string NATIVE_TYPE = 'VkMemoryOpaqueCaptureAddressAllocateInfo';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000257003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO->value;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
@@ -29,6 +29,15 @@ final class VkMemoryOpaqueCaptureAddressAllocateInfo extends InputStructure impl
         public int $opaqueCaptureAddress = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO>,
+     *     pNext: CData,
+     *     opaqueCaptureAddress: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

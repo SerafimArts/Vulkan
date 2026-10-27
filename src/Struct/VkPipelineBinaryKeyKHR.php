@@ -9,25 +9,49 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineBinaryKeyKHR.html
  * @since VK_KHR_pipeline_binary
  */
-final readonly class VkPipelineBinaryKeyKHR extends OutputStructure
+final class VkPipelineBinaryKeyKHR extends InputStructure
 {
-    /** `VK_STRUCTURE_TYPE_PIPELINE_BINARY_KEY_KHR` */
-    public const int STRUCTURE_TYPE = 1000483003;
+    protected const string NATIVE_TYPE = 'VkPipelineBinaryKeyKHR';
+
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_BINARY_KEY_KHR->value;
 
     public function __construct(
-        /** @var int<0, 4294967295> */
-        public int $keySize,
-        public string $key,
+        public string $key = '',
     ) {}
 
     /**
      * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_BINARY_KEY_KHR>,
+     *     pNext: CData,
      *     keySize: int<0, 4294967295>,
+     *     key: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    protected function write(Allocation $memory, CData $data): void
+    {
+        $data->sType = self::STRUCTURE_TYPE;
+
+        if (\strlen($this->key) > 32) {
+            throw InvalidStructureException::becauseArrayIsTooLong('VkPipelineBinaryKeyKHR', 'key', 32);
+        }
+
+        if ($this->key !== '') {
+            \FFI::memcpy($data->key, $this->key, \strlen($this->key));
+        }
+    }
+
+    /**
+     * @param CData&object{
      *     key: CData,
      * } $data
      *
@@ -36,7 +60,6 @@ final readonly class VkPipelineBinaryKeyKHR extends OutputStructure
     public static function createFromCData(CData $data): self
     {
         return new self(
-            keySize: $data->keySize,
             key: \FFI::string($data->key, 32),
         );
     }

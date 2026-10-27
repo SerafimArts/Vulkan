@@ -15,6 +15,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
 use Serafim\Vulkan\Enum\VkPresentModeKHR;
 use Serafim\Vulkan\Enum\VkSharingMode;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkSwapchainCreateFlagBitsKHR;
 use Serafim\Vulkan\Handle\VkSurfaceKHR;
@@ -30,8 +31,7 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSwapchainCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000001000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR->value;
 
     public function __construct(
         /** The swapchain's target surface */
@@ -97,6 +97,30 @@ final class VkSwapchainCreateInfoKHR extends InputStructure
         public ?VkSwapchainKHR $oldSwapchain = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     surface: CData,
+     *     minImageCount: int<0, 4294967295>,
+     *     imageFormat: value-of<VkFormat>,
+     *     imageColorSpace: value-of<VkColorSpaceKHR>,
+     *     imageExtent: CData,
+     *     imageArrayLayers: int<0, 4294967295>,
+     *     imageUsage: int<0, 4294967295>,
+     *     imageSharingMode: value-of<VkSharingMode>,
+     *     queueFamilyIndexCount: int<0, 4294967295>,
+     *     pQueueFamilyIndices: CData,
+     *     preTransform: int<0, 4294967295>,
+     *     compositeAlpha: int<0, 4294967295>,
+     *     presentMode: value-of<VkPresentModeKHR>,
+     *     clipped: int<0, 1>,
+     *     oldSwapchain: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

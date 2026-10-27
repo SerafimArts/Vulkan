@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkHdrSmpteSt209450PowerPreferenceGOOGLE;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkHdrMetadataEXTExtension;
 
@@ -21,8 +22,7 @@ final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMeta
 {
     protected const string NATIVE_TYPE = 'VkHdrSmpteSt209450GOOGLE';
 
-    /** `VK_STRUCTURE_TYPE_HDR_SMPTE_ST_209450_GOOGLE` */
-    public const int STRUCTURE_TYPE = 1000718001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_HDR_SMPTE_ST_209450_GOOGLE->value;
 
     public function __construct(
         public ?VkHdrMetadataEXTExtension $next = null,
@@ -30,6 +30,17 @@ final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMeta
         public VkHdrSmpteSt209450PowerPreferenceGOOGLE $powerPreference = VkHdrSmpteSt209450PowerPreferenceGOOGLE::VK_HDR_SMPTE_ST_209450_POWER_PREFERENCE_COLOR_ACCURACY_GOOGLE,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_HDR_SMPTE_ST_209450_GOOGLE>,
+     *     pNext: CData,
+     *     metadataSize: int<0, max>,
+     *     pMetadata: CData,
+     *     powerPreference: value-of<VkHdrSmpteSt209450PowerPreferenceGOOGLE>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

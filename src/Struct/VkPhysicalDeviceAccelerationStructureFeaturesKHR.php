@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceAccelerationStructureFeaturesKHR extends InputStruct
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceAccelerationStructureFeaturesKHR';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR` */
-    public const int STRUCTURE_TYPE = 1000150013;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -35,6 +35,19 @@ final class VkPhysicalDeviceAccelerationStructureFeaturesKHR extends InputStruct
         public bool $descriptorBindingAccelerationStructureUpdateAfterBind = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR>,
+     *     pNext: CData,
+     *     accelerationStructure: int<0, 1>,
+     *     accelerationStructureCaptureReplay: int<0, 1>,
+     *     accelerationStructureIndirectBuild: int<0, 1>,
+     *     accelerationStructureHostCommands: int<0, 1>,
+     *     descriptorBindingAccelerationStructureUpdateAfterBind: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -66,11 +79,11 @@ final class VkPhysicalDeviceAccelerationStructureFeaturesKHR extends InputStruct
 
     /**
      * @param CData&object{
-     *     accelerationStructure: int,
-     *     accelerationStructureCaptureReplay: int,
-     *     accelerationStructureIndirectBuild: int,
-     *     accelerationStructureHostCommands: int,
-     *     descriptorBindingAccelerationStructureUpdateAfterBind: int,
+     *     accelerationStructure: int<0, 1>,
+     *     accelerationStructureCaptureReplay: int<0, 1>,
+     *     accelerationStructureIndirectBuild: int<0, 1>,
+     *     accelerationStructureHostCommands: int<0, 1>,
+     *     descriptorBindingAccelerationStructureUpdateAfterBind: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

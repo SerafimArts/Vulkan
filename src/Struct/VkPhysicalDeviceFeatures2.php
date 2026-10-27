@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
  */
 final readonly class VkPhysicalDeviceFeatures2 extends OutputStructure implements VkDeviceCreateInfoExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2` */
-    public const int STRUCTURE_TYPE = 1000059000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2->value;
 
     public static function createNative(Allocator $memory): CData
     {

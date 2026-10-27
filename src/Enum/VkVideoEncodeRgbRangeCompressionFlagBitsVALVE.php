@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodeRgbRangeCompressionFlagBitsVALVE
 {
     public const int VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_FULL_RANGE_BIT_VALVE = 1;
+
     public const int VK_VIDEO_ENCODE_RGB_RANGE_COMPRESSION_NARROW_RANGE_BIT_VALVE = 2;
 
     private function __construct() {}

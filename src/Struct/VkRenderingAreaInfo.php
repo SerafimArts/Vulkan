@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkRenderingAreaInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkRenderingAreaInfo';
 
-    /** `VK_STRUCTURE_TYPE_RENDERING_AREA_INFO` */
-    public const int STRUCTURE_TYPE = 1000470003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_AREA_INFO->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -32,6 +32,19 @@ final class VkRenderingAreaInfo extends InputStructure
         public VkFormat $stencilAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_AREA_INFO>,
+     *     pNext: CData,
+     *     viewMask: int<0, 4294967295>,
+     *     colorAttachmentCount: int<0, 4294967295>,
+     *     pColorAttachmentFormats: CData,
+     *     depthAttachmentFormat: value-of<VkFormat>,
+     *     stencilAttachmentFormat: value-of<VkFormat>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

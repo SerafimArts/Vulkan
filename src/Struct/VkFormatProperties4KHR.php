@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
  */
 final readonly class VkFormatProperties4KHR extends OutputStructure implements VkFormatProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_4_KHR` */
-    public const int STRUCTURE_TYPE = 1000668000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_4_KHR->value;
 
     public static function createNative(Allocator $memory): CData
     {

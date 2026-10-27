@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureBuildSizesInfoKHR.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkAccelerationStructureBuildSizesInfoKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000150020;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR->value;
 
     public function __construct(
         /** @var int<0, max> */

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccessFlagBits3KHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferMemoryBarrier2Extension;
 use Serafim\Vulkan\Struct\Extension\VkImageMemoryBarrier2Extension;
@@ -25,8 +26,7 @@ final class VkMemoryBarrierAccessFlags3KHR extends InputStructure implements VkS
 {
     protected const string NATIVE_TYPE = 'VkMemoryBarrierAccessFlags3KHR';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_BARRIER_ACCESS_FLAGS_3_KHR` */
-    public const int STRUCTURE_TYPE = 1000574002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER_ACCESS_FLAGS_3_KHR->value;
 
     public function __construct(
         public VkSubpassDependency2Extension|VkBufferMemoryBarrier2Extension|VkImageMemoryBarrier2Extension|VkMemoryBarrier2Extension|VkMemoryRangeBarrierKHRExtension|null $next = null,
@@ -36,6 +36,16 @@ final class VkMemoryBarrierAccessFlags3KHR extends InputStructure implements VkS
         public int $dstAccessMask3 = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER_ACCESS_FLAGS_3_KHR>,
+     *     pNext: CData,
+     *     srcAccessMask3: int<0, max>,
+     *     dstAccessMask3: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

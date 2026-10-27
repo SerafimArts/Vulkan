@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingEndInfoKHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkSubpassEndInfoExtension;
@@ -21,8 +22,7 @@ final class VkRenderPassFragmentDensityMapOffsetEndInfoEXT extends InputStructur
 {
     protected const string NATIVE_TYPE = 'VkRenderPassFragmentDensityMapOffsetEndInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000425002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT->value;
 
     public function __construct(
         public VkSubpassEndInfoExtension|VkRenderingEndInfoKHRExtension|null $next = null,
@@ -30,6 +30,16 @@ final class VkRenderPassFragmentDensityMapOffsetEndInfoEXT extends InputStructur
         public array $fragmentDensityOffsets = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT>,
+     *     pNext: CData,
+     *     fragmentDensityOffsetCount: int<0, 4294967295>,
+     *     pFragmentDensityOffsets: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

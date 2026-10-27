@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
  */
 final readonly class VkFilterCubicImageViewImageFormatPropertiesEXT extends OutputStructure implements VkImageFormatProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000170001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -46,8 +46,8 @@ final readonly class VkFilterCubicImageViewImageFormatPropertiesEXT extends Outp
 
     /**
      * @param CData&object{
-     *     filterCubic: int,
-     *     filterCubicMinmax: int,
+     *     filterCubic: int<0, 1>,
+     *     filterCubicMinmax: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

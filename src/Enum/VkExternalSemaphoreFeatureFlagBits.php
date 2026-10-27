@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkExternalSemaphoreFeatureFlagBits
 {
     public const int VK_EXTERNAL_SEMAPHORE_FEATURE_EXPORTABLE_BIT = 1;
+
     public const int VK_EXTERNAL_SEMAPHORE_FEATURE_IMPORTABLE_BIT = 2;
 
     /** Alias of {@see self::VK_EXTERNAL_SEMAPHORE_FEATURE_EXPORTABLE_BIT} */

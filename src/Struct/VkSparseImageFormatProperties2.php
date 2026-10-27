@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatProperties2.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkSparseImageFormatProperties2 extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_SPARSE_IMAGE_FORMAT_PROPERTIES_2` */
-    public const int STRUCTURE_TYPE = 1000059007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SPARSE_IMAGE_FORMAT_PROPERTIES_2->value;
 
     public function __construct(
         public VkSparseImageFormatProperties $properties,

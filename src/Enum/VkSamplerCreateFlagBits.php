@@ -15,9 +15,13 @@ namespace Serafim\Vulkan\Enum;
 final class VkSamplerCreateFlagBits
 {
     public const int VK_SAMPLER_CREATE_SUBSAMPLED_BIT_EXT = 1;
+
     public const int VK_SAMPLER_CREATE_SUBSAMPLED_COARSE_RECONSTRUCTION_BIT_EXT = 2;
+
     public const int VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT = 8;
+
     public const int VK_SAMPLER_CREATE_NON_SEAMLESS_CUBE_MAP_BIT_EXT = 4;
+
     public const int VK_SAMPLER_CREATE_IMAGE_PROCESSING_BIT_QCOM = 16;
 
     private function __construct() {}

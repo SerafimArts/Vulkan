@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPresentStageFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkPresentTimingInfoFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,8 +22,7 @@ final class VkPresentTimingInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPresentTimingInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000208004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT->value;
 
     public function __construct(
         /** @var int-mask-of<VkPresentTimingInfoFlagBitsEXT::*> */
@@ -50,6 +50,19 @@ final class VkPresentTimingInfoEXT extends InputStructure
         public int $targetTimeDomainPresentStage = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     targetTime: int<0, max>,
+     *     timeDomainId: int<0, max>,
+     *     presentStageQueries: int<0, 4294967295>,
+     *     targetTimeDomainPresentStage: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

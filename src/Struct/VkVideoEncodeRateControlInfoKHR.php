@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeRateControlModeFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoBeginCodingInfoKHRExtension;
@@ -22,8 +23,7 @@ final class VkVideoEncodeRateControlInfoKHR extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkVideoEncodeRateControlInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000299001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_INFO_KHR->value;
 
     public function __construct(
         public VkVideoCodingControlInfoKHRExtension|VkVideoBeginCodingInfoKHRExtension|null $next = null,
@@ -39,6 +39,20 @@ final class VkVideoEncodeRateControlInfoKHR extends InputStructure implements Vk
         public int $initialVirtualBufferSizeInMs = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     rateControlMode: int<0, 4294967295>,
+     *     layerCount: int<0, 4294967295>,
+     *     pLayers: CData,
+     *     virtualBufferSizeInMs: int<0, 4294967295>,
+     *     initialVirtualBufferSizeInMs: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

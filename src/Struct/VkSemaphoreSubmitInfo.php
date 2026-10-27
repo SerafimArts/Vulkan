@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits2;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkSemaphoreSubmitInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSemaphoreSubmitInfo';
 
-    /** `VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO` */
-    public const int STRUCTURE_TYPE = 1000314005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO->value;
 
     public function __construct(
         public VkSemaphore $semaphore,
@@ -34,6 +34,18 @@ final class VkSemaphoreSubmitInfo extends InputStructure
         public int $deviceIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO>,
+     *     pNext: CData,
+     *     semaphore: CData,
+     *     value: int<0, max>,
+     *     stageMask: int<0, max>,
+     *     deviceIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkImageCreateFlagBits;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkFramebufferAttachmentImageInfoExtension;
 
@@ -26,8 +27,7 @@ final class VkFramebufferAttachmentImageInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkFramebufferAttachmentImageInfo';
 
-    /** `VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO` */
-    public const int STRUCTURE_TYPE = 1000108002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO->value;
 
     public function __construct(
         public ?VkFramebufferAttachmentImageInfoExtension $next = null,
@@ -53,6 +53,21 @@ final class VkFramebufferAttachmentImageInfo extends InputStructure
         public array $viewFormats = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     usage: int<0, 4294967295>,
+     *     width: int<0, 4294967295>,
+     *     height: int<0, 4294967295>,
+     *     layerCount: int<0, 4294967295>,
+     *     viewFormatCount: int<0, 4294967295>,
+     *     pViewFormats: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

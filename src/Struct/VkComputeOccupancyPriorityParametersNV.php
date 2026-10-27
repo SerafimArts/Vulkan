@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,14 +20,23 @@ final class VkComputeOccupancyPriorityParametersNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkComputeOccupancyPriorityParametersNV';
 
-    /** `VK_STRUCTURE_TYPE_COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV` */
-    public const int STRUCTURE_TYPE = 1000645000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV->value;
 
     public function __construct(
         public float $occupancyPriority = 0.0,
         public float $occupancyThrottling = 0.0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMPUTE_OCCUPANCY_PRIORITY_PARAMETERS_NV>,
+     *     pNext: CData,
+     *     occupancyPriority: float,
+     *     occupancyThrottling: float,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -38,6 +38,9 @@ final class VkDescriptorSetLayoutBinding extends InputStructure
         /**
          * Number of descriptors in this binding
          *
+         * The number of the elements of `$immutableSamplers`, it follows
+         * the array when it is given.
+         *
          * @var int<0, 4294967295>
          */
         public int $descriptorCount = 0,
@@ -57,6 +60,17 @@ final class VkDescriptorSetLayoutBinding extends InputStructure
         public array $immutableSamplers = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     binding: int<0, 4294967295>,
+     *     descriptorType: value-of<VkDescriptorType>,
+     *     descriptorCount: int<0, 4294967295>,
+     *     stageFlags: int<0, 4294967295>,
+     *     pImmutableSamplers: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->binding = $this->binding;

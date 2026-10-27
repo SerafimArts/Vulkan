@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -21,8 +22,7 @@ final class VkRenderingAttachmentLocationInfo extends InputStructure implements 
 {
     protected const string NATIVE_TYPE = 'VkRenderingAttachmentLocationInfo';
 
-    /** `VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO` */
-    public const int STRUCTURE_TYPE = 1000232001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO->value;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
@@ -30,6 +30,16 @@ final class VkRenderingAttachmentLocationInfo extends InputStructure implements 
         public array $colorAttachmentLocations = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_LOCATION_INFO>,
+     *     pNext: CData,
+     *     colorAttachmentCount: int<0, 4294967295>,
+     *     pColorAttachmentLocations: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

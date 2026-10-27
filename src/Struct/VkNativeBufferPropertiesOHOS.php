@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
  */
 final readonly class VkNativeBufferPropertiesOHOS extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_NATIVE_BUFFER_PROPERTIES_OHOS` */
-    public const int STRUCTURE_TYPE = 1000452001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_NATIVE_BUFFER_PROPERTIES_OHOS->value;
 
     public function __construct(
         /** @var int<0, max> */

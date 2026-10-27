@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueDataParamsNV.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkExternalComputeQueueDataParamsNV extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV` */
-    public const int STRUCTURE_TYPE = 1000556002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */

@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPresentGravityFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkPresentScalingFlagBitsKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSwapchainCreateInfoKHRExtension;
 
@@ -22,8 +23,7 @@ final class VkSwapchainPresentScalingCreateInfoKHR extends InputStructure implem
 {
     protected const string NATIVE_TYPE = 'VkSwapchainPresentScalingCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000275004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR->value;
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,
@@ -35,6 +35,17 @@ final class VkSwapchainPresentScalingCreateInfoKHR extends InputStructure implem
         public int $presentGravityY = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     scalingBehavior: int<0, 4294967295>,
+     *     presentGravityX: int<0, 4294967295>,
+     *     presentGravityY: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

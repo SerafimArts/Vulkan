@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageViewCreateInfoExtension;
 
@@ -21,14 +22,22 @@ final class VkImageViewASTCDecodeModeEXT extends InputStructure implements VkIma
 {
     protected const string NATIVE_TYPE = 'VkImageViewASTCDecodeModeEXT';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT` */
-    public const int STRUCTURE_TYPE = 1000067000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT->value;
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,
         public VkFormat $decodeMode = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT>,
+     *     pNext: CData,
+     *     decodeMode: value-of<VkFormat>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

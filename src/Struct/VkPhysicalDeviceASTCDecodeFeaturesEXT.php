@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceASTCDecodeFeaturesEXT extends InputStructure impleme
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceASTCDecodeFeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000067001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $decodeModeSharedExponent = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ASTC_DECODE_FEATURES_EXT>,
+     *     pNext: CData,
+     *     decodeModeSharedExponent: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceASTCDecodeFeaturesEXT extends InputStructure impleme
 
     /**
      * @param CData&object{
-     *     decodeModeSharedExponent: int,
+     *     decodeModeSharedExponent: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

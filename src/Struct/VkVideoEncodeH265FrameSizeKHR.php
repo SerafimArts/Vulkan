@@ -28,6 +28,15 @@ final class VkVideoEncodeH265FrameSizeKHR extends InputStructure
         public int $frameBSize = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     frameISize: int<0, 4294967295>,
+     *     framePSize: int<0, 4294967295>,
+     *     frameBSize: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->frameISize = $this->frameISize;

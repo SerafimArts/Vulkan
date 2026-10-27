@@ -10,29 +10,41 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkObjectType;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineShaderStageCreateInfoExtension;
+use Serafim\Vulkan\Struct\Extension\VkResourceDescriptorInfoEXTExtension;
 use Serafim\Vulkan\Struct\Extension\VkSamplerCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDebugUtilsObjectNameInfoEXT.html
  * @since VK_EXT_debug_utils
  */
-final class VkDebugUtilsObjectNameInfoEXT extends InputStructure implements VkPipelineShaderStageCreateInfoExtension, VkSamplerCreateInfoExtension
+final class VkDebugUtilsObjectNameInfoEXT extends InputStructure implements VkPipelineShaderStageCreateInfoExtension, VkResourceDescriptorInfoEXTExtension, VkSamplerCreateInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkDebugUtilsObjectNameInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000128000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT->value;
 
     public function __construct(
-        public VkPipelineShaderStageCreateInfoExtension|VkSamplerCreateInfoExtension|null $next = null,
+        public VkPipelineShaderStageCreateInfoExtension|VkResourceDescriptorInfoEXTExtension|VkSamplerCreateInfoExtension|null $next = null,
         public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
         /** @var int<0, max> */
         public int $objectHandle = 0,
         public ?string $objectName = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT>,
+     *     pNext: CData,
+     *     objectType: value-of<VkObjectType>,
+     *     objectHandle: int<0, max>,
+     *     pObjectName: CData|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

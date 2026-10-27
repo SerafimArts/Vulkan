@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkTensorARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkCopyTensorInfoARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCopyTensorInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_COPY_TENSOR_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000460011;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COPY_TENSOR_INFO_ARM->value;
 
     public function __construct(
         public VkTensorARM $srcTensor,
@@ -30,6 +30,18 @@ final class VkCopyTensorInfoARM extends InputStructure
         public array $regions = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COPY_TENSOR_INFO_ARM>,
+     *     pNext: CData,
+     *     srcTensor: CData,
+     *     dstTensor: CData,
+     *     regionCount: int<0, 4294967295>,
+     *     pRegions: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

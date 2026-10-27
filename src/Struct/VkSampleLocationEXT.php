@@ -24,6 +24,14 @@ final class VkSampleLocationEXT extends InputStructure
         public float $y = 0.0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     x: float,
+     *     y: float,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->x = $this->x;

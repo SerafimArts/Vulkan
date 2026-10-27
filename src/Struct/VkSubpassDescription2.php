@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineBindPoint;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubpassDescriptionFlagBits;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -26,8 +27,7 @@ final class VkSubpassDescription2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSubpassDescription2';
 
-    /** `VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2` */
-    public const int STRUCTURE_TYPE = 1000109002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2->value;
 
     public function __construct(
         public ?VkSubpassDescription2Extension $next = null,
@@ -47,6 +47,25 @@ final class VkSubpassDescription2 extends InputStructure
         public array $preserveAttachments = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_2>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
+     *     viewMask: int<0, 4294967295>,
+     *     inputAttachmentCount: int<0, 4294967295>,
+     *     pInputAttachments: CData,
+     *     colorAttachmentCount: int<0, 4294967295>,
+     *     pColorAttachments: CData,
+     *     pResolveAttachments: CData,
+     *     pDepthStencilAttachment: CData,
+     *     preserveAttachmentCount: int<0, 4294967295>,
+     *     pPreserveAttachments: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

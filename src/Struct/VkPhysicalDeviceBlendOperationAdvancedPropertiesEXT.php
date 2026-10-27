@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000148001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BLEND_OPERATION_ADVANCED_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -52,11 +52,11 @@ final readonly class VkPhysicalDeviceBlendOperationAdvancedPropertiesEXT extends
     /**
      * @param CData&object{
      *     advancedBlendMaxColorAttachments: int<0, 4294967295>,
-     *     advancedBlendIndependentBlend: int,
-     *     advancedBlendNonPremultipliedSrcColor: int,
-     *     advancedBlendNonPremultipliedDstColor: int,
-     *     advancedBlendCorrelatedOverlap: int,
-     *     advancedBlendAllOperations: int,
+     *     advancedBlendIndependentBlend: int<0, 1>,
+     *     advancedBlendNonPremultipliedSrcColor: int<0, 1>,
+     *     advancedBlendNonPremultipliedDstColor: int<0, 1>,
+     *     advancedBlendCorrelatedOverlap: int<0, 1>,
+     *     advancedBlendAllOperations: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

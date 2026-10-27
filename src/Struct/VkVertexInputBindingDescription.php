@@ -37,6 +37,15 @@ final class VkVertexInputBindingDescription extends InputStructure
         public VkVertexInputRate $inputRate = VkVertexInputRate::VK_VERTEX_INPUT_RATE_VERTEX,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     binding: int<0, 4294967295>,
+     *     stride: int<0, 4294967295>,
+     *     inputRate: value-of<VkVertexInputRate>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->binding = $this->binding;

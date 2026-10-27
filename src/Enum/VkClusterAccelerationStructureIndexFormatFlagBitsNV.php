@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkClusterAccelerationStructureIndexFormatFlagBitsNV
 {
     public const int VK_CLUSTER_ACCELERATION_STRUCTURE_INDEX_FORMAT_8BIT_NV = 1;
+
     public const int VK_CLUSTER_ACCELERATION_STRUCTURE_INDEX_FORMAT_16BIT_NV = 2;
+
     public const int VK_CLUSTER_ACCELERATION_STRUCTURE_INDEX_FORMAT_32BIT_NV = 4;
 
     private function __construct() {}

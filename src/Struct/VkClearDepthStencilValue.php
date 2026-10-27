@@ -25,6 +25,14 @@ final class VkClearDepthStencilValue extends InputStructure
         public int $stencil = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     depth: float,
+     *     stencil: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->depth = $this->depth;

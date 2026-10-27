@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
  */
 final readonly class VkTextureLODGatherFormatPropertiesAMD extends OutputStructure implements VkImageFormatProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD` */
-    public const int STRUCTURE_TYPE = 1000041000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -36,7 +36,7 @@ final readonly class VkTextureLODGatherFormatPropertiesAMD extends OutputStructu
 
     /**
      * @param CData&object{
-     *     supportsTextureGatherLODBiasAMD: int,
+     *     supportsTextureGatherLODBiasAMD: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoverageReductionModeNV;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferMixedSamplesCombinationNV.html
@@ -18,8 +19,7 @@ use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
  */
 final readonly class VkFramebufferMixedSamplesCombinationNV extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV` */
-    public const int STRUCTURE_TYPE = 1000250002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV->value;
 
     public function __construct(
         public VkCoverageReductionModeNV $coverageReductionMode,
@@ -33,7 +33,7 @@ final readonly class VkFramebufferMixedSamplesCombinationNV extends OutputStruct
 
     /**
      * @param CData&object{
-     *     coverageReductionMode: int,
+     *     coverageReductionMode: value-of<VkCoverageReductionModeNV>,
      *     rasterizationSamples: int<0, 4294967295>,
      *     depthStencilSamples: int<0, 4294967295>,
      *     colorSamples: int<0, 4294967295>,

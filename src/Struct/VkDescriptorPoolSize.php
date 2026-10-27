@@ -29,6 +29,14 @@ final class VkDescriptorPoolSize extends InputStructure
         public int $descriptorCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     type: value-of<VkDescriptorType>,
+     *     descriptorCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->type = $this->type->value;

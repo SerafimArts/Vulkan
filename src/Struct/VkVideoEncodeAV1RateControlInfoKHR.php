@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeAV1RateControlFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoBeginCodingInfoKHRExtension;
@@ -22,8 +23,7 @@ final class VkVideoEncodeAV1RateControlInfoKHR extends InputStructure implements
 {
     protected const string NATIVE_TYPE = 'VkVideoEncodeAV1RateControlInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000513006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR->value;
 
     public function __construct(
         public VkVideoCodingControlInfoKHRExtension|VkVideoBeginCodingInfoKHRExtension|null $next = null,
@@ -39,6 +39,19 @@ final class VkVideoEncodeAV1RateControlInfoKHR extends InputStructure implements
         public int $temporalLayerCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_RATE_CONTROL_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     gopFrameCount: int<0, 4294967295>,
+     *     keyFramePeriod: int<0, 4294967295>,
+     *     consecutiveBipredictiveFrameCount: int<0, 4294967295>,
+     *     temporalLayerCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

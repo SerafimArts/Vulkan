@@ -28,6 +28,15 @@ final class VkVideoEncodeH264QpKHR extends InputStructure
         public int $qpB = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     qpI: int<-2147483648, 2147483647>,
+     *     qpP: int<-2147483648, 2147483647>,
+     *     qpB: int<-2147483648, 2147483647>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->qpI = $this->qpI;

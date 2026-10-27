@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionMemoryRequirementsKHR.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkVideoSessionMemoryRequirementsKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR` */
-    public const int STRUCTURE_TYPE = 1000023003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */

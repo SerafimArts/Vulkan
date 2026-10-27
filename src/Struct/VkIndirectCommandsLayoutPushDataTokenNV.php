@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkIndirectCommandsLayoutTokenNVExtension;
 
@@ -20,8 +21,7 @@ final class VkIndirectCommandsLayoutPushDataTokenNV extends InputStructure imple
 {
     protected const string NATIVE_TYPE = 'VkIndirectCommandsLayoutPushDataTokenNV';
 
-    /** `VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV` */
-    public const int STRUCTURE_TYPE = 1000135012;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV->value;
 
     public function __construct(
         public ?VkIndirectCommandsLayoutTokenNVExtension $next = null,
@@ -31,6 +31,16 @@ final class VkIndirectCommandsLayoutPushDataTokenNV extends InputStructure imple
         public int $pushDataSize = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_PUSH_DATA_TOKEN_NV>,
+     *     pNext: CData,
+     *     pushDataOffset: int<0, 4294967295>,
+     *     pushDataSize: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

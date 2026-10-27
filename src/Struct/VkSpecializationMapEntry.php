@@ -40,6 +40,15 @@ final class VkSpecializationMapEntry extends InputStructure
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     constantID: int<0, 4294967295>,
+     *     offset: int<0, 4294967295>,
+     *     size: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->constantID = $this->constantID;

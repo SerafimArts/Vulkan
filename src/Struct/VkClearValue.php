@@ -25,6 +25,14 @@ final class VkClearValue extends InputStructure
         public ?VkClearDepthStencilValue $depthStencil = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     color: CData,
+     *     depthStencil: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->color, $this->depthStencil], static fn(mixed $member): bool => $member !== null));

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageAspectFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkImportMetalTextureInfoEXT extends InputStructure implements VkImag
 {
     protected const string NATIVE_TYPE = 'VkImportMetalTextureInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_IMPORT_METAL_TEXTURE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000311007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_TEXTURE_INFO_EXT->value;
 
     public function __construct(
         public CData|int $mtlTexture,
@@ -31,6 +31,16 @@ final class VkImportMetalTextureInfoEXT extends InputStructure implements VkImag
         public int $plane = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_TEXTURE_INFO_EXT>,
+     *     pNext: CData,
+     *     plane: int<0, 4294967295>,
+     *     mtlTexture: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

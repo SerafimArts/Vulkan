@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkDispatchParametersARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDispatchParametersARM';
 
-    /** `VK_STRUCTURE_TYPE_DISPATCH_PARAMETERS_ARM` */
-    public const int STRUCTURE_TYPE = 1000417003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPATCH_PARAMETERS_ARM->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -31,6 +31,17 @@ final class VkDispatchParametersARM extends InputStructure
         public int $maxWarpsPerShaderCore = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DISPATCH_PARAMETERS_ARM>,
+     *     pNext: CData,
+     *     workGroupBatchSize: int<0, 4294967295>,
+     *     maxQueuedWorkGroupBatches: int<0, 4294967295>,
+     *     maxWarpsPerShaderCore: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

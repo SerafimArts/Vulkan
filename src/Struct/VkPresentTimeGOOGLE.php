@@ -34,6 +34,14 @@ final class VkPresentTimeGOOGLE extends InputStructure
         public int $desiredPresentTime = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     presentID: int<0, 4294967295>,
+     *     desiredPresentTime: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->presentID = $this->presentID;

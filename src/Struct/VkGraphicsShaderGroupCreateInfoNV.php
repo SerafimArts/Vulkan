@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkGraphicsShaderGroupCreateInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkGraphicsShaderGroupCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_GRAPHICS_SHADER_GROUP_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000277001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_SHADER_GROUP_CREATE_INFO_NV->value;
 
     public function __construct(
         /** @var list<VkPipelineShaderStageCreateInfo> */
@@ -29,6 +29,18 @@ final class VkGraphicsShaderGroupCreateInfoNV extends InputStructure
         public ?VkPipelineTessellationStateCreateInfo $tessellationState = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_SHADER_GROUP_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     stageCount: int<0, 4294967295>,
+     *     pStages: CData,
+     *     pVertexInputState: CData,
+     *     pTessellationState: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

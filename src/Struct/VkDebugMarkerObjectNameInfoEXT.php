@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDebugReportObjectTypeEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkDebugMarkerObjectNameInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDebugMarkerObjectNameInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_NAME_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000022000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_NAME_INFO_EXT->value;
 
     public function __construct(
         /** The type of the object */
@@ -40,6 +40,17 @@ final class VkDebugMarkerObjectNameInfoEXT extends InputStructure
         public ?string $objectName = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_NAME_INFO_EXT>,
+     *     pNext: CData,
+     *     objectType: value-of<VkDebugReportObjectTypeEXT>,
+     *     object: int<0, max>,
+     *     pObjectName: CData|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

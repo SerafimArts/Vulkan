@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSurfaceKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceSurfaceInfo2KHRExtension;
@@ -21,14 +22,22 @@ final class VkPhysicalDeviceSurfaceInfo2KHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSurfaceInfo2KHR';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR` */
-    public const int STRUCTURE_TYPE = 1000119000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR->value;
 
     public function __construct(
         public ?VkPhysicalDeviceSurfaceInfo2KHRExtension $next = null,
         public ?VkSurfaceKHR $surface = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR>,
+     *     pNext: CData,
+     *     surface: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

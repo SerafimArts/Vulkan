@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkCommandBufferInheritanceViewportScissorInfoNV extends InputStructu
 {
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceViewportScissorInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000278001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV->value;
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,
@@ -31,6 +31,17 @@ final class VkCommandBufferInheritanceViewportScissorInfoNV extends InputStructu
         public ?VkViewport $viewportDepths = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_VIEWPORT_SCISSOR_INFO_NV>,
+     *     pNext: CData,
+     *     viewportScissor2D: int<0, 1>,
+     *     viewportDepthCount: int<0, 4294967295>,
+     *     pViewportDepths: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

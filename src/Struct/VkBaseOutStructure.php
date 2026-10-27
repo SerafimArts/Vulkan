@@ -23,7 +23,7 @@ final readonly class VkBaseOutStructure extends OutputStructure
 
     /**
      * @param CData&object{
-     *     sType: int,
+     *     sType: value-of<VkStructureType>,
      * } $data
      *
      * @phpstan-param CData $data

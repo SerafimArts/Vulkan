@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGpaDeviceGetClockInfoAMD.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkGpaDeviceGetClockInfoAMD extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_GPA_DEVICE_GET_CLOCK_INFO_AMD` */
-    public const int STRUCTURE_TYPE = 1000133006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GPA_DEVICE_GET_CLOCK_INFO_AMD->value;
 
     public function __construct(
         public float $memoryClockRatioToPeak,

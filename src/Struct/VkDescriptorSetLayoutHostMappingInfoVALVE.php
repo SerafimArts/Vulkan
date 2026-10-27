@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutHostMappingInfoVALVE.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkDescriptorSetLayoutHostMappingInfoVALVE extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE` */
-    public const int STRUCTURE_TYPE = 1000420002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE->value;
 
     public function __construct(
         /** @var int<0, max> */

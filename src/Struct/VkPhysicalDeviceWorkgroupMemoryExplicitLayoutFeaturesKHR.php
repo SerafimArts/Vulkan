@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR extends Inp
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR` */
-    public const int STRUCTURE_TYPE = 1000336000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -34,6 +34,18 @@ final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR extends Inp
         public bool $workgroupMemoryExplicitLayout16BitAccess = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR>,
+     *     pNext: CData,
+     *     workgroupMemoryExplicitLayout: int<0, 1>,
+     *     workgroupMemoryExplicitLayoutScalarBlockLayout: int<0, 1>,
+     *     workgroupMemoryExplicitLayout8BitAccess: int<0, 1>,
+     *     workgroupMemoryExplicitLayout16BitAccess: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -63,10 +75,10 @@ final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR extends Inp
 
     /**
      * @param CData&object{
-     *     workgroupMemoryExplicitLayout: int,
-     *     workgroupMemoryExplicitLayoutScalarBlockLayout: int,
-     *     workgroupMemoryExplicitLayout8BitAccess: int,
-     *     workgroupMemoryExplicitLayout16BitAccess: int,
+     *     workgroupMemoryExplicitLayout: int<0, 1>,
+     *     workgroupMemoryExplicitLayoutScalarBlockLayout: int<0, 1>,
+     *     workgroupMemoryExplicitLayout8BitAccess: int<0, 1>,
+     *     workgroupMemoryExplicitLayout16BitAccess: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkShaderModule;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -22,8 +23,7 @@ final class VkDataGraphPipelineShaderModuleCreateInfoARM extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineShaderModuleCreateInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000507007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM->value;
 
     public function __construct(
         public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
@@ -31,12 +31,30 @@ final class VkDataGraphPipelineShaderModuleCreateInfoARM extends InputStructure 
         /** @var non-empty-string|null */
         public ?string $name = null,
         public ?VkSpecializationInfo $specializationInfo = null,
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$constants`, it follows the array
+         * when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $constantCount = 0,
         /** @var list<VkDataGraphPipelineConstantARM> */
         public array $constants = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM>,
+     *     pNext: CData,
+     *     module: CData,
+     *     pName: CData|null,
+     *     pSpecializationInfo: CData,
+     *     constantCount: int<0, 4294967295>,
+     *     pConstants: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

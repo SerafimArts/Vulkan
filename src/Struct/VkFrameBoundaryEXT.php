@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFrameBoundaryFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Handle\VkImage;
@@ -27,8 +28,7 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
 {
     protected const string NATIVE_TYPE = 'VkFrameBoundaryEXT';
 
-    /** `VK_STRUCTURE_TYPE_FRAME_BOUNDARY_EXT` */
-    public const int STRUCTURE_TYPE = 1000375001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAME_BOUNDARY_EXT->value;
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkPresentInfoKHRExtension|VkBindSparseInfoExtension|null $next = null,
@@ -36,21 +36,53 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
         public int $flags = 0,
         /** @var int<0, max> */
         public int $frameID = 0,
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$images`, it follows the array
+         * when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $imageCount = 0,
         /** @var list<VkImage> */
         public array $images = [],
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$buffers`, it follows the array
+         * when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $bufferCount = 0,
         /** @var list<VkBuffer> */
         public array $buffers = [],
         /** @var int<0, max> */
         public int $tagName = 0,
-        /** @var int<0, max> */
+        /**
+         * The number of the elements of `$tag`, it follows the array when
+         * it is given.
+         *
+         * @var int<0, max>
+         */
         public int $tagSize = 0,
         public string $tag = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_FRAME_BOUNDARY_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     frameID: int<0, max>,
+     *     imageCount: int<0, 4294967295>,
+     *     pImages: CData,
+     *     bufferCount: int<0, 4294967295>,
+     *     pBuffers: CData,
+     *     tagName: int<0, max>,
+     *     tagSize: int<0, max>,
+     *     pTag: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

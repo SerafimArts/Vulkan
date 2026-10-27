@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceShaderAtomicInt64Features extends InputStructure imp
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicInt64Features';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000180000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPhysicalDeviceShaderAtomicInt64Features extends InputStructure imp
         public bool $shaderSharedInt64Atomics = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES>,
+     *     pNext: CData,
+     *     shaderBufferInt64Atomics: int<0, 1>,
+     *     shaderSharedInt64Atomics: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -57,8 +67,8 @@ final class VkPhysicalDeviceShaderAtomicInt64Features extends InputStructure imp
 
     /**
      * @param CData&object{
-     *     shaderBufferInt64Atomics: int,
-     *     shaderSharedInt64Atomics: int,
+     *     shaderBufferInt64Atomics: int<0, 1>,
+     *     shaderSharedInt64Atomics: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

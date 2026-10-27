@@ -15,10 +15,15 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoSessionCreateFlagBitsKHR
 {
     public const int VK_VIDEO_SESSION_CREATE_PROTECTED_CONTENT_BIT_KHR = 1;
+
     public const int VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_BIT_KHR = 2;
+
     public const int VK_VIDEO_SESSION_CREATE_INLINE_QUERIES_BIT_KHR = 4;
+
     public const int VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 8;
+
     public const int VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_EMPHASIS_MAP_BIT_KHR = 16;
+
     public const int VK_VIDEO_SESSION_CREATE_INLINE_SESSION_PARAMETERS_BIT_KHR = 32;
 
     private function __construct() {}

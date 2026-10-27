@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,11 +20,18 @@ final class VkShaderInstrumentationCreateInfoARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkShaderInstrumentationCreateInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_SHADER_INSTRUMENTATION_CREATE_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000607002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_INSTRUMENTATION_CREATE_INFO_ARM->value;
 
     public function __construct() {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SHADER_INSTRUMENTATION_CREATE_INFO_ARM>,
+     *     pNext: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -40,6 +40,22 @@ final class VkDescriptorMappingSourceShaderRecordIndexEXT extends InputStructure
         public int $samplerHeapArrayStride = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     heapOffset: int<0, 4294967295>,
+     *     shaderRecordOffset: int<0, 4294967295>,
+     *     heapIndexStride: int<0, 4294967295>,
+     *     heapArrayStride: int<0, 4294967295>,
+     *     pEmbeddedSampler: CData,
+     *     useCombinedImageSamplerIndex: int<0, 1>,
+     *     samplerHeapOffset: int<0, 4294967295>,
+     *     samplerShaderRecordOffset: int<0, 4294967295>,
+     *     samplerHeapIndexStride: int<0, 4294967295>,
+     *     samplerHeapArrayStride: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->heapOffset = $this->heapOffset;

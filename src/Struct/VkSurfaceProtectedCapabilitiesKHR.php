@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  */
 final readonly class VkSurfaceProtectedCapabilitiesKHR extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_SURFACE_PROTECTED_CAPABILITIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000239000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PROTECTED_CAPABILITIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -37,7 +37,7 @@ final readonly class VkSurfaceProtectedCapabilitiesKHR extends OutputStructure i
 
     /**
      * @param CData&object{
-     *     supportsProtected: int,
+     *     supportsProtected: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

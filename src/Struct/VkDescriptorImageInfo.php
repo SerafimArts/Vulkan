@@ -44,6 +44,15 @@ final class VkDescriptorImageInfo extends InputStructure
         public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sampler: CData,
+     *     imageView: CData,
+     *     imageLayout: value-of<VkImageLayout>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sampler = $memory->ffi->cast('VkSampler', $this->sampler->pointer);

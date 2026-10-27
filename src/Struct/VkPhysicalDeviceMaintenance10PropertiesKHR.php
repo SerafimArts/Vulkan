@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceMaintenance10PropertiesKHR extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000630001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_10_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -41,9 +41,9 @@ final readonly class VkPhysicalDeviceMaintenance10PropertiesKHR extends OutputSt
 
     /**
      * @param CData&object{
-     *     rgba4OpaqueBlackSwizzled: int,
-     *     resolveSrgbFormatAppliesTransferFunction: int,
-     *     resolveSrgbFormatSupportsTransferFunctionControl: int,
+     *     rgba4OpaqueBlackSwizzled: int<0, 1>,
+     *     resolveSrgbFormatAppliesTransferFunction: int<0, 1>,
+     *     resolveSrgbFormatSupportsTransferFunctionControl: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

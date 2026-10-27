@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -22,8 +23,7 @@ final class VkBufferCopy2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBufferCopy2';
 
-    /** `VK_STRUCTURE_TYPE_BUFFER_COPY_2` */
-    public const int STRUCTURE_TYPE = 1000337006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COPY_2->value;
 
     public function __construct(
         /**
@@ -46,6 +46,17 @@ final class VkBufferCopy2 extends InputStructure
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COPY_2>,
+     *     pNext: CData,
+     *     srcOffset: int<0, max>,
+     *     dstOffset: int<0, max>,
+     *     size: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

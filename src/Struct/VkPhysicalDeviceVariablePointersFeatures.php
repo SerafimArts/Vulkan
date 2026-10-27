@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceVariablePointersFeatures extends InputStructure impl
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVariablePointersFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000120000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPhysicalDeviceVariablePointersFeatures extends InputStructure impl
         public bool $variablePointers = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES>,
+     *     pNext: CData,
+     *     variablePointersStorageBuffer: int<0, 1>,
+     *     variablePointers: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -57,8 +67,8 @@ final class VkPhysicalDeviceVariablePointersFeatures extends InputStructure impl
 
     /**
      * @param CData&object{
-     *     variablePointersStorageBuffer: int,
-     *     variablePointers: int,
+     *     variablePointersStorageBuffer: int<0, 1>,
+     *     variablePointers: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

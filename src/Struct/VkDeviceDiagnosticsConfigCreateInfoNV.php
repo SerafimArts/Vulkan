@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceDiagnosticsConfigFlagBitsNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkDeviceDiagnosticsConfigCreateInfoNV extends InputStructure impleme
 {
     protected const string NATIVE_TYPE = 'VkDeviceDiagnosticsConfigCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000300001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,
@@ -30,6 +30,15 @@ final class VkDeviceDiagnosticsConfigCreateInfoNV extends InputStructure impleme
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -25,6 +25,7 @@ final class VkTensorUsageFlagBitsARM
 
     /** Tensor can be aliased with an image */
     public const int VK_TENSOR_USAGE_IMAGE_ALIASING_BIT_ARM = 16;
+
     public const int VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM = 32;
 
     private function __construct() {}

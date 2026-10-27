@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineDispatchInfoARMExtension;
 
@@ -20,8 +21,7 @@ final class VkDataGraphPipelineDispatchInfoARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineDispatchInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000507014;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM->value;
 
     public function __construct(
         public ?VkDataGraphPipelineDispatchInfoARMExtension $next = null,
@@ -29,6 +29,15 @@ final class VkDataGraphPipelineDispatchInfoARM extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM>,
+     *     pNext: CData,
+     *     flags: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

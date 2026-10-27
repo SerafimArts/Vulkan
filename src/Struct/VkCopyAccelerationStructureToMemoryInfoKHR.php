@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCopyAccelerationStructureModeKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkAccelerationStructureKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkCopyAccelerationStructureToMemoryInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCopyAccelerationStructureToMemoryInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000150011;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR->value;
 
     public function __construct(
         public VkAccelerationStructureKHR $src,
@@ -30,6 +30,17 @@ final class VkCopyAccelerationStructureToMemoryInfoKHR extends InputStructure
         public VkCopyAccelerationStructureModeKHR $mode = VkCopyAccelerationStructureModeKHR::VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COPY_ACCELERATION_STRUCTURE_TO_MEMORY_INFO_KHR>,
+     *     pNext: CData,
+     *     src: CData,
+     *     dst: CData,
+     *     mode: value-of<VkCopyAccelerationStructureModeKHR>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

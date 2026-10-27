@@ -10,23 +10,49 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPhysicalDeviceDataGraphOperationTypeARM;
+use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphOperationSupportARM.html
  * @since VK_ARM_data_graph
  */
-final readonly class VkPhysicalDeviceDataGraphOperationSupportARM extends OutputStructure
+final class VkPhysicalDeviceDataGraphOperationSupportARM extends InputStructure
 {
+    protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphOperationSupportARM';
+
     public function __construct(
-        public VkPhysicalDeviceDataGraphOperationTypeARM $operationType,
-        public string $name,
+        public VkPhysicalDeviceDataGraphOperationTypeARM $operationType = VkPhysicalDeviceDataGraphOperationTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_TYPE_SPIRV_EXTENDED_INSTRUCTION_SET_ARM,
+        public string $name = '',
         /** @var int<0, 4294967295> */
-        public int $version,
+        public int $version = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     operationType: int,
+     *     operationType: value-of<VkPhysicalDeviceDataGraphOperationTypeARM>,
+     *     name: CData,
+     *     version: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    protected function write(Allocation $memory, CData $data): void
+    {
+        $data->operationType = $this->operationType->value;
+
+        if (\strlen($this->name) >= 128) {
+            throw InvalidStructureException::becauseArrayIsTooLong('VkPhysicalDeviceDataGraphOperationSupportARM', 'name', 128 - 1);
+        }
+
+        \FFI::memcpy($data->name, $this->name . "\0", \strlen($this->name) + 1);
+
+        $data->version = $this->version;
+    }
+
+    /**
+     * @param CData&object{
+     *     operationType: value-of<VkPhysicalDeviceDataGraphOperationTypeARM>,
      *     name: CData,
      *     version: int<0, 4294967295>,
      * } $data

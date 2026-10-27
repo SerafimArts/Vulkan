@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceMemoryProperties2Extension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceMemoryProperties2Extension;
  */
 final readonly class VkPhysicalDeviceMemoryProperties2 extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PROPERTIES_2` */
-    public const int STRUCTURE_TYPE = 1000059006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PROPERTIES_2->value;
 
     public function __construct(
         public VkPhysicalDeviceMemoryProperties $memoryProperties,

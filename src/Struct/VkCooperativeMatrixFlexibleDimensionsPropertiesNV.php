@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkComponentTypeKHR;
 use Serafim\Vulkan\Enum\VkScopeKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixFlexibleDimensionsPropertiesNV.html
@@ -18,8 +19,7 @@ use Serafim\Vulkan\Enum\VkScopeKHR;
  */
 final readonly class VkCooperativeMatrixFlexibleDimensionsPropertiesNV extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV` */
-    public const int STRUCTURE_TYPE = 1000593001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -43,12 +43,12 @@ final readonly class VkCooperativeMatrixFlexibleDimensionsPropertiesNV extends O
      *     MGranularity: int<0, 4294967295>,
      *     NGranularity: int<0, 4294967295>,
      *     KGranularity: int<0, 4294967295>,
-     *     AType: int,
-     *     BType: int,
-     *     CType: int,
-     *     ResultType: int,
-     *     saturatingAccumulation: int,
-     *     scope: int,
+     *     AType: value-of<VkComponentTypeKHR>,
+     *     BType: value-of<VkComponentTypeKHR>,
+     *     CType: value-of<VkComponentTypeKHR>,
+     *     ResultType: value-of<VkComponentTypeKHR>,
+     *     saturatingAccumulation: int<0, 1>,
+     *     scope: value-of<VkScopeKHR>,
      *     workgroupInvocations: int<0, 4294967295>,
      * } $data
      *

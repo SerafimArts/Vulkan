@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceVulkan13Properties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 54;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -198,40 +198,40 @@ final readonly class VkPhysicalDeviceVulkan13Properties extends OutputStructure 
      *     maxDescriptorSetInlineUniformBlocks: int<0, 4294967295>,
      *     maxDescriptorSetUpdateAfterBindInlineUniformBlocks: int<0, 4294967295>,
      *     maxInlineUniformTotalSize: int<0, 4294967295>,
-     *     integerDotProduct8BitUnsignedAccelerated: int,
-     *     integerDotProduct8BitSignedAccelerated: int,
-     *     integerDotProduct8BitMixedSignednessAccelerated: int,
-     *     integerDotProduct4x8BitPackedUnsignedAccelerated: int,
-     *     integerDotProduct4x8BitPackedSignedAccelerated: int,
-     *     integerDotProduct4x8BitPackedMixedSignednessAccelerated: int,
-     *     integerDotProduct16BitUnsignedAccelerated: int,
-     *     integerDotProduct16BitSignedAccelerated: int,
-     *     integerDotProduct16BitMixedSignednessAccelerated: int,
-     *     integerDotProduct32BitUnsignedAccelerated: int,
-     *     integerDotProduct32BitSignedAccelerated: int,
-     *     integerDotProduct32BitMixedSignednessAccelerated: int,
-     *     integerDotProduct64BitUnsignedAccelerated: int,
-     *     integerDotProduct64BitSignedAccelerated: int,
-     *     integerDotProduct64BitMixedSignednessAccelerated: int,
-     *     integerDotProductAccumulatingSaturating8BitUnsignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating8BitSignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated: int,
-     *     integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated: int,
-     *     integerDotProductAccumulatingSaturating16BitUnsignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating16BitSignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated: int,
-     *     integerDotProductAccumulatingSaturating32BitUnsignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating32BitSignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated: int,
-     *     integerDotProductAccumulatingSaturating64BitUnsignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating64BitSignedAccelerated: int,
-     *     integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated: int,
+     *     integerDotProduct8BitUnsignedAccelerated: int<0, 1>,
+     *     integerDotProduct8BitSignedAccelerated: int<0, 1>,
+     *     integerDotProduct8BitMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProduct4x8BitPackedUnsignedAccelerated: int<0, 1>,
+     *     integerDotProduct4x8BitPackedSignedAccelerated: int<0, 1>,
+     *     integerDotProduct4x8BitPackedMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProduct16BitUnsignedAccelerated: int<0, 1>,
+     *     integerDotProduct16BitSignedAccelerated: int<0, 1>,
+     *     integerDotProduct16BitMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProduct32BitUnsignedAccelerated: int<0, 1>,
+     *     integerDotProduct32BitSignedAccelerated: int<0, 1>,
+     *     integerDotProduct32BitMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProduct64BitUnsignedAccelerated: int<0, 1>,
+     *     integerDotProduct64BitSignedAccelerated: int<0, 1>,
+     *     integerDotProduct64BitMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating8BitUnsignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating8BitSignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating16BitUnsignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating16BitSignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating32BitUnsignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating32BitSignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating64BitUnsignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating64BitSignedAccelerated: int<0, 1>,
+     *     integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated: int<0, 1>,
      *     storageTexelBufferOffsetAlignmentBytes: int<0, max>,
-     *     storageTexelBufferOffsetSingleTexelAlignment: int,
+     *     storageTexelBufferOffsetSingleTexelAlignment: int<0, 1>,
      *     uniformTexelBufferOffsetAlignmentBytes: int<0, max>,
-     *     uniformTexelBufferOffsetSingleTexelAlignment: int,
+     *     uniformTexelBufferOffsetSingleTexelAlignment: int<0, 1>,
      *     maxBufferSize: int<0, max>,
      * } $data
      *

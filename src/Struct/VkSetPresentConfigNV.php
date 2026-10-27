@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPresentInfoKHRExtension;
 
@@ -20,8 +21,7 @@ final class VkSetPresentConfigNV extends InputStructure implements VkPresentInfo
 {
     protected const string NATIVE_TYPE = 'VkSetPresentConfigNV';
 
-    /** `VK_STRUCTURE_TYPE_SET_PRESENT_CONFIG_NV` */
-    public const int STRUCTURE_TYPE = 1000613000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SET_PRESENT_CONFIG_NV->value;
 
     public function __construct(
         public ?VkPresentInfoKHRExtension $next = null,
@@ -31,6 +31,16 @@ final class VkSetPresentConfigNV extends InputStructure implements VkPresentInfo
         public int $presentConfigFeedback = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SET_PRESENT_CONFIG_NV>,
+     *     pNext: CData,
+     *     numFramesPerBatch: int<0, 4294967295>,
+     *     presentConfigFeedback: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

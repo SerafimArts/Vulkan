@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferImageCopy2Extension;
@@ -23,8 +24,7 @@ final class VkCopyCommandTransformInfoQCOM extends InputStructure implements VkB
 {
     protected const string NATIVE_TYPE = 'VkCopyCommandTransformInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_COPY_COMMAND_TRANSFORM_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000333000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COPY_COMMAND_TRANSFORM_INFO_QCOM->value;
 
     public function __construct(
         public VkBufferImageCopy2Extension|VkImageBlit2Extension|VkDeviceMemoryImageCopyKHRExtension|null $next = null,
@@ -32,6 +32,15 @@ final class VkCopyCommandTransformInfoQCOM extends InputStructure implements VkB
         public int $transform = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COPY_COMMAND_TRANSFORM_INFO_QCOM>,
+     *     pNext: CData,
+     *     transform: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

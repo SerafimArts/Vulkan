@@ -27,6 +27,16 @@ final class VkIndirectCommandsTokenDataEXT extends InputStructure
         public ?VkIndirectCommandsExecutionSetTokenEXT $executionSet = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     pPushConstant: CData,
+     *     pVertexBuffer: CData,
+     *     pIndexBuffer: CData,
+     *     pExecutionSet: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->pushConstant, $this->vertexBuffer, $this->indexBuffer, $this->executionSet], static fn(mixed $member): bool => $member !== null));

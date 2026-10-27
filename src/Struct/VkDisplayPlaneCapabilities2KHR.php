@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilities2KHR.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkDisplayPlaneCapabilities2KHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR` */
-    public const int STRUCTURE_TYPE = 1000121004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR->value;
 
     public function __construct(
         public VkDisplayPlaneCapabilitiesKHR $capabilities,

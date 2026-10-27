@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalSemaphoreHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkSemaphoreGetWin32HandleInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSemaphoreGetWin32HandleInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000078003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR->value;
 
     public function __construct(
         public VkSemaphore $semaphore,
@@ -30,6 +30,16 @@ final class VkSemaphoreGetWin32HandleInfoKHR extends InputStructure
         public int $handleType = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_GET_WIN32_HANDLE_INFO_KHR>,
+     *     pNext: CData,
+     *     semaphore: CData,
+     *     handleType: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

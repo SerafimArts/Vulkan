@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceTensorPropertiesARM extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM` */
-    public const int STRUCTURE_TYPE = 1000460004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -117,7 +117,7 @@ final readonly class VkPhysicalDeviceTensorPropertiesARM extends OutputStructure
      *     maxPerStageDescriptorSetStorageTensors: int<0, 4294967295>,
      *     maxDescriptorSetUpdateAfterBindStorageTensors: int<0, 4294967295>,
      *     maxPerStageDescriptorUpdateAfterBindStorageTensors: int<0, 4294967295>,
-     *     shaderStorageTensorArrayNonUniformIndexingNative: int,
+     *     shaderStorageTensorArrayNonUniformIndexingNative: int<0, 1>,
      *     shaderTensorSupportedStages: int<0, 4294967295>,
      * } $data
      *

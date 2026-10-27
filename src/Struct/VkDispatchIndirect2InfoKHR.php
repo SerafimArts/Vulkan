@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkDispatchIndirect2InfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDispatchIndirect2InfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_DISPATCH_INDIRECT_2_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000318011;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPATCH_INDIRECT_2_INFO_KHR->value;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
@@ -29,6 +29,16 @@ final class VkDispatchIndirect2InfoKHR extends InputStructure
         public int $addressFlags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DISPATCH_INDIRECT_2_INFO_KHR>,
+     *     pNext: CData,
+     *     addressRange: CData,
+     *     addressFlags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

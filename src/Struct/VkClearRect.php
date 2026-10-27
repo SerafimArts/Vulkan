@@ -27,6 +27,15 @@ final class VkClearRect extends InputStructure
         public int $layerCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     rect: CData,
+     *     baseArrayLayer: int<0, 4294967295>,
+     *     layerCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $this->rect->write($memory, $data->rect);

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleIdentifierEXT.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkShaderModuleIdentifierEXT extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT` */
-    public const int STRUCTURE_TYPE = 1000462003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */

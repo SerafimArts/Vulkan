@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM extends Inpu
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM` */
-    public const int STRUCTURE_TYPE = 1000510000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $multiviewPerViewRenderAreas = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM>,
+     *     pNext: CData,
+     *     multiviewPerViewRenderAreas: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceMultiviewPerViewRenderAreasFeaturesQCOM extends Inpu
 
     /**
      * @param CData&object{
-     *     multiviewPerViewRenderAreas: int,
+     *     multiviewPerViewRenderAreas: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

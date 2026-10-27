@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderFloatControlsIndependence;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceFloatControlsProperties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000197000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FLOAT_CONTROLS_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -130,23 +130,23 @@ final readonly class VkPhysicalDeviceFloatControlsProperties extends OutputStruc
 
     /**
      * @param CData&object{
-     *     denormBehaviorIndependence: int,
-     *     roundingModeIndependence: int,
-     *     shaderSignedZeroInfNanPreserveFloat16: int,
-     *     shaderSignedZeroInfNanPreserveFloat32: int,
-     *     shaderSignedZeroInfNanPreserveFloat64: int,
-     *     shaderDenormPreserveFloat16: int,
-     *     shaderDenormPreserveFloat32: int,
-     *     shaderDenormPreserveFloat64: int,
-     *     shaderDenormFlushToZeroFloat16: int,
-     *     shaderDenormFlushToZeroFloat32: int,
-     *     shaderDenormFlushToZeroFloat64: int,
-     *     shaderRoundingModeRTEFloat16: int,
-     *     shaderRoundingModeRTEFloat32: int,
-     *     shaderRoundingModeRTEFloat64: int,
-     *     shaderRoundingModeRTZFloat16: int,
-     *     shaderRoundingModeRTZFloat32: int,
-     *     shaderRoundingModeRTZFloat64: int,
+     *     denormBehaviorIndependence: value-of<VkShaderFloatControlsIndependence>,
+     *     roundingModeIndependence: value-of<VkShaderFloatControlsIndependence>,
+     *     shaderSignedZeroInfNanPreserveFloat16: int<0, 1>,
+     *     shaderSignedZeroInfNanPreserveFloat32: int<0, 1>,
+     *     shaderSignedZeroInfNanPreserveFloat64: int<0, 1>,
+     *     shaderDenormPreserveFloat16: int<0, 1>,
+     *     shaderDenormPreserveFloat32: int<0, 1>,
+     *     shaderDenormPreserveFloat64: int<0, 1>,
+     *     shaderDenormFlushToZeroFloat16: int<0, 1>,
+     *     shaderDenormFlushToZeroFloat32: int<0, 1>,
+     *     shaderDenormFlushToZeroFloat64: int<0, 1>,
+     *     shaderRoundingModeRTEFloat16: int<0, 1>,
+     *     shaderRoundingModeRTEFloat32: int<0, 1>,
+     *     shaderRoundingModeRTEFloat64: int<0, 1>,
+     *     shaderRoundingModeRTZFloat16: int<0, 1>,
+     *     shaderRoundingModeRTZFloat32: int<0, 1>,
+     *     shaderRoundingModeRTZFloat64: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

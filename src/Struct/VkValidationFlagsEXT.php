@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkValidationCheckEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
@@ -23,8 +24,7 @@ final class VkValidationFlagsEXT extends InputStructure implements VkInstanceCre
 {
     protected const string NATIVE_TYPE = 'VkValidationFlagsEXT';
 
-    /** `VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT` */
-    public const int STRUCTURE_TYPE = 1000061000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT->value;
 
     public function __construct(
         public ?VkInstanceCreateInfoExtension $next = null,
@@ -36,6 +36,16 @@ final class VkValidationFlagsEXT extends InputStructure implements VkInstanceCre
         public array $disabledValidationChecks = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT>,
+     *     pNext: CData,
+     *     disabledValidationCheckCount: int<0, 4294967295>,
+     *     pDisabledValidationChecks: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

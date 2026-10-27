@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkOpticalFlowSessionCreateInfoNVExtension;
 
@@ -20,8 +21,7 @@ final class VkOpticalFlowSessionCreatePrivateDataInfoNV extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkOpticalFlowSessionCreatePrivateDataInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000464010;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV->value;
 
     public function __construct(
         public CData|int $privateData,
@@ -32,6 +32,17 @@ final class VkOpticalFlowSessionCreatePrivateDataInfoNV extends InputStructure i
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV>,
+     *     pNext: CData,
+     *     id: int<0, 4294967295>,
+     *     size: int<0, 4294967295>,
+     *     pPrivateData: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

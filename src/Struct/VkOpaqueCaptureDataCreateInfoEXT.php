@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkTensorCreateInfoARMExtension;
@@ -21,14 +22,22 @@ final class VkOpaqueCaptureDataCreateInfoEXT extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkOpaqueCaptureDataCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000135007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT->value;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkTensorCreateInfoARMExtension|null $next = null,
         public ?VkHostAddressRangeConstEXT $data = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DATA_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     pData: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

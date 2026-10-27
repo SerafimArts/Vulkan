@@ -26,6 +26,15 @@ final class VkClusterAccelerationStructureOpInputNV extends InputStructure
         public ?VkClusterAccelerationStructureMoveObjectsInputNV $moveObjects = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     pClustersBottomLevel: CData,
+     *     pTriangleClusters: CData,
+     *     pMoveObjects: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->clustersBottomLevel, $this->triangleClusters, $this->moveObjects], static fn(mixed $member): bool => $member !== null));

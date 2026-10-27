@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR extends InputStruc
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR` */
-    public const int STRUCTURE_TYPE = 1000386000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR extends InputStruc
         public bool $rayTracingPipelineTraceRaysIndirect2 = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR>,
+     *     pNext: CData,
+     *     rayTracingMaintenance1: int<0, 1>,
+     *     rayTracingPipelineTraceRaysIndirect2: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -57,8 +67,8 @@ final class VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR extends InputStruc
 
     /**
      * @param CData&object{
-     *     rayTracingMaintenance1: int,
-     *     rayTracingPipelineTraceRaysIndirect2: int,
+     *     rayTracingMaintenance1: int<0, 1>,
+     *     rayTracingPipelineTraceRaysIndirect2: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

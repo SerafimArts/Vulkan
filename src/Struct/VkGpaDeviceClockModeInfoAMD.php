@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkGpaDeviceClockModeAMD;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGpaDeviceClockModeInfoAMD.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkGpaDeviceClockModeAMD;
  */
 final readonly class VkGpaDeviceClockModeInfoAMD extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_GPA_DEVICE_CLOCK_MODE_INFO_AMD` */
-    public const int STRUCTURE_TYPE = 1000133004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GPA_DEVICE_CLOCK_MODE_INFO_AMD->value;
 
     public function __construct(
         public VkGpaDeviceClockModeAMD $clockMode,
@@ -28,7 +28,7 @@ final readonly class VkGpaDeviceClockModeInfoAMD extends OutputStructure
 
     /**
      * @param CData&object{
-     *     clockMode: int,
+     *     clockMode: value-of<VkGpaDeviceClockModeAMD>,
      *     memoryClockRatioToPeak: float,
      *     engineClockRatioToPeak: float,
      * } $data

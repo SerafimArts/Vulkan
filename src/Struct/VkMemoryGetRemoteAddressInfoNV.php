@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkMemoryGetRemoteAddressInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkMemoryGetRemoteAddressInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000371000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV->value;
 
     public function __construct(
         public VkDeviceMemory $memory,
@@ -30,6 +30,16 @@ final class VkMemoryGetRemoteAddressInfoNV extends InputStructure
         public int $handleType = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_GET_REMOTE_ADDRESS_INFO_NV>,
+     *     pNext: CData,
+     *     memory: CData,
+     *     handleType: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

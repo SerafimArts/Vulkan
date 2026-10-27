@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkDeviceDiagnosticsConfigFlagBitsNV
 {
     public const int VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_DEBUG_INFO_BIT_NV = 1;
+
     public const int VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_RESOURCE_TRACKING_BIT_NV = 2;
+
     public const int VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_AUTOMATIC_CHECKPOINTS_BIT_NV = 4;
+
     public const int VK_DEVICE_DIAGNOSTICS_CONFIG_ENABLE_SHADER_ERROR_REPORTING_BIT_NV = 8;
 
     private function __construct() {}

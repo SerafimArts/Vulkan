@@ -23,6 +23,14 @@ final class VkHostAddressRangeConstEXT extends InputStructure
         public string $address = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     address: CData,
+     *     size: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         if ($this->address !== '') {

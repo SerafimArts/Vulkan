@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkMemoryDecompressionMethodFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkDecompressMemoryInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDecompressMemoryInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_DECOMPRESS_MEMORY_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000550002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DECOMPRESS_MEMORY_INFO_EXT->value;
 
     public function __construct(
         /** @var int-mask-of<VkMemoryDecompressionMethodFlagBitsEXT::*> */
@@ -30,6 +30,17 @@ final class VkDecompressMemoryInfoEXT extends InputStructure
         public array $regions = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DECOMPRESS_MEMORY_INFO_EXT>,
+     *     pNext: CData,
+     *     decompressionMethod: int<0, max>,
+     *     regionCount: int<0, 4294967295>,
+     *     pRegions: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

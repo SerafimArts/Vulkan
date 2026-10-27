@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkClusterAccelerationStructureTypeNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkClusterAccelerationStructureMoveObjectsInputNV extends InputStruct
 {
     protected const string NATIVE_TYPE = 'VkClusterAccelerationStructureMoveObjectsInputNV';
 
-    /** `VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV` */
-    public const int STRUCTURE_TYPE = 1000569004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV->value;
 
     public function __construct(
         public VkClusterAccelerationStructureTypeNV $type = VkClusterAccelerationStructureTypeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_TYPE_CLUSTERS_BOTTOM_LEVEL_NV,
@@ -30,6 +30,17 @@ final class VkClusterAccelerationStructureMoveObjectsInputNV extends InputStruct
         public int $maxMovedBytes = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV>,
+     *     pNext: CData,
+     *     type: value-of<VkClusterAccelerationStructureTypeNV>,
+     *     noMoveOverlap: int<0, 1>,
+     *     maxMovedBytes: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

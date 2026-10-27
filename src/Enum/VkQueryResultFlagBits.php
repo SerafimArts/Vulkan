@@ -37,6 +37,7 @@ final class VkQueryResultFlagBits
      * are not available
      */
     public const int VK_QUERY_RESULT_PARTIAL_BIT = 8;
+
     public const int VK_QUERY_RESULT_WITH_STATUS_BIT_KHR = 16;
 
     private function __construct() {}

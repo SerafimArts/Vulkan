@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRenderingAttachmentFlagBitsKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingAttachmentInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkRenderingAttachmentFlagsInfoKHR extends InputStructure implements 
 {
     protected const string NATIVE_TYPE = 'VkRenderingAttachmentFlagsInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_FLAGS_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000630002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_FLAGS_INFO_KHR->value;
 
     public function __construct(
         public ?VkRenderingAttachmentInfoExtension $next = null,
@@ -30,6 +30,15 @@ final class VkRenderingAttachmentFlagsInfoKHR extends InputStructure implements 
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_FLAGS_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

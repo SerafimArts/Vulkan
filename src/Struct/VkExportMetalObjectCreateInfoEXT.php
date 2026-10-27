@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExportMetalObjectTypeFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferViewCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkEventCreateInfoExtension;
@@ -27,8 +28,7 @@ final class VkExportMetalObjectCreateInfoEXT extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkExportMetalObjectCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000311000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT->value;
 
     public function __construct(
         public VkInstanceCreateInfoExtension|VkMemoryAllocateInfoExtension|VkImageCreateInfoExtension|VkImageViewCreateInfoExtension|VkBufferViewCreateInfoExtension|VkSemaphoreCreateInfoExtension|VkEventCreateInfoExtension|null $next = null,
@@ -36,6 +36,15 @@ final class VkExportMetalObjectCreateInfoEXT extends InputStructure implements V
         public int $exportObjectType = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     exportObjectType: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

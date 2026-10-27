@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceDescriptorIndexingFeatures extends InputStructure im
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDescriptorIndexingFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000161001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -50,6 +50,34 @@ final class VkPhysicalDeviceDescriptorIndexingFeatures extends InputStructure im
         public bool $runtimeDescriptorArray = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES>,
+     *     pNext: CData,
+     *     shaderInputAttachmentArrayDynamicIndexing: int<0, 1>,
+     *     shaderUniformTexelBufferArrayDynamicIndexing: int<0, 1>,
+     *     shaderStorageTexelBufferArrayDynamicIndexing: int<0, 1>,
+     *     shaderUniformBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderSampledImageArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageImageArrayNonUniformIndexing: int<0, 1>,
+     *     shaderInputAttachmentArrayNonUniformIndexing: int<0, 1>,
+     *     shaderUniformTexelBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageTexelBufferArrayNonUniformIndexing: int<0, 1>,
+     *     descriptorBindingUniformBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingSampledImageUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageImageUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingUniformTexelBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageTexelBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingUpdateUnusedWhilePending: int<0, 1>,
+     *     descriptorBindingPartiallyBound: int<0, 1>,
+     *     descriptorBindingVariableDescriptorCount: int<0, 1>,
+     *     runtimeDescriptorArray: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -111,26 +139,26 @@ final class VkPhysicalDeviceDescriptorIndexingFeatures extends InputStructure im
 
     /**
      * @param CData&object{
-     *     shaderInputAttachmentArrayDynamicIndexing: int,
-     *     shaderUniformTexelBufferArrayDynamicIndexing: int,
-     *     shaderStorageTexelBufferArrayDynamicIndexing: int,
-     *     shaderUniformBufferArrayNonUniformIndexing: int,
-     *     shaderSampledImageArrayNonUniformIndexing: int,
-     *     shaderStorageBufferArrayNonUniformIndexing: int,
-     *     shaderStorageImageArrayNonUniformIndexing: int,
-     *     shaderInputAttachmentArrayNonUniformIndexing: int,
-     *     shaderUniformTexelBufferArrayNonUniformIndexing: int,
-     *     shaderStorageTexelBufferArrayNonUniformIndexing: int,
-     *     descriptorBindingUniformBufferUpdateAfterBind: int,
-     *     descriptorBindingSampledImageUpdateAfterBind: int,
-     *     descriptorBindingStorageImageUpdateAfterBind: int,
-     *     descriptorBindingStorageBufferUpdateAfterBind: int,
-     *     descriptorBindingUniformTexelBufferUpdateAfterBind: int,
-     *     descriptorBindingStorageTexelBufferUpdateAfterBind: int,
-     *     descriptorBindingUpdateUnusedWhilePending: int,
-     *     descriptorBindingPartiallyBound: int,
-     *     descriptorBindingVariableDescriptorCount: int,
-     *     runtimeDescriptorArray: int,
+     *     shaderInputAttachmentArrayDynamicIndexing: int<0, 1>,
+     *     shaderUniformTexelBufferArrayDynamicIndexing: int<0, 1>,
+     *     shaderStorageTexelBufferArrayDynamicIndexing: int<0, 1>,
+     *     shaderUniformBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderSampledImageArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageImageArrayNonUniformIndexing: int<0, 1>,
+     *     shaderInputAttachmentArrayNonUniformIndexing: int<0, 1>,
+     *     shaderUniformTexelBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageTexelBufferArrayNonUniformIndexing: int<0, 1>,
+     *     descriptorBindingUniformBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingSampledImageUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageImageUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingUniformTexelBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageTexelBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingUpdateUnusedWhilePending: int<0, 1>,
+     *     descriptorBindingPartiallyBound: int<0, 1>,
+     *     descriptorBindingVariableDescriptorCount: int<0, 1>,
+     *     runtimeDescriptorArray: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

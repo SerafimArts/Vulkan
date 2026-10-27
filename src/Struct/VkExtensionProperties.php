@@ -9,23 +9,46 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExtensionProperties.html
  * @since 1.0
  */
-final readonly class VkExtensionProperties extends OutputStructure
+final class VkExtensionProperties extends InputStructure
 {
+    protected const string NATIVE_TYPE = 'VkExtensionProperties';
+
     public function __construct(
         /** Extension name */
-        public string $extensionName,
+        public string $extensionName = '',
         /**
          * Version of the extension specification implemented
          *
          * @var int<0, 4294967295>
          */
-        public int $specVersion,
+        public int $specVersion = 0,
     ) {}
+
+    /**
+     * @param CData&object{
+     *     extensionName: CData,
+     *     specVersion: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    protected function write(Allocation $memory, CData $data): void
+    {
+        if (\strlen($this->extensionName) >= 256) {
+            throw InvalidStructureException::becauseArrayIsTooLong('VkExtensionProperties', 'extensionName', 256 - 1);
+        }
+
+        \FFI::memcpy($data->extensionName, $this->extensionName . "\0", \strlen($this->extensionName) + 1);
+
+        $data->specVersion = $this->specVersion;
+    }
 
     /**
      * @param CData&object{

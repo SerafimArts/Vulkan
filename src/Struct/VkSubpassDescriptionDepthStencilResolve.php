@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkResolveModeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDescription2Extension;
 
@@ -24,8 +25,7 @@ final class VkSubpassDescriptionDepthStencilResolve extends InputStructure imple
 {
     protected const string NATIVE_TYPE = 'VkSubpassDescriptionDepthStencilResolve';
 
-    /** `VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE` */
-    public const int STRUCTURE_TYPE = 1000199001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE->value;
 
     public function __construct(
         public ?VkSubpassDescription2Extension $next = null,
@@ -45,6 +45,17 @@ final class VkSubpassDescriptionDepthStencilResolve extends InputStructure imple
         public ?VkAttachmentReference2 $depthStencilResolveAttachment = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DESCRIPTION_DEPTH_STENCIL_RESOLVE>,
+     *     pNext: CData,
+     *     depthResolveMode: int<0, 4294967295>,
+     *     stencilResolveMode: int<0, 4294967295>,
+     *     pDepthStencilResolveAttachment: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

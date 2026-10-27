@@ -17,6 +17,7 @@ use Serafim\Vulkan\Enum\VkImageType;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkSharingMode;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 
@@ -28,8 +29,7 @@ final class VkImageCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkImageCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 14;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO->value;
 
     public function __construct(
         public VkExtent3D $extent,
@@ -67,6 +67,27 @@ final class VkImageCreateInfo extends InputStructure
         public VkImageLayout $initialLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     imageType: value-of<VkImageType>,
+     *     format: value-of<VkFormat>,
+     *     extent: CData,
+     *     mipLevels: int<0, 4294967295>,
+     *     arrayLayers: int<0, 4294967295>,
+     *     samples: int<0, 4294967295>,
+     *     tiling: value-of<VkImageTiling>,
+     *     usage: int<0, 4294967295>,
+     *     sharingMode: value-of<VkSharingMode>,
+     *     queueFamilyIndexCount: int<0, 4294967295>,
+     *     pQueueFamilyIndices: CData,
+     *     initialLayout: value-of<VkImageLayout>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

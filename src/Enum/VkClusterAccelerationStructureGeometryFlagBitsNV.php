@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkClusterAccelerationStructureGeometryFlagBitsNV
 {
     public const int VK_CLUSTER_ACCELERATION_STRUCTURE_GEOMETRY_CULL_DISABLE_BIT_NV = 1;
+
     public const int VK_CLUSTER_ACCELERATION_STRUCTURE_GEOMETRY_NO_DUPLICATE_ANYHIT_INVOCATION_BIT_NV = 2;
+
     public const int VK_CLUSTER_ACCELERATION_STRUCTURE_GEOMETRY_OPAQUE_BIT_NV = 4;
 
     private function __construct() {}

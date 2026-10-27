@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineCreateInfoARMExtension;
 use Serafim\Vulkan\Struct\Extension\VkPipelineShaderStageCreateInfoExtension;
@@ -22,8 +23,7 @@ final class VkShaderModuleCreateInfo extends InputStructure implements VkPipelin
 {
     protected const string NATIVE_TYPE = 'VkShaderModuleCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 16;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO->value;
 
     public function __construct(
         /**
@@ -37,6 +37,17 @@ final class VkShaderModuleCreateInfo extends InputStructure implements VkPipelin
         public string $code = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     codeSize: int<0, max>,
+     *     pCode: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

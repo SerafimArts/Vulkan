@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineLayoutCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorSetLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension;
@@ -31,8 +32,7 @@ final class VkPipelineLayoutCreateInfo extends InputStructure implements VkBindD
 {
     protected const string NATIVE_TYPE = 'VkPipelineLayoutCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 30;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO->value;
 
     public function __construct(
         public VkBindDescriptorSetsInfoExtension|VkPushConstantsInfoExtension|VkPushDescriptorSetInfoExtension|VkPushDescriptorSetWithTemplateInfoExtension|VkSetDescriptorBufferOffsetsInfoEXTExtension|VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension|VkIndirectCommandsLayoutCreateInfoEXTExtension|null $next = null,
@@ -54,6 +54,19 @@ final class VkPipelineLayoutCreateInfo extends InputStructure implements VkBindD
         public array $pushConstantRanges = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     setLayoutCount: int<0, 4294967295>,
+     *     pSetLayouts: CData,
+     *     pushConstantRangeCount: int<0, 4294967295>,
+     *     pPushConstantRanges: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

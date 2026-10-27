@@ -28,6 +28,16 @@ final class VkCoarseSampleOrderCustomNV extends InputStructure
         public array $sampleLocations = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     shadingRate: value-of<VkShadingRatePaletteEntryNV>,
+     *     sampleCount: int<0, 4294967295>,
+     *     sampleLocationCount: int<0, 4294967295>,
+     *     pSampleLocations: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->shadingRate = $this->shadingRate->value;

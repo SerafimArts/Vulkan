@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceSurfaceInfo2KHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkSwapchainCreateInfoKHRExtension;
@@ -21,14 +22,22 @@ final class VkSurfaceFullScreenExclusiveWin32InfoEXT extends InputStructure impl
 {
     protected const string NATIVE_TYPE = 'VkSurfaceFullScreenExclusiveWin32InfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000255001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT->value;
 
     public function __construct(
         public CData|int $hmonitor,
         public VkPhysicalDeviceSurfaceInfo2KHRExtension|VkSwapchainCreateInfoKHRExtension|null $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT>,
+     *     pNext: CData,
+     *     hmonitor: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

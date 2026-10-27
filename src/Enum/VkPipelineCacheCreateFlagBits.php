@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkPipelineCacheCreateFlagBits
 {
     public const int VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT = 1;
+
     public const int VK_PIPELINE_CACHE_CREATE_READ_ONLY_BIT = 2;
+
     public const int VK_PIPELINE_CACHE_CREATE_USE_APPLICATION_STORAGE_BIT = 4;
+
     public const int VK_PIPELINE_CACHE_CREATE_INTERNALLY_SYNCHRONIZED_MERGE_BIT_KHR = 8;
 
     /** Alias of {@see self::VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT} */

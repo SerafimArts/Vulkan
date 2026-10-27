@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccessFlagBits2;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits2;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkMemoryBarrier2Extension;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDependency2Extension;
@@ -23,8 +24,7 @@ final class VkMemoryBarrier2 extends InputStructure implements VkSubpassDependen
 {
     protected const string NATIVE_TYPE = 'VkMemoryBarrier2';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_BARRIER_2` */
-    public const int STRUCTURE_TYPE = 1000314000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER_2->value;
 
     public function __construct(
         public VkMemoryBarrier2Extension|VkSubpassDependency2Extension|null $next = null,
@@ -38,6 +38,18 @@ final class VkMemoryBarrier2 extends InputStructure implements VkSubpassDependen
         public int $dstAccessMask = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER_2>,
+     *     pNext: CData,
+     *     srcStageMask: int<0, max>,
+     *     srcAccessMask: int<0, max>,
+     *     dstStageMask: int<0, max>,
+     *     dstAccessMask: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

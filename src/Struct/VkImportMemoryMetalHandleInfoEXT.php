@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkMemoryAllocateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkImportMemoryMetalHandleInfoEXT extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkImportMemoryMetalHandleInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_IMPORT_MEMORY_METAL_HANDLE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000602000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_METAL_HANDLE_INFO_EXT->value;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
@@ -31,6 +31,16 @@ final class VkImportMemoryMetalHandleInfoEXT extends InputStructure implements V
         public CData|int|null $handle = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_METAL_HANDLE_INFO_EXT>,
+     *     pNext: CData,
+     *     handleType: int<0, 4294967295>,
+     *     handle: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

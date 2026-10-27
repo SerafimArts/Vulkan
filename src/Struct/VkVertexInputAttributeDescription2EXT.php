@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkVertexInputAttributeDescription2EXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkVertexInputAttributeDescription2EXT';
 
-    /** `VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT` */
-    public const int STRUCTURE_TYPE = 1000352002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT->value;
 
     public function __construct(
         /**
@@ -46,6 +46,18 @@ final class VkVertexInputAttributeDescription2EXT extends InputStructure
         public int $offset = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VERTEX_INPUT_ATTRIBUTE_DESCRIPTION_2_EXT>,
+     *     pNext: CData,
+     *     location: int<0, 4294967295>,
+     *     binding: int<0, 4294967295>,
+     *     format: value-of<VkFormat>,
+     *     offset: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

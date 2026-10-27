@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkChromaLocation;
 use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrModelConversion;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionPropertiesFUCHSIA.html
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
  */
 final readonly class VkBufferCollectionPropertiesFUCHSIA extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_BUFFER_COLLECTION_PROPERTIES_FUCHSIA` */
-    public const int STRUCTURE_TYPE = 1000366003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COLLECTION_PROPERTIES_FUCHSIA->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -51,10 +51,10 @@ final readonly class VkBufferCollectionPropertiesFUCHSIA extends OutputStructure
      *     formatFeatures: int<0, 4294967295>,
      *     sysmemColorSpaceIndex: CData,
      *     samplerYcbcrConversionComponents: CData,
-     *     suggestedYcbcrModel: int,
-     *     suggestedYcbcrRange: int,
-     *     suggestedXChromaOffset: int,
-     *     suggestedYChromaOffset: int,
+     *     suggestedYcbcrModel: value-of<VkSamplerYcbcrModelConversion>,
+     *     suggestedYcbcrRange: value-of<VkSamplerYcbcrRange>,
+     *     suggestedXChromaOffset: value-of<VkChromaLocation>,
+     *     suggestedYChromaOffset: value-of<VkChromaLocation>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPointClippingBehavior;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubgroupFeatureFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -22,8 +23,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 50;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -116,15 +116,15 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
      *     driverUUID: CData,
      *     deviceLUID: CData,
      *     deviceNodeMask: int<0, 4294967295>,
-     *     deviceLUIDValid: int,
+     *     deviceLUIDValid: int<0, 1>,
      *     subgroupSize: int<0, 4294967295>,
      *     subgroupSupportedStages: int<0, 4294967295>,
      *     subgroupSupportedOperations: int<0, 4294967295>,
-     *     subgroupQuadOperationsInAllStages: int,
-     *     pointClippingBehavior: int,
+     *     subgroupQuadOperationsInAllStages: int<0, 1>,
+     *     pointClippingBehavior: value-of<VkPointClippingBehavior>,
      *     maxMultiviewViewCount: int<0, 4294967295>,
      *     maxMultiviewInstanceIndex: int<0, 4294967295>,
-     *     protectedNoFault: int,
+     *     protectedNoFault: int<0, 1>,
      *     maxPerSetDescriptors: int<0, 4294967295>,
      *     maxMemoryAllocationSize: int<0, max>,
      * } $data

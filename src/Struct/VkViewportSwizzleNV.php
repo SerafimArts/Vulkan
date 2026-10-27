@@ -27,6 +27,16 @@ final class VkViewportSwizzleNV extends InputStructure
         public VkViewportCoordinateSwizzleNV $w = VkViewportCoordinateSwizzleNV::VK_VIEWPORT_COORDINATE_SWIZZLE_POSITIVE_X_NV,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     x: value-of<VkViewportCoordinateSwizzleNV>,
+     *     y: value-of<VkViewportCoordinateSwizzleNV>,
+     *     z: value-of<VkViewportCoordinateSwizzleNV>,
+     *     w: value-of<VkViewportCoordinateSwizzleNV>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->x = $this->x->value;

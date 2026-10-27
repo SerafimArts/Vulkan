@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkThrottleHintTypeSEC;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
@@ -21,14 +22,22 @@ final class VkThrottleHintSubmitInfoSEC extends InputStructure implements VkSubm
 {
     protected const string NATIVE_TYPE = 'VkThrottleHintSubmitInfoSEC';
 
-    /** `VK_STRUCTURE_TYPE_THROTTLE_HINT_SUBMIT_INFO_SEC` */
-    public const int STRUCTURE_TYPE = 1000674001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_THROTTLE_HINT_SUBMIT_INFO_SEC->value;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,
         public VkThrottleHintTypeSEC $throttleHint = VkThrottleHintTypeSEC::VK_THROTTLE_HINT_TYPE_DEFAULT_SEC,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_THROTTLE_HINT_SUBMIT_INFO_SEC>,
+     *     pNext: CData,
+     *     throttleHint: value-of<VkThrottleHintTypeSEC>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

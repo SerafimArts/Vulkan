@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtension;
@@ -22,8 +23,7 @@ final class VkPipelineMultisampleStateCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPipelineMultisampleStateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 24;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,
@@ -31,6 +31,9 @@ final class VkPipelineMultisampleStateCreateInfo extends InputStructure
         public int $flags = 0,
         /**
          * Number of samples used for rasterization
+         *
+         * The number of the elements of `$sampleMask`, it follows the
+         * array when it is given.
          *
          * @var int<0, 4294967295>|(VkSampleCountFlagBits::*)
          */
@@ -49,6 +52,21 @@ final class VkPipelineMultisampleStateCreateInfo extends InputStructure
         public bool $alphaToOneEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     rasterizationSamples: int<0, 4294967295>,
+     *     sampleShadingEnable: int<0, 1>,
+     *     minSampleShading: float,
+     *     pSampleMask: CData,
+     *     alphaToCoverageEnable: int<0, 1>,
+     *     alphaToOneEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

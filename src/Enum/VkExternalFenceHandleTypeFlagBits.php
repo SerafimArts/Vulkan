@@ -15,10 +15,15 @@ namespace Serafim\Vulkan\Enum;
 final class VkExternalFenceHandleTypeFlagBits
 {
     public const int VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT = 1;
+
     public const int VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_BIT = 2;
+
     public const int VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT = 4;
+
     public const int VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT = 8;
+
     public const int VK_EXTERNAL_FENCE_HANDLE_TYPE_SCI_SYNC_OBJ_BIT_NV = 16;
+
     public const int VK_EXTERNAL_FENCE_HANDLE_TYPE_SCI_SYNC_FENCE_BIT_NV = 32;
 
     /** Alias of {@see self::VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT} */

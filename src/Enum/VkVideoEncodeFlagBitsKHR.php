@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodeFlagBitsKHR
 {
     public const int VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR = 4;
+
     public const int VK_VIDEO_ENCODE_WITH_QUANTIZATION_DELTA_MAP_BIT_KHR = 1;
+
     public const int VK_VIDEO_ENCODE_WITH_EMPHASIS_MAP_BIT_KHR = 2;
 
     private function __construct() {}

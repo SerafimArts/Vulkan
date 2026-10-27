@@ -23,6 +23,13 @@ final class VkIndirectCommandsPushConstantTokenEXT extends InputStructure
         public VkPushConstantRange $updateRange,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     updateRange: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $this->updateRange->write($memory, $data->updateRange);

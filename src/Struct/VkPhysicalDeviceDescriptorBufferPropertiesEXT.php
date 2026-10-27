@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -22,8 +23,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000316000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -200,9 +200,9 @@ final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Outpu
 
     /**
      * @param CData&object{
-     *     combinedImageSamplerDescriptorSingleArray: int,
-     *     bufferlessPushDescriptors: int,
-     *     allowSamplerImageViewPostSubmitCreation: int,
+     *     combinedImageSamplerDescriptorSingleArray: int<0, 1>,
+     *     bufferlessPushDescriptors: int<0, 1>,
+     *     allowSamplerImageViewPostSubmitCreation: int<0, 1>,
      *     descriptorBufferOffsetAlignment: int<0, max>,
      *     maxDescriptorBufferBindings: int<0, 4294967295>,
      *     maxResourceDescriptorBufferBindings: int<0, 4294967295>,

@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkOpticalFlowGridSizeFlagBitsNV;
 use Serafim\Vulkan\Enum\VkOpticalFlowPerformanceLevelNV;
 use Serafim\Vulkan\Enum\VkOpticalFlowSessionCreateFlagBitsNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkOpticalFlowSessionCreateInfoNVExtension;
 
@@ -24,8 +25,7 @@ final class VkOpticalFlowSessionCreateInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkOpticalFlowSessionCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000464004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkOpticalFlowSessionCreateInfoNVExtension $next = null,
@@ -45,6 +45,23 @@ final class VkOpticalFlowSessionCreateInfoNV extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     width: int<0, 4294967295>,
+     *     height: int<0, 4294967295>,
+     *     imageFormat: value-of<VkFormat>,
+     *     flowVectorFormat: value-of<VkFormat>,
+     *     costFormat: value-of<VkFormat>,
+     *     outputGridSize: int<0, 4294967295>,
+     *     hintGridSize: int<0, 4294967295>,
+     *     performanceLevel: value-of<VkOpticalFlowPerformanceLevelNV>,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM extends InputSt
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM` */
-    public const int STRUCTURE_TYPE = 1000304000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderMultipleWaitQueues = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MULTIPLE_WAIT_QUEUES_FEATURES_QCOM>,
+     *     pNext: CData,
+     *     shaderMultipleWaitQueues: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceShaderMultipleWaitQueuesFeaturesQCOM extends InputSt
 
     /**
      * @param CData&object{
-     *     shaderMultipleWaitQueues: int,
+     *     shaderMultipleWaitQueues: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

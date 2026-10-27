@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDiscardRectangleModeEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkPipelineDiscardRectangleStateCreateInfoEXT extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkPipelineDiscardRectangleStateCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000099001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
@@ -33,6 +33,18 @@ final class VkPipelineDiscardRectangleStateCreateInfoEXT extends InputStructure 
         public array $discardRectangles = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     discardRectangleMode: value-of<VkDiscardRectangleModeEXT>,
+     *     discardRectangleCount: int<0, 4294967295>,
+     *     pDiscardRectangles: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

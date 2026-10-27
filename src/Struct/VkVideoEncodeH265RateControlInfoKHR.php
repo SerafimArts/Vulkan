@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeH265RateControlFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoBeginCodingInfoKHRExtension;
@@ -22,8 +23,7 @@ final class VkVideoEncodeH265RateControlInfoKHR extends InputStructure implement
 {
     protected const string NATIVE_TYPE = 'VkVideoEncodeH265RateControlInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000039009;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR->value;
 
     public function __construct(
         public VkVideoCodingControlInfoKHRExtension|VkVideoBeginCodingInfoKHRExtension|null $next = null,
@@ -39,6 +39,19 @@ final class VkVideoEncodeH265RateControlInfoKHR extends InputStructure implement
         public int $subLayerCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     gopFrameCount: int<0, 4294967295>,
+     *     idrPeriod: int<0, 4294967295>,
+     *     consecutiveBFrameCount: int<0, 4294967295>,
+     *     subLayerCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

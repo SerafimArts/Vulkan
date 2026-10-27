@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceCooperativeMatrix2FeaturesNV extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrix2FeaturesNV';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV` */
-    public const int STRUCTURE_TYPE = 1000593000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -37,6 +37,21 @@ final class VkPhysicalDeviceCooperativeMatrix2FeaturesNV extends InputStructure 
         public bool $cooperativeMatrixBlockLoads = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_FEATURES_NV>,
+     *     pNext: CData,
+     *     cooperativeMatrixWorkgroupScope: int<0, 1>,
+     *     cooperativeMatrixFlexibleDimensions: int<0, 1>,
+     *     cooperativeMatrixReductions: int<0, 1>,
+     *     cooperativeMatrixConversions: int<0, 1>,
+     *     cooperativeMatrixPerElementOperations: int<0, 1>,
+     *     cooperativeMatrixTensorAddressing: int<0, 1>,
+     *     cooperativeMatrixBlockLoads: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -72,13 +87,13 @@ final class VkPhysicalDeviceCooperativeMatrix2FeaturesNV extends InputStructure 
 
     /**
      * @param CData&object{
-     *     cooperativeMatrixWorkgroupScope: int,
-     *     cooperativeMatrixFlexibleDimensions: int,
-     *     cooperativeMatrixReductions: int,
-     *     cooperativeMatrixConversions: int,
-     *     cooperativeMatrixPerElementOperations: int,
-     *     cooperativeMatrixTensorAddressing: int,
-     *     cooperativeMatrixBlockLoads: int,
+     *     cooperativeMatrixWorkgroupScope: int<0, 1>,
+     *     cooperativeMatrixFlexibleDimensions: int<0, 1>,
+     *     cooperativeMatrixReductions: int<0, 1>,
+     *     cooperativeMatrixConversions: int<0, 1>,
+     *     cooperativeMatrixPerElementOperations: int<0, 1>,
+     *     cooperativeMatrixTensorAddressing: int<0, 1>,
+     *     cooperativeMatrixBlockLoads: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

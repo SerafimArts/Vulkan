@@ -38,6 +38,16 @@ final class VkDecompressMemoryRegionEXT extends InputStructure
         public int $decompressedSize = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     srcAddress: int<0, max>,
+     *     dstAddress: int<0, max>,
+     *     compressedSize: int<0, max>,
+     *     decompressedSize: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->srcAddress = $this->srcAddress;

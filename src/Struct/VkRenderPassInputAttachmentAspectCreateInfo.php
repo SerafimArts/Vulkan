@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkRenderPassInputAttachmentAspectCreateInfo extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkRenderPassInputAttachmentAspectCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000117001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO->value;
 
     public function __construct(
         public ?VkRenderPassCreateInfoExtension $next = null,
@@ -32,6 +32,16 @@ final class VkRenderPassInputAttachmentAspectCreateInfo extends InputStructure i
         public array $aspectReferences = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_INPUT_ATTACHMENT_ASPECT_CREATE_INFO>,
+     *     pNext: CData,
+     *     aspectReferenceCount: int<0, 4294967295>,
+     *     pAspectReferences: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

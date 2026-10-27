@@ -39,7 +39,7 @@ final readonly class VkPhysicalDeviceProperties extends OutputStructure
      *     driverVersion: int<0, 4294967295>,
      *     vendorID: int<0, 4294967295>,
      *     deviceID: int<0, 4294967295>,
-     *     deviceType: int,
+     *     deviceType: value-of<VkPhysicalDeviceType>,
      *     deviceName: CData,
      *     pipelineCacheUUID: CData,
      *     limits: CData,

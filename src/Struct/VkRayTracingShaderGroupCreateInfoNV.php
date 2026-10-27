@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRayTracingShaderGroupTypeKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -22,8 +23,7 @@ final class VkRayTracingShaderGroupCreateInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkRayTracingShaderGroupCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000165011;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV->value;
 
     public function __construct(
         public VkRayTracingShaderGroupTypeKHR $type = VkRayTracingShaderGroupTypeKHR::VK_RAY_TRACING_SHADER_GROUP_TYPE_GENERAL_KHR,
@@ -37,6 +37,19 @@ final class VkRayTracingShaderGroupCreateInfoNV extends InputStructure
         public int $intersectionShader = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     type: value-of<VkRayTracingShaderGroupTypeKHR>,
+     *     generalShader: int<0, 4294967295>,
+     *     closestHitShader: int<0, 4294967295>,
+     *     anyHitShader: int<0, 4294967295>,
+     *     intersectionShader: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageCompressionFixedRateFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkImageCompressionFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
@@ -23,8 +24,7 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceFormat2KHRExtension;
  */
 final readonly class VkImageCompressionPropertiesEXT extends OutputStructure implements VkImageFormatProperties2Extension, VkSurfaceFormat2KHRExtension, VkSubresourceLayout2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_IMAGE_COMPRESSION_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000338004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_COMPRESSION_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {

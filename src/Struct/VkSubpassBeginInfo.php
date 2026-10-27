@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubpassContents;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -23,13 +24,21 @@ final class VkSubpassBeginInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSubpassBeginInfo';
 
-    /** `VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO` */
-    public const int STRUCTURE_TYPE = 1000109005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO->value;
 
     public function __construct(
         public VkSubpassContents $contents = VkSubpassContents::VK_SUBPASS_CONTENTS_INLINE,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_BEGIN_INFO>,
+     *     pNext: CData,
+     *     contents: value-of<VkSubpassContents>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

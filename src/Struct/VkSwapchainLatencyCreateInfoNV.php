@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSwapchainCreateInfoKHRExtension;
 
@@ -20,14 +21,22 @@ final class VkSwapchainLatencyCreateInfoNV extends InputStructure implements VkS
 {
     protected const string NATIVE_TYPE = 'VkSwapchainLatencyCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000505007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,
         public bool $latencyModeEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     latencyModeEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

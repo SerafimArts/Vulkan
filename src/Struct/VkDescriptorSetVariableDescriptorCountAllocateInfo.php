@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetAllocateInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkDescriptorSetVariableDescriptorCountAllocateInfo extends InputStru
 {
     protected const string NATIVE_TYPE = 'VkDescriptorSetVariableDescriptorCountAllocateInfo';
 
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000161003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO->value;
 
     public function __construct(
         public ?VkDescriptorSetAllocateInfoExtension $next = null,
@@ -32,6 +32,16 @@ final class VkDescriptorSetVariableDescriptorCountAllocateInfo extends InputStru
         public array $descriptorCounts = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO>,
+     *     pNext: CData,
+     *     descriptorSetCount: int<0, 4294967295>,
+     *     pDescriptorCounts: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

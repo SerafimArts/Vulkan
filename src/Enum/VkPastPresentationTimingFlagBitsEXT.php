@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkPastPresentationTimingFlagBitsEXT
 {
     public const int VK_PAST_PRESENTATION_TIMING_ALLOW_PARTIAL_RESULTS_BIT_EXT = 1;
+
     public const int VK_PAST_PRESENTATION_TIMING_ALLOW_OUT_OF_ORDER_RESULTS_BIT_EXT = 2;
 
     private function __construct() {}

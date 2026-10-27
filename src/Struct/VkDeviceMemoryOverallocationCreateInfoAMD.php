@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkMemoryOverallocationBehaviorAMD;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 
@@ -21,14 +22,22 @@ final class VkDeviceMemoryOverallocationCreateInfoAMD extends InputStructure imp
 {
     protected const string NATIVE_TYPE = 'VkDeviceMemoryOverallocationCreateInfoAMD';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD` */
-    public const int STRUCTURE_TYPE = 1000189000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD->value;
 
     public function __construct(
         public ?VkDeviceCreateInfoExtension $next = null,
         public VkMemoryOverallocationBehaviorAMD $overallocationBehavior = VkMemoryOverallocationBehaviorAMD::VK_MEMORY_OVERALLOCATION_BEHAVIOR_DEFAULT_AMD,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD>,
+     *     pNext: CData,
+     *     overallocationBehavior: value-of<VkMemoryOverallocationBehaviorAMD>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

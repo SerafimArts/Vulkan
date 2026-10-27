@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkRenderingFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkCommandBufferInheritanceRenderingInfo extends InputStructure imple
 {
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceRenderingInfo';
 
-    /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO` */
-    public const int STRUCTURE_TYPE = 1000044004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO->value;
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,
@@ -40,6 +40,21 @@ final class VkCommandBufferInheritanceRenderingInfo extends InputStructure imple
         public int $rasterizationSamples = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     viewMask: int<0, 4294967295>,
+     *     colorAttachmentCount: int<0, 4294967295>,
+     *     pColorAttachmentFormats: CData,
+     *     depthAttachmentFormat: value-of<VkFormat>,
+     *     stencilAttachmentFormat: value-of<VkFormat>,
+     *     rasterizationSamples: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

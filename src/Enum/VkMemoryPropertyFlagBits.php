@@ -35,8 +35,11 @@ final class VkMemoryPropertyFlagBits
 
     /** Memory is protected */
     public const int VK_MEMORY_PROPERTY_PROTECTED_BIT = 32;
+
     public const int VK_MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD = 64;
+
     public const int VK_MEMORY_PROPERTY_DEVICE_UNCACHED_BIT_AMD = 128;
+
     public const int VK_MEMORY_PROPERTY_RDMA_CAPABLE_BIT_NV = 256;
 
     private function __construct() {}

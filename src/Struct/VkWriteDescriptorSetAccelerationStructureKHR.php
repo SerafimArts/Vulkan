@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkAccelerationStructureKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkWriteDescriptorSetExtension;
@@ -24,8 +25,7 @@ final class VkWriteDescriptorSetAccelerationStructureKHR extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSetAccelerationStructureKHR';
 
-    /** `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR` */
-    public const int STRUCTURE_TYPE = 1000150007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR->value;
 
     public function __construct(
         public ?VkWriteDescriptorSetExtension $next = null,
@@ -33,6 +33,16 @@ final class VkWriteDescriptorSetAccelerationStructureKHR extends InputStructure 
         public array $accelerationStructures = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR>,
+     *     pNext: CData,
+     *     accelerationStructureCount: int<0, 4294967295>,
+     *     pAccelerationStructures: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

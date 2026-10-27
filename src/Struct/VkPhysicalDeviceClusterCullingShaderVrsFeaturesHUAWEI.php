@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEIExtension;
 
@@ -20,14 +21,22 @@ final class VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI extends InputS
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceClusterCullingShaderVrsFeaturesHUAWEI';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI` */
-    public const int STRUCTURE_TYPE = 1000404002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI->value;
 
     public function __construct(
         public ?VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEIExtension $next = null,
         public bool $clusterShadingRate = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_CULLING_SHADER_VRS_FEATURES_HUAWEI>,
+     *     pNext: CData,
+     *     clusterShadingRate: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

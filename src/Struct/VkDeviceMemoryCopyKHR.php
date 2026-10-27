@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkDeviceMemoryCopyKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDeviceMemoryCopyKHR';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_MEMORY_COPY_KHR` */
-    public const int STRUCTURE_TYPE = 1000318000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_COPY_KHR->value;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $srcRange,
@@ -32,6 +32,18 @@ final class VkDeviceMemoryCopyKHR extends InputStructure
         public int $dstFlags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_COPY_KHR>,
+     *     pNext: CData,
+     *     srcRange: CData,
+     *     srcFlags: int<0, 4294967295>,
+     *     dstRange: CData,
+     *     dstFlags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

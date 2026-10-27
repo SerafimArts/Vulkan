@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDirectDriverLoadingModeLUNARG;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkDirectDriverLoadingListLUNARG extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkDirectDriverLoadingListLUNARG';
 
-    /** `VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG` */
-    public const int STRUCTURE_TYPE = 1000459001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG->value;
 
     public function __construct(
         public ?VkInstanceCreateInfoExtension $next = null,
@@ -31,6 +31,17 @@ final class VkDirectDriverLoadingListLUNARG extends InputStructure implements Vk
         public array $drivers = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG>,
+     *     pNext: CData,
+     *     mode: value-of<VkDirectDriverLoadingModeLUNARG>,
+     *     driverCount: int<0, 4294967295>,
+     *     pDrivers: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

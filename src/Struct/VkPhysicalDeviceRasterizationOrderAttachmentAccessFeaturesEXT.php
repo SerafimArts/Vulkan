@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT extend
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000342000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -33,6 +33,17 @@ final class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT extend
         public bool $rasterizationOrderStencilAttachmentAccess = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_FEATURES_EXT>,
+     *     pNext: CData,
+     *     rasterizationOrderColorAttachmentAccess: int<0, 1>,
+     *     rasterizationOrderDepthAttachmentAccess: int<0, 1>,
+     *     rasterizationOrderStencilAttachmentAccess: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -60,9 +71,9 @@ final class VkPhysicalDeviceRasterizationOrderAttachmentAccessFeaturesEXT extend
 
     /**
      * @param CData&object{
-     *     rasterizationOrderColorAttachmentAccess: int,
-     *     rasterizationOrderDepthAttachmentAccess: int,
-     *     rasterizationOrderStencilAttachmentAccess: int,
+     *     rasterizationOrderColorAttachmentAccess: int<0, 1>,
+     *     rasterizationOrderDepthAttachmentAccess: int<0, 1>,
+     *     rasterizationOrderStencilAttachmentAccess: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDevicePipelineBinaryPropertiesKHR extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000483004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -45,11 +45,11 @@ final readonly class VkPhysicalDevicePipelineBinaryPropertiesKHR extends OutputS
 
     /**
      * @param CData&object{
-     *     pipelineBinaryInternalCache: int,
-     *     pipelineBinaryInternalCacheControl: int,
-     *     pipelineBinaryPrefersInternalCache: int,
-     *     pipelineBinaryPrecompiledInternalCache: int,
-     *     pipelineBinaryCompressedData: int,
+     *     pipelineBinaryInternalCache: int<0, 1>,
+     *     pipelineBinaryInternalCacheControl: int<0, 1>,
+     *     pipelineBinaryPrefersInternalCache: int<0, 1>,
+     *     pipelineBinaryPrecompiledInternalCache: int<0, 1>,
+     *     pipelineBinaryCompressedData: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceDescriptorHeapPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000135008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_HEAP_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -154,8 +154,8 @@ final readonly class VkPhysicalDeviceDescriptorHeapPropertiesEXT extends OutputS
      *     imageCaptureReplayOpaqueDataSize: int<0, max>,
      *     maxDescriptorHeapEmbeddedSamplers: int<0, 4294967295>,
      *     samplerYcbcrConversionCount: int<0, 4294967295>,
-     *     sparseDescriptorHeaps: int,
-     *     protectedDescriptorHeaps: int,
+     *     sparseDescriptorHeaps: int<0, 1>,
+     *     protectedDescriptorHeaps: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

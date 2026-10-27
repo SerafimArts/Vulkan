@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceAddressBindingFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDeviceAddressBindingTypeEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDebugUtilsMessengerCallbackDataEXTExtension;
 
@@ -22,8 +23,7 @@ final class VkDeviceAddressBindingCallbackDataEXT extends InputStructure impleme
 {
     protected const string NATIVE_TYPE = 'VkDeviceAddressBindingCallbackDataEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT` */
-    public const int STRUCTURE_TYPE = 1000354001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT->value;
 
     public function __construct(
         public ?VkDebugUtilsMessengerCallbackDataEXTExtension $next = null,
@@ -36,6 +36,18 @@ final class VkDeviceAddressBindingCallbackDataEXT extends InputStructure impleme
         public VkDeviceAddressBindingTypeEXT $bindingType = VkDeviceAddressBindingTypeEXT::VK_DEVICE_ADDRESS_BINDING_TYPE_BIND_EXT,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_ADDRESS_BINDING_CALLBACK_DATA_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     baseAddress: int<0, max>,
+     *     size: int<0, max>,
+     *     bindingType: value-of<VkDeviceAddressBindingTypeEXT>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

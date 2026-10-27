@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkQueryPoolCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkQueryPoolPerformanceCreateInfoKHR extends InputStructure implement
 {
     protected const string NATIVE_TYPE = 'VkQueryPoolPerformanceCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000116002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR->value;
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,
@@ -31,6 +31,17 @@ final class VkQueryPoolPerformanceCreateInfoKHR extends InputStructure implement
         public array $counterIndices = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     queueFamilyIndex: int<0, 4294967295>,
+     *     counterIndexCount: int<0, 4294967295>,
+     *     pCounterIndices: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

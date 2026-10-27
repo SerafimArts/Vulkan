@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends InputStructur
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShadingRateFeaturesKHR';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR` */
-    public const int STRUCTURE_TYPE = 1000226003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -33,6 +33,17 @@ final class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends InputStructur
         public bool $attachmentFragmentShadingRate = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_FEATURES_KHR>,
+     *     pNext: CData,
+     *     pipelineFragmentShadingRate: int<0, 1>,
+     *     primitiveFragmentShadingRate: int<0, 1>,
+     *     attachmentFragmentShadingRate: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -60,9 +71,9 @@ final class VkPhysicalDeviceFragmentShadingRateFeaturesKHR extends InputStructur
 
     /**
      * @param CData&object{
-     *     pipelineFragmentShadingRate: int,
-     *     primitiveFragmentShadingRate: int,
-     *     attachmentFragmentShadingRate: int,
+     *     pipelineFragmentShadingRate: int<0, 1>,
+     *     primitiveFragmentShadingRate: int<0, 1>,
+     *     attachmentFragmentShadingRate: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

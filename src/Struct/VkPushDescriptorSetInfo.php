@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPushDescriptorSetInfoExtension;
@@ -22,8 +23,7 @@ final class VkPushDescriptorSetInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPushDescriptorSetInfo';
 
-    /** `VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO` */
-    public const int STRUCTURE_TYPE = 1000545005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO->value;
 
     public function __construct(
         public ?VkPushDescriptorSetInfoExtension $next = null,
@@ -36,6 +36,19 @@ final class VkPushDescriptorSetInfo extends InputStructure
         public array $descriptorWrites = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO>,
+     *     pNext: CData,
+     *     stageFlags: int<0, 4294967295>,
+     *     layout: CData,
+     *     set: int<0, 4294967295>,
+     *     descriptorWriteCount: int<0, 4294967295>,
+     *     pDescriptorWrites: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

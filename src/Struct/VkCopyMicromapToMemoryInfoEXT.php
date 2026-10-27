@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCopyMicromapModeEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkMicromapEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkCopyMicromapToMemoryInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCopyMicromapToMemoryInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_COPY_MICROMAP_TO_MEMORY_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000396003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COPY_MICROMAP_TO_MEMORY_INFO_EXT->value;
 
     public function __construct(
         public VkMicromapEXT $src,
@@ -30,6 +30,17 @@ final class VkCopyMicromapToMemoryInfoEXT extends InputStructure
         public VkCopyMicromapModeEXT $mode = VkCopyMicromapModeEXT::VK_COPY_MICROMAP_MODE_CLONE_EXT,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COPY_MICROMAP_TO_MEMORY_INFO_EXT>,
+     *     pNext: CData,
+     *     src: CData,
+     *     dst: CData,
+     *     mode: value-of<VkCopyMicromapModeEXT>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

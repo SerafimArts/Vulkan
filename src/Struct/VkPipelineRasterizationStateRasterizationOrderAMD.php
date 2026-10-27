@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRasterizationOrderAMD;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkPipelineRasterizationStateRasterizationOrderAMD extends InputStruc
 {
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationStateRasterizationOrderAMD';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD` */
-    public const int STRUCTURE_TYPE = 1000018000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD->value;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
@@ -30,6 +30,15 @@ final class VkPipelineRasterizationStateRasterizationOrderAMD extends InputStruc
         public VkRasterizationOrderAMD $rasterizationOrder = VkRasterizationOrderAMD::VK_RASTERIZATION_ORDER_STRICT_AMD,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD>,
+     *     pNext: CData,
+     *     rasterizationOrder: value-of<VkRasterizationOrderAMD>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

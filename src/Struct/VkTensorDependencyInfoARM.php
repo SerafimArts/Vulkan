@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDependencyInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkTensorDependencyInfoARM extends InputStructure implements VkDepend
 {
     protected const string NATIVE_TYPE = 'VkTensorDependencyInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000460013;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM->value;
 
     public function __construct(
         public ?VkDependencyInfoExtension $next = null,
@@ -29,6 +29,16 @@ final class VkTensorDependencyInfoARM extends InputStructure implements VkDepend
         public array $tensorMemoryBarriers = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM>,
+     *     pNext: CData,
+     *     tensorMemoryBarrierCount: int<0, 4294967295>,
+     *     pTensorMemoryBarriers: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

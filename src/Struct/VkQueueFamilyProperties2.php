@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
  */
 final readonly class VkQueueFamilyProperties2 extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2` */
-    public const int STRUCTURE_TYPE = 1000059005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2->value;
 
     public function __construct(
         public VkQueueFamilyProperties $queueFamilyProperties,

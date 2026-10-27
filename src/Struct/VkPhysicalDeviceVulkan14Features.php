@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceVulkan14Features extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan14Features';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_FEATURES` */
-    public const int STRUCTURE_TYPE = 55;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -51,6 +51,35 @@ final class VkPhysicalDeviceVulkan14Features extends InputStructure implements V
         public bool $pushDescriptor = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_FEATURES>,
+     *     pNext: CData,
+     *     globalPriorityQuery: int<0, 1>,
+     *     shaderSubgroupRotate: int<0, 1>,
+     *     shaderSubgroupRotateClustered: int<0, 1>,
+     *     shaderFloatControls2: int<0, 1>,
+     *     shaderExpectAssume: int<0, 1>,
+     *     rectangularLines: int<0, 1>,
+     *     bresenhamLines: int<0, 1>,
+     *     smoothLines: int<0, 1>,
+     *     stippledRectangularLines: int<0, 1>,
+     *     stippledBresenhamLines: int<0, 1>,
+     *     stippledSmoothLines: int<0, 1>,
+     *     vertexAttributeInstanceRateDivisor: int<0, 1>,
+     *     vertexAttributeInstanceRateZeroDivisor: int<0, 1>,
+     *     indexTypeUint8: int<0, 1>,
+     *     dynamicRenderingLocalRead: int<0, 1>,
+     *     maintenance5: int<0, 1>,
+     *     maintenance6: int<0, 1>,
+     *     pipelineProtectedAccess: int<0, 1>,
+     *     pipelineRobustness: int<0, 1>,
+     *     hostImageCopy: int<0, 1>,
+     *     pushDescriptor: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -114,27 +143,27 @@ final class VkPhysicalDeviceVulkan14Features extends InputStructure implements V
 
     /**
      * @param CData&object{
-     *     globalPriorityQuery: int,
-     *     shaderSubgroupRotate: int,
-     *     shaderSubgroupRotateClustered: int,
-     *     shaderFloatControls2: int,
-     *     shaderExpectAssume: int,
-     *     rectangularLines: int,
-     *     bresenhamLines: int,
-     *     smoothLines: int,
-     *     stippledRectangularLines: int,
-     *     stippledBresenhamLines: int,
-     *     stippledSmoothLines: int,
-     *     vertexAttributeInstanceRateDivisor: int,
-     *     vertexAttributeInstanceRateZeroDivisor: int,
-     *     indexTypeUint8: int,
-     *     dynamicRenderingLocalRead: int,
-     *     maintenance5: int,
-     *     maintenance6: int,
-     *     pipelineProtectedAccess: int,
-     *     pipelineRobustness: int,
-     *     hostImageCopy: int,
-     *     pushDescriptor: int,
+     *     globalPriorityQuery: int<0, 1>,
+     *     shaderSubgroupRotate: int<0, 1>,
+     *     shaderSubgroupRotateClustered: int<0, 1>,
+     *     shaderFloatControls2: int<0, 1>,
+     *     shaderExpectAssume: int<0, 1>,
+     *     rectangularLines: int<0, 1>,
+     *     bresenhamLines: int<0, 1>,
+     *     smoothLines: int<0, 1>,
+     *     stippledRectangularLines: int<0, 1>,
+     *     stippledBresenhamLines: int<0, 1>,
+     *     stippledSmoothLines: int<0, 1>,
+     *     vertexAttributeInstanceRateDivisor: int<0, 1>,
+     *     vertexAttributeInstanceRateZeroDivisor: int<0, 1>,
+     *     indexTypeUint8: int<0, 1>,
+     *     dynamicRenderingLocalRead: int<0, 1>,
+     *     maintenance5: int<0, 1>,
+     *     maintenance6: int<0, 1>,
+     *     pipelineProtectedAccess: int<0, 1>,
+     *     pipelineRobustness: int<0, 1>,
+     *     hostImageCopy: int<0, 1>,
+     *     pushDescriptor: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

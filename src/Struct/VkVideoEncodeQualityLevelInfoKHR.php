@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoCodingControlInfoKHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkVideoSessionParametersCreateInfoKHRExtension;
@@ -21,8 +22,7 @@ final class VkVideoEncodeQualityLevelInfoKHR extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkVideoEncodeQualityLevelInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000299008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR->value;
 
     public function __construct(
         public VkVideoCodingControlInfoKHRExtension|VkVideoSessionParametersCreateInfoKHRExtension|null $next = null,
@@ -30,6 +30,15 @@ final class VkVideoEncodeQualityLevelInfoKHR extends InputStructure implements V
         public int $qualityLevel = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR>,
+     *     pNext: CData,
+     *     qualityLevel: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

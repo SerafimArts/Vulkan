@@ -10,8 +10,8 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCommandPoolCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
-use Serafim\Vulkan\Struct\Extension\VkCommandPoolCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateInfo.html
@@ -21,11 +21,9 @@ final class VkCommandPoolCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCommandPoolCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 39;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkCommandPoolCreateInfoExtension $next = null,
         /**
          * Command pool creation flags
          *
@@ -36,15 +34,19 @@ final class VkCommandPoolCreateInfo extends InputStructure
         public int $queueFamilyIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     queueFamilyIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

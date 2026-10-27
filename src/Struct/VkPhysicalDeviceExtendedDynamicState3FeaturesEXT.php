@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends InputStruct
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExtendedDynamicState3FeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000455000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -61,6 +61,45 @@ final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends InputStruct
         public bool $extendedDynamicState3ShadingRateImageEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_3_FEATURES_EXT>,
+     *     pNext: CData,
+     *     extendedDynamicState3TessellationDomainOrigin: int<0, 1>,
+     *     extendedDynamicState3DepthClampEnable: int<0, 1>,
+     *     extendedDynamicState3PolygonMode: int<0, 1>,
+     *     extendedDynamicState3RasterizationSamples: int<0, 1>,
+     *     extendedDynamicState3SampleMask: int<0, 1>,
+     *     extendedDynamicState3AlphaToCoverageEnable: int<0, 1>,
+     *     extendedDynamicState3AlphaToOneEnable: int<0, 1>,
+     *     extendedDynamicState3LogicOpEnable: int<0, 1>,
+     *     extendedDynamicState3ColorBlendEnable: int<0, 1>,
+     *     extendedDynamicState3ColorBlendEquation: int<0, 1>,
+     *     extendedDynamicState3ColorWriteMask: int<0, 1>,
+     *     extendedDynamicState3RasterizationStream: int<0, 1>,
+     *     extendedDynamicState3ConservativeRasterizationMode: int<0, 1>,
+     *     extendedDynamicState3ExtraPrimitiveOverestimationSize: int<0, 1>,
+     *     extendedDynamicState3DepthClipEnable: int<0, 1>,
+     *     extendedDynamicState3SampleLocationsEnable: int<0, 1>,
+     *     extendedDynamicState3ColorBlendAdvanced: int<0, 1>,
+     *     extendedDynamicState3ProvokingVertexMode: int<0, 1>,
+     *     extendedDynamicState3LineRasterizationMode: int<0, 1>,
+     *     extendedDynamicState3LineStippleEnable: int<0, 1>,
+     *     extendedDynamicState3DepthClipNegativeOneToOne: int<0, 1>,
+     *     extendedDynamicState3ViewportWScalingEnable: int<0, 1>,
+     *     extendedDynamicState3ViewportSwizzle: int<0, 1>,
+     *     extendedDynamicState3CoverageToColorEnable: int<0, 1>,
+     *     extendedDynamicState3CoverageToColorLocation: int<0, 1>,
+     *     extendedDynamicState3CoverageModulationMode: int<0, 1>,
+     *     extendedDynamicState3CoverageModulationTableEnable: int<0, 1>,
+     *     extendedDynamicState3CoverageModulationTable: int<0, 1>,
+     *     extendedDynamicState3CoverageReductionMode: int<0, 1>,
+     *     extendedDynamicState3RepresentativeFragmentTestEnable: int<0, 1>,
+     *     extendedDynamicState3ShadingRateImageEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -144,37 +183,37 @@ final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT extends InputStruct
 
     /**
      * @param CData&object{
-     *     extendedDynamicState3TessellationDomainOrigin: int,
-     *     extendedDynamicState3DepthClampEnable: int,
-     *     extendedDynamicState3PolygonMode: int,
-     *     extendedDynamicState3RasterizationSamples: int,
-     *     extendedDynamicState3SampleMask: int,
-     *     extendedDynamicState3AlphaToCoverageEnable: int,
-     *     extendedDynamicState3AlphaToOneEnable: int,
-     *     extendedDynamicState3LogicOpEnable: int,
-     *     extendedDynamicState3ColorBlendEnable: int,
-     *     extendedDynamicState3ColorBlendEquation: int,
-     *     extendedDynamicState3ColorWriteMask: int,
-     *     extendedDynamicState3RasterizationStream: int,
-     *     extendedDynamicState3ConservativeRasterizationMode: int,
-     *     extendedDynamicState3ExtraPrimitiveOverestimationSize: int,
-     *     extendedDynamicState3DepthClipEnable: int,
-     *     extendedDynamicState3SampleLocationsEnable: int,
-     *     extendedDynamicState3ColorBlendAdvanced: int,
-     *     extendedDynamicState3ProvokingVertexMode: int,
-     *     extendedDynamicState3LineRasterizationMode: int,
-     *     extendedDynamicState3LineStippleEnable: int,
-     *     extendedDynamicState3DepthClipNegativeOneToOne: int,
-     *     extendedDynamicState3ViewportWScalingEnable: int,
-     *     extendedDynamicState3ViewportSwizzle: int,
-     *     extendedDynamicState3CoverageToColorEnable: int,
-     *     extendedDynamicState3CoverageToColorLocation: int,
-     *     extendedDynamicState3CoverageModulationMode: int,
-     *     extendedDynamicState3CoverageModulationTableEnable: int,
-     *     extendedDynamicState3CoverageModulationTable: int,
-     *     extendedDynamicState3CoverageReductionMode: int,
-     *     extendedDynamicState3RepresentativeFragmentTestEnable: int,
-     *     extendedDynamicState3ShadingRateImageEnable: int,
+     *     extendedDynamicState3TessellationDomainOrigin: int<0, 1>,
+     *     extendedDynamicState3DepthClampEnable: int<0, 1>,
+     *     extendedDynamicState3PolygonMode: int<0, 1>,
+     *     extendedDynamicState3RasterizationSamples: int<0, 1>,
+     *     extendedDynamicState3SampleMask: int<0, 1>,
+     *     extendedDynamicState3AlphaToCoverageEnable: int<0, 1>,
+     *     extendedDynamicState3AlphaToOneEnable: int<0, 1>,
+     *     extendedDynamicState3LogicOpEnable: int<0, 1>,
+     *     extendedDynamicState3ColorBlendEnable: int<0, 1>,
+     *     extendedDynamicState3ColorBlendEquation: int<0, 1>,
+     *     extendedDynamicState3ColorWriteMask: int<0, 1>,
+     *     extendedDynamicState3RasterizationStream: int<0, 1>,
+     *     extendedDynamicState3ConservativeRasterizationMode: int<0, 1>,
+     *     extendedDynamicState3ExtraPrimitiveOverestimationSize: int<0, 1>,
+     *     extendedDynamicState3DepthClipEnable: int<0, 1>,
+     *     extendedDynamicState3SampleLocationsEnable: int<0, 1>,
+     *     extendedDynamicState3ColorBlendAdvanced: int<0, 1>,
+     *     extendedDynamicState3ProvokingVertexMode: int<0, 1>,
+     *     extendedDynamicState3LineRasterizationMode: int<0, 1>,
+     *     extendedDynamicState3LineStippleEnable: int<0, 1>,
+     *     extendedDynamicState3DepthClipNegativeOneToOne: int<0, 1>,
+     *     extendedDynamicState3ViewportWScalingEnable: int<0, 1>,
+     *     extendedDynamicState3ViewportSwizzle: int<0, 1>,
+     *     extendedDynamicState3CoverageToColorEnable: int<0, 1>,
+     *     extendedDynamicState3CoverageToColorLocation: int<0, 1>,
+     *     extendedDynamicState3CoverageModulationMode: int<0, 1>,
+     *     extendedDynamicState3CoverageModulationTableEnable: int<0, 1>,
+     *     extendedDynamicState3CoverageModulationTable: int<0, 1>,
+     *     extendedDynamicState3CoverageReductionMode: int<0, 1>,
+     *     extendedDynamicState3RepresentativeFragmentTestEnable: int<0, 1>,
+     *     extendedDynamicState3ShadingRateImageEnable: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

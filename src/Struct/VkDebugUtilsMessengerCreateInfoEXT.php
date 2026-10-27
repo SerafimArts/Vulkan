@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDebugUtilsMessageSeverityFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDebugUtilsMessageTypeFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
 
@@ -22,8 +23,7 @@ final class VkDebugUtilsMessengerCreateInfoEXT extends InputStructure implements
 {
     protected const string NATIVE_TYPE = 'VkDebugUtilsMessengerCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000128004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT->value;
 
     public function __construct(
         /** @var \Closure(int, int, CData|null, CData|null): (bool|int) */
@@ -38,6 +38,19 @@ final class VkDebugUtilsMessengerCreateInfoEXT extends InputStructure implements
         public CData|int|null $userData = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     messageSeverity: int<0, 4294967295>,
+     *     messageType: int<0, 4294967295>,
+     *     pfnUserCallback: CData,
+     *     pUserData: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

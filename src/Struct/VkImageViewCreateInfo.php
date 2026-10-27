@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkImageViewCreateFlagBits;
 use Serafim\Vulkan\Enum\VkImageViewType;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageViewCreateInfoExtension;
@@ -24,8 +25,7 @@ final class VkImageViewCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkImageViewCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 15;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO->value;
 
     public function __construct(
         public VkImage $image,
@@ -38,6 +38,20 @@ final class VkImageViewCreateInfo extends InputStructure
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     image: CData,
+     *     viewType: value-of<VkImageViewType>,
+     *     format: value-of<VkFormat>,
+     *     components: CData,
+     *     subresourceRange: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

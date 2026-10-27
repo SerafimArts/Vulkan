@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkIndirectCommandsInputModeFlagBitsEXT
 {
     public const int VK_INDIRECT_COMMANDS_INPUT_MODE_VULKAN_INDEX_BUFFER_EXT = 1;
+
     public const int VK_INDIRECT_COMMANDS_INPUT_MODE_DXGI_INDEX_BUFFER_EXT = 2;
 
     private function __construct() {}

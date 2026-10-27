@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkBufferCreateFlagBits;
 use Serafim\Vulkan\Enum\VkBufferUsageFlagBits;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceExternalBufferInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceExternalBufferInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalBufferInfo';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO` */
-    public const int STRUCTURE_TYPE = 1000071002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO->value;
 
     public function __construct(
         public ?VkPhysicalDeviceExternalBufferInfoExtension $next = null,
@@ -36,6 +36,17 @@ final class VkPhysicalDeviceExternalBufferInfo extends InputStructure
         public int $handleType = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_BUFFER_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     usage: int<0, 4294967295>,
+     *     handleType: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

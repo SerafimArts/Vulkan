@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSharingMode;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTensorCreateFlagBitsARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkTensorCreateInfoARMExtension;
@@ -22,8 +23,7 @@ final class VkTensorCreateInfoARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkTensorCreateInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000460000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM->value;
 
     public function __construct(
         public ?VkTensorCreateInfoARMExtension $next = null,
@@ -35,6 +35,19 @@ final class VkTensorCreateInfoARM extends InputStructure
         public array $queueFamilyIndices = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM>,
+     *     pNext: CData,
+     *     flags: int<0, max>,
+     *     pDescription: CData,
+     *     sharingMode: value-of<VkSharingMode>,
+     *     queueFamilyIndexCount: int<0, 4294967295>,
+     *     pQueueFamilyIndices: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

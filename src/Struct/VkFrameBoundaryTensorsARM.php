@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkTensorARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindSparseInfoExtension;
@@ -24,8 +25,7 @@ final class VkFrameBoundaryTensorsARM extends InputStructure implements VkSubmit
 {
     protected const string NATIVE_TYPE = 'VkFrameBoundaryTensorsARM';
 
-    /** `VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM` */
-    public const int STRUCTURE_TYPE = 1000460023;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM->value;
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkPresentInfoKHRExtension|VkBindSparseInfoExtension|null $next = null,
@@ -33,6 +33,16 @@ final class VkFrameBoundaryTensorsARM extends InputStructure implements VkSubmit
         public array $tensors = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM>,
+     *     pNext: CData,
+     *     tensorCount: int<0, 4294967295>,
+     *     pTensors: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

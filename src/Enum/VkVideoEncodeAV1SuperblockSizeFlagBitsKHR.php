@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodeAV1SuperblockSizeFlagBitsKHR
 {
     public const int VK_VIDEO_ENCODE_AV1_SUPERBLOCK_SIZE_64_BIT_KHR = 1;
+
     public const int VK_VIDEO_ENCODE_AV1_SUPERBLOCK_SIZE_128_BIT_KHR = 2;
 
     private function __construct() {}

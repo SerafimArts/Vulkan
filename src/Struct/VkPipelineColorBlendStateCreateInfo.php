@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkLogicOp;
 use Serafim\Vulkan\Enum\VkPipelineColorBlendStateCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineColorBlendStateCreateInfoExtension;
@@ -23,8 +24,7 @@ final class VkPipelineColorBlendStateCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPipelineColorBlendStateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 26;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkPipelineColorBlendStateCreateInfoExtension $next = null,
@@ -35,6 +35,9 @@ final class VkPipelineColorBlendStateCreateInfo extends InputStructure
         /**
          * # of pAttachments
          *
+         * The number of the elements of `$attachments`, it follows the
+         * array when it is given.
+         *
          * @var int<0, 4294967295>
          */
         public int $attachmentCount = 0,
@@ -44,6 +47,20 @@ final class VkPipelineColorBlendStateCreateInfo extends InputStructure
         public array $blendConstants = [0.0, 0.0, 0.0, 0.0],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     logicOpEnable: int<0, 1>,
+     *     logicOp: value-of<VkLogicOp>,
+     *     attachmentCount: int<0, 4294967295>,
+     *     pAttachments: CData,
+     *     blendConstants: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

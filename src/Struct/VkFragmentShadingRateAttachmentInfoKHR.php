@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDescription2Extension;
 
@@ -23,8 +24,7 @@ final class VkFragmentShadingRateAttachmentInfoKHR extends InputStructure implem
 {
     protected const string NATIVE_TYPE = 'VkFragmentShadingRateAttachmentInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000226000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR->value;
 
     public function __construct(
         public VkExtent2D $shadingRateAttachmentTexelSize,
@@ -32,6 +32,16 @@ final class VkFragmentShadingRateAttachmentInfoKHR extends InputStructure implem
         public ?VkAttachmentReference2 $fragmentShadingRateAttachment = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR>,
+     *     pNext: CData,
+     *     pFragmentShadingRateAttachment: CData,
+     *     shadingRateAttachmentTexelSize: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

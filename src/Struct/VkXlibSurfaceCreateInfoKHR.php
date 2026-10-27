@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkXlibSurfaceCreateInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkXlibSurfaceCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000004000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR->value;
 
     public function __construct(
         public CData|int $dpy,
@@ -29,6 +29,17 @@ final class VkXlibSurfaceCreateInfoKHR extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_XLIB_SURFACE_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     dpy: CData|int|null,
+     *     window: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

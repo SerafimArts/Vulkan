@@ -28,6 +28,15 @@ final class VkCoarseSampleLocationNV extends InputStructure
         public int $sample = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     pixelX: int<0, 4294967295>,
+     *     pixelY: int<0, 4294967295>,
+     *     sample: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->pixelX = $this->pixelX;

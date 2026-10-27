@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndirectCommandsInputModeFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -21,8 +22,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000572001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -95,8 +95,8 @@ final readonly class VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT extend
      *     supportedIndirectCommandsShaderStages: int<0, 4294967295>,
      *     supportedIndirectCommandsShaderStagesPipelineBinding: int<0, 4294967295>,
      *     supportedIndirectCommandsShaderStagesShaderBinding: int<0, 4294967295>,
-     *     deviceGeneratedCommandsTransformFeedback: int,
-     *     deviceGeneratedCommandsMultiDrawIndirectCount: int,
+     *     deviceGeneratedCommandsTransformFeedback: int<0, 1>,
+     *     deviceGeneratedCommandsMultiDrawIndirectCount: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

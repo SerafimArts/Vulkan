@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorType;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkBufferView;
 use Serafim\Vulkan\Handle\VkDescriptorSet;
@@ -27,8 +28,7 @@ final class VkWriteDescriptorSet extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSet';
 
-    /** `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET` */
-    public const int STRUCTURE_TYPE = 35;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET->value;
 
     public function __construct(
         /** Destination descriptor set */
@@ -75,6 +75,22 @@ final class VkWriteDescriptorSet extends InputStructure
         public array $texelBufferView = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET>,
+     *     pNext: CData,
+     *     dstSet: CData,
+     *     dstBinding: int<0, 4294967295>,
+     *     dstArrayElement: int<0, 4294967295>,
+     *     descriptorCount: int<0, 4294967295>,
+     *     descriptorType: value-of<VkDescriptorType>,
+     *     pImageInfo: CData,
+     *     pBufferInfo: CData,
+     *     pTexelBufferView: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

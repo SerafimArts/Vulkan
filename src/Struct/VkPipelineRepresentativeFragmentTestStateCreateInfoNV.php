@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -20,14 +21,22 @@ final class VkPipelineRepresentativeFragmentTestStateCreateInfoNV extends InputS
 {
     protected const string NATIVE_TYPE = 'VkPipelineRepresentativeFragmentTestStateCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000166001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         public bool $representativeFragmentTestEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     representativeFragmentTestEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

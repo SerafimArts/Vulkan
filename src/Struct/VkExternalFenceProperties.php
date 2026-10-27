@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalFenceFeatureFlagBits;
 use Serafim\Vulkan\Enum\VkExternalFenceHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalFenceProperties.html
@@ -18,8 +19,7 @@ use Serafim\Vulkan\Enum\VkExternalFenceHandleTypeFlagBits;
  */
 final readonly class VkExternalFenceProperties extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000112001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FENCE_PROPERTIES->value;
 
     public function __construct(
         /** @var int-mask-of<VkExternalFenceHandleTypeFlagBits::*> */

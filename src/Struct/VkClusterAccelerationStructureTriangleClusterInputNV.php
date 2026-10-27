@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkClusterAccelerationStructureTriangleClusterInputNV extends InputSt
 {
     protected const string NATIVE_TYPE = 'VkClusterAccelerationStructureTriangleClusterInputNV';
 
-    /** `VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV` */
-    public const int STRUCTURE_TYPE = 1000569003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV->value;
 
     public function __construct(
         public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
@@ -41,6 +41,22 @@ final class VkClusterAccelerationStructureTriangleClusterInputNV extends InputSt
         public int $minPositionTruncateBitCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV>,
+     *     pNext: CData,
+     *     vertexFormat: value-of<VkFormat>,
+     *     maxGeometryIndexValue: int<0, 4294967295>,
+     *     maxClusterUniqueGeometryCount: int<0, 4294967295>,
+     *     maxClusterTriangleCount: int<0, 4294967295>,
+     *     maxClusterVertexCount: int<0, 4294967295>,
+     *     maxTotalTriangleCount: int<0, 4294967295>,
+     *     maxTotalVertexCount: int<0, 4294967295>,
+     *     minPositionTruncateBitCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

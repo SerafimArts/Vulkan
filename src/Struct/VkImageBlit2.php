@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageBlit2Extension;
@@ -21,8 +22,7 @@ final class VkImageBlit2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkImageBlit2';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_BLIT_2` */
-    public const int STRUCTURE_TYPE = 1000337008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_BLIT_2->value;
 
     public function __construct(
         public VkImageSubresourceLayers $srcSubresource,
@@ -42,6 +42,18 @@ final class VkImageBlit2 extends InputStructure
         public ?VkImageBlit2Extension $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_BLIT_2>,
+     *     pNext: CData,
+     *     srcSubresource: CData,
+     *     srcOffsets: CData,
+     *     dstSubresource: CData,
+     *     dstOffsets: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

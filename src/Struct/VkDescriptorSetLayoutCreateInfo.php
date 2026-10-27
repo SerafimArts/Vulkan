@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorSetLayoutCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutCreateInfoExtension;
 
@@ -24,8 +25,7 @@ final class VkDescriptorSetLayoutCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDescriptorSetLayoutCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 32;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO->value;
 
     public function __construct(
         public ?VkDescriptorSetLayoutCreateInfoExtension $next = null,
@@ -39,6 +39,17 @@ final class VkDescriptorSetLayoutCreateInfo extends InputStructure
         public array $bindings = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     bindingCount: int<0, 4294967295>,
+     *     pBindings: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

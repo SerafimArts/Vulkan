@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryFdPropertiesKHR.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkMemoryFdPropertiesKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_MEMORY_FD_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000074001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_FD_PROPERTIES_KHR->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */

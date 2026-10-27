@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipeline;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -24,8 +25,7 @@ final class VkRayTracingPipelineCreateInfoKHR extends InputStructure implements 
 {
     protected const string NATIVE_TYPE = 'VkRayTracingPipelineCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000150015;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR->value;
 
     public function __construct(
         public VkRayTracingPipelineCreateInfoKHRExtension|VkPipelineCreateInfoKHRExtension|null $next = null,
@@ -66,6 +66,26 @@ final class VkRayTracingPipelineCreateInfoKHR extends InputStructure implements 
         public int $basePipelineIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     stageCount: int<0, 4294967295>,
+     *     pStages: CData,
+     *     groupCount: int<0, 4294967295>,
+     *     pGroups: CData,
+     *     maxPipelineRayRecursionDepth: int<0, 4294967295>,
+     *     pLibraryInfo: CData,
+     *     pLibraryInterface: CData,
+     *     pDynamicState: CData,
+     *     layout: CData,
+     *     basePipelineHandle: CData,
+     *     basePipelineIndex: int<-2147483648, 2147483647>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

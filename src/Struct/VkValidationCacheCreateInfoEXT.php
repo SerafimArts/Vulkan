@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkValidationCacheCreateInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkValidationCacheCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_VALIDATION_CACHE_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000160000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_CACHE_CREATE_INFO_EXT->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -28,6 +28,17 @@ final class VkValidationCacheCreateInfoEXT extends InputStructure
         public string $initialData = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_CACHE_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     initialDataSize: int<0, max>,
+     *     pInitialData: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

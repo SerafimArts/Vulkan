@@ -26,6 +26,14 @@ final class VkDeviceAddressRangeKHR extends InputStructure
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     address: int<0, max>,
+     *     size: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->address = $this->address;

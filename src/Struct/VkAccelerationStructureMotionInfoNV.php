@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfoKHRExtension;
 
@@ -20,8 +21,7 @@ final class VkAccelerationStructureMotionInfoNV extends InputStructure implement
 {
     protected const string NATIVE_TYPE = 'VkAccelerationStructureMotionInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000327002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV->value;
 
     public function __construct(
         public ?VkAccelerationStructureCreateInfoKHRExtension $next = null,
@@ -31,6 +31,16 @@ final class VkAccelerationStructureMotionInfoNV extends InputStructure implement
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MOTION_INFO_NV>,
+     *     pNext: CData,
+     *     maxInstances: int<0, 4294967295>,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

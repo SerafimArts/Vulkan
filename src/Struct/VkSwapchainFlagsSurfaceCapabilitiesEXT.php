@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSwapchainCreateFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  */
 final readonly class VkSwapchainFlagsSurfaceCapabilitiesEXT extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000616001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {

@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkTensorCreateFlagBitsARM
 {
     public const int VK_TENSOR_CREATE_MUTABLE_FORMAT_BIT_ARM = 1;
+
     public const int VK_TENSOR_CREATE_PROTECTED_BIT_ARM = 2;
+
     public const int VK_TENSOR_CREATE_DESCRIPTOR_HEAP_CAPTURE_REPLAY_BIT_ARM = 8;
+
     public const int VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM = 4;
 
     private function __construct() {}

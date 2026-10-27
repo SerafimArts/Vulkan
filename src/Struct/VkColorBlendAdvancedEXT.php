@@ -29,6 +29,17 @@ final class VkColorBlendAdvancedEXT extends InputStructure
         public bool $clampResults = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     advancedBlendOp: value-of<VkBlendOp>,
+     *     srcPremultiplied: int<0, 1>,
+     *     dstPremultiplied: int<0, 1>,
+     *     blendOverlap: value-of<VkBlendOverlapEXT>,
+     *     clampResults: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->advancedBlendOp = $this->advancedBlendOp->value;

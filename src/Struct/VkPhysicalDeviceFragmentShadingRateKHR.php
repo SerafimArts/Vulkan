@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateKHR.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
  */
 final readonly class VkPhysicalDeviceFragmentShadingRateKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR` */
-    public const int STRUCTURE_TYPE = 1000226004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR->value;
 
     public function __construct(
         /** @var int-mask-of<VkSampleCountFlagBits::*> */

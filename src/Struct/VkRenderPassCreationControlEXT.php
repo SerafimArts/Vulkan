@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfo2Extension;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDescription2Extension;
@@ -24,14 +25,22 @@ final class VkRenderPassCreationControlEXT extends InputStructure implements VkR
 {
     protected const string NATIVE_TYPE = 'VkRenderPassCreationControlEXT';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_CONTROL_EXT` */
-    public const int STRUCTURE_TYPE = 1000458001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_CONTROL_EXT->value;
 
     public function __construct(
         public VkRenderPassCreateInfo2Extension|VkSubpassDescription2Extension|null $next = null,
         public bool $disallowMerging = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_CONTROL_EXT>,
+     *     pNext: CData,
+     *     disallowMerging: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

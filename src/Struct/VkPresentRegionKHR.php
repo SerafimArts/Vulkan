@@ -24,6 +24,9 @@ final class VkPresentRegionKHR extends InputStructure
         /**
          * Number of rectangles in pRectangles
          *
+         * The number of the elements of `$rectangles`, it follows the
+         * array when it is given.
+         *
          * @var int<0, 4294967295>
          */
         public int $rectangleCount = 0,
@@ -35,6 +38,14 @@ final class VkPresentRegionKHR extends InputStructure
         public array $rectangles = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     rectangleCount: int<0, 4294967295>,
+     *     pRectangles: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         if ($this->rectangleCount !== 0) {

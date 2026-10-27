@@ -29,6 +29,15 @@ final class VkImageSubresource extends InputStructure
         public int $arrayLayer = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     aspectMask: int<0, 4294967295>,
+     *     mipLevel: int<0, 4294967295>,
+     *     arrayLayer: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->aspectMask = $this->aspectMask;

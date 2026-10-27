@@ -28,6 +28,14 @@ final class VkSubpassSampleLocationsEXT extends InputStructure
         public int $subpassIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     subpassIndex: int<0, 4294967295>,
+     *     sampleLocationsInfo: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->subpassIndex = $this->subpassIndex;

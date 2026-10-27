@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfo2Extension;
@@ -22,8 +23,7 @@ final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderP
 {
     protected const string NATIVE_TYPE = 'VkTileMemorySizeInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000547004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM->value;
 
     public function __construct(
         public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkRenderingInfoExtension|null $next = null,
@@ -31,6 +31,15 @@ final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderP
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM>,
+     *     pNext: CData,
+     *     size: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -29,6 +29,14 @@ final class VkAttachmentReference extends InputStructure
         public VkImageLayout $layout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     attachment: int<0, 4294967295>,
+     *     layout: value-of<VkImageLayout>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->attachment = $this->attachment;

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRenderingFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkRenderingInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkRenderingInfo';
 
-    /** `VK_STRUCTURE_TYPE_RENDERING_INFO` */
-    public const int STRUCTURE_TYPE = 1000044000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_INFO->value;
 
     public function __construct(
         public VkRect2D $renderArea,
@@ -39,6 +39,22 @@ final class VkRenderingInfo extends InputStructure
         public ?VkRenderingAttachmentInfo $stencilAttachment = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     renderArea: CData,
+     *     layerCount: int<0, 4294967295>,
+     *     viewMask: int<0, 4294967295>,
+     *     colorAttachmentCount: int<0, 4294967295>,
+     *     pColorAttachments: CData,
+     *     pDepthAttachment: CData,
+     *     pStencilAttachment: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

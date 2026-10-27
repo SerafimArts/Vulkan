@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkBuildAccelerationStructureFlagBitsKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPartitionedAccelerationStructureInstancesInputNVExtension;
 
@@ -21,8 +22,7 @@ final class VkPartitionedAccelerationStructureInstancesInputNV extends InputStru
 {
     protected const string NATIVE_TYPE = 'VkPartitionedAccelerationStructureInstancesInputNV';
 
-    /** `VK_STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV` */
-    public const int STRUCTURE_TYPE = 1000570003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV->value;
 
     public function __construct(
         public ?VkPartitionedAccelerationStructureInstancesInputNVExtension $next = null,
@@ -38,6 +38,19 @@ final class VkPartitionedAccelerationStructureInstancesInputNV extends InputStru
         public int $maxInstanceInGlobalPartitionCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     instanceCount: int<0, 4294967295>,
+     *     maxInstancePerPartitionCount: int<0, 4294967295>,
+     *     partitionCount: int<0, 4294967295>,
+     *     maxInstanceInGlobalPartitionCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

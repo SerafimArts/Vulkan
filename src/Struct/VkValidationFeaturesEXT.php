@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkValidationFeatureDisableEXT;
 use Serafim\Vulkan\Enum\VkValidationFeatureEnableEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -30,8 +31,7 @@ final class VkValidationFeaturesEXT extends InputStructure implements VkInstance
 {
     protected const string NATIVE_TYPE = 'VkValidationFeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000247000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT->value;
 
     public function __construct(
         public VkInstanceCreateInfoExtension|VkShaderModuleCreateInfoExtension|VkShaderCreateInfoEXTExtension|VkPipelineShaderStageCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
@@ -49,6 +49,18 @@ final class VkValidationFeaturesEXT extends InputStructure implements VkInstance
         public array $disabledValidationFeatures = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT>,
+     *     pNext: CData,
+     *     enabledValidationFeatureCount: int<0, 4294967295>,
+     *     pEnabledValidationFeatures: CData,
+     *     disabledValidationFeatureCount: int<0, 4294967295>,
+     *     pDisabledValidationFeatures: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkSamplerCustomBorderColorIndexCreateInfoEXT extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkSamplerCustomBorderColorIndexCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000135011;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,
@@ -29,6 +29,15 @@ final class VkSamplerCustomBorderColorIndexCreateInfoEXT extends InputStructure 
         public int $index = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_INDEX_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     index: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

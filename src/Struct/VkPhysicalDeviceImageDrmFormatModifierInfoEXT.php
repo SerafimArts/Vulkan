@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSharingMode;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
 
@@ -21,8 +22,7 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceImageDrmFormatModifierInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000158002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT->value;
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,
@@ -33,6 +33,18 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
         public array $queueFamilyIndices = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT>,
+     *     pNext: CData,
+     *     drmFormatModifier: int<0, max>,
+     *     sharingMode: value-of<VkSharingMode>,
+     *     queueFamilyIndexCount: int<0, 4294967295>,
+     *     pQueueFamilyIndices: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

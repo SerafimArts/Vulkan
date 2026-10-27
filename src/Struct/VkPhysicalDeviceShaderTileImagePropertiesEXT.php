@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceShaderTileImagePropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000395001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_TILE_IMAGE_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -41,9 +41,9 @@ final readonly class VkPhysicalDeviceShaderTileImagePropertiesEXT extends Output
 
     /**
      * @param CData&object{
-     *     shaderTileImageCoherentReadAccelerated: int,
-     *     shaderTileImageReadSampleFromPixelRateInvocation: int,
-     *     shaderTileImageReadFromHelperInvocation: int,
+     *     shaderTileImageCoherentReadAccelerated: int<0, 1>,
+     *     shaderTileImageReadSampleFromPixelRateInvocation: int<0, 1>,
+     *     shaderTileImageReadFromHelperInvocation: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

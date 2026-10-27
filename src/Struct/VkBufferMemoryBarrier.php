@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccessFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferMemoryBarrierExtension;
@@ -25,8 +26,7 @@ final class VkBufferMemoryBarrier extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBufferMemoryBarrier';
 
-    /** `VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER` */
-    public const int STRUCTURE_TYPE = 44;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER->value;
 
     public function __construct(
         /** Buffer to sync */
@@ -71,6 +71,21 @@ final class VkBufferMemoryBarrier extends InputStructure
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER>,
+     *     pNext: CData,
+     *     srcAccessMask: int<0, 4294967295>,
+     *     dstAccessMask: int<0, 4294967295>,
+     *     srcQueueFamilyIndex: int<0, 4294967295>,
+     *     dstQueueFamilyIndex: int<0, 4294967295>,
+     *     buffer: CData,
+     *     offset: int<0, max>,
+     *     size: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

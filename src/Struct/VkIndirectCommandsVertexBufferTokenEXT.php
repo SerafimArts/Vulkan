@@ -24,6 +24,13 @@ final class VkIndirectCommandsVertexBufferTokenEXT extends InputStructure
         public int $vertexBindingUnit = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     vertexBindingUnit: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->vertexBindingUnit = $this->vertexBindingUnit;

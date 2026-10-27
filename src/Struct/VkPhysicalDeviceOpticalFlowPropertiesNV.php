@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkOpticalFlowGridSizeFlagBitsNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceOpticalFlowPropertiesNV extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV` */
-    public const int STRUCTURE_TYPE = 1000464001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_OPTICAL_FLOW_PROPERTIES_NV->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -60,10 +60,10 @@ final readonly class VkPhysicalDeviceOpticalFlowPropertiesNV extends OutputStruc
      * @param CData&object{
      *     supportedOutputGridSizes: int<0, 4294967295>,
      *     supportedHintGridSizes: int<0, 4294967295>,
-     *     hintSupported: int,
-     *     costSupported: int,
-     *     bidirectionalFlowSupported: int,
-     *     globalFlowSupported: int,
+     *     hintSupported: int<0, 1>,
+     *     costSupported: int<0, 1>,
+     *     bidirectionalFlowSupported: int<0, 1>,
+     *     globalFlowSupported: int<0, 1>,
      *     minWidth: int<0, 4294967295>,
      *     minHeight: int<0, 4294967295>,
      *     maxWidth: int<0, 4294967295>,

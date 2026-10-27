@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAttachmentDescription2Extension;
 
@@ -24,8 +25,7 @@ final class VkAttachmentDescriptionStencilLayout extends InputStructure implemen
 {
     protected const string NATIVE_TYPE = 'VkAttachmentDescriptionStencilLayout';
 
-    /** `VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT` */
-    public const int STRUCTURE_TYPE = 1000241002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT->value;
 
     public function __construct(
         public ?VkAttachmentDescription2Extension $next = null,
@@ -33,6 +33,16 @@ final class VkAttachmentDescriptionStencilLayout extends InputStructure implemen
         public VkImageLayout $stencilFinalLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_STENCIL_LAYOUT>,
+     *     pNext: CData,
+     *     stencilInitialLayout: value-of<VkImageLayout>,
+     *     stencilFinalLayout: value-of<VkImageLayout>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

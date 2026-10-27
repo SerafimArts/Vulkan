@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkDataGraphPipelineSessionCreateFlagBitsARM
 {
     public const int VK_DATA_GRAPH_PIPELINE_SESSION_CREATE_PROTECTED_BIT_ARM = 1;
+
     public const int VK_DATA_GRAPH_PIPELINE_SESSION_CREATE_OPTICAL_FLOW_CACHE_BIT_ARM = 2;
 
     private function __construct() {}

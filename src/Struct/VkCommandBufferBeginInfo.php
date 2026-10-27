@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCommandBufferUsageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferBeginInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkCommandBufferBeginInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCommandBufferBeginInfo';
 
-    /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO` */
-    public const int STRUCTURE_TYPE = 42;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO->value;
 
     public function __construct(
         public ?VkCommandBufferBeginInfoExtension $next = null,
@@ -36,6 +36,16 @@ final class VkCommandBufferBeginInfo extends InputStructure
         public ?VkCommandBufferInheritanceInfo $inheritanceInfo = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     pInheritanceInfo: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipeline;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,13 +21,21 @@ final class VkPipelineInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPipelineInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000269001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_INFO_KHR->value;
 
     public function __construct(
         public VkPipeline $pipeline,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_INFO_KHR>,
+     *     pNext: CData,
+     *     pipeline: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

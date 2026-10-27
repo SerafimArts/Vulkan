@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceSubgroupSizeControlFeatures extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSubgroupSizeControlFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000225002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPhysicalDeviceSubgroupSizeControlFeatures extends InputStructure i
         public bool $computeFullSubgroups = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_SIZE_CONTROL_FEATURES>,
+     *     pNext: CData,
+     *     subgroupSizeControl: int<0, 1>,
+     *     computeFullSubgroups: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -57,8 +67,8 @@ final class VkPhysicalDeviceSubgroupSizeControlFeatures extends InputStructure i
 
     /**
      * @param CData&object{
-     *     subgroupSizeControl: int,
-     *     computeFullSubgroups: int,
+     *     subgroupSizeControl: int<0, 1>,
+     *     computeFullSubgroups: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

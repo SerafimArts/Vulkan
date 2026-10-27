@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessBufferBehavior;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessImageBehavior;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -21,8 +22,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDevicePipelineRobustnessProperties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000068002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_ROBUSTNESS_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -45,10 +45,10 @@ final readonly class VkPhysicalDevicePipelineRobustnessProperties extends Output
 
     /**
      * @param CData&object{
-     *     defaultRobustnessStorageBuffers: int,
-     *     defaultRobustnessUniformBuffers: int,
-     *     defaultRobustnessVertexInputs: int,
-     *     defaultRobustnessImages: int,
+     *     defaultRobustnessStorageBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     defaultRobustnessUniformBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     defaultRobustnessVertexInputs: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     defaultRobustnessImages: value-of<VkPipelineRobustnessImageBehavior>,
      * } $data
      *
      * @phpstan-param CData $data

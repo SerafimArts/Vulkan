@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,11 +20,18 @@ final class VkPerTileBeginInfoQCOM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPerTileBeginInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_PER_TILE_BEGIN_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000309003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PER_TILE_BEGIN_INFO_QCOM->value;
 
     public function __construct() {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PER_TILE_BEGIN_INFO_QCOM>,
+     *     pNext: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

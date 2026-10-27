@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,13 +20,21 @@ final class VkImageSubresource2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkImageSubresource2';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2` */
-    public const int STRUCTURE_TYPE = 1000338003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2->value;
 
     public function __construct(
         public VkImageSubresource $imageSubresource,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2>,
+     *     pNext: CData,
+     *     imageSubresource: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

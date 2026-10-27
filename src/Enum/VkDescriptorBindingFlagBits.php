@@ -18,8 +18,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkDescriptorBindingFlagBits
 {
     public const int VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT = 1;
+
     public const int VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT = 2;
+
     public const int VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT = 4;
+
     public const int VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT = 8;
 
     /** Alias of {@see self::VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT} */

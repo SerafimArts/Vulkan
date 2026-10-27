@@ -25,6 +25,14 @@ final class VkShadingRatePaletteNV extends InputStructure
         public array $shadingRatePaletteEntries = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     shadingRatePaletteEntryCount: int<0, 4294967295>,
+     *     pShadingRatePaletteEntries: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         if ($this->shadingRatePaletteEntries !== []) {

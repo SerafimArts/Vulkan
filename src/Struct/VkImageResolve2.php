@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkImageResolve2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkImageResolve2';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2` */
-    public const int STRUCTURE_TYPE = 1000337010;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2->value;
 
     public function __construct(
         public VkImageSubresourceLayers $srcSubresource,
@@ -30,6 +30,19 @@ final class VkImageResolve2 extends InputStructure
         public VkExtent3D $extent,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_RESOLVE_2>,
+     *     pNext: CData,
+     *     srcSubresource: CData,
+     *     srcOffset: CData,
+     *     dstSubresource: CData,
+     *     dstOffset: CData,
+     *     extent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

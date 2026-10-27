@@ -17,7 +17,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkExternalMemoryFeatureFlagBitsNV
 {
     public const int VK_EXTERNAL_MEMORY_FEATURE_DEDICATED_ONLY_BIT_NV = 1;
+
     public const int VK_EXTERNAL_MEMORY_FEATURE_EXPORTABLE_BIT_NV = 2;
+
     public const int VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT_NV = 4;
 
     private function __construct() {}

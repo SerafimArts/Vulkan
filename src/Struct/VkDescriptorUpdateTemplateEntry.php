@@ -56,6 +56,18 @@ final class VkDescriptorUpdateTemplateEntry extends InputStructure
         public int $stride = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     dstBinding: int<0, 4294967295>,
+     *     dstArrayElement: int<0, 4294967295>,
+     *     descriptorCount: int<0, 4294967295>,
+     *     descriptorType: value-of<VkDescriptorType>,
+     *     offset: int<0, max>,
+     *     stride: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->dstBinding = $this->dstBinding;

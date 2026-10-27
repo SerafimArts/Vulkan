@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkPresentScalingFlagBitsKHR
 {
     public const int VK_PRESENT_SCALING_ONE_TO_ONE_BIT_KHR = 1;
+
     public const int VK_PRESENT_SCALING_ASPECT_RATIO_STRETCH_BIT_KHR = 2;
+
     public const int VK_PRESENT_SCALING_STRETCH_BIT_KHR = 4;
 
     /** Alias of {@see self::VK_PRESENT_SCALING_ONE_TO_ONE_BIT_KHR} */

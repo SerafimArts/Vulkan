@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
@@ -22,8 +23,7 @@ final class VkImageStencilUsageCreateInfo extends InputStructure implements VkIm
 {
     protected const string NATIVE_TYPE = 'VkImageStencilUsageCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000246000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO->value;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,
@@ -31,6 +31,15 @@ final class VkImageStencilUsageCreateInfo extends InputStructure implements VkIm
         public int $stencilUsage = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO>,
+     *     pNext: CData,
+     *     stencilUsage: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

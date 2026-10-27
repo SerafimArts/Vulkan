@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTensorTilingARM;
 use Serafim\Vulkan\Enum\VkTensorUsageFlagBitsARM;
 use Serafim\Vulkan\Exception\InvalidStructureException;
@@ -25,8 +26,7 @@ final class VkTensorDescriptionARM extends InputStructure implements VkDataGraph
 {
     protected const string NATIVE_TYPE = 'VkTensorDescriptionARM';
 
-    /** `VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM` */
-    public const int STRUCTURE_TYPE = 1000460006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM->value;
 
     public function __construct(
         public VkDataGraphPipelineResourceInfoARMExtension|VkDataGraphPipelineConstantARMExtension|null $next = null,
@@ -40,6 +40,20 @@ final class VkTensorDescriptionARM extends InputStructure implements VkDataGraph
         public int $usage = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM>,
+     *     pNext: CData,
+     *     tiling: value-of<VkTensorTilingARM>,
+     *     format: value-of<VkFormat>,
+     *     dimensionCount: int<0, 4294967295>,
+     *     pDimensions: CData,
+     *     pStrides: CData,
+     *     usage: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

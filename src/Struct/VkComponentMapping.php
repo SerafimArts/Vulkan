@@ -27,6 +27,16 @@ final class VkComponentMapping extends InputStructure
         public VkComponentSwizzle $a = VkComponentSwizzle::VK_COMPONENT_SWIZZLE_IDENTITY,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     r: value-of<VkComponentSwizzle>,
+     *     g: value-of<VkComponentSwizzle>,
+     *     b: value-of<VkComponentSwizzle>,
+     *     a: value-of<VkComponentSwizzle>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->r = $this->r->value;
@@ -40,10 +50,10 @@ final class VkComponentMapping extends InputStructure
 
     /**
      * @param CData&object{
-     *     r: int,
-     *     g: int,
-     *     b: int,
-     *     a: int,
+     *     r: value-of<VkComponentSwizzle>,
+     *     g: value-of<VkComponentSwizzle>,
+     *     b: value-of<VkComponentSwizzle>,
+     *     a: value-of<VkComponentSwizzle>,
      * } $data
      *
      * @phpstan-param CData $data

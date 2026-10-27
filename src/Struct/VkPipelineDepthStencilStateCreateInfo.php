@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCompareOp;
 use Serafim\Vulkan\Enum\VkPipelineDepthStencilStateCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,8 +22,7 @@ final class VkPipelineDepthStencilStateCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPipelineDepthStencilStateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 25;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO->value;
 
     public function __construct(
         public VkStencilOpState $front,
@@ -39,6 +39,24 @@ final class VkPipelineDepthStencilStateCreateInfo extends InputStructure
         public float $maxDepthBounds = 0.0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     depthTestEnable: int<0, 1>,
+     *     depthWriteEnable: int<0, 1>,
+     *     depthCompareOp: value-of<VkCompareOp>,
+     *     depthBoundsTestEnable: int<0, 1>,
+     *     stencilTestEnable: int<0, 1>,
+     *     front: CData,
+     *     back: CData,
+     *     minDepthBounds: float,
+     *     maxDepthBounds: float,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

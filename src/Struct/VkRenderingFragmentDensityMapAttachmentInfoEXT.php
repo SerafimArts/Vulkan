@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
@@ -22,8 +23,7 @@ final class VkRenderingFragmentDensityMapAttachmentInfoEXT extends InputStructur
 {
     protected const string NATIVE_TYPE = 'VkRenderingFragmentDensityMapAttachmentInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000044007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT->value;
 
     public function __construct(
         public VkImageView $imageView,
@@ -31,6 +31,16 @@ final class VkRenderingFragmentDensityMapAttachmentInfoEXT extends InputStructur
         public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_INFO_EXT>,
+     *     pNext: CData,
+     *     imageView: CData,
+     *     imageLayout: value-of<VkImageLayout>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

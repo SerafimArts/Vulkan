@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAttachmentDescription2Extension;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
@@ -24,8 +25,7 @@ final class VkExternalFormatOHOS extends InputStructure implements VkImageCreate
 {
     protected const string NATIVE_TYPE = 'VkExternalFormatOHOS';
 
-    /** `VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS` */
-    public const int STRUCTURE_TYPE = 1000452005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS->value;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
@@ -33,6 +33,15 @@ final class VkExternalFormatOHOS extends InputStructure implements VkImageCreate
         public int $externalFormat = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS>,
+     *     pNext: CData,
+     *     externalFormat: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBufferCollectionFUCHSIA;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
@@ -21,8 +22,7 @@ final class VkBufferCollectionImageCreateInfoFUCHSIA extends InputStructure impl
 {
     protected const string NATIVE_TYPE = 'VkBufferCollectionImageCreateInfoFUCHSIA';
 
-    /** `VK_STRUCTURE_TYPE_BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA` */
-    public const int STRUCTURE_TYPE = 1000366002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA->value;
 
     public function __construct(
         public VkBufferCollectionFUCHSIA $collection,
@@ -31,6 +31,16 @@ final class VkBufferCollectionImageCreateInfoFUCHSIA extends InputStructure impl
         public int $index = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA>,
+     *     pNext: CData,
+     *     collection: CData,
+     *     index: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

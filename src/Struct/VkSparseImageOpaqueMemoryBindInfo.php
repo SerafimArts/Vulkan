@@ -26,6 +26,15 @@ final class VkSparseImageOpaqueMemoryBindInfo extends InputStructure
         public array $binds = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     image: CData,
+     *     bindCount: int<0, 4294967295>,
+     *     pBinds: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->image = $memory->ffi->cast('VkImage', $this->image->pointer);

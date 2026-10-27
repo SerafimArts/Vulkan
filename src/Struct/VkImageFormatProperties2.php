@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
  */
 final readonly class VkImageFormatProperties2 extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_IMAGE_FORMAT_PROPERTIES_2` */
-    public const int STRUCTURE_TYPE = 1000059003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_FORMAT_PROPERTIES_2->value;
 
     public function __construct(
         public VkImageFormatProperties $imageFormatProperties,

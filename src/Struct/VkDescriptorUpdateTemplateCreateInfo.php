@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorUpdateTemplateType;
 use Serafim\Vulkan\Enum\VkPipelineBindPoint;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorSetLayout;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -23,8 +24,7 @@ final class VkDescriptorUpdateTemplateCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDescriptorUpdateTemplateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000085000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO->value;
 
     public function __construct(
         public VkDescriptorSetLayout $descriptorSetLayout,
@@ -44,6 +44,22 @@ final class VkDescriptorUpdateTemplateCreateInfo extends InputStructure
         public int $set = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     descriptorUpdateEntryCount: int<0, 4294967295>,
+     *     pDescriptorUpdateEntries: CData,
+     *     templateType: value-of<VkDescriptorUpdateTemplateType>,
+     *     descriptorSetLayout: CData,
+     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
+     *     pipelineLayout: CData,
+     *     set: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

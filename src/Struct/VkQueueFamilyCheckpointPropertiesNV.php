@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
  */
 final readonly class VkQueueFamilyCheckpointPropertiesNV extends OutputStructure implements VkQueueFamilyProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV` */
-    public const int STRUCTURE_TYPE = 1000206001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV->value;
 
     public static function createNative(Allocator $memory): CData
     {

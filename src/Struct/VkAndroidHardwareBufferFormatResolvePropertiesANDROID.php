@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExte
  */
 final readonly class VkAndroidHardwareBufferFormatResolvePropertiesANDROID extends OutputStructure implements VkAndroidHardwareBufferPropertiesANDROIDExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID` */
-    public const int STRUCTURE_TYPE = 1000468002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -37,7 +37,7 @@ final readonly class VkAndroidHardwareBufferFormatResolvePropertiesANDROID exten
 
     /**
      * @param CData&object{
-     *     colorAttachmentFormat: int,
+     *     colorAttachmentFormat: value-of<VkFormat>,
      * } $data
      *
      * @phpstan-param CData $data

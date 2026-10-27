@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends InputStru
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000251000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT->value;
 
     public function __construct(
         /** Pointer to next structure */
@@ -34,6 +34,17 @@ final class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends InputStru
         public bool $fragmentShaderShadingRateInterlock = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADER_INTERLOCK_FEATURES_EXT>,
+     *     pNext: CData,
+     *     fragmentShaderSampleInterlock: int<0, 1>,
+     *     fragmentShaderPixelInterlock: int<0, 1>,
+     *     fragmentShaderShadingRateInterlock: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -61,9 +72,9 @@ final class VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT extends InputStru
 
     /**
      * @param CData&object{
-     *     fragmentShaderSampleInterlock: int,
-     *     fragmentShaderPixelInterlock: int,
-     *     fragmentShaderShadingRateInterlock: int,
+     *     fragmentShaderSampleInterlock: int<0, 1>,
+     *     fragmentShaderPixelInterlock: int<0, 1>,
+     *     fragmentShaderShadingRateInterlock: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

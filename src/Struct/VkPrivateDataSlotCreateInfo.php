@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPrivateDataSlotCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,14 +21,22 @@ final class VkPrivateDataSlotCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPrivateDataSlotCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PRIVATE_DATA_SLOT_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000295002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRIVATE_DATA_SLOT_CREATE_INFO->value;
 
     public function __construct(
         /** @var int-mask-of<VkPrivateDataSlotCreateFlagBits::*> */
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PRIVATE_DATA_SLOT_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

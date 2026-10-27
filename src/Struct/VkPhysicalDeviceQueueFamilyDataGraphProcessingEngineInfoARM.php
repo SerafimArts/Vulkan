@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPhysicalDeviceDataGraphProcessingEngineTypeARM;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM extends 
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000507019;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -29,6 +29,16 @@ final class VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM extends 
         public VkPhysicalDeviceDataGraphProcessingEngineTypeARM $engineType = VkPhysicalDeviceDataGraphProcessingEngineTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM>,
+     *     pNext: CData,
+     *     queueFamilyIndex: int<0, 4294967295>,
+     *     engineType: value-of<VkPhysicalDeviceDataGraphProcessingEngineTypeARM>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

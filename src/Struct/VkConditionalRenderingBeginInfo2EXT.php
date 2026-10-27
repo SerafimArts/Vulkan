@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkConditionalRenderingFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,8 +22,7 @@ final class VkConditionalRenderingBeginInfo2EXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkConditionalRenderingBeginInfo2EXT';
 
-    /** `VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT` */
-    public const int STRUCTURE_TYPE = 1000318012;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT->value;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
@@ -32,6 +32,17 @@ final class VkConditionalRenderingBeginInfo2EXT extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_2_EXT>,
+     *     pNext: CData,
+     *     addressRange: CData,
+     *     addressFlags: int<0, 4294967295>,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

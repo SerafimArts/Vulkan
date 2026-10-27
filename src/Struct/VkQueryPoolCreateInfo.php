@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkQueryPipelineStatisticFlagBits;
 use Serafim\Vulkan\Enum\VkQueryPoolCreateFlagBits;
 use Serafim\Vulkan\Enum\VkQueryType;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkQueryPoolCreateInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkQueryPoolCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkQueryPoolCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 11;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO->value;
 
     public function __construct(
         public ?VkQueryPoolCreateInfoExtension $next = null,
@@ -41,6 +41,18 @@ final class VkQueryPoolCreateInfo extends InputStructure
         public int $pipelineStatistics = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     queryType: value-of<VkQueryType>,
+     *     queryCount: int<0, 4294967295>,
+     *     pipelineStatistics: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

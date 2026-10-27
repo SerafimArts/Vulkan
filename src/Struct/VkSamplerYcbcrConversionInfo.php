@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSamplerYcbcrConversion;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageViewCreateInfoExtension;
@@ -22,14 +23,22 @@ final class VkSamplerYcbcrConversionInfo extends InputStructure implements VkSam
 {
     protected const string NATIVE_TYPE = 'VkSamplerYcbcrConversionInfo';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO` */
-    public const int STRUCTURE_TYPE = 1000156001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO->value;
 
     public function __construct(
         public VkSamplerYcbcrConversion $conversion,
         public VkSamplerCreateInfoExtension|VkImageViewCreateInfoExtension|null $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_INFO>,
+     *     pNext: CData,
+     *     conversion: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

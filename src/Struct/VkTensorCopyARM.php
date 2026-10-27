@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,11 +21,15 @@ final class VkTensorCopyARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkTensorCopyARM';
 
-    /** `VK_STRUCTURE_TYPE_TENSOR_COPY_ARM` */
-    public const int STRUCTURE_TYPE = 1000460012;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_COPY_ARM->value;
 
     public function __construct(
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$srcOffset`, `$dstOffset`,
+         * `$extent`, it follows the array when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $dimensionCount = 0,
         /** @var list<int<0, max>> */
         public array $srcOffset = [],
@@ -34,6 +39,18 @@ final class VkTensorCopyARM extends InputStructure
         public array $extent = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TENSOR_COPY_ARM>,
+     *     pNext: CData,
+     *     dimensionCount: int<0, 4294967295>,
+     *     pSrcOffset: CData,
+     *     pDstOffset: CData,
+     *     pExtent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

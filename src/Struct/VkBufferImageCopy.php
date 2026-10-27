@@ -41,6 +41,18 @@ final class VkBufferImageCopy extends InputStructure
         public int $bufferImageHeight = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     bufferOffset: int<0, max>,
+     *     bufferRowLength: int<0, 4294967295>,
+     *     bufferImageHeight: int<0, 4294967295>,
+     *     imageSubresource: CData,
+     *     imageOffset: CData,
+     *     imageExtent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->bufferOffset = $this->bufferOffset;

@@ -18,6 +18,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkRenderPassCreateFlagBits
 {
     public const int VK_RENDER_PASS_CREATE_TRANSFORM_BIT_QCOM = 2;
+
     public const int VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 4;
 
     private function __construct() {}

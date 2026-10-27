@@ -37,8 +37,11 @@ final class VkSubgroupFeatureFlagBits
 
     /** Quad subgroup operations */
     public const int VK_SUBGROUP_FEATURE_QUAD_BIT = 128;
+
     public const int VK_SUBGROUP_FEATURE_ROTATE_BIT = 512;
+
     public const int VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT = 1024;
+
     public const int VK_SUBGROUP_FEATURE_PARTITIONED_BIT_EXT = 256;
 
     /** Alias of {@see self::VK_SUBGROUP_FEATURE_PARTITIONED_BIT_EXT} */

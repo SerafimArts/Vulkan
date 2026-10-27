@@ -15,10 +15,15 @@ namespace Serafim\Vulkan\Enum;
 final class VkDeviceFaultFlagBitsKHR
 {
     public const int VK_DEVICE_FAULT_FLAG_DEVICE_LOST_KHR = 1;
+
     public const int VK_DEVICE_FAULT_FLAG_MEMORY_ADDRESS_KHR = 2;
+
     public const int VK_DEVICE_FAULT_FLAG_INSTRUCTION_ADDRESS_KHR = 4;
+
     public const int VK_DEVICE_FAULT_FLAG_VENDOR_KHR = 8;
+
     public const int VK_DEVICE_FAULT_FLAG_WATCHDOG_TIMEOUT_KHR = 16;
+
     public const int VK_DEVICE_FAULT_FLAG_OVERFLOW_KHR = 32;
 
     private function __construct() {}

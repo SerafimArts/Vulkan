@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkMemoryUnmapFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkMemoryUnmapInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkMemoryUnmapInfo';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO` */
-    public const int STRUCTURE_TYPE = 1000271001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO->value;
 
     public function __construct(
         public VkDeviceMemory $memory,
@@ -30,6 +30,16 @@ final class VkMemoryUnmapInfo extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     memory: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

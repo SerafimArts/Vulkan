@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceGpaFeaturesAMD extends InputStructure implements VkP
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceGpaFeaturesAMD';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_FEATURES_AMD` */
-    public const int STRUCTURE_TYPE = 1000133000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_FEATURES_AMD->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -34,6 +34,18 @@ final class VkPhysicalDeviceGpaFeaturesAMD extends InputStructure implements VkP
         public bool $clockModes = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_FEATURES_AMD>,
+     *     pNext: CData,
+     *     perfCounters: int<0, 1>,
+     *     streamingPerfCounters: int<0, 1>,
+     *     sqThreadTracing: int<0, 1>,
+     *     clockModes: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -63,10 +75,10 @@ final class VkPhysicalDeviceGpaFeaturesAMD extends InputStructure implements VkP
 
     /**
      * @param CData&object{
-     *     perfCounters: int,
-     *     streamingPerfCounters: int,
-     *     sqThreadTracing: int,
-     *     clockModes: int,
+     *     perfCounters: int<0, 1>,
+     *     streamingPerfCounters: int<0, 1>,
+     *     sqThreadTracing: int<0, 1>,
+     *     clockModes: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

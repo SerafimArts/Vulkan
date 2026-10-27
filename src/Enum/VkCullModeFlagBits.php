@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkCullModeFlagBits
 {
     public const int VK_CULL_MODE_NONE = 0;
+
     public const int VK_CULL_MODE_FRONT_BIT = 1;
+
     public const int VK_CULL_MODE_BACK_BIT = 2;
+
     public const int VK_CULL_MODE_FRONT_AND_BACK = 3;
 
     private function __construct() {}

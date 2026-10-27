@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkIndirectCommandsLayoutEXT;
 use Serafim\Vulkan\Handle\VkIndirectExecutionSetEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -23,8 +24,7 @@ final class VkGeneratedCommandsInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkGeneratedCommandsInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_GENERATED_COMMANDS_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000572004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_INFO_EXT->value;
 
     public function __construct(
         public VkIndirectCommandsLayoutEXT $indirectCommandsLayout,
@@ -48,6 +48,24 @@ final class VkGeneratedCommandsInfoEXT extends InputStructure
         public int $maxDrawCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_INFO_EXT>,
+     *     pNext: CData,
+     *     shaderStages: int<0, 4294967295>,
+     *     indirectExecutionSet: CData,
+     *     indirectCommandsLayout: CData,
+     *     indirectAddress: int<0, max>,
+     *     indirectAddressSize: int<0, max>,
+     *     preprocessAddress: int<0, max>,
+     *     preprocessSize: int<0, max>,
+     *     maxSequenceCount: int<0, 4294967295>,
+     *     sequenceCountAddress: int<0, max>,
+     *     maxDrawCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

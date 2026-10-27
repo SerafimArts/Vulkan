@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,13 +21,21 @@ final class VkBufferMemoryRequirementsInfo2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBufferMemoryRequirementsInfo2';
 
-    /** `VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2` */
-    public const int STRUCTURE_TYPE = 1000146000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2->value;
 
     public function __construct(
         public VkBuffer $buffer,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_MEMORY_REQUIREMENTS_INFO_2>,
+     *     pNext: CData,
+     *     buffer: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

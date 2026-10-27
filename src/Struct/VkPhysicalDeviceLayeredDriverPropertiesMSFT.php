@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkLayeredDriverUnderlyingApiMSFT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT` */
-    public const int STRUCTURE_TYPE = 1000530000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_DRIVER_PROPERTIES_MSFT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -38,7 +38,7 @@ final readonly class VkPhysicalDeviceLayeredDriverPropertiesMSFT extends OutputS
 
     /**
      * @param CData&object{
-     *     underlyingAPI: int,
+     *     underlyingAPI: value-of<VkLayeredDriverUnderlyingApiMSFT>,
      * } $data
      *
      * @phpstan-param CData $data

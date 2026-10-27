@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPushConstantsInfoExtension;
@@ -22,8 +23,7 @@ final class VkPushConstantsInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPushConstantsInfo';
 
-    /** `VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO` */
-    public const int STRUCTURE_TYPE = 1000545004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO->value;
 
     public function __construct(
         public ?VkPushConstantsInfoExtension $next = null,
@@ -35,6 +35,19 @@ final class VkPushConstantsInfo extends InputStructure
         public string $values = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO>,
+     *     pNext: CData,
+     *     layout: CData,
+     *     stageFlags: int<0, 4294967295>,
+     *     offset: int<0, 4294967295>,
+     *     size: int<0, 4294967295>,
+     *     pValues: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

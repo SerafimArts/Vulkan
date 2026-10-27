@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTensorCreateFlagBitsARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkPhysicalDeviceExternalTensorInfoARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalTensorInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000460015;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM->value;
 
     public function __construct(
         /** @var int-mask-of<VkTensorCreateFlagBitsARM::*> */
@@ -32,6 +32,17 @@ final class VkPhysicalDeviceExternalTensorInfoARM extends InputStructure
         public int $handleType = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM>,
+     *     pNext: CData,
+     *     flags: int<0, max>,
+     *     pDescription: CData,
+     *     handleType: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

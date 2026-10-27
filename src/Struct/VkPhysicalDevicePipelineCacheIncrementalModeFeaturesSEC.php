@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC extends Inpu
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC` */
-    public const int STRUCTURE_TYPE = 1000637000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $pipelineCacheIncrementalMode = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC>,
+     *     pNext: CData,
+     *     pipelineCacheIncrementalMode: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC extends Inpu
 
     /**
      * @param CData&object{
-     *     pipelineCacheIncrementalMode: int,
+     *     pipelineCacheIncrementalMode: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

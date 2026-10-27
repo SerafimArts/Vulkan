@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageAspectFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkDeviceImageMemoryRequirements extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDeviceImageMemoryRequirements';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS` */
-    public const int STRUCTURE_TYPE = 1000413003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS->value;
 
     public function __construct(
         public ?VkImageCreateInfo $createInfo = null,
@@ -29,6 +29,16 @@ final class VkDeviceImageMemoryRequirements extends InputStructure
         public int $planeAspect = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_IMAGE_MEMORY_REQUIREMENTS>,
+     *     pNext: CData,
+     *     pCreateInfo: CData,
+     *     planeAspect: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

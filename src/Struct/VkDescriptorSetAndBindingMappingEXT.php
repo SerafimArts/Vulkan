@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorMappingSourceEXT;
 use Serafim\Vulkan\Enum\VkSpirvResourceTypeFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetAndBindingMappingEXTExtension;
 
@@ -22,8 +23,7 @@ final class VkDescriptorSetAndBindingMappingEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDescriptorSetAndBindingMappingEXT';
 
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT` */
-    public const int STRUCTURE_TYPE = 1000135005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT->value;
 
     public function __construct(
         public VkDescriptorMappingSourceDataEXT $sourceData,
@@ -39,6 +39,20 @@ final class VkDescriptorSetAndBindingMappingEXT extends InputStructure
         public VkDescriptorMappingSourceEXT $source = VkDescriptorMappingSourceEXT::VK_DESCRIPTOR_MAPPING_SOURCE_HEAP_WITH_CONSTANT_OFFSET_EXT,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_AND_BINDING_MAPPING_EXT>,
+     *     pNext: CData,
+     *     descriptorSet: int<0, 4294967295>,
+     *     firstBinding: int<0, 4294967295>,
+     *     bindingCount: int<0, 4294967295>,
+     *     resourceMask: int<0, 4294967295>,
+     *     source: value-of<VkDescriptorMappingSourceEXT>,
+     *     sourceData: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

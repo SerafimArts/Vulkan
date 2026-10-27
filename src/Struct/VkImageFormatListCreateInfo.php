@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
@@ -23,8 +24,7 @@ final class VkImageFormatListCreateInfo extends InputStructure implements VkImag
 {
     protected const string NATIVE_TYPE = 'VkImageFormatListCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000147000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO->value;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSwapchainCreateInfoKHRExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,
@@ -32,6 +32,16 @@ final class VkImageFormatListCreateInfo extends InputStructure implements VkImag
         public array $viewFormats = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO>,
+     *     pNext: CData,
+     *     viewFormatCount: int<0, 4294967295>,
+     *     pViewFormats: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

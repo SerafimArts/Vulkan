@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkBlockMatchWindowCompareModeQCOM;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkSamplerBlockMatchWindowCreateInfoQCOM extends InputStructure imple
 {
     protected const string NATIVE_TYPE = 'VkSamplerBlockMatchWindowCreateInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000518002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM->value;
 
     public function __construct(
         public VkExtent2D $windowExtent,
@@ -30,6 +30,16 @@ final class VkSamplerBlockMatchWindowCreateInfoQCOM extends InputStructure imple
         public VkBlockMatchWindowCompareModeQCOM $windowCompareMode = VkBlockMatchWindowCompareModeQCOM::VK_BLOCK_MATCH_WINDOW_COMPARE_MODE_MIN_QCOM,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_BLOCK_MATCH_WINDOW_CREATE_INFO_QCOM>,
+     *     pNext: CData,
+     *     windowExtent: CData,
+     *     windowCompareMode: value-of<VkBlockMatchWindowCompareModeQCOM>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

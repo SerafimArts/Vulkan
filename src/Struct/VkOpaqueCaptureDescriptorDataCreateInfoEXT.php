@@ -9,9 +9,11 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfo2KHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfoKHRExtension;
+use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfoNVExtension;
 use Serafim\Vulkan\Struct\Extension\VkBufferCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkImageViewCreateInfoExtension;
@@ -26,18 +28,26 @@ use Serafim\Vulkan\Struct\Extension\VkTensorViewCreateInfoARMExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since VK_EXT_descriptor_buffer
  */
-final class VkOpaqueCaptureDescriptorDataCreateInfoEXT extends InputStructure implements VkBufferCreateInfoExtension, VkImageCreateInfoExtension, VkImageViewCreateInfoExtension, VkSamplerCreateInfoExtension, VkAccelerationStructureCreateInfoKHRExtension, VkTensorCreateInfoARMExtension, VkTensorViewCreateInfoARMExtension, VkAccelerationStructureCreateInfo2KHRExtension
+final class VkOpaqueCaptureDescriptorDataCreateInfoEXT extends InputStructure implements VkBufferCreateInfoExtension, VkImageCreateInfoExtension, VkImageViewCreateInfoExtension, VkSamplerCreateInfoExtension, VkAccelerationStructureCreateInfoKHRExtension, VkAccelerationStructureCreateInfoNVExtension, VkTensorCreateInfoARMExtension, VkTensorViewCreateInfoARMExtension, VkAccelerationStructureCreateInfo2KHRExtension
 {
     protected const string NATIVE_TYPE = 'VkOpaqueCaptureDescriptorDataCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000316010;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT->value;
 
     public function __construct(
         public CData|int $opaqueCaptureDescriptorData,
-        public VkBufferCreateInfoExtension|VkImageCreateInfoExtension|VkImageViewCreateInfoExtension|VkSamplerCreateInfoExtension|VkAccelerationStructureCreateInfoKHRExtension|VkTensorCreateInfoARMExtension|VkTensorViewCreateInfoARMExtension|VkAccelerationStructureCreateInfo2KHRExtension|null $next = null,
+        public VkBufferCreateInfoExtension|VkImageCreateInfoExtension|VkImageViewCreateInfoExtension|VkSamplerCreateInfoExtension|VkAccelerationStructureCreateInfoKHRExtension|VkAccelerationStructureCreateInfoNVExtension|VkTensorCreateInfoARMExtension|VkTensorViewCreateInfoARMExtension|VkAccelerationStructureCreateInfo2KHRExtension|null $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_OPAQUE_CAPTURE_DESCRIPTOR_DATA_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     opaqueCaptureDescriptorData: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

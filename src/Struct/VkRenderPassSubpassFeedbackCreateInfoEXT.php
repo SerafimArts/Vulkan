@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDescription2Extension;
 
@@ -23,14 +24,22 @@ final class VkRenderPassSubpassFeedbackCreateInfoEXT extends InputStructure impl
 {
     protected const string NATIVE_TYPE = 'VkRenderPassSubpassFeedbackCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000458003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkSubpassDescription2Extension $next = null,
         public ?VkRenderPassSubpassFeedbackInfoEXT $subpassFeedback = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_SUBPASS_FEEDBACK_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     pSubpassFeedback: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

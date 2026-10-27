@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkPresentTimingInfoFlagBitsEXT
 {
     public const int VK_PRESENT_TIMING_INFO_PRESENT_AT_RELATIVE_TIME_BIT_EXT = 1;
+
     public const int VK_PRESENT_TIMING_INFO_PRESENT_AT_NEAREST_REFRESH_CYCLE_BIT_EXT = 2;
 
     private function __construct() {}

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceSamplerFilterMinmaxProperties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000130000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SAMPLER_FILTER_MINMAX_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -39,8 +39,8 @@ final readonly class VkPhysicalDeviceSamplerFilterMinmaxProperties extends Outpu
 
     /**
      * @param CData&object{
-     *     filterMinmaxSingleComponentFormats: int,
-     *     filterMinmaxImageComponentMapping: int,
+     *     filterMinmaxSingleComponentFormats: int<0, 1>,
+     *     filterMinmaxImageComponentMapping: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

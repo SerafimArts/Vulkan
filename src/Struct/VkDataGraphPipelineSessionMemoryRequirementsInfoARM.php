@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineSessionBindPointARM;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDataGraphPipelineSessionARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM extends InputStr
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSessionMemoryRequirementsInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000507004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM->value;
 
     public function __construct(
         public VkDataGraphPipelineSessionARM $session,
@@ -31,6 +31,17 @@ final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM extends InputStr
         public int $objectIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM>,
+     *     pNext: CData,
+     *     session: CData,
+     *     bindPoint: value-of<VkDataGraphPipelineSessionBindPointARM>,
+     *     objectIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -38,6 +38,15 @@ final class VkRectLayerKHR extends InputStructure
         public int $layer = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     offset: CData,
+     *     extent: CData,
+     *     layer: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $this->offset->write($memory, $data->offset);

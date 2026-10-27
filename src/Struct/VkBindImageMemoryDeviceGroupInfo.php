@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindImageMemoryInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkBindImageMemoryDeviceGroupInfo extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkBindImageMemoryDeviceGroupInfo';
 
-    /** `VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO` */
-    public const int STRUCTURE_TYPE = 1000060014;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO->value;
 
     public function __construct(
         public ?VkBindImageMemoryInfoExtension $next = null,
@@ -31,6 +31,18 @@ final class VkBindImageMemoryDeviceGroupInfo extends InputStructure implements V
         public array $splitInstanceBindRegions = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO>,
+     *     pNext: CData,
+     *     deviceIndexCount: int<0, 4294967295>,
+     *     pDeviceIndices: CData,
+     *     splitInstanceBindRegionCount: int<0, 4294967295>,
+     *     pSplitInstanceBindRegions: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

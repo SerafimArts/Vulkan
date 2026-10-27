@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAntiLagStageAMD;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkAntiLagPresentationInfoAMD';
 
-    /** `VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD` */
-    public const int STRUCTURE_TYPE = 1000476002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD->value;
 
     public function __construct(
         public VkAntiLagStageAMD $stage = VkAntiLagStageAMD::VK_ANTI_LAG_STAGE_INPUT_AMD,
@@ -29,6 +29,16 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
         public int $frameIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD>,
+     *     pNext: CData,
+     *     stage: value-of<VkAntiLagStageAMD>,
+     *     frameIndex: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -24,6 +24,14 @@ final class VkDepthClampRangeEXT extends InputStructure
         public float $maxDepthClamp = 0.0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     minDepthClamp: float,
+     *     maxDepthClamp: float,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->minDepthClamp = $this->minDepthClamp;

@@ -28,6 +28,14 @@ final class VkMutableDescriptorTypeListEXT extends InputStructure
         public array $descriptorTypes = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     descriptorTypeCount: int<0, 4294967295>,
+     *     pDescriptorTypes: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         if ($this->descriptorTypes !== []) {

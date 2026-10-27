@@ -9,28 +9,36 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
-use Serafim\Vulkan\Struct\Extension\VkExecutionGraphPipelineCreateInfoAMDXExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCompilerControlCreateInfoAMD.html
  * @since VK_AMD_pipeline_compiler_control
  */
-final class VkPipelineCompilerControlCreateInfoAMD extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension, VkExecutionGraphPipelineCreateInfoAMDXExtension
+final class VkPipelineCompilerControlCreateInfoAMD extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension
 {
     protected const string NATIVE_TYPE = 'VkPipelineCompilerControlCreateInfoAMD';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD` */
-    public const int STRUCTURE_TYPE = 1000183000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD->value;
 
     public function __construct(
-        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkExecutionGraphPipelineCreateInfoAMDXExtension|null $next = null,
+        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|null $next = null,
         /** @var int<0, 4294967295> */
         public int $compilerControlFlags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD>,
+     *     pNext: CData,
+     *     compilerControlFlags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

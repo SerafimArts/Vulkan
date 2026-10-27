@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorSetLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkDescriptorSetBindingReferenceVALVE extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDescriptorSetBindingReferenceVALVE';
 
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_BINDING_REFERENCE_VALVE` */
-    public const int STRUCTURE_TYPE = 1000420001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_BINDING_REFERENCE_VALVE->value;
 
     public function __construct(
         public VkDescriptorSetLayout $descriptorSetLayout,
@@ -29,6 +29,16 @@ final class VkDescriptorSetBindingReferenceVALVE extends InputStructure
         public int $binding = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_BINDING_REFERENCE_VALVE>,
+     *     pNext: CData,
+     *     descriptorSetLayout: CData,
+     *     binding: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

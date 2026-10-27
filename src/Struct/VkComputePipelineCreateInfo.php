@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipeline;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -24,8 +25,7 @@ final class VkComputePipelineCreateInfo extends InputStructure implements VkPipe
 {
     protected const string NATIVE_TYPE = 'VkComputePipelineCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 29;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO->value;
 
     public function __construct(
         public VkPipelineShaderStageCreateInfo $stage,
@@ -54,6 +54,19 @@ final class VkComputePipelineCreateInfo extends InputStructure implements VkPipe
         public int $basePipelineIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     stage: CData,
+     *     layout: CData,
+     *     basePipelineHandle: CData,
+     *     basePipelineIndex: int<-2147483648, 2147483647>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

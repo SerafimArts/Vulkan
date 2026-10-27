@@ -34,6 +34,19 @@ final class VkStencilOpState extends InputStructure
         public int $reference = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     failOp: value-of<VkStencilOp>,
+     *     passOp: value-of<VkStencilOp>,
+     *     depthFailOp: value-of<VkStencilOp>,
+     *     compareOp: value-of<VkCompareOp>,
+     *     compareMask: int<0, 4294967295>,
+     *     writeMask: int<0, 4294967295>,
+     *     reference: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->failOp = $this->failOp->value;

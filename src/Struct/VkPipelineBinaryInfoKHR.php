@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipelineBinaryKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
@@ -23,8 +24,7 @@ final class VkPipelineBinaryInfoKHR extends InputStructure implements VkGraphics
 {
     protected const string NATIVE_TYPE = 'VkPipelineBinaryInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_BINARY_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000483002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_BINARY_INFO_KHR->value;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPipelineBinaryInfoKHR extends InputStructure implements VkGraphics
         public array $pipelineBinaries = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_BINARY_INFO_KHR>,
+     *     pNext: CData,
+     *     binaryCount: int<0, 4294967295>,
+     *     pPipelineBinaries: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

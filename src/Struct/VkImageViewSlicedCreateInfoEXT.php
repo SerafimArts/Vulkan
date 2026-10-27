@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageViewCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkImageViewSlicedCreateInfoEXT extends InputStructure implements VkI
 {
     protected const string NATIVE_TYPE = 'VkImageViewSlicedCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_SLICED_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000418001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_SLICED_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,
@@ -31,6 +31,16 @@ final class VkImageViewSlicedCreateInfoEXT extends InputStructure implements VkI
         public int $sliceCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_SLICED_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     sliceOffset: int<0, 4294967295>,
+     *     sliceCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorSet;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -23,8 +24,7 @@ final class VkBindDescriptorSetsInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBindDescriptorSetsInfo';
 
-    /** `VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO` */
-    public const int STRUCTURE_TYPE = 1000545003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO->value;
 
     public function __construct(
         public ?VkBindDescriptorSetsInfoExtension $next = null,
@@ -39,6 +39,21 @@ final class VkBindDescriptorSetsInfo extends InputStructure
         public array $dynamicOffsets = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_SETS_INFO>,
+     *     pNext: CData,
+     *     stageFlags: int<0, 4294967295>,
+     *     layout: CData,
+     *     firstSet: int<0, 4294967295>,
+     *     descriptorSetCount: int<0, 4294967295>,
+     *     pDescriptorSets: CData,
+     *     dynamicOffsetCount: int<0, 4294967295>,
+     *     pDynamicOffsets: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

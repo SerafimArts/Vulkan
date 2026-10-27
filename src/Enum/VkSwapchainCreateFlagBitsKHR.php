@@ -22,7 +22,9 @@ final class VkSwapchainCreateFlagBitsKHR
 
     /** Swapchain is protected */
     public const int VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR = 2;
+
     public const int VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR = 4;
+
     public const int VK_SWAPCHAIN_CREATE_PRESENT_TIMING_BIT_EXT = 512;
 
     /** Allow use of VK_KHR_present_id2 with this swapchain */
@@ -30,7 +32,9 @@ final class VkSwapchainCreateFlagBitsKHR
 
     /** Allow use of VK_KHR_present_wait2 with this swapchain */
     public const int VK_SWAPCHAIN_CREATE_PRESENT_WAIT_2_BIT_KHR = 128;
+
     public const int VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_KHR = 8;
+
     public const int VK_SWAPCHAIN_CREATE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT = 256;
 
     /** Alias of {@see self::VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_KHR} */

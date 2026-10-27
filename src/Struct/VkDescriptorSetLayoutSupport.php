@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
  */
 final readonly class VkDescriptorSetLayoutSupport extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT` */
-    public const int STRUCTURE_TYPE = 1000168001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT->value;
 
     public function __construct(
         public bool $supported,
@@ -28,7 +28,7 @@ final readonly class VkDescriptorSetLayoutSupport extends OutputStructure
 
     /**
      * @param CData&object{
-     *     supported: int,
+     *     supported: int<0, 1>,
      * } $data
      * @param list<VkDescriptorSetLayoutSupportExtension> $chain
      *

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkHdrMetadataEXTExtension;
 
@@ -20,8 +21,7 @@ final class VkHdrVividDynamicMetadataHUAWEI extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkHdrVividDynamicMetadataHUAWEI';
 
-    /** `VK_STRUCTURE_TYPE_HDR_VIVID_DYNAMIC_METADATA_HUAWEI` */
-    public const int STRUCTURE_TYPE = 1000590001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_HDR_VIVID_DYNAMIC_METADATA_HUAWEI->value;
 
     public function __construct(
         public ?VkHdrMetadataEXTExtension $next = null,
@@ -29,6 +29,16 @@ final class VkHdrVividDynamicMetadataHUAWEI extends InputStructure implements Vk
         public string $dynamicMetadata = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_HDR_VIVID_DYNAMIC_METADATA_HUAWEI>,
+     *     pNext: CData,
+     *     dynamicMetadataSize: int<0, max>,
+     *     pDynamicMetadata: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

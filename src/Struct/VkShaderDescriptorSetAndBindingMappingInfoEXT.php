@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineShaderStageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkShaderCreateInfoEXTExtension;
@@ -21,8 +22,7 @@ final class VkShaderDescriptorSetAndBindingMappingInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkShaderDescriptorSetAndBindingMappingInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000135006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT->value;
 
     public function __construct(
         public VkPipelineShaderStageCreateInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,
@@ -30,6 +30,16 @@ final class VkShaderDescriptorSetAndBindingMappingInfoEXT extends InputStructure
         public array $mappings = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT>,
+     *     pNext: CData,
+     *     mappingCount: int<0, 4294967295>,
+     *     pMappings: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

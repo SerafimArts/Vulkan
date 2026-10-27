@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkMicromapCreateFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkMicromapTypeEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -22,8 +23,7 @@ final class VkMicromapCreateInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkMicromapCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_MICROMAP_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000396007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_CREATE_INFO_EXT->value;
 
     public function __construct(
         public VkBuffer $buffer,
@@ -42,6 +42,20 @@ final class VkMicromapCreateInfoEXT extends InputStructure
         public int $deviceAddress = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     createFlags: int<0, 4294967295>,
+     *     buffer: CData,
+     *     offset: int<0, max>,
+     *     size: int<0, max>,
+     *     type: value-of<VkMicromapTypeEXT>,
+     *     deviceAddress: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

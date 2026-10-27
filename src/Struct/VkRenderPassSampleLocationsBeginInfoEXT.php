@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassBeginInfoExtension;
 
@@ -23,8 +24,7 @@ final class VkRenderPassSampleLocationsBeginInfoEXT extends InputStructure imple
 {
     protected const string NATIVE_TYPE = 'VkRenderPassSampleLocationsBeginInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000143001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT->value;
 
     public function __construct(
         public ?VkRenderPassBeginInfoExtension $next = null,
@@ -34,6 +34,18 @@ final class VkRenderPassSampleLocationsBeginInfoEXT extends InputStructure imple
         public array $postSubpassSampleLocations = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_SAMPLE_LOCATIONS_BEGIN_INFO_EXT>,
+     *     pNext: CData,
+     *     attachmentInitialSampleLocationsCount: int<0, 4294967295>,
+     *     pAttachmentInitialSampleLocations: CData,
+     *     postSubpassSampleLocationsCount: int<0, 4294967295>,
+     *     pPostSubpassSampleLocations: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

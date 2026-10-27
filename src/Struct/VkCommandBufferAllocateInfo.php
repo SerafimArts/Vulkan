@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCommandBufferLevel;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkCommandPool;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -21,8 +22,7 @@ final class VkCommandBufferAllocateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCommandBufferAllocateInfo';
 
-    /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO` */
-    public const int STRUCTURE_TYPE = 40;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO->value;
 
     public function __construct(
         public VkCommandPool $commandPool,
@@ -31,6 +31,17 @@ final class VkCommandBufferAllocateInfo extends InputStructure
         public int $commandBufferCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO>,
+     *     pNext: CData,
+     *     commandPool: CData,
+     *     level: value-of<VkCommandBufferLevel>,
+     *     commandBufferCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

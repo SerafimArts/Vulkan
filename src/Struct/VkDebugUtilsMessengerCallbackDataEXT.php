@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDebugUtilsMessengerCallbackDataEXTExtension;
 
@@ -20,8 +21,7 @@ final class VkDebugUtilsMessengerCallbackDataEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDebugUtilsMessengerCallbackDataEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT` */
-    public const int STRUCTURE_TYPE = 1000128003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT->value;
 
     public function __construct(
         public ?VkDebugUtilsMessengerCallbackDataEXTExtension $next = null,
@@ -39,6 +39,24 @@ final class VkDebugUtilsMessengerCallbackDataEXT extends InputStructure
         public array $objects = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     pMessageIdName: CData|null,
+     *     messageIdNumber: int<-2147483648, 2147483647>,
+     *     pMessage: CData|null,
+     *     queueLabelCount: int<0, 4294967295>,
+     *     pQueueLabels: CData,
+     *     cmdBufLabelCount: int<0, 4294967295>,
+     *     pCmdBufLabels: CData,
+     *     objectCount: int<0, 4294967295>,
+     *     pObjects: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

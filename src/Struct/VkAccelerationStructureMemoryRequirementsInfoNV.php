@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccelerationStructureMemoryRequirementsTypeNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkAccelerationStructureNV;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -23,14 +24,23 @@ final class VkAccelerationStructureMemoryRequirementsInfoNV extends InputStructu
 {
     protected const string NATIVE_TYPE = 'VkAccelerationStructureMemoryRequirementsInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000165008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV->value;
 
     public function __construct(
         public VkAccelerationStructureNV $accelerationStructure,
         public VkAccelerationStructureMemoryRequirementsTypeNV $type = VkAccelerationStructureMemoryRequirementsTypeNV::VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_OBJECT_NV,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_INFO_NV>,
+     *     pNext: CData,
+     *     type: value-of<VkAccelerationStructureMemoryRequirementsTypeNV>,
+     *     accelerationStructure: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

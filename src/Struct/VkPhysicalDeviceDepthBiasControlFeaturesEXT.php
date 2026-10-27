@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceDepthBiasControlFeaturesEXT extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDepthBiasControlFeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000283000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -34,6 +34,18 @@ final class VkPhysicalDeviceDepthBiasControlFeaturesEXT extends InputStructure i
         public bool $depthBiasExact = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_BIAS_CONTROL_FEATURES_EXT>,
+     *     pNext: CData,
+     *     depthBiasControl: int<0, 1>,
+     *     leastRepresentableValueForceUnormRepresentation: int<0, 1>,
+     *     floatRepresentation: int<0, 1>,
+     *     depthBiasExact: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -63,10 +75,10 @@ final class VkPhysicalDeviceDepthBiasControlFeaturesEXT extends InputStructure i
 
     /**
      * @param CData&object{
-     *     depthBiasControl: int,
-     *     leastRepresentableValueForceUnormRepresentation: int,
-     *     floatRepresentation: int,
-     *     depthBiasExact: int,
+     *     depthBiasControl: int<0, 1>,
+     *     leastRepresentableValueForceUnormRepresentation: int<0, 1>,
+     *     floatRepresentation: int<0, 1>,
+     *     depthBiasExact: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

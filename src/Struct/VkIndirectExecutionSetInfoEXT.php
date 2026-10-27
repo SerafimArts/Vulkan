@@ -25,6 +25,14 @@ final class VkIndirectExecutionSetInfoEXT extends InputStructure
         public ?VkIndirectExecutionSetShaderInfoEXT $shaderInfo = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     pPipelineInfo: CData,
+     *     pShaderInfo: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->pipelineInfo, $this->shaderInfo], static fn(mixed $member): bool => $member !== null));

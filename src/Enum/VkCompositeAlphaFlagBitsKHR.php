@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkCompositeAlphaFlagBitsKHR
 {
     public const int VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR = 1;
+
     public const int VK_COMPOSITE_ALPHA_PRE_MULTIPLIED_BIT_KHR = 2;
+
     public const int VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR = 4;
+
     public const int VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR = 8;
 
     private function __construct() {}

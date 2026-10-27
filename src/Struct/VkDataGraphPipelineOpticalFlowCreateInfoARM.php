@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkDataGraphOpticalFlowCreateFlagBitsARM;
 use Serafim\Vulkan\Enum\VkDataGraphOpticalFlowGridSizeFlagBitsARM;
 use Serafim\Vulkan\Enum\VkDataGraphOpticalFlowPerformanceLevelARM;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineCreateInfoARMExtension;
 
@@ -24,8 +25,7 @@ final class VkDataGraphPipelineOpticalFlowCreateInfoARM extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineOpticalFlowCreateInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000631002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM->value;
 
     public function __construct(
         public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
@@ -45,6 +45,23 @@ final class VkDataGraphPipelineOpticalFlowCreateInfoARM extends InputStructure i
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_CREATE_INFO_ARM>,
+     *     pNext: CData,
+     *     width: int<0, 4294967295>,
+     *     height: int<0, 4294967295>,
+     *     imageFormat: value-of<VkFormat>,
+     *     flowVectorFormat: value-of<VkFormat>,
+     *     costFormat: value-of<VkFormat>,
+     *     outputGridSize: int<0, 4294967295>,
+     *     hintGridSize: int<0, 4294967295>,
+     *     performanceLevel: value-of<VkDataGraphOpticalFlowPerformanceLevelARM>,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

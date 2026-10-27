@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
 use Serafim\Vulkan\Enum\VkExternalSemaphoreHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphProcessingEnginePropertiesARM.html
@@ -18,8 +19,7 @@ use Serafim\Vulkan\Enum\VkExternalSemaphoreHandleTypeFlagBits;
  */
 final readonly class VkQueueFamilyDataGraphProcessingEnginePropertiesARM extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM` */
-    public const int STRUCTURE_TYPE = 1000507017;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM->value;
 
     public function __construct(
         /** @var int-mask-of<VkExternalSemaphoreHandleTypeFlagBits::*> */

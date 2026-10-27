@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkSubresourceLayout2Extension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkSubresourceLayout2Extension;
  */
 final readonly class VkSubresourceLayout2 extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2` */
-    public const int STRUCTURE_TYPE = 1000338002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2->value;
 
     public function __construct(
         public VkSubresourceLayout $subresourceLayout,

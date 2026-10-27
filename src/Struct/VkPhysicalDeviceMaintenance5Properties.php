@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceMaintenance5Properties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000470001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_5_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -47,12 +47,12 @@ final readonly class VkPhysicalDeviceMaintenance5Properties extends OutputStruct
 
     /**
      * @param CData&object{
-     *     earlyFragmentMultisampleCoverageAfterSampleCounting: int,
-     *     earlyFragmentSampleMaskTestBeforeSampleCounting: int,
-     *     depthStencilSwizzleOneSupport: int,
-     *     polygonModePointSize: int,
-     *     nonStrictSinglePixelWideLinesUseParallelogram: int,
-     *     nonStrictWideLinesUseParallelogram: int,
+     *     earlyFragmentMultisampleCoverageAfterSampleCounting: int<0, 1>,
+     *     earlyFragmentSampleMaskTestBeforeSampleCounting: int<0, 1>,
+     *     depthStencilSwizzleOneSupport: int<0, 1>,
+     *     polygonModePointSize: int<0, 1>,
+     *     nonStrictSinglePixelWideLinesUseParallelogram: int<0, 1>,
+     *     nonStrictWideLinesUseParallelogram: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

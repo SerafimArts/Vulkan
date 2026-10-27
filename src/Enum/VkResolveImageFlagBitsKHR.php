@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkResolveImageFlagBitsKHR
 {
     public const int VK_RESOLVE_IMAGE_SKIP_TRANSFER_FUNCTION_BIT_KHR = 1;
+
     public const int VK_RESOLVE_IMAGE_ENABLE_TRANSFER_FUNCTION_BIT_KHR = 2;
 
     private function __construct() {}

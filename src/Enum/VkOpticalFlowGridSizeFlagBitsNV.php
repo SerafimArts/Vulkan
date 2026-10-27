@@ -15,9 +15,13 @@ namespace Serafim\Vulkan\Enum;
 final class VkOpticalFlowGridSizeFlagBitsNV
 {
     public const int VK_OPTICAL_FLOW_GRID_SIZE_UNKNOWN_NV = 0;
+
     public const int VK_OPTICAL_FLOW_GRID_SIZE_1X1_BIT_NV = 1;
+
     public const int VK_OPTICAL_FLOW_GRID_SIZE_2X2_BIT_NV = 2;
+
     public const int VK_OPTICAL_FLOW_GRID_SIZE_4X4_BIT_NV = 4;
+
     public const int VK_OPTICAL_FLOW_GRID_SIZE_8X8_BIT_NV = 8;
 
     private function __construct() {}

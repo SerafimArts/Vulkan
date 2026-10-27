@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubmitFlagBits;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfo2Extension;
@@ -21,8 +22,7 @@ final class VkSubmitInfo2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSubmitInfo2';
 
-    /** `VK_STRUCTURE_TYPE_SUBMIT_INFO_2` */
-    public const int STRUCTURE_TYPE = 1000314004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBMIT_INFO_2->value;
 
     public function __construct(
         public ?VkSubmitInfo2Extension $next = null,
@@ -36,6 +36,21 @@ final class VkSubmitInfo2 extends InputStructure
         public array $signalSemaphoreInfos = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SUBMIT_INFO_2>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     waitSemaphoreInfoCount: int<0, 4294967295>,
+     *     pWaitSemaphoreInfos: CData,
+     *     commandBufferInfoCount: int<0, 4294967295>,
+     *     pCommandBufferInfos: CData,
+     *     signalSemaphoreInfoCount: int<0, 4294967295>,
+     *     pSignalSemaphoreInfos: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

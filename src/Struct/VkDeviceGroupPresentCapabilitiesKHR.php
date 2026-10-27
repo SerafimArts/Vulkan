@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceGroupPresentModeFlagBitsKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentCapabilitiesKHR.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkDeviceGroupPresentModeFlagBitsKHR;
  */
 final readonly class VkDeviceGroupPresentCapabilitiesKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000060007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR->value;
 
     public function __construct(
         /** @var list<int<0, 4294967295>> */

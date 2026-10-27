@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDataGraphPipelineSessionARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,13 +21,21 @@ final class VkDataGraphPipelineSessionBindPointRequirementsInfoARM extends Input
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSessionBindPointRequirementsInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000507011;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM->value;
 
     public function __construct(
         public VkDataGraphPipelineSessionARM $session,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM>,
+     *     pNext: CData,
+     *     session: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

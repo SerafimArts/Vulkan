@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkImageCreateFlagBits;
 use Serafim\Vulkan\Enum\VkImageTiling;
 use Serafim\Vulkan\Enum\VkImageType;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
 
 /**
@@ -22,8 +23,7 @@ use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
  */
 final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_VIDEO_FORMAT_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000023015;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_PROPERTIES_KHR->value;
 
     public function __construct(
         /** The value is exactly the required one. */
@@ -44,11 +44,11 @@ final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
 
     /**
      * @param CData&object{
-     *     format: int,
+     *     format: value-of<VkFormat>,
      *     componentMapping: CData,
      *     imageCreateFlags: int<0, 4294967295>,
-     *     imageType: int,
-     *     imageTiling: int,
+     *     imageType: value-of<VkImageType>,
+     *     imageTiling: value-of<VkImageTiling>,
      *     imageUsageFlags: int<0, 4294967295>,
      * } $data
      * @param list<VkVideoFormatPropertiesKHRExtension> $chain

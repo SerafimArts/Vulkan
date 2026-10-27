@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPerformanceOverrideTypeINTEL;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPerformanceOverrideInfoINTEL';
 
-    /** `VK_STRUCTURE_TYPE_PERFORMANCE_OVERRIDE_INFO_INTEL` */
-    public const int STRUCTURE_TYPE = 1000210004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_OVERRIDE_INFO_INTEL->value;
 
     public function __construct(
         public VkPerformanceOverrideTypeINTEL $type = VkPerformanceOverrideTypeINTEL::VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL,
@@ -30,6 +30,17 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
         public int $parameter = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_OVERRIDE_INFO_INTEL>,
+     *     pNext: CData,
+     *     type: value-of<VkPerformanceOverrideTypeINTEL>,
+     *     enable: int<0, 1>,
+     *     parameter: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

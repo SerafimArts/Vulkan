@@ -15,29 +15,53 @@ namespace Serafim\Vulkan\Enum;
 final class VkImageUsageFlagBits2KHR
 {
     public const int VK_IMAGE_USAGE_2_TRANSFER_SRC_BIT_KHR = 1;
+
     public const int VK_IMAGE_USAGE_2_TRANSFER_DST_BIT_KHR = 2;
+
     public const int VK_IMAGE_USAGE_2_SAMPLED_BIT_KHR = 4;
+
     public const int VK_IMAGE_USAGE_2_STORAGE_BIT_KHR = 8;
+
     public const int VK_IMAGE_USAGE_2_COLOR_ATTACHMENT_BIT_KHR = 16;
+
     public const int VK_IMAGE_USAGE_2_DEPTH_STENCIL_ATTACHMENT_BIT_KHR = 32;
+
     public const int VK_IMAGE_USAGE_2_TRANSIENT_ATTACHMENT_BIT_KHR = 64;
+
     public const int VK_IMAGE_USAGE_2_INPUT_ATTACHMENT_BIT_KHR = 128;
+
     public const int VK_IMAGE_USAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = 256;
+
     public const int VK_IMAGE_USAGE_2_FRAGMENT_DENSITY_MAP_BIT_EXT = 512;
+
     public const int VK_IMAGE_USAGE_2_VIDEO_DECODE_DST_BIT_KHR = 1024;
+
     public const int VK_IMAGE_USAGE_2_VIDEO_DECODE_SRC_BIT_KHR = 2048;
+
     public const int VK_IMAGE_USAGE_2_VIDEO_DECODE_DPB_BIT_KHR = 4096;
+
     public const int VK_IMAGE_USAGE_2_VIDEO_ENCODE_DST_BIT_KHR = 8192;
+
     public const int VK_IMAGE_USAGE_2_VIDEO_ENCODE_SRC_BIT_KHR = 16384;
+
     public const int VK_IMAGE_USAGE_2_VIDEO_ENCODE_DPB_BIT_KHR = 32768;
+
     public const int VK_IMAGE_USAGE_2_INVOCATION_MASK_BIT_HUAWEI = 262144;
+
     public const int VK_IMAGE_USAGE_2_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT = 524288;
+
     public const int VK_IMAGE_USAGE_2_SAMPLE_WEIGHT_BIT_QCOM = 1048576;
+
     public const int VK_IMAGE_USAGE_2_SAMPLE_BLOCK_MATCH_BIT_QCOM = 2097152;
+
     public const int VK_IMAGE_USAGE_2_HOST_TRANSFER_BIT_KHR = 4194304;
+
     public const int VK_IMAGE_USAGE_2_TENSOR_ALIASING_BIT_ARM = 8388608;
+
     public const int VK_IMAGE_USAGE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 33554432;
+
     public const int VK_IMAGE_USAGE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR = 67108864;
+
     public const int VK_IMAGE_USAGE_2_TILE_MEMORY_BIT_QCOM = 134217728;
 
     private function __construct() {}

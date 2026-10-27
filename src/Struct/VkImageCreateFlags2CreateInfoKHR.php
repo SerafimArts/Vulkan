@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkImageCreateFlagBits2KHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -26,8 +27,7 @@ final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkImageCreateFlags2CreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000668001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR->value;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkFramebufferAttachmentImageInfoExtension|VkVideoFormatPropertiesKHRExtension|null $next = null,
@@ -35,6 +35,15 @@ final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements V
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeContentFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkVideoEncodeTuningModeKHR;
 use Serafim\Vulkan\Enum\VkVideoEncodeUsageFlagBitsKHR;
@@ -24,8 +25,7 @@ final class VkVideoEncodeUsageInfoKHR extends InputStructure implements VkVideoP
 {
     protected const string NATIVE_TYPE = 'VkVideoEncodeUsageInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000299004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR->value;
 
     public function __construct(
         public VkVideoProfileInfoKHRExtension|VkQueryPoolCreateInfoExtension|null $next = null,
@@ -36,6 +36,17 @@ final class VkVideoEncodeUsageInfoKHR extends InputStructure implements VkVideoP
         public VkVideoEncodeTuningModeKHR $tuningMode = VkVideoEncodeTuningModeKHR::VK_VIDEO_ENCODE_TUNING_MODE_DEFAULT_KHR,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_USAGE_INFO_KHR>,
+     *     pNext: CData,
+     *     videoUsageHints: int<0, 4294967295>,
+     *     videoContentHints: int<0, 4294967295>,
+     *     tuningMode: value-of<VkVideoEncodeTuningModeKHR>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

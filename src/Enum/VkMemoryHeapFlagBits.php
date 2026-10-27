@@ -19,7 +19,9 @@ final class VkMemoryHeapFlagBits
 
     /** If set, heap allocations allocate multiple instances by default */
     public const int VK_MEMORY_HEAP_MULTI_INSTANCE_BIT = 2;
+
     public const int VK_MEMORY_HEAP_SEU_SAFE_BIT = 4;
+
     public const int VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM = 8;
 
     /** Alias of {@see self::VK_MEMORY_HEAP_MULTI_INSTANCE_BIT} */

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTessellationDomainOrigin;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineTessellationStateCreateInfoExtension;
@@ -21,14 +22,22 @@ final class VkPipelineTessellationDomainOriginStateCreateInfo extends InputStruc
 {
     protected const string NATIVE_TYPE = 'VkPipelineTessellationDomainOriginStateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000117003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkPipelineTessellationStateCreateInfoExtension $next = null,
         public VkTessellationDomainOrigin $domainOrigin = VkTessellationDomainOrigin::VK_TESSELLATION_DOMAIN_ORIGIN_UPPER_LEFT,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     domainOrigin: value-of<VkTessellationDomainOrigin>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

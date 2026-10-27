@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalSemaphoreHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSemaphoreCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkExportSemaphoreCreateInfo extends InputStructure implements VkSema
 {
     protected const string NATIVE_TYPE = 'VkExportSemaphoreCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000077000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkSemaphoreCreateInfoExtension $next = null,
@@ -30,6 +30,15 @@ final class VkExportSemaphoreCreateInfo extends InputStructure implements VkSema
         public int $handleTypes = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXPORT_SEMAPHORE_CREATE_INFO>,
+     *     pNext: CData,
+     *     handleTypes: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

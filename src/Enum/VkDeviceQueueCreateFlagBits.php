@@ -16,6 +16,7 @@ final class VkDeviceQueueCreateFlagBits
 {
     /** Queue is a protected-capable device queue */
     public const int VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT = 1;
+
     public const int VK_DEVICE_QUEUE_CREATE_INTERNALLY_SYNCHRONIZED_BIT_KHR = 4;
 
     private function __construct() {}

@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
-use Serafim\Vulkan\Struct\Extension\VkApplicationInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkApplicationInfo.html
@@ -20,11 +20,9 @@ final class VkApplicationInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkApplicationInfo';
 
-    /** `VK_STRUCTURE_TYPE_APPLICATION_INFO` */
-    public const int STRUCTURE_TYPE = 0;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_APPLICATION_INFO->value;
 
     public function __construct(
-        public ?VkApplicationInfoExtension $next = null,
         public ?string $applicationName = null,
         /** @var int<0, 4294967295> */
         public int $applicationVersion = 0,
@@ -35,15 +33,22 @@ final class VkApplicationInfo extends InputStructure
         public int $apiVersion = 4194304,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_APPLICATION_INFO>,
+     *     pNext: CData,
+     *     pApplicationName: CData|null,
+     *     applicationVersion: int<0, 4294967295>,
+     *     pEngineName: CData|null,
+     *     engineVersion: int<0, 4294967295>,
+     *     apiVersion: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->applicationName !== null) {
             $data->pApplicationName = $memory->toCString($this->applicationName);

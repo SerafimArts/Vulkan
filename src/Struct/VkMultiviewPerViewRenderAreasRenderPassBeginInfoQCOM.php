@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassBeginInfoExtension;
@@ -21,8 +22,7 @@ final class VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM extends InputSt
 {
     protected const string NATIVE_TYPE = 'VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000510001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM->value;
 
     public function __construct(
         public VkRenderPassBeginInfoExtension|VkRenderingInfoExtension|null $next = null,
@@ -30,6 +30,16 @@ final class VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM extends InputSt
         public array $perViewRenderAreas = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM>,
+     *     pNext: CData,
+     *     perViewRenderAreaCount: int<0, 4294967295>,
+     *     pPerViewRenderAreas: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

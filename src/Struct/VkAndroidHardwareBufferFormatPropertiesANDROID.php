@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrModelConversion;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
@@ -24,8 +25,7 @@ use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExte
  */
 final readonly class VkAndroidHardwareBufferFormatPropertiesANDROID extends OutputStructure implements VkAndroidHardwareBufferPropertiesANDROIDExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID` */
-    public const int STRUCTURE_TYPE = 1000129002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -50,14 +50,14 @@ final readonly class VkAndroidHardwareBufferFormatPropertiesANDROID extends Outp
 
     /**
      * @param CData&object{
-     *     format: int,
+     *     format: value-of<VkFormat>,
      *     externalFormat: int<0, max>,
      *     formatFeatures: int<0, 4294967295>,
      *     samplerYcbcrConversionComponents: CData,
-     *     suggestedYcbcrModel: int,
-     *     suggestedYcbcrRange: int,
-     *     suggestedXChromaOffset: int,
-     *     suggestedYChromaOffset: int,
+     *     suggestedYcbcrModel: value-of<VkSamplerYcbcrModelConversion>,
+     *     suggestedYcbcrRange: value-of<VkSamplerYcbcrRange>,
+     *     suggestedXChromaOffset: value-of<VkChromaLocation>,
+     *     suggestedYChromaOffset: value-of<VkChromaLocation>,
      * } $data
      *
      * @phpstan-param CData $data

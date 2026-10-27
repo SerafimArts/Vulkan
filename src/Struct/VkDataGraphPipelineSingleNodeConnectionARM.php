@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineNodeConnectionTypeARM;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkDataGraphPipelineSingleNodeConnectionARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSingleNodeConnectionARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM` */
-    public const int STRUCTURE_TYPE = 1000631008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM->value;
 
     public function __construct(
         public VkDataGraphPipelineNodeConnectionTypeARM $connection,
@@ -31,6 +31,17 @@ final class VkDataGraphPipelineSingleNodeConnectionARM extends InputStructure
         public int $binding = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SINGLE_NODE_CONNECTION_ARM>,
+     *     pNext: CData,
+     *     set: int<0, 4294967295>,
+     *     binding: int<0, 4294967295>,
+     *     connection: value-of<VkDataGraphPipelineNodeConnectionTypeARM>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

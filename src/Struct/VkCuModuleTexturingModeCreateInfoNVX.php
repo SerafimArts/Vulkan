@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCuModuleCreateInfoNVXExtension;
 
@@ -20,14 +21,22 @@ final class VkCuModuleTexturingModeCreateInfoNVX extends InputStructure implemen
 {
     protected const string NATIVE_TYPE = 'VkCuModuleTexturingModeCreateInfoNVX';
 
-    /** `VK_STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX` */
-    public const int STRUCTURE_TYPE = 1000029004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX->value;
 
     public function __construct(
         public ?VkCuModuleCreateInfoNVXExtension $next = null,
         public bool $use64bitTexturing = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CU_MODULE_TEXTURING_MODE_CREATE_INFO_NVX>,
+     *     pNext: CData,
+     *     use64bitTexturing: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

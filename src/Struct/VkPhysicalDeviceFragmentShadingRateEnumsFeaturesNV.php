@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV extends InputStru
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV` */
-    public const int STRUCTURE_TYPE = 1000326001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -33,6 +33,17 @@ final class VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV extends InputStru
         public bool $noInvocationFragmentShadingRates = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV>,
+     *     pNext: CData,
+     *     fragmentShadingRateEnums: int<0, 1>,
+     *     supersampleFragmentShadingRates: int<0, 1>,
+     *     noInvocationFragmentShadingRates: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -60,9 +71,9 @@ final class VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV extends InputStru
 
     /**
      * @param CData&object{
-     *     fragmentShadingRateEnums: int,
-     *     supersampleFragmentShadingRates: int,
-     *     noInvocationFragmentShadingRates: int,
+     *     fragmentShadingRateEnums: int<0, 1>,
+     *     supersampleFragmentShadingRates: int<0, 1>,
+     *     noInvocationFragmentShadingRates: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

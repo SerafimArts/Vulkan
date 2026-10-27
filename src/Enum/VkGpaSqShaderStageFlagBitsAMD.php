@@ -15,11 +15,17 @@ namespace Serafim\Vulkan\Enum;
 final class VkGpaSqShaderStageFlagBitsAMD
 {
     public const int VK_GPA_SQ_SHADER_STAGE_PS_BIT_AMD = 1;
+
     public const int VK_GPA_SQ_SHADER_STAGE_VS_BIT_AMD = 2;
+
     public const int VK_GPA_SQ_SHADER_STAGE_GS_BIT_AMD = 4;
+
     public const int VK_GPA_SQ_SHADER_STAGE_ES_BIT_AMD = 8;
+
     public const int VK_GPA_SQ_SHADER_STAGE_HS_BIT_AMD = 16;
+
     public const int VK_GPA_SQ_SHADER_STAGE_LS_BIT_AMD = 32;
+
     public const int VK_GPA_SQ_SHADER_STAGE_CS_BIT_AMD = 64;
 
     private function __construct() {}

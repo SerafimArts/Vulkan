@@ -31,6 +31,17 @@ final class VkDescriptorMappingSourceConstantOffsetEXT extends InputStructure
         public int $samplerHeapArrayStride = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     heapOffset: int<0, 4294967295>,
+     *     heapArrayStride: int<0, 4294967295>,
+     *     pEmbeddedSampler: CData,
+     *     samplerHeapOffset: int<0, 4294967295>,
+     *     samplerHeapArrayStride: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->heapOffset = $this->heapOffset;

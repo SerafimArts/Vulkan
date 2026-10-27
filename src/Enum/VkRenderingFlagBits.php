@@ -15,15 +15,22 @@ namespace Serafim\Vulkan\Enum;
 final class VkRenderingFlagBits
 {
     public const int VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT = 1;
+
     public const int VK_RENDERING_SUSPENDING_BIT = 2;
+
     public const int VK_RENDERING_RESUMING_BIT = 4;
+
     public const int VK_RENDERING_ENABLE_LEGACY_DITHERING_BIT_EXT = 8;
 
     /** Promoted from extension 452 */
     public const int VK_RENDERING_CONTENTS_INLINE_BIT_KHR = 16;
+
     public const int VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 32;
+
     public const int VK_RENDERING_FRAGMENT_REGION_BIT_EXT = 64;
+
     public const int VK_RENDERING_CUSTOM_RESOLVE_BIT_EXT = 128;
+
     public const int VK_RENDERING_LOCAL_READ_CONCURRENT_ACCESS_CONTROL_BIT_KHR = 256;
 
     /** Alias of {@see self::VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT} */

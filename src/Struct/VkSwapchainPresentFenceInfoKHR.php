@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkFence;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPresentInfoKHRExtension;
@@ -21,8 +22,7 @@ final class VkSwapchainPresentFenceInfoKHR extends InputStructure implements VkP
 {
     protected const string NATIVE_TYPE = 'VkSwapchainPresentFenceInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000275001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR->value;
 
     public function __construct(
         public ?VkPresentInfoKHRExtension $next = null,
@@ -34,6 +34,16 @@ final class VkSwapchainPresentFenceInfoKHR extends InputStructure implements VkP
         public array $fences = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR>,
+     *     pNext: CData,
+     *     swapchainCount: int<0, 4294967295>,
+     *     pFences: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

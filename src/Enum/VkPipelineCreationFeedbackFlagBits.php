@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkPipelineCreationFeedbackFlagBits
 {
     public const int VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT = 1;
+
     public const int VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT = 2;
+
     public const int VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT = 4;
 
     /** Alias of {@see self::VK_PIPELINE_CREATION_FEEDBACK_VALID_BIT} */

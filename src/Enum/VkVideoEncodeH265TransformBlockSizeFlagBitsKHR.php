@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodeH265TransformBlockSizeFlagBitsKHR
 {
     public const int VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_4_BIT_KHR = 1;
+
     public const int VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_8_BIT_KHR = 2;
+
     public const int VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_16_BIT_KHR = 4;
+
     public const int VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_32_BIT_KHR = 8;
 
     private function __construct() {}

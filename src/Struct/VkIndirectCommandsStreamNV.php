@@ -26,6 +26,14 @@ final class VkIndirectCommandsStreamNV extends InputStructure
         public int $offset = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     buffer: CData,
+     *     offset: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->buffer = $memory->ffi->cast('VkBuffer', $this->buffer->pointer);

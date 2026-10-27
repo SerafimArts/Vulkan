@@ -15,9 +15,13 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoChromaSubsamplingFlagBitsKHR
 {
     public const int VK_VIDEO_CHROMA_SUBSAMPLING_INVALID_KHR = 0;
+
     public const int VK_VIDEO_CHROMA_SUBSAMPLING_MONOCHROME_BIT_KHR = 1;
+
     public const int VK_VIDEO_CHROMA_SUBSAMPLING_420_BIT_KHR = 2;
+
     public const int VK_VIDEO_CHROMA_SUBSAMPLING_422_BIT_KHR = 4;
+
     public const int VK_VIDEO_CHROMA_SUBSAMPLING_444_BIT_KHR = 8;
 
     private function __construct() {}

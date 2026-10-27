@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorUpdateTemplate;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -22,8 +23,7 @@ final class VkPushDescriptorSetWithTemplateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPushDescriptorSetWithTemplateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000545006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO->value;
 
     public function __construct(
         public VkDescriptorUpdateTemplate $descriptorUpdateTemplate,
@@ -34,6 +34,18 @@ final class VkPushDescriptorSetWithTemplateInfo extends InputStructure
         public int $set = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_WITH_TEMPLATE_INFO>,
+     *     pNext: CData,
+     *     descriptorUpdateTemplate: CData,
+     *     layout: CData,
+     *     set: int<0, 4294967295>,
+     *     pData: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

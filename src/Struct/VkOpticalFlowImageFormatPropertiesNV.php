@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowImageFormatPropertiesNV.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkFormat;
  */
 final readonly class VkOpticalFlowImageFormatPropertiesNV extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV` */
-    public const int STRUCTURE_TYPE = 1000464003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV->value;
 
     public function __construct(
         public VkFormat $format,
@@ -26,7 +26,7 @@ final readonly class VkOpticalFlowImageFormatPropertiesNV extends OutputStructur
 
     /**
      * @param CData&object{
-     *     format: int,
+     *     format: value-of<VkFormat>,
      * } $data
      *
      * @phpstan-param CData $data

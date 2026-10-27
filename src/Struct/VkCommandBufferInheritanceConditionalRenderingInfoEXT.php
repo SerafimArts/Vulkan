@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkCommandBufferInheritanceConditionalRenderingInfoEXT extends InputS
 {
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceConditionalRenderingInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000081000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT->value;
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,
@@ -32,6 +32,15 @@ final class VkCommandBufferInheritanceConditionalRenderingInfoEXT extends InputS
         public bool $conditionalRenderingEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT>,
+     *     pNext: CData,
+     *     conditionalRenderingEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

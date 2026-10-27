@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkAddressCopyFlagBitsKHR
 {
     public const int VK_ADDRESS_COPY_DEVICE_LOCAL_BIT_KHR = 1;
+
     public const int VK_ADDRESS_COPY_SPARSE_BIT_KHR = 2;
+
     public const int VK_ADDRESS_COPY_PROTECTED_BIT_KHR = 4;
 
     private function __construct() {}

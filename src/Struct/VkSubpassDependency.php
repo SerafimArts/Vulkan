@@ -51,6 +51,19 @@ final class VkSubpassDependency extends InputStructure
         public int $dependencyFlags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     srcSubpass: int<0, 4294967295>,
+     *     dstSubpass: int<0, 4294967295>,
+     *     srcStageMask: int<0, 4294967295>,
+     *     dstStageMask: int<0, 4294967295>,
+     *     srcAccessMask: int<0, 4294967295>,
+     *     dstAccessMask: int<0, 4294967295>,
+     *     dependencyFlags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->srcSubpass = $this->srcSubpass;

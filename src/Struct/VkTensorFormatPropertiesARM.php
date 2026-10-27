@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits2;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
  */
 final readonly class VkTensorFormatPropertiesARM extends OutputStructure implements VkFormatProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_TENSOR_FORMAT_PROPERTIES_ARM` */
-    public const int STRUCTURE_TYPE = 1000460005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_FORMAT_PROPERTIES_ARM->value;
 
     public static function createNative(Allocator $memory): CData
     {

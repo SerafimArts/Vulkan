@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDevicePerformanceQueryPropertiesKHR extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000116001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_QUERY_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -42,7 +42,7 @@ final readonly class VkPhysicalDevicePerformanceQueryPropertiesKHR extends Outpu
 
     /**
      * @param CData&object{
-     *     allowCommandBufferQueryCopies: int,
+     *     allowCommandBufferQueryCopies: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

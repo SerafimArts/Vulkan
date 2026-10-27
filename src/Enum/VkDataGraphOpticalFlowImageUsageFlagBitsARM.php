@@ -15,9 +15,13 @@ namespace Serafim\Vulkan\Enum;
 final class VkDataGraphOpticalFlowImageUsageFlagBitsARM
 {
     public const int VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_UNKNOWN_ARM = 0;
+
     public const int VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_INPUT_BIT_ARM = 1;
+
     public const int VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_OUTPUT_BIT_ARM = 2;
+
     public const int VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_HINT_BIT_ARM = 4;
+
     public const int VK_DATA_GRAPH_OPTICAL_FLOW_IMAGE_USAGE_COST_BIT_ARM = 8;
 
     private function __construct() {}

@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSemaphoreType;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceExternalSemaphoreInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSemaphoreCreateInfoExtension;
@@ -22,8 +23,7 @@ final class VkSemaphoreTypeCreateInfo extends InputStructure implements VkSemaph
 {
     protected const string NATIVE_TYPE = 'VkSemaphoreTypeCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000207002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO->value;
 
     public function __construct(
         public VkSemaphoreCreateInfoExtension|VkPhysicalDeviceExternalSemaphoreInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkSemaphoreTypeCreateInfo extends InputStructure implements VkSemaph
         public int $initialValue = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO>,
+     *     pNext: CData,
+     *     semaphoreType: value-of<VkSemaphoreType>,
+     *     initialValue: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

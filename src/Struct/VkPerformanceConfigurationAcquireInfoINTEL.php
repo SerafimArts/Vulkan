@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPerformanceConfigurationTypeINTEL;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,13 +21,21 @@ final class VkPerformanceConfigurationAcquireInfoINTEL extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPerformanceConfigurationAcquireInfoINTEL';
 
-    /** `VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL` */
-    public const int STRUCTURE_TYPE = 1000210005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL->value;
 
     public function __construct(
         public VkPerformanceConfigurationTypeINTEL $type = VkPerformanceConfigurationTypeINTEL::VK_PERFORMANCE_CONFIGURATION_TYPE_COMMAND_QUEUE_METRICS_DISCOVERY_ACTIVATED_INTEL,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_CONFIGURATION_ACQUIRE_INFO_INTEL>,
+     *     pNext: CData,
+     *     type: value-of<VkPerformanceConfigurationTypeINTEL>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

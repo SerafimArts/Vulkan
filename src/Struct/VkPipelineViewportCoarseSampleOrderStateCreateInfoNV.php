@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoarseSampleOrderTypeNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineViewportStateCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkPipelineViewportCoarseSampleOrderStateCreateInfoNV extends InputSt
 {
     protected const string NATIVE_TYPE = 'VkPipelineViewportCoarseSampleOrderStateCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000164005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkPipelineViewportStateCreateInfoExtension $next = null,
@@ -31,6 +31,17 @@ final class VkPipelineViewportCoarseSampleOrderStateCreateInfoNV extends InputSt
         public array $customSampleOrders = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     sampleOrderType: value-of<VkCoarseSampleOrderTypeNV>,
+     *     customSampleOrderCount: int<0, 4294967295>,
+     *     pCustomSampleOrders: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

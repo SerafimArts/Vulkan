@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceShaderSubgroupRotateFeatures extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderSubgroupRotateFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000416000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPhysicalDeviceShaderSubgroupRotateFeatures extends InputStructure 
         public bool $shaderSubgroupRotateClustered = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES>,
+     *     pNext: CData,
+     *     shaderSubgroupRotate: int<0, 1>,
+     *     shaderSubgroupRotateClustered: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -57,8 +67,8 @@ final class VkPhysicalDeviceShaderSubgroupRotateFeatures extends InputStructure 
 
     /**
      * @param CData&object{
-     *     shaderSubgroupRotate: int,
-     *     shaderSubgroupRotateClustered: int,
+     *     shaderSubgroupRotate: int<0, 1>,
+     *     shaderSubgroupRotateClustered: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

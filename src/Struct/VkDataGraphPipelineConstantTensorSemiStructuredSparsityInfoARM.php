@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineConstantARMExtension;
 
@@ -20,8 +21,7 @@ final class VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM exten
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000507015;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM->value;
 
     public function __construct(
         public ?VkDataGraphPipelineConstantARMExtension $next = null,
@@ -33,6 +33,17 @@ final class VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM exten
         public int $groupSize = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM>,
+     *     pNext: CData,
+     *     dimension: int<0, 4294967295>,
+     *     zeroCount: int<0, 4294967295>,
+     *     groupSize: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -28,6 +28,15 @@ final class VkVideoEncodeAV1FrameSizeKHR extends InputStructure
         public int $bipredictiveFrameSize = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     intraFrameSize: int<0, 4294967295>,
+     *     predictiveFrameSize: int<0, 4294967295>,
+     *     bipredictiveFrameSize: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->intraFrameSize = $this->intraFrameSize;

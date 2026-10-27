@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPrimitiveTopology;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkPipelineInputAssemblyStateCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPipelineInputAssemblyStateCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 20;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -30,6 +30,17 @@ final class VkPipelineInputAssemblyStateCreateInfo extends InputStructure
         public bool $primitiveRestartEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     topology: value-of<VkPrimitiveTopology>,
+     *     primitiveRestartEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

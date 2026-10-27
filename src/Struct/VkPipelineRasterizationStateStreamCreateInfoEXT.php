@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkPipelineRasterizationStateStreamCreateInfoEXT extends InputStructu
 {
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationStateStreamCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000028002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
@@ -31,6 +31,16 @@ final class VkPipelineRasterizationStateStreamCreateInfoEXT extends InputStructu
         public int $rasterizationStream = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_STREAM_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     rasterizationStream: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

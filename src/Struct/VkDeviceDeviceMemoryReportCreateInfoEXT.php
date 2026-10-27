@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkDeviceDeviceMemoryReportCreateInfoEXT extends InputStructure imple
 {
     protected const string NATIVE_TYPE = 'VkDeviceDeviceMemoryReportCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000284001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT->value;
 
     public function __construct(
         /** @var \Closure(CData|null, CData|null): void */
@@ -32,6 +32,17 @@ final class VkDeviceDeviceMemoryReportCreateInfoEXT extends InputStructure imple
         public CData|int|null $userData = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     pfnUserCallback: CData,
+     *     pUserData: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

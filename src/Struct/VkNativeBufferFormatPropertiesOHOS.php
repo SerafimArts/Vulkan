@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrModelConversion;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
@@ -24,8 +25,7 @@ use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
  */
 final readonly class VkNativeBufferFormatPropertiesOHOS extends OutputStructure implements VkNativeBufferPropertiesOHOSExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS` */
-    public const int STRUCTURE_TYPE = 1000452002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -50,14 +50,14 @@ final readonly class VkNativeBufferFormatPropertiesOHOS extends OutputStructure 
 
     /**
      * @param CData&object{
-     *     format: int,
+     *     format: value-of<VkFormat>,
      *     externalFormat: int<0, max>,
      *     formatFeatures: int<0, 4294967295>,
      *     samplerYcbcrConversionComponents: CData,
-     *     suggestedYcbcrModel: int,
-     *     suggestedYcbcrRange: int,
-     *     suggestedXChromaOffset: int,
-     *     suggestedYChromaOffset: int,
+     *     suggestedYcbcrModel: value-of<VkSamplerYcbcrModelConversion>,
+     *     suggestedYcbcrRange: value-of<VkSamplerYcbcrRange>,
+     *     suggestedXChromaOffset: value-of<VkChromaLocation>,
+     *     suggestedYChromaOffset: value-of<VkChromaLocation>,
      * } $data
      *
      * @phpstan-param CData $data

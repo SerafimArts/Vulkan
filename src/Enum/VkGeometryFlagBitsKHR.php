@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkGeometryFlagBitsKHR
 {
     public const int VK_GEOMETRY_OPAQUE_BIT_KHR = 1;
+
     public const int VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_KHR = 2;
 
     /** Alias of {@see self::VK_GEOMETRY_OPAQUE_BIT_KHR} */

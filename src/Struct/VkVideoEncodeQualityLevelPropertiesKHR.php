@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeRateControlModeFlagBitsKHR;
 use Serafim\Vulkan\Struct\Extension\VkVideoEncodeQualityLevelPropertiesKHRExtension;
 
@@ -18,8 +19,7 @@ use Serafim\Vulkan\Struct\Extension\VkVideoEncodeQualityLevelPropertiesKHRExtens
  */
 final readonly class VkVideoEncodeQualityLevelPropertiesKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000299007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR->value;
 
     public function __construct(
         /** @var int<0, 4294967295>|(VkVideoEncodeRateControlModeFlagBitsKHR::*) */

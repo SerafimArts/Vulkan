@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineBindPoint;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Handle\VkIndirectCommandsLayoutNV;
 use Serafim\Vulkan\Handle\VkPipeline;
@@ -23,8 +24,7 @@ final class VkGeneratedCommandsInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkGeneratedCommandsInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_GENERATED_COMMANDS_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000277005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_INFO_NV->value;
 
     public function __construct(
         public VkIndirectCommandsLayoutNV $indirectCommandsLayout,
@@ -47,6 +47,27 @@ final class VkGeneratedCommandsInfoNV extends InputStructure
         public int $sequencesIndexOffset = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_INFO_NV>,
+     *     pNext: CData,
+     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
+     *     pipeline: CData,
+     *     indirectCommandsLayout: CData,
+     *     streamCount: int<0, 4294967295>,
+     *     pStreams: CData,
+     *     sequencesCount: int<0, 4294967295>,
+     *     preprocessBuffer: CData,
+     *     preprocessOffset: int<0, max>,
+     *     preprocessSize: int<0, max>,
+     *     sequencesCountBuffer: CData,
+     *     sequencesCountOffset: int<0, max>,
+     *     sequencesIndexBuffer: CData,
+     *     sequencesIndexOffset: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

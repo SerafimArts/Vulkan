@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodePerPartitionFeedbackFlagBitsKHR
 {
     public const int VK_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_STATUS_BIT_KHR = 1;
+
     public const int VK_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR = 2;
+
     public const int VK_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR = 4;
 
     private function __construct() {}

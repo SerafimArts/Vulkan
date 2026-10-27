@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkPipelineFragmentDensityMapLayeredCreateInfoVALVE extends InputStru
 {
     protected const string NATIVE_TYPE = 'VkPipelineFragmentDensityMapLayeredCreateInfoVALVE';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE` */
-    public const int STRUCTURE_TYPE = 1000611002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE->value;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
@@ -29,6 +29,15 @@ final class VkPipelineFragmentDensityMapLayeredCreateInfoVALVE extends InputStru
         public int $maxFragmentDensityMapLayers = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE>,
+     *     pNext: CData,
+     *     maxFragmentDensityMapLayers: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

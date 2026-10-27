@@ -67,19 +67,30 @@ final class VkAccessFlagBits
 
     /** Controls coherency of memory writes */
     public const int VK_ACCESS_MEMORY_WRITE_BIT = 65536;
+
     public const int VK_ACCESS_NONE = 0;
+
     public const int VK_ACCESS_TRANSFORM_FEEDBACK_WRITE_BIT_EXT = 33554432;
+
     public const int VK_ACCESS_TRANSFORM_FEEDBACK_COUNTER_READ_BIT_EXT = 67108864;
+
     public const int VK_ACCESS_TRANSFORM_FEEDBACK_COUNTER_WRITE_BIT_EXT = 134217728;
 
     /** Read access flag for reading conditional rendering predicate */
     public const int VK_ACCESS_CONDITIONAL_RENDERING_READ_BIT_EXT = 1048576;
+
     public const int VK_ACCESS_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT = 524288;
+
     public const int VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR = 2097152;
+
     public const int VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR = 4194304;
+
     public const int VK_ACCESS_FRAGMENT_DENSITY_MAP_READ_BIT_EXT = 16777216;
+
     public const int VK_ACCESS_FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR = 8388608;
+
     public const int VK_ACCESS_COMMAND_PREPROCESS_READ_BIT_EXT = 131072;
+
     public const int VK_ACCESS_COMMAND_PREPROCESS_WRITE_BIT_EXT = 262144;
 
     /** Alias of {@see self::VK_ACCESS_FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR} */

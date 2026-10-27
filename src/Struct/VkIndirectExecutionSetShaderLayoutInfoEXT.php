@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorSetLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,14 +21,23 @@ final class VkIndirectExecutionSetShaderLayoutInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkIndirectExecutionSetShaderLayoutInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000572012;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT->value;
 
     public function __construct(
         /** @var list<VkDescriptorSetLayout> */
         public array $setLayouts = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_EXECUTION_SET_SHADER_LAYOUT_INFO_EXT>,
+     *     pNext: CData,
+     *     setLayoutCount: int<0, 4294967295>,
+     *     pSetLayouts: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

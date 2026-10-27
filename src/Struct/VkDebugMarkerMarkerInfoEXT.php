@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkDebugMarkerMarkerInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDebugMarkerMarkerInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEBUG_MARKER_MARKER_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000022002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_MARKER_MARKER_INFO_EXT->value;
 
     public function __construct(
         /**
@@ -38,6 +38,16 @@ final class VkDebugMarkerMarkerInfoEXT extends InputStructure
         public array $color = [0.0, 0.0, 0.0, 0.0],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_MARKER_MARKER_INFO_EXT>,
+     *     pNext: CData,
+     *     pMarkerName: CData|null,
+     *     color: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE 
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_FEATURES_VALVE` */
-    public const int STRUCTURE_TYPE = 1000709000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_FEATURES_VALVE->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $bufferDeviceAddressAllocationAlignment = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_ALLOCATION_ALIGNMENT_FEATURES_VALVE>,
+     *     pNext: CData,
+     *     bufferDeviceAddressAllocationAlignment: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE 
 
     /**
      * @param CData&object{
-     *     bufferDeviceAddressAllocationAlignment: int,
+     *     bufferDeviceAddressAllocationAlignment: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

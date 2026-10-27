@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceTexelBufferAlignmentProperties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 1000281001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -54,9 +54,9 @@ final readonly class VkPhysicalDeviceTexelBufferAlignmentProperties extends Outp
     /**
      * @param CData&object{
      *     storageTexelBufferOffsetAlignmentBytes: int<0, max>,
-     *     storageTexelBufferOffsetSingleTexelAlignment: int,
+     *     storageTexelBufferOffsetSingleTexelAlignment: int<0, 1>,
      *     uniformTexelBufferOffsetAlignmentBytes: int<0, max>,
-     *     uniformTexelBufferOffsetSingleTexelAlignment: int,
+     *     uniformTexelBufferOffsetSingleTexelAlignment: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkFence;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Handle\VkSwapchainKHR;
@@ -22,8 +23,7 @@ final class VkAcquireNextImageInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkAcquireNextImageInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_ACQUIRE_NEXT_IMAGE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000060010;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACQUIRE_NEXT_IMAGE_INFO_KHR->value;
 
     public function __construct(
         public VkSwapchainKHR $swapchain,
@@ -35,6 +35,19 @@ final class VkAcquireNextImageInfoKHR extends InputStructure
         public int $deviceMask = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACQUIRE_NEXT_IMAGE_INFO_KHR>,
+     *     pNext: CData,
+     *     swapchain: CData,
+     *     timeout: int<0, max>,
+     *     semaphore: CData,
+     *     fence: CData,
+     *     deviceMask: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

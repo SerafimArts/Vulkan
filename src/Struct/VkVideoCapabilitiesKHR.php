@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoCapabilityFlagBitsKHR;
 use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
 
@@ -18,8 +19,7 @@ use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
  */
 final readonly class VkVideoCapabilitiesKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000023001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_CAPABILITIES_KHR->value;
 
     public function __construct(
         /** @var int-mask-of<VkVideoCapabilityFlagBitsKHR::*> */

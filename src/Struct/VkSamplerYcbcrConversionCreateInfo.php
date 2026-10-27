@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkFilter;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrModelConversion;
 use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerYcbcrConversionCreateInfoExtension;
 
@@ -25,8 +26,7 @@ final class VkSamplerYcbcrConversionCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSamplerYcbcrConversionCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000156000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO->value;
 
     public function __construct(
         public VkComponentMapping $components,
@@ -40,6 +40,22 @@ final class VkSamplerYcbcrConversionCreateInfo extends InputStructure
         public bool $forceExplicitReconstruction = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_YCBCR_CONVERSION_CREATE_INFO>,
+     *     pNext: CData,
+     *     format: value-of<VkFormat>,
+     *     ycbcrModel: value-of<VkSamplerYcbcrModelConversion>,
+     *     ycbcrRange: value-of<VkSamplerYcbcrRange>,
+     *     components: CData,
+     *     xChromaOffset: value-of<VkChromaLocation>,
+     *     yChromaOffset: value-of<VkChromaLocation>,
+     *     chromaFilter: value-of<VkFilter>,
+     *     forceExplicitReconstruction: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

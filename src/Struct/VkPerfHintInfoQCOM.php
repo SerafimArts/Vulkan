@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPerfHintTypeQCOM;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkPerfHintInfoQCOM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPerfHintInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000302000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM->value;
 
     public function __construct(
         public VkPerfHintTypeQCOM $type = VkPerfHintTypeQCOM::VK_PERF_HINT_TYPE_DEFAULT_QCOM,
@@ -29,6 +29,16 @@ final class VkPerfHintInfoQCOM extends InputStructure
         public int $scale = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PERF_HINT_INFO_QCOM>,
+     *     pNext: CData,
+     *     type: value-of<VkPerfHintTypeQCOM>,
+     *     scale: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

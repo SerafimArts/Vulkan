@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -24,8 +25,7 @@ final class VkDedicatedAllocationMemoryAllocateInfoNV extends InputStructure imp
 {
     protected const string NATIVE_TYPE = 'VkDedicatedAllocationMemoryAllocateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000026002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV->value;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
@@ -35,6 +35,16 @@ final class VkDedicatedAllocationMemoryAllocateInfoNV extends InputStructure imp
         public ?VkBuffer $buffer = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEDICATED_ALLOCATION_MEMORY_ALLOCATE_INFO_NV>,
+     *     pNext: CData,
+     *     image: CData,
+     *     buffer: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

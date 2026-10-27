@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkPresentGravityFlagBitsKHR
 {
     public const int VK_PRESENT_GRAVITY_MIN_BIT_KHR = 1;
+
     public const int VK_PRESENT_GRAVITY_MAX_BIT_KHR = 2;
+
     public const int VK_PRESENT_GRAVITY_CENTERED_BIT_KHR = 4;
 
     /** Alias of {@see self::VK_PRESENT_GRAVITY_MIN_BIT_KHR} */

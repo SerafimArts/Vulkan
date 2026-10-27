@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoSessionParametersCreateFlagBitsKHR;
 use Serafim\Vulkan\Handle\VkVideoSessionKHR;
 use Serafim\Vulkan\Handle\VkVideoSessionParametersKHR;
@@ -23,8 +24,7 @@ final class VkVideoSessionParametersCreateInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkVideoSessionParametersCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000023006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR->value;
 
     public function __construct(
         public VkVideoSessionKHR $videoSession,
@@ -34,6 +34,17 @@ final class VkVideoSessionParametersCreateInfoKHR extends InputStructure
         public ?VkVideoSessionParametersKHR $videoSessionParametersTemplate = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_SESSION_PARAMETERS_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     videoSessionParametersTemplate: CData,
+     *     videoSession: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

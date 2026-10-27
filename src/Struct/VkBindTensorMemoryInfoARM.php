@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Handle\VkTensorARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -21,8 +22,7 @@ final class VkBindTensorMemoryInfoARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBindTensorMemoryInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_BIND_TENSOR_MEMORY_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000460002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_TENSOR_MEMORY_INFO_ARM->value;
 
     public function __construct(
         public VkTensorARM $tensor,
@@ -31,6 +31,17 @@ final class VkBindTensorMemoryInfoARM extends InputStructure
         public int $memoryOffset = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_TENSOR_MEMORY_INFO_ARM>,
+     *     pNext: CData,
+     *     tensor: CData,
+     *     memory: CData,
+     *     memoryOffset: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

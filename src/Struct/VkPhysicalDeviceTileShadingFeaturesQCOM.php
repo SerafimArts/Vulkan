@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceTileShadingFeaturesQCOM extends InputStructure imple
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceTileShadingFeaturesQCOM';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM` */
-    public const int STRUCTURE_TYPE = 1000309000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -44,6 +44,28 @@ final class VkPhysicalDeviceTileShadingFeaturesQCOM extends InputStructure imple
         public bool $tileShadingImageProcessing = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM>,
+     *     pNext: CData,
+     *     tileShading: int<0, 1>,
+     *     tileShadingFragmentStage: int<0, 1>,
+     *     tileShadingColorAttachments: int<0, 1>,
+     *     tileShadingDepthAttachments: int<0, 1>,
+     *     tileShadingStencilAttachments: int<0, 1>,
+     *     tileShadingInputAttachments: int<0, 1>,
+     *     tileShadingSampledAttachments: int<0, 1>,
+     *     tileShadingPerTileDraw: int<0, 1>,
+     *     tileShadingPerTileDispatch: int<0, 1>,
+     *     tileShadingDispatchTile: int<0, 1>,
+     *     tileShadingApron: int<0, 1>,
+     *     tileShadingAnisotropicApron: int<0, 1>,
+     *     tileShadingAtomicOps: int<0, 1>,
+     *     tileShadingImageProcessing: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -93,20 +115,20 @@ final class VkPhysicalDeviceTileShadingFeaturesQCOM extends InputStructure imple
 
     /**
      * @param CData&object{
-     *     tileShading: int,
-     *     tileShadingFragmentStage: int,
-     *     tileShadingColorAttachments: int,
-     *     tileShadingDepthAttachments: int,
-     *     tileShadingStencilAttachments: int,
-     *     tileShadingInputAttachments: int,
-     *     tileShadingSampledAttachments: int,
-     *     tileShadingPerTileDraw: int,
-     *     tileShadingPerTileDispatch: int,
-     *     tileShadingDispatchTile: int,
-     *     tileShadingApron: int,
-     *     tileShadingAnisotropicApron: int,
-     *     tileShadingAtomicOps: int,
-     *     tileShadingImageProcessing: int,
+     *     tileShading: int<0, 1>,
+     *     tileShadingFragmentStage: int<0, 1>,
+     *     tileShadingColorAttachments: int<0, 1>,
+     *     tileShadingDepthAttachments: int<0, 1>,
+     *     tileShadingStencilAttachments: int<0, 1>,
+     *     tileShadingInputAttachments: int<0, 1>,
+     *     tileShadingSampledAttachments: int<0, 1>,
+     *     tileShadingPerTileDraw: int<0, 1>,
+     *     tileShadingPerTileDispatch: int<0, 1>,
+     *     tileShadingDispatchTile: int<0, 1>,
+     *     tileShadingApron: int<0, 1>,
+     *     tileShadingAnisotropicApron: int<0, 1>,
+     *     tileShadingAtomicOps: int<0, 1>,
+     *     tileShadingImageProcessing: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

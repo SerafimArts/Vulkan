@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccessFlagBits;
 use Serafim\Vulkan\Enum\VkDependencyFlagBits;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDependency2Extension;
 
@@ -26,8 +27,7 @@ final class VkSubpassDependency2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSubpassDependency2';
 
-    /** `VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2` */
-    public const int STRUCTURE_TYPE = 1000109003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2->value;
 
     public function __construct(
         public ?VkSubpassDependency2Extension $next = null,
@@ -49,6 +49,22 @@ final class VkSubpassDependency2 extends InputStructure
         public int $viewOffset = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2>,
+     *     pNext: CData,
+     *     srcSubpass: int<0, 4294967295>,
+     *     dstSubpass: int<0, 4294967295>,
+     *     srcStageMask: int<0, 4294967295>,
+     *     dstStageMask: int<0, 4294967295>,
+     *     srcAccessMask: int<0, 4294967295>,
+     *     dstAccessMask: int<0, 4294967295>,
+     *     dependencyFlags: int<0, 4294967295>,
+     *     viewOffset: int<-2147483648, 2147483647>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

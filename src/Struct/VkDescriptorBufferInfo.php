@@ -41,6 +41,15 @@ final class VkDescriptorBufferInfo extends InputStructure
         public int $range = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     buffer: CData,
+     *     offset: int<0, max>,
+     *     range: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         if ($this->buffer !== null) {

@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessBufferBehavior;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessImageBehavior;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkComputePipelineCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -25,8 +26,7 @@ final class VkPipelineRobustnessCreateInfo extends InputStructure implements VkG
 {
     protected const string NATIVE_TYPE = 'VkPipelineRobustnessCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000068000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO->value;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkPipelineShaderStageCreateInfoExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
@@ -36,6 +36,18 @@ final class VkPipelineRobustnessCreateInfo extends InputStructure implements VkG
         public VkPipelineRobustnessImageBehavior $images = VkPipelineRobustnessImageBehavior::VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO>,
+     *     pNext: CData,
+     *     storageBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     uniformBuffers: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     vertexInputs: value-of<VkPipelineRobustnessBufferBehavior>,
+     *     images: value-of<VkPipelineRobustnessImageBehavior>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

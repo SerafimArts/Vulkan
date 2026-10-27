@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkComponentTypeKHR;
 use Serafim\Vulkan\Enum\VkScopeKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixPropertiesKHR.html
@@ -18,8 +19,7 @@ use Serafim\Vulkan\Enum\VkScopeKHR;
  */
 final readonly class VkCooperativeMatrixPropertiesKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000506001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -41,12 +41,12 @@ final readonly class VkCooperativeMatrixPropertiesKHR extends OutputStructure
      *     MSize: int<0, 4294967295>,
      *     NSize: int<0, 4294967295>,
      *     KSize: int<0, 4294967295>,
-     *     AType: int,
-     *     BType: int,
-     *     CType: int,
-     *     ResultType: int,
-     *     saturatingAccumulation: int,
-     *     scope: int,
+     *     AType: value-of<VkComponentTypeKHR>,
+     *     BType: value-of<VkComponentTypeKHR>,
+     *     CType: value-of<VkComponentTypeKHR>,
+     *     ResultType: value-of<VkComponentTypeKHR>,
+     *     saturatingAccumulation: int<0, 1>,
+     *     scope: value-of<VkScopeKHR>,
      * } $data
      *
      * @phpstan-param CData $data

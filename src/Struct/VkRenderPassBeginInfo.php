@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkFramebuffer;
 use Serafim\Vulkan\Handle\VkRenderPass;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -25,8 +26,7 @@ final class VkRenderPassBeginInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkRenderPassBeginInfo';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO` */
-    public const int STRUCTURE_TYPE = 43;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO->value;
 
     public function __construct(
         public VkRenderPass $renderPass,
@@ -37,6 +37,19 @@ final class VkRenderPassBeginInfo extends InputStructure
         public array $clearValues = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO>,
+     *     pNext: CData,
+     *     renderPass: CData,
+     *     framebuffer: CData,
+     *     renderArea: CData,
+     *     clearValueCount: int<0, 4294967295>,
+     *     pClearValues: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

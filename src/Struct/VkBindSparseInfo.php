@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindSparseInfoExtension;
@@ -21,8 +22,7 @@ final class VkBindSparseInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBindSparseInfo';
 
-    /** `VK_STRUCTURE_TYPE_BIND_SPARSE_INFO` */
-    public const int STRUCTURE_TYPE = 7;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_SPARSE_INFO->value;
 
     public function __construct(
         public ?VkBindSparseInfoExtension $next = null,
@@ -38,6 +38,24 @@ final class VkBindSparseInfo extends InputStructure
         public array $signalSemaphores = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_SPARSE_INFO>,
+     *     pNext: CData,
+     *     waitSemaphoreCount: int<0, 4294967295>,
+     *     pWaitSemaphores: CData,
+     *     bufferBindCount: int<0, 4294967295>,
+     *     pBufferBinds: CData,
+     *     imageOpaqueBindCount: int<0, 4294967295>,
+     *     pImageOpaqueBinds: CData,
+     *     imageBindCount: int<0, 4294967295>,
+     *     pImageBinds: CData,
+     *     signalSemaphoreCount: int<0, 4294967295>,
+     *     pSignalSemaphores: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

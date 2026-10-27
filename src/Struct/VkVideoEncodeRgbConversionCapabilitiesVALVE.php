@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeRgbChromaOffsetFlagBitsVALVE;
 use Serafim\Vulkan\Enum\VkVideoEncodeRgbModelConversionFlagBitsVALVE;
 use Serafim\Vulkan\Enum\VkVideoEncodeRgbRangeCompressionFlagBitsVALVE;
@@ -22,8 +23,7 @@ use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
  */
 final readonly class VkVideoEncodeRgbConversionCapabilitiesVALVE extends OutputStructure implements VkVideoCapabilitiesKHRExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE` */
-    public const int STRUCTURE_TYPE = 1000390001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE->value;
 
     public static function createNative(Allocator $memory): CData
     {

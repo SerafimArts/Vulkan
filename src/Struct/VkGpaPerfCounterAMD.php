@@ -28,6 +28,15 @@ final class VkGpaPerfCounterAMD extends InputStructure
         public int $eventID = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     blockType: value-of<VkGpaPerfBlockAMD>,
+     *     blockInstance: int<0, 4294967295>,
+     *     eventID: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->blockType = $this->blockType->value;

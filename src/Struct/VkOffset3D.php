@@ -28,6 +28,15 @@ final class VkOffset3D extends InputStructure
         public int $z = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     x: int<-2147483648, 2147483647>,
+     *     y: int<-2147483648, 2147483647>,
+     *     z: int<-2147483648, 2147483647>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->x = $this->x;

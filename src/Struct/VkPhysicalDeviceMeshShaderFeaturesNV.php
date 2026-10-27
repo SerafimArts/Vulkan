@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceMeshShaderFeaturesNV extends InputStructure implemen
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMeshShaderFeaturesNV';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV` */
-    public const int STRUCTURE_TYPE = 1000202000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPhysicalDeviceMeshShaderFeaturesNV extends InputStructure implemen
         public bool $meshShader = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV>,
+     *     pNext: CData,
+     *     taskShader: int<0, 1>,
+     *     meshShader: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -57,8 +67,8 @@ final class VkPhysicalDeviceMeshShaderFeaturesNV extends InputStructure implemen
 
     /**
      * @param CData&object{
-     *     taskShader: int,
-     *     meshShader: int,
+     *     taskShader: int<0, 1>,
+     *     meshShader: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

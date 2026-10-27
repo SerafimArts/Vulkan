@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,14 +20,22 @@ final class VkSysmemColorSpaceFUCHSIA extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSysmemColorSpaceFUCHSIA';
 
-    /** `VK_STRUCTURE_TYPE_SYSMEM_COLOR_SPACE_FUCHSIA` */
-    public const int STRUCTURE_TYPE = 1000366008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SYSMEM_COLOR_SPACE_FUCHSIA->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $colorSpace = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SYSMEM_COLOR_SPACE_FUCHSIA>,
+     *     pNext: CData,
+     *     colorSpace: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

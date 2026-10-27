@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSwapchainKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindImageMemoryInfoExtension;
@@ -21,8 +22,7 @@ final class VkBindImageMemorySwapchainInfoKHR extends InputStructure implements 
 {
     protected const string NATIVE_TYPE = 'VkBindImageMemorySwapchainInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000060009;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR->value;
 
     public function __construct(
         public VkSwapchainKHR $swapchain,
@@ -31,6 +31,16 @@ final class VkBindImageMemorySwapchainInfoKHR extends InputStructure implements 
         public int $imageIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_SWAPCHAIN_INFO_KHR>,
+     *     pNext: CData,
+     *     swapchain: CData,
+     *     imageIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

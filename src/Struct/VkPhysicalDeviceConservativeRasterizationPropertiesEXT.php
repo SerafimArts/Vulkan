@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceConservativeRasterizationPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000101000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -103,12 +103,12 @@ final readonly class VkPhysicalDeviceConservativeRasterizationPropertiesEXT exte
      *     primitiveOverestimationSize: float,
      *     maxExtraPrimitiveOverestimationSize: float,
      *     extraPrimitiveOverestimationSizeGranularity: float,
-     *     primitiveUnderestimation: int,
-     *     conservativePointAndLineRasterization: int,
-     *     degenerateTrianglesRasterized: int,
-     *     degenerateLinesRasterized: int,
-     *     fullyCoveredFragmentShaderInputVariable: int,
-     *     conservativeRasterizationPostDepthCoverage: int,
+     *     primitiveUnderestimation: int<0, 1>,
+     *     conservativePointAndLineRasterization: int<0, 1>,
+     *     degenerateTrianglesRasterized: int<0, 1>,
+     *     degenerateLinesRasterized: int<0, 1>,
+     *     fullyCoveredFragmentShaderInputVariable: int<0, 1>,
+     *     conservativeRasterizationPostDepthCoverage: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

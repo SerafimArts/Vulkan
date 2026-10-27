@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoDecodeInfoKHRExtension;
@@ -21,8 +22,7 @@ final class VkVideoDecodeInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkVideoDecodeInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000024000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR->value;
 
     public function __construct(
         public VkBuffer $srcBuffer,
@@ -39,6 +39,22 @@ final class VkVideoDecodeInfoKHR extends InputStructure
         public array $referenceSlots = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     srcBuffer: CData,
+     *     srcBufferOffset: int<0, max>,
+     *     srcBufferRange: int<0, max>,
+     *     dstPictureResource: CData,
+     *     pSetupReferenceSlot: CData,
+     *     referenceSlotCount: int<0, 4294967295>,
+     *     pReferenceSlots: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingAttachmentInfoExtension;
 
@@ -20,14 +21,22 @@ final class VkAttachmentFeedbackLoopInfoEXT extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkAttachmentFeedbackLoopInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000527001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT->value;
 
     public function __construct(
         public ?VkRenderingAttachmentInfoExtension $next = null,
         public bool $feedbackLoopEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT>,
+     *     pNext: CData,
+     *     feedbackLoopEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

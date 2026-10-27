@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindSparseInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
@@ -21,8 +22,7 @@ final class VkTimelineSemaphoreSubmitInfo extends InputStructure implements VkSu
 {
     protected const string NATIVE_TYPE = 'VkTimelineSemaphoreSubmitInfo';
 
-    /** `VK_STRUCTURE_TYPE_TIMELINE_SEMAPHORE_SUBMIT_INFO` */
-    public const int STRUCTURE_TYPE = 1000207003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TIMELINE_SEMAPHORE_SUBMIT_INFO->value;
 
     public function __construct(
         public VkSubmitInfoExtension|VkBindSparseInfoExtension|null $next = null,
@@ -32,6 +32,18 @@ final class VkTimelineSemaphoreSubmitInfo extends InputStructure implements VkSu
         public array $signalSemaphoreValues = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TIMELINE_SEMAPHORE_SUBMIT_INFO>,
+     *     pNext: CData,
+     *     waitSemaphoreValueCount: int<0, 4294967295>,
+     *     pWaitSemaphoreValues: CData,
+     *     signalSemaphoreValueCount: int<0, 4294967295>,
+     *     pSignalSemaphoreValues: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

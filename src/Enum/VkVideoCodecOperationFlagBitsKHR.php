@@ -15,12 +15,19 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoCodecOperationFlagBitsKHR
 {
     public const int VK_VIDEO_CODEC_OPERATION_NONE_KHR = 0;
+
     public const int VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR = 65536;
+
     public const int VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR = 131072;
+
     public const int VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR = 1;
+
     public const int VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR = 2;
+
     public const int VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR = 4;
+
     public const int VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR = 262144;
+
     public const int VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR = 8;
 
     private function __construct() {}

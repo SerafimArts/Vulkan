@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
  */
 final readonly class VkExportMetalDeviceInfoEXT extends OutputStructure implements VkExportMetalObjectsInfoEXTExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_EXPORT_METAL_DEVICE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000311002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_DEVICE_INFO_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {

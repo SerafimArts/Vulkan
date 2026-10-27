@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
  */
 final readonly class VkDescriptorSetVariableDescriptorCountLayoutSupport extends OutputStructure implements VkDescriptorSetLayoutSupportExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT` */
-    public const int STRUCTURE_TYPE = 1000161004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT->value;
 
     public static function createNative(Allocator $memory): CData
     {

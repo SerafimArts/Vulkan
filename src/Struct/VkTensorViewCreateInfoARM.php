@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTensorViewCreateFlagBitsARM;
 use Serafim\Vulkan\Handle\VkTensorARM;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -23,8 +24,7 @@ final class VkTensorViewCreateInfoARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkTensorViewCreateInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000460001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM->value;
 
     public function __construct(
         public VkTensorARM $tensor,
@@ -34,6 +34,17 @@ final class VkTensorViewCreateInfoARM extends InputStructure
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM>,
+     *     pNext: CData,
+     *     flags: int<0, max>,
+     *     tensor: CData,
+     *     format: value-of<VkFormat>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

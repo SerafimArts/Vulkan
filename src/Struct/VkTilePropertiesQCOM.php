@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTilePropertiesQCOM.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkTilePropertiesQCOM extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_TILE_PROPERTIES_QCOM` */
-    public const int STRUCTURE_TYPE = 1000484001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TILE_PROPERTIES_QCOM->value;
 
     public function __construct(
         public VkExtent3D $tileSize,

@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkPerformanceCounterDescriptionFlagBitsKHR
 {
     public const int VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_BIT_KHR = 1;
+
     public const int VK_PERFORMANCE_COUNTER_DESCRIPTION_CONCURRENTLY_IMPACTED_BIT_KHR = 2;
 
     /** Alias of {@see self::VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_BIT_KHR} */

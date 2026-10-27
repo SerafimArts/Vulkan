@@ -37,6 +37,16 @@ final class VkImageBlit extends InputStructure
         public array $dstOffsets,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     srcSubresource: CData,
+     *     srcOffsets: CData,
+     *     dstSubresource: CData,
+     *     dstOffsets: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $this->srcSubresource->write($memory, $data->srcSubresource);

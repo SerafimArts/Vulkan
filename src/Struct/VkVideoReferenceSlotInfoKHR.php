@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoReferenceSlotInfoKHRExtension;
 
@@ -20,8 +21,7 @@ final class VkVideoReferenceSlotInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkVideoReferenceSlotInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000023011;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR->value;
 
     public function __construct(
         public ?VkVideoReferenceSlotInfoKHRExtension $next = null,
@@ -35,6 +35,16 @@ final class VkVideoReferenceSlotInfoKHR extends InputStructure
         public ?VkVideoPictureResourceInfoKHR $pictureResource = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR>,
+     *     pNext: CData,
+     *     slotIndex: int<-2147483648, 2147483647>,
+     *     pPictureResource: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

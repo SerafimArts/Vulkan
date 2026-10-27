@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -23,8 +24,7 @@ final class VkSetDescriptorBufferOffsetsInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSetDescriptorBufferOffsetsInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000545007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT->value;
 
     public function __construct(
         public ?VkSetDescriptorBufferOffsetsInfoEXTExtension $next = null,
@@ -39,6 +39,20 @@ final class VkSetDescriptorBufferOffsetsInfoEXT extends InputStructure
         public array $offsets = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SET_DESCRIPTOR_BUFFER_OFFSETS_INFO_EXT>,
+     *     pNext: CData,
+     *     stageFlags: int<0, 4294967295>,
+     *     layout: CData,
+     *     firstSet: int<0, 4294967295>,
+     *     setCount: int<0, 4294967295>,
+     *     pBufferIndices: CData,
+     *     pOffsets: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

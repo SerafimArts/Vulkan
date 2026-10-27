@@ -28,6 +28,15 @@ final class VkClearAttachment extends InputStructure
         public int $colorAttachment = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     aspectMask: int<0, 4294967295>,
+     *     colorAttachment: int<0, 4294967295>,
+     *     clearValue: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->aspectMask = $this->aspectMask;

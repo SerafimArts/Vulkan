@@ -37,6 +37,7 @@ final class VkImageCreateFlagBits
      * image
      */
     public const int VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT = 16;
+
     public const int VK_IMAGE_CREATE_ALIAS_BIT = 1024;
 
     /**
@@ -48,16 +49,24 @@ final class VkImageCreateFlagBits
 
     /** The 3D image can be viewed as a 2D or 2D array image */
     public const int VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT = 32;
+
     public const int VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT = 128;
+
     public const int VK_IMAGE_CREATE_EXTENDED_USAGE_BIT = 256;
 
     /** Image requires protected memory */
     public const int VK_IMAGE_CREATE_PROTECTED_BIT = 2048;
+
     public const int VK_IMAGE_CREATE_DISJOINT_BIT = 512;
+
     public const int VK_IMAGE_CREATE_CORNER_SAMPLED_BIT_NV = 8192;
+
     public const int VK_IMAGE_CREATE_DESCRIPTOR_HEAP_CAPTURE_REPLAY_BIT_EXT = 65536;
+
     public const int VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT = 4096;
+
     public const int VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT = 16384;
+
     public const int VK_IMAGE_CREATE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT = 262144;
 
     /**
@@ -65,8 +74,11 @@ final class VkImageCreateFlagBits
      * capable of being used as 2D images
      */
     public const int VK_IMAGE_CREATE_2D_VIEW_COMPATIBLE_BIT_EXT = 131072;
+
     public const int VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR = 1048576;
+
     public const int VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_EXT = 32768;
+
     public const int VK_IMAGE_CREATE_ALIAS_SINGLE_LAYER_DESCRIPTOR_BIT_KHR = 4194304;
 
     /** Alias of {@see self::VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT} */

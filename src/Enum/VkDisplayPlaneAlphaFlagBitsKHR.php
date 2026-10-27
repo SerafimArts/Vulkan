@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkDisplayPlaneAlphaFlagBitsKHR
 {
     public const int VK_DISPLAY_PLANE_ALPHA_OPAQUE_BIT_KHR = 1;
+
     public const int VK_DISPLAY_PLANE_ALPHA_GLOBAL_BIT_KHR = 2;
+
     public const int VK_DISPLAY_PLANE_ALPHA_PER_PIXEL_BIT_KHR = 4;
+
     public const int VK_DISPLAY_PLANE_ALPHA_PER_PIXEL_PREMULTIPLIED_BIT_KHR = 8;
 
     private function __construct() {}

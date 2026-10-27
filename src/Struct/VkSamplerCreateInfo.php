@@ -15,6 +15,7 @@ use Serafim\Vulkan\Enum\VkFilter;
 use Serafim\Vulkan\Enum\VkSamplerAddressMode;
 use Serafim\Vulkan\Enum\VkSamplerCreateFlagBits;
 use Serafim\Vulkan\Enum\VkSamplerMipmapMode;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSamplerCreateInfoExtension;
 
@@ -26,8 +27,7 @@ final class VkSamplerCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSamplerCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 31;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO->value;
 
     public function __construct(
         public ?VkSamplerCreateInfoExtension $next = null,
@@ -53,6 +53,30 @@ final class VkSamplerCreateInfo extends InputStructure
         public bool $unnormalizedCoordinates = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     magFilter: value-of<VkFilter>,
+     *     minFilter: value-of<VkFilter>,
+     *     mipmapMode: value-of<VkSamplerMipmapMode>,
+     *     addressModeU: value-of<VkSamplerAddressMode>,
+     *     addressModeV: value-of<VkSamplerAddressMode>,
+     *     addressModeW: value-of<VkSamplerAddressMode>,
+     *     mipLodBias: float,
+     *     anisotropyEnable: int<0, 1>,
+     *     maxAnisotropy: float,
+     *     compareEnable: int<0, 1>,
+     *     compareOp: value-of<VkCompareOp>,
+     *     minLod: float,
+     *     maxLod: float,
+     *     borderColor: value-of<VkBorderColor>,
+     *     unnormalizedCoordinates: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

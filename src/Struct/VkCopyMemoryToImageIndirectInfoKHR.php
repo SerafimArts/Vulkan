@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAddressCopyFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -22,8 +23,7 @@ final class VkCopyMemoryToImageIndirectInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCopyMemoryToImageIndirectInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000549003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR->value;
 
     public function __construct(
         public VkStridedDeviceAddressRangeKHR $copyAddressRange,
@@ -35,6 +35,20 @@ final class VkCopyMemoryToImageIndirectInfoKHR extends InputStructure
         public array $imageSubresources = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COPY_MEMORY_TO_IMAGE_INDIRECT_INFO_KHR>,
+     *     pNext: CData,
+     *     srcCopyFlags: int<0, 4294967295>,
+     *     copyCount: int<0, 4294967295>,
+     *     copyAddressRange: CData,
+     *     dstImage: CData,
+     *     dstImageLayout: value-of<VkImageLayout>,
+     *     pImageSubresources: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

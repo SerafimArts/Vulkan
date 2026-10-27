@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkScreenBufferPropertiesQNXExtension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkScreenBufferPropertiesQNXExtension;
  */
 final readonly class VkScreenBufferPropertiesQNX extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_SCREEN_BUFFER_PROPERTIES_QNX` */
-    public const int STRUCTURE_TYPE = 1000529000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SCREEN_BUFFER_PROPERTIES_QNX->value;
 
     public function __construct(
         /** @var int<0, max> */

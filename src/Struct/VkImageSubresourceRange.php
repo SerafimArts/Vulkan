@@ -33,6 +33,17 @@ final class VkImageSubresourceRange extends InputStructure
         public int $layerCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     aspectMask: int<0, 4294967295>,
+     *     baseMipLevel: int<0, 4294967295>,
+     *     levelCount: int<0, 4294967295>,
+     *     baseArrayLayer: int<0, 4294967295>,
+     *     layerCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->aspectMask = $this->aspectMask;

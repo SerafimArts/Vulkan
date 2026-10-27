@@ -15,10 +15,15 @@ namespace Serafim\Vulkan\Enum;
 final class VkOpticalFlowUsageFlagBitsNV
 {
     public const int VK_OPTICAL_FLOW_USAGE_UNKNOWN_NV = 0;
+
     public const int VK_OPTICAL_FLOW_USAGE_INPUT_BIT_NV = 1;
+
     public const int VK_OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV = 2;
+
     public const int VK_OPTICAL_FLOW_USAGE_HINT_BIT_NV = 4;
+
     public const int VK_OPTICAL_FLOW_USAGE_COST_BIT_NV = 8;
+
     public const int VK_OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV = 16;
 
     private function __construct() {}

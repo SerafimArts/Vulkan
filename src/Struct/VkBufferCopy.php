@@ -40,6 +40,15 @@ final class VkBufferCopy extends InputStructure
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     srcOffset: int<0, max>,
+     *     dstOffset: int<0, max>,
+     *     size: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->srcOffset = $this->srcOffset;

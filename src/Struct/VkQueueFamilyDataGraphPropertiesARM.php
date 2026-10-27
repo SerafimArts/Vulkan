@@ -9,20 +9,42 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphPropertiesARM.html
  * @since VK_ARM_data_graph
  */
-final readonly class VkQueueFamilyDataGraphPropertiesARM extends OutputStructure
+final class VkQueueFamilyDataGraphPropertiesARM extends InputStructure
 {
-    /** `VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM` */
-    public const int STRUCTURE_TYPE = 1000507018;
+    protected const string NATIVE_TYPE = 'VkQueueFamilyDataGraphPropertiesARM';
+
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM->value;
 
     public function __construct(
         public VkPhysicalDeviceDataGraphProcessingEngineARM $engine,
         public VkPhysicalDeviceDataGraphOperationSupportARM $operation,
     ) {}
+
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM>,
+     *     pNext: CData,
+     *     engine: CData,
+     *     operation: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    protected function write(Allocation $memory, CData $data): void
+    {
+        $data->sType = self::STRUCTURE_TYPE;
+
+        $this->engine->write($memory, $data->engine);
+
+        $this->operation->write($memory, $data->operation);
+    }
 
     /**
      * @param CData&object{

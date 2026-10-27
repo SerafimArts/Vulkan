@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultisamplePropertiesEXT.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkMultisamplePropertiesEXT extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000143004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT->value;
 
     public function __construct(
         public VkExtent2D $maxSampleLocationGridSize,

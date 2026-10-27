@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFilter;
 use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBlitImageInfo2Extension;
@@ -23,8 +24,7 @@ final class VkBlitImageInfo2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBlitImageInfo2';
 
-    /** `VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2` */
-    public const int STRUCTURE_TYPE = 1000337004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2->value;
 
     public function __construct(
         public VkImage $srcImage,
@@ -37,6 +37,21 @@ final class VkBlitImageInfo2 extends InputStructure
         public VkFilter $filter = VkFilter::VK_FILTER_NEAREST,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BLIT_IMAGE_INFO_2>,
+     *     pNext: CData,
+     *     srcImage: CData,
+     *     srcImageLayout: value-of<VkImageLayout>,
+     *     dstImage: CData,
+     *     dstImageLayout: value-of<VkImageLayout>,
+     *     regionCount: int<0, 4294967295>,
+     *     pRegions: CData,
+     *     filter: value-of<VkFilter>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

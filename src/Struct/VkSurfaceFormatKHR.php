@@ -30,8 +30,8 @@ final readonly class VkSurfaceFormatKHR extends OutputStructure
 
     /**
      * @param CData&object{
-     *     format: int,
-     *     colorSpace: int,
+     *     format: value-of<VkFormat>,
+     *     colorSpace: value-of<VkColorSpaceKHR>,
      * } $data
      *
      * @phpstan-param CData $data

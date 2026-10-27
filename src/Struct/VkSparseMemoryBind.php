@@ -45,6 +45,17 @@ final class VkSparseMemoryBind extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     resourceOffset: int<0, max>,
+     *     size: int<0, max>,
+     *     memory: CData,
+     *     memoryOffset: int<0, max>,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->resourceOffset = $this->resourceOffset;

@@ -24,6 +24,14 @@ final class VkViewportWScalingNV extends InputStructure
         public float $ycoeff = 0.0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     xcoeff: float,
+     *     ycoeff: float,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->xcoeff = $this->xcoeff;

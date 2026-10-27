@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkOpticalFlowExecuteFlagBitsNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkOpticalFlowExecuteInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkOpticalFlowExecuteInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000464005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV->value;
 
     public function __construct(
         /** @var int-mask-of<VkOpticalFlowExecuteFlagBitsNV::*> */
@@ -30,6 +30,17 @@ final class VkOpticalFlowExecuteInfoNV extends InputStructure
         public array $regions = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_EXECUTE_INFO_NV>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     regionCount: int<0, 4294967295>,
+     *     pRegions: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

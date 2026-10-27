@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorBufferBindingInfoEXTExtension;
@@ -24,14 +25,22 @@ final class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT extends Input
 {
     protected const string NATIVE_TYPE = 'VkDescriptorBufferBindingPushDescriptorBufferHandleEXT';
 
-    /** `VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT` */
-    public const int STRUCTURE_TYPE = 1000316012;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT->value;
 
     public function __construct(
         public VkBuffer $buffer,
         public ?VkDescriptorBufferBindingInfoEXTExtension $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_PUSH_DESCRIPTOR_BUFFER_HANDLE_EXT>,
+     *     pNext: CData,
+     *     buffer: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

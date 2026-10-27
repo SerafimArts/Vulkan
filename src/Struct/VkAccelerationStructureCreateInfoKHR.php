@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccelerationStructureCreateFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkAccelerationStructureTypeKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureCreateInfoKHRExtension;
@@ -26,8 +27,7 @@ final class VkAccelerationStructureCreateInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkAccelerationStructureCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000150017;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR->value;
 
     public function __construct(
         public VkBuffer $buffer,
@@ -47,6 +47,20 @@ final class VkAccelerationStructureCreateInfoKHR extends InputStructure
         public int $deviceAddress = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     createFlags: int<0, 4294967295>,
+     *     buffer: CData,
+     *     offset: int<0, max>,
+     *     size: int<0, max>,
+     *     type: value-of<VkAccelerationStructureTypeKHR>,
+     *     deviceAddress: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

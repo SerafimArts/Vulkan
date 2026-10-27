@@ -30,10 +30,34 @@ final class VkDisplayModeParametersKHR extends InputStructure
         public int $refreshRate = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     visibleRegion: CData,
+     *     refreshRate: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $this->visibleRegion->write($memory, $data->visibleRegion);
 
         $data->refreshRate = $this->refreshRate;
+    }
+
+    /**
+     * @param CData&object{
+     *     visibleRegion: CData,
+     *     refreshRate: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            visibleRegion: VkExtent2D::createFromCData($data->visibleRegion),
+            refreshRate: $data->refreshRate,
+        );
     }
 }

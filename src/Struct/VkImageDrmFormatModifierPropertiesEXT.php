@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDrmFormatModifierPropertiesEXT.html
@@ -16,8 +17,7 @@ use FFI\CData;
  */
 final readonly class VkImageDrmFormatModifierPropertiesEXT extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000158005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT->value;
 
     public function __construct(
         /** @var int<0, max> */

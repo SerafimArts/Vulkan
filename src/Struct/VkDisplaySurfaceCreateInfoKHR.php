@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDisplayPlaneAlphaFlagBitsKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
 use Serafim\Vulkan\Handle\VkDisplayModeKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -23,8 +24,7 @@ final class VkDisplaySurfaceCreateInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDisplaySurfaceCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000002001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR->value;
 
     public function __construct(
         /** The mode to use when displaying this surface */
@@ -71,6 +71,22 @@ final class VkDisplaySurfaceCreateInfoKHR extends InputStructure
         public int $alphaMode = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_SURFACE_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     displayMode: CData,
+     *     planeIndex: int<0, 4294967295>,
+     *     planeStackIndex: int<0, 4294967295>,
+     *     transform: int<0, 4294967295>,
+     *     globalAlpha: float,
+     *     alphaMode: int<0, 4294967295>,
+     *     imageExtent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

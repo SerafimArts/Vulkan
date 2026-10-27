@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkGpaSampleTypeAMD;
 use Serafim\Vulkan\Enum\VkGpaSqShaderStageFlagBitsAMD;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -22,8 +23,7 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkGpaSampleBeginInfoAMD';
 
-    /** `VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD` */
-    public const int STRUCTURE_TYPE = 1000133002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD->value;
 
     public function __construct(
         public VkGpaSampleTypeAMD $sampleType = VkGpaSampleTypeAMD::VK_GPA_SAMPLE_TYPE_CUMULATIVE_AMD,
@@ -48,6 +48,28 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
         public int $timingPostSample = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GPA_SAMPLE_BEGIN_INFO_AMD>,
+     *     pNext: CData,
+     *     sampleType: value-of<VkGpaSampleTypeAMD>,
+     *     sampleInternalOperations: int<0, 1>,
+     *     cacheFlushOnCounterCollection: int<0, 1>,
+     *     sqShaderMaskEnable: int<0, 1>,
+     *     sqShaderMask: int<0, 4294967295>,
+     *     perfCounterCount: int<0, 4294967295>,
+     *     pPerfCounters: CData,
+     *     streamingPerfTraceSampleInterval: int<0, 4294967295>,
+     *     perfCounterDeviceMemoryLimit: int<0, max>,
+     *     sqThreadTraceEnable: int<0, 1>,
+     *     sqThreadTraceSuppressInstructionTokens: int<0, 1>,
+     *     sqThreadTraceDeviceMemoryLimit: int<0, max>,
+     *     timingPreSample: int<0, 4294967295>,
+     *     timingPostSample: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -10,22 +10,40 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPhysicalDeviceDataGraphProcessingEngineTypeARM;
+use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceDataGraphProcessingEngineARM.html
  * @since VK_ARM_data_graph
  */
-final readonly class VkPhysicalDeviceDataGraphProcessingEngineARM extends OutputStructure
+final class VkPhysicalDeviceDataGraphProcessingEngineARM extends InputStructure
 {
+    protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphProcessingEngineARM';
+
     public function __construct(
-        public VkPhysicalDeviceDataGraphProcessingEngineTypeARM $type,
-        public bool $isForeign,
+        public VkPhysicalDeviceDataGraphProcessingEngineTypeARM $type = VkPhysicalDeviceDataGraphProcessingEngineTypeARM::VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM,
+        public bool $isForeign = false,
     ) {}
 
     /**
      * @param CData&object{
-     *     type: int,
-     *     isForeign: int,
+     *     type: value-of<VkPhysicalDeviceDataGraphProcessingEngineTypeARM>,
+     *     isForeign: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    protected function write(Allocation $memory, CData $data): void
+    {
+        $data->type = $this->type->value;
+
+        $data->isForeign = (int) $this->isForeign;
+    }
+
+    /**
+     * @param CData&object{
+     *     type: value-of<VkPhysicalDeviceDataGraphProcessingEngineTypeARM>,
+     *     isForeign: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

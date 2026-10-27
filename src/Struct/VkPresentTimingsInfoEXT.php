@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPresentInfoKHRExtension;
@@ -21,13 +22,15 @@ final class VkPresentTimingsInfoEXT extends InputStructure implements VkPresentI
 {
     protected const string NATIVE_TYPE = 'VkPresentTimingsInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PRESENT_TIMINGS_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000208003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMINGS_INFO_EXT->value;
 
     public function __construct(
         public ?VkPresentInfoKHRExtension $next = null,
         /**
          * Copy of VkPresentInfoKHR::swapchainCount
+         *
+         * The number of the elements of `$timingInfos`, it follows the
+         * array when it is given.
          *
          * @var int<0, 4294967295>
          */
@@ -40,6 +43,16 @@ final class VkPresentTimingsInfoEXT extends InputStructure implements VkPresentI
         public array $timingInfos = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMINGS_INFO_EXT>,
+     *     pNext: CData,
+     *     swapchainCount: int<0, 4294967295>,
+     *     pTimingInfos: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

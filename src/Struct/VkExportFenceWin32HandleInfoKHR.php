@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkFenceCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkExportFenceWin32HandleInfoKHR extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkExportFenceWin32HandleInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_EXPORT_FENCE_WIN32_HANDLE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000114001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_FENCE_WIN32_HANDLE_INFO_KHR->value;
 
     public function __construct(
         public CData|int $dwAccess,
@@ -30,6 +30,17 @@ final class VkExportFenceWin32HandleInfoKHR extends InputStructure implements Vk
         public CData|int|null $attributes = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXPORT_FENCE_WIN32_HANDLE_INFO_KHR>,
+     *     pNext: CData,
+     *     pAttributes: CData|int|null,
+     *     dwAccess: CData|int|null,
+     *     name: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

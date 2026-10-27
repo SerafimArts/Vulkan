@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkAccelerationStructureKHR;
 use Serafim\Vulkan\Handle\VkAccelerationStructureNV;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -24,14 +25,23 @@ final class VkAccelerationStructureCaptureDescriptorDataInfoEXT extends InputStr
 {
     protected const string NATIVE_TYPE = 'VkAccelerationStructureCaptureDescriptorDataInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000316009;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT->value;
 
     public function __construct(
         public ?VkAccelerationStructureKHR $accelerationStructure = null,
         public ?VkAccelerationStructureNV $accelerationStructureNV = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT>,
+     *     pNext: CData,
+     *     accelerationStructure: CData,
+     *     accelerationStructureNV: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

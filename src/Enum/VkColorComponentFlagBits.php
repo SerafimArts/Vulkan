@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkColorComponentFlagBits
 {
     public const int VK_COLOR_COMPONENT_R_BIT = 1;
+
     public const int VK_COLOR_COMPONENT_G_BIT = 2;
+
     public const int VK_COLOR_COMPONENT_B_BIT = 4;
+
     public const int VK_COLOR_COMPONENT_A_BIT = 8;
 
     private function __construct() {}

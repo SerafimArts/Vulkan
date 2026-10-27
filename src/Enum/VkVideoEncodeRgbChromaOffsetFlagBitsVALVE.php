@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodeRgbChromaOffsetFlagBitsVALVE
 {
     public const int VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_COSITED_EVEN_BIT_VALVE = 1;
+
     public const int VK_VIDEO_ENCODE_RGB_CHROMA_OFFSET_MIDPOINT_BIT_VALVE = 2;
 
     private function __construct() {}

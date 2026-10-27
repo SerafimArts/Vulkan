@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceMapMemoryPlacedFeaturesEXT extends InputStructure im
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceMapMemoryPlacedFeaturesEXT';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT` */
-    public const int STRUCTURE_TYPE = 1000272000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -33,6 +33,17 @@ final class VkPhysicalDeviceMapMemoryPlacedFeaturesEXT extends InputStructure im
         public bool $memoryUnmapReserve = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAP_MEMORY_PLACED_FEATURES_EXT>,
+     *     pNext: CData,
+     *     memoryMapPlaced: int<0, 1>,
+     *     memoryMapRangePlaced: int<0, 1>,
+     *     memoryUnmapReserve: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -60,9 +71,9 @@ final class VkPhysicalDeviceMapMemoryPlacedFeaturesEXT extends InputStructure im
 
     /**
      * @param CData&object{
-     *     memoryMapPlaced: int,
-     *     memoryMapRangePlaced: int,
-     *     memoryUnmapReserve: int,
+     *     memoryMapPlaced: int<0, 1>,
+     *     memoryMapRangePlaced: int<0, 1>,
+     *     memoryUnmapReserve: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

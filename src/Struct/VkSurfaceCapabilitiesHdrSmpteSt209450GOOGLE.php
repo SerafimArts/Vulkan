@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  */
 final readonly class VkSurfaceCapabilitiesHdrSmpteSt209450GOOGLE extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_HDR_SMPTE_ST_209450_GOOGLE` */
-    public const int STRUCTURE_TYPE = 1000718002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_HDR_SMPTE_ST_209450_GOOGLE->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -36,7 +36,7 @@ final readonly class VkSurfaceCapabilitiesHdrSmpteSt209450GOOGLE extends OutputS
 
     /**
      * @param CData&object{
-     *     hdrSmpteSt209450Supported: int,
+     *     hdrSmpteSt209450Supported: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

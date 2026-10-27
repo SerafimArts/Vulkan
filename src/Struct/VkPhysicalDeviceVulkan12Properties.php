@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkDriverId;
 use Serafim\Vulkan\Enum\VkResolveModeFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkShaderFloatControlsIndependence;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -23,8 +24,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES` */
-    public const int STRUCTURE_TYPE = 52;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -284,35 +284,35 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
 
     /**
      * @param CData&object{
-     *     driverID: int,
+     *     driverID: value-of<VkDriverId>,
      *     driverName: CData,
      *     driverInfo: CData,
      *     conformanceVersion: CData,
-     *     denormBehaviorIndependence: int,
-     *     roundingModeIndependence: int,
-     *     shaderSignedZeroInfNanPreserveFloat16: int,
-     *     shaderSignedZeroInfNanPreserveFloat32: int,
-     *     shaderSignedZeroInfNanPreserveFloat64: int,
-     *     shaderDenormPreserveFloat16: int,
-     *     shaderDenormPreserveFloat32: int,
-     *     shaderDenormPreserveFloat64: int,
-     *     shaderDenormFlushToZeroFloat16: int,
-     *     shaderDenormFlushToZeroFloat32: int,
-     *     shaderDenormFlushToZeroFloat64: int,
-     *     shaderRoundingModeRTEFloat16: int,
-     *     shaderRoundingModeRTEFloat32: int,
-     *     shaderRoundingModeRTEFloat64: int,
-     *     shaderRoundingModeRTZFloat16: int,
-     *     shaderRoundingModeRTZFloat32: int,
-     *     shaderRoundingModeRTZFloat64: int,
+     *     denormBehaviorIndependence: value-of<VkShaderFloatControlsIndependence>,
+     *     roundingModeIndependence: value-of<VkShaderFloatControlsIndependence>,
+     *     shaderSignedZeroInfNanPreserveFloat16: int<0, 1>,
+     *     shaderSignedZeroInfNanPreserveFloat32: int<0, 1>,
+     *     shaderSignedZeroInfNanPreserveFloat64: int<0, 1>,
+     *     shaderDenormPreserveFloat16: int<0, 1>,
+     *     shaderDenormPreserveFloat32: int<0, 1>,
+     *     shaderDenormPreserveFloat64: int<0, 1>,
+     *     shaderDenormFlushToZeroFloat16: int<0, 1>,
+     *     shaderDenormFlushToZeroFloat32: int<0, 1>,
+     *     shaderDenormFlushToZeroFloat64: int<0, 1>,
+     *     shaderRoundingModeRTEFloat16: int<0, 1>,
+     *     shaderRoundingModeRTEFloat32: int<0, 1>,
+     *     shaderRoundingModeRTEFloat64: int<0, 1>,
+     *     shaderRoundingModeRTZFloat16: int<0, 1>,
+     *     shaderRoundingModeRTZFloat32: int<0, 1>,
+     *     shaderRoundingModeRTZFloat64: int<0, 1>,
      *     maxUpdateAfterBindDescriptorsInAllPools: int<0, 4294967295>,
-     *     shaderUniformBufferArrayNonUniformIndexingNative: int,
-     *     shaderSampledImageArrayNonUniformIndexingNative: int,
-     *     shaderStorageBufferArrayNonUniformIndexingNative: int,
-     *     shaderStorageImageArrayNonUniformIndexingNative: int,
-     *     shaderInputAttachmentArrayNonUniformIndexingNative: int,
-     *     robustBufferAccessUpdateAfterBind: int,
-     *     quadDivergentImplicitLod: int,
+     *     shaderUniformBufferArrayNonUniformIndexingNative: int<0, 1>,
+     *     shaderSampledImageArrayNonUniformIndexingNative: int<0, 1>,
+     *     shaderStorageBufferArrayNonUniformIndexingNative: int<0, 1>,
+     *     shaderStorageImageArrayNonUniformIndexingNative: int<0, 1>,
+     *     shaderInputAttachmentArrayNonUniformIndexingNative: int<0, 1>,
+     *     robustBufferAccessUpdateAfterBind: int<0, 1>,
+     *     quadDivergentImplicitLod: int<0, 1>,
      *     maxPerStageDescriptorUpdateAfterBindSamplers: int<0, 4294967295>,
      *     maxPerStageDescriptorUpdateAfterBindUniformBuffers: int<0, 4294967295>,
      *     maxPerStageDescriptorUpdateAfterBindStorageBuffers: int<0, 4294967295>,
@@ -330,10 +330,10 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
      *     maxDescriptorSetUpdateAfterBindInputAttachments: int<0, 4294967295>,
      *     supportedDepthResolveModes: int<0, 4294967295>,
      *     supportedStencilResolveModes: int<0, 4294967295>,
-     *     independentResolveNone: int,
-     *     independentResolve: int,
-     *     filterMinmaxSingleComponentFormats: int,
-     *     filterMinmaxImageComponentMapping: int,
+     *     independentResolveNone: int<0, 1>,
+     *     independentResolve: int<0, 1>,
+     *     filterMinmaxSingleComponentFormats: int<0, 1>,
+     *     filterMinmaxImageComponentMapping: int<0, 1>,
      *     maxTimelineSemaphoreValueDifference: int<0, max>,
      *     framebufferIntegerColorSampleCounts: int<0, 4294967295>,
      * } $data

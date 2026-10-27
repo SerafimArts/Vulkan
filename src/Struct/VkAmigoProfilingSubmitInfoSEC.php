@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkAmigoProfilingSubmitInfoSEC extends InputStructure implements VkSu
 {
     protected const string NATIVE_TYPE = 'VkAmigoProfilingSubmitInfoSEC';
 
-    /** `VK_STRUCTURE_TYPE_AMIGO_PROFILING_SUBMIT_INFO_SEC` */
-    public const int STRUCTURE_TYPE = 1000485001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_AMIGO_PROFILING_SUBMIT_INFO_SEC->value;
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,
@@ -31,6 +31,16 @@ final class VkAmigoProfilingSubmitInfoSEC extends InputStructure implements VkSu
         public int $swapBufferTimestamp = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_AMIGO_PROFILING_SUBMIT_INFO_SEC>,
+     *     pNext: CData,
+     *     firstDrawTimestamp: int<0, max>,
+     *     swapBufferTimestamp: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -38,6 +38,23 @@ final class VkDescriptorMappingSourceDataEXT extends InputStructure
         public ?int $shaderRecordAddressOffset = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     constantOffset: CData,
+     *     pushIndex: CData,
+     *     indirectIndex: CData,
+     *     indirectIndexArray: CData,
+     *     heapData: CData,
+     *     pushDataOffset: int<0, 4294967295>,
+     *     pushAddressOffset: int<0, 4294967295>,
+     *     indirectAddress: CData,
+     *     shaderRecordIndex: CData,
+     *     shaderRecordDataOffset: int<0, 4294967295>,
+     *     shaderRecordAddressOffset: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->constantOffset, $this->pushIndex, $this->indirectIndex, $this->indirectIndexArray, $this->heapData, $this->pushDataOffset, $this->pushAddressOffset, $this->indirectAddress, $this->shaderRecordIndex, $this->shaderRecordDataOffset, $this->shaderRecordAddressOffset], static fn(mixed $member): bool => $member !== null));

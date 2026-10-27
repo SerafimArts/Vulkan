@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkAccessFlagBits2;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits2;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkMemoryRangeBarrierKHRExtension;
 
@@ -23,8 +24,7 @@ final class VkMemoryRangeBarrierKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkMemoryRangeBarrierKHR';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_RANGE_BARRIER_KHR` */
-    public const int STRUCTURE_TYPE = 1000318005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_RANGE_BARRIER_KHR->value;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
@@ -45,6 +45,22 @@ final class VkMemoryRangeBarrierKHR extends InputStructure
         public int $addressFlags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_RANGE_BARRIER_KHR>,
+     *     pNext: CData,
+     *     srcStageMask: int<0, max>,
+     *     srcAccessMask: int<0, max>,
+     *     dstStageMask: int<0, max>,
+     *     dstAccessMask: int<0, max>,
+     *     srcQueueFamilyIndex: int<0, 4294967295>,
+     *     dstQueueFamilyIndex: int<0, 4294967295>,
+     *     addressRange: CData,
+     *     addressFlags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

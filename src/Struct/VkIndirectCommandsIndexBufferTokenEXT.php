@@ -25,6 +25,13 @@ final class VkIndirectCommandsIndexBufferTokenEXT extends InputStructure
         public int $mode = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     mode: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->mode = $this->mode;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkMemoryRequirements2Extension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkMemoryRequirements2Extension;
  */
 final readonly class VkMemoryRequirements2 extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2` */
-    public const int STRUCTURE_TYPE = 1000146003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2->value;
 
     public function __construct(
         public VkMemoryRequirements $memoryRequirements,

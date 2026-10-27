@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkIndexType;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,8 +22,7 @@ final class VkBindIndexBuffer3InfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBindIndexBuffer3InfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_BIND_INDEX_BUFFER_3_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000318007;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_INDEX_BUFFER_3_INFO_KHR->value;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
@@ -31,6 +31,17 @@ final class VkBindIndexBuffer3InfoKHR extends InputStructure
         public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_INDEX_BUFFER_3_INFO_KHR>,
+     *     pNext: CData,
+     *     addressRange: CData,
+     *     addressFlags: int<0, 4294967295>,
+     *     indexType: value-of<VkIndexType>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  */
 final readonly class VkSurfaceCapabilities2KHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR` */
-    public const int STRUCTURE_TYPE = 1000119001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_KHR->value;
 
     public function __construct(
         public VkSurfaceCapabilitiesKHR $surfaceCapabilities,

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoCodingControlFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkVideoCodingControlInfoKHRExtension;
@@ -21,8 +22,7 @@ final class VkVideoCodingControlInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkVideoCodingControlInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000023010;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR->value;
 
     public function __construct(
         public ?VkVideoCodingControlInfoKHRExtension $next = null,
@@ -30,6 +30,15 @@ final class VkVideoCodingControlInfoKHR extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

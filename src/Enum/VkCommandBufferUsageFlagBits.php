@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkCommandBufferUsageFlagBits
 {
     public const int VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT = 1;
+
     public const int VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT = 2;
 
     /**

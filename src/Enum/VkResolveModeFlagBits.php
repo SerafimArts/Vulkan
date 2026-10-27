@@ -15,11 +15,17 @@ namespace Serafim\Vulkan\Enum;
 final class VkResolveModeFlagBits
 {
     public const int VK_RESOLVE_MODE_NONE = 0;
+
     public const int VK_RESOLVE_MODE_SAMPLE_ZERO_BIT = 1;
+
     public const int VK_RESOLVE_MODE_AVERAGE_BIT = 2;
+
     public const int VK_RESOLVE_MODE_MIN_BIT = 4;
+
     public const int VK_RESOLVE_MODE_MAX_BIT = 8;
+
     public const int VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID = 16;
+
     public const int VK_RESOLVE_MODE_CUSTOM_BIT_EXT = 32;
 
     /** Alias of {@see self::VK_RESOLVE_MODE_NONE} */

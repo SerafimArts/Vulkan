@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoverageReductionModeNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkPipelineCoverageReductionStateCreateInfoNV extends InputStructure 
 {
     protected const string NATIVE_TYPE = 'VkPipelineCoverageReductionStateCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000250001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,
@@ -31,6 +31,16 @@ final class VkPipelineCoverageReductionStateCreateInfoNV extends InputStructure 
         public VkCoverageReductionModeNV $coverageReductionMode = VkCoverageReductionModeNV::VK_COVERAGE_REDUCTION_MODE_MERGE_NV,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_REDUCTION_STATE_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     coverageReductionMode: value-of<VkCoverageReductionModeNV>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

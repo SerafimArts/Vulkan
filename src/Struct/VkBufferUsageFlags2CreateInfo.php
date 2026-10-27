@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkBufferUsageFlagBits2;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkBufferViewCreateInfoExtension;
@@ -24,8 +25,7 @@ final class VkBufferUsageFlags2CreateInfo extends InputStructure implements VkBu
 {
     protected const string NATIVE_TYPE = 'VkBufferUsageFlags2CreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000470006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO->value;
 
     public function __construct(
         public VkBufferViewCreateInfoExtension|VkBufferCreateInfoExtension|VkPhysicalDeviceExternalBufferInfoExtension|VkDescriptorBufferBindingInfoEXTExtension|null $next = null,
@@ -33,6 +33,15 @@ final class VkBufferUsageFlags2CreateInfo extends InputStructure implements VkBu
         public int $usage = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO>,
+     *     pNext: CData,
+     *     usage: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

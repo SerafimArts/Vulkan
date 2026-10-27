@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndirectCommandsLayoutUsageFlagBitsNV;
 use Serafim\Vulkan\Enum\VkPipelineBindPoint;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,8 +22,7 @@ final class VkIndirectCommandsLayoutCreateInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkIndirectCommandsLayoutCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000277004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV->value;
 
     public function __construct(
         /** @var int-mask-of<VkIndirectCommandsLayoutUsageFlagBitsNV::*> */
@@ -34,6 +34,20 @@ final class VkIndirectCommandsLayoutCreateInfoNV extends InputStructure
         public array $streamStrides = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
+     *     tokenCount: int<0, 4294967295>,
+     *     pTokens: CData,
+     *     streamCount: int<0, 4294967295>,
+     *     pStreamStrides: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

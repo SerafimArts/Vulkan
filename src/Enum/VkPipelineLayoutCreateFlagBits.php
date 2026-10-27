@@ -18,6 +18,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkPipelineLayoutCreateFlagBits
 {
     public const int VK_PIPELINE_LAYOUT_CREATE_INDEPENDENT_SETS_BIT_EXT = 2;
+
     public const int VK_PIPELINE_LAYOUT_CREATE_NO_TASK_SHADER_BIT_KHR = 4;
 
     private function __construct() {}

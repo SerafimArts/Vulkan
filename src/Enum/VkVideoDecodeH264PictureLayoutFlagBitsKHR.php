@@ -15,7 +15,9 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoDecodeH264PictureLayoutFlagBitsKHR
 {
     public const int VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_PROGRESSIVE_KHR = 0;
+
     public const int VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR = 1;
+
     public const int VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR = 2;
 
     private function __construct() {}

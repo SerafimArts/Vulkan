@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFramebufferCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Handle\VkRenderPass;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -26,8 +27,7 @@ final class VkFramebufferCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkFramebufferCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 37;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO->value;
 
     public function __construct(
         public VkRenderPass $renderPass,
@@ -44,6 +44,21 @@ final class VkFramebufferCreateInfo extends InputStructure
         public int $layers = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     renderPass: CData,
+     *     attachmentCount: int<0, 4294967295>,
+     *     pAttachments: CData,
+     *     width: int<0, 4294967295>,
+     *     height: int<0, 4294967295>,
+     *     layers: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

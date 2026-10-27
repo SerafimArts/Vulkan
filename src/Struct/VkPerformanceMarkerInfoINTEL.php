@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,14 +20,22 @@ final class VkPerformanceMarkerInfoINTEL extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPerformanceMarkerInfoINTEL';
 
-    /** `VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL` */
-    public const int STRUCTURE_TYPE = 1000210002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL->value;
 
     public function __construct(
         /** @var int<0, max> */
         public int $marker = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL>,
+     *     pNext: CData,
+     *     marker: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

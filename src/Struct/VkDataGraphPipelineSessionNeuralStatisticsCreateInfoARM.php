@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkNeuralAcceleratorStatisticsModeARM;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineSessionCreateInfoARMExtension;
 
@@ -21,14 +22,22 @@ final class VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM extends Inpu
 {
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSessionNeuralStatisticsCreateInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000676001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM->value;
 
     public function __construct(
         public ?VkDataGraphPipelineSessionCreateInfoARMExtension $next = null,
         public VkNeuralAcceleratorStatisticsModeARM $mode = VkNeuralAcceleratorStatisticsModeARM::VK_NEURAL_ACCELERATOR_STATISTICS_MODE_DISABLED_ARM,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_NEURAL_STATISTICS_CREATE_INFO_ARM>,
+     *     pNext: CData,
+     *     mode: value-of<VkNeuralAcceleratorStatisticsModeARM>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

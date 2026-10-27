@@ -14,6 +14,7 @@ use Serafim\Vulkan\Enum\VkImageTiling;
 use Serafim\Vulkan\Enum\VkImageType;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceSparseImageFormatInfo2Extension;
 
@@ -25,8 +26,7 @@ final class VkPhysicalDeviceSparseImageFormatInfo2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceSparseImageFormatInfo2';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2` */
-    public const int STRUCTURE_TYPE = 1000059008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2->value;
 
     public function __construct(
         public ?VkPhysicalDeviceSparseImageFormatInfo2Extension $next = null,
@@ -39,6 +39,19 @@ final class VkPhysicalDeviceSparseImageFormatInfo2 extends InputStructure
         public VkImageTiling $tiling = VkImageTiling::VK_IMAGE_TILING_OPTIMAL,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SPARSE_IMAGE_FORMAT_INFO_2>,
+     *     pNext: CData,
+     *     format: value-of<VkFormat>,
+     *     type: value-of<VkImageType>,
+     *     samples: int<0, 4294967295>,
+     *     usage: int<0, 4294967295>,
+     *     tiling: value-of<VkImageTiling>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

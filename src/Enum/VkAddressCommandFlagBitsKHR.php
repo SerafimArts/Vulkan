@@ -15,10 +15,15 @@ namespace Serafim\Vulkan\Enum;
 final class VkAddressCommandFlagBitsKHR
 {
     public const int VK_ADDRESS_COMMAND_PROTECTED_BIT_KHR = 1;
+
     public const int VK_ADDRESS_COMMAND_FULLY_BOUND_BIT_KHR = 2;
+
     public const int VK_ADDRESS_COMMAND_STORAGE_BUFFER_USAGE_BIT_KHR = 4;
+
     public const int VK_ADDRESS_COMMAND_UNKNOWN_STORAGE_BUFFER_USAGE_BIT_KHR = 8;
+
     public const int VK_ADDRESS_COMMAND_TRANSFORM_FEEDBACK_BUFFER_USAGE_BIT_KHR = 16;
+
     public const int VK_ADDRESS_COMMAND_UNKNOWN_TRANSFORM_FEEDBACK_BUFFER_USAGE_BIT_KHR = 32;
 
     private function __construct() {}

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkMemoryToImageCopy extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkMemoryToImageCopy';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_TO_IMAGE_COPY` */
-    public const int STRUCTURE_TYPE = 1000270002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_TO_IMAGE_COPY->value;
 
     public function __construct(
         public CData|int $hostPointer,
@@ -37,6 +37,20 @@ final class VkMemoryToImageCopy extends InputStructure
         public int $memoryImageHeight = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_TO_IMAGE_COPY>,
+     *     pNext: CData,
+     *     pHostPointer: CData|int|null,
+     *     memoryRowLength: int<0, 4294967295>,
+     *     memoryImageHeight: int<0, 4294967295>,
+     *     imageSubresource: CData,
+     *     imageOffset: CData,
+     *     imageExtent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

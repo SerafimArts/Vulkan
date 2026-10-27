@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkCopyDeviceMemoryImageInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCopyDeviceMemoryImageInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_COPY_DEVICE_MEMORY_IMAGE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000318003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COPY_DEVICE_MEMORY_IMAGE_INFO_KHR->value;
 
     public function __construct(
         public VkImage $image,
@@ -29,6 +29,17 @@ final class VkCopyDeviceMemoryImageInfoKHR extends InputStructure
         public array $regions = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COPY_DEVICE_MEMORY_IMAGE_INFO_KHR>,
+     *     pNext: CData,
+     *     image: CData,
+     *     regionCount: int<0, 4294967295>,
+     *     pRegions: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

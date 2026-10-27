@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageMemoryBarrier2Extension;
 use Serafim\Vulkan\Struct\Extension\VkImageMemoryBarrierExtension;
@@ -22,8 +23,7 @@ final class VkSampleLocationsInfoEXT extends InputStructure implements VkImageMe
 {
     protected const string NATIVE_TYPE = 'VkSampleLocationsInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_SAMPLE_LOCATIONS_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000143000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLE_LOCATIONS_INFO_EXT->value;
 
     public function __construct(
         public VkExtent2D $sampleLocationGridSize,
@@ -34,6 +34,18 @@ final class VkSampleLocationsInfoEXT extends InputStructure implements VkImageMe
         public array $sampleLocations = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SAMPLE_LOCATIONS_INFO_EXT>,
+     *     pNext: CData,
+     *     sampleLocationsPerPixel: int<0, 4294967295>,
+     *     sampleLocationGridSize: CData,
+     *     sampleLocationsCount: int<0, 4294967295>,
+     *     pSampleLocations: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

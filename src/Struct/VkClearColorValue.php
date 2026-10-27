@@ -29,6 +29,15 @@ final class VkClearColorValue extends InputStructure
         public ?array $uint32 = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     float32: CData,
+     *     int32: CData,
+     *     uint32: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->float32, $this->int32, $this->uint32], static fn(mixed $member): bool => $member !== null));

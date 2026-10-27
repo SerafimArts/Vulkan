@@ -15,9 +15,13 @@ namespace Serafim\Vulkan\Enum;
 final class VkOpticalFlowSessionCreateFlagBitsNV
 {
     public const int VK_OPTICAL_FLOW_SESSION_CREATE_ENABLE_HINT_BIT_NV = 1;
+
     public const int VK_OPTICAL_FLOW_SESSION_CREATE_ENABLE_COST_BIT_NV = 2;
+
     public const int VK_OPTICAL_FLOW_SESSION_CREATE_ENABLE_GLOBAL_FLOW_BIT_NV = 4;
+
     public const int VK_OPTICAL_FLOW_SESSION_CREATE_ALLOW_REGIONS_BIT_NV = 8;
+
     public const int VK_OPTICAL_FLOW_SESSION_CREATE_BOTH_DIRECTIONS_BIT_NV = 16;
 
     private function __construct() {}

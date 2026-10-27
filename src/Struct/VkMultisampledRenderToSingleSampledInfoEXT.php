@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDescription2Extension;
@@ -22,8 +23,7 @@ final class VkMultisampledRenderToSingleSampledInfoEXT extends InputStructure im
 {
     protected const string NATIVE_TYPE = 'VkMultisampledRenderToSingleSampledInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000376002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT->value;
 
     public function __construct(
         public VkSubpassDescription2Extension|VkRenderingInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkMultisampledRenderToSingleSampledInfoEXT extends InputStructure im
         public int $rasterizationSamples = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT>,
+     *     pNext: CData,
+     *     multisampledRenderToSingleSampledEnable: int<0, 1>,
+     *     rasterizationSamples: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

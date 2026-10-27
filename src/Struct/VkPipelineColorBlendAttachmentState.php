@@ -34,6 +34,20 @@ final class VkPipelineColorBlendAttachmentState extends InputStructure
         public int $colorWriteMask = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     blendEnable: int<0, 1>,
+     *     srcColorBlendFactor: value-of<VkBlendFactor>,
+     *     dstColorBlendFactor: value-of<VkBlendFactor>,
+     *     colorBlendOp: value-of<VkBlendOp>,
+     *     srcAlphaBlendFactor: value-of<VkBlendFactor>,
+     *     dstAlphaBlendFactor: value-of<VkBlendFactor>,
+     *     alphaBlendOp: value-of<VkBlendOp>,
+     *     colorWriteMask: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->blendEnable = (int) $this->blendEnable;

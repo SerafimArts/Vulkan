@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipeline;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -21,8 +22,7 @@ final class VkGraphicsPipelineShaderGroupsCreateInfoNV extends InputStructure im
 {
     protected const string NATIVE_TYPE = 'VkGraphicsPipelineShaderGroupsCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000277002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkGraphicsPipelineCreateInfoExtension $next = null,
@@ -32,6 +32,18 @@ final class VkGraphicsPipelineShaderGroupsCreateInfoNV extends InputStructure im
         public array $pipelines = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     groupCount: int<0, 4294967295>,
+     *     pGroups: CData,
+     *     pipelineCount: int<0, 4294967295>,
+     *     pPipelines: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -43,6 +43,16 @@ final class VkVertexInputAttributeDescription extends InputStructure
         public int $offset = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     location: int<0, 4294967295>,
+     *     binding: int<0, 4294967295>,
+     *     format: value-of<VkFormat>,
+     *     offset: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->location = $this->location;

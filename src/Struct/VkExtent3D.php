@@ -28,6 +28,15 @@ final class VkExtent3D extends InputStructure
         public int $depth = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     width: int<0, 4294967295>,
+     *     height: int<0, 4294967295>,
+     *     depth: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->width = $this->width;

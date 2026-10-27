@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindSparseInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkDeviceGroupBindSparseInfo extends InputStructure implements VkBind
 {
     protected const string NATIVE_TYPE = 'VkDeviceGroupBindSparseInfo';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_BIND_SPARSE_INFO` */
-    public const int STRUCTURE_TYPE = 1000060006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_BIND_SPARSE_INFO->value;
 
     public function __construct(
         public ?VkBindSparseInfoExtension $next = null,
@@ -31,6 +31,16 @@ final class VkDeviceGroupBindSparseInfo extends InputStructure implements VkBind
         public int $memoryDeviceIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_BIND_SPARSE_INFO>,
+     *     pNext: CData,
+     *     resourceDeviceIndex: int<0, 4294967295>,
+     *     memoryDeviceIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

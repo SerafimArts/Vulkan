@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSamplerYcbcrConversionCreateInfoExtension;
@@ -21,8 +22,7 @@ final class VkExternalFormatQNX extends InputStructure implements VkImageCreateI
 {
     protected const string NATIVE_TYPE = 'VkExternalFormatQNX';
 
-    /** `VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_QNX` */
-    public const int STRUCTURE_TYPE = 1000529003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_QNX->value;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|null $next = null,
@@ -30,6 +30,15 @@ final class VkExternalFormatQNX extends InputStructure implements VkImageCreateI
         public int $externalFormat = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_QNX>,
+     *     pNext: CData,
+     *     externalFormat: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

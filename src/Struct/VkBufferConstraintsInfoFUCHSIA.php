@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkBufferConstraintsInfoFUCHSIA extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBufferConstraintsInfoFUCHSIA';
 
-    /** `VK_STRUCTURE_TYPE_BUFFER_CONSTRAINTS_INFO_FUCHSIA` */
-    public const int STRUCTURE_TYPE = 1000366004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CONSTRAINTS_INFO_FUCHSIA->value;
 
     public function __construct(
         public VkBufferCreateInfo $createInfo,
@@ -30,6 +30,17 @@ final class VkBufferConstraintsInfoFUCHSIA extends InputStructure
         public int $requiredFormatFeatures = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CONSTRAINTS_INFO_FUCHSIA>,
+     *     pNext: CData,
+     *     createInfo: CData,
+     *     requiredFormatFeatures: int<0, 4294967295>,
+     *     bufferCollectionConstraints: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

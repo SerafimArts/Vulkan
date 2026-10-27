@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeAV1SuperblockSizeFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
  */
 final readonly class VkVideoFormatAV1QuantizationMapPropertiesKHR extends OutputStructure implements VkVideoFormatPropertiesKHRExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000553008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData
     {

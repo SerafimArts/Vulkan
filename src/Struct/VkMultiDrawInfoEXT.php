@@ -26,6 +26,14 @@ final class VkMultiDrawInfoEXT extends InputStructure
         public int $vertexCount = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     firstVertex: int<0, 4294967295>,
+     *     vertexCount: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->firstVertex = $this->firstVertex;

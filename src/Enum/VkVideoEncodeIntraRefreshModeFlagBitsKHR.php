@@ -15,9 +15,13 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodeIntraRefreshModeFlagBitsKHR
 {
     public const int VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR = 0;
+
     public const int VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR = 1;
+
     public const int VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR = 2;
+
     public const int VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_ROW_BASED_BIT_KHR = 4;
+
     public const int VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_COLUMN_BASED_BIT_KHR = 8;
 
     private function __construct() {}

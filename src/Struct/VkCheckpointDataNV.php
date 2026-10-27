@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCheckpointDataNV.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
  */
 final readonly class VkCheckpointDataNV extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_CHECKPOINT_DATA_NV` */
-    public const int STRUCTURE_TYPE = 1000206000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CHECKPOINT_DATA_NV->value;
 
     public function __construct(
         /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::*) */

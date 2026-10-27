@@ -13,6 +13,7 @@ use Serafim\Vulkan\Enum\VkAttachmentLoadOp;
 use Serafim\Vulkan\Enum\VkAttachmentStoreOp;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkResolveModeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderingAttachmentInfoExtension;
@@ -25,8 +26,7 @@ final class VkRenderingAttachmentInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkRenderingAttachmentInfo';
 
-    /** `VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO` */
-    public const int STRUCTURE_TYPE = 1000044001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO->value;
 
     public function __construct(
         public VkClearValue $clearValue,
@@ -41,6 +41,22 @@ final class VkRenderingAttachmentInfo extends InputStructure
         public VkAttachmentStoreOp $storeOp = VkAttachmentStoreOp::VK_ATTACHMENT_STORE_OP_STORE,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO>,
+     *     pNext: CData,
+     *     imageView: CData,
+     *     imageLayout: value-of<VkImageLayout>,
+     *     resolveMode: int<0, 4294967295>,
+     *     resolveImageView: CData,
+     *     resolveImageLayout: value-of<VkImageLayout>,
+     *     loadOp: value-of<VkAttachmentLoadOp>,
+     *     storeOp: value-of<VkAttachmentStoreOp>,
+     *     clearValue: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

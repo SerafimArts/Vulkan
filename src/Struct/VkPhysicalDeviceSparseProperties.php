@@ -61,11 +61,11 @@ final readonly class VkPhysicalDeviceSparseProperties extends OutputStructure
 
     /**
      * @param CData&object{
-     *     residencyStandard2DBlockShape: int,
-     *     residencyStandard2DMultisampleBlockShape: int,
-     *     residencyStandard3DBlockShape: int,
-     *     residencyAlignedMipSize: int,
-     *     residencyNonResidentStrict: int,
+     *     residencyStandard2DBlockShape: int<0, 1>,
+     *     residencyStandard2DMultisampleBlockShape: int<0, 1>,
+     *     residencyStandard3DBlockShape: int<0, 1>,
+     *     residencyAlignedMipSize: int<0, 1>,
+     *     residencyNonResidentStrict: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

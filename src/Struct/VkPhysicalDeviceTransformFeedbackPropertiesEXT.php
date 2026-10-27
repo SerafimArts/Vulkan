@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  */
 final readonly class VkPhysicalDeviceTransformFeedbackPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000028001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -85,10 +85,10 @@ final readonly class VkPhysicalDeviceTransformFeedbackPropertiesEXT extends Outp
      *     maxTransformFeedbackStreamDataSize: int<0, 4294967295>,
      *     maxTransformFeedbackBufferDataSize: int<0, 4294967295>,
      *     maxTransformFeedbackBufferDataStride: int<0, 4294967295>,
-     *     transformFeedbackQueries: int,
-     *     transformFeedbackStreamsLinesTriangles: int,
-     *     transformFeedbackRasterizationStreamSelect: int,
-     *     transformFeedbackDraw: int,
+     *     transformFeedbackQueries: int<0, 1>,
+     *     transformFeedbackStreamsLinesTriangles: int<0, 1>,
+     *     transformFeedbackRasterizationStreamSelect: int<0, 1>,
+     *     transformFeedbackDraw: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

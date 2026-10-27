@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCuModuleCreateInfoNVXExtension;
 
@@ -20,14 +21,23 @@ final class VkCuModuleCreateInfoNVX extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCuModuleCreateInfoNVX';
 
-    /** `VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX` */
-    public const int STRUCTURE_TYPE = 1000029000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX->value;
 
     public function __construct(
         public ?VkCuModuleCreateInfoNVXExtension $next = null,
         public string $data = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX>,
+     *     pNext: CData,
+     *     dataSize: int<0, max>,
+     *     pData: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceVertexAttributeDivisorFeatures extends InputStructur
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVertexAttributeDivisorFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000190002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPhysicalDeviceVertexAttributeDivisorFeatures extends InputStructur
         public bool $vertexAttributeInstanceRateZeroDivisor = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_DIVISOR_FEATURES>,
+     *     pNext: CData,
+     *     vertexAttributeInstanceRateDivisor: int<0, 1>,
+     *     vertexAttributeInstanceRateZeroDivisor: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -57,8 +67,8 @@ final class VkPhysicalDeviceVertexAttributeDivisorFeatures extends InputStructur
 
     /**
      * @param CData&object{
-     *     vertexAttributeInstanceRateDivisor: int,
-     *     vertexAttributeInstanceRateZeroDivisor: int,
+     *     vertexAttributeInstanceRateDivisor: int<0, 1>,
+     *     vertexAttributeInstanceRateZeroDivisor: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

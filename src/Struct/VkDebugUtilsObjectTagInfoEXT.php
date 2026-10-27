@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkObjectType;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -20,8 +21,7 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDebugUtilsObjectTagInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000128001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT->value;
 
     public function __construct(
         public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
@@ -32,6 +32,19 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
         public string $tag = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT>,
+     *     pNext: CData,
+     *     objectType: value-of<VkObjectType>,
+     *     objectHandle: int<0, max>,
+     *     tagName: int<0, max>,
+     *     tagSize: int<0, max>,
+     *     pTag: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

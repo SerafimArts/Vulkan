@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorType;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Handle\VkSampler;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -22,8 +23,7 @@ final class VkImageViewHandleInfoNVX extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkImageViewHandleInfoNVX';
 
-    /** `VK_STRUCTURE_TYPE_IMAGE_VIEW_HANDLE_INFO_NVX` */
-    public const int STRUCTURE_TYPE = 1000030000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_HANDLE_INFO_NVX->value;
 
     public function __construct(
         public VkImageView $imageView,
@@ -31,6 +31,17 @@ final class VkImageViewHandleInfoNVX extends InputStructure
         public ?VkSampler $sampler = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_HANDLE_INFO_NVX>,
+     *     pNext: CData,
+     *     imageView: CData,
+     *     descriptorType: value-of<VkDescriptorType>,
+     *     sampler: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
 
 /**
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExte
  */
 final readonly class VkAndroidHardwareBufferPropertiesANDROID extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID` */
-    public const int STRUCTURE_TYPE = 1000129001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID->value;
 
     public function __construct(
         /** @var int<0, max> */

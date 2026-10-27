@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,13 +20,21 @@ final class VkRenderPassStripeInfoARM extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkRenderPassStripeInfoARM';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_INFO_ARM` */
-    public const int STRUCTURE_TYPE = 1000424003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_INFO_ARM->value;
 
     public function __construct(
         public VkRect2D $stripeArea,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_INFO_ARM>,
+     *     pNext: CData,
+     *     stripeArea: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

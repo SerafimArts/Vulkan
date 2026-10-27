@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkSemaphoreSignalInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkSemaphoreSignalInfo';
 
-    /** `VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO` */
-    public const int STRUCTURE_TYPE = 1000207005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO->value;
 
     public function __construct(
         public VkSemaphore $semaphore,
@@ -29,6 +29,16 @@ final class VkSemaphoreSignalInfo extends InputStructure
         public int $value = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO>,
+     *     pNext: CData,
+     *     semaphore: CData,
+     *     value: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

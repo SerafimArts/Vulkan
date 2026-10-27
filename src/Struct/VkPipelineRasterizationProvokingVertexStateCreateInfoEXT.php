@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkProvokingVertexModeEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -21,14 +22,22 @@ final class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT extends Inp
 {
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationProvokingVertexStateCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000254001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
         public VkProvokingVertexModeEXT $provokingVertexMode = VkProvokingVertexModeEXT::VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     provokingVertexMode: value-of<VkProvokingVertexModeEXT>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

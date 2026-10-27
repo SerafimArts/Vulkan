@@ -15,15 +15,25 @@ namespace Serafim\Vulkan\Enum;
 final class VkSpirvResourceTypeFlagBitsEXT
 {
     public const int VK_SPIRV_RESOURCE_TYPE_ALL_EXT = 2147483647;
+
     public const int VK_SPIRV_RESOURCE_TYPE_SAMPLER_BIT_EXT = 1;
+
     public const int VK_SPIRV_RESOURCE_TYPE_SAMPLED_IMAGE_BIT_EXT = 2;
+
     public const int VK_SPIRV_RESOURCE_TYPE_READ_ONLY_IMAGE_BIT_EXT = 4;
+
     public const int VK_SPIRV_RESOURCE_TYPE_READ_WRITE_IMAGE_BIT_EXT = 8;
+
     public const int VK_SPIRV_RESOURCE_TYPE_COMBINED_SAMPLED_IMAGE_BIT_EXT = 16;
+
     public const int VK_SPIRV_RESOURCE_TYPE_UNIFORM_BUFFER_BIT_EXT = 32;
+
     public const int VK_SPIRV_RESOURCE_TYPE_READ_ONLY_STORAGE_BUFFER_BIT_EXT = 64;
+
     public const int VK_SPIRV_RESOURCE_TYPE_READ_WRITE_STORAGE_BUFFER_BIT_EXT = 128;
+
     public const int VK_SPIRV_RESOURCE_TYPE_ACCELERATION_STRUCTURE_BIT_EXT = 256;
+
     public const int VK_SPIRV_RESOURCE_TYPE_TENSOR_BIT_ARM = 512;
 
     private function __construct() {}

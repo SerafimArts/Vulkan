@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineSessionBindPointARM;
 use Serafim\Vulkan\Enum\VkDataGraphPipelineSessionBindPointTypeARM;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementARM.html
@@ -18,8 +19,7 @@ use Serafim\Vulkan\Enum\VkDataGraphPipelineSessionBindPointTypeARM;
  */
 final readonly class VkDataGraphPipelineSessionBindPointRequirementARM extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM` */
-    public const int STRUCTURE_TYPE = 1000507012;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM->value;
 
     public function __construct(
         public VkDataGraphPipelineSessionBindPointARM $bindPoint,
@@ -30,8 +30,8 @@ final readonly class VkDataGraphPipelineSessionBindPointRequirementARM extends O
 
     /**
      * @param CData&object{
-     *     bindPoint: int,
-     *     bindPointType: int,
+     *     bindPoint: value-of<VkDataGraphPipelineSessionBindPointARM>,
+     *     bindPointType: value-of<VkDataGraphPipelineSessionBindPointTypeARM>,
      *     numObjects: int<0, 4294967295>,
      * } $data
      *

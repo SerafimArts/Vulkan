@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -21,8 +22,7 @@ final class VkIOSSurfaceCreateInfoMVK extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkIOSSurfaceCreateInfoMVK';
 
-    /** `VK_STRUCTURE_TYPE_IOS_SURFACE_CREATE_INFO_MVK` */
-    public const int STRUCTURE_TYPE = 1000122000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IOS_SURFACE_CREATE_INFO_MVK->value;
 
     public function __construct(
         public CData|int $view,
@@ -30,6 +30,16 @@ final class VkIOSSurfaceCreateInfoMVK extends InputStructure
         public int $flags = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IOS_SURFACE_CREATE_INFO_MVK>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     pView: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

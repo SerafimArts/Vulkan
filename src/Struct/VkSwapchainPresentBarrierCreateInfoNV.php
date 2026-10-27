@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSwapchainCreateInfoKHRExtension;
 
@@ -20,14 +21,22 @@ final class VkSwapchainPresentBarrierCreateInfoNV extends InputStructure impleme
 {
     protected const string NATIVE_TYPE = 'VkSwapchainPresentBarrierCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000292002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkSwapchainCreateInfoKHRExtension $next = null,
         public bool $presentBarrierEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     presentBarrierEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

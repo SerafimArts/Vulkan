@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceRobustness2FeaturesKHR extends InputStructure implem
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceRobustness2FeaturesKHR';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR` */
-    public const int STRUCTURE_TYPE = 1000286000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -33,6 +33,17 @@ final class VkPhysicalDeviceRobustness2FeaturesKHR extends InputStructure implem
         public bool $nullDescriptor = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR>,
+     *     pNext: CData,
+     *     robustBufferAccess2: int<0, 1>,
+     *     robustImageAccess2: int<0, 1>,
+     *     nullDescriptor: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -60,9 +71,9 @@ final class VkPhysicalDeviceRobustness2FeaturesKHR extends InputStructure implem
 
     /**
      * @param CData&object{
-     *     robustBufferAccess2: int,
-     *     robustImageAccess2: int,
-     *     nullDescriptor: int,
+     *     robustBufferAccess2: int<0, 1>,
+     *     robustImageAccess2: int<0, 1>,
+     *     nullDescriptor: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

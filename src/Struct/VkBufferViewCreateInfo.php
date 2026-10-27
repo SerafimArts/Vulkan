@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBufferViewCreateInfoExtension;
@@ -22,8 +23,7 @@ final class VkBufferViewCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBufferViewCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 13;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO->value;
 
     public function __construct(
         public VkBuffer $buffer,
@@ -46,6 +46,19 @@ final class VkBufferViewCreateInfo extends InputStructure
         public int $range = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     buffer: CData,
+     *     format: value-of<VkFormat>,
+     *     offset: int<0, max>,
+     *     range: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

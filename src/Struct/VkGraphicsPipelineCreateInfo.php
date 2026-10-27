@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkPipeline;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
@@ -26,8 +27,7 @@ final class VkGraphicsPipelineCreateInfo extends InputStructure implements VkPip
 {
     protected const string NATIVE_TYPE = 'VkGraphicsPipelineCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 28;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO->value;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkPipelineCreateInfoKHRExtension|null $next = null,
@@ -37,7 +37,12 @@ final class VkGraphicsPipelineCreateInfo extends InputStructure implements VkPip
          * @var int<0, 4294967295>|(VkPipelineCreateFlagBits::*)
          */
         public int $flags = 0,
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$stages`, it follows the array
+         * when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $stageCount = 0,
         /**
          * One entry for each active shader stage
@@ -75,6 +80,31 @@ final class VkGraphicsPipelineCreateInfo extends InputStructure implements VkPip
         public int $basePipelineIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     stageCount: int<0, 4294967295>,
+     *     pStages: CData,
+     *     pVertexInputState: CData,
+     *     pInputAssemblyState: CData,
+     *     pTessellationState: CData,
+     *     pViewportState: CData,
+     *     pRasterizationState: CData,
+     *     pMultisampleState: CData,
+     *     pDepthStencilState: CData,
+     *     pColorBlendState: CData,
+     *     pDynamicState: CData,
+     *     layout: CData,
+     *     renderPass: CData,
+     *     subpass: int<0, 4294967295>,
+     *     basePipelineHandle: CData,
+     *     basePipelineIndex: int<-2147483648, 2147483647>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

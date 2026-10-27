@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkBlendOverlapEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineColorBlendStateCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends InputStructur
 {
     protected const string NATIVE_TYPE = 'VkPipelineColorBlendAdvancedStateCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000148002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkPipelineColorBlendStateCreateInfoExtension $next = null,
@@ -31,6 +31,17 @@ final class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends InputStructur
         public VkBlendOverlapEXT $blendOverlap = VkBlendOverlapEXT::VK_BLEND_OVERLAP_UNCORRELATED_EXT,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     srcPremultiplied: int<0, 1>,
+     *     dstPremultiplied: int<0, 1>,
+     *     blendOverlap: value-of<VkBlendOverlapEXT>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

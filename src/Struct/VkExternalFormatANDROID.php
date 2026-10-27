@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAttachmentDescription2Extension;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
@@ -24,8 +25,7 @@ final class VkExternalFormatANDROID extends InputStructure implements VkImageCre
 {
     protected const string NATIVE_TYPE = 'VkExternalFormatANDROID';
 
-    /** `VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID` */
-    public const int STRUCTURE_TYPE = 1000129005;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID->value;
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
@@ -33,6 +33,15 @@ final class VkExternalFormatANDROID extends InputStructure implements VkImageCre
         public int $externalFormat = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID>,
+     *     pNext: CData,
+     *     externalFormat: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

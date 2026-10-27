@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderCodeTypeEXT;
 use Serafim\Vulkan\Enum\VkShaderCreateFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDescriptorSetLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkShaderCreateInfoEXTExtension;
@@ -24,8 +25,7 @@ final class VkShaderCreateInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkShaderCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_SHADER_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000482002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkShaderCreateInfoEXTExtension $next = null,
@@ -45,6 +45,26 @@ final class VkShaderCreateInfoEXT extends InputStructure
         public ?VkSpecializationInfo $specializationInfo = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SHADER_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     stage: int<0, 4294967295>,
+     *     nextStage: int<0, 4294967295>,
+     *     codeType: value-of<VkShaderCodeTypeEXT>,
+     *     codeSize: int<0, max>,
+     *     pCode: CData,
+     *     pName: CData|null,
+     *     setLayoutCount: int<0, 4294967295>,
+     *     pSetLayouts: CData,
+     *     pushConstantRangeCount: int<0, 4294967295>,
+     *     pPushConstantRanges: CData,
+     *     pSpecializationInfo: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

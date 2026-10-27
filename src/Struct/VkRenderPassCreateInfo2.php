@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkRenderPassCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfo2Extension;
 
@@ -24,8 +25,7 @@ final class VkRenderPassCreateInfo2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkRenderPassCreateInfo2';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2` */
-    public const int STRUCTURE_TYPE = 1000109004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2->value;
 
     public function __construct(
         public ?VkRenderPassCreateInfo2Extension $next = null,
@@ -41,6 +41,23 @@ final class VkRenderPassCreateInfo2 extends InputStructure
         public array $correlatedViewMasks = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO_2>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     attachmentCount: int<0, 4294967295>,
+     *     pAttachments: CData,
+     *     subpassCount: int<0, 4294967295>,
+     *     pSubpasses: CData,
+     *     dependencyCount: int<0, 4294967295>,
+     *     pDependencies: CData,
+     *     correlatedViewMaskCount: int<0, 4294967295>,
+     *     pCorrelatedViewMasks: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

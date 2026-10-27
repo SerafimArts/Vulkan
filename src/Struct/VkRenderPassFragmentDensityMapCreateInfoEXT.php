@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfo2Extension;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
@@ -24,14 +25,22 @@ final class VkRenderPassFragmentDensityMapCreateInfoEXT extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkRenderPassFragmentDensityMapCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000218002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT->value;
 
     public function __construct(
         public VkAttachmentReference $fragmentDensityMapAttachment,
         public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|null $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     fragmentDensityMapAttachment: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

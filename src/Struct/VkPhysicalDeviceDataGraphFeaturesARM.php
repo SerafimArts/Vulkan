@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceDataGraphFeaturesARM extends InputStructure implemen
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceDataGraphFeaturesARM';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM` */
-    public const int STRUCTURE_TYPE = 1000507006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -35,6 +35,19 @@ final class VkPhysicalDeviceDataGraphFeaturesARM extends InputStructure implemen
         public bool $dataGraphShaderModule = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM>,
+     *     pNext: CData,
+     *     dataGraph: int<0, 1>,
+     *     dataGraphUpdateAfterBind: int<0, 1>,
+     *     dataGraphSpecializationConstants: int<0, 1>,
+     *     dataGraphDescriptorBuffer: int<0, 1>,
+     *     dataGraphShaderModule: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -66,11 +79,11 @@ final class VkPhysicalDeviceDataGraphFeaturesARM extends InputStructure implemen
 
     /**
      * @param CData&object{
-     *     dataGraph: int,
-     *     dataGraphUpdateAfterBind: int,
-     *     dataGraphSpecializationConstants: int,
-     *     dataGraphDescriptorBuffer: int,
-     *     dataGraphShaderModule: int,
+     *     dataGraph: int<0, 1>,
+     *     dataGraphUpdateAfterBind: int<0, 1>,
+     *     dataGraphSpecializationConstants: int<0, 1>,
+     *     dataGraphDescriptorBuffer: int<0, 1>,
+     *     dataGraphShaderModule: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

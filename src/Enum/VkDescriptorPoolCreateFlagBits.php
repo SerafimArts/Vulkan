@@ -19,9 +19,13 @@ final class VkDescriptorPoolCreateFlagBits
 {
     /** Descriptor sets may be freed individually */
     public const int VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT = 1;
+
     public const int VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT = 2;
+
     public const int VK_DESCRIPTOR_POOL_CREATE_HOST_ONLY_BIT_EXT = 4;
+
     public const int VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV = 8;
+
     public const int VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV = 16;
 
     /** Alias of {@see self::VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT} */

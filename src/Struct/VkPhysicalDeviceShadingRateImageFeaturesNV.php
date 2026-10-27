@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceShadingRateImageFeaturesNV extends InputStructure im
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShadingRateImageFeaturesNV';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV` */
-    public const int STRUCTURE_TYPE = 1000164001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -32,6 +32,16 @@ final class VkPhysicalDeviceShadingRateImageFeaturesNV extends InputStructure im
         public bool $shadingRateCoarseSampleOrder = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADING_RATE_IMAGE_FEATURES_NV>,
+     *     pNext: CData,
+     *     shadingRateImage: int<0, 1>,
+     *     shadingRateCoarseSampleOrder: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -57,8 +67,8 @@ final class VkPhysicalDeviceShadingRateImageFeaturesNV extends InputStructure im
 
     /**
      * @param CData&object{
-     *     shadingRateImage: int,
-     *     shadingRateCoarseSampleOrder: int,
+     *     shadingRateImage: int<0, 1>,
+     *     shadingRateCoarseSampleOrder: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

@@ -28,6 +28,14 @@ final class VkAttachmentSampleLocationsEXT extends InputStructure
         public int $attachmentIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     attachmentIndex: int<0, 4294967295>,
+     *     sampleLocationsInfo: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->attachmentIndex = $this->attachmentIndex;

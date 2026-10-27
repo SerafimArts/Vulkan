@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkGpaSessionAMD;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,13 +21,21 @@ final class VkGpaSessionCreateInfoAMD extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkGpaSessionCreateInfoAMD';
 
-    /** `VK_STRUCTURE_TYPE_GPA_SESSION_CREATE_INFO_AMD` */
-    public const int STRUCTURE_TYPE = 1000133003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GPA_SESSION_CREATE_INFO_AMD->value;
 
     public function __construct(
         public ?VkGpaSessionAMD $secondaryCopySource = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GPA_SESSION_CREATE_INFO_AMD>,
+     *     pNext: CData,
+     *     secondaryCopySource: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

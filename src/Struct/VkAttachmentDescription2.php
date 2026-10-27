@@ -15,6 +15,7 @@ use Serafim\Vulkan\Enum\VkAttachmentStoreOp;
 use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAttachmentDescription2Extension;
 
@@ -29,8 +30,7 @@ final class VkAttachmentDescription2 extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkAttachmentDescription2';
 
-    /** `VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2` */
-    public const int STRUCTURE_TYPE = 1000109000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2->value;
 
     public function __construct(
         public ?VkAttachmentDescription2Extension $next = null,
@@ -51,6 +51,23 @@ final class VkAttachmentDescription2 extends InputStructure
         public VkImageLayout $finalLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     format: value-of<VkFormat>,
+     *     samples: int<0, 4294967295>,
+     *     loadOp: value-of<VkAttachmentLoadOp>,
+     *     storeOp: value-of<VkAttachmentStoreOp>,
+     *     stencilLoadOp: value-of<VkAttachmentLoadOp>,
+     *     stencilStoreOp: value-of<VkAttachmentStoreOp>,
+     *     initialLayout: value-of<VkImageLayout>,
+     *     finalLayout: value-of<VkImageLayout>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

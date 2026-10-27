@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCompositeAlphaFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkImageUsageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSurfaceCounterFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
 
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
  */
 final readonly class VkSurfaceCapabilities2EXT extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_EXT` */
-    public const int STRUCTURE_TYPE = 1000090000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_EXT->value;
 
     public function __construct(
         /**

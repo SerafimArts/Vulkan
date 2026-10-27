@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkQueryControlFlagBits;
 use Serafim\Vulkan\Enum\VkQueryPipelineStatisticFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkFramebuffer;
 use Serafim\Vulkan\Handle\VkRenderPass;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -24,8 +25,7 @@ final class VkCommandBufferInheritanceInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceInfo';
 
-    /** `VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO` */
-    public const int STRUCTURE_TYPE = 41;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO->value;
 
     public function __construct(
         public ?VkCommandBufferInheritanceInfoExtension $next = null,
@@ -56,6 +56,20 @@ final class VkCommandBufferInheritanceInfo extends InputStructure
         public int $pipelineStatistics = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO>,
+     *     pNext: CData,
+     *     renderPass: CData,
+     *     subpass: int<0, 4294967295>,
+     *     framebuffer: CData,
+     *     occlusionQueryEnable: int<0, 1>,
+     *     queryFlags: int<0, 4294967295>,
+     *     pipelineStatistics: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -17,9 +17,13 @@ namespace Serafim\Vulkan\Enum;
 final class VkDebugReportFlagBitsEXT
 {
     public const int VK_DEBUG_REPORT_INFORMATION_BIT_EXT = 1;
+
     public const int VK_DEBUG_REPORT_WARNING_BIT_EXT = 2;
+
     public const int VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT = 4;
+
     public const int VK_DEBUG_REPORT_ERROR_BIT_EXT = 8;
+
     public const int VK_DEBUG_REPORT_DEBUG_BIT_EXT = 16;
 
     private function __construct() {}

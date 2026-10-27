@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferBeginInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkDeviceGroupCommandBufferBeginInfo extends InputStructure implement
 {
     protected const string NATIVE_TYPE = 'VkDeviceGroupCommandBufferBeginInfo';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO` */
-    public const int STRUCTURE_TYPE = 1000060004;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO->value;
 
     public function __construct(
         public ?VkCommandBufferBeginInfoExtension $next = null,
@@ -29,6 +29,15 @@ final class VkDeviceGroupCommandBufferBeginInfo extends InputStructure implement
         public int $deviceMask = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO>,
+     *     pNext: CData,
+     *     deviceMask: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

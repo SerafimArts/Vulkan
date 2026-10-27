@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceLineRasterizationFeatures extends InputStructure imp
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceLineRasterizationFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000259000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -36,6 +36,20 @@ final class VkPhysicalDeviceLineRasterizationFeatures extends InputStructure imp
         public bool $stippledSmoothLines = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINE_RASTERIZATION_FEATURES>,
+     *     pNext: CData,
+     *     rectangularLines: int<0, 1>,
+     *     bresenhamLines: int<0, 1>,
+     *     smoothLines: int<0, 1>,
+     *     stippledRectangularLines: int<0, 1>,
+     *     stippledBresenhamLines: int<0, 1>,
+     *     stippledSmoothLines: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -69,12 +83,12 @@ final class VkPhysicalDeviceLineRasterizationFeatures extends InputStructure imp
 
     /**
      * @param CData&object{
-     *     rectangularLines: int,
-     *     bresenhamLines: int,
-     *     smoothLines: int,
-     *     stippledRectangularLines: int,
-     *     stippledBresenhamLines: int,
-     *     stippledSmoothLines: int,
+     *     rectangularLines: int<0, 1>,
+     *     bresenhamLines: int<0, 1>,
+     *     smoothLines: int<0, 1>,
+     *     stippledRectangularLines: int<0, 1>,
+     *     stippledBresenhamLines: int<0, 1>,
+     *     stippledSmoothLines: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

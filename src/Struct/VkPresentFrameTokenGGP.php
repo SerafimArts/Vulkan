@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPresentInfoKHRExtension;
 
@@ -20,14 +21,22 @@ final class VkPresentFrameTokenGGP extends InputStructure implements VkPresentIn
 {
     protected const string NATIVE_TYPE = 'VkPresentFrameTokenGGP';
 
-    /** `VK_STRUCTURE_TYPE_PRESENT_FRAME_TOKEN_GGP` */
-    public const int STRUCTURE_TYPE = 1000191000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_FRAME_TOKEN_GGP->value;
 
     public function __construct(
         public CData|int $frameToken,
         public ?VkPresentInfoKHRExtension $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PRESENT_FRAME_TOKEN_GGP>,
+     *     pNext: CData,
+     *     frameToken: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

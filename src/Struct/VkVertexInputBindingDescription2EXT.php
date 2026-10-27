@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVertexInputRate;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkVertexInputBindingDescription2EXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkVertexInputBindingDescription2EXT';
 
-    /** `VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT` */
-    public const int STRUCTURE_TYPE = 1000352001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -33,6 +33,18 @@ final class VkVertexInputBindingDescription2EXT extends InputStructure
         public int $divisor = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VERTEX_INPUT_BINDING_DESCRIPTION_2_EXT>,
+     *     pNext: CData,
+     *     binding: int<0, 4294967295>,
+     *     stride: int<0, 4294967295>,
+     *     inputRate: value-of<VkVertexInputRate>,
+     *     divisor: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

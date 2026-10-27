@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormat;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -23,8 +24,7 @@ final class VkCustomResolveCreateInfoEXT extends InputStructure implements VkGra
 {
     protected const string NATIVE_TYPE = 'VkCustomResolveCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000628002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT->value;
 
     public function __construct(
         public VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,
@@ -35,6 +35,19 @@ final class VkCustomResolveCreateInfoEXT extends InputStructure implements VkGra
         public VkFormat $stencilAttachmentFormat = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     customResolve: int<0, 1>,
+     *     colorAttachmentCount: int<0, 4294967295>,
+     *     pColorAttachmentFormats: CData,
+     *     depthAttachmentFormat: value-of<VkFormat>,
+     *     stencilAttachmentFormat: value-of<VkFormat>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

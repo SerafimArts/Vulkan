@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkQueueGlobalPriority;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceQueueCreateInfoExtension;
 
@@ -21,14 +22,22 @@ final class VkDeviceQueueGlobalPriorityCreateInfo extends InputStructure impleme
 {
     protected const string NATIVE_TYPE = 'VkDeviceQueueGlobalPriorityCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000174000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO->value;
 
     public function __construct(
         public VkQueueGlobalPriority $globalPriority,
         public ?VkDeviceQueueCreateInfoExtension $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO>,
+     *     pNext: CData,
+     *     globalPriority: value-of<VkQueueGlobalPriority>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

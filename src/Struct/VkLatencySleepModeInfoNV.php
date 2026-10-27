@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkLatencySleepModeInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkLatencySleepModeInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_LATENCY_SLEEP_MODE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000505000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SLEEP_MODE_INFO_NV->value;
 
     public function __construct(
         public bool $lowLatencyMode = false,
@@ -29,6 +29,17 @@ final class VkLatencySleepModeInfoNV extends InputStructure
         public int $minimumIntervalUs = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SLEEP_MODE_INFO_NV>,
+     *     pNext: CData,
+     *     lowLatencyMode: int<0, 1>,
+     *     lowLatencyBoost: int<0, 1>,
+     *     minimumIntervalUs: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

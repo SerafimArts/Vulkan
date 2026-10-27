@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDepthBiasRepresentationEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDepthBiasInfoEXTExtension;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
@@ -22,8 +23,7 @@ final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkDepthBiasRepresentationInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_DEPTH_BIAS_REPRESENTATION_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000283002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEPTH_BIAS_REPRESENTATION_INFO_EXT->value;
 
     public function __construct(
         public VkDepthBiasInfoEXTExtension|VkPipelineRasterizationStateCreateInfoExtension|null $next = null,
@@ -31,6 +31,16 @@ final class VkDepthBiasRepresentationInfoEXT extends InputStructure implements V
         public bool $depthBiasExact = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEPTH_BIAS_REPRESENTATION_INFO_EXT>,
+     *     pNext: CData,
+     *     depthBiasRepresentation: value-of<VkDepthBiasRepresentationEXT>,
+     *     depthBiasExact: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

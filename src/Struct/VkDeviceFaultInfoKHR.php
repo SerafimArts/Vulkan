@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceFaultFlagBitsKHR;
+use Serafim\Vulkan\Enum\VkStructureType;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultInfoKHR.html
@@ -17,8 +18,7 @@ use Serafim\Vulkan\Enum\VkDeviceFaultFlagBitsKHR;
  */
 final readonly class VkDeviceFaultInfoKHR extends OutputStructure
 {
-    /** `VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000573002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR->value;
 
     public function __construct(
         /** @var int-mask-of<VkDeviceFaultFlagBitsKHR::*> */

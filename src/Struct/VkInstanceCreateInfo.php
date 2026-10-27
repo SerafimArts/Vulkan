@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkInstanceCreateFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkInstanceCreateInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkInstanceCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO->value;
 
     public function __construct(
         public ?VkInstanceCreateInfoExtension $next = null,
@@ -43,6 +43,20 @@ final class VkInstanceCreateInfo extends InputStructure
         public array $enabledExtensionNames = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     pApplicationInfo: CData,
+     *     enabledLayerCount: int<0, 4294967295>,
+     *     ppEnabledLayerNames: CData,
+     *     enabledExtensionCount: int<0, 4294967295>,
+     *     ppEnabledExtensionNames: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

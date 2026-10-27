@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension;
@@ -22,8 +23,7 @@ final class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBindDescriptorBufferEmbeddedSamplersInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000545008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT->value;
 
     public function __construct(
         public ?VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension $next = null,
@@ -34,6 +34,17 @@ final class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends InputStructure
         public int $set = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT>,
+     *     pNext: CData,
+     *     stageFlags: int<0, 4294967295>,
+     *     layout: CData,
+     *     set: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

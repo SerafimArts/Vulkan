@@ -30,6 +30,18 @@ final class VkColorBlendEquationEXT extends InputStructure
         public VkBlendOp $alphaBlendOp = VkBlendOp::VK_BLEND_OP_ADD,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     srcColorBlendFactor: value-of<VkBlendFactor>,
+     *     dstColorBlendFactor: value-of<VkBlendFactor>,
+     *     colorBlendOp: value-of<VkBlendOp>,
+     *     srcAlphaBlendFactor: value-of<VkBlendFactor>,
+     *     dstAlphaBlendFactor: value-of<VkBlendFactor>,
+     *     alphaBlendOp: value-of<VkBlendOp>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->srcColorBlendFactor = $this->srcColorBlendFactor->value;

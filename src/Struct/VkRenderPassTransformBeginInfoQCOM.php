@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkRenderPassBeginInfoExtension;
@@ -21,8 +22,7 @@ final class VkRenderPassTransformBeginInfoQCOM extends InputStructure implements
 {
     protected const string NATIVE_TYPE = 'VkRenderPassTransformBeginInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000282001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM->value;
 
     public function __construct(
         /** Pointer to next structure */
@@ -31,6 +31,15 @@ final class VkRenderPassTransformBeginInfoQCOM extends InputStructure implements
         public int $transform = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_TRANSFORM_BEGIN_INFO_QCOM>,
+     *     pNext: CData,
+     *     transform: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

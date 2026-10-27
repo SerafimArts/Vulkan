@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDependencyFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDependencyInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkDependencyInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDependencyInfo';
 
-    /** `VK_STRUCTURE_TYPE_DEPENDENCY_INFO` */
-    public const int STRUCTURE_TYPE = 1000314003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEPENDENCY_INFO->value;
 
     public function __construct(
         public ?VkDependencyInfoExtension $next = null,
@@ -36,6 +36,21 @@ final class VkDependencyInfo extends InputStructure
         public array $imageMemoryBarriers = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEPENDENCY_INFO>,
+     *     pNext: CData,
+     *     dependencyFlags: int<0, 4294967295>,
+     *     memoryBarrierCount: int<0, 4294967295>,
+     *     pMemoryBarriers: CData,
+     *     bufferMemoryBarrierCount: int<0, 4294967295>,
+     *     pBufferMemoryBarriers: CData,
+     *     imageMemoryBarrierCount: int<0, 4294967295>,
+     *     pImageMemoryBarriers: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

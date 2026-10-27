@@ -26,6 +26,15 @@ final class VkSparseBufferMemoryBindInfo extends InputStructure
         public array $binds = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     buffer: CData,
+     *     bindCount: int<0, 4294967295>,
+     *     pBinds: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->buffer = $memory->ffi->cast('VkBuffer', $this->buffer->pointer);

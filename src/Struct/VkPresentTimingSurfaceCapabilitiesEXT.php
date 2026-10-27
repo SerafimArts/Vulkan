@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPresentStageFlagBitsEXT;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  */
 final readonly class VkPresentTimingSurfaceCapabilitiesEXT extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_PRESENT_TIMING_SURFACE_CAPABILITIES_EXT` */
-    public const int STRUCTURE_TYPE = 1000208008;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMING_SURFACE_CAPABILITIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -51,9 +51,9 @@ final readonly class VkPresentTimingSurfaceCapabilitiesEXT extends OutputStructu
 
     /**
      * @param CData&object{
-     *     presentTimingSupported: int,
-     *     presentAtAbsoluteTimeSupported: int,
-     *     presentAtRelativeTimeSupported: int,
+     *     presentTimingSupported: int<0, 1>,
+     *     presentAtAbsoluteTimeSupported: int<0, 1>,
+     *     presentAtRelativeTimeSupported: int<0, 1>,
      *     presentStageQueries: int<0, 4294967295>,
      * } $data
      *

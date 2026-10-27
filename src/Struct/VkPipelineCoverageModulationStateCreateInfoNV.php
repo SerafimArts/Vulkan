@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoverageModulationModeNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtension;
@@ -22,8 +23,7 @@ final class VkPipelineCoverageModulationStateCreateInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPipelineCoverageModulationStateCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000152000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,
@@ -31,12 +31,30 @@ final class VkPipelineCoverageModulationStateCreateInfoNV extends InputStructure
         public int $flags = 0,
         public VkCoverageModulationModeNV $coverageModulationMode = VkCoverageModulationModeNV::VK_COVERAGE_MODULATION_MODE_NONE_NV,
         public bool $coverageModulationTableEnable = false,
-        /** @var int<0, 4294967295> */
+        /**
+         * The number of the elements of `$coverageModulationTable`, it
+         * follows the array when it is given.
+         *
+         * @var int<0, 4294967295>
+         */
         public int $coverageModulationTableCount = 0,
         /** @var list<float> */
         public array $coverageModulationTable = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     coverageModulationMode: value-of<VkCoverageModulationModeNV>,
+     *     coverageModulationTableEnable: int<0, 1>,
+     *     coverageModulationTableCount: int<0, 4294967295>,
+     *     pCoverageModulationTable: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

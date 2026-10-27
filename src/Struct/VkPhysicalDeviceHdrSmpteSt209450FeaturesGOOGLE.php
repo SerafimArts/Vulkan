@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,14 +24,22 @@ final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE extends InputStructur
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_SMPTE_ST_209450_FEATURES_GOOGLE` */
-    public const int STRUCTURE_TYPE = 1000718000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_SMPTE_ST_209450_FEATURES_GOOGLE->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $hdrSmpteSt209450 = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_SMPTE_ST_209450_FEATURES_GOOGLE>,
+     *     pNext: CData,
+     *     hdrSmpteSt209450: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -54,7 +63,7 @@ final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE extends InputStructur
 
     /**
      * @param CData&object{
-     *     hdrSmpteSt209450: int,
+     *     hdrSmpteSt209450: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

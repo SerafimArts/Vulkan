@@ -15,9 +15,13 @@ namespace Serafim\Vulkan\Enum;
 final class VkVideoEncodeRgbModelConversionFlagBitsVALVE
 {
     public const int VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_RGB_IDENTITY_BIT_VALVE = 1;
+
     public const int VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_IDENTITY_BIT_VALVE = 2;
+
     public const int VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_709_BIT_VALVE = 4;
+
     public const int VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_601_BIT_VALVE = 8;
+
     public const int VK_VIDEO_ENCODE_RGB_MODEL_CONVERSION_YCBCR_2020_BIT_VALVE = 16;
 
     private function __construct() {}

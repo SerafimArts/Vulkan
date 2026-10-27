@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceVulkan13Features extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan13Features';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES` */
-    public const int STRUCTURE_TYPE = 53;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -45,6 +45,29 @@ final class VkPhysicalDeviceVulkan13Features extends InputStructure implements V
         public bool $maintenance4 = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_3_FEATURES>,
+     *     pNext: CData,
+     *     robustImageAccess: int<0, 1>,
+     *     inlineUniformBlock: int<0, 1>,
+     *     descriptorBindingInlineUniformBlockUpdateAfterBind: int<0, 1>,
+     *     pipelineCreationCacheControl: int<0, 1>,
+     *     privateData: int<0, 1>,
+     *     shaderDemoteToHelperInvocation: int<0, 1>,
+     *     shaderTerminateInvocation: int<0, 1>,
+     *     subgroupSizeControl: int<0, 1>,
+     *     computeFullSubgroups: int<0, 1>,
+     *     synchronization2: int<0, 1>,
+     *     textureCompressionASTC_HDR: int<0, 1>,
+     *     shaderZeroInitializeWorkgroupMemory: int<0, 1>,
+     *     dynamicRendering: int<0, 1>,
+     *     shaderIntegerDotProduct: int<0, 1>,
+     *     maintenance4: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -96,21 +119,21 @@ final class VkPhysicalDeviceVulkan13Features extends InputStructure implements V
 
     /**
      * @param CData&object{
-     *     robustImageAccess: int,
-     *     inlineUniformBlock: int,
-     *     descriptorBindingInlineUniformBlockUpdateAfterBind: int,
-     *     pipelineCreationCacheControl: int,
-     *     privateData: int,
-     *     shaderDemoteToHelperInvocation: int,
-     *     shaderTerminateInvocation: int,
-     *     subgroupSizeControl: int,
-     *     computeFullSubgroups: int,
-     *     synchronization2: int,
-     *     textureCompressionASTC_HDR: int,
-     *     shaderZeroInitializeWorkgroupMemory: int,
-     *     dynamicRendering: int,
-     *     shaderIntegerDotProduct: int,
-     *     maintenance4: int,
+     *     robustImageAccess: int<0, 1>,
+     *     inlineUniformBlock: int<0, 1>,
+     *     descriptorBindingInlineUniformBlockUpdateAfterBind: int<0, 1>,
+     *     pipelineCreationCacheControl: int<0, 1>,
+     *     privateData: int<0, 1>,
+     *     shaderDemoteToHelperInvocation: int<0, 1>,
+     *     shaderTerminateInvocation: int<0, 1>,
+     *     subgroupSizeControl: int<0, 1>,
+     *     computeFullSubgroups: int<0, 1>,
+     *     synchronization2: int<0, 1>,
+     *     textureCompressionASTC_HDR: int<0, 1>,
+     *     shaderZeroInitializeWorkgroupMemory: int<0, 1>,
+     *     dynamicRendering: int<0, 1>,
+     *     shaderIntegerDotProduct: int<0, 1>,
+     *     maintenance4: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

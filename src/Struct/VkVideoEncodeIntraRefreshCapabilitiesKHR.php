@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeIntraRefreshModeFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -20,8 +21,7 @@ use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
  */
 final readonly class VkVideoEncodeIntraRefreshCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR` */
-    public const int STRUCTURE_TYPE = 1000552000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -57,8 +57,8 @@ final readonly class VkVideoEncodeIntraRefreshCapabilitiesKHR extends OutputStru
      *     intraRefreshModes: int<0, 4294967295>,
      *     maxIntraRefreshCycleDuration: int<0, 4294967295>,
      *     maxIntraRefreshActiveReferencePictures: int<0, 4294967295>,
-     *     partitionIndependentIntraRefreshRegions: int,
-     *     nonRectangularIntraRefreshRegions: int,
+     *     partitionIndependentIntraRefreshRegions: int<0, 1>,
+     *     nonRectangularIntraRefreshRegions: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

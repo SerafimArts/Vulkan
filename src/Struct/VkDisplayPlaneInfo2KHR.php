@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDisplayModeKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkDisplayPlaneInfo2KHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDisplayPlaneInfo2KHR';
 
-    /** `VK_STRUCTURE_TYPE_DISPLAY_PLANE_INFO_2_KHR` */
-    public const int STRUCTURE_TYPE = 1000121003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_PLANE_INFO_2_KHR->value;
 
     public function __construct(
         public VkDisplayModeKHR $mode,
@@ -29,6 +29,16 @@ final class VkDisplayPlaneInfo2KHR extends InputStructure
         public int $planeIndex = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_PLANE_INFO_2_KHR>,
+     *     pNext: CData,
+     *     mode: CData,
+     *     planeIndex: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

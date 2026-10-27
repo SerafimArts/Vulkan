@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDisplaySurfaceStereoTypeNV;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDisplaySurfaceCreateInfoKHRExtension;
 
@@ -21,8 +22,7 @@ final class VkDisplaySurfaceStereoCreateInfoNV extends InputStructure implements
 {
     protected const string NATIVE_TYPE = 'VkDisplaySurfaceStereoCreateInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000551000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV->value;
 
     public function __construct(
         public ?VkDisplaySurfaceCreateInfoKHRExtension $next = null,
@@ -30,6 +30,15 @@ final class VkDisplaySurfaceStereoCreateInfoNV extends InputStructure implements
         public VkDisplaySurfaceStereoTypeNV $stereoType = VkDisplaySurfaceStereoTypeNV::VK_DISPLAY_SURFACE_STEREO_TYPE_NONE_NV,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV>,
+     *     pNext: CData,
+     *     stereoType: value-of<VkDisplaySurfaceStereoTypeNV>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

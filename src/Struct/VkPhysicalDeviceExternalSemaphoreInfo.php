@@ -10,6 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkExternalSemaphoreHandleTypeFlagBits;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceExternalSemaphoreInfoExtension;
 
@@ -21,8 +22,7 @@ final class VkPhysicalDeviceExternalSemaphoreInfo extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalSemaphoreInfo';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO` */
-    public const int STRUCTURE_TYPE = 1000076000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO->value;
 
     public function __construct(
         public ?VkPhysicalDeviceExternalSemaphoreInfoExtension $next = null,
@@ -30,6 +30,15 @@ final class VkPhysicalDeviceExternalSemaphoreInfo extends InputStructure
         public int $handleType = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_SEMAPHORE_INFO>,
+     *     pNext: CData,
+     *     handleType: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

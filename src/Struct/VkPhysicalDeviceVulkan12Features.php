@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceVulkan12Features extends InputStructure implements V
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan12Features';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES` */
-    public const int STRUCTURE_TYPE = 51;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -82,6 +82,61 @@ final class VkPhysicalDeviceVulkan12Features extends InputStructure implements V
         public bool $subgroupBroadcastDynamicId = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES>,
+     *     pNext: CData,
+     *     samplerMirrorClampToEdge: int<0, 1>,
+     *     drawIndirectCount: int<0, 1>,
+     *     storageBuffer8BitAccess: int<0, 1>,
+     *     uniformAndStorageBuffer8BitAccess: int<0, 1>,
+     *     storagePushConstant8: int<0, 1>,
+     *     shaderBufferInt64Atomics: int<0, 1>,
+     *     shaderSharedInt64Atomics: int<0, 1>,
+     *     shaderFloat16: int<0, 1>,
+     *     shaderInt8: int<0, 1>,
+     *     descriptorIndexing: int<0, 1>,
+     *     shaderInputAttachmentArrayDynamicIndexing: int<0, 1>,
+     *     shaderUniformTexelBufferArrayDynamicIndexing: int<0, 1>,
+     *     shaderStorageTexelBufferArrayDynamicIndexing: int<0, 1>,
+     *     shaderUniformBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderSampledImageArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageImageArrayNonUniformIndexing: int<0, 1>,
+     *     shaderInputAttachmentArrayNonUniformIndexing: int<0, 1>,
+     *     shaderUniformTexelBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageTexelBufferArrayNonUniformIndexing: int<0, 1>,
+     *     descriptorBindingUniformBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingSampledImageUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageImageUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingUniformTexelBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageTexelBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingUpdateUnusedWhilePending: int<0, 1>,
+     *     descriptorBindingPartiallyBound: int<0, 1>,
+     *     descriptorBindingVariableDescriptorCount: int<0, 1>,
+     *     runtimeDescriptorArray: int<0, 1>,
+     *     samplerFilterMinmax: int<0, 1>,
+     *     scalarBlockLayout: int<0, 1>,
+     *     imagelessFramebuffer: int<0, 1>,
+     *     uniformBufferStandardLayout: int<0, 1>,
+     *     shaderSubgroupExtendedTypes: int<0, 1>,
+     *     separateDepthStencilLayouts: int<0, 1>,
+     *     hostQueryReset: int<0, 1>,
+     *     timelineSemaphore: int<0, 1>,
+     *     bufferDeviceAddress: int<0, 1>,
+     *     bufferDeviceAddressCaptureReplay: int<0, 1>,
+     *     bufferDeviceAddressMultiDevice: int<0, 1>,
+     *     vulkanMemoryModel: int<0, 1>,
+     *     vulkanMemoryModelDeviceScope: int<0, 1>,
+     *     vulkanMemoryModelAvailabilityVisibilityChains: int<0, 1>,
+     *     shaderOutputViewportIndex: int<0, 1>,
+     *     shaderOutputLayer: int<0, 1>,
+     *     subgroupBroadcastDynamicId: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -197,53 +252,53 @@ final class VkPhysicalDeviceVulkan12Features extends InputStructure implements V
 
     /**
      * @param CData&object{
-     *     samplerMirrorClampToEdge: int,
-     *     drawIndirectCount: int,
-     *     storageBuffer8BitAccess: int,
-     *     uniformAndStorageBuffer8BitAccess: int,
-     *     storagePushConstant8: int,
-     *     shaderBufferInt64Atomics: int,
-     *     shaderSharedInt64Atomics: int,
-     *     shaderFloat16: int,
-     *     shaderInt8: int,
-     *     descriptorIndexing: int,
-     *     shaderInputAttachmentArrayDynamicIndexing: int,
-     *     shaderUniformTexelBufferArrayDynamicIndexing: int,
-     *     shaderStorageTexelBufferArrayDynamicIndexing: int,
-     *     shaderUniformBufferArrayNonUniformIndexing: int,
-     *     shaderSampledImageArrayNonUniformIndexing: int,
-     *     shaderStorageBufferArrayNonUniformIndexing: int,
-     *     shaderStorageImageArrayNonUniformIndexing: int,
-     *     shaderInputAttachmentArrayNonUniformIndexing: int,
-     *     shaderUniformTexelBufferArrayNonUniformIndexing: int,
-     *     shaderStorageTexelBufferArrayNonUniformIndexing: int,
-     *     descriptorBindingUniformBufferUpdateAfterBind: int,
-     *     descriptorBindingSampledImageUpdateAfterBind: int,
-     *     descriptorBindingStorageImageUpdateAfterBind: int,
-     *     descriptorBindingStorageBufferUpdateAfterBind: int,
-     *     descriptorBindingUniformTexelBufferUpdateAfterBind: int,
-     *     descriptorBindingStorageTexelBufferUpdateAfterBind: int,
-     *     descriptorBindingUpdateUnusedWhilePending: int,
-     *     descriptorBindingPartiallyBound: int,
-     *     descriptorBindingVariableDescriptorCount: int,
-     *     runtimeDescriptorArray: int,
-     *     samplerFilterMinmax: int,
-     *     scalarBlockLayout: int,
-     *     imagelessFramebuffer: int,
-     *     uniformBufferStandardLayout: int,
-     *     shaderSubgroupExtendedTypes: int,
-     *     separateDepthStencilLayouts: int,
-     *     hostQueryReset: int,
-     *     timelineSemaphore: int,
-     *     bufferDeviceAddress: int,
-     *     bufferDeviceAddressCaptureReplay: int,
-     *     bufferDeviceAddressMultiDevice: int,
-     *     vulkanMemoryModel: int,
-     *     vulkanMemoryModelDeviceScope: int,
-     *     vulkanMemoryModelAvailabilityVisibilityChains: int,
-     *     shaderOutputViewportIndex: int,
-     *     shaderOutputLayer: int,
-     *     subgroupBroadcastDynamicId: int,
+     *     samplerMirrorClampToEdge: int<0, 1>,
+     *     drawIndirectCount: int<0, 1>,
+     *     storageBuffer8BitAccess: int<0, 1>,
+     *     uniformAndStorageBuffer8BitAccess: int<0, 1>,
+     *     storagePushConstant8: int<0, 1>,
+     *     shaderBufferInt64Atomics: int<0, 1>,
+     *     shaderSharedInt64Atomics: int<0, 1>,
+     *     shaderFloat16: int<0, 1>,
+     *     shaderInt8: int<0, 1>,
+     *     descriptorIndexing: int<0, 1>,
+     *     shaderInputAttachmentArrayDynamicIndexing: int<0, 1>,
+     *     shaderUniformTexelBufferArrayDynamicIndexing: int<0, 1>,
+     *     shaderStorageTexelBufferArrayDynamicIndexing: int<0, 1>,
+     *     shaderUniformBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderSampledImageArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageImageArrayNonUniformIndexing: int<0, 1>,
+     *     shaderInputAttachmentArrayNonUniformIndexing: int<0, 1>,
+     *     shaderUniformTexelBufferArrayNonUniformIndexing: int<0, 1>,
+     *     shaderStorageTexelBufferArrayNonUniformIndexing: int<0, 1>,
+     *     descriptorBindingUniformBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingSampledImageUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageImageUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingUniformTexelBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingStorageTexelBufferUpdateAfterBind: int<0, 1>,
+     *     descriptorBindingUpdateUnusedWhilePending: int<0, 1>,
+     *     descriptorBindingPartiallyBound: int<0, 1>,
+     *     descriptorBindingVariableDescriptorCount: int<0, 1>,
+     *     runtimeDescriptorArray: int<0, 1>,
+     *     samplerFilterMinmax: int<0, 1>,
+     *     scalarBlockLayout: int<0, 1>,
+     *     imagelessFramebuffer: int<0, 1>,
+     *     uniformBufferStandardLayout: int<0, 1>,
+     *     shaderSubgroupExtendedTypes: int<0, 1>,
+     *     separateDepthStencilLayouts: int<0, 1>,
+     *     hostQueryReset: int<0, 1>,
+     *     timelineSemaphore: int<0, 1>,
+     *     bufferDeviceAddress: int<0, 1>,
+     *     bufferDeviceAddressCaptureReplay: int<0, 1>,
+     *     bufferDeviceAddressMultiDevice: int<0, 1>,
+     *     vulkanMemoryModel: int<0, 1>,
+     *     vulkanMemoryModelDeviceScope: int<0, 1>,
+     *     vulkanMemoryModelAvailabilityVisibilityChains: int<0, 1>,
+     *     shaderOutputViewportIndex: int<0, 1>,
+     *     shaderOutputLayer: int<0, 1>,
+     *     subgroupBroadcastDynamicId: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

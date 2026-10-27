@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -19,8 +20,7 @@ final class VkRayTracingPipelineInterfaceCreateInfoKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkRayTracingPipelineInterfaceCreateInfoKHR';
 
-    /** `VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR` */
-    public const int STRUCTURE_TYPE = 1000150018;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
@@ -29,6 +29,16 @@ final class VkRayTracingPipelineInterfaceCreateInfoKHR extends InputStructure
         public int $maxPipelineRayHitAttributeSize = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_INTERFACE_CREATE_INFO_KHR>,
+     *     pNext: CData,
+     *     maxPipelineRayPayloadSize: int<0, 4294967295>,
+     *     maxPipelineRayHitAttributeSize: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

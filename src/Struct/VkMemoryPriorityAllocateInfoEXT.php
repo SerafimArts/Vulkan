@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkMemoryAllocateInfoExtension;
 
@@ -20,14 +21,22 @@ final class VkMemoryPriorityAllocateInfoEXT extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkMemoryPriorityAllocateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000238001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
         public float $priority = 0.0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT>,
+     *     pNext: CData,
+     *     priority: float,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -67,17 +67,26 @@ final class VkPipelineStageFlagBits
 
     /** All stages supported on the queue */
     public const int VK_PIPELINE_STAGE_ALL_COMMANDS_BIT = 65536;
+
     public const int VK_PIPELINE_STAGE_NONE = 0;
+
     public const int VK_PIPELINE_STAGE_TRANSFORM_FEEDBACK_BIT_EXT = 16777216;
 
     /** A pipeline stage for conditional rendering predicate fetch */
     public const int VK_PIPELINE_STAGE_CONDITIONAL_RENDERING_BIT_EXT = 262144;
+
     public const int VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR = 33554432;
+
     public const int VK_PIPELINE_STAGE_RAY_TRACING_SHADER_BIT_KHR = 2097152;
+
     public const int VK_PIPELINE_STAGE_FRAGMENT_DENSITY_PROCESS_BIT_EXT = 8388608;
+
     public const int VK_PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = 4194304;
+
     public const int VK_PIPELINE_STAGE_TASK_SHADER_BIT_EXT = 524288;
+
     public const int VK_PIPELINE_STAGE_MESH_SHADER_BIT_EXT = 1048576;
+
     public const int VK_PIPELINE_STAGE_COMMAND_PREPROCESS_BIT_EXT = 131072;
 
     /** Alias of {@see self::VK_PIPELINE_STAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR} */

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkEventCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkSemaphoreCreateInfoExtension;
@@ -21,14 +22,22 @@ final class VkImportMetalSharedEventInfoEXT extends InputStructure implements Vk
 {
     protected const string NATIVE_TYPE = 'VkImportMetalSharedEventInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_IMPORT_METAL_SHARED_EVENT_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000311011;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_SHARED_EVENT_INFO_EXT->value;
 
     public function __construct(
         public CData|int $mtlSharedEvent,
         public VkSemaphoreCreateInfoExtension|VkEventCreateInfoExtension|null $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMPORT_METAL_SHARED_EVENT_INFO_EXT>,
+     *     pNext: CData,
+     *     mtlSharedEvent: CData|int|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

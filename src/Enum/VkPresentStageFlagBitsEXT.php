@@ -15,8 +15,11 @@ namespace Serafim\Vulkan\Enum;
 final class VkPresentStageFlagBitsEXT
 {
     public const int VK_PRESENT_STAGE_QUEUE_OPERATIONS_END_BIT_EXT = 1;
+
     public const int VK_PRESENT_STAGE_REQUEST_DEQUEUED_BIT_EXT = 2;
+
     public const int VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_OUT_BIT_EXT = 4;
+
     public const int VK_PRESENT_STAGE_IMAGE_FIRST_PIXEL_VISIBLE_BIT_EXT = 8;
 
     private function __construct() {}

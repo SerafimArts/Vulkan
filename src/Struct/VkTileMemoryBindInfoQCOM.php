@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
@@ -21,14 +22,22 @@ final class VkTileMemoryBindInfoQCOM extends InputStructure implements VkCommand
 {
     protected const string NATIVE_TYPE = 'VkTileMemoryBindInfoQCOM';
 
-    /** `VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM` */
-    public const int STRUCTURE_TYPE = 1000547003;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM->value;
 
     public function __construct(
         public VkDeviceMemory $memory,
         public ?VkCommandBufferInheritanceInfoExtension $next = null,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM>,
+     *     pNext: CData,
+     *     memory: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

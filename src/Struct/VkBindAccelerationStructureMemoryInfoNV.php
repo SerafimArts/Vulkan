@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkAccelerationStructureNV;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -23,8 +24,7 @@ final class VkBindAccelerationStructureMemoryInfoNV extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkBindAccelerationStructureMemoryInfoNV';
 
-    /** `VK_STRUCTURE_TYPE_BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV` */
-    public const int STRUCTURE_TYPE = 1000165006;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV->value;
 
     public function __construct(
         public VkAccelerationStructureNV $accelerationStructure,
@@ -35,6 +35,19 @@ final class VkBindAccelerationStructureMemoryInfoNV extends InputStructure
         public array $deviceIndices = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_ACCELERATION_STRUCTURE_MEMORY_INFO_NV>,
+     *     pNext: CData,
+     *     accelerationStructure: CData,
+     *     memory: CData,
+     *     memoryOffset: int<0, max>,
+     *     deviceIndexCount: int<0, 4294967295>,
+     *     pDeviceIndices: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

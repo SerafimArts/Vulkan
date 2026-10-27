@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineRasterizationStateCreateInfoExtension;
 
@@ -20,8 +21,7 @@ final class VkPipelineRasterizationDepthClipStateCreateInfoEXT extends InputStru
 {
     protected const string NATIVE_TYPE = 'VkPipelineRasterizationDepthClipStateCreateInfoEXT';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT` */
-    public const int STRUCTURE_TYPE = 1000102001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT->value;
 
     public function __construct(
         public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
@@ -34,6 +34,16 @@ final class VkPipelineRasterizationDepthClipStateCreateInfoEXT extends InputStru
         public bool $depthClipEnable = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT>,
+     *     pNext: CData,
+     *     flags: int<0, 4294967295>,
+     *     depthClipEnable: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

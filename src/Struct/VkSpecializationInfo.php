@@ -30,6 +30,16 @@ final class VkSpecializationInfo extends InputStructure
         public string $data = '',
     ) {}
 
+    /**
+     * @param CData&object{
+     *     mapEntryCount: int<0, 4294967295>,
+     *     pMapEntries: CData,
+     *     dataSize: int<0, max>,
+     *     pData: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         if ($this->mapEntries !== []) {

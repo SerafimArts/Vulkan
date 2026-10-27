@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
@@ -23,8 +24,7 @@ final class VkPhysicalDeviceBufferDeviceAddressFeatures extends InputStructure i
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceBufferDeviceAddressFeatures';
 
-    /** `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES` */
-    public const int STRUCTURE_TYPE = 1000257000;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES->value;
 
     public function __construct(
         public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
@@ -33,6 +33,17 @@ final class VkPhysicalDeviceBufferDeviceAddressFeatures extends InputStructure i
         public bool $bufferDeviceAddressMultiDevice = false,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES>,
+     *     pNext: CData,
+     *     bufferDeviceAddress: int<0, 1>,
+     *     bufferDeviceAddressCaptureReplay: int<0, 1>,
+     *     bufferDeviceAddressMultiDevice: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
@@ -60,9 +71,9 @@ final class VkPhysicalDeviceBufferDeviceAddressFeatures extends InputStructure i
 
     /**
      * @param CData&object{
-     *     bufferDeviceAddress: int,
-     *     bufferDeviceAddressCaptureReplay: int,
-     *     bufferDeviceAddressMultiDevice: int,
+     *     bufferDeviceAddress: int<0, 1>,
+     *     bufferDeviceAddressCaptureReplay: int<0, 1>,
+     *     bufferDeviceAddressMultiDevice: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data

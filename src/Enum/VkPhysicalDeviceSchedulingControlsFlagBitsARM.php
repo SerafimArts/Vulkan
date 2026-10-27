@@ -15,6 +15,7 @@ namespace Serafim\Vulkan\Enum;
 final class VkPhysicalDeviceSchedulingControlsFlagBitsARM
 {
     public const int VK_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_SHADER_CORE_COUNT_ARM = 1;
+
     public const int VK_PHYSICAL_DEVICE_SCHEDULING_CONTROLS_DISPATCH_PARAMETERS_ARM = 2;
 
     private function __construct() {}

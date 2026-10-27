@@ -52,6 +52,17 @@ final class VkSubresourceLayout extends InputStructure
         public int $depthPitch = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     offset: int<0, max>,
+     *     size: int<0, max>,
+     *     rowPitch: int<0, max>,
+     *     arrayPitch: int<0, max>,
+     *     depthPitch: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->offset = $this->offset;

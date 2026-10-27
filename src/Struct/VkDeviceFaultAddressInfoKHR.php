@@ -27,7 +27,7 @@ final readonly class VkDeviceFaultAddressInfoKHR extends OutputStructure
 
     /**
      * @param CData&object{
-     *     addressType: int,
+     *     addressType: value-of<VkDeviceFaultAddressTypeKHR>,
      *     reportedAddress: int<0, max>,
      *     addressPrecision: int<0, max>,
      * } $data

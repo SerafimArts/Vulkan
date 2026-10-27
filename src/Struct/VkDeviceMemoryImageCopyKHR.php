@@ -11,6 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkAddressCommandFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkImageLayout;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDeviceMemoryImageCopyKHRExtension;
 
@@ -22,8 +23,7 @@ final class VkDeviceMemoryImageCopyKHR extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkDeviceMemoryImageCopyKHR';
 
-    /** `VK_STRUCTURE_TYPE_DEVICE_MEMORY_IMAGE_COPY_KHR` */
-    public const int STRUCTURE_TYPE = 1000318002;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_IMAGE_COPY_KHR->value;
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
@@ -40,6 +40,22 @@ final class VkDeviceMemoryImageCopyKHR extends InputStructure
         public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_IMAGE_COPY_KHR>,
+     *     pNext: CData,
+     *     addressRange: CData,
+     *     addressFlags: int<0, 4294967295>,
+     *     addressRowLength: int<0, 4294967295>,
+     *     addressImageHeight: int<0, 4294967295>,
+     *     imageSubresource: CData,
+     *     imageLayout: value-of<VkImageLayout>,
+     *     imageOffset: CData,
+     *     imageExtent: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

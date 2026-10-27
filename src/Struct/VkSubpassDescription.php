@@ -41,6 +41,22 @@ final class VkSubpassDescription extends InputStructure
         public array $preserveAttachments = [],
     ) {}
 
+    /**
+     * @param CData&object{
+     *     flags: int<0, 4294967295>,
+     *     pipelineBindPoint: value-of<VkPipelineBindPoint>,
+     *     inputAttachmentCount: int<0, 4294967295>,
+     *     pInputAttachments: CData,
+     *     colorAttachmentCount: int<0, 4294967295>,
+     *     pColorAttachments: CData,
+     *     pResolveAttachments: CData,
+     *     pDepthStencilAttachment: CData,
+     *     preserveAttachmentCount: int<0, 4294967295>,
+     *     pPreserveAttachments: CData,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->flags = $this->flags;

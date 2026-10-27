@@ -17,6 +17,11 @@ abstract readonly class Handle
 {
     private HandleLifetime $lifetime;
 
+    /**
+     * @param list<mixed> $references the objects that the native object refers
+     *        to (the structures the command was given, the views of a
+     *        framebuffer): they live as long as the handle does
+     */
     public function __construct(
         /** @phpstan-ignore-next-line phpstan false positive, required to keep the dependency in memory */
         private VulkanBase $vk,
@@ -35,12 +40,28 @@ abstract readonly class Handle
          * @var \Closure(self): void
          */
         private ?\Closure $release = null,
+        array $references = [],
     ) {
         $this->lifetime = new HandleLifetime();
+
+        foreach ($references as $reference) {
+            $this->lifetime->retain($reference);
+        }
 
         if ($parent !== null) {
             $parent->lifetime->adopt($this);
         }
+    }
+
+    /**
+     * Keeps the object alive as long as the handle is: the native object
+     * refers to it (the memory a buffer is bound to).
+     *
+     * @api
+     */
+    final public function retain(mixed $reference): void
+    {
+        $this->lifetime->retain($reference);
     }
 
     public function __destruct()

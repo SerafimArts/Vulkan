@@ -46,6 +46,21 @@ final class VkAttachmentDescription extends InputStructure
         public VkImageLayout $finalLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     flags: int<0, 4294967295>,
+     *     format: value-of<VkFormat>,
+     *     samples: int<0, 4294967295>,
+     *     loadOp: value-of<VkAttachmentLoadOp>,
+     *     storeOp: value-of<VkAttachmentStoreOp>,
+     *     stencilLoadOp: value-of<VkAttachmentLoadOp>,
+     *     stencilStoreOp: value-of<VkAttachmentStoreOp>,
+     *     initialLayout: value-of<VkImageLayout>,
+     *     finalLayout: value-of<VkImageLayout>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->flags = $this->flags;

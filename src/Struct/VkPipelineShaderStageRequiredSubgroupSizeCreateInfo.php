@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineShaderStageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkShaderCreateInfoEXTExtension;
@@ -21,8 +22,7 @@ final class VkPipelineShaderStageRequiredSubgroupSizeCreateInfo extends InputStr
 {
     protected const string NATIVE_TYPE = 'VkPipelineShaderStageRequiredSubgroupSizeCreateInfo';
 
-    /** `VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO` */
-    public const int STRUCTURE_TYPE = 1000225001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO->value;
 
     public function __construct(
         public VkPipelineShaderStageCreateInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,
@@ -30,6 +30,15 @@ final class VkPipelineShaderStageRequiredSubgroupSizeCreateInfo extends InputStr
         public int $requiredSubgroupSize = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_REQUIRED_SUBGROUP_SIZE_CREATE_INFO>,
+     *     pNext: CData,
+     *     requiredSubgroupSize: int<0, 4294967295>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

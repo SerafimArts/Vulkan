@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -20,8 +21,7 @@ final class VkMappedMemoryRange extends InputStructure
 {
     protected const string NATIVE_TYPE = 'VkMappedMemoryRange';
 
-    /** `VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE` */
-    public const int STRUCTURE_TYPE = 6;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE->value;
 
     public function __construct(
         /** Mapped memory object */
@@ -40,6 +40,17 @@ final class VkMappedMemoryRange extends InputStructure
         public int $size = 0,
     ) {}
 
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE>,
+     *     pNext: CData,
+     *     memory: CData,
+     *     offset: int<0, max>,
+     *     size: int<0, max>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
     protected function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\Chained;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
@@ -19,8 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  */
 final readonly class VkSurfaceCapabilitiesPresentBarrierNV extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
 {
-    /** `VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV` */
-    public const int STRUCTURE_TYPE = 1000292001;
+    public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV->value;
 
     public static function createNative(Allocator $memory): CData
     {
@@ -36,7 +36,7 @@ final readonly class VkSurfaceCapabilitiesPresentBarrierNV extends OutputStructu
 
     /**
      * @param CData&object{
-     *     presentBarrierSupported: int,
+     *     presentBarrierSupported: int<0, 1>,
      * } $data
      *
      * @phpstan-param CData $data
