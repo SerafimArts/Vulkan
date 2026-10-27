@@ -180,9 +180,13 @@ final readonly class CommandsEmitter
         }
 
         // The tags that describe the parameters and the result are the same.
-        $position = \array_search('@api', $comment, true);
+        $offset = \array_search('@api', $comment, true);
 
-        \array_push($lines, '', ...\array_slice($comment, $position === false ? 0 : (int) $position));
+        if ($offset === false) {
+            $offset = 0;
+        }
+
+        \array_push($lines, '', ...\array_slice($comment, $offset));
 
         foreach ($lines as $line) {
             $method->addComment($line);

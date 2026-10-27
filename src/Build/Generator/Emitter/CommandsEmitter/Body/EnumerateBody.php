@@ -7,6 +7,7 @@ namespace Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandPlan;
+use Serafim\Vulkan\Build\Generator\Analysis\ParameterPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Calls;
@@ -33,6 +34,10 @@ final readonly class EnumerateBody implements Body
 
         if ($output === null) {
             return [];
+        }
+
+        if ($output->kind !== TypeKind::HANDLE && $output->kind !== TypeKind::STRUCTURE) {
+            return $this->emitNumbers($namespace, $method, $plan, $output);
         }
 
         $space = match ($output->kind) {
@@ -74,5 +79,46 @@ final readonly class EnumerateBody implements Body
         $lines[] = ');';
 
         return $lines;
+    }
+
+    /**
+     * The numbers and the enumerations are returned at once as a list.
+     *
+     * @return list<string>
+     */
+    private function emitNumbers(PhpNamespace $namespace, Method $method, CommandPlan $plan, ParameterPlan $output): array
+    {
+        $namespace->addUse(Locations::ROOT_NAMESPACE . '\Internal\VkEnumerator');
+
+        $type = 'int';
+        $factory = 'fn(int $item): int => $item';
+
+        if ($output->kind === TypeKind::FLOAT) {
+            $type = 'float';
+            $factory = 'fn(float $item): float => $item';
+        }
+
+        if ($output->kind === TypeKind::ENUMERATION) {
+            $type = Imports::import($namespace, Locations::ENUM_NAMESPACE, $output->field->type);
+            $factory = 'fn(int $item): ' . $type . ' => ' . $type . '::from($item)';
+        }
+
+        $method->setReturnType('array');
+        $method->addComment('');
+        $method->addComment('@return list<' . $type . '>');
+
+        return [
+            ...$this->calls->createPreparationLines($namespace, $plan),
+            $this->calls->createProcedureLine($plan),
+            '',
+            'return VkEnumerator::createList(',
+            '    $this,',
+            '    ' . \var_export($plan->command->name, true) . ',',
+            '    $procedure,',
+            '    [' . \implode(', ', $this->calls->createLeadingArguments($plan)) . '],',
+            '    ' . \var_export($output->field->type, true) . ',',
+            '    ' . $factory . ',',
+            ');',
+        ];
     }
 }

@@ -37,8 +37,14 @@ final readonly class TypeParser
         foreach ($this->elements->select("//enums[@type='bitmask']") as $element) {
             $name = $element->getAttribute('name');
 
-            if ($name !== '') {
-                $bitmasks[$name] = $element->getAttribute('bitwidth') === '64' ? 'VkFlags64' : 'VkFlags';
+            if ($name === '') {
+                continue;
+            }
+
+            $bitmasks[$name] = 'VkFlags';
+
+            if ($element->getAttribute('bitwidth') === '64') {
+                $bitmasks[$name] = 'VkFlags64';
             }
         }
 

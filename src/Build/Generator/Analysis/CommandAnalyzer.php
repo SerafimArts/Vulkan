@@ -84,7 +84,9 @@ final readonly class CommandAnalyzer
             throw $this->createException($command, 'the command returns both a status and a value');
         }
 
-        $isReleasable = $kind === CommandKind::CREATE && !$command->isGetter();
+        $isReleasable = $kind === CommandKind::CREATE
+            && !$command->isGetter()
+            && $this->registry->hasReleaseCommand($output->field->type);
 
         if ($isReleasable && $this->registry->findReleaseCommand($output->field->type) === null) {
             throw $this->createException($command, 'the command that releases the handle is unknown');

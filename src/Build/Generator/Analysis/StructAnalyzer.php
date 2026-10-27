@@ -124,10 +124,26 @@ final readonly class StructAnalyzer
                 continue;
             }
 
+            if ($role !== StructRole::OUTPUT && $this->isResultsArray($member)) {
+                continue;
+            }
+
             $properties[] = $this->createProperty($struct, $member, $role);
         }
 
         return new StructPlan($struct, $role, $properties, $structureType);
+    }
+
+    /**
+     * Whether the member is the optional array of `VkResult` that a command
+     * fills when it is given, such an array is left `NULL`.
+     */
+    private function isResultsArray(FieldDefinition $member): bool
+    {
+        return $member->type === 'VkResult'
+            && $member->pointerDepth === 1
+            && !$member->isConst
+            && $member->isOptional;
     }
 
     /**

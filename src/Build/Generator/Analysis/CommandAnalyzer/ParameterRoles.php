@@ -145,6 +145,7 @@ final readonly class ParameterRoles
         if ($field->length !== null) {
             return match ($kind) {
                 TypeKind::HANDLE, TypeKind::STRUCTURE => ParameterRole::OUTPUT_ARRAY,
+                TypeKind::INTEGER, TypeKind::FLOAT, TypeKind::ENUMERATION => ParameterRole::OUTPUT_ARRAY,
                 default => null,
             };
         }

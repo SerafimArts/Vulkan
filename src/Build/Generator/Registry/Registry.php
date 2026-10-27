@@ -217,6 +217,27 @@ final readonly class Registry
     }
 
     /**
+     * Whether any command of the registry releases the handle: the handles
+     * that none of them releases belong to their owner.
+     */
+    public function hasReleaseCommand(string $handle): bool
+    {
+        foreach ($this->commands as $command) {
+            if (!$command->isReleasing()) {
+                continue;
+            }
+
+            foreach ($command->parameters as $parameter) {
+                if ($parameter->type === $handle) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the command that releases the handle: the one whose last
      * argument besides the allocator is the handle itself.
      */
