@@ -76,3 +76,72 @@ function vk_api_version_patch(int $version): int
 {
     return $version & 0xFFF;
 }
+
+/**
+ * Returns the unsigned decimal form of a 64-bit unsigned value (`uint64_t`,
+ * `VkDeviceSize`, `VkFlags64`) that PHP holds as a bit pattern of `int`.
+ *
+ * @api
+ *
+ * @return numeric-string
+ */
+function vk_uint64_to_string(int $value): string
+{
+    if ($value >= 0) {
+        return (string) $value;
+    }
+
+    $half = $value >> 1 & \PHP_INT_MAX;
+    $prefix = \intdiv($half, 5);
+    $digit = $half % 5 * 2 + ($value & 1);
+
+    return $prefix . $digit;
+}
+
+/**
+ * Parses an unsigned decimal number into the bit pattern of `uint64_t`.
+ *
+ * @api
+ *
+ * @throws \ValueError in case of the value is not an integer from 0 to 2^64 - 1
+ */
+function vk_uint64_from_string(string $value): int
+{
+    if (\preg_match('/^\d{1,20}$/', $value) !== 1) {
+        throw new \ValueError(\sprintf('Value "%s" is not an unsigned 64-bit integer', $value));
+    }
+
+    $length = \strlen($value);
+
+    if ($length === 20 && \strcmp($value, '18446744073709551615') > 0) {
+        throw new \ValueError(\sprintf('Value "%s" is out of the range of an unsigned 64-bit integer', $value));
+    }
+
+    if ($length < 19 || $length === 19 && \strcmp($value, '9223372036854775807') <= 0) {
+        return (int) $value;
+    }
+
+    $prefix = (int) \substr($value, 0, -1);
+    $digit = (int) \substr($value, -1);
+
+    $head = $prefix * 5 << 1;
+
+    if ($head >= 0 && $digit > \PHP_INT_MAX - $head) {
+        return \PHP_INT_MIN + ($digit - (\PHP_INT_MAX - $head) - 1);
+    }
+
+    return $head + $digit;
+}
+
+/**
+ * Compares two 64-bit unsigned values held as bit patterns of `int`, returns
+ * a negative number, zero or a positive number like the spaceship operator.
+ *
+ * @api
+ *
+ * @return int<-1, 1>
+ */
+function vk_uint64_compare(int $left, int $right): int
+{
+    return ($left ^ \PHP_INT_MIN) <=> ($right ^ \PHP_INT_MIN);
+}
