@@ -16,7 +16,7 @@ use Symfony\Component\Console\Command\Command;
  */
 final class CommandArchitecture
 {
-    private const string NAMESPACE = 'Serafim\Vulkan\Command';
+    private const string NAMESPACE = 'Serafim\Vulkan\Build\Command';
 
     #[TestRule]
     public function testCommandsDependOnlyOnHeadersPlatformAndConsole(): Rule
@@ -26,6 +26,7 @@ final class CommandArchitecture
             ->canOnlyDependOn()
             ->classes(
                 Selector::inNamespace(self::NAMESPACE),
+                Selector::inNamespace('Serafim\Vulkan\Build\Generator'),
                 Selector::inNamespace('Serafim\Vulkan\Loader\Headers'),
                 Selector::inNamespace('Serafim\Vulkan\Loader\Platform'),
                 Selector::inNamespace('Serafim\Vulkan\Loader\Exception'),
@@ -73,6 +74,6 @@ final class CommandArchitecture
 
     private static function selectCommands(): SelectorInterface
     {
-        return Selector::classname('/^Serafim\\\\Vulkan\\\\Command\\\\[^\\\\]+Command$/', true);
+        return Selector::classname('/^Serafim\\\\Vulkan\\\\Build\\\\Command\\\\[^\\\\]+Command$/', true);
     }
 }
