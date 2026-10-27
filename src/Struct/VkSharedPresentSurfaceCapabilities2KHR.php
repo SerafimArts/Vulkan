@@ -32,13 +32,13 @@ final readonly class VkSharedPresentSurfaceCapabilities2KHR extends OutputStruct
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::*) */
+        /** @var int|(VkImageUsageFlagBits2KHR::*) */
         public int $sharedPresentSupportedUsageFlags,
     ) {}
 
     /**
      * @param CData&object{
-     *     sharedPresentSupportedUsageFlags: int<0, max>,
+     *     sharedPresentSupportedUsageFlags: int,
      * } $data
      *
      * @phpstan-param CData $data

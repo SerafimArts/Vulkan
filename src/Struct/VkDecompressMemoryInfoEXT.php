@@ -34,7 +34,7 @@ final class VkDecompressMemoryInfoEXT extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DECOMPRESS_MEMORY_INFO_EXT>,
      *     pNext: CData,
-     *     decompressionMethod: int<0, max>,
+     *     decompressionMethod: int,
      *     regionCount: int<0, 4294967295>,
      *     pRegions: CData,
      * } $data

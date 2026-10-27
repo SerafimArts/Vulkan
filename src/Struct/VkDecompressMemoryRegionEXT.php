@@ -20,30 +20,30 @@ final class VkDecompressMemoryRegionEXT extends InputStructure
     protected const string NATIVE_TYPE = 'VkDecompressMemoryRegionEXT';
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcAddress = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $dstAddress = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $compressedSize = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $decompressedSize = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     srcAddress: int<0, max>,
-     *     dstAddress: int<0, max>,
-     *     compressedSize: int<0, max>,
-     *     decompressedSize: int<0, max>,
+     *     srcAddress: int,
+     *     dstAddress: int,
+     *     compressedSize: int,
+     *     decompressedSize: int,
      * } $data
      *
      * @phpstan-param CData $data

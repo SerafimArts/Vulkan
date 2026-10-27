@@ -27,7 +27,7 @@ final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderP
 
     public function __construct(
         public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkRenderingInfoExtension|null $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $size = 0,
     ) {}
 
@@ -35,7 +35,7 @@ final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderP
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM>,
      *     pNext: CData,
-     *     size: int<0, max>,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

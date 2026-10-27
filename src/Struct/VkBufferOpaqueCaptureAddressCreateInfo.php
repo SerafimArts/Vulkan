@@ -25,7 +25,7 @@ final class VkBufferOpaqueCaptureAddressCreateInfo extends InputStructure implem
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $opaqueCaptureAddress = 0,
     ) {}
 
@@ -33,7 +33,7 @@ final class VkBufferOpaqueCaptureAddressCreateInfo extends InputStructure implem
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_OPAQUE_CAPTURE_ADDRESS_CREATE_INFO>,
      *     pNext: CData,
-     *     opaqueCaptureAddress: int<0, max>,
+     *     opaqueCaptureAddress: int,
      * } $data
      *
      * @phpstan-param CData $data

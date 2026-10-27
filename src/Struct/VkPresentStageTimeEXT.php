@@ -23,7 +23,7 @@ final readonly class VkPresentStageTimeEXT extends OutputStructure
         /**
          * Time in nanoseconds of the associated stage
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $time,
     ) {}
@@ -31,7 +31,7 @@ final readonly class VkPresentStageTimeEXT extends OutputStructure
     /**
      * @param CData&object{
      *     stage: int<0, 4294967295>,
-     *     time: int<0, max>,
+     *     time: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -30,7 +30,7 @@ final class VkSwapchainCalibratedTimestampInfoEXT extends InputStructure impleme
         public ?VkCalibratedTimestampInfoKHRExtension $next = null,
         /** @var int-mask-of<VkPresentStageFlagBitsEXT::*> */
         public int $presentStage = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $timeDomainId = 0,
     ) {}
 
@@ -40,7 +40,7 @@ final class VkSwapchainCalibratedTimestampInfoEXT extends InputStructure impleme
      *     pNext: CData,
      *     swapchain: CData,
      *     presentStage: int<0, 4294967295>,
-     *     timeDomainId: int<0, max>,
+     *     timeDomainId: int,
      * } $data
      *
      * @phpstan-param CData $data

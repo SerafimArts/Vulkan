@@ -31,13 +31,13 @@ final class VkAccelerationStructureGeometrySpheresDataNV extends InputStructure 
         public VkDeviceOrHostAddressConstKHR $indexData,
         public ?VkAccelerationStructureGeometryKHRExtension $next = null,
         public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int<0, max> */
+        /** @var int */
         public int $vertexStride = 0,
         public VkFormat $radiusFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int<0, max> */
+        /** @var int */
         public int $radiusStride = 0,
         public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
-        /** @var int<0, max> */
+        /** @var int */
         public int $indexStride = 0,
     ) {}
 
@@ -47,13 +47,13 @@ final class VkAccelerationStructureGeometrySpheresDataNV extends InputStructure 
      *     pNext: CData,
      *     vertexFormat: value-of<VkFormat>,
      *     vertexData: CData,
-     *     vertexStride: int<0, max>,
+     *     vertexStride: int,
      *     radiusFormat: value-of<VkFormat>,
      *     radiusData: CData,
-     *     radiusStride: int<0, max>,
+     *     radiusStride: int,
      *     indexType: value-of<VkIndexType>,
      *     indexData: CData,
-     *     indexStride: int<0, max>,
+     *     indexStride: int,
      * } $data
      *
      * @phpstan-param CData $data

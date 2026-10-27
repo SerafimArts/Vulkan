@@ -60,19 +60,19 @@ final readonly class VkPhysicalDeviceRayTracingPropertiesNV extends OutputStruct
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxGeometryCount,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxInstanceCount,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxTriangleCount,
         /**
@@ -89,9 +89,9 @@ final readonly class VkPhysicalDeviceRayTracingPropertiesNV extends OutputStruct
      *     maxRecursionDepth: int<0, 4294967295>,
      *     maxShaderGroupStride: int<0, 4294967295>,
      *     shaderGroupBaseAlignment: int<0, 4294967295>,
-     *     maxGeometryCount: int<0, max>,
-     *     maxInstanceCount: int<0, max>,
-     *     maxTriangleCount: int<0, max>,
+     *     maxGeometryCount: int,
+     *     maxInstanceCount: int,
+     *     maxTriangleCount: int,
      *     maxDescriptorSetAccelerationStructures: int<0, 4294967295>,
      * } $data
      *

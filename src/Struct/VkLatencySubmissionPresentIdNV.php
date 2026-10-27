@@ -26,7 +26,7 @@ final class VkLatencySubmissionPresentIdNV extends InputStructure implements VkS
 
     public function __construct(
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|null $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $presentID = 0,
     ) {}
 
@@ -34,7 +34,7 @@ final class VkLatencySubmissionPresentIdNV extends InputStructure implements VkS
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SUBMISSION_PRESENT_ID_NV>,
      *     pNext: CData,
-     *     presentID: int<0, max>,
+     *     presentID: int,
      * } $data
      *
      * @phpstan-param CData $data

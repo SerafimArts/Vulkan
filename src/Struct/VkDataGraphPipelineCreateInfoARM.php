@@ -28,7 +28,7 @@ final class VkDataGraphPipelineCreateInfoARM extends InputStructure
     public function __construct(
         public VkPipelineLayout $layout,
         public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
-        /** @var int<0, max>|(VkPipelineCreateFlagBits2::*) */
+        /** @var int|(VkPipelineCreateFlagBits2::*) */
         public int $flags = 0,
         /** @var list<VkDataGraphPipelineResourceInfoARM> */
         public array $resourceInfos = [],
@@ -38,7 +38,7 @@ final class VkDataGraphPipelineCreateInfoARM extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CREATE_INFO_ARM>,
      *     pNext: CData,
-     *     flags: int<0, max>,
+     *     flags: int,
      *     layout: CData,
      *     resourceInfoCount: int<0, 4294967295>,
      *     pResourceInfos: CData,

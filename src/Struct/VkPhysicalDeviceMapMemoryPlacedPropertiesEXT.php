@@ -35,14 +35,14 @@ final readonly class VkPhysicalDeviceMapMemoryPlacedPropertiesEXT extends Output
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minPlacedMemoryMapAlignment,
     ) {}
 
     /**
      * @param CData&object{
-     *     minPlacedMemoryMapAlignment: int<0, max>,
+     *     minPlacedMemoryMapAlignment: int,
      * } $data
      *
      * @phpstan-param CData $data

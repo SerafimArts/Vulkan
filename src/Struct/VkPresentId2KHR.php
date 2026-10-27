@@ -38,7 +38,7 @@ final class VkPresentId2KHR extends InputStructure implements VkPresentInfoKHREx
         /**
          * Present ID values for each swapchain
          *
-         * @var list<int<0, max>>
+         * @var list<int>
          */
         public array $presentIds = [],
     ) {}

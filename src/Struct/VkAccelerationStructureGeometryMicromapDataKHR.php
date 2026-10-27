@@ -35,11 +35,11 @@ final class VkAccelerationStructureGeometryMicromapDataKHR extends InputStructur
         public int $usageCountsCount = 0,
         /** @var list<VkMicromapUsageKHR> */
         public array $usageCounts = [],
-        /** @var int<0, max> */
+        /** @var int */
         public int $data = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $triangleArray = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $triangleArrayStride = 0,
     ) {}
 
@@ -50,9 +50,9 @@ final class VkAccelerationStructureGeometryMicromapDataKHR extends InputStructur
      *     usageCountsCount: int<0, 4294967295>,
      *     pUsageCounts: CData,
      *     ppUsageCounts: CData,
-     *     data: int<0, max>,
-     *     triangleArray: int<0, max>,
-     *     triangleArrayStride: int<0, max>,
+     *     data: int,
+     *     triangleArray: int,
+     *     triangleArrayStride: int,
      * } $data
      *
      * @phpstan-param CData $data

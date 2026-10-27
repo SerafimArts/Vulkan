@@ -20,13 +20,13 @@ final class VkClusterAccelerationStructureMoveObjectsInfoNV extends InputStructu
     protected const string NATIVE_TYPE = 'VkClusterAccelerationStructureMoveObjectsInfoNV';
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcAccelerationStructure = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     srcAccelerationStructure: int<0, max>,
+     *     srcAccelerationStructure: int,
      * } $data
      *
      * @phpstan-param CData $data

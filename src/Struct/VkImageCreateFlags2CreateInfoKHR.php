@@ -31,7 +31,7 @@ final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements V
 
     public function __construct(
         public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkFramebufferAttachmentImageInfoExtension|VkVideoFormatPropertiesKHRExtension|null $next = null,
-        /** @var int<0, max>|(VkImageCreateFlagBits2KHR::*) */
+        /** @var int|(VkImageCreateFlagBits2KHR::*) */
         public int $flags = 0,
     ) {}
 
@@ -39,7 +39,7 @@ final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements V
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_CREATE_FLAGS_2_CREATE_INFO_KHR>,
      *     pNext: CData,
-     *     flags: int<0, max>,
+     *     flags: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -67,7 +67,7 @@ final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements V
 
     /**
      * @param CData&object{
-     *     flags: int<0, max>,
+     *     flags: int,
      * } $data
      *
      * @phpstan-param CData $data

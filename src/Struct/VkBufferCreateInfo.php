@@ -37,7 +37,7 @@ final class VkBufferCreateInfo extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size = 0,
         /**
@@ -56,7 +56,7 @@ final class VkBufferCreateInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     size: int<0, max>,
+     *     size: int,
      *     usage: int<0, 4294967295>,
      *     sharingMode: value-of<VkSharingMode>,
      *     queueFamilyIndexCount: int<0, 4294967295>,

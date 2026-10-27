@@ -21,7 +21,7 @@ final readonly class VkAndroidHardwareBufferPropertiesANDROID extends OutputStru
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $allocationSize,
         /** @var int<0, 4294967295> */
         public int $memoryTypeBits,
@@ -31,7 +31,7 @@ final readonly class VkAndroidHardwareBufferPropertiesANDROID extends OutputStru
 
     /**
      * @param CData&object{
-     *     allocationSize: int<0, max>,
+     *     allocationSize: int,
      *     memoryTypeBits: int<0, 4294967295>,
      * } $data
      * @param list<VkAndroidHardwareBufferPropertiesANDROIDExtension> $chain

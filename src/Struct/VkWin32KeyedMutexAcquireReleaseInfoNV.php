@@ -30,13 +30,13 @@ final class VkWin32KeyedMutexAcquireReleaseInfoNV extends InputStructure impleme
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|null $next = null,
         /** @var list<VkDeviceMemory> */
         public array $acquireSyncs = [],
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $acquireKeys = [],
         /** @var list<int<0, 4294967295>> */
         public array $acquireTimeoutMilliseconds = [],
         /** @var list<VkDeviceMemory> */
         public array $releaseSyncs = [],
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $releaseKeys = [],
     ) {}
 

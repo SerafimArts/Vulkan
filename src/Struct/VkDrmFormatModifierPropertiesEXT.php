@@ -21,7 +21,7 @@ final readonly class VkDrmFormatModifierPropertiesEXT extends OutputStructure
         /**
          * The value is exactly the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $drmFormatModifier,
         /**
@@ -36,7 +36,7 @@ final readonly class VkDrmFormatModifierPropertiesEXT extends OutputStructure
 
     /**
      * @param CData&object{
-     *     drmFormatModifier: int<0, max>,
+     *     drmFormatModifier: int,
      *     drmFormatModifierPlaneCount: int<0, 4294967295>,
      *     drmFormatModifierTilingFeatures: int<0, 4294967295>,
      * } $data

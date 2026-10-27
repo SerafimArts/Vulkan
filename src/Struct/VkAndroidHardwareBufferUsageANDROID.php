@@ -31,13 +31,13 @@ final readonly class VkAndroidHardwareBufferUsageANDROID extends OutputStructure
     }
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $androidHardwareBufferUsage,
     ) {}
 
     /**
      * @param CData&object{
-     *     androidHardwareBufferUsage: int<0, max>,
+     *     androidHardwareBufferUsage: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -35,7 +35,7 @@ final readonly class VkPhysicalDeviceTexelBufferAlignmentProperties extends Outp
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $storageTexelBufferOffsetAlignmentBytes,
         /** The value is exactly the required one. */
@@ -44,7 +44,7 @@ final readonly class VkPhysicalDeviceTexelBufferAlignmentProperties extends Outp
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $uniformTexelBufferOffsetAlignmentBytes,
         /** The value is exactly the required one. */
@@ -53,9 +53,9 @@ final readonly class VkPhysicalDeviceTexelBufferAlignmentProperties extends Outp
 
     /**
      * @param CData&object{
-     *     storageTexelBufferOffsetAlignmentBytes: int<0, max>,
+     *     storageTexelBufferOffsetAlignmentBytes: int,
      *     storageTexelBufferOffsetSingleTexelAlignment: int<0, 1>,
-     *     uniformTexelBufferOffsetAlignmentBytes: int<0, max>,
+     *     uniformTexelBufferOffsetAlignmentBytes: int,
      *     uniformTexelBufferOffsetSingleTexelAlignment: int<0, 1>,
      * } $data
      *

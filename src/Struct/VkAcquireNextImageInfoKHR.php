@@ -27,7 +27,7 @@ final class VkAcquireNextImageInfoKHR extends InputStructure
 
     public function __construct(
         public VkSwapchainKHR $swapchain,
-        /** @var int<0, max> */
+        /** @var int */
         public int $timeout = 0,
         public ?VkSemaphore $semaphore = null,
         public ?VkFence $fence = null,
@@ -40,7 +40,7 @@ final class VkAcquireNextImageInfoKHR extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACQUIRE_NEXT_IMAGE_INFO_KHR>,
      *     pNext: CData,
      *     swapchain: CData,
-     *     timeout: int<0, max>,
+     *     timeout: int,
      *     semaphore: CData,
      *     fence: CData,
      *     deviceMask: int<0, 4294967295>,

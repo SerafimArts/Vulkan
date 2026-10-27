@@ -26,12 +26,12 @@ final readonly class VkDeviceMemoryReportCallbackDataEXT extends OutputStructure
         /** @var int<0, 4294967295> */
         public int $flags,
         public VkDeviceMemoryReportEventTypeEXT $type,
-        /** @var int<0, max> */
+        /** @var int */
         public int $memoryObjectId,
-        /** @var int<0, max> */
+        /** @var int */
         public int $size,
         public VkObjectType $objectType,
-        /** @var int<0, max> */
+        /** @var int */
         public int $objectHandle,
         /** @var int<0, 4294967295> */
         public int $heapIndex,
@@ -41,10 +41,10 @@ final readonly class VkDeviceMemoryReportCallbackDataEXT extends OutputStructure
      * @param CData&object{
      *     flags: int<0, 4294967295>,
      *     type: value-of<VkDeviceMemoryReportEventTypeEXT>,
-     *     memoryObjectId: int<0, max>,
-     *     size: int<0, max>,
+     *     memoryObjectId: int,
+     *     size: int,
      *     objectType: value-of<VkObjectType>,
-     *     objectHandle: int<0, max>,
+     *     objectHandle: int,
      *     heapIndex: int<0, 4294967295>,
      * } $data
      *

@@ -20,13 +20,13 @@ final readonly class VkImageDrmFormatModifierPropertiesEXT extends OutputStructu
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_PROPERTIES_EXT->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $drmFormatModifier,
     ) {}
 
     /**
      * @param CData&object{
-     *     drmFormatModifier: int<0, max>,
+     *     drmFormatModifier: int,
      * } $data
      *
      * @phpstan-param CData $data

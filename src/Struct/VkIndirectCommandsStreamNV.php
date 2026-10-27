@@ -22,14 +22,14 @@ final class VkIndirectCommandsStreamNV extends InputStructure
 
     public function __construct(
         public VkBuffer $buffer,
-        /** @var int<0, max> */
+        /** @var int */
         public int $offset = 0,
     ) {}
 
     /**
      * @param CData&object{
      *     buffer: CData,
-     *     offset: int<0, max>,
+     *     offset: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -23,42 +23,42 @@ final class VkSubresourceLayout extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $offset = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $rowPitch = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $arrayPitch = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $depthPitch = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     offset: int<0, max>,
-     *     size: int<0, max>,
-     *     rowPitch: int<0, max>,
-     *     arrayPitch: int<0, max>,
-     *     depthPitch: int<0, max>,
+     *     offset: int,
+     *     size: int,
+     *     rowPitch: int,
+     *     arrayPitch: int,
+     *     depthPitch: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -78,11 +78,11 @@ final class VkSubresourceLayout extends InputStructure
 
     /**
      * @param CData&object{
-     *     offset: int<0, max>,
-     *     size: int<0, max>,
-     *     rowPitch: int<0, max>,
-     *     arrayPitch: int<0, max>,
-     *     depthPitch: int<0, max>,
+     *     offset: int,
+     *     size: int,
+     *     rowPitch: int,
+     *     arrayPitch: int,
+     *     depthPitch: int,
      * } $data
      *
      * @phpstan-param CData $data

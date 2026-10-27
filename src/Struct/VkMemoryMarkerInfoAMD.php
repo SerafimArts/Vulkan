@@ -26,7 +26,7 @@ final class VkMemoryMarkerInfoAMD extends InputStructure
 
     public function __construct(
         public VkDeviceAddressRangeKHR $dstRange,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $stage = 0,
         /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
         public int $dstFlags = 0,
@@ -38,7 +38,7 @@ final class VkMemoryMarkerInfoAMD extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_MARKER_INFO_AMD>,
      *     pNext: CData,
-     *     stage: int<0, max>,
+     *     stage: int,
      *     dstRange: CData,
      *     dstFlags: int<0, 4294967295>,
      *     marker: int<0, 4294967295>,

@@ -41,7 +41,7 @@ final readonly class VkImageFormatProperties extends OutputStructure
         /**
          * Max size (in bytes) of this resource type
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxResourceSize,
     ) {}
@@ -52,7 +52,7 @@ final readonly class VkImageFormatProperties extends OutputStructure
      *     maxMipLevels: int<0, 4294967295>,
      *     maxArrayLayers: int<0, 4294967295>,
      *     sampleCounts: int<0, 4294967295>,
-     *     maxResourceSize: int<0, max>,
+     *     maxResourceSize: int,
      * } $data
      *
      * @phpstan-param CData $data

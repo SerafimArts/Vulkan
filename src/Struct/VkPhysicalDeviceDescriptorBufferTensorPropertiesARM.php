@@ -31,23 +31,23 @@ final readonly class VkPhysicalDeviceDescriptorBufferTensorPropertiesARM extends
     }
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $tensorCaptureReplayDescriptorDataSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $tensorViewCaptureReplayDescriptorDataSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $tensorDescriptorSize,
     ) {}
 
     /**
      * @param CData&object{
-     *     tensorCaptureReplayDescriptorDataSize: int<0, max>,
-     *     tensorViewCaptureReplayDescriptorDataSize: int<0, max>,
-     *     tensorDescriptorSize: int<0, max>,
+     *     tensorCaptureReplayDescriptorDataSize: int,
+     *     tensorViewCaptureReplayDescriptorDataSize: int,
+     *     tensorDescriptorSize: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -29,7 +29,7 @@ final class VkBufferUsageFlags2CreateInfo extends InputStructure implements VkBu
 
     public function __construct(
         public VkBufferViewCreateInfoExtension|VkBufferCreateInfoExtension|VkPhysicalDeviceExternalBufferInfoExtension|VkDescriptorBufferBindingInfoEXTExtension|null $next = null,
-        /** @var int<0, max>|(VkBufferUsageFlagBits2::*) */
+        /** @var int|(VkBufferUsageFlagBits2::*) */
         public int $usage = 0,
     ) {}
 
@@ -37,7 +37,7 @@ final class VkBufferUsageFlags2CreateInfo extends InputStructure implements VkBu
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO>,
      *     pNext: CData,
-     *     usage: int<0, max>,
+     *     usage: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -45,7 +45,7 @@ final class VkMicromapBuildInfoEXT extends InputStructure
         public int $usageCountsCount = 0,
         /** @var list<VkMicromapUsageEXT> */
         public array $usageCounts = [],
-        /** @var int<0, max> */
+        /** @var int */
         public int $triangleArrayStride = 0,
     ) {}
 
@@ -63,7 +63,7 @@ final class VkMicromapBuildInfoEXT extends InputStructure
      *     data: CData,
      *     scratchData: CData,
      *     triangleArray: CData,
-     *     triangleArrayStride: int<0, max>,
+     *     triangleArrayStride: int,
      * } $data
      *
      * @phpstan-param CData $data

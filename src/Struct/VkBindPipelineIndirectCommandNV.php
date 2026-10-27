@@ -20,13 +20,13 @@ final class VkBindPipelineIndirectCommandNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindPipelineIndirectCommandNV';
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $pipelineAddress = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     pipelineAddress: int<0, max>,
+     *     pipelineAddress: int,
      * } $data
      *
      * @phpstan-param CData $data

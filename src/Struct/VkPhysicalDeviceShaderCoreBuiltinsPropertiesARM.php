@@ -31,7 +31,7 @@ final readonly class VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM extends Out
     }
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $shaderCoreMask,
         /**
          * The value is at least the required one.
@@ -49,7 +49,7 @@ final readonly class VkPhysicalDeviceShaderCoreBuiltinsPropertiesARM extends Out
 
     /**
      * @param CData&object{
-     *     shaderCoreMask: int<0, max>,
+     *     shaderCoreMask: int,
      *     shaderCoreCount: int<0, 4294967295>,
      *     shaderWarpsPerCore: int<0, 4294967295>,
      * } $data

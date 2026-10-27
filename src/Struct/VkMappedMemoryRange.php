@@ -29,13 +29,13 @@ final class VkMappedMemoryRange extends InputStructure
         /**
          * Offset within the memory object where the range starts
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $offset = 0,
         /**
          * Size of the range within the memory object
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size = 0,
     ) {}
@@ -45,8 +45,8 @@ final class VkMappedMemoryRange extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE>,
      *     pNext: CData,
      *     memory: CData,
-     *     offset: int<0, max>,
-     *     size: int<0, max>,
+     *     offset: int,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

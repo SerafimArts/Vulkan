@@ -28,7 +28,7 @@ final class VkBufferImageCopy extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $bufferOffset = 0,
         /**
@@ -43,7 +43,7 @@ final class VkBufferImageCopy extends InputStructure
 
     /**
      * @param CData&object{
-     *     bufferOffset: int<0, max>,
+     *     bufferOffset: int,
      *     bufferRowLength: int<0, 4294967295>,
      *     bufferImageHeight: int<0, 4294967295>,
      *     imageSubresource: CData,

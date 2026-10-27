@@ -32,16 +32,16 @@ final readonly class VkTensorFormatPropertiesARM extends OutputStructure impleme
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $optimalTilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $linearTilingTensorFeatures,
     ) {}
 
     /**
      * @param CData&object{
-     *     optimalTilingTensorFeatures: int<0, max>,
-     *     linearTilingTensorFeatures: int<0, max>,
+     *     optimalTilingTensorFeatures: int,
+     *     linearTilingTensorFeatures: int,
      * } $data
      *
      * @phpstan-param CData $data

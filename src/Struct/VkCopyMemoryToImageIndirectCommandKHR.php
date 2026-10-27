@@ -23,7 +23,7 @@ final class VkCopyMemoryToImageIndirectCommandKHR extends InputStructure
         public VkImageSubresourceLayers $imageSubresource,
         public VkOffset3D $imageOffset,
         public VkExtent3D $imageExtent,
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcAddress = 0,
         /** @var int<0, 4294967295> */
         public int $bufferRowLength = 0,
@@ -33,7 +33,7 @@ final class VkCopyMemoryToImageIndirectCommandKHR extends InputStructure
 
     /**
      * @param CData&object{
-     *     srcAddress: int<0, max>,
+     *     srcAddress: int,
      *     bufferRowLength: int<0, 4294967295>,
      *     bufferImageHeight: int<0, 4294967295>,
      *     imageSubresource: CData,

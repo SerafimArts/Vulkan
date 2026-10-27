@@ -32,25 +32,25 @@ final readonly class VkTensorExplicitTilingFormatPropertiesARM extends OutputStr
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $brick16TilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $brick8TilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $brick4TilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $blockUTilingTensorFeatures,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $blockU64kTilingTensorFeatures,
     ) {}
 
     /**
      * @param CData&object{
-     *     brick16TilingTensorFeatures: int<0, max>,
-     *     brick8TilingTensorFeatures: int<0, max>,
-     *     brick4TilingTensorFeatures: int<0, max>,
-     *     blockUTilingTensorFeatures: int<0, max>,
-     *     blockU64kTilingTensorFeatures: int<0, max>,
+     *     brick16TilingTensorFeatures: int,
+     *     brick8TilingTensorFeatures: int,
+     *     brick4TilingTensorFeatures: int,
+     *     blockUTilingTensorFeatures: int,
+     *     blockU64kTilingTensorFeatures: int,
      * } $data
      *
      * @phpstan-param CData $data

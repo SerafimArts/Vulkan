@@ -36,7 +36,7 @@ final class VkPhysicalDeviceExternalTensorInfoARM extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM>,
      *     pNext: CData,
-     *     flags: int<0, max>,
+     *     flags: int,
      *     pDescription: CData,
      *     handleType: int<0, 4294967295>,
      * } $data

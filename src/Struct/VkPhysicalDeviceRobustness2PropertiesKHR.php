@@ -35,22 +35,22 @@ final readonly class VkPhysicalDeviceRobustness2PropertiesKHR extends OutputStru
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $robustStorageBufferAccessSizeAlignment,
         /**
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $robustUniformBufferAccessSizeAlignment,
     ) {}
 
     /**
      * @param CData&object{
-     *     robustStorageBufferAccessSizeAlignment: int<0, max>,
-     *     robustUniformBufferAccessSizeAlignment: int<0, max>,
+     *     robustStorageBufferAccessSizeAlignment: int,
+     *     robustUniformBufferAccessSizeAlignment: int,
      * } $data
      *
      * @phpstan-param CData $data

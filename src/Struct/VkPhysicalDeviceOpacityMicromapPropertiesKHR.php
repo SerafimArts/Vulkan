@@ -52,7 +52,7 @@ final readonly class VkPhysicalDeviceOpacityMicromapPropertiesKHR extends Output
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxMicromapTriangles,
     ) {}
@@ -62,7 +62,7 @@ final readonly class VkPhysicalDeviceOpacityMicromapPropertiesKHR extends Output
      *     maxOpacity2StateSubdivisionLevel: int<0, 4294967295>,
      *     maxOpacity4StateSubdivisionLevel: int<0, 4294967295>,
      *     maxOpacityLossy4StateSubdivisionLevel: int<0, 4294967295>,
-     *     maxMicromapTriangles: int<0, max>,
+     *     maxMicromapTriangles: int,
      * } $data
      *
      * @phpstan-param CData $data

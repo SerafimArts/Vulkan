@@ -29,13 +29,13 @@ final class VkMemoryRangeBarrierKHR extends InputStructure
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
         public ?VkMemoryRangeBarrierKHRExtension $next = null,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $srcStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::*) */
+        /** @var int|(VkAccessFlagBits2::*) */
         public int $srcAccessMask = 0,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $dstStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::*) */
+        /** @var int|(VkAccessFlagBits2::*) */
         public int $dstAccessMask = 0,
         /** @var int<0, 4294967295> */
         public int $srcQueueFamilyIndex = 0,
@@ -49,10 +49,10 @@ final class VkMemoryRangeBarrierKHR extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_RANGE_BARRIER_KHR>,
      *     pNext: CData,
-     *     srcStageMask: int<0, max>,
-     *     srcAccessMask: int<0, max>,
-     *     dstStageMask: int<0, max>,
-     *     dstAccessMask: int<0, max>,
+     *     srcStageMask: int,
+     *     srcAccessMask: int,
+     *     dstStageMask: int,
+     *     dstAccessMask: int,
      *     srcQueueFamilyIndex: int<0, 4294967295>,
      *     dstQueueFamilyIndex: int<0, 4294967295>,
      *     addressRange: CData,

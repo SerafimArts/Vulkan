@@ -19,17 +19,17 @@ final readonly class VkDeviceFaultVendorInfoKHR extends OutputStructure
     public function __construct(
         /** Free-form description of the fault */
         public string $description,
-        /** @var int<0, max> */
+        /** @var int */
         public int $vendorFaultCode,
-        /** @var int<0, max> */
+        /** @var int */
         public int $vendorFaultData,
     ) {}
 
     /**
      * @param CData&object{
      *     description: CData,
-     *     vendorFaultCode: int<0, max>,
-     *     vendorFaultData: int<0, max>,
+     *     vendorFaultCode: int,
+     *     vendorFaultData: int,
      * } $data
      *
      * @phpstan-param CData $data

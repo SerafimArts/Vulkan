@@ -21,7 +21,7 @@ final readonly class VkMemoryHeap extends OutputStructure
         /**
          * Available memory in the heap
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size,
         /**
@@ -34,7 +34,7 @@ final readonly class VkMemoryHeap extends OutputStructure
 
     /**
      * @param CData&object{
-     *     size: int<0, max>,
+     *     size: int,
      *     flags: int<0, 4294967295>,
      * } $data
      *

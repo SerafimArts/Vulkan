@@ -20,17 +20,17 @@ final readonly class VkMicromapBuildSizesInfoEXT extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $micromapSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $buildScratchSize,
         public bool $discardable,
     ) {}
 
     /**
      * @param CData&object{
-     *     micromapSize: int<0, max>,
-     *     buildScratchSize: int<0, max>,
+     *     micromapSize: int,
+     *     buildScratchSize: int,
      *     discardable: int<0, 1>,
      * } $data
      *

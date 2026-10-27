@@ -20,27 +20,27 @@ final class VkTraceRaysIndirectCommand2KHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkTraceRaysIndirectCommand2KHR';
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $raygenShaderRecordAddress = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $raygenShaderRecordSize = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $missShaderBindingTableAddress = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $missShaderBindingTableSize = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $missShaderBindingTableStride = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $hitShaderBindingTableAddress = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $hitShaderBindingTableSize = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $hitShaderBindingTableStride = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $callableShaderBindingTableAddress = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $callableShaderBindingTableSize = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $callableShaderBindingTableStride = 0,
         /** @var int<0, 4294967295> */
         public int $width = 0,
@@ -52,17 +52,17 @@ final class VkTraceRaysIndirectCommand2KHR extends InputStructure
 
     /**
      * @param CData&object{
-     *     raygenShaderRecordAddress: int<0, max>,
-     *     raygenShaderRecordSize: int<0, max>,
-     *     missShaderBindingTableAddress: int<0, max>,
-     *     missShaderBindingTableSize: int<0, max>,
-     *     missShaderBindingTableStride: int<0, max>,
-     *     hitShaderBindingTableAddress: int<0, max>,
-     *     hitShaderBindingTableSize: int<0, max>,
-     *     hitShaderBindingTableStride: int<0, max>,
-     *     callableShaderBindingTableAddress: int<0, max>,
-     *     callableShaderBindingTableSize: int<0, max>,
-     *     callableShaderBindingTableStride: int<0, max>,
+     *     raygenShaderRecordAddress: int,
+     *     raygenShaderRecordSize: int,
+     *     missShaderBindingTableAddress: int,
+     *     missShaderBindingTableSize: int,
+     *     missShaderBindingTableStride: int,
+     *     hitShaderBindingTableAddress: int,
+     *     hitShaderBindingTableSize: int,
+     *     hitShaderBindingTableStride: int,
+     *     callableShaderBindingTableAddress: int,
+     *     callableShaderBindingTableSize: int,
+     *     callableShaderBindingTableStride: int,
      *     width: int<0, 4294967295>,
      *     height: int<0, 4294967295>,
      *     depth: int<0, 4294967295>,

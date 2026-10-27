@@ -32,13 +32,13 @@ final class VkMicromapCreateInfoEXT extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $offset = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $size = 0,
         public VkMicromapTypeEXT $type = VkMicromapTypeEXT::VK_MICROMAP_TYPE_OPACITY_MICROMAP_EXT,
-        /** @var int<0, max> */
+        /** @var int */
         public int $deviceAddress = 0,
     ) {}
 
@@ -48,10 +48,10 @@ final class VkMicromapCreateInfoEXT extends InputStructure
      *     pNext: CData,
      *     createFlags: int<0, 4294967295>,
      *     buffer: CData,
-     *     offset: int<0, max>,
-     *     size: int<0, max>,
+     *     offset: int,
+     *     size: int,
      *     type: value-of<VkMicromapTypeEXT>,
-     *     deviceAddress: int<0, max>,
+     *     deviceAddress: int,
      * } $data
      *
      * @phpstan-param CData $data

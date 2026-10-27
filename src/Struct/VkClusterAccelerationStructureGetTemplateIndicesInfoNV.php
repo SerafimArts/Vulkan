@@ -20,13 +20,13 @@ final class VkClusterAccelerationStructureGetTemplateIndicesInfoNV extends Input
     protected const string NATIVE_TYPE = 'VkClusterAccelerationStructureGetTemplateIndicesInfoNV';
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $clusterTemplateAddress = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     clusterTemplateAddress: int<0, max>,
+     *     clusterTemplateAddress: int,
      * } $data
      *
      * @phpstan-param CData $data

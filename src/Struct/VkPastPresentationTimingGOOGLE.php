@@ -28,26 +28,26 @@ final readonly class VkPastPresentationTimingGOOGLE extends OutputStructure
          * Earliest time an image should have been presented, previously
          * given to vkQueuePresentKHR
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $desiredPresentTime,
         /**
          * Time the image was actually displayed
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $actualPresentTime,
         /**
          * Earliest time the image could have been displayed
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $earliestPresentTime,
         /**
          * How early vkQueuePresentKHR was processed vs. how soon it needed
          * to be and make earliestPresentTime
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $presentMargin,
     ) {}
@@ -55,10 +55,10 @@ final readonly class VkPastPresentationTimingGOOGLE extends OutputStructure
     /**
      * @param CData&object{
      *     presentID: int<0, 4294967295>,
-     *     desiredPresentTime: int<0, max>,
-     *     actualPresentTime: int<0, max>,
-     *     earliestPresentTime: int<0, max>,
-     *     presentMargin: int<0, max>,
+     *     desiredPresentTime: int,
+     *     actualPresentTime: int,
+     *     earliestPresentTime: int,
+     *     presentMargin: int,
      * } $data
      *
      * @phpstan-param CData $data

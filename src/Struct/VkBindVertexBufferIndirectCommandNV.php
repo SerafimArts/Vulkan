@@ -20,7 +20,7 @@ final class VkBindVertexBufferIndirectCommandNV extends InputStructure
     protected const string NATIVE_TYPE = 'VkBindVertexBufferIndirectCommandNV';
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $bufferAddress = 0,
         /** @var int<0, 4294967295> */
         public int $size = 0,
@@ -30,7 +30,7 @@ final class VkBindVertexBufferIndirectCommandNV extends InputStructure
 
     /**
      * @param CData&object{
-     *     bufferAddress: int<0, max>,
+     *     bufferAddress: int,
      *     size: int<0, 4294967295>,
      *     stride: int<0, 4294967295>,
      * } $data

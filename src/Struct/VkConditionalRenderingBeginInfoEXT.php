@@ -29,7 +29,7 @@ final class VkConditionalRenderingBeginInfoEXT extends InputStructure
 
     public function __construct(
         public VkBuffer $buffer,
-        /** @var int<0, max> */
+        /** @var int */
         public int $offset = 0,
         /** @var int-mask-of<VkConditionalRenderingFlagBitsEXT::*> */
         public int $flags = 0,
@@ -40,7 +40,7 @@ final class VkConditionalRenderingBeginInfoEXT extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CONDITIONAL_RENDERING_BEGIN_INFO_EXT>,
      *     pNext: CData,
      *     buffer: CData,
-     *     offset: int<0, max>,
+     *     offset: int,
      *     flags: int<0, 4294967295>,
      * } $data
      *

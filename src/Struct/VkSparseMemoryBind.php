@@ -25,20 +25,20 @@ final class VkSparseMemoryBind extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $resourceOffset = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size = 0,
         public ?VkDeviceMemory $memory = null,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $memoryOffset = 0,
         /** @var int-mask-of<VkSparseMemoryBindFlagBits::*> */
@@ -47,10 +47,10 @@ final class VkSparseMemoryBind extends InputStructure
 
     /**
      * @param CData&object{
-     *     resourceOffset: int<0, max>,
-     *     size: int<0, max>,
+     *     resourceOffset: int,
+     *     size: int,
      *     memory: CData,
-     *     memoryOffset: int<0, max>,
+     *     memoryOffset: int,
      *     flags: int<0, 4294967295>,
      * } $data
      *

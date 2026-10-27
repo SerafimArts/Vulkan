@@ -38,9 +38,9 @@ final readonly class VkAndroidHardwareBufferFormatProperties2ANDROID extends Out
 
     public function __construct(
         public VkFormat $format,
-        /** @var int<0, max> */
+        /** @var int */
         public int $externalFormat,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $formatFeatures,
         public VkComponentMapping $samplerYcbcrConversionComponents,
         public VkSamplerYcbcrModelConversion $suggestedYcbcrModel,
@@ -52,8 +52,8 @@ final readonly class VkAndroidHardwareBufferFormatProperties2ANDROID extends Out
     /**
      * @param CData&object{
      *     format: value-of<VkFormat>,
-     *     externalFormat: int<0, max>,
-     *     formatFeatures: int<0, max>,
+     *     externalFormat: int,
+     *     formatFeatures: int,
      *     samplerYcbcrConversionComponents: CData,
      *     suggestedYcbcrModel: value-of<VkSamplerYcbcrModelConversion>,
      *     suggestedYcbcrRange: value-of<VkSamplerYcbcrRange>,

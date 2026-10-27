@@ -276,7 +276,7 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxTimelineSemaphoreValueDifference,
         /** @var int-mask-of<VkSampleCountFlagBits::*> */
@@ -335,7 +335,7 @@ final readonly class VkPhysicalDeviceVulkan12Properties extends OutputStructure 
      *     independentResolve: int<0, 1>,
      *     filterMinmaxSingleComponentFormats: int<0, 1>,
      *     filterMinmaxImageComponentMapping: int<0, 1>,
-     *     maxTimelineSemaphoreValueDifference: int<0, max>,
+     *     maxTimelineSemaphoreValueDifference: int,
      *     framebufferIntegerColorSampleCounts: int<0, 4294967295>,
      * } $data
      *

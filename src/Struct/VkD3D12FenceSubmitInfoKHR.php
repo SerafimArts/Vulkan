@@ -33,7 +33,7 @@ final class VkD3D12FenceSubmitInfoKHR extends InputStructure implements VkSubmit
          * @var int<0, 4294967295>
          */
         public int $waitSemaphoreValuesCount = 0,
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $waitSemaphoreValues = [],
         /**
          * The number of the elements of `$signalSemaphoreValues`, it
@@ -42,7 +42,7 @@ final class VkD3D12FenceSubmitInfoKHR extends InputStructure implements VkSubmit
          * @var int<0, 4294967295>
          */
         public int $signalSemaphoreValuesCount = 0,
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $signalSemaphoreValues = [],
     ) {}
 

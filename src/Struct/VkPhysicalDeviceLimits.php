@@ -113,7 +113,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at most the required one. The value is a multiple
          * of the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $bufferImageGranularity,
         /**
@@ -121,7 +121,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          *
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $sparseAddressSpaceSize,
         /**
@@ -567,7 +567,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at least the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minMemoryMapAlignment,
         /**
@@ -576,7 +576,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minTexelBufferOffsetAlignment,
         /**
@@ -586,7 +586,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minUniformBufferOffsetAlignment,
         /**
@@ -595,7 +595,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minStorageBufferOffsetAlignment,
         /**
@@ -839,7 +839,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $optimalBufferCopyOffsetAlignment,
         /**
@@ -848,7 +848,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $optimalBufferCopyRowPitchAlignment,
         /**
@@ -858,7 +858,7 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $nonCoherentAtomSize,
     ) {}
@@ -876,8 +876,8 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
      *     maxPushConstantsSize: int<0, 4294967295>,
      *     maxMemoryAllocationCount: int<0, 4294967295>,
      *     maxSamplerAllocationCount: int<0, 4294967295>,
-     *     bufferImageGranularity: int<0, max>,
-     *     sparseAddressSpaceSize: int<0, max>,
+     *     bufferImageGranularity: int,
+     *     sparseAddressSpaceSize: int,
      *     maxBoundDescriptorSets: int<0, 4294967295>,
      *     maxPerStageDescriptorSamplers: int<0, 4294967295>,
      *     maxPerStageDescriptorUniformBuffers: int<0, 4294967295>,
@@ -931,10 +931,10 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
      *     maxViewportDimensions: CData,
      *     viewportBoundsRange: CData,
      *     viewportSubPixelBits: int<0, 4294967295>,
-     *     minMemoryMapAlignment: int<0, max>,
-     *     minTexelBufferOffsetAlignment: int<0, max>,
-     *     minUniformBufferOffsetAlignment: int<0, max>,
-     *     minStorageBufferOffsetAlignment: int<0, max>,
+     *     minMemoryMapAlignment: int,
+     *     minTexelBufferOffsetAlignment: int,
+     *     minUniformBufferOffsetAlignment: int,
+     *     minStorageBufferOffsetAlignment: int,
      *     minTexelOffset: int<-2147483648, 2147483647>,
      *     maxTexelOffset: int<0, 4294967295>,
      *     minTexelGatherOffset: int<-2147483648, 2147483647>,
@@ -968,9 +968,9 @@ final readonly class VkPhysicalDeviceLimits extends OutputStructure
      *     lineWidthGranularity: float,
      *     strictLines: int<0, 1>,
      *     standardSampleLocations: int<0, 1>,
-     *     optimalBufferCopyOffsetAlignment: int<0, max>,
-     *     optimalBufferCopyRowPitchAlignment: int<0, max>,
-     *     nonCoherentAtomSize: int<0, max>,
+     *     optimalBufferCopyOffsetAlignment: int,
+     *     optimalBufferCopyRowPitchAlignment: int,
+     *     nonCoherentAtomSize: int,
      * } $data
      *
      * @phpstan-param CData $data

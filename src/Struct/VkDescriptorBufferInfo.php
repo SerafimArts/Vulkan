@@ -30,13 +30,13 @@ final class VkDescriptorBufferInfo extends InputStructure
          * Base offset from buffer start in bytes to update in the
          * descriptor set.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $offset = 0,
         /**
          * Size in bytes of the buffer resource for this descriptor update.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $range = 0,
     ) {}
@@ -44,8 +44,8 @@ final class VkDescriptorBufferInfo extends InputStructure
     /**
      * @param CData&object{
      *     buffer: CData,
-     *     offset: int<0, max>,
-     *     range: int<0, max>,
+     *     offset: int,
+     *     range: int,
      * } $data
      *
      * @phpstan-param CData $data

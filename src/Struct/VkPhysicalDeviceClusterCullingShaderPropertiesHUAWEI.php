@@ -54,7 +54,7 @@ final readonly class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extend
         /**
          * The value is exactly the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $indirectBufferOffsetAlignment,
     ) {}
@@ -64,7 +64,7 @@ final readonly class VkPhysicalDeviceClusterCullingShaderPropertiesHUAWEI extend
      *     maxWorkGroupCount: CData,
      *     maxWorkGroupSize: CData,
      *     maxOutputClusterCount: int<0, 4294967295>,
-     *     indirectBufferOffsetAlignment: int<0, max>,
+     *     indirectBufferOffsetAlignment: int,
      * } $data
      *
      * @phpstan-param CData $data

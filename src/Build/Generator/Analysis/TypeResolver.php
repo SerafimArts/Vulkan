@@ -108,7 +108,8 @@ final readonly class TypeResolver
 
     /**
      * Returns the PHPStan type of an integer of the C type, the range follows
-     * its width.
+     * its width. A 64-bit unsigned value is a plain `int` holding the bit
+     * pattern, the values from 2^63 are negative (`~0ULL` is `-1`).
      */
     public function getIntegerRange(string $type): string
     {
@@ -121,7 +122,6 @@ final readonly class TypeResolver
         }
 
         return match (true) {
-            $type === 'VkFlags64', $type === 'uint64_t', $type === 'size_t' => 'int<0, max>',
             $type === 'uint8_t' => 'int<0, 255>',
             $type === 'uint16_t' => 'int<0, 65535>',
             $type === 'uint32_t', $type === 'VkFlags' => 'int<0, 4294967295>',

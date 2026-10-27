@@ -31,13 +31,13 @@ final readonly class VkNativeBufferUsageOHOS extends OutputStructure implements 
     }
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $OHOSNativeBufferUsage,
     ) {}
 
     /**
      * @param CData&object{
-     *     OHOSNativeBufferUsage: int<0, max>,
+     *     OHOSNativeBufferUsage: int,
      * } $data
      *
      * @phpstan-param CData $data

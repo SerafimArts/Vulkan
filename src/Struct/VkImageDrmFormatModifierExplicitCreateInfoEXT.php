@@ -25,7 +25,7 @@ final class VkImageDrmFormatModifierExplicitCreateInfoEXT extends InputStructure
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $drmFormatModifier = 0,
         /** @var list<VkSubresourceLayout> */
         public array $planeLayouts = [],
@@ -35,7 +35,7 @@ final class VkImageDrmFormatModifierExplicitCreateInfoEXT extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT>,
      *     pNext: CData,
-     *     drmFormatModifier: int<0, max>,
+     *     drmFormatModifier: int,
      *     drmFormatModifierPlaneCount: int<0, 4294967295>,
      *     pPlaneLayouts: CData,
      * } $data

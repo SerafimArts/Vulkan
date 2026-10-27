@@ -29,15 +29,15 @@ final class VkGeometryTrianglesNV extends InputStructure
 
     public function __construct(
         public ?VkBuffer $vertexData = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $vertexOffset = 0,
         /** @var int<0, 4294967295> */
         public int $vertexCount = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $vertexStride = 0,
         public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
         public ?VkBuffer $indexData = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $indexOffset = 0,
         /** @var int<0, 4294967295> */
         public int $indexCount = 0,
@@ -47,7 +47,7 @@ final class VkGeometryTrianglesNV extends InputStructure
          * major affine transformation matrix.
          */
         public ?VkBuffer $transformData = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $transformOffset = 0,
     ) {}
 
@@ -56,16 +56,16 @@ final class VkGeometryTrianglesNV extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GEOMETRY_TRIANGLES_NV>,
      *     pNext: CData,
      *     vertexData: CData,
-     *     vertexOffset: int<0, max>,
+     *     vertexOffset: int,
      *     vertexCount: int<0, 4294967295>,
-     *     vertexStride: int<0, max>,
+     *     vertexStride: int,
      *     vertexFormat: value-of<VkFormat>,
      *     indexData: CData,
-     *     indexOffset: int<0, max>,
+     *     indexOffset: int,
      *     indexCount: int<0, 4294967295>,
      *     indexType: value-of<VkIndexType>,
      *     transformData: CData,
-     *     transformOffset: int<0, max>,
+     *     transformOffset: int,
      * } $data
      *
      * @phpstan-param CData $data

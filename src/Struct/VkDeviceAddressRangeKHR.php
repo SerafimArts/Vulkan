@@ -20,16 +20,16 @@ final class VkDeviceAddressRangeKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceAddressRangeKHR';
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $address = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $size = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     address: int<0, max>,
-     *     size: int<0, max>,
+     *     address: int,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -34,14 +34,14 @@ final readonly class VkPhysicalDeviceMaintenance4Properties extends OutputStruct
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxBufferSize,
     ) {}
 
     /**
      * @param CData&object{
-     *     maxBufferSize: int<0, max>,
+     *     maxBufferSize: int,
      * } $data
      *
      * @phpstan-param CData $data

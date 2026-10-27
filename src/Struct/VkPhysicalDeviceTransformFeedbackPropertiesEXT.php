@@ -46,7 +46,7 @@ final readonly class VkPhysicalDeviceTransformFeedbackPropertiesEXT extends Outp
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxTransformFeedbackBufferSize,
         /**
@@ -81,7 +81,7 @@ final readonly class VkPhysicalDeviceTransformFeedbackPropertiesEXT extends Outp
      * @param CData&object{
      *     maxTransformFeedbackStreams: int<0, 4294967295>,
      *     maxTransformFeedbackBuffers: int<0, 4294967295>,
-     *     maxTransformFeedbackBufferSize: int<0, max>,
+     *     maxTransformFeedbackBufferSize: int,
      *     maxTransformFeedbackStreamDataSize: int<0, 4294967295>,
      *     maxTransformFeedbackBufferDataSize: int<0, 4294967295>,
      *     maxTransformFeedbackBufferDataStride: int<0, 4294967295>,

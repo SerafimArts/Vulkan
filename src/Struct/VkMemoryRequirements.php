@@ -20,13 +20,13 @@ final readonly class VkMemoryRequirements extends OutputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $alignment,
         /**
@@ -40,8 +40,8 @@ final readonly class VkMemoryRequirements extends OutputStructure
 
     /**
      * @param CData&object{
-     *     size: int<0, max>,
-     *     alignment: int<0, max>,
+     *     size: int,
+     *     alignment: int,
      *     memoryTypeBits: int<0, 4294967295>,
      * } $data
      *

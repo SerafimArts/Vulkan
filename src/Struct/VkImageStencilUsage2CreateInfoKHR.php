@@ -27,7 +27,7 @@ final class VkImageStencilUsage2CreateInfoKHR extends InputStructure implements 
 
     public function __construct(
         public VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,
-        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::*) */
+        /** @var int|(VkImageUsageFlagBits2KHR::*) */
         public int $stencilUsage = 0,
     ) {}
 
@@ -35,7 +35,7 @@ final class VkImageStencilUsage2CreateInfoKHR extends InputStructure implements 
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_2_CREATE_INFO_KHR>,
      *     pNext: CData,
-     *     stencilUsage: int<0, max>,
+     *     stencilUsage: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -25,9 +25,9 @@ final class VkVideoEncodeRateControlLayerInfoKHR extends InputStructure
 
     public function __construct(
         public ?VkVideoEncodeRateControlLayerInfoKHRExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $averageBitrate = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $maxBitrate = 0,
         /** @var int<0, 4294967295> */
         public int $frameRateNumerator = 0,
@@ -39,8 +39,8 @@ final class VkVideoEncodeRateControlLayerInfoKHR extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR>,
      *     pNext: CData,
-     *     averageBitrate: int<0, max>,
-     *     maxBitrate: int<0, max>,
+     *     averageBitrate: int,
+     *     maxBitrate: int,
      *     frameRateNumerator: int<0, 4294967295>,
      *     frameRateDenominator: int<0, 4294967295>,
      * } $data

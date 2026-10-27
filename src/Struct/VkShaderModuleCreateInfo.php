@@ -42,7 +42,7 @@ final class VkShaderModuleCreateInfo extends InputStructure implements VkPipelin
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     codeSize: int<0, max>,
+     *     codeSize: int,
      *     pCode: CData,
      * } $data
      *

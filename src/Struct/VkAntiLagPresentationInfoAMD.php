@@ -25,7 +25,7 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
 
     public function __construct(
         public VkAntiLagStageAMD $stage = VkAntiLagStageAMD::VK_ANTI_LAG_STAGE_INPUT_AMD,
-        /** @var int<0, max> */
+        /** @var int */
         public int $frameIndex = 0,
     ) {}
 
@@ -34,7 +34,7 @@ final class VkAntiLagPresentationInfoAMD extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD>,
      *     pNext: CData,
      *     stage: value-of<VkAntiLagStageAMD>,
-     *     frameIndex: int<0, max>,
+     *     frameIndex: int,
      * } $data
      *
      * @phpstan-param CData $data

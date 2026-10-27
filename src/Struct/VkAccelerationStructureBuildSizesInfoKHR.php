@@ -20,19 +20,19 @@ final readonly class VkAccelerationStructureBuildSizesInfoKHR extends OutputStru
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $accelerationStructureSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $updateScratchSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $buildScratchSize,
     ) {}
 
     /**
      * @param CData&object{
-     *     accelerationStructureSize: int<0, max>,
-     *     updateScratchSize: int<0, max>,
-     *     buildScratchSize: int<0, max>,
+     *     accelerationStructureSize: int,
+     *     updateScratchSize: int,
+     *     buildScratchSize: int,
      * } $data
      *
      * @phpstan-param CData $data

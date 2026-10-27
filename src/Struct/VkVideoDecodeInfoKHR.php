@@ -30,9 +30,9 @@ final class VkVideoDecodeInfoKHR extends InputStructure
         public ?VkVideoDecodeInfoKHRExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcBufferOffset = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcBufferRange = 0,
         public ?VkVideoReferenceSlotInfoKHR $setupReferenceSlot = null,
         /** @var list<VkVideoReferenceSlotInfoKHR> */
@@ -45,8 +45,8 @@ final class VkVideoDecodeInfoKHR extends InputStructure
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
      *     srcBuffer: CData,
-     *     srcBufferOffset: int<0, max>,
-     *     srcBufferRange: int<0, max>,
+     *     srcBufferOffset: int,
+     *     srcBufferRange: int,
      *     dstPictureResource: CData,
      *     pSetupReferenceSlot: CData,
      *     referenceSlotCount: int<0, 4294967295>,

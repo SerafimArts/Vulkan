@@ -28,7 +28,7 @@ final class VkSemaphoreTypeCreateInfo extends InputStructure implements VkSemaph
     public function __construct(
         public VkSemaphoreCreateInfoExtension|VkPhysicalDeviceExternalSemaphoreInfoExtension|null $next = null,
         public VkSemaphoreType $semaphoreType = VkSemaphoreType::VK_SEMAPHORE_TYPE_BINARY,
-        /** @var int<0, max> */
+        /** @var int */
         public int $initialValue = 0,
     ) {}
 
@@ -37,7 +37,7 @@ final class VkSemaphoreTypeCreateInfo extends InputStructure implements VkSemaph
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO>,
      *     pNext: CData,
      *     semaphoreType: value-of<VkSemaphoreType>,
-     *     initialValue: int<0, max>,
+     *     initialValue: int,
      * } $data
      *
      * @phpstan-param CData $data

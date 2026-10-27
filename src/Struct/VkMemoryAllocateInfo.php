@@ -28,7 +28,7 @@ final class VkMemoryAllocateInfo extends InputStructure
         /**
          * Size of memory allocation
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $allocationSize = 0,
         /**
@@ -43,7 +43,7 @@ final class VkMemoryAllocateInfo extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO>,
      *     pNext: CData,
-     *     allocationSize: int<0, max>,
+     *     allocationSize: int,
      *     memoryTypeIndex: int<0, 4294967295>,
      * } $data
      *

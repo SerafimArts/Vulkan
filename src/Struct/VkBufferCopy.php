@@ -23,28 +23,28 @@ final class VkBufferCopy extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $srcOffset = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $dstOffset = 0,
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     srcOffset: int<0, max>,
-     *     dstOffset: int<0, max>,
-     *     size: int<0, max>,
+     *     srcOffset: int,
+     *     dstOffset: int,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

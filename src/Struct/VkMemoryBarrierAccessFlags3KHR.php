@@ -40,8 +40,8 @@ final class VkMemoryBarrierAccessFlags3KHR extends InputStructure implements VkS
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER_ACCESS_FLAGS_3_KHR>,
      *     pNext: CData,
-     *     srcAccessMask3: int<0, max>,
-     *     dstAccessMask3: int<0, max>,
+     *     srcAccessMask3: int,
+     *     dstAccessMask3: int,
      * } $data
      *
      * @phpstan-param CData $data

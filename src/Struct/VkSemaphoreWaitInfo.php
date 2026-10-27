@@ -30,7 +30,7 @@ final class VkSemaphoreWaitInfo extends InputStructure
         public int $flags = 0,
         /** @var list<VkSemaphore> */
         public array $semaphores = [],
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $values = [],
     ) {}
 

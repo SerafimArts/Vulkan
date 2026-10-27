@@ -26,7 +26,7 @@ final class VkImageViewUsage2CreateInfoKHR extends InputStructure implements VkI
 
     public function __construct(
         public ?VkImageViewCreateInfoExtension $next = null,
-        /** @var int<0, max>|(VkImageUsageFlagBits2KHR::*) */
+        /** @var int|(VkImageUsageFlagBits2KHR::*) */
         public int $usage = 0,
     ) {}
 
@@ -34,7 +34,7 @@ final class VkImageViewUsage2CreateInfoKHR extends InputStructure implements VkI
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_USAGE_2_CREATE_INFO_KHR>,
      *     pNext: CData,
-     *     usage: int<0, max>,
+     *     usage: int,
      * } $data
      *
      * @phpstan-param CData $data

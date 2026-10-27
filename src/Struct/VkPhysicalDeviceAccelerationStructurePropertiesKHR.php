@@ -34,19 +34,19 @@ final readonly class VkPhysicalDeviceAccelerationStructurePropertiesKHR extends 
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxGeometryCount,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxInstanceCount,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxPrimitiveCount,
         /**
@@ -83,9 +83,9 @@ final readonly class VkPhysicalDeviceAccelerationStructurePropertiesKHR extends 
 
     /**
      * @param CData&object{
-     *     maxGeometryCount: int<0, max>,
-     *     maxInstanceCount: int<0, max>,
-     *     maxPrimitiveCount: int<0, max>,
+     *     maxGeometryCount: int,
+     *     maxInstanceCount: int,
+     *     maxPrimitiveCount: int,
      *     maxPerStageDescriptorAccelerationStructures: int<0, 4294967295>,
      *     maxPerStageDescriptorUpdateAfterBindAccelerationStructures: int<0, 4294967295>,
      *     maxDescriptorSetAccelerationStructures: int<0, 4294967295>,

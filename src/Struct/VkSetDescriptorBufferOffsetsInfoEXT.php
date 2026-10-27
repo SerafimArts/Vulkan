@@ -35,7 +35,7 @@ final class VkSetDescriptorBufferOffsetsInfoEXT extends InputStructure
         public int $firstSet = 0,
         /** @var list<int<0, 4294967295>> */
         public array $bufferIndices = [],
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $offsets = [],
     ) {}
 

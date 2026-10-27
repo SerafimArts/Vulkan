@@ -25,14 +25,14 @@ final class VkPipelineBinaryDataKHR extends InputStructure
          * The number of the elements of `$data`, it follows the array when
          * it is given.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $dataSize = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     dataSize: int<0, max>,
+     *     dataSize: int,
      *     pData: CData|int|null,
      * } $data
      *

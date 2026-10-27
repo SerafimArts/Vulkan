@@ -25,7 +25,7 @@ final class VkDataGraphPipelineDispatchInfoARM extends InputStructure
 
     public function __construct(
         public ?VkDataGraphPipelineDispatchInfoARMExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $flags = 0,
     ) {}
 
@@ -33,7 +33,7 @@ final class VkDataGraphPipelineDispatchInfoARM extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM>,
      *     pNext: CData,
-     *     flags: int<0, max>,
+     *     flags: int,
      * } $data
      *
      * @phpstan-param CData $data

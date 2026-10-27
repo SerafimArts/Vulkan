@@ -27,7 +27,7 @@ final class VkPerformanceCounterResultKHR extends InputStructure
         public ?int $int64 = null,
         /** @var int<0, 4294967295>|null */
         public ?int $uint32 = null,
-        /** @var int<0, max>|null */
+        /** @var int|null */
         public ?int $uint64 = null,
         public ?float $float32 = null,
         public ?float $float64 = null,
@@ -38,7 +38,7 @@ final class VkPerformanceCounterResultKHR extends InputStructure
      *     int32: int<-2147483648, 2147483647>,
      *     int64: int,
      *     uint32: int<0, 4294967295>,
-     *     uint64: int<0, max>,
+     *     uint64: int,
      *     float32: float,
      *     float64: float,
      * } $data

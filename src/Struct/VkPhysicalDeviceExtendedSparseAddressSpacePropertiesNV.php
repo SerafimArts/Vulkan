@@ -39,7 +39,7 @@ final readonly class VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV exte
          *
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $extendedSparseAddressSpaceSize,
         /**
@@ -60,7 +60,7 @@ final readonly class VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV exte
 
     /**
      * @param CData&object{
-     *     extendedSparseAddressSpaceSize: int<0, max>,
+     *     extendedSparseAddressSpaceSize: int,
      *     extendedSparseImageUsageFlags: int<0, 4294967295>,
      *     extendedSparseBufferUsageFlags: int<0, 4294967295>,
      * } $data

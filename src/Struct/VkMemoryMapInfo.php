@@ -30,9 +30,9 @@ final class VkMemoryMapInfo extends InputStructure
         public ?VkMemoryMapInfoExtension $next = null,
         /** @var int-mask-of<VkMemoryMapFlagBits::*> */
         public int $flags = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $offset = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $size = 0,
     ) {}
 
@@ -42,8 +42,8 @@ final class VkMemoryMapInfo extends InputStructure
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
      *     memory: CData,
-     *     offset: int<0, max>,
-     *     size: int<0, max>,
+     *     offset: int,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

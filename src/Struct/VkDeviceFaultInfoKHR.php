@@ -23,7 +23,7 @@ final readonly class VkDeviceFaultInfoKHR extends OutputStructure
     public function __construct(
         /** @var int-mask-of<VkDeviceFaultFlagBitsKHR::*> */
         public int $flags,
-        /** @var int<0, max> */
+        /** @var int */
         public int $groupId,
         /** Free-form description of the fault */
         public string $description,
@@ -35,7 +35,7 @@ final readonly class VkDeviceFaultInfoKHR extends OutputStructure
     /**
      * @param CData&object{
      *     flags: int<0, 4294967295>,
-     *     groupId: int<0, max>,
+     *     groupId: int,
      *     description: CData,
      *     faultAddressInfo: CData,
      *     instructionAddressInfo: CData,

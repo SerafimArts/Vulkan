@@ -27,13 +27,13 @@ final class VkPresentTimingInfoEXT extends InputStructure
     public function __construct(
         /** @var int-mask-of<VkPresentTimingInfoFlagBitsEXT::*> */
         public int $flags = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $targetTime = 0,
         /**
          * Time domain to interpret the target present time and collect
          * present stages timings with
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $timeDomainId = 0,
         /**
@@ -55,8 +55,8 @@ final class VkPresentTimingInfoEXT extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMING_INFO_EXT>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     targetTime: int<0, max>,
-     *     timeDomainId: int<0, max>,
+     *     targetTime: int,
+     *     timeDomainId: int,
      *     presentStageQueries: int<0, 4294967295>,
      *     targetTimeDomainPresentStage: int<0, 4294967295>,
      * } $data

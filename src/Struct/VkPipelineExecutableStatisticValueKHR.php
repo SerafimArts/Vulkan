@@ -20,7 +20,7 @@ final readonly class VkPipelineExecutableStatisticValueKHR extends OutputStructu
         public bool $b32,
         /** @var int */
         public int $i64,
-        /** @var int<0, max> */
+        /** @var int */
         public int $u64,
         public float $f64,
     ) {}
@@ -29,7 +29,7 @@ final readonly class VkPipelineExecutableStatisticValueKHR extends OutputStructu
      * @param CData&object{
      *     b32: int<0, 1>,
      *     i64: int,
-     *     u64: int<0, max>,
+     *     u64: int,
      *     f64: float,
      * } $data
      *

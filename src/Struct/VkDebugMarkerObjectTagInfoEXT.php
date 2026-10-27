@@ -29,13 +29,13 @@ final class VkDebugMarkerObjectTagInfoEXT extends InputStructure
         /**
          * The handle of the object, cast to uint64_t
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $object = 0,
         /**
          * The name of the tag to set on the object
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $tagName = 0,
         /** Tag data to attach to the object */
@@ -47,9 +47,9 @@ final class VkDebugMarkerObjectTagInfoEXT extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_MARKER_OBJECT_TAG_INFO_EXT>,
      *     pNext: CData,
      *     objectType: value-of<VkDebugReportObjectTypeEXT>,
-     *     object: int<0, max>,
-     *     tagName: int<0, max>,
-     *     tagSize: int<0, max>,
+     *     object: int,
+     *     tagName: int,
+     *     tagSize: int,
      *     pTag: CData,
      * } $data
      *

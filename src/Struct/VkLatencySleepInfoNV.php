@@ -25,7 +25,7 @@ final class VkLatencySleepInfoNV extends InputStructure
 
     public function __construct(
         public VkSemaphore $signalSemaphore,
-        /** @var int<0, max> */
+        /** @var int */
         public int $value = 0,
     ) {}
 
@@ -34,7 +34,7 @@ final class VkLatencySleepInfoNV extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SLEEP_INFO_NV>,
      *     pNext: CData,
      *     signalSemaphore: CData,
-     *     value: int<0, max>,
+     *     value: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -33,7 +33,7 @@ final class VkHdrVividDynamicMetadataHUAWEI extends InputStructure implements Vk
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_HDR_VIVID_DYNAMIC_METADATA_HUAWEI>,
      *     pNext: CData,
-     *     dynamicMetadataSize: int<0, max>,
+     *     dynamicMetadataSize: int,
      *     pDynamicMetadata: CData,
      * } $data
      *

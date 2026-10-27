@@ -24,15 +24,15 @@ final class VkBuildPartitionedAccelerationStructureInfoNV extends InputStructure
 
     public function __construct(
         public VkPartitionedAccelerationStructureInstancesInputNV $input,
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcAccelerationStructureData = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $dstAccelerationStructureData = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $scratchData = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcInfos = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcInfosCount = 0,
     ) {}
 
@@ -41,11 +41,11 @@ final class VkBuildPartitionedAccelerationStructureInfoNV extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV>,
      *     pNext: CData,
      *     input: CData,
-     *     srcAccelerationStructureData: int<0, max>,
-     *     dstAccelerationStructureData: int<0, max>,
-     *     scratchData: int<0, max>,
-     *     srcInfos: int<0, max>,
-     *     srcInfosCount: int<0, max>,
+     *     srcAccelerationStructureData: int,
+     *     dstAccelerationStructureData: int,
+     *     scratchData: int,
+     *     srcInfos: int,
+     *     srcInfosCount: int,
      * } $data
      *
      * @phpstan-param CData $data

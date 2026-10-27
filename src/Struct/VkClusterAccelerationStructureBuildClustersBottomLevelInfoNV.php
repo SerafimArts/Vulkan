@@ -24,7 +24,7 @@ final class VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV extends
         public int $clusterReferencesCount = 0,
         /** @var int<0, 4294967295> */
         public int $clusterReferencesStride = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $clusterReferences = 0,
     ) {}
 
@@ -32,7 +32,7 @@ final class VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV extends
      * @param CData&object{
      *     clusterReferencesCount: int<0, 4294967295>,
      *     clusterReferencesStride: int<0, 4294967295>,
-     *     clusterReferences: int<0, max>,
+     *     clusterReferences: int,
      * } $data
      *
      * @phpstan-param CData $data

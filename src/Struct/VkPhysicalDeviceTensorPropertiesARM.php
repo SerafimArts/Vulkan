@@ -41,13 +41,13 @@ final readonly class VkPhysicalDeviceTensorPropertiesARM extends OutputStructure
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxTensorElements,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxPerDimensionTensorElements,
         /**
@@ -59,7 +59,7 @@ final readonly class VkPhysicalDeviceTensorPropertiesARM extends OutputStructure
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxTensorSize,
         /**
@@ -107,10 +107,10 @@ final readonly class VkPhysicalDeviceTensorPropertiesARM extends OutputStructure
     /**
      * @param CData&object{
      *     maxTensorDimensionCount: int<0, 4294967295>,
-     *     maxTensorElements: int<0, max>,
-     *     maxPerDimensionTensorElements: int<0, max>,
+     *     maxTensorElements: int,
+     *     maxPerDimensionTensorElements: int,
      *     maxTensorStride: int,
-     *     maxTensorSize: int<0, max>,
+     *     maxTensorSize: int,
      *     maxTensorShaderAccessArrayLength: int<0, 4294967295>,
      *     maxTensorShaderAccessSize: int<0, 4294967295>,
      *     maxDescriptorSetStorageTensors: int<0, 4294967295>,

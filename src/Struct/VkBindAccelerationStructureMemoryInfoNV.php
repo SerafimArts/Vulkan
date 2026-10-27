@@ -29,7 +29,7 @@ final class VkBindAccelerationStructureMemoryInfoNV extends InputStructure
     public function __construct(
         public VkAccelerationStructureNV $accelerationStructure,
         public VkDeviceMemory $memory,
-        /** @var int<0, max> */
+        /** @var int */
         public int $memoryOffset = 0,
         /** @var list<int<0, 4294967295>> */
         public array $deviceIndices = [],
@@ -41,7 +41,7 @@ final class VkBindAccelerationStructureMemoryInfoNV extends InputStructure
      *     pNext: CData,
      *     accelerationStructure: CData,
      *     memory: CData,
-     *     memoryOffset: int<0, max>,
+     *     memoryOffset: int,
      *     deviceIndexCount: int<0, 4294967295>,
      *     pDeviceIndices: CData,
      * } $data

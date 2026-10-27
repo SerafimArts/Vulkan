@@ -40,7 +40,7 @@ final readonly class VkPhysicalDeviceMaintenance3Properties extends OutputStruct
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxMemoryAllocationSize,
     ) {}
@@ -48,7 +48,7 @@ final readonly class VkPhysicalDeviceMaintenance3Properties extends OutputStruct
     /**
      * @param CData&object{
      *     maxPerSetDescriptors: int<0, 4294967295>,
-     *     maxMemoryAllocationSize: int<0, max>,
+     *     maxMemoryAllocationSize: int,
      * } $data
      *
      * @phpstan-param CData $data

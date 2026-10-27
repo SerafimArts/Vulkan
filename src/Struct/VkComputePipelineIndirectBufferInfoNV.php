@@ -25,11 +25,11 @@ final class VkComputePipelineIndirectBufferInfoNV extends InputStructure impleme
 
     public function __construct(
         public ?VkComputePipelineCreateInfoExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $deviceAddress = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $size = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $pipelineDeviceAddressCaptureReplay = 0,
     ) {}
 
@@ -37,9 +37,9 @@ final class VkComputePipelineIndirectBufferInfoNV extends InputStructure impleme
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV>,
      *     pNext: CData,
-     *     deviceAddress: int<0, max>,
-     *     size: int<0, max>,
-     *     pipelineDeviceAddressCaptureReplay: int<0, max>,
+     *     deviceAddress: int,
+     *     size: int,
+     *     pipelineDeviceAddressCaptureReplay: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -29,7 +29,7 @@ final class VkBindBufferMemoryInfo extends InputStructure
         public VkBuffer $buffer,
         public VkDeviceMemory $memory,
         public ?VkBindBufferMemoryInfoExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $memoryOffset = 0,
     ) {}
 
@@ -39,7 +39,7 @@ final class VkBindBufferMemoryInfo extends InputStructure
      *     pNext: CData,
      *     buffer: CData,
      *     memory: CData,
-     *     memoryOffset: int<0, max>,
+     *     memoryOffset: int,
      * } $data
      *
      * @phpstan-param CData $data

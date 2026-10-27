@@ -26,9 +26,9 @@ final class VkTimelineSemaphoreSubmitInfo extends InputStructure implements VkSu
 
     public function __construct(
         public VkSubmitInfoExtension|VkBindSparseInfoExtension|null $next = null,
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $waitSemaphoreValues = [],
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $signalSemaphoreValues = [],
     ) {}
 

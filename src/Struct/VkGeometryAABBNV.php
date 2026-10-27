@@ -38,7 +38,7 @@ final class VkGeometryAABBNV extends InputStructure
         /**
          * Offset in bytes of the first AABB in aabbData
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $offset = 0,
     ) {}
@@ -50,7 +50,7 @@ final class VkGeometryAABBNV extends InputStructure
      *     aabbData: CData,
      *     numAABBs: int<0, 4294967295>,
      *     stride: int<0, 4294967295>,
-     *     offset: int<0, max>,
+     *     offset: int,
      * } $data
      *
      * @phpstan-param CData $data

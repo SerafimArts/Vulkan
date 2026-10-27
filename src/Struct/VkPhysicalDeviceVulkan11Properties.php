@@ -106,7 +106,7 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxMemoryAllocationSize,
     ) {}
@@ -127,7 +127,7 @@ final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure 
      *     maxMultiviewInstanceIndex: int<0, 4294967295>,
      *     protectedNoFault: int<0, 1>,
      *     maxPerSetDescriptors: int<0, 4294967295>,
-     *     maxMemoryAllocationSize: int<0, max>,
+     *     maxMemoryAllocationSize: int,
      * } $data
      *
      * @phpstan-param CData $data

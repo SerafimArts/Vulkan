@@ -34,14 +34,14 @@ final readonly class VkPhysicalDeviceShaderAbortPropertiesKHR extends OutputStru
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxShaderAbortMessageSize,
     ) {}
 
     /**
      * @param CData&object{
-     *     maxShaderAbortMessageSize: int<0, max>,
+     *     maxShaderAbortMessageSize: int,
      * } $data
      *
      * @phpstan-param CData $data

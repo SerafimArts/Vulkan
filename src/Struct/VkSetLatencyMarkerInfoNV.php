@@ -24,7 +24,7 @@ final class VkSetLatencyMarkerInfoNV extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $presentID = 0,
         public VkLatencyMarkerNV $marker = VkLatencyMarkerNV::VK_LATENCY_MARKER_SIMULATION_START_NV,
     ) {}
@@ -33,7 +33,7 @@ final class VkSetLatencyMarkerInfoNV extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV>,
      *     pNext: CData,
-     *     presentID: int<0, max>,
+     *     presentID: int,
      *     marker: value-of<VkLatencyMarkerNV>,
      * } $data
      *

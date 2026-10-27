@@ -19,7 +19,7 @@ final readonly class VkPerformanceValueDataINTEL extends OutputStructure
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $value32,
-        /** @var int<0, max> */
+        /** @var int */
         public int $value64,
         public float $valueFloat,
         public bool $valueBool,
@@ -28,7 +28,7 @@ final readonly class VkPerformanceValueDataINTEL extends OutputStructure
     /**
      * @param CData&object{
      *     value32: int<0, 4294967295>,
-     *     value64: int<0, max>,
+     *     value64: int,
      *     valueFloat: float,
      *     valueBool: int<0, 1>,
      * } $data

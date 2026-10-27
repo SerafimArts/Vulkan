@@ -37,15 +37,15 @@ final readonly class VkPhysicalDeviceMemoryDecompressionPropertiesEXT extends Ou
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxDecompressionIndirectCount,
     ) {}
 
     /**
      * @param CData&object{
-     *     decompressionMethods: int<0, max>,
-     *     maxDecompressionIndirectCount: int<0, max>,
+     *     decompressionMethods: int,
+     *     maxDecompressionIndirectCount: int,
      * } $data
      *
      * @phpstan-param CData $data

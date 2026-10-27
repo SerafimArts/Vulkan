@@ -26,9 +26,9 @@ final class VkSemaphoreSubmitInfo extends InputStructure
 
     public function __construct(
         public VkSemaphore $semaphore,
-        /** @var int<0, max> */
+        /** @var int */
         public int $value = 0,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $stageMask = 0,
         /** @var int<0, 4294967295> */
         public int $deviceIndex = 0,
@@ -39,8 +39,8 @@ final class VkSemaphoreSubmitInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SUBMIT_INFO>,
      *     pNext: CData,
      *     semaphore: CData,
-     *     value: int<0, max>,
-     *     stageMask: int<0, max>,
+     *     value: int,
+     *     stageMask: int,
      *     deviceIndex: int<0, 4294967295>,
      * } $data
      *

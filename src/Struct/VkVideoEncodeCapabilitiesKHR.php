@@ -47,7 +47,7 @@ final readonly class VkVideoEncodeCapabilitiesKHR extends OutputStructure implem
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxBitrate,
         /**
@@ -67,7 +67,7 @@ final readonly class VkVideoEncodeCapabilitiesKHR extends OutputStructure implem
      *     flags: int<0, 4294967295>,
      *     rateControlModes: int<0, 4294967295>,
      *     maxRateControlLayers: int<0, 4294967295>,
-     *     maxBitrate: int<0, max>,
+     *     maxBitrate: int,
      *     maxQualityLevels: int<0, 4294967295>,
      *     encodeInputPictureGranularity: CData,
      *     supportedEncodeFeedbackFlags: int<0, 4294967295>,

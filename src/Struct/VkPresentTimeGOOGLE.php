@@ -29,7 +29,7 @@ final class VkPresentTimeGOOGLE extends InputStructure
         /**
          * Earliest time an image should be presented
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $desiredPresentTime = 0,
     ) {}
@@ -37,7 +37,7 @@ final class VkPresentTimeGOOGLE extends InputStructure
     /**
      * @param CData&object{
      *     presentID: int<0, 4294967295>,
-     *     desiredPresentTime: int<0, max>,
+     *     desiredPresentTime: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -29,7 +29,7 @@ final class VkBindImageMemoryInfo extends InputStructure
         public VkImage $image,
         public VkDeviceMemory $memory,
         public ?VkBindImageMemoryInfoExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $memoryOffset = 0,
     ) {}
 
@@ -39,7 +39,7 @@ final class VkBindImageMemoryInfo extends InputStructure
      *     pNext: CData,
      *     image: CData,
      *     memory: CData,
-     *     memoryOffset: int<0, max>,
+     *     memoryOffset: int,
      * } $data
      *
      * @phpstan-param CData $data

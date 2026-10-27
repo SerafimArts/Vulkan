@@ -26,7 +26,7 @@ final class VkClusterAccelerationStructureMoveObjectsInputNV extends InputStruct
     public function __construct(
         public VkClusterAccelerationStructureTypeNV $type = VkClusterAccelerationStructureTypeNV::VK_CLUSTER_ACCELERATION_STRUCTURE_TYPE_CLUSTERS_BOTTOM_LEVEL_NV,
         public bool $noMoveOverlap = false,
-        /** @var int<0, max> */
+        /** @var int */
         public int $maxMovedBytes = 0,
     ) {}
 
@@ -36,7 +36,7 @@ final class VkClusterAccelerationStructureMoveObjectsInputNV extends InputStruct
      *     pNext: CData,
      *     type: value-of<VkClusterAccelerationStructureTypeNV>,
      *     noMoveOverlap: int<0, 1>,
-     *     maxMovedBytes: int<0, max>,
+     *     maxMovedBytes: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -38,7 +38,7 @@ final class VkTensorViewCreateInfoARM extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM>,
      *     pNext: CData,
-     *     flags: int<0, max>,
+     *     flags: int,
      *     tensor: CData,
      *     format: value-of<VkFormat>,
      * } $data

@@ -24,7 +24,7 @@ final class VkAccelerationStructureGeometryAabbsDataKHR extends InputStructure
 
     public function __construct(
         public VkDeviceOrHostAddressConstKHR $data,
-        /** @var int<0, max> */
+        /** @var int */
         public int $stride = 0,
     ) {}
 
@@ -33,7 +33,7 @@ final class VkAccelerationStructureGeometryAabbsDataKHR extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_AABBS_DATA_KHR>,
      *     pNext: CData,
      *     data: CData,
-     *     stride: int<0, max>,
+     *     stride: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -34,7 +34,7 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
         public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkPresentInfoKHRExtension|VkBindSparseInfoExtension|null $next = null,
         /** @var int-mask-of<VkFrameBoundaryFlagBitsEXT::*> */
         public int $flags = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $frameID = 0,
         /**
          * The number of the elements of `$images`, it follows the array
@@ -54,13 +54,13 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
         public int $bufferCount = 0,
         /** @var list<VkBuffer> */
         public array $buffers = [],
-        /** @var int<0, max> */
+        /** @var int */
         public int $tagName = 0,
         /**
          * The number of the elements of `$tag`, it follows the array when
          * it is given.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $tagSize = 0,
         public string $tag = '',
@@ -71,13 +71,13 @@ final class VkFrameBoundaryEXT extends InputStructure implements VkSubmitInfoExt
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_FRAME_BOUNDARY_EXT>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     frameID: int<0, max>,
+     *     frameID: int,
      *     imageCount: int<0, 4294967295>,
      *     pImages: CData,
      *     bufferCount: int<0, 4294967295>,
      *     pBuffers: CData,
-     *     tagName: int<0, max>,
-     *     tagSize: int<0, max>,
+     *     tagName: int,
+     *     tagSize: int,
      *     pTag: CData,
      * } $data
      *

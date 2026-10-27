@@ -29,7 +29,7 @@ final class VkSparseImageMemoryBind extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $memoryOffset = 0,
         /** @var int-mask-of<VkSparseMemoryBindFlagBits::*> */
@@ -42,7 +42,7 @@ final class VkSparseImageMemoryBind extends InputStructure
      *     offset: CData,
      *     extent: CData,
      *     memory: CData,
-     *     memoryOffset: int<0, max>,
+     *     memoryOffset: int,
      *     flags: int<0, 4294967295>,
      * } $data
      *

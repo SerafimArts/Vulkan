@@ -29,7 +29,7 @@ final class VkExternalFormatOHOS extends InputStructure implements VkImageCreate
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $externalFormat = 0,
     ) {}
 
@@ -37,7 +37,7 @@ final class VkExternalFormatOHOS extends InputStructure implements VkImageCreate
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_OHOS>,
      *     pNext: CData,
-     *     externalFormat: int<0, max>,
+     *     externalFormat: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -31,9 +31,9 @@ final readonly class VkPhysicalDeviceMemoryBudgetPropertiesEXT extends OutputStr
     }
 
     public function __construct(
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $heapBudget,
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $heapUsage,
     ) {}
 

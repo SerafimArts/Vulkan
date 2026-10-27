@@ -29,7 +29,7 @@ final class VkAcquireProfilingLockInfoKHR extends InputStructure
          * @var int<0, 4294967295>
          */
         public int $flags = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $timeout = 0,
     ) {}
 
@@ -38,7 +38,7 @@ final class VkAcquireProfilingLockInfoKHR extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACQUIRE_PROFILING_LOCK_INFO_KHR>,
      *     pNext: CData,
      *     flags: int<0, 4294967295>,
-     *     timeout: int<0, max>,
+     *     timeout: int,
      * } $data
      *
      * @phpstan-param CData $data

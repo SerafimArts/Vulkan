@@ -26,7 +26,7 @@ final class VkExternalFormatQNX extends InputStructure implements VkImageCreateI
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|null $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $externalFormat = 0,
     ) {}
 
@@ -34,7 +34,7 @@ final class VkExternalFormatQNX extends InputStructure implements VkImageCreateI
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_QNX>,
      *     pNext: CData,
-     *     externalFormat: int<0, max>,
+     *     externalFormat: int,
      * } $data
      *
      * @phpstan-param CData $data

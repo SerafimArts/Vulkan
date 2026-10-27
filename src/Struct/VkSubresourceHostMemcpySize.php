@@ -34,14 +34,14 @@ final readonly class VkSubresourceHostMemcpySize extends OutputStructure impleme
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size,
     ) {}
 
     /**
      * @param CData&object{
-     *     size: int<0, max>,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

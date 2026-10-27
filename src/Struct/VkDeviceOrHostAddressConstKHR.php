@@ -21,14 +21,14 @@ final class VkDeviceOrHostAddressConstKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkDeviceOrHostAddressConstKHR';
 
     public function __construct(
-        /** @var int<0, max>|null */
+        /** @var int|null */
         public ?int $deviceAddress = null,
         public CData|int|null $hostAddress = null,
     ) {}
 
     /**
      * @param CData&object{
-     *     deviceAddress: int<0, max>,
+     *     deviceAddress: int,
      *     hostAddress: CData|int|null,
      * } $data
      *

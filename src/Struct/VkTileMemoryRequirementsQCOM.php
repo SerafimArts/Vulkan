@@ -31,16 +31,16 @@ final readonly class VkTileMemoryRequirementsQCOM extends OutputStructure implem
     }
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $size,
-        /** @var int<0, max> */
+        /** @var int */
         public int $alignment,
     ) {}
 
     /**
      * @param CData&object{
-     *     size: int<0, max>,
-     *     alignment: int<0, max>,
+     *     size: int,
+     *     alignment: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -25,7 +25,7 @@ final class VkWriteDescriptorSetPartitionedAccelerationStructureNV extends Input
 
     public function __construct(
         public ?VkWriteDescriptorSetExtension $next = null,
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $accelerationStructures = [],
     ) {}
 

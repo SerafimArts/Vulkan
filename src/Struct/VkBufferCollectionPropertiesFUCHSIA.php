@@ -31,7 +31,7 @@ final readonly class VkBufferCollectionPropertiesFUCHSIA extends OutputStructure
         public int $bufferCount,
         /** @var int<0, 4294967295> */
         public int $createInfoIndex,
-        /** @var int<0, max> */
+        /** @var int */
         public int $sysmemPixelFormat,
         /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
         public int $formatFeatures,
@@ -48,7 +48,7 @@ final readonly class VkBufferCollectionPropertiesFUCHSIA extends OutputStructure
      *     memoryTypeBits: int<0, 4294967295>,
      *     bufferCount: int<0, 4294967295>,
      *     createInfoIndex: int<0, 4294967295>,
-     *     sysmemPixelFormat: int<0, max>,
+     *     sysmemPixelFormat: int,
      *     formatFeatures: int<0, 4294967295>,
      *     sysmemColorSpaceIndex: CData,
      *     samplerYcbcrConversionComponents: CData,

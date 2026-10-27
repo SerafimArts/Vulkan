@@ -27,9 +27,9 @@ final class VkBindVideoSessionMemoryInfoKHR extends InputStructure
         public VkDeviceMemory $memory,
         /** @var int<0, 4294967295> */
         public int $memoryBindIndex = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $memoryOffset = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $memorySize = 0,
     ) {}
 
@@ -39,8 +39,8 @@ final class VkBindVideoSessionMemoryInfoKHR extends InputStructure
      *     pNext: CData,
      *     memoryBindIndex: int<0, 4294967295>,
      *     memory: CData,
-     *     memoryOffset: int<0, max>,
-     *     memorySize: int<0, max>,
+     *     memoryOffset: int,
+     *     memorySize: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -34,88 +34,88 @@ final readonly class VkPhysicalDeviceDescriptorHeapPropertiesEXT extends OutputS
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $samplerHeapAlignment,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $resourceHeapAlignment,
         /**
          * The value is at most the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxSamplerHeapSize,
         /**
          * The value is at most the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxResourceHeapSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minSamplerHeapReservedRange,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minSamplerHeapReservedRangeWithEmbedded,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minResourceHeapReservedRange,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $samplerDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $imageDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $bufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $samplerDescriptorAlignment,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $imageDescriptorAlignment,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $bufferDescriptorAlignment,
         /**
          * The value is at most the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxPushDataSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $imageCaptureReplayOpaqueDataSize,
         /**
          * The value is at most the required one.
@@ -137,21 +137,21 @@ final readonly class VkPhysicalDeviceDescriptorHeapPropertiesEXT extends OutputS
 
     /**
      * @param CData&object{
-     *     samplerHeapAlignment: int<0, max>,
-     *     resourceHeapAlignment: int<0, max>,
-     *     maxSamplerHeapSize: int<0, max>,
-     *     maxResourceHeapSize: int<0, max>,
-     *     minSamplerHeapReservedRange: int<0, max>,
-     *     minSamplerHeapReservedRangeWithEmbedded: int<0, max>,
-     *     minResourceHeapReservedRange: int<0, max>,
-     *     samplerDescriptorSize: int<0, max>,
-     *     imageDescriptorSize: int<0, max>,
-     *     bufferDescriptorSize: int<0, max>,
-     *     samplerDescriptorAlignment: int<0, max>,
-     *     imageDescriptorAlignment: int<0, max>,
-     *     bufferDescriptorAlignment: int<0, max>,
-     *     maxPushDataSize: int<0, max>,
-     *     imageCaptureReplayOpaqueDataSize: int<0, max>,
+     *     samplerHeapAlignment: int,
+     *     resourceHeapAlignment: int,
+     *     maxSamplerHeapSize: int,
+     *     maxResourceHeapSize: int,
+     *     minSamplerHeapReservedRange: int,
+     *     minSamplerHeapReservedRangeWithEmbedded: int,
+     *     minResourceHeapReservedRange: int,
+     *     samplerDescriptorSize: int,
+     *     imageDescriptorSize: int,
+     *     bufferDescriptorSize: int,
+     *     samplerDescriptorAlignment: int,
+     *     imageDescriptorAlignment: int,
+     *     bufferDescriptorAlignment: int,
+     *     maxPushDataSize: int,
+     *     imageCaptureReplayOpaqueDataSize: int,
      *     maxDescriptorHeapEmbeddedSamplers: int<0, 4294967295>,
      *     samplerYcbcrConversionCount: int<0, 4294967295>,
      *     sparseDescriptorHeaps: int<0, 1>,

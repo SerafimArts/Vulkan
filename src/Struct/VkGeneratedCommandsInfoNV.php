@@ -35,15 +35,15 @@ final class VkGeneratedCommandsInfoNV extends InputStructure
         public array $streams = [],
         /** @var int<0, 4294967295> */
         public int $sequencesCount = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $preprocessOffset = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $preprocessSize = 0,
         public ?VkBuffer $sequencesCountBuffer = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $sequencesCountOffset = 0,
         public ?VkBuffer $sequencesIndexBuffer = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $sequencesIndexOffset = 0,
     ) {}
 
@@ -58,12 +58,12 @@ final class VkGeneratedCommandsInfoNV extends InputStructure
      *     pStreams: CData,
      *     sequencesCount: int<0, 4294967295>,
      *     preprocessBuffer: CData,
-     *     preprocessOffset: int<0, max>,
-     *     preprocessSize: int<0, max>,
+     *     preprocessOffset: int,
+     *     preprocessSize: int,
      *     sequencesCountBuffer: CData,
-     *     sequencesCountOffset: int<0, max>,
+     *     sequencesCountOffset: int,
      *     sequencesIndexBuffer: CData,
-     *     sequencesIndexOffset: int<0, max>,
+     *     sequencesIndexOffset: int,
      * } $data
      *
      * @phpstan-param CData $data

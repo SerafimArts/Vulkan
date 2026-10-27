@@ -31,11 +31,11 @@ final class VkTensorCopyARM extends InputStructure
          * @var int<0, 4294967295>
          */
         public int $dimensionCount = 0,
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $srcOffset = [],
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $dstOffset = [],
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $extent = [],
     ) {}
 

@@ -40,7 +40,7 @@ final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Outpu
         public bool $bufferlessPushDescriptors,
         /** The value is at least the required one. */
         public bool $allowSamplerImageViewPostSubmitCreation,
-        /** @var int<0, max> */
+        /** @var int */
         public int $descriptorBufferOffsetAlignment,
         /**
          * The value is at least the required one.
@@ -72,128 +72,128 @@ final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Outpu
          * @var int<0, 4294967295>
          */
         public int $maxEmbeddedImmutableSamplers,
-        /** @var int<0, max> */
+        /** @var int */
         public int $bufferCaptureReplayDescriptorDataSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $imageCaptureReplayDescriptorDataSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $imageViewCaptureReplayDescriptorDataSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $samplerCaptureReplayDescriptorDataSize,
-        /** @var int<0, max> */
+        /** @var int */
         public int $accelerationStructureCaptureReplayDescriptorDataSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $samplerDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $combinedImageSamplerDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $sampledImageDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $storageImageDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $uniformTexelBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $robustUniformTexelBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $storageTexelBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $robustStorageTexelBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $uniformBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $robustUniformBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $storageBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $robustStorageBufferDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $inputAttachmentDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $accelerationStructureDescriptorSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxSamplerDescriptorBufferRange,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxResourceDescriptorBufferRange,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $samplerDescriptorBufferAddressSpaceSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $resourceDescriptorBufferAddressSpaceSize,
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $descriptorBufferAddressSpaceSize,
     ) {}
@@ -203,36 +203,36 @@ final readonly class VkPhysicalDeviceDescriptorBufferPropertiesEXT extends Outpu
      *     combinedImageSamplerDescriptorSingleArray: int<0, 1>,
      *     bufferlessPushDescriptors: int<0, 1>,
      *     allowSamplerImageViewPostSubmitCreation: int<0, 1>,
-     *     descriptorBufferOffsetAlignment: int<0, max>,
+     *     descriptorBufferOffsetAlignment: int,
      *     maxDescriptorBufferBindings: int<0, 4294967295>,
      *     maxResourceDescriptorBufferBindings: int<0, 4294967295>,
      *     maxSamplerDescriptorBufferBindings: int<0, 4294967295>,
      *     maxEmbeddedImmutableSamplerBindings: int<0, 4294967295>,
      *     maxEmbeddedImmutableSamplers: int<0, 4294967295>,
-     *     bufferCaptureReplayDescriptorDataSize: int<0, max>,
-     *     imageCaptureReplayDescriptorDataSize: int<0, max>,
-     *     imageViewCaptureReplayDescriptorDataSize: int<0, max>,
-     *     samplerCaptureReplayDescriptorDataSize: int<0, max>,
-     *     accelerationStructureCaptureReplayDescriptorDataSize: int<0, max>,
-     *     samplerDescriptorSize: int<0, max>,
-     *     combinedImageSamplerDescriptorSize: int<0, max>,
-     *     sampledImageDescriptorSize: int<0, max>,
-     *     storageImageDescriptorSize: int<0, max>,
-     *     uniformTexelBufferDescriptorSize: int<0, max>,
-     *     robustUniformTexelBufferDescriptorSize: int<0, max>,
-     *     storageTexelBufferDescriptorSize: int<0, max>,
-     *     robustStorageTexelBufferDescriptorSize: int<0, max>,
-     *     uniformBufferDescriptorSize: int<0, max>,
-     *     robustUniformBufferDescriptorSize: int<0, max>,
-     *     storageBufferDescriptorSize: int<0, max>,
-     *     robustStorageBufferDescriptorSize: int<0, max>,
-     *     inputAttachmentDescriptorSize: int<0, max>,
-     *     accelerationStructureDescriptorSize: int<0, max>,
-     *     maxSamplerDescriptorBufferRange: int<0, max>,
-     *     maxResourceDescriptorBufferRange: int<0, max>,
-     *     samplerDescriptorBufferAddressSpaceSize: int<0, max>,
-     *     resourceDescriptorBufferAddressSpaceSize: int<0, max>,
-     *     descriptorBufferAddressSpaceSize: int<0, max>,
+     *     bufferCaptureReplayDescriptorDataSize: int,
+     *     imageCaptureReplayDescriptorDataSize: int,
+     *     imageViewCaptureReplayDescriptorDataSize: int,
+     *     samplerCaptureReplayDescriptorDataSize: int,
+     *     accelerationStructureCaptureReplayDescriptorDataSize: int,
+     *     samplerDescriptorSize: int,
+     *     combinedImageSamplerDescriptorSize: int,
+     *     sampledImageDescriptorSize: int,
+     *     storageImageDescriptorSize: int,
+     *     uniformTexelBufferDescriptorSize: int,
+     *     robustUniformTexelBufferDescriptorSize: int,
+     *     storageTexelBufferDescriptorSize: int,
+     *     robustStorageTexelBufferDescriptorSize: int,
+     *     uniformBufferDescriptorSize: int,
+     *     robustUniformBufferDescriptorSize: int,
+     *     storageBufferDescriptorSize: int,
+     *     robustStorageBufferDescriptorSize: int,
+     *     inputAttachmentDescriptorSize: int,
+     *     accelerationStructureDescriptorSize: int,
+     *     maxSamplerDescriptorBufferRange: int,
+     *     maxResourceDescriptorBufferRange: int,
+     *     samplerDescriptorBufferAddressSpaceSize: int,
+     *     resourceDescriptorBufferAddressSpaceSize: int,
+     *     descriptorBufferAddressSpaceSize: int,
      * } $data
      *
      * @phpstan-param CData $data

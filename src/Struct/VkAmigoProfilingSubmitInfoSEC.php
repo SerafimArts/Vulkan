@@ -25,9 +25,9 @@ final class VkAmigoProfilingSubmitInfoSEC extends InputStructure implements VkSu
 
     public function __construct(
         public ?VkSubmitInfoExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $firstDrawTimestamp = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $swapBufferTimestamp = 0,
     ) {}
 
@@ -35,8 +35,8 @@ final class VkAmigoProfilingSubmitInfoSEC extends InputStructure implements VkSu
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_AMIGO_PROFILING_SUBMIT_INFO_SEC>,
      *     pNext: CData,
-     *     firstDrawTimestamp: int<0, max>,
-     *     swapBufferTimestamp: int<0, max>,
+     *     firstDrawTimestamp: int,
+     *     swapBufferTimestamp: int,
      * } $data
      *
      * @phpstan-param CData $data

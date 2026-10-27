@@ -23,7 +23,7 @@ final class VkPerformanceMarkerInfoINTEL extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $marker = 0,
     ) {}
 
@@ -31,7 +31,7 @@ final class VkPerformanceMarkerInfoINTEL extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_MARKER_INFO_INTEL>,
      *     pNext: CData,
-     *     marker: int<0, max>,
+     *     marker: int,
      * } $data
      *
      * @phpstan-param CData $data

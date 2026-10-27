@@ -35,14 +35,14 @@ final readonly class VkPhysicalDeviceExternalMemoryHostPropertiesEXT extends Out
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minImportedHostPointerAlignment,
     ) {}
 
     /**
      * @param CData&object{
-     *     minImportedHostPointerAlignment: int<0, max>,
+     *     minImportedHostPointerAlignment: int,
      * } $data
      *
      * @phpstan-param CData $data

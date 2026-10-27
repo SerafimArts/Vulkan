@@ -38,7 +38,7 @@ final readonly class VkPhysicalDeviceSchedulingControlsPropertiesARM extends Out
 
     /**
      * @param CData&object{
-     *     schedulingControlsFlags: int<0, max>,
+     *     schedulingControlsFlags: int,
      * } $data
      *
      * @phpstan-param CData $data

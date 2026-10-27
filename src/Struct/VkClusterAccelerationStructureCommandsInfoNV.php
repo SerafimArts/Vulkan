@@ -28,11 +28,11 @@ final class VkClusterAccelerationStructureCommandsInfoNV extends InputStructure
         public VkStridedDeviceAddressRegionKHR $dstAddressesArray,
         public VkStridedDeviceAddressRegionKHR $dstSizesArray,
         public VkStridedDeviceAddressRegionKHR $srcInfosArray,
-        /** @var int<0, max> */
+        /** @var int */
         public int $dstImplicitData = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $scratchData = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $srcInfosCount = 0,
         /** @var int-mask-of<VkClusterAccelerationStructureAddressResolutionFlagBitsNV::*> */
         public int $addressResolutionFlags = 0,
@@ -43,12 +43,12 @@ final class VkClusterAccelerationStructureCommandsInfoNV extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV>,
      *     pNext: CData,
      *     input: CData,
-     *     dstImplicitData: int<0, max>,
-     *     scratchData: int<0, max>,
+     *     dstImplicitData: int,
+     *     scratchData: int,
      *     dstAddressesArray: CData,
      *     dstSizesArray: CData,
      *     srcInfosArray: CData,
-     *     srcInfosCount: int<0, max>,
+     *     srcInfosCount: int,
      *     addressResolutionFlags: int<0, 4294967295>,
      * } $data
      *

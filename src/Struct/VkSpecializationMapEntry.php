@@ -35,7 +35,7 @@ final class VkSpecializationMapEntry extends InputStructure
         /**
          * Size in bytes of the SpecConstant
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size = 0,
     ) {}
@@ -44,7 +44,7 @@ final class VkSpecializationMapEntry extends InputStructure
      * @param CData&object{
      *     constantID: int<0, 4294967295>,
      *     offset: int<0, 4294967295>,
-     *     size: int<0, max>,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

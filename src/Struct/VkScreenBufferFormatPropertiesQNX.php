@@ -38,9 +38,9 @@ final readonly class VkScreenBufferFormatPropertiesQNX extends OutputStructure i
 
     public function __construct(
         public VkFormat $format,
-        /** @var int<0, max> */
+        /** @var int */
         public int $externalFormat,
-        /** @var int<0, max> */
+        /** @var int */
         public int $screenUsage,
         /** @var int<0, 4294967295>|(VkFormatFeatureFlagBits::*) */
         public int $formatFeatures,
@@ -54,8 +54,8 @@ final readonly class VkScreenBufferFormatPropertiesQNX extends OutputStructure i
     /**
      * @param CData&object{
      *     format: value-of<VkFormat>,
-     *     externalFormat: int<0, max>,
-     *     screenUsage: int<0, max>,
+     *     externalFormat: int,
+     *     screenUsage: int,
      *     formatFeatures: int<0, 4294967295>,
      *     samplerYcbcrConversionComponents: CData,
      *     suggestedYcbcrModel: value-of<VkSamplerYcbcrModelConversion>,

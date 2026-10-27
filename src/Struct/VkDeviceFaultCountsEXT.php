@@ -30,7 +30,7 @@ final class VkDeviceFaultCountsEXT extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $vendorBinarySize = 0,
     ) {}
@@ -41,7 +41,7 @@ final class VkDeviceFaultCountsEXT extends InputStructure
      *     pNext: CData,
      *     addressInfoCount: int<0, 4294967295>,
      *     vendorInfoCount: int<0, 4294967295>,
-     *     vendorBinarySize: int<0, max>,
+     *     vendorBinarySize: int,
      * } $data
      *
      * @phpstan-param CData $data

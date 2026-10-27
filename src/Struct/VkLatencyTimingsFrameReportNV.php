@@ -20,52 +20,52 @@ final readonly class VkLatencyTimingsFrameReportNV extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_LATENCY_TIMINGS_FRAME_REPORT_NV->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $presentID,
-        /** @var int<0, max> */
+        /** @var int */
         public int $inputSampleTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $simStartTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $simEndTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $renderSubmitStartTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $renderSubmitEndTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $presentStartTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $presentEndTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $driverStartTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $driverEndTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $osRenderQueueStartTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $osRenderQueueEndTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $gpuRenderStartTimeUs,
-        /** @var int<0, max> */
+        /** @var int */
         public int $gpuRenderEndTimeUs,
     ) {}
 
     /**
      * @param CData&object{
-     *     presentID: int<0, max>,
-     *     inputSampleTimeUs: int<0, max>,
-     *     simStartTimeUs: int<0, max>,
-     *     simEndTimeUs: int<0, max>,
-     *     renderSubmitStartTimeUs: int<0, max>,
-     *     renderSubmitEndTimeUs: int<0, max>,
-     *     presentStartTimeUs: int<0, max>,
-     *     presentEndTimeUs: int<0, max>,
-     *     driverStartTimeUs: int<0, max>,
-     *     driverEndTimeUs: int<0, max>,
-     *     osRenderQueueStartTimeUs: int<0, max>,
-     *     osRenderQueueEndTimeUs: int<0, max>,
-     *     gpuRenderStartTimeUs: int<0, max>,
-     *     gpuRenderEndTimeUs: int<0, max>,
+     *     presentID: int,
+     *     inputSampleTimeUs: int,
+     *     simStartTimeUs: int,
+     *     simEndTimeUs: int,
+     *     renderSubmitStartTimeUs: int,
+     *     renderSubmitEndTimeUs: int,
+     *     presentStartTimeUs: int,
+     *     presentEndTimeUs: int,
+     *     driverStartTimeUs: int,
+     *     driverEndTimeUs: int,
+     *     osRenderQueueStartTimeUs: int,
+     *     osRenderQueueEndTimeUs: int,
+     *     gpuRenderStartTimeUs: int,
+     *     gpuRenderEndTimeUs: int,
      * } $data
      *
      * @phpstan-param CData $data

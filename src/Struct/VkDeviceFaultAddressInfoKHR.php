@@ -20,17 +20,17 @@ final readonly class VkDeviceFaultAddressInfoKHR extends OutputStructure
 {
     public function __construct(
         public VkDeviceFaultAddressTypeKHR $addressType,
-        /** @var int<0, max> */
+        /** @var int */
         public int $reportedAddress,
-        /** @var int<0, max> */
+        /** @var int */
         public int $addressPrecision,
     ) {}
 
     /**
      * @param CData&object{
      *     addressType: value-of<VkDeviceFaultAddressTypeKHR>,
-     *     reportedAddress: int<0, max>,
-     *     addressPrecision: int<0, max>,
+     *     reportedAddress: int,
+     *     addressPrecision: int,
      * } $data
      *
      * @phpstan-param CData $data

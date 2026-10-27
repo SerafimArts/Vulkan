@@ -32,13 +32,13 @@ final readonly class VkQueueFamilyCheckpointProperties2NV extends OutputStructur
     }
 
     public function __construct(
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $checkpointExecutionStageMask,
     ) {}
 
     /**
      * @param CData&object{
-     *     checkpointExecutionStageMask: int<0, max>,
+     *     checkpointExecutionStageMask: int,
      * } $data
      *
      * @phpstan-param CData $data

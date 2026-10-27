@@ -34,7 +34,7 @@ final class VkDescriptorDataEXT extends InputStructure
         public ?VkDescriptorAddressInfoEXT $storageTexelBuffer = null,
         public ?VkDescriptorAddressInfoEXT $uniformBuffer = null,
         public ?VkDescriptorAddressInfoEXT $storageBuffer = null,
-        /** @var int<0, max>|null */
+        /** @var int|null */
         public ?int $accelerationStructure = null,
     ) {}
 
@@ -49,7 +49,7 @@ final class VkDescriptorDataEXT extends InputStructure
      *     pStorageTexelBuffer: CData,
      *     pUniformBuffer: CData,
      *     pStorageBuffer: CData,
-     *     accelerationStructure: int<0, max>,
+     *     accelerationStructure: int,
      * } $data
      *
      * @phpstan-param CData $data

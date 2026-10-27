@@ -21,14 +21,14 @@ final readonly class VkCheckpointData2NV extends OutputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV->value;
 
     public function __construct(
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $stage,
         public CData|int|null $checkpointMarker,
     ) {}
 
     /**
      * @param CData&object{
-     *     stage: int<0, max>,
+     *     stage: int,
      *     pCheckpointMarker: CData|int|null,
      * } $data
      *

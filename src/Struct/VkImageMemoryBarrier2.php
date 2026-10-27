@@ -31,13 +31,13 @@ final class VkImageMemoryBarrier2 extends InputStructure
         public VkImage $image,
         public VkImageSubresourceRange $subresourceRange,
         public ?VkImageMemoryBarrier2Extension $next = null,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $srcStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::*) */
+        /** @var int|(VkAccessFlagBits2::*) */
         public int $srcAccessMask = 0,
-        /** @var int<0, max>|(VkPipelineStageFlagBits2::*) */
+        /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $dstStageMask = 0,
-        /** @var int<0, max>|(VkAccessFlagBits2::*) */
+        /** @var int|(VkAccessFlagBits2::*) */
         public int $dstAccessMask = 0,
         public VkImageLayout $oldLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         public VkImageLayout $newLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
@@ -51,10 +51,10 @@ final class VkImageMemoryBarrier2 extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2>,
      *     pNext: CData,
-     *     srcStageMask: int<0, max>,
-     *     srcAccessMask: int<0, max>,
-     *     dstStageMask: int<0, max>,
-     *     dstAccessMask: int<0, max>,
+     *     srcStageMask: int,
+     *     srcAccessMask: int,
+     *     dstStageMask: int,
+     *     dstAccessMask: int,
      *     oldLayout: value-of<VkImageLayout>,
      *     newLayout: value-of<VkImageLayout>,
      *     srcQueueFamilyIndex: int<0, 4294967295>,

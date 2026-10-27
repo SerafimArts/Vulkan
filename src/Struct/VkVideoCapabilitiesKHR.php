@@ -28,14 +28,14 @@ final readonly class VkVideoCapabilitiesKHR extends OutputStructure
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minBitstreamBufferOffsetAlignment,
         /**
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $minBitstreamBufferSizeAlignment,
         /** The value is at most the required one. */
@@ -64,8 +64,8 @@ final readonly class VkVideoCapabilitiesKHR extends OutputStructure
     /**
      * @param CData&object{
      *     flags: int<0, 4294967295>,
-     *     minBitstreamBufferOffsetAlignment: int<0, max>,
-     *     minBitstreamBufferSizeAlignment: int<0, max>,
+     *     minBitstreamBufferOffsetAlignment: int,
+     *     minBitstreamBufferSizeAlignment: int,
      *     pictureAccessGranularity: CData,
      *     minCodedExtent: CData,
      *     maxCodedExtent: CData,

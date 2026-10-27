@@ -25,7 +25,7 @@ final class VkMemoryOpaqueCaptureAddressAllocateInfo extends InputStructure impl
 
     public function __construct(
         public ?VkMemoryAllocateInfoExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $opaqueCaptureAddress = 0,
     ) {}
 
@@ -33,7 +33,7 @@ final class VkMemoryOpaqueCaptureAddressAllocateInfo extends InputStructure impl
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO>,
      *     pNext: CData,
-     *     opaqueCaptureAddress: int<0, max>,
+     *     opaqueCaptureAddress: int,
      * } $data
      *
      * @phpstan-param CData $data

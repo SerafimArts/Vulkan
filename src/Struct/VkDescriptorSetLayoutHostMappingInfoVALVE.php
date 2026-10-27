@@ -20,7 +20,7 @@ final readonly class VkDescriptorSetLayoutHostMappingInfoVALVE extends OutputStr
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $descriptorOffset,
         /** @var int<0, 4294967295> */
         public int $descriptorSize,
@@ -28,7 +28,7 @@ final readonly class VkDescriptorSetLayoutHostMappingInfoVALVE extends OutputStr
 
     /**
      * @param CData&object{
-     *     descriptorOffset: int<0, max>,
+     *     descriptorOffset: int,
      *     descriptorSize: int<0, 4294967295>,
      * } $data
      *

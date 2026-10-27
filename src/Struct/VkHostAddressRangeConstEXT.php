@@ -26,7 +26,7 @@ final class VkHostAddressRangeConstEXT extends InputStructure
     /**
      * @param CData&object{
      *     address: CData,
-     *     size: int<0, max>,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

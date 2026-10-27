@@ -29,7 +29,7 @@ final class VkPipelineCreateFlags2CreateInfo extends InputStructure implements V
 
     public function __construct(
         public VkComputePipelineCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
-        /** @var int<0, max>|(VkPipelineCreateFlagBits2::*) */
+        /** @var int|(VkPipelineCreateFlagBits2::*) */
         public int $flags = 0,
     ) {}
 
@@ -37,7 +37,7 @@ final class VkPipelineCreateFlags2CreateInfo extends InputStructure implements V
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO>,
      *     pNext: CData,
-     *     flags: int<0, max>,
+     *     flags: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -25,7 +25,7 @@ final class VkImageDrmFormatModifierListCreateInfoEXT extends InputStructure imp
 
     public function __construct(
         public ?VkImageCreateInfoExtension $next = null,
-        /** @var list<int<0, max>> */
+        /** @var list<int> */
         public array $drmFormatModifiers = [],
     ) {}
 

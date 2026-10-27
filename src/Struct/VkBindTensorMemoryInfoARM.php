@@ -27,7 +27,7 @@ final class VkBindTensorMemoryInfoARM extends InputStructure
     public function __construct(
         public VkTensorARM $tensor,
         public VkDeviceMemory $memory,
-        /** @var int<0, max> */
+        /** @var int */
         public int $memoryOffset = 0,
     ) {}
 
@@ -37,7 +37,7 @@ final class VkBindTensorMemoryInfoARM extends InputStructure
      *     pNext: CData,
      *     tensor: CData,
      *     memory: CData,
-     *     memoryOffset: int<0, max>,
+     *     memoryOffset: int,
      * } $data
      *
      * @phpstan-param CData $data

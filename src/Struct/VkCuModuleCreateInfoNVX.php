@@ -32,7 +32,7 @@ final class VkCuModuleCreateInfoNVX extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_CU_MODULE_CREATE_INFO_NVX>,
      *     pNext: CData,
-     *     dataSize: int<0, max>,
+     *     dataSize: int,
      *     pData: CData,
      * } $data
      *

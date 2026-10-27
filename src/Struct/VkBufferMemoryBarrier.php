@@ -60,13 +60,13 @@ final class VkBufferMemoryBarrier extends InputStructure
         /**
          * Offset within the buffer to sync
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $offset = 0,
         /**
          * Amount of bytes to sync
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size = 0,
     ) {}
@@ -80,8 +80,8 @@ final class VkBufferMemoryBarrier extends InputStructure
      *     srcQueueFamilyIndex: int<0, 4294967295>,
      *     dstQueueFamilyIndex: int<0, 4294967295>,
      *     buffer: CData,
-     *     offset: int<0, max>,
-     *     size: int<0, max>,
+     *     offset: int,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

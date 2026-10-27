@@ -29,7 +29,7 @@ final class VkExternalFormatANDROID extends InputStructure implements VkImageCre
 
     public function __construct(
         public VkImageCreateInfoExtension|VkSamplerYcbcrConversionCreateInfoExtension|VkAttachmentDescription2Extension|VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $externalFormat = 0,
     ) {}
 
@@ -37,7 +37,7 @@ final class VkExternalFormatANDROID extends InputStructure implements VkImageCre
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_FORMAT_ANDROID>,
      *     pNext: CData,
-     *     externalFormat: int<0, max>,
+     *     externalFormat: int,
      * } $data
      *
      * @phpstan-param CData $data

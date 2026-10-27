@@ -26,7 +26,7 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
 
     public function __construct(
         public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $drmFormatModifier = 0,
         public VkSharingMode $sharingMode = VkSharingMode::VK_SHARING_MODE_EXCLUSIVE,
         /** @var list<int<0, 4294967295>> */
@@ -37,7 +37,7 @@ final class VkPhysicalDeviceImageDrmFormatModifierInfoEXT extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_DRM_FORMAT_MODIFIER_INFO_EXT>,
      *     pNext: CData,
-     *     drmFormatModifier: int<0, max>,
+     *     drmFormatModifier: int,
      *     sharingMode: value-of<VkSharingMode>,
      *     queueFamilyIndexCount: int<0, 4294967295>,
      *     pQueueFamilyIndices: CData,

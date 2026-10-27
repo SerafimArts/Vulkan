@@ -20,19 +20,19 @@ final class VkStridedDeviceAddressRegionKHR extends InputStructure
     protected const string NATIVE_TYPE = 'VkStridedDeviceAddressRegionKHR';
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $deviceAddress = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $stride = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $size = 0,
     ) {}
 
     /**
      * @param CData&object{
-     *     deviceAddress: int<0, max>,
-     *     stride: int<0, max>,
-     *     size: int<0, max>,
+     *     deviceAddress: int,
+     *     stride: int,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

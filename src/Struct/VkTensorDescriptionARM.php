@@ -49,7 +49,7 @@ final class VkTensorDescriptionARM extends InputStructure implements VkDataGraph
      *     dimensionCount: int<0, 4294967295>,
      *     pDimensions: CData,
      *     pStrides: CData,
-     *     usage: int<0, max>,
+     *     usage: int,
      * } $data
      *
      * @phpstan-param CData $data

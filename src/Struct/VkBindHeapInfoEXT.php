@@ -24,9 +24,9 @@ final class VkBindHeapInfoEXT extends InputStructure
 
     public function __construct(
         public VkDeviceAddressRangeKHR $heapRange,
-        /** @var int<0, max> */
+        /** @var int */
         public int $reservedRangeOffset = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $reservedRangeSize = 0,
     ) {}
 
@@ -35,8 +35,8 @@ final class VkBindHeapInfoEXT extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BIND_HEAP_INFO_EXT>,
      *     pNext: CData,
      *     heapRange: CData,
-     *     reservedRangeOffset: int<0, max>,
-     *     reservedRangeSize: int<0, max>,
+     *     reservedRangeOffset: int,
+     *     reservedRangeSize: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -25,7 +25,7 @@ final class VkSemaphoreSignalInfo extends InputStructure
 
     public function __construct(
         public VkSemaphore $semaphore,
-        /** @var int<0, max> */
+        /** @var int */
         public int $value = 0,
     ) {}
 
@@ -34,7 +34,7 @@ final class VkSemaphoreSignalInfo extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_SIGNAL_INFO>,
      *     pNext: CData,
      *     semaphore: CData,
-     *     value: int<0, max>,
+     *     value: int,
      * } $data
      *
      * @phpstan-param CData $data

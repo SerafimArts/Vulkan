@@ -28,7 +28,7 @@ final class VkAccelerationStructureCreateInfoNV extends InputStructure
     public function __construct(
         public VkAccelerationStructureInfoNV $info,
         public ?VkAccelerationStructureCreateInfoNVExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $compactedSize = 0,
     ) {}
 
@@ -36,7 +36,7 @@ final class VkAccelerationStructureCreateInfoNV extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_NV>,
      *     pNext: CData,
-     *     compactedSize: int<0, max>,
+     *     compactedSize: int,
      *     info: CData,
      * } $data
      *

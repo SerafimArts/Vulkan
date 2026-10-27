@@ -164,7 +164,7 @@ final readonly class VkPhysicalDeviceVulkan13Properties extends OutputStructure 
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $storageTexelBufferOffsetAlignmentBytes,
         /** The value is exactly the required one. */
@@ -173,7 +173,7 @@ final readonly class VkPhysicalDeviceVulkan13Properties extends OutputStructure 
          * The value is at most the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $uniformTexelBufferOffsetAlignmentBytes,
         /** The value is exactly the required one. */
@@ -181,7 +181,7 @@ final readonly class VkPhysicalDeviceVulkan13Properties extends OutputStructure 
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxBufferSize,
     ) {}
@@ -228,11 +228,11 @@ final readonly class VkPhysicalDeviceVulkan13Properties extends OutputStructure 
      *     integerDotProductAccumulatingSaturating64BitUnsignedAccelerated: int<0, 1>,
      *     integerDotProductAccumulatingSaturating64BitSignedAccelerated: int<0, 1>,
      *     integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated: int<0, 1>,
-     *     storageTexelBufferOffsetAlignmentBytes: int<0, max>,
+     *     storageTexelBufferOffsetAlignmentBytes: int,
      *     storageTexelBufferOffsetSingleTexelAlignment: int<0, 1>,
-     *     uniformTexelBufferOffsetAlignmentBytes: int<0, max>,
+     *     uniformTexelBufferOffsetAlignmentBytes: int,
      *     uniformTexelBufferOffsetSingleTexelAlignment: int<0, 1>,
-     *     maxBufferSize: int<0, max>,
+     *     maxBufferSize: int,
      * } $data
      *
      * @phpstan-param CData $data

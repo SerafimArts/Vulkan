@@ -31,7 +31,7 @@ final class VkAccelerationStructureGeometryTrianglesDataKHR extends InputStructu
         public VkDeviceOrHostAddressConstKHR $transformData,
         public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
         public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
-        /** @var int<0, max> */
+        /** @var int */
         public int $vertexStride = 0,
         /** @var int<0, 4294967295> */
         public int $maxVertex = 0,
@@ -44,7 +44,7 @@ final class VkAccelerationStructureGeometryTrianglesDataKHR extends InputStructu
      *     pNext: CData,
      *     vertexFormat: value-of<VkFormat>,
      *     vertexData: CData,
-     *     vertexStride: int<0, max>,
+     *     vertexStride: int,
      *     maxVertex: int<0, 4294967295>,
      *     indexType: value-of<VkIndexType>,
      *     indexData: CData,

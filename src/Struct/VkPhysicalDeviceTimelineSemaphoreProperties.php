@@ -34,14 +34,14 @@ final readonly class VkPhysicalDeviceTimelineSemaphoreProperties extends OutputS
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $maxTimelineSemaphoreValueDifference,
     ) {}
 
     /**
      * @param CData&object{
-     *     maxTimelineSemaphoreValueDifference: int<0, max>,
+     *     maxTimelineSemaphoreValueDifference: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -34,25 +34,25 @@ final readonly class VkPhysicalDeviceDescriptorHeapTensorPropertiesARM extends O
         /**
          * The value is at least the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $tensorDescriptorSize,
         /**
          * The value is at least the required one. The value is a power of
          * two.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $tensorDescriptorAlignment,
-        /** @var int<0, max> */
+        /** @var int */
         public int $tensorCaptureReplayOpaqueDataSize,
     ) {}
 
     /**
      * @param CData&object{
-     *     tensorDescriptorSize: int<0, max>,
-     *     tensorDescriptorAlignment: int<0, max>,
-     *     tensorCaptureReplayOpaqueDataSize: int<0, max>,
+     *     tensorDescriptorSize: int,
+     *     tensorDescriptorAlignment: int,
+     *     tensorCaptureReplayOpaqueDataSize: int,
      * } $data
      *
      * @phpstan-param CData $data

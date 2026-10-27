@@ -21,7 +21,7 @@ final readonly class VkDrmFormatModifierProperties2EXT extends OutputStructure
         /**
          * The value is exactly the required one.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $drmFormatModifier,
         /**
@@ -30,15 +30,15 @@ final readonly class VkDrmFormatModifierProperties2EXT extends OutputStructure
          * @var int<0, 4294967295>
          */
         public int $drmFormatModifierPlaneCount,
-        /** @var int<0, max>|(VkFormatFeatureFlagBits2::*) */
+        /** @var int|(VkFormatFeatureFlagBits2::*) */
         public int $drmFormatModifierTilingFeatures,
     ) {}
 
     /**
      * @param CData&object{
-     *     drmFormatModifier: int<0, max>,
+     *     drmFormatModifier: int,
      *     drmFormatModifierPlaneCount: int<0, 4294967295>,
-     *     drmFormatModifierTilingFeatures: int<0, max>,
+     *     drmFormatModifierTilingFeatures: int,
      * } $data
      *
      * @phpstan-param CData $data

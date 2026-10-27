@@ -35,13 +35,13 @@ final class VkBufferViewCreateInfo extends InputStructure
         /**
          * Specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $offset = 0,
         /**
          * View size specified in bytes
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $range = 0,
     ) {}
@@ -53,8 +53,8 @@ final class VkBufferViewCreateInfo extends InputStructure
      *     flags: int<0, 4294967295>,
      *     buffer: CData,
      *     format: value-of<VkFormat>,
-     *     offset: int<0, max>,
-     *     range: int<0, max>,
+     *     offset: int,
+     *     range: int,
      * } $data
      *
      * @phpstan-param CData $data

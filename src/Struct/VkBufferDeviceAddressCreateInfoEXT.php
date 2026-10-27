@@ -27,7 +27,7 @@ final class VkBufferDeviceAddressCreateInfoEXT extends InputStructure implements
 
     public function __construct(
         public ?VkBufferCreateInfoExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $deviceAddress = 0,
     ) {}
 
@@ -35,7 +35,7 @@ final class VkBufferDeviceAddressCreateInfoEXT extends InputStructure implements
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT>,
      *     pNext: CData,
-     *     deviceAddress: int<0, max>,
+     *     deviceAddress: int,
      * } $data
      *
      * @phpstan-param CData $data

@@ -24,7 +24,7 @@ final class VkPartitionedAccelerationStructureUpdateInstanceDataNV extends Input
         public int $instanceIndex = 0,
         /** @var int<0, 4294967295> */
         public int $instanceContributionToHitGroupIndex = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $accelerationStructure = 0,
     ) {}
 
@@ -32,7 +32,7 @@ final class VkPartitionedAccelerationStructureUpdateInstanceDataNV extends Input
      * @param CData&object{
      *     instanceIndex: int<0, 4294967295>,
      *     instanceContributionToHitGroupIndex: int<0, 4294967295>,
-     *     accelerationStructure: int<0, max>,
+     *     accelerationStructure: int,
      * } $data
      *
      * @phpstan-param CData $data

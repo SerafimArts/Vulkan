@@ -23,9 +23,9 @@ final class VkPresentWait2InfoKHR extends InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR->value;
 
     public function __construct(
-        /** @var int<0, max> */
+        /** @var int */
         public int $presentId = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $timeout = 0,
     ) {}
 
@@ -33,8 +33,8 @@ final class VkPresentWait2InfoKHR extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR>,
      *     pNext: CData,
-     *     presentId: int<0, max>,
-     *     timeout: int<0, max>,
+     *     presentId: int,
+     *     timeout: int,
      * } $data
      *
      * @phpstan-param CData $data

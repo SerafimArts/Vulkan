@@ -26,7 +26,7 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
     public function __construct(
         public VkPerformanceOverrideTypeINTEL $type = VkPerformanceOverrideTypeINTEL::VK_PERFORMANCE_OVERRIDE_TYPE_NULL_HARDWARE_INTEL,
         public bool $enable = false,
-        /** @var int<0, max> */
+        /** @var int */
         public int $parameter = 0,
     ) {}
 
@@ -36,7 +36,7 @@ final class VkPerformanceOverrideInfoINTEL extends InputStructure
      *     pNext: CData,
      *     type: value-of<VkPerformanceOverrideTypeINTEL>,
      *     enable: int<0, 1>,
-     *     parameter: int<0, max>,
+     *     parameter: int,
      * } $data
      *
      * @phpstan-param CData $data

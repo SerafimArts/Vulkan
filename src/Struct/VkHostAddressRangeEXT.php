@@ -25,7 +25,7 @@ final class VkHostAddressRangeEXT extends InputStructure
          * The number of the elements of `$address`, it follows the array
          * when it is given.
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $size = 0,
     ) {}
@@ -33,7 +33,7 @@ final class VkHostAddressRangeEXT extends InputStructure
     /**
      * @param CData&object{
      *     address: CData|int|null,
-     *     size: int<0, max>,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data
@@ -48,7 +48,7 @@ final class VkHostAddressRangeEXT extends InputStructure
     /**
      * @param CData&object{
      *     address: CData|int|null,
-     *     size: int<0, max>,
+     *     size: int,
      * } $data
      *
      * @phpstan-param CData $data

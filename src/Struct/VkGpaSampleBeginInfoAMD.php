@@ -36,11 +36,11 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
         public array $perfCounters = [],
         /** @var int<0, 4294967295> */
         public int $streamingPerfTraceSampleInterval = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $perfCounterDeviceMemoryLimit = 0,
         public bool $sqThreadTraceEnable = false,
         public bool $sqThreadTraceSuppressInstructionTokens = false,
-        /** @var int<0, max> */
+        /** @var int */
         public int $sqThreadTraceDeviceMemoryLimit = 0,
         /** @var int<0, 4294967295>|(VkPipelineStageFlagBits::*) */
         public int $timingPreSample = 0,
@@ -60,10 +60,10 @@ final class VkGpaSampleBeginInfoAMD extends InputStructure
      *     perfCounterCount: int<0, 4294967295>,
      *     pPerfCounters: CData,
      *     streamingPerfTraceSampleInterval: int<0, 4294967295>,
-     *     perfCounterDeviceMemoryLimit: int<0, max>,
+     *     perfCounterDeviceMemoryLimit: int,
      *     sqThreadTraceEnable: int<0, 1>,
      *     sqThreadTraceSuppressInstructionTokens: int<0, 1>,
-     *     sqThreadTraceDeviceMemoryLimit: int<0, max>,
+     *     sqThreadTraceDeviceMemoryLimit: int,
      *     timingPreSample: int<0, 4294967295>,
      *     timingPostSample: int<0, 4294967295>,
      * } $data

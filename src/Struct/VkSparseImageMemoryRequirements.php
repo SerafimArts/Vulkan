@@ -24,21 +24,21 @@ final readonly class VkSparseImageMemoryRequirements extends OutputStructure
          * Specified in bytes, must be a multiple of sparse block size in
          * bytes / alignment
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $imageMipTailSize,
         /**
          * Specified in bytes, must be a multiple of sparse block size in
          * bytes / alignment
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $imageMipTailOffset,
         /**
          * Specified in bytes, must be a multiple of sparse block size in
          * bytes / alignment
          *
-         * @var int<0, max>
+         * @var int
          */
         public int $imageMipTailStride,
     ) {}
@@ -47,9 +47,9 @@ final readonly class VkSparseImageMemoryRequirements extends OutputStructure
      * @param CData&object{
      *     formatProperties: CData,
      *     imageMipTailFirstLod: int<0, 4294967295>,
-     *     imageMipTailSize: int<0, max>,
-     *     imageMipTailOffset: int<0, max>,
-     *     imageMipTailStride: int<0, max>,
+     *     imageMipTailSize: int,
+     *     imageMipTailOffset: int,
+     *     imageMipTailStride: int,
      * } $data
      *
      * @phpstan-param CData $data

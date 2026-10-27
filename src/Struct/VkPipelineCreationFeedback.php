@@ -20,14 +20,14 @@ final readonly class VkPipelineCreationFeedback extends OutputStructure
     public function __construct(
         /** @var int-mask-of<VkPipelineCreationFeedbackFlagBits::*> */
         public int $flags,
-        /** @var int<0, max> */
+        /** @var int */
         public int $duration,
     ) {}
 
     /**
      * @param CData&object{
      *     flags: int<0, 4294967295>,
-     *     duration: int<0, max>,
+     *     duration: int,
      * } $data
      *
      * @phpstan-param CData $data

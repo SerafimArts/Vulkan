@@ -25,9 +25,9 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
 
     public function __construct(
         public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
-        /** @var int<0, max> */
+        /** @var int */
         public int $objectHandle = 0,
-        /** @var int<0, max> */
+        /** @var int */
         public int $tagName = 0,
         public string $tag = '',
     ) {}
@@ -37,9 +37,9 @@ final class VkDebugUtilsObjectTagInfoEXT extends InputStructure
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_TAG_INFO_EXT>,
      *     pNext: CData,
      *     objectType: value-of<VkObjectType>,
-     *     objectHandle: int<0, max>,
-     *     tagName: int<0, max>,
-     *     tagSize: int<0, max>,
+     *     objectHandle: int,
+     *     tagName: int,
+     *     tagSize: int,
      *     pTag: CData,
      * } $data
      *

@@ -29,7 +29,7 @@ final class VkDescriptorBufferBindingInfoEXT extends InputStructure
 
     public function __construct(
         public ?VkDescriptorBufferBindingInfoEXTExtension $next = null,
-        /** @var int<0, max> */
+        /** @var int */
         public int $address = 0,
         /** @var int<0, 4294967295>|(VkBufferUsageFlagBits::*) */
         public int $usage = 0,
@@ -39,7 +39,7 @@ final class VkDescriptorBufferBindingInfoEXT extends InputStructure
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_BUFFER_BINDING_INFO_EXT>,
      *     pNext: CData,
-     *     address: int<0, max>,
+     *     address: int,
      *     usage: int<0, 4294967295>,
      * } $data
      *
