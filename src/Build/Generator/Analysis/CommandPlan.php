@@ -39,5 +39,39 @@ final readonly class CommandPlan
          * returning
          */
         public ?TypeKind $returnKind = null,
+        /**
+         * All the outputs of a command that fills several
+         *
+         * @var list<ParameterPlan>
+         */
+        public array $outputs = [],
+        /**
+         * PHP expressions of the lengths of the output arrays by the names of
+         * the parameters, for a command that fills several outputs
+         *
+         * @var array<string, string>
+         */
+        public array $outputLengths = [],
     ) {}
+
+    /**
+     * Whether the array is filled in the two calls of the command: the first
+     * one returns the length, the second one fills the array.
+     */
+    public function isEnumerated(ParameterPlan $array): bool
+    {
+        $isArray = $array->role === ParameterRole::OUTPUT_ARRAY || $array->role === ParameterRole::OUTPUT_BINARY;
+
+        if (!$isArray) {
+            return false;
+        }
+
+        foreach ($this->parameters as $parameter) {
+            if ($parameter->role === ParameterRole::OUTPUT_COUNT && $parameter->field->name === $array->field->length) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

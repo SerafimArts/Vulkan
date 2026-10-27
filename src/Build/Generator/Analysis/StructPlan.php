@@ -35,5 +35,10 @@ final readonly class StructPlan
          * @var list<non-empty-string>
          */
         public array $implements = [],
+        /**
+         * Whether a returned structure holds handles, it is created in the
+         * context of the commands that created them
+         */
+        public bool $needsContext = false,
     ) {}
 }

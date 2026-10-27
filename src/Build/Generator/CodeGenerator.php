@@ -8,10 +8,13 @@ use Serafim\Vulkan\Build\Generator\Analysis\Planner;
 use Serafim\Vulkan\Build\Generator\Analysis\StructRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter;
+use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Structures;
 use Serafim\Vulkan\Build\Generator\Emitter\ConstantsEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\EnumEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\HandleEmitter;
+use Serafim\Vulkan\Build\Generator\Emitter\MetaEmitter;
+use Serafim\Vulkan\Build\Generator\Emitter\MetaRecorder;
 use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter;
 use Serafim\Vulkan\Build\Generator\Exception\InvalidRegistryException;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
@@ -40,12 +43,21 @@ final readonly class CodeGenerator
             }
         }
 
+        $contextual = [];
+
+        foreach ($plan->structs as $struct) {
+            if ($struct->needsContext) {
+                $contextual[] = $struct->struct->name;
+            }
+        }
+
+        $meta = new MetaRecorder();
         $files = [
-            new CommandsEmitter($registry, $types, $roots)->emit($plan->commands),
+            new CommandsEmitter($registry, $types, new Structures($roots, $contextual), $meta)->emit($plan->commands),
             new ConstantsEmitter()->emit($registry->getDefines()),
         ];
 
-        $structs = new StructEmitter($registry, $types);
+        $structs = new StructEmitter($registry, $types, $contextual, $meta);
         $handles = new HandleEmitter($registry);
         $enums = new EnumEmitter($registry);
 
@@ -66,6 +78,8 @@ final readonly class CodeGenerator
         foreach ($plan->enums as $enum) {
             $files[] = $enums->emit($enum);
         }
+
+        $files[] = new MetaEmitter($registry)->emit($meta);
 
         return new GenerationResult($files, $plan->skipped);
     }

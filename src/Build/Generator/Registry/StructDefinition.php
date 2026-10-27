@@ -29,5 +29,9 @@ final readonly class StructDefinition
          * Whether it is a `union`: its members share the memory
          */
         public bool $isUnion = false,
+        /**
+         * Whether the structure is only returned by Vulkan
+         */
+        public bool $isReturnedOnly = false,
     ) {}
 }

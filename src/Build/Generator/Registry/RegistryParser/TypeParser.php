@@ -52,6 +52,27 @@ final readonly class TypeParser
     }
 
     /**
+     * Returns the names of the types by the names of their aliases.
+     *
+     * @return array<non-empty-string, non-empty-string>
+     */
+    public function parseTypeAliases(): array
+    {
+        $aliases = [];
+
+        foreach ($this->elements->select('//types/type[@alias and @name]') as $element) {
+            $name = $this->elements->createNullable($element->getAttribute('name'));
+            $target = $this->elements->createNullable($element->getAttribute('alias'));
+
+            if ($name !== null && $target !== null) {
+                $aliases[$name] = $target;
+            }
+        }
+
+        return $aliases;
+    }
+
+    /**
      * Returns the names of the types that the system defines: the windows, the
      * connections and the buffers of a platform. The registry only names them.
      *

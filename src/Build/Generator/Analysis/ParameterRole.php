@@ -79,6 +79,11 @@ enum ParameterRole
     case OUTPUT_POINTER;
 
     /**
+     * `const T*` of one number or enum that the user may not give.
+     */
+    case INPUT_POINTER;
+
+    /**
      * A value of the system or a pointer that the user gives as it is.
      */
     case INPUT_NATIVE;

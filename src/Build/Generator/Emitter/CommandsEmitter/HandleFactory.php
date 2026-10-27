@@ -6,6 +6,8 @@ namespace Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter;
 
 use Serafim\Vulkan\Build\Generator\Analysis\CommandPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\ParameterPlan;
+use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
+use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 
@@ -42,9 +44,14 @@ final readonly class HandleFactory
     ): array {
         $destroy = $this->registry->findReleaseCommand($output->field->type);
         $creation = 'new ' . $class . '($this, ' . $native . ', ' . $this->calls->createParentExpression($parent);
+        $references = $this->createReferences($plan);
 
         if ($destroy === null) {
-            return [[], $creation . ')'];
+            if ($references === null) {
+                return [[], $creation . ')'];
+            }
+
+            return [[], $creation . ', references: ' . $references . ')'];
         }
 
         $lines = [];
@@ -102,8 +109,36 @@ final readonly class HandleFactory
                 . ", \$handle);\n";
         }
 
-        $expression .= '    $destroy(' . \implode(', ', $arguments) . ");\n})";
+        $expression .= '    $destroy(' . \implode(', ', $arguments) . ");\n}";
 
-        return [$lines, $expression];
+        if ($references !== null) {
+            $expression .= ', ' . $references;
+        }
+
+        return [$lines, $expression . ')'];
+    }
+
+    /**
+     * Returns the list of the objects that the created handle refers to: the
+     * structures and the arrays the user has given to the command.
+     */
+    private function createReferences(CommandPlan $plan): ?string
+    {
+        $variables = [];
+
+        foreach ($plan->parameters as $parameter) {
+            $isReference = $parameter->role === ParameterRole::INPUT_STRUCTURE
+                || ($parameter->role === ParameterRole::INPUT_ARRAY && $parameter->kind === TypeKind::STRUCTURE);
+
+            if ($isReference) {
+                $variables[] = '$' . $parameter->name;
+            }
+        }
+
+        if ($variables === []) {
+            return null;
+        }
+
+        return '[' . \implode(', ', $variables) . ']';
     }
 }

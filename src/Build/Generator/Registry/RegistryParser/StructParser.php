@@ -44,6 +44,7 @@ final readonly class StructParser
                 members: $members,
                 extends: $this->parseExtends($element->getAttribute('structextends')),
                 isUnion: $element->getAttribute('category') === 'union',
+                isReturnedOnly: $element->getAttribute('returnedonly') === 'true',
             );
         }
 

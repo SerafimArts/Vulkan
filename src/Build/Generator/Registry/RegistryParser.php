@@ -27,14 +27,15 @@ final readonly class RegistryParser
 {
     /**
      * @param non-empty-string $pathname
+     * @param array<string, true> $declared the types the headers declare
      *
      * @throws InvalidRegistryException in case of the file cannot be read
      */
-    public function parse(string $pathname): Registry
+    public function parse(string $pathname, array $declared = []): Registry
     {
         $elements = new Elements(new \DOMXPath($this->load($pathname)));
-        $fields = new FieldParser($elements);
         $types = new TypeParser($elements);
+        $fields = new FieldParser($elements, $types->parseTypeAliases());
         $requirements = new RequirementParser($elements);
 
         $commands = new CommandParser($elements, $fields);
@@ -53,6 +54,7 @@ final readonly class RegistryParser
             commandAliases: $commands->parseAliases(),
             nativeTypes: $types->parseNativeTypes(),
             functionPointers: new FunctionPointerParser($elements, $fields)->parse(),
+            declared: $declared,
             defines: new ConstantParser($elements)->parse(),
         );
     }

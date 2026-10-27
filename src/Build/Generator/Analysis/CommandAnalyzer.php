@@ -43,7 +43,9 @@ final readonly class CommandAnalyzer
         if (!$returnsResult && $command->returnType !== 'void') {
             $returnKind = $this->types->resolve($command->returnType);
 
-            if ($returnKind !== TypeKind::BOOLEAN && $returnKind !== TypeKind::INTEGER) {
+            $returned = [TypeKind::BOOLEAN, TypeKind::INTEGER, TypeKind::CALLBACK];
+
+            if (!\in_array($returnKind, $returned, true)) {
                 throw $this->createException($command, 'the return type is not supported');
             }
         }
@@ -52,8 +54,12 @@ final readonly class CommandAnalyzer
         $outputs = \array_values(\array_filter($parameters, $this->isOutput(...)));
         $count = $this->findCount($parameters);
 
-        if (\count($outputs) > 1 || ($outputs !== [] && $returnKind !== null)) {
-            throw $this->createException($command, 'the command has several outputs');
+        if ($outputs !== [] && $returnKind !== null) {
+            throw $this->createException($command, 'the command returns a value and has outputs');
+        }
+
+        if (\count($outputs) > 1) {
+            return $this->analyzeMultiple($command, $parameters, $outputs, $returnsResult);
         }
 
         $output = $outputs[0] ?? null;
@@ -69,7 +75,7 @@ final readonly class CommandAnalyzer
         if ($isArray && $count === null) {
             $outputLength = $this->lengths->find($parameters, $output);
 
-            if ($outputLength === null || ($output->kind !== TypeKind::HANDLE && $output->role !== ParameterRole::OUTPUT_BINARY)) {
+            if ($outputLength === null) {
                 throw $this->createException($command, 'the length of the output array is unknown');
             }
         }
@@ -83,11 +89,11 @@ final readonly class CommandAnalyzer
         };
 
         if ($outputLength !== null) {
-            $kind = CommandKind::CREATE_ARRAY;
-        }
-
-        if ($outputLength !== null && $output->role === ParameterRole::OUTPUT_BINARY) {
-            $kind = CommandKind::QUERY_BINARY;
+            $kind = match (true) {
+                $output->role === ParameterRole::OUTPUT_BINARY => CommandKind::QUERY_BINARY,
+                $output->kind === TypeKind::HANDLE => CommandKind::CREATE_ARRAY,
+                default => CommandKind::QUERY_ARRAY,
+            };
         }
 
         $isReleasable = $kind === CommandKind::CREATE
@@ -99,6 +105,70 @@ final readonly class CommandAnalyzer
         }
 
         return new CommandPlan($command, $kind, $parameters, $output, $returnsResult, $outputLength);
+    }
+
+    /**
+     * A command that fills several outputs: at most one array of them is
+     * filled in two calls, the others are filled by the user's length.
+     *
+     * @param list<ParameterPlan> $parameters
+     * @param list<ParameterPlan> $outputs
+     *
+     * @throws UnsupportedDeclarationException
+     */
+    private function analyzeMultiple(
+        CommandDefinition $command,
+        array $parameters,
+        array $outputs,
+        bool $returnsResult,
+    ): CommandPlan {
+        $roles = [
+            ParameterRole::OUTPUT_SCALAR,
+            ParameterRole::OUTPUT_STRUCTURE,
+            ParameterRole::OUTPUT_ARRAY,
+            ParameterRole::OUTPUT_BINARY,
+        ];
+        $plan = new CommandPlan($command, CommandKind::QUERY_MULTIPLE, $parameters, $outputs[0], $returnsResult);
+        $lengths = [];
+        $enumerated = 0;
+
+        foreach ($outputs as $output) {
+            if (!\in_array($output->role, $roles, true)) {
+                throw $this->createException($command, 'the output is not supported together with others');
+            }
+
+            if ($plan->isEnumerated($output)) {
+                ++$enumerated;
+
+                continue;
+            }
+
+            if ($output->role === ParameterRole::OUTPUT_ARRAY || $output->role === ParameterRole::OUTPUT_BINARY) {
+                $length = $this->lengths->find($parameters, $output);
+
+                if ($length === null) {
+                    throw $this->createException($command, 'the length of the output array is unknown');
+                }
+
+                $lengths[$output->name] = $length;
+            }
+        }
+
+        if ($enumerated > 1) {
+            throw $this->createException($command, 'the command fills several arrays of unknown length');
+        }
+
+        return new CommandPlan(
+            $command,
+            CommandKind::QUERY_MULTIPLE,
+            $parameters,
+            $outputs[0],
+            $returnsResult,
+            null,
+            null,
+            $outputs,
+            $lengths,
+        );
     }
 
     private function isOutput(ParameterPlan $parameter): bool

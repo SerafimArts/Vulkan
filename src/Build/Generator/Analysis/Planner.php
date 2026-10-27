@@ -39,6 +39,12 @@ final readonly class Planner
         $skipped = [];
 
         foreach ($this->registry->getCommands() as $definition) {
+            if (!$this->registry->isDeclared('PFN_' . $definition->name)) {
+                $skipped[$definition->name] = 'the command is not declared in the headers';
+
+                continue;
+            }
+
             try {
                 $command = $this->commands->analyze($definition);
                 $collected = $structs;
@@ -60,6 +66,7 @@ final readonly class Planner
 
         $structs = $this->collectExtenders($structs);
         $structs = $this->collectExtenders($this->collectOutputExtenders($structs));
+        $structs = $this->collectRemaining($structs);
 
         [$structs, $extensions] = $this->resolveChains($structs);
 
@@ -107,6 +114,40 @@ final readonly class Planner
                 }
 
                 $structs = $collected;
+            }
+        }
+
+        return $structs;
+    }
+
+    /**
+     * Adds the structures that no command refers to: the user writes them to
+     * the memory of the buffers (the arguments of the indirect commands), or
+     * Vulkan fills them in a chain. The ones that cannot be represented are
+     * left out.
+     *
+     * @param array<non-empty-string, StructPlan> $structs
+     *
+     * @return array<non-empty-string, StructPlan>
+     * @throws InvalidRegistryException
+     */
+    private function collectRemaining(array $structs): array
+    {
+        foreach ($this->registry->getStructs() as $struct) {
+            if (isset($structs[$struct->name]) || !$this->registry->hasStructureType($struct)) {
+                continue;
+            }
+
+            $role = StructRole::INPUT;
+
+            if ($struct->isReturnedOnly) {
+                $role = StructRole::OUTPUT;
+            }
+
+            try {
+                $structs = $this->collectStruct($struct->name, $role, $structs);
+            } catch (UnsupportedDeclarationException) {
+                continue;
             }
         }
 
@@ -209,7 +250,69 @@ final readonly class Planner
             );
         }
 
+        $contextual = $this->findContextual($structs);
+
+        foreach ($contextual as $name => $_) {
+            $plan = $structs[$name];
+
+            $structs[$name] = new StructPlan(
+                $plan->struct,
+                $plan->role,
+                $plan->properties,
+                $plan->structureType,
+                $plan->chains,
+                $plan->implements,
+                true,
+            );
+        }
+
         return [$structs, \array_keys($extended)];
+    }
+
+    /**
+     * Finds the returned structures that hold handles, directly or in the
+     * structures they contain.
+     *
+     * @param array<non-empty-string, StructPlan> $structs
+     *
+     * @return array<non-empty-string, true>
+     */
+    private function findContextual(array $structs): array
+    {
+        $contextual = [];
+
+        do {
+            $changed = false;
+
+            foreach ($structs as $name => $plan) {
+                if ($plan->role !== StructRole::OUTPUT || isset($contextual[$name])) {
+                    continue;
+                }
+
+                foreach ($plan->properties as $property) {
+                    if ($this->holdsContext($property, $contextual)) {
+                        $contextual[$name] = true;
+                        $changed = true;
+
+                        break;
+                    }
+                }
+            }
+        } while ($changed);
+
+        return $contextual;
+    }
+
+    /**
+     * @param array<non-empty-string, true> $contextual
+     */
+    private function holdsContext(PropertyPlan $property, array $contextual): bool
+    {
+        return match ($property->kind) {
+            PropertyKind::HANDLE, PropertyKind::HANDLE_LIST => true,
+            PropertyKind::STRUCTURE_VALUE, PropertyKind::STRUCTURE_LIST => isset($contextual[$property->field->type]),
+            default => false,
+        };
     }
 
     private function hasNext(StructPlan $plan): bool
@@ -263,6 +366,13 @@ final readonly class Planner
      */
     private function collectStruct(string $name, StructRole $role, array $structs): array
     {
+        if (!$this->registry->isDeclared($name)) {
+            throw UnsupportedDeclarationException::becauseDeclarationIsNotSupported(
+                $name,
+                'the structure is not declared in the headers',
+            );
+        }
+
         $existing = $structs[$name] ?? null;
 
         if ($existing !== null) {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter;
 
-use Serafim\Vulkan\Build\Generator\Analysis\CommandKind;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\ParameterPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
@@ -35,12 +34,14 @@ final readonly class Arguments
                 ParameterRole::INPUT_ARRAY,
                 ParameterRole::INPUT_STRING,
                 ParameterRole::INPUT_BINARY,
-                ParameterRole::INPUT_NATIVE => $native,
+                ParameterRole::INPUT_NATIVE,
+                ParameterRole::INPUT_POINTER => $native,
                 ParameterRole::INPUT_COUNT => $this->createCountArgument($plan, $parameter),
                 ParameterRole::SCALAR => $this->createScalarArgument($parameter),
                 ParameterRole::OUTPUT_COUNT => '\FFI::addr($count)',
                 ParameterRole::OUTPUT_ARRAY, ParameterRole::OUTPUT_BINARY => $this->createOutputArrayArgument(
                     $plan,
+                    $parameter,
                     $native,
                 ),
                 default => '\FFI::addr(' . $native . ')',
@@ -63,9 +64,7 @@ final readonly class Arguments
         foreach ($this->create($plan) as $index => $argument) {
             $role = $plan->parameters[$index]->role;
 
-            $isOutputArray = $role === ParameterRole::OUTPUT_ARRAY || $role === ParameterRole::OUTPUT_BINARY;
-
-            if ($role !== ParameterRole::OUTPUT_COUNT && !$isOutputArray) {
+            if ($role !== ParameterRole::OUTPUT_COUNT && !$plan->isEnumerated($plan->parameters[$index])) {
                 $arguments[] = $argument;
             }
         }
@@ -73,13 +72,13 @@ final readonly class Arguments
         return $arguments;
     }
 
-    private function createOutputArrayArgument(CommandPlan $plan, string $native): string
+    private function createOutputArrayArgument(CommandPlan $plan, ParameterPlan $array, string $native): string
     {
-        if ($plan->kind === CommandKind::CREATE_ARRAY || $plan->kind === CommandKind::QUERY_BINARY) {
-            return $native;
+        if ($plan->isEnumerated($array)) {
+            return '$items';
         }
 
-        return '$items';
+        return $native;
     }
 
     private function createCountArgument(CommandPlan $plan, ParameterPlan $count): string

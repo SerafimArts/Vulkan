@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 
+use FFI\CData;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandPlan;
+use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Calls;
@@ -57,7 +59,43 @@ final readonly class ExecuteBody implements Body
         return [
             ...$this->calls->createPreparationLines($namespace, $plan),
             ...$this->calls->createCallLines($plan, $this->calls->createArguments($plan)),
+            ...$this->createRetainLines($plan),
         ];
+    }
+
+    /**
+     * The object that a command binds the memory to keeps the memory alive:
+     * the first handle after the device retains the other ones.
+     *
+     * @return list<string>
+     */
+    private function createRetainLines(CommandPlan $plan): array
+    {
+        if (!\str_starts_with($plan->command->name, 'vkBind')) {
+            return [];
+        }
+
+        $handles = [];
+
+        foreach ($plan->parameters as $parameter) {
+            if ($parameter->role === ParameterRole::HANDLE) {
+                $handles[] = $parameter;
+            }
+        }
+
+        $owner = $handles[1] ?? null;
+
+        if ($owner === null || \count($handles) < 3) {
+            return [];
+        }
+
+        $lines = [''];
+
+        foreach (\array_slice($handles, 2) as $reference) {
+            $lines[] = '$' . $owner->name . '->retain($' . $reference->name . ');';
+        }
+
+        return $lines;
     }
 
     /**
@@ -75,6 +113,16 @@ final readonly class ExecuteBody implements Body
             $value = '$result !== 0';
         }
 
+        $check = '\assert(\is_int($result));';
+
+        if ($plan->returnKind === TypeKind::CALLBACK) {
+            $namespace->addUse(CData::class);
+
+            $type = CData::class;
+            $check = '\assert($result === null || $result instanceof CData);';
+            $method->setReturnNullable();
+        }
+
         $method->setReturnType($type);
 
         return [
@@ -82,7 +130,7 @@ final readonly class ExecuteBody implements Body
             $this->calls->createProcedureLine($plan),
             '',
             '$result = $procedure(' . \implode(', ', $this->calls->createArguments($plan)) . ');',
-            '\assert(\is_int($result));',
+            $check,
             '',
             'return ' . $value . ';',
         ];

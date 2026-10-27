@@ -16,13 +16,16 @@ use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CreateArrayBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CreateBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\EnumerateBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\ExecuteBody;
+use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\MultipleBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\PointerQueryBody;
+use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\QueryArrayBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\QueryBinaryBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\QueryBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\ScalarQueryBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Calls;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\HandleFactory;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Parameters;
+use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Structures;
 use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 use Serafim\Vulkan\Enum\VkResult;
@@ -58,18 +61,15 @@ final readonly class CommandsEmitter
 
     private SpecificationTags $tags;
 
-    /**
-     * @param list<non-empty-string> $roots the returned structures that
-     *        others are chained to
-     */
     public function __construct(
         private Registry $registry,
         TypeResolver $types,
-        private array $roots = [],
+        private Structures $structures = new Structures(),
+        private MetaRecorder $meta = new MetaRecorder(),
     ) {
         $this->files = new PhpFiles();
         $this->tags = new SpecificationTags($registry);
-        $this->parameters = new Parameters($registry, $types);
+        $this->parameters = new Parameters($registry, $types, $this->meta);
         $this->calls = new Calls();
         $this->handles = new HandleFactory($registry, $this->calls);
     }
@@ -163,6 +163,8 @@ final readonly class CommandsEmitter
     private function emitAlias(ClassType $class, Method $command, string $name): void
     {
         $method = $command->cloneWithName($name);
+
+        $this->meta->copyMethod(Locations::createClassName(Locations::ROOT_NAMESPACE, 'Vulkan'), $command->getName(), $name);
         $deprecation = $this->tags->findDeprecation($name);
         $comment = \explode("\n", (string) $command->getComment());
         $lines = ['Alias of {@see self::' . $command->getName() . '()}.', '', ...$this->tags->createLines($name)];
@@ -291,11 +293,19 @@ final readonly class CommandsEmitter
         return match ($kind) {
             CommandKind::CREATE => new CreateBody($this->calls, $this->handles),
             CommandKind::CREATE_ARRAY => new CreateArrayBody($this->calls, $this->handles),
-            CommandKind::QUERY => new QueryBody($this->calls, $this->registry, $this->roots),
+            CommandKind::QUERY => new QueryBody($this->calls, $this->registry, $this->structures),
             CommandKind::QUERY_SCALAR => new ScalarQueryBody($this->calls),
             CommandKind::QUERY_BINARY => new QueryBinaryBody($this->calls),
+            CommandKind::QUERY_ARRAY => new QueryArrayBody($this->calls, $this->registry, $this->structures),
+            CommandKind::QUERY_MULTIPLE => new MultipleBody(
+                $this->calls,
+                $this->registry,
+                $this->structures,
+                new EnumerateBody($this->calls, $this->registry, $this->structures),
+                new QueryArrayBody($this->calls, $this->registry, $this->structures),
+            ),
             CommandKind::QUERY_POINTER => new PointerQueryBody($this->calls),
-            CommandKind::ENUMERATE => new EnumerateBody($this->calls, $this->registry),
+            CommandKind::ENUMERATE => new EnumerateBody($this->calls, $this->registry, $this->structures),
             CommandKind::EXECUTE => new ExecuteBody($this->calls),
         };
     }

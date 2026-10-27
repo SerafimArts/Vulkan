@@ -6,6 +6,7 @@ namespace Serafim\Vulkan\Build\Generator\Emitter;
 
 use FFI\CData;
 use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
@@ -17,10 +18,13 @@ use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Reader;
 use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Writer;
 use Serafim\Vulkan\Build\Generator\Exception\InvalidRegistryException;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
+use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\InputStructure;
 use Serafim\Vulkan\Struct\OutputStructure;
+use Serafim\Vulkan\VulkanBase;
 
 /**
  * Writes a structure of the specification as a class: a mutable one that
@@ -41,12 +45,18 @@ final readonly class StructEmitter
 
     private SpecificationTags $tags;
 
+    /**
+     * @param list<non-empty-string> $contextual the returned structures that
+     *        hold handles
+     */
     public function __construct(
         private Registry $registry,
         TypeResolver $types,
+        private array $contextual = [],
+        private MetaRecorder $meta = new MetaRecorder(),
     ) {
         $this->files = new PhpFiles();
-        $this->properties = new Properties($types);
+        $this->properties = new Properties($types, $this->meta);
         $this->reader = new Reader($types);
         $this->writer = new Writer();
         $this->tags = new SpecificationTags($registry);
@@ -117,11 +127,7 @@ final readonly class StructEmitter
         $lines = [];
 
         if ($plan->structureType !== null) {
-            $constant = $class->addConstant('STRUCTURE_TYPE', $this->getStructureType($plan->structureType));
-
-            $constant->setPublic();
-            $constant->setType('int');
-            $constant->addComment('`' . $plan->structureType . '`');
+            $this->emitStructureType($namespace, $class, $plan->structureType);
 
             $lines[] = '$data->sType = self::STRUCTURE_TYPE;';
         }
@@ -163,6 +169,48 @@ final readonly class StructEmitter
 
         $write->addParameter('memory')->setType(Allocation::class);
         $write->addParameter('data')->setType(CData::class);
+
+        foreach ($this->createShape($namespace, $plan) as $line) {
+            $write->addComment($line);
+        }
+    }
+
+    /**
+     * Returns the lines of the docblock that describes the members of the
+     * native struct the structure is written to.
+     *
+     * @return list<string>
+     */
+    private function createShape(PhpNamespace $namespace, StructPlan $plan): array
+    {
+        $properties = [];
+
+        foreach ($plan->properties as $property) {
+            $properties[$property->field->name] = $property;
+        }
+
+        $shape = ['@param CData&object{'];
+
+        foreach ($plan->struct->members as $member) {
+            $property = $properties[$member->name] ?? null;
+
+            $type = match (true) {
+                $property !== null => $this->reader->createType($namespace, $property),
+                $member->name === 'sType' && $plan->structureType !== null => 'value-of<'
+                    . Imports::import($namespace, Locations::ENUM_NAMESPACE, 'VkStructureType')
+                    . '::' . $plan->structureType . '>',
+                $member->name === 'sType' => 'int',
+                $member->name === 'pNext' => 'CData',
+                default => $this->reader->createFieldType($member),
+            };
+
+            $shape[] = '    ' . $member->name . ': ' . $type . ',';
+        }
+
+        $shape[] = '} $data';
+        $shape[] = '@phpstan-param CData $data';
+
+        return $shape;
     }
 
     /**
@@ -187,11 +235,7 @@ final readonly class StructEmitter
         $class->setExtends(OutputStructure::class);
 
         if ($plan->structureType !== null) {
-            $constant = $class->addConstant('STRUCTURE_TYPE', $this->getStructureType($plan->structureType));
-
-            $constant->setPublic();
-            $constant->setType('int');
-            $constant->addComment('`' . $plan->structureType . '`');
+            $this->emitStructureType($namespace, $class, $plan->structureType);
         }
 
         foreach ($plan->implements as $root) {
@@ -208,7 +252,13 @@ final readonly class StructEmitter
             $this->emitChained($namespace, $class, $plan);
         }
 
-        $this->properties->emit($namespace, $class, $this->properties->sortRequiredFirst($plan->properties), $plan->chains);
+        $this->properties->emit(
+            $namespace,
+            $class,
+            $this->properties->sortRequiredFirst($plan->properties),
+            $plan->chains,
+            true,
+        );
         $this->emitFactory($namespace, $class, $plan);
 
         if ($this->hasChain($plan)) {
@@ -260,6 +310,8 @@ final readonly class StructEmitter
             Locations::EXTENSION_NAMESPACE,
             ExtensionEmitter::createName($plan->chains[0] ?? ''),
         );
+
+        $this->meta->recordFinder(Locations::createClassName(Locations::STRUCT_NAMESPACE, $plan->struct->name));
 
         $method = $class->addMethod('findChained')
             ->setPublic()
@@ -374,7 +426,10 @@ final readonly class StructEmitter
                 $arguments[] = '// @phpstan-ignore-next-line the member is named differently from the property';
             }
 
-            $arguments[] = $property->name . ': ' . $this->reader->createExpression($namespace, $property) . ',';
+            $isContextual = \in_array($property->field->type, $this->contextual, true);
+
+            $arguments[] = $property->name . ': '
+                . $this->reader->createExpression($namespace, $property, $isContextual) . ',';
         }
 
         if ($this->hasChain($plan) && $plan->role === StructRole::OUTPUT) {
@@ -385,6 +440,16 @@ final readonly class StructEmitter
 
         if ($arguments === []) {
             $body = 'return new self();';
+        }
+
+        if ($plan->needsContext) {
+            $namespace->addUse(VulkanBase::class);
+            $namespace->addUse(Handle::class);
+            $namespace->addUse(InvalidStructureException::class);
+
+            $body = "if (\$vk === null) {\n"
+                . '    throw InvalidStructureException::becauseContextIsMissing(self::class);'
+                . "\n}\n\n" . $body;
         }
 
         $method = $class->addMethod('createFromCData')
@@ -399,10 +464,15 @@ final readonly class StructEmitter
             $method->addParameter('chain', [])->setType('array');
         }
 
+        if ($plan->needsContext) {
+            $method->addParameter('vk', null)->setType(VulkanBase::class)->setNullable();
+            $method->addParameter('parent', null)->setType(Handle::class)->setNullable();
+        }
+
         $shape = ['@param CData&object{'];
 
         foreach ($this->findReadProperties($plan) as $property) {
-            $shape[] = '    ' . $property->field->name . ': ' . $this->reader->createType($property) . ',';
+            $shape[] = '    ' . $property->field->name . ': ' . $this->reader->createType($namespace, $property) . ',';
         }
 
         $shape[] = '} $data';
@@ -419,6 +489,25 @@ final readonly class StructEmitter
         foreach ($shape as $line) {
             $method->addComment($line);
         }
+    }
+
+    /**
+     * Adds the constant with the value of `sType`, the case of the enum.
+     *
+     * @throws InvalidRegistryException in case of the structure type is not
+     *         defined
+     */
+    private function emitStructureType(PhpNamespace $namespace, ClassType $class, string $name): void
+    {
+        $this->getStructureType($name);
+
+        $constant = $class->addConstant(
+            'STRUCTURE_TYPE',
+            new Literal(Imports::import($namespace, Locations::ENUM_NAMESPACE, 'VkStructureType') . '::' . $name . '->value'),
+        );
+
+        $constant->setPublic();
+        $constant->setType('int');
     }
 
     /**

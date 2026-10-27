@@ -33,6 +33,17 @@ enum CommandKind
     case QUERY;
 
     /**
+     * Fills several outputs: they are returned by their names.
+     */
+    case QUERY_MULTIPLE;
+
+    /**
+     * Fills an array of structures or numbers, the number of them is known
+     * beforehand.
+     */
+    case QUERY_ARRAY;
+
+    /**
      * Fills the bytes of the size the user gives.
      */
     case QUERY_BINARY;

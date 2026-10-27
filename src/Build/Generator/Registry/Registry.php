@@ -83,6 +83,12 @@ final readonly class Registry
          */
         private array $functionPointers = [],
         /**
+         * The types the headers declare, empty if the headers are not built
+         *
+         * @var array<string, true>
+         */
+        private array $declared = [],
+        /**
          * The `#define` constants
          *
          * @var list<Constant>
@@ -134,6 +140,15 @@ final readonly class Registry
     }
 
     /**
+     * Whether the compiled headers declare the type. Everything is declared
+     * when there are no headers to ask.
+     */
+    public function isDeclared(string $name): bool
+    {
+        return $this->declared === [] || isset($this->declared[$name]);
+    }
+
+    /**
      * Whether the type is defined by the system, not by the specification.
      */
     public function isNativeType(string $name): bool
@@ -162,6 +177,14 @@ final readonly class Registry
         }
 
         return false;
+    }
+
+    /**
+     * @return list<StructDefinition>
+     */
+    public function getStructs(): array
+    {
+        return \array_values($this->structs);
     }
 
     /**
@@ -197,7 +220,7 @@ final readonly class Registry
      * Tells whether the `sType` value of a structure is defined: the
      * structures of the disabled extensions have none.
      */
-    private function hasStructureType(StructDefinition $struct): bool
+    public function hasStructureType(StructDefinition $struct): bool
     {
         foreach ($struct->members as $member) {
             if ($member->value !== null) {

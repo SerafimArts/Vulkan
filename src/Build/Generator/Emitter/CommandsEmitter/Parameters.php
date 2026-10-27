@@ -15,6 +15,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\IntegerTypes;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
+use Serafim\Vulkan\Build\Generator\Emitter\MetaRecorder;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 
 /**
@@ -28,6 +29,7 @@ final readonly class Parameters
     public function __construct(
         private Registry $registry,
         private TypeResolver $types,
+        private MetaRecorder $meta = new MetaRecorder(),
     ) {}
 
     /**
@@ -49,6 +51,19 @@ final readonly class Parameters
                 $optional[] = [$parameter, $type];
             } else {
                 $required[] = [$parameter, $type];
+            }
+        }
+
+        foreach ([...$required, ...$optional] as $index => [$parameter]) {
+            $bits = $this->types->findFlagBits($parameter->field->type);
+
+            if ($bits !== null && $parameter->role === ParameterRole::SCALAR) {
+                $this->meta->recordArgument(
+                    Locations::createClassName(Locations::ROOT_NAMESPACE, 'Vulkan'),
+                    $method->getName(),
+                    $index,
+                    $bits,
+                );
             }
         }
 
@@ -109,7 +124,7 @@ final readonly class Parameters
         return match ($parameter->role) {
             ParameterRole::HANDLE => Imports::importFullName($namespace, Locations::HANDLE_NAMESPACE, $type),
             ParameterRole::INPUT_STRUCTURE => Imports::importFullName($namespace, Locations::STRUCT_NAMESPACE, $type),
-            ParameterRole::SCALAR => $this->getScalarType($namespace, $parameter),
+            ParameterRole::SCALAR, ParameterRole::INPUT_POINTER => $this->getScalarType($namespace, $parameter),
             ParameterRole::INPUT_ARRAY => 'array',
             ParameterRole::INPUT_STRING, ParameterRole::INPUT_BINARY => 'string',
             ParameterRole::INPUT_NATIVE => 'FFI\CData|int',
@@ -178,7 +193,13 @@ final readonly class Parameters
                 $list = 'non-empty-list';
             }
 
-            return $list . '<' . $this->createElementType($namespace, $parameter) . '>';
+            $element = $this->createElementType($namespace, $parameter);
+
+            if ($parameter->field->pointerDepth === 2) {
+                $element = 'non-empty-list<' . $element . '>';
+            }
+
+            return $list . '<' . $element . '>';
         }
 
         if ($parameter->role === ParameterRole::INPUT_STRING && !$parameter->field->isOptional) {
@@ -236,6 +257,7 @@ final readonly class Parameters
             TypeKind::HANDLE => Imports::import($namespace, Locations::HANDLE_NAMESPACE, $type),
             TypeKind::ENUMERATION => Imports::import($namespace, Locations::ENUM_NAMESPACE, $type),
             TypeKind::FLOAT => 'float',
+            TypeKind::BOOLEAN => 'bool',
             default => IntegerTypes::create($namespace, $this->types, $type),
         };
     }

@@ -39,6 +39,8 @@ final readonly class MemberKinds
                 TypeKind::CHARACTER => PropertyKind::TEXT,
                 TypeKind::INTEGER, TypeKind::FLOAT => PropertyKind::NUMBER_LIST,
                 TypeKind::STRUCTURE => PropertyKind::STRUCTURE_LIST,
+                TypeKind::HANDLE => PropertyKind::HANDLE_LIST,
+                TypeKind::ENUMERATION => PropertyKind::ENUMERATION_LIST,
                 default => null,
             };
         }
@@ -51,7 +53,9 @@ final readonly class MemberKinds
             return PropertyKind::CALLBACK;
         }
 
-        if ($type === TypeKind::NATIVE && $member->length === null) {
+        $isBuffer = $member->type === 'void' && !$member->isConst;
+
+        if ($type === TypeKind::NATIVE && ($member->length === null || $isBuffer)) {
             return PropertyKind::NATIVE;
         }
 
@@ -77,6 +81,22 @@ final readonly class MemberKinds
 
         if ($type === TypeKind::STRUCTURE && $member->pointerDepth === 1 && $member->length === null) {
             return PropertyKind::STRUCTURE_POINTER;
+        }
+
+        $isNumber = \in_array($type, [TypeKind::INTEGER, TypeKind::FLOAT, TypeKind::BOOLEAN, TypeKind::ENUMERATION], true);
+
+        if ($isNumber && $member->pointerDepth === 1 && $member->isConst && $member->length === null) {
+            return PropertyKind::SCALAR_POINTER;
+        }
+
+        if ($type === TypeKind::HANDLE && $member->pointerDepth === 1 && $member->isConst && $member->length === null) {
+            return PropertyKind::HANDLE_POINTER;
+        }
+
+        if ($type === TypeKind::STRUCTURE && $member->pointerDepth === 2 && $member->isConst) {
+            if ($this->hasLengthMember($struct, $member)) {
+                return PropertyKind::STRUCTURE_ARRAY;
+            }
         }
 
         if ($member->pointerDepth === 1 && $member->isConst && $this->hasLengthMember($struct, $member)) {

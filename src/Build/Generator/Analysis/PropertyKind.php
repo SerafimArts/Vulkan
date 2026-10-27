@@ -76,6 +76,16 @@ enum PropertyKind
     case BYTES;
 
     /**
+     * `const T*` of one handle
+     */
+    case HANDLE_POINTER;
+
+    /**
+     * `const T*` of one number or enum
+     */
+    case SCALAR_POINTER;
+
+    /**
      * `T[N]` of numbers
      */
     case NUMBER_LIST;
@@ -94,6 +104,16 @@ enum PropertyKind
      * A handle
      */
     case HANDLE;
+
+    /**
+     * `T[N]` of handles
+     */
+    case HANDLE_LIST;
+
+    /**
+     * `T[N]` of enums
+     */
+    case ENUMERATION_LIST;
 
     /**
      * `T[N]` of structures

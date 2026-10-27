@@ -14,8 +14,13 @@ use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
  */
 final readonly class FieldParser
 {
+    /**
+     * @param array<non-empty-string, non-empty-string> $aliases the names of
+     *        the types by the names of their aliases
+     */
     public function __construct(
         private Elements $elements,
+        private array $aliases = [],
     ) {}
 
     public function parse(\DOMElement $element): FieldDefinition
@@ -69,7 +74,7 @@ final readonly class FieldParser
 
         return new FieldDefinition(
             name: $this->elements->createNullable($name) ?? 'unnamed',
-            type: $this->elements->createNullable($type) ?? 'void',
+            type: $this->resolveAlias($this->elements->createNullable($type) ?? 'void'),
             pointerDepth: \substr_count($suffix, '*'),
             isConst: \str_contains($prefix, 'const'),
             arraySize: $arraySize,
@@ -82,6 +87,22 @@ final readonly class FieldParser
             limitType: $this->elements->createNullable($element->getAttribute('limittype')),
             lengthDivisor: $divisor,
         );
+    }
+
+    /**
+     * @param non-empty-string $type
+     *
+     * @return non-empty-string
+     */
+    private function resolveAlias(string $type): string
+    {
+        $depth = 0;
+
+        while (isset($this->aliases[$type]) && $depth++ < 8) {
+            $type = $this->aliases[$type];
+        }
+
+        return $type;
     }
 
     /**

@@ -29,11 +29,14 @@ final readonly class StructAnalyzer
         PropertyKind::BINARY,
         PropertyKind::NATIVE,
         PropertyKind::CALLBACK,
+        PropertyKind::SCALAR_POINTER,
+        PropertyKind::HANDLE_POINTER,
         PropertyKind::SAMPLE_MASK,
         PropertyKind::TEXT,
         PropertyKind::BYTES,
         PropertyKind::NUMBER_LIST,
         PropertyKind::STRUCTURE_LIST,
+        PropertyKind::ENUMERATION_LIST,
         PropertyKind::STRUCTURE_POINTER,
         PropertyKind::STRUCTURE_VALUE,
         PropertyKind::HANDLE,
@@ -49,8 +52,25 @@ final readonly class StructAnalyzer
         PropertyKind::FLOAT,
         PropertyKind::BOOLEAN,
         PropertyKind::ENUMERATION,
+        PropertyKind::TEXT,
+        PropertyKind::BYTES,
+        PropertyKind::NATIVE,
+        PropertyKind::NUMBER_LIST,
         PropertyKind::STRUCTURE_VALUE,
+        PropertyKind::STRUCTURE_LIST,
+        PropertyKind::ENUMERATION_LIST,
         PropertyKind::NEXT,
+    ];
+
+    /**
+     * The pointers a union holds are not read: which one is valid depends on
+     * another member.
+     */
+    private const array POINTER_KINDS = [
+        PropertyKind::STRING,
+        PropertyKind::NATIVE,
+        PropertyKind::STRUCTURE_POINTER,
+        PropertyKind::CALLBACK,
     ];
 
     private const array OUTPUT_KINDS = [
@@ -58,12 +78,16 @@ final readonly class StructAnalyzer
         PropertyKind::FLOAT,
         PropertyKind::BOOLEAN,
         PropertyKind::ENUMERATION,
+        PropertyKind::STRING,
         PropertyKind::TEXT,
         PropertyKind::BYTES,
         PropertyKind::NATIVE,
+        PropertyKind::HANDLE,
+        PropertyKind::HANDLE_LIST,
         PropertyKind::NUMBER_LIST,
         PropertyKind::STRUCTURE_VALUE,
         PropertyKind::STRUCTURE_LIST,
+        PropertyKind::ENUMERATION_LIST,
     ];
 
     /**
@@ -77,7 +101,7 @@ final readonly class StructAnalyzer
 
     public function __construct(
         private Registry $registry,
-        TypeResolver $types,
+        private TypeResolver $types,
     ) {
         $this->kinds = new MemberKinds($types);
     }
@@ -95,9 +119,10 @@ final readonly class StructAnalyzer
         $lengths = [];
 
         foreach ($struct->members as $member) {
-            $isSampleMask = $this->kinds->find($struct, $member) === PropertyKind::SAMPLE_MASK;
+            $kind = $this->kinds->find($struct, $member);
+            $isLengthKept = $kind === PropertyKind::SAMPLE_MASK || $kind === PropertyKind::NATIVE;
 
-            if ($member->length !== null && !$member->isOptional && !$isSampleMask) {
+            if ($member->length !== null && !$member->isOptional && !$isLengthKept) {
                 $lengths[$member->length] = true;
             }
         }
@@ -154,16 +179,26 @@ final readonly class StructAnalyzer
      */
     private function analyzeUnion(StructDefinition $struct, StructRole $role): StructPlan
     {
-        if ($role !== StructRole::INPUT) {
+        if ($role === StructRole::DUAL) {
             throw UnsupportedDeclarationException::becauseDeclarationIsNotSupported(
                 $struct->name,
-                'a union is written by the user, it is not read',
+                'a union is either written by the user or read, not both',
             );
         }
 
         $properties = [];
 
         foreach ($struct->members as $member) {
+            if ($role === StructRole::OUTPUT) {
+                if (\in_array($this->kinds->find($struct, $member), self::POINTER_KINDS, true)) {
+                    continue;
+                }
+
+                $properties[] = $this->createProperty($struct, $member, $role);
+
+                continue;
+            }
+
             $property = $this->createProperty($struct, $member, $role);
 
             $properties[] = new PropertyPlan(
@@ -213,6 +248,13 @@ final readonly class StructAnalyzer
             );
         }
 
+        if ($kind === PropertyKind::NATIVE && $member->length !== null && $role === StructRole::OUTPUT) {
+            throw UnsupportedDeclarationException::becauseDeclarationIsNotSupported(
+                $declaration,
+                'the buffer is given by the user, a returned structure has none',
+            );
+        }
+
         $allowed = match ($role) {
             StructRole::INPUT => self::INPUT_KINDS,
             StructRole::OUTPUT => self::OUTPUT_KINDS,
@@ -256,6 +298,15 @@ final readonly class StructAnalyzer
                 default: $this->registry->findZeroCase($member->type),
             ),
             PropertyKind::STRING => new PropertyPlan($member, $kind, $name, 'string', true, true),
+            PropertyKind::HANDLE_POINTER => new PropertyPlan($member, $kind, $name, null, true, true),
+            PropertyKind::SCALAR_POINTER => new PropertyPlan(
+                $member,
+                $kind,
+                $name,
+                $this->createScalarType($member),
+                true,
+                true,
+            ),
             PropertyKind::CALLBACK => new PropertyPlan(
                 $member,
                 $kind,
@@ -299,7 +350,7 @@ final readonly class StructAnalyzer
                 default: '',
                 arrayLength: $this->createArrayLength($declaration, $member),
             ),
-            PropertyKind::STRUCTURE_LIST => new PropertyPlan(
+            PropertyKind::ENUMERATION_LIST, PropertyKind::STRUCTURE_LIST => new PropertyPlan(
                 $member,
                 $kind,
                 $name,
@@ -314,8 +365,15 @@ final readonly class StructAnalyzer
                 $kind,
                 $name,
                 null,
+                $member->isOptional || !$isInput,
                 $member->isOptional,
-                $member->isOptional,
+            ),
+            PropertyKind::HANDLE_LIST => new PropertyPlan(
+                $member,
+                $kind,
+                $name,
+                'array',
+                arrayLength: $this->createArrayLength($declaration, $member),
             ),
             PropertyKind::STRUCTURE_ARRAY,
             PropertyKind::HANDLE_ARRAY,
@@ -333,6 +391,22 @@ final readonly class StructAnalyzer
                 $declaration,
                 'the member is not described',
             ),
+        };
+    }
+
+    /**
+     * Returns the PHP type of a number the pointer of a member points to,
+     * {@see null} for an enum, which is a class.
+     *
+     * @return non-empty-string|null
+     */
+    private function createScalarType(FieldDefinition $member): ?string
+    {
+        return match ($this->types->resolve($member->type)) {
+            TypeKind::FLOAT => 'float',
+            TypeKind::BOOLEAN => 'bool',
+            TypeKind::ENUMERATION => null,
+            default => 'int',
         };
     }
 

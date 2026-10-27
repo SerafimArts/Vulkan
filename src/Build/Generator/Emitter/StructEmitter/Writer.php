@@ -75,6 +75,12 @@ final readonly class Writer
                 $structure,
                 ['$data->' . $field . '[$i] = $item;'],
             ),
+            PropertyKind::ENUMERATION_LIST => $this->createListLines(
+                $namespace,
+                $property,
+                $structure,
+                ['$data->' . $field . '[$i] = $item->value;'],
+            ),
             PropertyKind::STRUCTURE_LIST => $this->createListLines(
                 $namespace,
                 $property,
@@ -91,12 +97,19 @@ final readonly class Writer
             ],
             PropertyKind::STRUCTURE_VALUE => [$value . '->write($memory, $data->' . $field . ');'],
             PropertyKind::HANDLE => $this->createHandleLines($property),
+            PropertyKind::SCALAR_POINTER => $this->createScalarPointerLines($property),
+            PropertyKind::HANDLE_POINTER => [
+                'if (' . $value . ' !== null) {',
+                '    $data->' . $field . ' = $memory->ffi->cast(' . \var_export($type . '*', true)
+                    . ', $memory->toHandleArray(' . \var_export($type, true) . ', [' . $value . ']));',
+                '}',
+            ],
             PropertyKind::STRUCTURE_ARRAY => $this->createArrayLines(
                 $namespace,
                 $property,
                 $structure,
                 $isLengthShared,
-                '$memory->toStructureArray(' . $value . ')',
+                '$memory->' . $this->createStructureArrayMethod($property) . '(' . $value . ')',
             ),
             PropertyKind::HANDLE_ARRAY => $this->createArrayLines(
                 $namespace,
@@ -401,6 +414,42 @@ final readonly class Writer
             return 'char**';
         }
 
-        return $property->field->type . '*';
+        return $property->field->type . \str_repeat('*', \max(1, $property->field->pointerDepth));
+    }
+
+    private function createStructureArrayMethod(PropertyPlan $property): string
+    {
+        if ($property->field->pointerDepth === 2) {
+            return 'toStructurePointerArray';
+        }
+
+        return 'toStructureArray';
+    }
+
+    /**
+     * Writes the pointer to the copy of the number.
+     *
+     * @return list<string>
+     */
+    private function createScalarPointerLines(PropertyPlan $property): array
+    {
+        $value = '$this->' . $property->name;
+        $number = $value;
+
+        if ($property->builtinType === null) {
+            $number = $value . '->value';
+        }
+
+        if ($property->builtinType === 'bool') {
+            $number = '(int) ' . $value;
+        }
+
+        return [
+            'if (' . $value . ' !== null) {',
+            '    $data->' . $property->field->name . ' = $memory->ffi->cast(\''
+                . $property->field->type . '*\', $memory->toNumberArray(\''
+                . $property->field->type . '\', [' . $number . ']));',
+            '}',
+        ];
     }
 }

@@ -27,6 +27,16 @@ final readonly class ParameterRoles
         TypeKind::INTEGER,
         TypeKind::FLOAT,
         TypeKind::ENUMERATION,
+        TypeKind::BOOLEAN,
+    ];
+
+    /**
+     * The elements of the arrays that are given as the arrays of arrays.
+     */
+    private const array NESTED_KINDS = [
+        TypeKind::STRUCTURE,
+        TypeKind::INTEGER,
+        TypeKind::FLOAT,
     ];
 
     private const array SCALAR_KINDS = [
@@ -76,8 +86,12 @@ final readonly class ParameterRoles
     {
         $kind = $this->types->resolve($field->type);
 
-        if ($field->unsupported === null && $field->arraySize === null) {
+        if ($field->unsupported === null) {
             $role = $this->findRole($field, $kind, $isLength);
+
+            if ($field->arraySize !== null) {
+                $role = $this->findFixedRole($field, $kind);
+            }
 
             if ($role !== null) {
                 return $role;
@@ -90,12 +104,27 @@ final readonly class ParameterRoles
         );
     }
 
+    /**
+     * `const T name[N]`: the array of the fixed size that the user gives.
+     */
+    private function findFixedRole(FieldDefinition $field, TypeKind $kind): ?ParameterRole
+    {
+        $isNumbers = \in_array($kind, [TypeKind::INTEGER, TypeKind::FLOAT, TypeKind::ENUMERATION], true);
+
+        if ($field->pointerDepth === 0 && $field->isConst && $isNumbers && \ctype_digit($field->arraySize ?? '')) {
+            return ParameterRole::INPUT_ARRAY;
+        }
+
+        return null;
+    }
+
     private function findRole(FieldDefinition $field, TypeKind $kind, bool $isLength): ?ParameterRole
     {
         if ($field->pointerDepth === 0) {
             return match ($kind) {
                 TypeKind::HANDLE => ParameterRole::HANDLE,
                 TypeKind::INTEGER, TypeKind::FLOAT, TypeKind::BOOLEAN, TypeKind::ENUMERATION => ParameterRole::SCALAR,
+                TypeKind::NATIVE => ParameterRole::INPUT_NATIVE,
                 default => null,
             };
         }
@@ -106,6 +135,10 @@ final readonly class ParameterRoles
 
         if ($kind === TypeKind::NATIVE && $field->length === null) {
             return ParameterRole::INPUT_NATIVE;
+        }
+
+        if ($field->pointerDepth === 2 && $field->isConst && $this->hasPlainLength($field)) {
+            return $this->findNestedRole($kind);
         }
 
         if ($field->pointerDepth !== 1) {
@@ -139,9 +172,27 @@ final readonly class ParameterRoles
 
         $isArray = $field->length !== null
             && !$field->isNullTerminated
-            && \preg_match('/^\w+$/', $field->length) === 1;
+            && \preg_match('/^\w+(->\w+)?$/', $field->length) === 1;
 
         if ($isArray && \in_array($kind, self::ELEMENT_KINDS, true)) {
+            return ParameterRole::INPUT_ARRAY;
+        }
+
+        $isNumber = \in_array($kind, [TypeKind::INTEGER, TypeKind::FLOAT, TypeKind::BOOLEAN, TypeKind::ENUMERATION], true);
+
+        if ($field->length === null && $isNumber) {
+            return ParameterRole::INPUT_POINTER;
+        }
+
+        return null;
+    }
+
+    /**
+     * `const T* const*`: the arrays of arrays that the user gives.
+     */
+    private function findNestedRole(TypeKind $kind): ?ParameterRole
+    {
+        if (\in_array($kind, self::NESTED_KINDS, true)) {
             return ParameterRole::INPUT_ARRAY;
         }
 

@@ -7,8 +7,10 @@ namespace Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandPlan;
+use Serafim\Vulkan\Build\Generator\Analysis\ParameterPlan;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Calls;
+use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Structures;
 use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
@@ -25,12 +27,7 @@ final readonly class QueryBody implements Body
     public function __construct(
         private Calls $calls,
         private Registry $registry,
-        /**
-         * The returned structures that others are chained to
-         *
-         * @var list<non-empty-string>
-         */
-        private array $roots = [],
+        private Structures $structures = new Structures(),
     ) {}
 
     public function emit(PhpNamespace $namespace, Method $method, CommandPlan $plan): array
@@ -53,16 +50,28 @@ final readonly class QueryBody implements Body
             $lines[] = '$' . $native . '->sType = ' . $class . '::STRUCTURE_TYPE;';
         }
 
-        if (\in_array($output->field->type, $this->roots, true)) {
+        if ($this->structures->isRoot($output->field->type)) {
             return $this->emitChained($namespace, $method, $plan, $class, $lines);
         }
 
         $lines[] = '';
         $lines = [...$lines, ...$this->calls->createCallLines($plan, $this->calls->createArguments($plan))];
         $lines[] = '';
-        $lines[] = 'return ' . $class . '::createFromCData($' . $native . ');';
+        $lines[] = 'return ' . $class . '::createFromCData($' . $native . $this->createContext($plan, $output) . ');';
 
         return $lines;
+    }
+
+    /**
+     * Returns the arguments that the structure which holds handles needs.
+     */
+    private function createContext(CommandPlan $plan, ParameterPlan $output): string
+    {
+        if (!$this->structures->needsContext($output->field->type)) {
+            return '';
+        }
+
+        return ', vk: $this, parent: ' . $this->calls->createParentExpression($this->calls->findParent($plan));
     }
 
     /**

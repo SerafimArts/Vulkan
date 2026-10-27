@@ -8,6 +8,7 @@ use Serafim\Vulkan\Build\Generator\CodeFormatter;
 use Serafim\Vulkan\Build\Generator\CodeGenerator;
 use Serafim\Vulkan\Build\Generator\Exception\GeneratorException;
 use Serafim\Vulkan\Build\Generator\FilesWriter;
+use Serafim\Vulkan\Build\Generator\Registry\Declarations;
 use Serafim\Vulkan\Build\Generator\Registry\RegistryParser;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -60,7 +61,8 @@ final class GenerateCommand extends Command
         }
 
         try {
-            $result = new CodeGenerator()->generate(new RegistryParser()->parse($registry));
+            $declared = Declarations::read($this->root . '/resources/headers');
+            $result = new CodeGenerator()->generate(new RegistryParser()->parse($registry, $declared));
             $files = $result->files;
 
             new FilesWriter($this->directory)->write($files);

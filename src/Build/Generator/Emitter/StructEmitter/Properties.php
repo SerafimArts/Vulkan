@@ -17,6 +17,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\IntegerTypes;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
+use Serafim\Vulkan\Build\Generator\Emitter\MetaRecorder;
 
 /**
  * The properties of a generated structure: the promoted parameters of the
@@ -44,18 +45,36 @@ final readonly class Properties
 
     public function __construct(
         private TypeResolver $types,
+        private MetaRecorder $meta = new MetaRecorder(),
     ) {}
 
     /**
      * @param list<PropertyPlan> $properties
      * @param list<non-empty-string> $chains the structures whose chains `pNext`
      *        accepts
+     * @param bool $isReturned whether the structure is read from native memory:
+     *        a string that Vulkan has written may be empty
      */
-    public function emit(PhpNamespace $namespace, ClassType $class, array $properties, array $chains = []): void
-    {
+    public function emit(
+        PhpNamespace $namespace,
+        ClassType $class,
+        array $properties,
+        array $chains = [],
+        bool $isReturned = false,
+    ): void {
         $constructor = $class->addMethod('__construct');
 
+        $counted = [];
+
         foreach ($properties as $property) {
+            if ($property->field->length !== null) {
+                $counted[$property->field->length][] = '`$' . $property->name . '`';
+            }
+        }
+
+        foreach (\array_values($properties) as $index => $property) {
+            $this->recordBits($class, $property, $index, $isReturned);
+
             $parameter = $constructor->addPromotedParameter($property->name);
 
             if ($property->hasDefault) {
@@ -81,6 +100,13 @@ final readonly class Properties
             $description = DocComments::createLines($property->field->comment ?? '');
             $limit = $this->createLimitDescription($property);
 
+            if (!$isReturned && isset($counted[$property->field->name])) {
+                $limit = [...$limit, ...DocComments::createLines(
+                    'The number of the elements of ' . \implode(', ', $counted[$property->field->name])
+                    . ', it follows the array when it is given.',
+                )];
+            }
+
             if ($description !== [] && $limit !== []) {
                 $description[] = '';
             }
@@ -91,7 +117,7 @@ final readonly class Properties
                 $parameter->addComment($line);
             }
 
-            $docType = $this->createDocType($namespace, $property);
+            $docType = $this->createDocType($namespace, $property, $isReturned);
 
             if ($docType !== null && $property->isNullable) {
                 $docType .= '|null';
@@ -134,6 +160,29 @@ final readonly class Properties
         }
 
         return $this->types->getIntegerRange($property->field->type);
+    }
+
+    /**
+     * Records the bits that the argument of the constructor can be made of.
+     *
+     * @param int<0, max> $index
+     */
+    private function recordBits(ClassType $class, PropertyPlan $property, int $index, bool $isReturned): void
+    {
+        if ($isReturned || $property->kind !== PropertyKind::INTEGER) {
+            return;
+        }
+
+        $bits = $this->types->findFlagBits($property->field->type);
+
+        if ($bits !== null && $class->getName() !== null) {
+            $this->meta->recordArgument(
+                Locations::createClassName(Locations::STRUCT_NAMESPACE, $class->getName()),
+                '__construct',
+                $index,
+                $bits,
+            );
+        }
     }
 
     private function createMarker(PhpNamespace $namespace, string $root): string
@@ -203,8 +252,8 @@ final readonly class Properties
         }
 
         $space = match ($property->kind) {
-            PropertyKind::ENUMERATION => Locations::ENUM_NAMESPACE,
-            PropertyKind::HANDLE => Locations::HANDLE_NAMESPACE,
+            PropertyKind::ENUMERATION, PropertyKind::SCALAR_POINTER => Locations::ENUM_NAMESPACE,
+            PropertyKind::HANDLE, PropertyKind::HANDLE_POINTER => Locations::HANDLE_NAMESPACE,
             default => Locations::STRUCT_NAMESPACE,
         };
 
@@ -220,8 +269,8 @@ final readonly class Properties
     {
         $space = match ($property->kind) {
             PropertyKind::STRUCTURE_ARRAY, PropertyKind::STRUCTURE_LIST => Locations::STRUCT_NAMESPACE,
-            PropertyKind::HANDLE_ARRAY => Locations::HANDLE_NAMESPACE,
-            PropertyKind::ENUMERATION_ARRAY => Locations::ENUM_NAMESPACE,
+            PropertyKind::HANDLE_ARRAY, PropertyKind::HANDLE_LIST => Locations::HANDLE_NAMESPACE,
+            PropertyKind::ENUMERATION_ARRAY, PropertyKind::ENUMERATION_LIST => Locations::ENUM_NAMESPACE,
             default => null,
         };
 
@@ -275,20 +324,30 @@ final readonly class Properties
         };
     }
 
-    private function createStringType(PropertyPlan $property): ?string
+    private function createScalarPointerType(PhpNamespace $namespace, PropertyPlan $property): ?string
     {
-        if ($property->field->isOptional) {
+        if ($property->builtinType === 'int') {
+            return IntegerTypes::create($namespace, $this->types, $property->field->type);
+        }
+
+        return null;
+    }
+
+    private function createStringType(PropertyPlan $property, bool $isReturned): ?string
+    {
+        if ($property->field->isOptional || $isReturned) {
             return null;
         }
 
         return 'non-empty-string';
     }
 
-    private function createDocType(PhpNamespace $namespace, PropertyPlan $property): ?string
+    private function createDocType(PhpNamespace $namespace, PropertyPlan $property, bool $isReturned): ?string
     {
         return match ($property->kind) {
             PropertyKind::INTEGER => IntegerTypes::create($namespace, $this->types, $property->field->type),
-            PropertyKind::STRING => $this->createStringType($property),
+            PropertyKind::SCALAR_POINTER => $this->createScalarPointerType($namespace, $property),
+            PropertyKind::STRING => $this->createStringType($property, $isReturned),
             PropertyKind::CALLBACK => $this->createCallbackType($property),
             PropertyKind::STRING_LIST => 'list<string>',
             PropertyKind::NUMBER_LIST,
@@ -297,6 +356,8 @@ final readonly class Properties
             PropertyKind::STRUCTURE_ARRAY,
             PropertyKind::STRUCTURE_LIST,
             PropertyKind::HANDLE_ARRAY,
+            PropertyKind::HANDLE_LIST,
+            PropertyKind::ENUMERATION_LIST,
             PropertyKind::ENUMERATION_ARRAY => 'list<' . $property->field->type . '>',
             default => null,
         };
