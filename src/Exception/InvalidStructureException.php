@@ -41,6 +41,13 @@ final class InvalidStructureException extends VulkanException
             MESSAGE, $member, $structure, $length), previous: $prev);
     }
 
+    public static function becauseContextIsMissing(string $structure, ?\Throwable $prev = null): self
+    {
+        return new self(\sprintf(<<<'MESSAGE'
+            The structure %s holds handles, it is created with the Vulkan object that returned them
+            MESSAGE, $structure), previous: $prev);
+    }
+
     public static function becauseStructureCannotBeChained(
         string $structure,
         string $marker,
