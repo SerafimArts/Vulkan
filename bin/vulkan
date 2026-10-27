@@ -3,8 +3,9 @@
 
 declare(strict_types=1);
 
-use Serafim\Vulkan\Command\BuildCommand;
-use Serafim\Vulkan\Command\DownloadCommand;
+use Serafim\Vulkan\Build\Command\BuildCommand;
+use Serafim\Vulkan\Build\Command\DownloadCommand;
+use Serafim\Vulkan\Build\Command\GenerateCommand;
 use Symfony\Component\Console\Application;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -12,4 +13,5 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $application = new Application('serafim/vulkan');
 $application->addCommand(new DownloadCommand());
 $application->addCommand(new BuildCommand());
+$application->addCommand(new GenerateCommand());
 $application->run();
