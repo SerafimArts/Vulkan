@@ -9,8 +9,10 @@ use PHPat\Test\Attributes\TestRule;
 use PHPat\Test\Builder\Rule;
 use PHPat\Test\PHPat;
 use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\Struct\InputStructure;
 use Serafim\Vulkan\Struct\OutputStructure;
+use Serafim\Vulkan\VulkanBase;
 
 /**
  * Bases of the structures of the Vulkan API.
@@ -31,6 +33,8 @@ final class StructArchitecture
                 Selector::classname(OutputStructure::class),
                 Selector::inNamespace('Serafim\Vulkan\Internal\Memory'),
                 Selector::classname(InvalidStructureException::class),
+                Selector::classname(Handle::class),
+                Selector::classname(VulkanBase::class),
             );
     }
 

@@ -10,6 +10,37 @@ use Serafim\Vulkan\Enum\VkPresentModeKHR;
 use Serafim\Vulkan\Enum\VkDebugUtilsMessageSeverityFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDebugUtilsMessageTypeFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkResult;
+use Serafim\Vulkan\Struct\VkViewport;
+use Serafim\Vulkan\Struct\VkPipelineViewportStateCreateInfo;
+use Serafim\Vulkan\Struct\VkPipelineVertexInputStateCreateInfo;
+use Serafim\Vulkan\Struct\VkPipelineRasterizationStateCreateInfo;
+use Serafim\Vulkan\Struct\VkPipelineMultisampleStateCreateInfo;
+use Serafim\Vulkan\Struct\VkPipelineInputAssemblyStateCreateInfo;
+use Serafim\Vulkan\Struct\VkPipelineColorBlendStateCreateInfo;
+use Serafim\Vulkan\Struct\VkPipelineColorBlendAttachmentState;
+use Serafim\Vulkan\Struct\VkGraphicsPipelineCreateInfo;
+use Serafim\Vulkan\Enum\VkPrimitiveTopology;
+use Serafim\Vulkan\Struct\VkSubpassDescription;
+use Serafim\Vulkan\Struct\VkRenderPassCreateInfo;
+use Serafim\Vulkan\Struct\VkRenderPassBeginInfo;
+use Serafim\Vulkan\Struct\VkRect2D;
+use Serafim\Vulkan\Struct\VkOffset2D;
+use Serafim\Vulkan\Struct\VkImageViewCreateInfo;
+use Serafim\Vulkan\Struct\VkFramebufferCreateInfo;
+use Serafim\Vulkan\Struct\VkExtent2D;
+use Serafim\Vulkan\Struct\VkComponentMapping;
+use Serafim\Vulkan\Struct\VkClearValue;
+use Serafim\Vulkan\Struct\VkAttachmentReference;
+use Serafim\Vulkan\Struct\VkAttachmentDescription;
+use Serafim\Vulkan\Enum\VkSubpassContents;
+use Serafim\Vulkan\Enum\VkImageViewType;
+use Serafim\Vulkan\Enum\VkAttachmentStoreOp;
+use Serafim\Vulkan\Enum\VkAttachmentLoadOp;
+use Serafim\Vulkan\Struct\VkPipelineShaderStageCreateInfo;
+use Serafim\Vulkan\Struct\VkPipelineLayoutCreateInfo;
+use Serafim\Vulkan\Struct\VkComputePipelineCreateInfo;
+use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
+use Serafim\Vulkan\Enum\VkPipelineBindPoint;
 use Serafim\Vulkan\Struct\VkImageSubresourceRange;
 use Serafim\Vulkan\Struct\VkImageMemoryBarrier;
 use Serafim\Vulkan\Struct\VkImageCreateInfo;
@@ -28,6 +59,9 @@ use Serafim\Vulkan\Enum\VkTimeDomainKHR;
 use Serafim\Vulkan\Exception\CommandFailedException;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkPhysicalDevice;
+use Serafim\Vulkan\Handle\VkRenderPass;
+use Serafim\Vulkan\Handle\VkFramebuffer;
+use Serafim\Vulkan\Handle\VkDevice;
 use Serafim\Vulkan\Struct\VkApplicationInfo;
 use Serafim\Vulkan\Struct\VkBufferCreateInfo;
 use Serafim\Vulkan\Struct\VkCommandBufferAllocateInfo;
@@ -39,6 +73,7 @@ use Serafim\Vulkan\Struct\VkDescriptorPoolSize;
 use Serafim\Vulkan\Struct\VkDescriptorSetAllocateInfo;
 use Serafim\Vulkan\Struct\VkDescriptorSetLayoutBinding;
 use Serafim\Vulkan\Struct\VkDescriptorSetLayoutCreateInfo;
+use Serafim\Vulkan\Struct\VkCalibratedTimestampInfoKHR;
 use Serafim\Vulkan\Struct\VkDebugUtilsMessengerCallbackDataEXT;
 use Serafim\Vulkan\Struct\VkDebugUtilsMessengerCreateInfoEXT;
 use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
@@ -48,6 +83,7 @@ use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan11Properties;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Features;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Properties;
 use Serafim\Vulkan\Struct\VkPipelineCacheCreateInfo;
+use Serafim\Vulkan\Struct\VkQueueFamilyCheckpointPropertiesNV;
 use Serafim\Vulkan\Struct\VkQueryPoolCreateInfo;
 use Serafim\Vulkan\Struct\VkInstanceCreateInfo;
 use Serafim\Vulkan\Struct\VkMemoryAllocateInfo;
@@ -59,6 +95,7 @@ use Serafim\Vulkan\VulkanBase;
 
 use const Serafim\Vulkan\VK_API_VERSION_1_1;
 use const Serafim\Vulkan\VK_API_VERSION_1_2;
+use const Serafim\Vulkan\VK_KHR_CALIBRATED_TIMESTAMPS_EXTENSION_NAME;
 use const Serafim\Vulkan\VK_EXT_DEBUG_UTILS_EXTENSION_NAME;
 use const Serafim\Vulkan\VK_KHR_SURFACE_EXTENSION_NAME;
 use const Serafim\Vulkan\VK_KHR_WIN32_SURFACE_EXTENSION_NAME;
@@ -137,6 +174,26 @@ final class VulkanTest extends TestCase
         }
     }
 
+    public function testHandlesOfTheReturnedStructureAreCreatedWithTheContext(): void
+    {
+        $vk = self::loadVulkan();
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            applicationInfo: new VkApplicationInfo(apiVersion: VK_API_VERSION_1_1),
+        ));
+
+        $groups = \iterator_to_array($vk->vkEnumeratePhysicalDeviceGroups($instance), false);
+
+        if ($groups === []) {
+            self::markTestSkipped('There are no device groups');
+        }
+
+        $device = $groups[0]->physicalDevices[0];
+
+        self::assertSame($groups[0]->physicalDeviceCount, \count($groups[0]->physicalDevices));
+        self::assertNotSame('', $vk->vkGetPhysicalDeviceProperties($device)->deviceName);
+    }
+
     public function testStructuresOfTheChainAreFilledByTheQuery(): void
     {
         $vk = self::loadVulkan();
@@ -194,6 +251,64 @@ final class VulkanTest extends TestCase
         $this->expectException(InvalidStructureException::class);
 
         $vk->vkGetPhysicalDeviceProperties2($device, [VkPhysicalDeviceVulkan12Features::class]);
+    }
+
+    public function testSeveralOutputsAreReturnedByTheirNames(): void
+    {
+        $vk = self::loadVulkan();
+        $physicalDevice = self::getPhysicalDevice($vk);
+        $extensions = [];
+
+        foreach ($vk->vkEnumerateDeviceExtensionProperties($physicalDevice) as $extension) {
+            $extensions[] = $extension->extensionName;
+        }
+
+        if (!\in_array(VK_KHR_CALIBRATED_TIMESTAMPS_EXTENSION_NAME, $extensions, true)) {
+            self::markTestSkipped('The calibrated timestamps are not supported');
+        }
+
+        $device = $vk->vkCreateDevice($physicalDevice, new VkDeviceCreateInfo(
+            queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
+            enabledExtensionNames: [VK_KHR_CALIBRATED_TIMESTAMPS_EXTENSION_NAME],
+        ));
+
+        $result = $vk->vkGetCalibratedTimestampsKHR($device, [
+            new VkCalibratedTimestampInfoKHR(timeDomain: VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR),
+        ]);
+
+        self::assertCount(1, $result['timestamps']);
+        self::assertGreaterThan(0, $result['timestamps'][0]);
+        self::assertGreaterThanOrEqual(0, $result['maxDeviation']);
+    }
+
+    public function testChainOfEachElementIsFilledByTheEnumeration(): void
+    {
+        $vk = self::loadVulkan();
+
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo(
+            applicationInfo: new VkApplicationInfo(apiVersion: VK_API_VERSION_1_2),
+        ));
+
+        $devices = \iterator_to_array($vk->vkEnumeratePhysicalDevices($instance), false);
+
+        if ($devices === []) {
+            self::markTestSkipped('There are no physical devices');
+        }
+
+        $families = $vk->vkGetPhysicalDeviceQueueFamilyProperties2(
+            $devices[0],
+            [VkQueueFamilyCheckpointPropertiesNV::class],
+        );
+
+        self::assertGreaterThan(0, \count($families));
+
+        foreach ($families as $family) {
+            self::assertGreaterThan(0, $family->queueFamilyProperties->queueCount);
+            self::assertInstanceOf(
+                VkQueueFamilyCheckpointPropertiesNV::class,
+                $family->findChained(VkQueueFamilyCheckpointPropertiesNV::class),
+            );
+        }
     }
 
     public function testQueueFamiliesAreEnumeratedAndCounted(): void
@@ -467,6 +582,237 @@ final class VulkanTest extends TestCase
         self::markTestSkipped('There are no physical devices');
     }
 
+    public function testRenderPassClearsTheAttachmentWithTheValueOfTheUnion(): void
+    {
+        $vk = self::loadVulkan();
+        $device = $vk->vkCreateDevice(self::getPhysicalDevice($vk), new VkDeviceCreateInfo(
+            queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
+        ));
+
+        [$renderPass, $framebuffer] = self::createRenderTarget($vk, $device);
+
+        $pool = $vk->vkCreateCommandPool($device, new VkCommandPoolCreateInfo(queueFamilyIndex: 0));
+        $commands = $vk->vkAllocateCommandBuffers($device, new VkCommandBufferAllocateInfo(
+            commandPool: $pool,
+            commandBufferCount: 1,
+        ));
+
+        $vk->vkBeginCommandBuffer($commands[0], new VkCommandBufferBeginInfo());
+        $vk->vkCmdBeginRenderPass(
+            $commands[0],
+            new VkRenderPassBeginInfo(
+                renderPass: $renderPass,
+                framebuffer: $framebuffer,
+                renderArea: new VkRect2D(new VkOffset2D(), new VkExtent2D(4, 4)),
+                clearValues: [new VkClearValue(color: new VkClearColorValue(float32: [0.0, 0.5, 1.0, 1.0]))],
+            ),
+            VkSubpassContents::VK_SUBPASS_CONTENTS_INLINE,
+        );
+        $vk->vkCmdEndRenderPass($commands[0]);
+        $vk->vkEndCommandBuffer($commands[0]);
+
+        $fence = $vk->vkCreateFence($device, new VkFenceCreateInfo());
+        $vk->vkQueueSubmit($vk->vkGetDeviceQueue($device, 0, 0), [new VkSubmitInfo(commandBuffers: [$commands[0]])], $fence);
+
+        self::assertSame(VkResult::VK_SUCCESS, $vk->vkWaitForFences($device, [$fence], true, 1_000_000_000));
+    }
+
+    public function testGraphicsPipelineDrawsInsideTheRenderPass(): void
+    {
+        $vk = self::loadVulkan();
+        $device = $vk->vkCreateDevice(self::getPhysicalDevice($vk), new VkDeviceCreateInfo(
+            queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
+        ));
+
+        [$renderPass, $framebuffer] = self::createRenderTarget($vk, $device);
+
+        // The vertex shader writes one position, the fragment shader writes one color
+        $vertex = $vk->vkCreateShaderModule($device, new VkShaderModuleCreateInfo(code: \pack('V*',
+            0x07230203, 0x00010000, 0, 12, 0,
+            0x00020011, 1,
+            0x0003000E, 0, 1,
+            0x0006000F, 0, 1, 0x6E69616D, 0, 2,
+            0x00040047, 2, 11, 0,
+            0x00020013, 3,
+            0x00030021, 4, 3,
+            0x00030016, 5, 32,
+            0x00040017, 6, 5, 4,
+            0x00040020, 7, 3, 6,
+            0x0004003B, 7, 2, 3,
+            0x0004002B, 5, 8, 0,
+            0x0004002B, 5, 9, 0x3F800000,
+            0x0007002C, 6, 10, 8, 8, 8, 9,
+            0x00050036, 3, 1, 0, 4,
+            0x000200F8, 11,
+            0x0003003E, 2, 10,
+            0x000100FD,
+            0x00010038,
+        )));
+        $fragment = $vk->vkCreateShaderModule($device, new VkShaderModuleCreateInfo(code: \pack('V*',
+            0x07230203, 0x00010000, 0, 12, 0,
+            0x00020011, 1,
+            0x0003000E, 0, 1,
+            0x0006000F, 4, 1, 0x6E69616D, 0, 2,
+            0x00030010, 1, 7,
+            0x00040047, 2, 30, 0,
+            0x00020013, 3,
+            0x00030021, 4, 3,
+            0x00030016, 5, 32,
+            0x00040017, 6, 5, 4,
+            0x00040020, 7, 3, 6,
+            0x0004003B, 7, 2, 3,
+            0x0004002B, 5, 8, 0,
+            0x0004002B, 5, 9, 0x3F800000,
+            0x0007002C, 6, 10, 9, 8, 8, 9,
+            0x00050036, 3, 1, 0, 4,
+            0x000200F8, 11,
+            0x0003003E, 2, 10,
+            0x000100FD,
+            0x00010038,
+        )));
+
+        $layout = $vk->vkCreatePipelineLayout($device, new VkPipelineLayoutCreateInfo());
+        $pipelines = $vk->vkCreateGraphicsPipelines($device, [new VkGraphicsPipelineCreateInfo(
+            stages: [
+                new VkPipelineShaderStageCreateInfo(
+                    stage: VkShaderStageFlagBits::VK_SHADER_STAGE_VERTEX_BIT,
+                    module: $vertex,
+                    name: 'main',
+                ),
+                new VkPipelineShaderStageCreateInfo(
+                    stage: VkShaderStageFlagBits::VK_SHADER_STAGE_FRAGMENT_BIT,
+                    module: $fragment,
+                    name: 'main',
+                ),
+            ],
+            vertexInputState: new VkPipelineVertexInputStateCreateInfo(),
+            inputAssemblyState: new VkPipelineInputAssemblyStateCreateInfo(
+                topology: VkPrimitiveTopology::VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST,
+            ),
+            viewportState: new VkPipelineViewportStateCreateInfo(
+                viewports: [new VkViewport(0.0, 0.0, 4.0, 4.0, 0.0, 1.0)],
+                scissors: [new VkRect2D(new VkOffset2D(), new VkExtent2D(4, 4))],
+            ),
+            rasterizationState: new VkPipelineRasterizationStateCreateInfo(lineWidth: 1.0),
+            multisampleState: new VkPipelineMultisampleStateCreateInfo(
+                rasterizationSamples: VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT,
+                sampleMask: [0xFFFFFFFF],
+            ),
+            colorBlendState: new VkPipelineColorBlendStateCreateInfo(
+                attachments: [new VkPipelineColorBlendAttachmentState(colorWriteMask: 15)],
+            ),
+            layout: $layout,
+            renderPass: $renderPass,
+        )]);
+
+        self::assertCount(1, $pipelines);
+
+        $pool = $vk->vkCreateCommandPool($device, new VkCommandPoolCreateInfo(queueFamilyIndex: 0));
+        $commands = $vk->vkAllocateCommandBuffers($device, new VkCommandBufferAllocateInfo(
+            commandPool: $pool,
+            commandBufferCount: 1,
+        ));
+
+        $vk->vkBeginCommandBuffer($commands[0], new VkCommandBufferBeginInfo());
+        $vk->vkCmdBeginRenderPass(
+            $commands[0],
+            new VkRenderPassBeginInfo(
+                renderPass: $renderPass,
+                framebuffer: $framebuffer,
+                renderArea: new VkRect2D(new VkOffset2D(), new VkExtent2D(4, 4)),
+                clearValues: [new VkClearValue(color: new VkClearColorValue(float32: [0.0, 0.0, 0.0, 1.0]))],
+            ),
+            VkSubpassContents::VK_SUBPASS_CONTENTS_INLINE,
+        );
+        $vk->vkCmdBindPipeline($commands[0], VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS, $pipelines[0]);
+        $vk->vkCmdDraw($commands[0], 3, 1, 0, 0);
+        $vk->vkCmdEndRenderPass($commands[0]);
+        $vk->vkEndCommandBuffer($commands[0]);
+
+        $fence = $vk->vkCreateFence($device, new VkFenceCreateInfo());
+        $vk->vkQueueSubmit($vk->vkGetDeviceQueue($device, 0, 0), [new VkSubmitInfo(commandBuffers: [$commands[0]])], $fence);
+
+        self::assertSame(VkResult::VK_SUCCESS, $vk->vkWaitForFences($device, [$fence], true, 1_000_000_000));
+    }
+
+    public function testComputePipelineIsCreatedAndDispatched(): void
+    {
+        $vk = self::loadVulkan();
+
+        $device = $vk->vkCreateDevice(self::getPhysicalDevice($vk), new VkDeviceCreateInfo(
+            queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
+        ));
+
+        // The compute shader with the empty `main`
+        $code = \pack(
+            'V*',
+            0x07230203,
+            0x00010000,
+            0,
+            5,
+            0,
+            0x00020011,
+            1,
+            0x0003000E,
+            0,
+            1,
+            0x0005000F,
+            5,
+            1,
+            0x6E69616D,
+            0,
+            0x00060010,
+            1,
+            17,
+            1,
+            1,
+            1,
+            0x00020013,
+            2,
+            0x00030021,
+            3,
+            2,
+            0x00050036,
+            2,
+            1,
+            0,
+            3,
+            0x000200F8,
+            4,
+            0x000100FD,
+            0x00010038,
+        );
+
+        $module = $vk->vkCreateShaderModule($device, new VkShaderModuleCreateInfo(code: $code));
+        $layout = $vk->vkCreatePipelineLayout($device, new VkPipelineLayoutCreateInfo());
+        $pipelines = $vk->vkCreateComputePipelines($device, [new VkComputePipelineCreateInfo(
+            stage: new VkPipelineShaderStageCreateInfo(
+                stage: VkShaderStageFlagBits::VK_SHADER_STAGE_COMPUTE_BIT,
+                module: $module,
+                name: 'main',
+            ),
+            layout: $layout,
+        )]);
+
+        self::assertCount(1, $pipelines);
+
+        $pool = $vk->vkCreateCommandPool($device, new VkCommandPoolCreateInfo(queueFamilyIndex: 0));
+        $commands = $vk->vkAllocateCommandBuffers($device, new VkCommandBufferAllocateInfo(
+            commandPool: $pool,
+            commandBufferCount: 1,
+        ));
+
+        $vk->vkBeginCommandBuffer($commands[0], new VkCommandBufferBeginInfo());
+        $vk->vkCmdBindPipeline($commands[0], VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_COMPUTE, $pipelines[0]);
+        $vk->vkCmdDispatch($commands[0], 1, 1, 1);
+        $vk->vkEndCommandBuffer($commands[0]);
+
+        $fence = $vk->vkCreateFence($device, new VkFenceCreateInfo());
+        $vk->vkQueueSubmit($vk->vkGetDeviceQueue($device, 0, 0), [new VkSubmitInfo(commandBuffers: [$commands[0]])], $fence);
+
+        self::assertSame(VkResult::VK_SUCCESS, $vk->vkWaitForFences($device, [$fence], true, 1_000_000_000));
+    }
+
     public function testPipelineCacheDataIsReturnedAsBytes(): void
     {
         $vk = self::loadVulkan();
@@ -644,6 +990,78 @@ final class VulkanTest extends TestCase
         ));
 
         self::assertCount(2, $sets);
+    }
+
+    /**
+     * Creates a render pass that clears a color attachment, and a framebuffer of it.
+     *
+     * @return array{VkRenderPass, VkFramebuffer}
+     */
+    private static function createRenderTarget(Vulkan $vk, VkDevice $device): array
+    {
+        $image = $vk->vkCreateImage($device, new VkImageCreateInfo(
+            extent: new VkExtent3D(4, 4, 1),
+            imageType: VkImageType::VK_IMAGE_TYPE_2D,
+            format: VkFormat::VK_FORMAT_R8G8B8A8_UNORM,
+            mipLevels: 1,
+            arrayLayers: 1,
+            samples: VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT,
+            usage: VkImageUsageFlagBits::VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+        ));
+
+        $requirements = $vk->vkGetImageMemoryRequirements($device, $image);
+        $type = \array_search(1, \array_map(
+            static fn(int $index): int => $requirements->memoryTypeBits >> $index & 1,
+            \range(0, 31),
+        ), true);
+
+        self::assertIsInt($type);
+
+        $memory = $vk->vkAllocateMemory($device, new VkMemoryAllocateInfo(
+            allocationSize: $requirements->size,
+            memoryTypeIndex: $type,
+        ));
+        $vk->vkBindImageMemory($device, $image, $memory, 0);
+
+        $view = $vk->vkCreateImageView($device, new VkImageViewCreateInfo(
+            image: $image,
+            components: new VkComponentMapping(),
+            subresourceRange: new VkImageSubresourceRange(
+                VkImageAspectFlagBits::VK_IMAGE_ASPECT_COLOR_BIT,
+                levelCount: 1,
+                layerCount: 1,
+            ),
+            viewType: VkImageViewType::VK_IMAGE_VIEW_TYPE_2D,
+            format: VkFormat::VK_FORMAT_R8G8B8A8_UNORM,
+        ));
+
+        $renderPass = $vk->vkCreateRenderPass($device, new VkRenderPassCreateInfo(
+            attachments: [new VkAttachmentDescription(
+                format: VkFormat::VK_FORMAT_R8G8B8A8_UNORM,
+                samples: VkSampleCountFlagBits::VK_SAMPLE_COUNT_1_BIT,
+                loadOp: VkAttachmentLoadOp::VK_ATTACHMENT_LOAD_OP_CLEAR,
+                storeOp: VkAttachmentStoreOp::VK_ATTACHMENT_STORE_OP_STORE,
+                initialLayout: VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
+                finalLayout: VkImageLayout::VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+            )],
+            subpasses: [new VkSubpassDescription(
+                pipelineBindPoint: VkPipelineBindPoint::VK_PIPELINE_BIND_POINT_GRAPHICS,
+                colorAttachments: [new VkAttachmentReference(
+                    0,
+                    VkImageLayout::VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+                )],
+            )],
+        ));
+
+        $framebuffer = $vk->vkCreateFramebuffer($device, new VkFramebufferCreateInfo(
+            renderPass: $renderPass,
+            attachments: [$view],
+            width: 4,
+            height: 4,
+            layers: 1,
+        ));
+
+        return [$renderPass, $framebuffer];
     }
 
     private static function getPhysicalDevice(Vulkan $vk): VkPhysicalDevice
