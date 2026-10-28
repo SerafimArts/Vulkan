@@ -399,6 +399,13 @@ final readonly class Planner
                 $structs = $this->collectStruct($property->field->type, $role, $structs);
             }
 
+            $isFilledStructure = $property->kind === PropertyKind::FILLED_ARRAY
+                && $this->registry->findStruct($property->field->type) !== null;
+
+            if ($isFilledStructure) {
+                $structs = $this->collectStruct($property->field->type, StructRole::OUTPUT, $structs);
+            }
+
             if ($property->kind === PropertyKind::RESULT_STRUCTURE || $property->kind === PropertyKind::RESULT_ARRAY) {
                 $structs = $this->collectStruct($property->field->type, StructRole::OUTPUT, $structs);
             }

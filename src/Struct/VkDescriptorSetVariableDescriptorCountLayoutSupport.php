@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupport.html
  * @since 1.2
  */
-final readonly class VkDescriptorSetVariableDescriptorCountLayoutSupport extends OutputStructure implements VkDescriptorSetLayoutSupportExtension, Chained
+final readonly class VkDescriptorSetVariableDescriptorCountLayoutSupport extends OutputStructure implements VkDescriptorSetLayoutSupportExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT->value;
 

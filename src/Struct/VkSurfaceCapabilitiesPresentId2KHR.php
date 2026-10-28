@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentId2KHR.html
  * @since VK_KHR_present_id2
  */
-final readonly class VkSurfaceCapabilitiesPresentId2KHR extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
+final readonly class VkSurfaceCapabilitiesPresentId2KHR extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_ID_2_KHR->value;
 

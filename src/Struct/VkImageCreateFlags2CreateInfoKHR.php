@@ -13,7 +13,7 @@ use Serafim\Vulkan\Enum\VkImageCreateFlagBits2KHR;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkFramebufferAttachmentImageInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
@@ -23,7 +23,7 @@ use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCreateFlags2CreateInfoKHR.html
  * @since VK_KHR_extended_flags
  */
-final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements VkImageCreateInfoExtension, VkPhysicalDeviceImageFormatInfo2Extension, VkFramebufferAttachmentImageInfoExtension, VkVideoFormatPropertiesKHRExtension, Chained
+final class VkImageCreateFlags2CreateInfoKHR extends InputStructure implements VkImageCreateInfoExtension, VkPhysicalDeviceImageFormatInfo2Extension, VkFramebufferAttachmentImageInfoExtension, VkVideoFormatPropertiesKHRExtension, ChainedStructureInterface
 {
     protected const string NATIVE_TYPE = 'VkImageCreateFlags2CreateInfoKHR';
 

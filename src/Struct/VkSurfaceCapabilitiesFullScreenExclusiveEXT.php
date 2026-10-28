@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesFullScreenExclusiveEXT.html
  * @since VK_EXT_full_screen_exclusive
  */
-final readonly class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
+final readonly class VkSurfaceCapabilitiesFullScreenExclusiveEXT extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_FULL_SCREEN_EXCLUSIVE_EXT->value;
 

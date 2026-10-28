@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
@@ -19,7 +19,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFeatures2.html
  * @since 1.1
  */
-final readonly class VkPhysicalDeviceFeatures2 extends OutputStructure implements VkDeviceCreateInfoExtension, Chained
+final readonly class VkPhysicalDeviceFeatures2 extends OutputStructure implements VkDeviceCreateInfoExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2->value;
 

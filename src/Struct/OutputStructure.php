@@ -25,14 +25,19 @@ abstract readonly class OutputStructure
      *
      * @template T
      *
+     * @param CData|null $array {@see null} if Vulkan has not filled the array
      * @param int<0, max> $length
      * @param \Closure(CData): T $factory
      *
      * @return list<T>
      */
-    final protected static function createStructureListFromCData(CData $array, int $length, \Closure $factory): array
+    final protected static function createStructureListFromCData(?CData $array, int $length, \Closure $factory): array
     {
         $list = [];
+
+        if ($array === null) {
+            return $list;
+        }
 
         for ($i = 0; $i < $length; ++$i) {
             /** @var CData $element */
@@ -50,13 +55,18 @@ abstract readonly class OutputStructure
      * @template T of \BackedEnum
      *
      * @param class-string<T> $enum
+     * @param CData|null $array {@see null} if Vulkan has not filled the array
      * @param int<0, max> $length
      *
      * @return list<T>
      */
-    final protected static function createEnumerationListFromCData(string $enum, CData $array, int $length): array
+    final protected static function createEnumerationListFromCData(string $enum, ?CData $array, int $length): array
     {
         $list = [];
+
+        if ($array === null) {
+            return $list;
+        }
 
         for ($i = 0; $i < $length; ++$i) {
             /** @var int $value */
@@ -134,13 +144,18 @@ abstract readonly class OutputStructure
     /**
      * Copies the elements of the native array.
      *
+     * @param CData|null $array {@see null} if Vulkan has not filled the array
      * @param int<0, max> $length
      *
      * @return list<int|float>
      */
-    final protected static function createListFromCData(CData $array, int $length): array
+    final protected static function createListFromCData(?CData $array, int $length): array
     {
         $list = [];
+
+        if ($array === null) {
+            return $list;
+        }
 
         for ($i = 0; $i < $length; ++$i) {
             /** @var int|float $element */

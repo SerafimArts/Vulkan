@@ -13,7 +13,7 @@ use Serafim\Vulkan\Enum\VkImageCompressionFixedRateFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkImageCompressionFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
 use Serafim\Vulkan\Struct\Extension\VkSubresourceLayout2Extension;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceFormat2KHRExtension;
@@ -22,7 +22,7 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceFormat2KHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionPropertiesEXT.html
  * @since VK_EXT_image_compression_control
  */
-final readonly class VkImageCompressionPropertiesEXT extends OutputStructure implements VkImageFormatProperties2Extension, VkSurfaceFormat2KHRExtension, VkSubresourceLayout2Extension, Chained
+final readonly class VkImageCompressionPropertiesEXT extends OutputStructure implements VkImageFormatProperties2Extension, VkSurfaceFormat2KHRExtension, VkSubresourceLayout2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_COMPRESSION_PROPERTIES_EXT->value;
 

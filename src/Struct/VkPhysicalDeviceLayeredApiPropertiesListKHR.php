@@ -10,74 +10,74 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesListKHR.html
  * @since VK_KHR_maintenance7
  */
-final class VkPhysicalDeviceLayeredApiPropertiesListKHR extends InputStructure implements VkPhysicalDeviceProperties2Extension
+final readonly class VkPhysicalDeviceLayeredApiPropertiesListKHR extends OutputStructure implements VkPhysicalDeviceProperties2Extension, BufferedStructureInterface
 {
-    protected const string NATIVE_TYPE = 'VkPhysicalDeviceLayeredApiPropertiesListKHR';
-
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR->value;
 
-    private ?CData $layeredApisBuffer;
+    public static function createNative(Allocator $memory): CData
+    {
+        $data = $memory->new('VkPhysicalDeviceLayeredApiPropertiesListKHR');
+        $data->sType = self::STRUCTURE_TYPE;
 
-    /**
-     * Output list of layered implementations underneath the physical
-     * device
-     *
-     * Vulkan fills it while a command uses the structure. The number
-     * of the elements is `$layeredApiCount`, it is empty before that
-     * or when the count is zero.
-     *
-     * @var list<VkPhysicalDeviceLayeredApiPropertiesKHR>
-     */
-    public array $layeredApis {
-        get {
-            if (!isset($this->layeredApisBuffer)) {
-                return [];
-            }
-
-            return self::createResultList($this->layeredApisBuffer, VkPhysicalDeviceLayeredApiPropertiesKHR::createFromCData(...));
-        }
+        return $data;
     }
-
-    public function __construct(
-        public ?VkPhysicalDeviceProperties2Extension $next = null,
-        /** @var int<0, 4294967295> */
-        public int $layeredApiCount = 0,
-    ) {}
 
     /**
      * @param CData&object{
      *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR>,
      *     pNext: CData,
      *     layeredApiCount: int<0, 4294967295>,
-     *     pLayeredApis: CData,
+     *     pLayeredApis: CData|null,
      * } $data
      *
      * @phpstan-param CData $data
      */
-    protected function write(Allocation $memory, CData $data): void
+    public static function allocateBuffers(Allocator $memory, CData $data): bool
     {
-        $data->sType = self::STRUCTURE_TYPE;
+        $isAllocated = false;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
+        if ($data->layeredApiCount !== 0) {
+            $data->pLayeredApis = $memory->ffi->cast('VkPhysicalDeviceLayeredApiPropertiesKHR*', $memory->new('VkPhysicalDeviceLayeredApiPropertiesKHR[' . $data->layeredApiCount . ']', $data));
+            $isAllocated = true;
         }
 
-        $data->layeredApiCount = $this->layeredApiCount;
+        return $isAllocated;
+    }
 
-        $this->layeredApisBuffer = null;
+    public function __construct(
+        /** @var int<0, 4294967295> */
+        public int $layeredApiCount,
+        /**
+         * Output list of layered implementations underneath the physical
+         * device
+         *
+         * @var list<VkPhysicalDeviceLayeredApiPropertiesKHR>
+         */
+        public array $layeredApis,
+    ) {}
 
-        if ($this->layeredApiCount !== 0) {
-            $this->layeredApisBuffer = $memory->new('VkPhysicalDeviceLayeredApiPropertiesKHR[' . $this->layeredApiCount . ']');
-            $data->pLayeredApis = $memory->ffi->cast('VkPhysicalDeviceLayeredApiPropertiesKHR*', $this->layeredApisBuffer);
-        }
+    /**
+     * @param CData&object{
+     *     layeredApiCount: int<0, 4294967295>,
+     *     pLayeredApis: CData|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            layeredApiCount: $data->layeredApiCount,
+            // @phpstan-ignore-next-line the member is named differently from the property
+            layeredApis: self::createStructureListFromCData($data->pLayeredApis, $data->layeredApiCount, VkPhysicalDeviceLayeredApiPropertiesKHR::createFromCData(...)),
+        );
     }
 }

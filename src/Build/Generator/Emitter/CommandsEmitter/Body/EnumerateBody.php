@@ -48,12 +48,12 @@ final readonly class EnumerateBody implements Body
         $method->setReturnType($enumeration->type);
 
         if ($enumeration->marker !== null) {
-            $namespace->addUse(Locations::EXTENSION_NAMESPACE . '\Chained');
+            $namespace->addUse(Locations::EXTENSION_NAMESPACE . '\ChainedStructureInterface');
 
             $method->addParameter('chain', [])->setType('array');
             $method->addComment('');
             $method->addComment(
-                '@param list<class-string<Chained&' . $enumeration->marker . '>> $chain the structures to fill',
+                '@param list<class-string<ChainedStructureInterface&' . $enumeration->marker . '>> $chain the structures to fill',
             );
         }
 
@@ -185,7 +185,7 @@ final readonly class EnumerateBody implements Body
 
         return new Enumeration(
             [
-                '/** @var list<Chain<Chained&' . $marker . '>> $natives */',
+                '/** @var list<Chain<ChainedStructureInterface&' . $marker . '>> $natives */',
                 '$natives = [];',
             ],
             [

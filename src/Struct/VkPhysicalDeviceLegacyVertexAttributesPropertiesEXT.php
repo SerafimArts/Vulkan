@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT.html
  * @since VK_EXT_legacy_vertex_attributes
  */
-final readonly class VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
+final readonly class VkPhysicalDeviceLegacyVertexAttributesPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LEGACY_VERTEX_ATTRIBUTES_PROPERTIES_EXT->value;
 

@@ -12,14 +12,14 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoDecodeCapabilityFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoDecodeCapabilitiesKHR.html
  * @since VK_KHR_video_decode_queue
  */
-final readonly class VkVideoDecodeCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, Chained
+final readonly class VkVideoDecodeCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_DECODE_CAPABILITIES_KHR->value;
 

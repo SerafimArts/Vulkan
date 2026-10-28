@@ -379,12 +379,22 @@ final readonly class Properties
         return Locations::createClassName($space, $property->field->type);
     }
 
+    private function findFilledNamespace(PropertyPlan $property): ?string
+    {
+        return match ($this->types->resolve($property->field->type)) {
+            TypeKind::STRUCTURE => Locations::STRUCT_NAMESPACE,
+            TypeKind::ENUMERATION => Locations::ENUM_NAMESPACE,
+            default => null,
+        };
+    }
+
     /**
      * Imports the class of the elements of an array, the docblock refers to it.
      */
     private function importElementClass(PhpNamespace $namespace, PropertyPlan $property): void
     {
         $space = match ($property->kind) {
+            PropertyKind::FILLED_ARRAY => $this->findFilledNamespace($property),
             PropertyKind::STRUCTURE_ARRAY, PropertyKind::STRUCTURE_LIST => Locations::STRUCT_NAMESPACE,
             PropertyKind::HANDLE_ARRAY, PropertyKind::HANDLE_LIST => Locations::HANDLE_NAMESPACE,
             PropertyKind::ENUMERATION_ARRAY, PropertyKind::ENUMERATION_LIST => Locations::ENUM_NAMESPACE,
@@ -459,6 +469,16 @@ final readonly class Properties
         return 'non-empty-string';
     }
 
+    private function createFilledType(PropertyPlan $property): string
+    {
+        if ($this->types->resolve($property->field->type) === TypeKind::STRUCTURE
+            || $this->types->resolve($property->field->type) === TypeKind::ENUMERATION) {
+            return 'list<' . $property->field->type . '>';
+        }
+
+        return 'list<' . $this->createNumberType($property) . '>';
+    }
+
     private function createDocType(PhpNamespace $namespace, PropertyPlan $property, bool $isReturned): ?string
     {
         return match ($property->kind) {
@@ -475,6 +495,7 @@ final readonly class Properties
             PropertyKind::NUMBER_LIST,
             PropertyKind::NUMBER_ARRAY,
             PropertyKind::SAMPLE_MASK => 'list<' . $this->createNumberType($property) . '>',
+            PropertyKind::FILLED_ARRAY => $this->createFilledType($property),
             PropertyKind::STRUCTURE_ARRAY,
             PropertyKind::STRUCTURE_LIST,
             PropertyKind::HANDLE_ARRAY,

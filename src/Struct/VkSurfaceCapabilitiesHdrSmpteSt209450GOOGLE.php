@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesHdrSmpteSt209450GOOGLE.html
  * @since VK_GOOGLE_hdr_smpte_st_209450_metadata
  */
-final readonly class VkSurfaceCapabilitiesHdrSmpteSt209450GOOGLE extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
+final readonly class VkSurfaceCapabilitiesHdrSmpteSt209450GOOGLE extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_HDR_SMPTE_ST_209450_GOOGLE->value;
 

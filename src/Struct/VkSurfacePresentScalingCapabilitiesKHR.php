@@ -13,14 +13,14 @@ use Serafim\Vulkan\Enum\VkPresentGravityFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkPresentScalingFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfacePresentScalingCapabilitiesKHR.html
  * @since VK_KHR_surface_maintenance1
  */
-final readonly class VkSurfacePresentScalingCapabilitiesKHR extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
+final readonly class VkSurfacePresentScalingCapabilitiesKHR extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_KHR->value;
 

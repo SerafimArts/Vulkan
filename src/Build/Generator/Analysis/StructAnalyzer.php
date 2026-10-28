@@ -90,6 +90,7 @@ final readonly class StructAnalyzer
         PropertyKind::STRUCTURE_VALUE,
         PropertyKind::STRUCTURE_LIST,
         PropertyKind::ENUMERATION_LIST,
+        PropertyKind::FILLED_ARRAY,
     ];
 
     /**
@@ -245,6 +246,10 @@ final readonly class StructAnalyzer
 
         $kind = $this->kinds->find($struct, $member);
 
+        if ($kind === PropertyKind::RESULT_ARRAY && $role === StructRole::OUTPUT) {
+            $kind = PropertyKind::FILLED_ARRAY;
+        }
+
         if ($kind === null) {
             throw UnsupportedDeclarationException::becauseDeclarationIsNotSupported(
                 $declaration,
@@ -365,6 +370,7 @@ final readonly class StructAnalyzer
             PropertyKind::STRUCTURE_POINTER => new PropertyPlan($member, $kind, $name, null, true, true),
             PropertyKind::RESULT_STRUCTURE => new PropertyPlan($member, $kind, $name, null, true),
             PropertyKind::RESULT_ARRAY => new PropertyPlan($member, $kind, $name, 'array'),
+            PropertyKind::FILLED_ARRAY => new PropertyPlan($member, $kind, $name, 'array'),
             PropertyKind::STRUCTURE_VALUE => new PropertyPlan($member, $kind, $name, null),
             PropertyKind::HANDLE => new PropertyPlan(
                 $member,

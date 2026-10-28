@@ -10,7 +10,7 @@ use Serafim\Vulkan\Internal\Memory\Allocator;
 /**
  * A structure that a command can fill in the chain of a returned structure.
  */
-interface Chained
+interface ChainedStructureInterface
 {
     /**
      * Allocates the native structure with its `sType`.

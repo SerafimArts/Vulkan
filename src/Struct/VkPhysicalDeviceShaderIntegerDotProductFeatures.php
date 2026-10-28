@@ -12,7 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
@@ -20,7 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderIntegerDotProductFeatures.html
  * @since 1.3
  */
-final class VkPhysicalDeviceShaderIntegerDotProductFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, Chained
+final class VkPhysicalDeviceShaderIntegerDotProductFeatures extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface
 {
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderIntegerDotProductFeatures';
 

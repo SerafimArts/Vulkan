@@ -7,6 +7,7 @@ namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
+use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
@@ -58,6 +59,10 @@ final readonly class Reader
                 . '::class, ' . $value . ', ' . $this->createListLength($property) . ', $vk, $parent)';
         }
 
+        if ($property->kind === PropertyKind::FILLED_ARRAY) {
+            return $this->createFilledArrayExpression($namespace, $property);
+        }
+
         if ($isContextual && $property->kind === PropertyKind::STRUCTURE_VALUE) {
             return Imports::import($namespace, Locations::STRUCT_NAMESPACE, $property->field->type)
                 . '::createFromCData(' . $value . ', vk: $vk, parent: $parent)';
@@ -90,6 +95,26 @@ final readonly class Reader
                 $property->field->type,
             ) . '::createFromCData(' . $value . ')',
             default => $value,
+        };
+    }
+
+    /**
+     * Returns the expression that copies the elements Vulkan has written to
+     * the array the user has allocated.
+     */
+    private function createFilledArrayExpression(PhpNamespace $namespace, PropertyPlan $property): string
+    {
+        $value = '$data->' . $property->field->name;
+        $length = '$data->' . ($property->field->length ?? '');
+        $type = $property->field->type;
+
+        return match ($this->types->resolve($type)) {
+            TypeKind::STRUCTURE => 'self::createStructureListFromCData(' . $value . ', ' . $length . ', '
+                . Imports::import($namespace, Locations::STRUCT_NAMESPACE, $type) . '::createFromCData(...))',
+            TypeKind::ENUMERATION => 'self::createEnumerationListFromCData('
+                . Imports::import($namespace, Locations::ENUM_NAMESPACE, $type) . '::class, ' . $value . ', '
+                . $length . ')',
+            default => 'self::createListFromCData(' . $value . ', ' . $length . ')',
         };
     }
 
@@ -153,7 +178,7 @@ final readonly class Reader
         return match ($property->kind) {
             PropertyKind::INTEGER => $this->types->getIntegerRange($property->field->type),
             PropertyKind::NATIVE => 'CData|int|null',
-            PropertyKind::STRING => 'CData|null',
+            PropertyKind::STRING, PropertyKind::FILLED_ARRAY => 'CData|null',
             PropertyKind::FLOAT => 'float',
             PropertyKind::BOOLEAN => 'int<0, 1>',
             PropertyKind::ENUMERATION => 'value-of<'

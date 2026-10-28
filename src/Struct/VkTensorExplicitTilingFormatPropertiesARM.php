@@ -12,14 +12,14 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits2;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorExplicitTilingFormatPropertiesARM.html
  * @since VK_ARM_tensor_controls
  */
-final readonly class VkTensorExplicitTilingFormatPropertiesARM extends OutputStructure implements VkFormatProperties2Extension, Chained
+final readonly class VkTensorExplicitTilingFormatPropertiesARM extends OutputStructure implements VkFormatProperties2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM->value;
 

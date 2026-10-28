@@ -137,7 +137,7 @@ use Serafim\Vulkan\Handle\VkVideoSessionParametersKHR;
 use Serafim\Vulkan\Internal\Chain;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\VkEnumerator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
 use Serafim\Vulkan\Struct\Extension\VkDisplayModeProperties2KHRExtension;
@@ -330,6 +330,7 @@ use Serafim\Vulkan\Struct\VkGeneratedCommandsInfoEXT;
 use Serafim\Vulkan\Struct\VkGeneratedCommandsInfoNV;
 use Serafim\Vulkan\Struct\VkGeneratedCommandsMemoryRequirementsInfoEXT;
 use Serafim\Vulkan\Struct\VkGeneratedCommandsMemoryRequirementsInfoNV;
+use Serafim\Vulkan\Struct\VkGetLatencyMarkerInfoNV;
 use Serafim\Vulkan\Struct\VkGpaDeviceClockModeInfoAMD;
 use Serafim\Vulkan\Struct\VkGpaDeviceGetClockInfoAMD;
 use Serafim\Vulkan\Struct\VkGpaSampleBeginInfoAMD;
@@ -411,6 +412,8 @@ use Serafim\Vulkan\Struct\VkOpticalFlowSessionCreateInfoNV;
 use Serafim\Vulkan\Struct\VkOutOfBandQueueTypeInfoNV;
 use Serafim\Vulkan\Struct\VkPartitionedAccelerationStructureInstancesInputNV;
 use Serafim\Vulkan\Struct\VkPastPresentationTimingGOOGLE;
+use Serafim\Vulkan\Struct\VkPastPresentationTimingInfoEXT;
+use Serafim\Vulkan\Struct\VkPastPresentationTimingPropertiesEXT;
 use Serafim\Vulkan\Struct\VkPerfHintInfoQCOM;
 use Serafim\Vulkan\Struct\VkPerformanceConfigurationAcquireInfoINTEL;
 use Serafim\Vulkan\Struct\VkPerformanceMarkerInfoINTEL;
@@ -519,6 +522,7 @@ use Serafim\Vulkan\Struct\VkSurfaceCreateInfoOHOS;
 use Serafim\Vulkan\Struct\VkSurfaceFormat2KHR;
 use Serafim\Vulkan\Struct\VkSurfaceFormatKHR;
 use Serafim\Vulkan\Struct\VkSwapchainCreateInfoKHR;
+use Serafim\Vulkan\Struct\VkSwapchainTimeDomainPropertiesEXT;
 use Serafim\Vulkan\Struct\VkSwapchainTimingPropertiesEXT;
 use Serafim\Vulkan\Struct\VkTensorCaptureDescriptorDataInfoARM;
 use Serafim\Vulkan\Struct\VkTensorCreateInfoARM;
@@ -12460,7 +12464,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkExportMetalObjectsInfoEXTExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkExportMetalObjectsInfoEXTExtension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -12655,7 +12659,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -12710,7 +12714,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkAndroidHardwareBufferPropertiesANDROIDExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkAndroidHardwareBufferPropertiesANDROIDExtension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
@@ -12835,7 +12839,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -12865,7 +12869,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13094,7 +13098,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13293,7 +13297,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkDescriptorSetLayoutSupportExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkDescriptorSetLayoutSupportExtension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13323,7 +13327,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkDescriptorSetLayoutSupportExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkDescriptorSetLayoutSupportExtension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13367,7 +13371,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13397,7 +13401,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13591,7 +13595,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13621,7 +13625,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13689,7 +13693,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkSubresourceLayout2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13719,7 +13723,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkSubresourceLayout2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13912,7 +13916,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -13940,7 +13944,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkDisplayModeProperties2KHRExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkDisplayModeProperties2KHRExtension>> $chain the structures to fill
      *
      * @return VkEnumerator<VkDisplayModeProperties2KHR>
      * @throws CommandFailedException in case of the command fails
@@ -13952,7 +13956,7 @@ final class Vulkan extends VulkanBase
         array $chain = [],
     ): VkEnumerator {
         $procedure = $this->vkGetInstanceProc('vkGetDisplayModeProperties2KHR', $physicalDevice);
-        /** @var list<Chain<Chained&VkDisplayModeProperties2KHRExtension>> $natives */
+        /** @var list<Chain<ChainedStructureInterface&VkDisplayModeProperties2KHRExtension>> $natives */
         $natives = [];
 
         return VkEnumerator::create(
@@ -14345,7 +14349,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -14373,7 +14377,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -14508,7 +14512,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -14538,7 +14542,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -14719,7 +14723,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkSubresourceLayout2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -14750,7 +14754,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkSubresourceLayout2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -14771,7 +14775,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkSubresourceLayout2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkSubresourceLayout2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -14912,6 +14916,26 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkGetLatencyTimingsLegacyNV', $device);
 
         $procedure($device->pointer, $nativeTimings);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetLatencyTimingsNV.html
+     * @since VK_NV_low_latency2
+     *
+     * @api
+     *
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkGetLatencyTimingsNV(VkDevice $device, VkSwapchainKHR $swapchain): VkGetLatencyMarkerInfoNV
+    {
+        $nativeLatencyMarkerInfo = $this->memory->new('VkGetLatencyMarkerInfoNV');
+        $nativeLatencyMarkerInfo->sType = VkGetLatencyMarkerInfoNV::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetLatencyTimingsNV', $device);
+
+        $procedure($device->pointer, $swapchain->pointer, \FFI::addr($nativeLatencyMarkerInfo));
+
+        return VkGetLatencyMarkerInfoNV::createFromCData($nativeLatencyMarkerInfo);
     }
 
     /**
@@ -15277,7 +15301,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkNativeBufferPropertiesOHOSExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkNativeBufferPropertiesOHOSExtension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
@@ -15323,6 +15347,34 @@ final class Vulkan extends VulkanBase
         $procedure($device->pointer, \FFI::addr($nativeInfo), \FFI::addr($nativeSizeInfo));
 
         return VkAccelerationStructureBuildSizesInfoKHR::createFromCData($nativeSizeInfo);
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPastPresentationTimingEXT.html
+     * @since VK_EXT_present_timing
+     *
+     * @api
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_DEVICE_LOST},
+     *         {@see VkResult::VK_ERROR_OUT_OF_DATE_KHR},
+     *         {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkGetPastPresentationTimingEXT(
+        VkDevice $device,
+        VkPastPresentationTimingInfoEXT $pastPresentationTimingInfo,
+    ): VkPastPresentationTimingPropertiesEXT {
+        $nativePastPresentationTimingInfo = $pastPresentationTimingInfo->toCData($this->memory);
+
+        $nativePastPresentationTimingProperties = $this->memory->new('VkPastPresentationTimingPropertiesEXT');
+        $nativePastPresentationTimingProperties->sType = VkPastPresentationTimingPropertiesEXT::STRUCTURE_TYPE;
+
+        $procedure = $this->vkGetInstanceProc('vkGetPastPresentationTimingEXT', $device);
+
+        $this->assertSuccess('vkGetPastPresentationTimingEXT', $procedure($device->pointer, \FFI::addr($nativePastPresentationTimingInfo), \FFI::addr($nativePastPresentationTimingProperties)));
+
+        return VkPastPresentationTimingPropertiesEXT::createFromCData($nativePastPresentationTimingProperties);
     }
 
     /**
@@ -15934,7 +15986,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkPhysicalDeviceFeatures2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkPhysicalDeviceFeatures2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -15961,7 +16013,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkPhysicalDeviceFeatures2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkPhysicalDeviceFeatures2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -16003,7 +16055,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkFormatProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkFormatProperties2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -16020,6 +16072,10 @@ final class Vulkan extends VulkanBase
 
         $procedure($physicalDevice->pointer, $format->value, \FFI::addr($nativeFormatProperties));
 
+        if ($natives->allocateBuffers($this->memory)) {
+            $procedure($physicalDevice->pointer, $format->value, \FFI::addr($nativeFormatProperties));
+        }
+
         return VkFormatProperties2::createFromCData($nativeFormatProperties, $natives->read());
     }
 
@@ -16031,7 +16087,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkFormatProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkFormatProperties2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -16111,7 +16167,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkImageFormatProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkImageFormatProperties2Extension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED},
@@ -16148,7 +16204,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkImageFormatProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkImageFormatProperties2Extension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_FORMAT_NOT_SUPPORTED},
@@ -16197,7 +16253,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkPhysicalDeviceMemoryProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkPhysicalDeviceMemoryProperties2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -16224,7 +16280,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkPhysicalDeviceMemoryProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkPhysicalDeviceMemoryProperties2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -16354,7 +16410,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkPhysicalDeviceProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkPhysicalDeviceProperties2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -16370,6 +16426,10 @@ final class Vulkan extends VulkanBase
 
         $procedure($physicalDevice->pointer, \FFI::addr($nativeProperties));
 
+        if ($natives->allocateBuffers($this->memory)) {
+            $procedure($physicalDevice->pointer, \FFI::addr($nativeProperties));
+        }
+
         return VkPhysicalDeviceProperties2::createFromCData($nativeProperties, $natives->read());
     }
 
@@ -16381,7 +16441,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkPhysicalDeviceProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkPhysicalDeviceProperties2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -16581,7 +16641,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkQueueFamilyProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkQueueFamilyProperties2Extension>> $chain the structures to fill
      *
      * @return VkEnumerator<VkQueueFamilyProperties2>
      * @throws VulkanException in case of internal error occurs
@@ -16591,7 +16651,7 @@ final class Vulkan extends VulkanBase
         array $chain = [],
     ): VkEnumerator {
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceQueueFamilyProperties2', $physicalDevice);
-        /** @var list<Chain<Chained&VkQueueFamilyProperties2Extension>> $natives */
+        /** @var list<Chain<ChainedStructureInterface&VkQueueFamilyProperties2Extension>> $natives */
         $natives = [];
 
         return VkEnumerator::create(
@@ -16630,7 +16690,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkQueueFamilyProperties2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkQueueFamilyProperties2Extension>> $chain the structures to fill
      *
      * @return VkEnumerator<VkQueueFamilyProperties2>
      * @throws VulkanException in case of internal error occurs
@@ -16820,7 +16880,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkSurfaceCapabilities2KHRExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkSurfaceCapabilities2KHRExtension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
@@ -16840,6 +16900,10 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $physicalDevice);
 
         $this->assertSuccess('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $procedure($physicalDevice->pointer, \FFI::addr($nativeSurfaceInfo), \FFI::addr($nativeSurfaceCapabilities)));
+
+        if ($natives->allocateBuffers($this->memory)) {
+            $this->assertSuccess('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $procedure($physicalDevice->pointer, \FFI::addr($nativeSurfaceInfo), \FFI::addr($nativeSurfaceCapabilities)));
+        }
 
         return VkSurfaceCapabilities2KHR::createFromCData($nativeSurfaceCapabilities, $natives->read());
     }
@@ -16877,7 +16941,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkSurfaceFormat2KHRExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkSurfaceFormat2KHRExtension>> $chain the structures to fill
      *
      * @return VkEnumerator<VkSurfaceFormat2KHR>
      * @throws CommandFailedException in case of the command fails, for example
@@ -16892,7 +16956,7 @@ final class Vulkan extends VulkanBase
         $nativeSurfaceInfo = $surfaceInfo->toCData($this->memory);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceSurfaceFormats2KHR', $physicalDevice);
-        /** @var list<Chain<Chained&VkSurfaceFormat2KHRExtension>> $natives */
+        /** @var list<Chain<ChainedStructureInterface&VkSurfaceFormat2KHRExtension>> $natives */
         $natives = [];
 
         return VkEnumerator::create(
@@ -17128,7 +17192,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkVideoCapabilitiesKHRExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkVideoCapabilitiesKHRExtension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with
@@ -17162,7 +17226,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkVideoEncodeQualityLevelPropertiesKHRExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkVideoEncodeQualityLevelPropertiesKHRExtension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with
@@ -17196,7 +17260,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkVideoFormatPropertiesKHRExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkVideoFormatPropertiesKHRExtension>> $chain the structures to fill
      *
      * @return VkEnumerator<VkVideoFormatPropertiesKHR>
      * @throws CommandFailedException in case of the command fails, for example
@@ -17215,7 +17279,7 @@ final class Vulkan extends VulkanBase
         $nativeVideoFormatInfo = $videoFormatInfo->toCData($this->memory);
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceVideoFormatPropertiesKHR', $physicalDevice);
-        /** @var list<Chain<Chained&VkVideoFormatPropertiesKHRExtension>> $natives */
+        /** @var list<Chain<ChainedStructureInterface&VkVideoFormatPropertiesKHRExtension>> $natives */
         $natives = [];
 
         return VkEnumerator::create(
@@ -17507,7 +17571,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */
@@ -17973,7 +18037,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkScreenBufferPropertiesQNXExtension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkScreenBufferPropertiesQNXExtension>> $chain the structures to fill
      *
      * @throws CommandFailedException in case of the command fails, for example
      *         with {@see VkResult::VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR}
@@ -18361,6 +18425,37 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainTimeDomainPropertiesEXT.html
+     * @since VK_EXT_present_timing
+     *
+     * @api
+     *
+     * @return array{swapchainTimeDomainProperties: VkSwapchainTimeDomainPropertiesEXT, timeDomainsCounter: int}
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_SURFACE_LOST_KHR}
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkGetSwapchainTimeDomainPropertiesEXT(VkDevice $device, VkSwapchainKHR $swapchain): array
+    {
+        $nativeSwapchainTimeDomainProperties = $this->memory->new('VkSwapchainTimeDomainPropertiesEXT');
+        $nativeSwapchainTimeDomainProperties->sType = VkSwapchainTimeDomainPropertiesEXT::STRUCTURE_TYPE;
+        $nativeTimeDomainsCounter = $this->memory->new('uint64_t');
+
+        $procedure = $this->vkGetInstanceProc('vkGetSwapchainTimeDomainPropertiesEXT', $device);
+
+        $this->assertSuccess('vkGetSwapchainTimeDomainPropertiesEXT', $procedure($device->pointer, $swapchain->pointer, \FFI::addr($nativeSwapchainTimeDomainProperties), \FFI::addr($nativeTimeDomainsCounter)));
+
+        $swapchainTimeDomainProperties = VkSwapchainTimeDomainPropertiesEXT::createFromCData($nativeSwapchainTimeDomainProperties);
+        /** @var int $timeDomainsCounter */
+        $timeDomainsCounter = $nativeTimeDomainsCounter->cdata;
+
+        return [
+            'swapchainTimeDomainProperties' => $swapchainTimeDomainProperties,
+            'timeDomainsCounter' => $timeDomainsCounter,
+        ];
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetSwapchainTimingPropertiesEXT.html
      * @since VK_EXT_present_timing
      *
@@ -18397,7 +18492,7 @@ final class Vulkan extends VulkanBase
      *
      * @api
      *
-     * @param list<class-string<Chained&VkMemoryRequirements2Extension>> $chain the structures to fill
+     * @param list<class-string<ChainedStructureInterface&VkMemoryRequirements2Extension>> $chain the structures to fill
      *
      * @throws VulkanException in case of internal error occurs
      */

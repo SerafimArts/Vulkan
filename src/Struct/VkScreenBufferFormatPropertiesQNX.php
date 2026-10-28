@@ -17,14 +17,14 @@ use Serafim\Vulkan\Enum\VkSamplerYcbcrRange;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkScreenBufferPropertiesQNXExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenBufferFormatPropertiesQNX.html
  * @since VK_QNX_external_memory_screen_buffer
  */
-final readonly class VkScreenBufferFormatPropertiesQNX extends OutputStructure implements VkScreenBufferPropertiesQNXExtension, Chained
+final readonly class VkScreenBufferFormatPropertiesQNX extends OutputStructure implements VkScreenBufferPropertiesQNXExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SCREEN_BUFFER_FORMAT_PROPERTIES_QNX->value;
 

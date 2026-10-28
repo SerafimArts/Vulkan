@@ -133,6 +133,13 @@ enum PropertyKind
     case RESULT_ARRAY;
 
     /**
+     * `T*` of numbers, enums or structures that Vulkan fills in a returned
+     * structure, the number of the elements is in another member Vulkan reads
+     * and writes
+     */
+    case FILLED_ARRAY;
+
+    /**
      * `const T*` of structures with the length in another member
      */
     case STRUCTURE_ARRAY;

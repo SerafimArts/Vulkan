@@ -17,7 +17,7 @@ use Serafim\Vulkan\Handle\VkBufferView;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Handle\VkImageView;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
 use Serafim\Vulkan\VulkanBase;
 
@@ -25,7 +25,7 @@ use Serafim\Vulkan\VulkanBase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalTextureInfoEXT.html
  * @since VK_EXT_metal_objects
  */
-final readonly class VkExportMetalTextureInfoEXT extends OutputStructure implements VkExportMetalObjectsInfoEXTExtension, Chained
+final readonly class VkExportMetalTextureInfoEXT extends OutputStructure implements VkExportMetalObjectsInfoEXTExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_TEXTURE_INFO_EXT->value;
 

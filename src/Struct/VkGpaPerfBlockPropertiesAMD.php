@@ -10,30 +10,28 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkGpaPerfBlockAMD;
-use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGpaPerfBlockPropertiesAMD.html
  * @since VK_AMD_gpa_interface
  */
-final class VkGpaPerfBlockPropertiesAMD extends InputStructure
+final readonly class VkGpaPerfBlockPropertiesAMD extends OutputStructure
 {
-    protected const string NATIVE_TYPE = 'VkGpaPerfBlockPropertiesAMD';
-
     public function __construct(
-        public VkGpaPerfBlockAMD $blockType = VkGpaPerfBlockAMD::VK_GPA_PERF_BLOCK_CPF_AMD,
+        public VkGpaPerfBlockAMD $blockType,
         /** @var int<0, 4294967295> */
-        public int $flags = 0,
+        public int $flags,
         /** @var int<0, 4294967295> */
-        public int $instanceCount = 0,
+        public int $instanceCount,
         /** @var int<0, 4294967295> */
-        public int $maxEventID = 0,
+        public int $maxEventID,
         /** @var int<0, 4294967295> */
-        public int $maxGlobalOnlyCounters = 0,
+        public int $maxGlobalOnlyCounters,
         /** @var int<0, 4294967295> */
-        public int $maxGlobalSharedCounters = 0,
+        public int $maxGlobalSharedCounters,
         /** @var int<0, 4294967295> */
-        public int $maxStreamingCounters = 0,
+        public int $maxStreamingCounters,
     ) {}
 
     /**
@@ -49,20 +47,16 @@ final class VkGpaPerfBlockPropertiesAMD extends InputStructure
      *
      * @phpstan-param CData $data
      */
-    protected function write(Allocation $memory, CData $data): void
+    public static function createFromCData(CData $data): self
     {
-        $data->blockType = $this->blockType->value;
-
-        $data->flags = $this->flags;
-
-        $data->instanceCount = $this->instanceCount;
-
-        $data->maxEventID = $this->maxEventID;
-
-        $data->maxGlobalOnlyCounters = $this->maxGlobalOnlyCounters;
-
-        $data->maxGlobalSharedCounters = $this->maxGlobalSharedCounters;
-
-        $data->maxStreamingCounters = $this->maxStreamingCounters;
+        return new self(
+            blockType: EnumCase::createFromValue(VkGpaPerfBlockAMD::class, $data->blockType),
+            flags: $data->flags,
+            instanceCount: $data->instanceCount,
+            maxEventID: $data->maxEventID,
+            maxGlobalOnlyCounters: $data->maxGlobalOnlyCounters,
+            maxGlobalSharedCounters: $data->maxGlobalSharedCounters,
+            maxStreamingCounters: $data->maxStreamingCounters,
+        );
     }
 }

@@ -14,14 +14,14 @@ use Serafim\Vulkan\Enum\VkVideoEncodeCapabilityFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkVideoEncodeFeedbackFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkVideoEncodeRateControlModeFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeCapabilitiesKHR.html
  * @since VK_KHR_video_encode_queue
  */
-final readonly class VkVideoEncodeCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, Chained
+final readonly class VkVideoEncodeCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_CAPABILITIES_KHR->value;
 

@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1QuantizationMapCapabilitiesKHR.html
  * @since VK_KHR_video_encode_quantization_map
  */
-final readonly class VkVideoEncodeAV1QuantizationMapCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, Chained
+final readonly class VkVideoEncodeAV1QuantizationMapCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_QUANTIZATION_MAP_CAPABILITIES_KHR->value;
 

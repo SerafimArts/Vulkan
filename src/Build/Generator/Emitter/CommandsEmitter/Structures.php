@@ -25,7 +25,19 @@ final readonly class Structures
          * @var list<non-empty-string>
          */
         private array $contextual = [],
+        /**
+         * The returned structures whose chains can hold structures with the
+         * arrays Vulkan fills
+         *
+         * @var list<non-empty-string>
+         */
+        private array $buffered = [],
     ) {}
+
+    public function hasBuffers(string $name): bool
+    {
+        return \in_array($name, $this->buffered, true);
+    }
 
     public function isRoot(string $name): bool
     {

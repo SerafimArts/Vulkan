@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceLayeredApiPropertiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiVulkanPropertiesKHR.html
  * @since VK_KHR_maintenance7
  */
-final readonly class VkPhysicalDeviceLayeredApiVulkanPropertiesKHR extends OutputStructure implements VkPhysicalDeviceLayeredApiPropertiesKHRExtension, Chained
+final readonly class VkPhysicalDeviceLayeredApiVulkanPropertiesKHR extends OutputStructure implements VkPhysicalDeviceLayeredApiPropertiesKHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR->value;
 

@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferUsageOHOS.html
  * @since VK_OHOS_external_memory
  */
-final readonly class VkNativeBufferUsageOHOS extends OutputStructure implements VkImageFormatProperties2Extension, Chained
+final readonly class VkNativeBufferUsageOHOS extends OutputStructure implements VkImageFormatProperties2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_NATIVE_BUFFER_USAGE_OHOS->value;
 

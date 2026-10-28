@@ -12,14 +12,14 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodePerPartitionFeedbackFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFeedback2CapabilitiesKHR.html
  * @since VK_KHR_video_encode_feedback2
  */
-final readonly class VkVideoEncodeFeedback2CapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, Chained
+final readonly class VkVideoEncodeFeedback2CapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR->value;
 

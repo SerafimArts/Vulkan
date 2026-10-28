@@ -15,14 +15,14 @@ use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubgroupFeatureFlagBits;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Properties.html
  * @since 1.2
  */
-final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
+final readonly class VkPhysicalDeviceVulkan11Properties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_PROPERTIES->value;
 

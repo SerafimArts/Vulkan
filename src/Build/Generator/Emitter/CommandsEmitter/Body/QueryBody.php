@@ -104,14 +104,28 @@ final readonly class QueryBody implements Body
 
         $method->addParameter('chain', [])->setType('array');
         $method->addComment('');
-        $method->addComment('@param list<class-string<Chained&' . $marker . '>> $chain the structures to fill');
+        $method->addComment('@param list<class-string<ChainedStructureInterface&' . $marker . '>> $chain the structures to fill');
 
-        $namespace->addUse(Locations::EXTENSION_NAMESPACE . '\Chained');
+        $namespace->addUse(Locations::EXTENSION_NAMESPACE . '\ChainedStructureInterface');
         $namespace->addUse(Locations::ROOT_NAMESPACE . '\Internal\Chain');
 
         $lines[] = '$natives = Chain::allocate($this->memory, ' . $native . ', $chain, ' . $marker . '::class);';
         $lines[] = '';
-        $lines = [...$lines, ...$this->calls->createCallLines($plan, $this->calls->createArguments($plan))];
+        $call = $this->calls->createCallLines($plan, $this->calls->createArguments($plan));
+        $lines = [...$lines, ...$call];
+
+        if ($this->structures->hasBuffers($output->field->type)) {
+            $lines[] = '';
+            $lines[] = 'if ($natives->allocateBuffers($this->memory)) {';
+
+            foreach (\array_slice($call, 2) as $line) {
+                $lines[] =
+trim('    ' . $line);
+            }
+
+            $lines[] = '}';
+        }
+
         $lines[] = '';
         $lines[] = 'return ' . $class . '::createFromCData(' . $native . ', $natives->read());';
 

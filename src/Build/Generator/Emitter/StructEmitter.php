@@ -286,7 +286,14 @@ final readonly class StructEmitter
         $namespace->addUse(Allocator::class);
         $namespace->addUse(CData::class);
 
-        $class->addImplement(Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, 'Chained'));
+        $isBuffered = $this->hasFilledArray($plan);
+        $interface = 'ChainedStructureInterface';
+
+        if ($isBuffered) {
+            $interface = 'BufferedStructureInterface';
+        }
+
+        $class->addImplement(Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, $interface));
 
         $method = $class->addMethod('createNative')
             ->setPublic()
@@ -299,6 +306,63 @@ final readonly class StructEmitter
             );
 
         $method->addParameter('memory')->setType(Allocator::class);
+
+        if ($isBuffered) {
+            $this->emitBuffers($namespace, $class, $plan);
+        }
+    }
+
+    /**
+     * Adds the method that allocates the arrays Vulkan fills, for the lengths
+     * the first call of the command has written.
+     */
+    private function emitBuffers(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
+    {
+        $lines = ['$isAllocated = false;'];
+
+        foreach ($plan->properties as $property) {
+            if ($property->kind !== PropertyKind::FILLED_ARRAY) {
+                continue;
+            }
+
+            $length = '$data->' . ($property->field->length ?? '');
+            $type = $property->field->type;
+
+            $lines[] = '';
+            $lines[] = 'if (' . $length . ' !== 0) {';
+            $lines[] = '    $data->' . $property->field->name . ' = $memory->ffi->cast(\'' . $type
+                . '*\', $memory->new(\'' . $type . '[\' . ' . $length . ' . \']\', $data));';
+            $lines[] = '    $isAllocated = true;';
+            $lines[] = '}';
+        }
+
+        $lines[] = '';
+        $lines[] = 'return $isAllocated;';
+
+        $method = $class->addMethod('allocateBuffers')
+            ->setPublic()
+            ->setStatic()
+            ->setReturnType('bool')
+            ->setBody(\implode('
+', $lines));
+
+        $method->addParameter('memory')->setType(Allocator::class);
+        $method->addParameter('data')->setType(CData::class);
+
+        foreach ($this->createShape($namespace, $plan) as $line) {
+            $method->addComment($line);
+        }
+    }
+
+    private function hasFilledArray(StructPlan $plan): bool
+    {
+        foreach ($plan->properties as $property) {
+            if ($property->kind === PropertyKind::FILLED_ARRAY) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function hasChain(StructPlan $plan): bool
@@ -434,7 +498,9 @@ final readonly class StructEmitter
                 $arguments[] = '// @phpstan-ignore-next-line the elements of the array are of any width';
             }
 
-            if ($property->kind === PropertyKind::NATIVE && $property->name !== $property->field->name) {
+            $isNamedDifferently = $property->kind === PropertyKind::NATIVE || $property->kind === PropertyKind::FILLED_ARRAY;
+
+            if ($isNamedDifferently && $property->name !== $property->field->name) {
                 $arguments[] = '// @phpstan-ignore-next-line the member is named differently from the property';
             }
 

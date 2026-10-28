@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 
 /**
@@ -20,7 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceRayTracingPropertiesNV.html
  * @since VK_NV_ray_tracing
  */
-final readonly class VkPhysicalDeviceRayTracingPropertiesNV extends OutputStructure implements VkPhysicalDeviceProperties2Extension, Chained
+final readonly class VkPhysicalDeviceRayTracingPropertiesNV extends OutputStructure implements VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PROPERTIES_NV->value;
 

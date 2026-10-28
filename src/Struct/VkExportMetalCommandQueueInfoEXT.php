@@ -14,7 +14,7 @@ use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\Handle\VkQueue;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
 use Serafim\Vulkan\VulkanBase;
 
@@ -22,7 +22,7 @@ use Serafim\Vulkan\VulkanBase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalCommandQueueInfoEXT.html
  * @since VK_EXT_metal_objects
  */
-final readonly class VkExportMetalCommandQueueInfoEXT extends OutputStructure implements VkExportMetalObjectsInfoEXTExtension, Chained
+final readonly class VkExportMetalCommandQueueInfoEXT extends OutputStructure implements VkExportMetalObjectsInfoEXTExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_COMMAND_QUEUE_INFO_EXT->value;
 

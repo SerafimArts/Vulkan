@@ -12,14 +12,14 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkPresentStageFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingSurfaceCapabilitiesEXT.html
  * @since VK_EXT_present_timing
  */
-final readonly class VkPresentTimingSurfaceCapabilitiesEXT extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, Chained
+final readonly class VkPresentTimingSurfaceCapabilitiesEXT extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMING_SURFACE_CAPABILITIES_EXT->value;
 

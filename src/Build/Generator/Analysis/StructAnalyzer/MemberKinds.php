@@ -92,6 +92,15 @@ final readonly class MemberKinds
             return PropertyKind::RESULT_ARRAY;
         }
 
+        $isFilled = $member->pointerDepth === 1
+            && !$member->isConst
+            && \in_array($type, [TypeKind::INTEGER, TypeKind::FLOAT, TypeKind::ENUMERATION, TypeKind::STRUCTURE], true)
+            && $this->hasLengthMember($struct, $member);
+
+        if ($isFilled) {
+            return PropertyKind::FILLED_ARRAY;
+        }
+
         if ($type === TypeKind::STRUCTURE && $member->pointerDepth === 1 && $member->length === null) {
             return PropertyKind::STRUCTURE_POINTER;
         }

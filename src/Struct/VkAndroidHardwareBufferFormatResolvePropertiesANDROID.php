@@ -13,14 +13,14 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatResolvePropertiesANDROID.html
  * @since VK_ANDROID_external_format_resolve
  */
-final readonly class VkAndroidHardwareBufferFormatResolvePropertiesANDROID extends OutputStructure implements VkAndroidHardwareBufferPropertiesANDROIDExtension, Chained
+final readonly class VkAndroidHardwareBufferFormatResolvePropertiesANDROID extends OutputStructure implements VkAndroidHardwareBufferPropertiesANDROIDExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID->value;
 

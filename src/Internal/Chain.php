@@ -7,14 +7,15 @@ namespace Serafim\Vulkan\Internal;
 use FFI\CData;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 
 /**
  * The structures that a command fills in the chain of a returned structure:
  * the native structures are linked by `pNext`, the objects are created from
  * them after the call.
  *
- * @template TStructure of Chained
+ * @template TStructure of ChainedStructureInterface
  *
  * @internal this is an internal library class, please do not use it in your code
  * @psalm-internal Serafim\Vulkan
@@ -31,7 +32,7 @@ final readonly class Chain
     /**
      * Allocates the native structures and links them to the root.
      *
-     * @template TCreated of Chained
+     * @template TCreated of ChainedStructureInterface
      *
      * @param CData $root the native structure whose `pNext` starts the chain
      * @param list<class-string<TCreated>> $classes the structures to fill
@@ -65,7 +66,7 @@ final readonly class Chain
     /**
      * Allocates the chain of every element of a native array of structures.
      *
-     * @template TCreated of Chained
+     * @template TCreated of ChainedStructureInterface
      *
      * @param CData $items the native array
      * @param CData $count the pointer to the native length of the array
@@ -97,6 +98,26 @@ final readonly class Chain
         }
 
         return $chains;
+    }
+
+    /**
+     * Allocates the arrays that the structures of the chain fill, for the
+     * lengths the command has written.
+     *
+     * @return bool whether any array is allocated: the command has to be
+     *         called again
+     */
+    public function allocateBuffers(Allocator $memory): bool
+    {
+        $isAllocated = false;
+
+        foreach ($this->natives as [$class, $native]) {
+            if (\is_a($class, BufferedStructureInterface::class, true) && $class::allocateBuffers($memory, $native)) {
+                $isAllocated = true;
+            }
+        }
+
+        return $isAllocated;
     }
 
     /**

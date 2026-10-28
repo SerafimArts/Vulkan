@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkMemoryRequirements2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDedicatedRequirements.html
  * @since 1.1
  */
-final readonly class VkMemoryDedicatedRequirements extends OutputStructure implements VkMemoryRequirements2Extension, Chained
+final readonly class VkMemoryDedicatedRequirements extends OutputStructure implements VkMemoryRequirements2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS->value;
 

@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkVideoEncodeSessionParametersFeedbackInfoKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265SessionParametersFeedbackInfoKHR.html
  * @since VK_KHR_video_encode_h265
  */
-final readonly class VkVideoEncodeH265SessionParametersFeedbackInfoKHR extends OutputStructure implements VkVideoEncodeSessionParametersFeedbackInfoKHRExtension, Chained
+final readonly class VkVideoEncodeH265SessionParametersFeedbackInfoKHR extends OutputStructure implements VkVideoEncodeSessionParametersFeedbackInfoKHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR->value;
 

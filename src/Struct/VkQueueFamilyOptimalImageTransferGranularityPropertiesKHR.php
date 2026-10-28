@@ -11,14 +11,14 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR.html
  * @since VK_KHR_maintenance11
  */
-final readonly class VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR extends OutputStructure implements VkQueueFamilyProperties2Extension, Chained
+final readonly class VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR extends OutputStructure implements VkQueueFamilyProperties2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_OPTIMAL_IMAGE_TRANSFER_GRANULARITY_PROPERTIES_KHR->value;
 

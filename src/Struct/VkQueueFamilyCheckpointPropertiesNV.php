@@ -12,14 +12,14 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointPropertiesNV.html
  * @since VK_NV_device_diagnostic_checkpoints
  */
-final readonly class VkQueueFamilyCheckpointPropertiesNV extends OutputStructure implements VkQueueFamilyProperties2Extension, Chained
+final readonly class VkQueueFamilyCheckpointPropertiesNV extends OutputStructure implements VkQueueFamilyProperties2Extension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_NV->value;
 

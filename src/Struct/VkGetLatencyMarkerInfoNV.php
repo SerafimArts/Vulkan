@@ -10,63 +10,36 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGetLatencyMarkerInfoNV.html
  * @since VK_NV_low_latency2
  */
-final class VkGetLatencyMarkerInfoNV extends InputStructure
+final readonly class VkGetLatencyMarkerInfoNV extends OutputStructure
 {
-    protected const string NATIVE_TYPE = 'VkGetLatencyMarkerInfoNV';
-
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GET_LATENCY_MARKER_INFO_NV->value;
-
-    private ?CData $timingsBuffer;
-
-    /**
-     * Vulkan fills it while a command uses the structure. The number
-     * of the elements is `$timingCount`, it is empty before that or
-     * when the count is zero.
-     *
-     * @var list<VkLatencyTimingsFrameReportNV>
-     */
-    public array $timings {
-        get {
-            if (!isset($this->timingsBuffer)) {
-                return [];
-            }
-
-            return self::createResultList($this->timingsBuffer, VkLatencyTimingsFrameReportNV::createFromCData(...));
-        }
-    }
 
     public function __construct(
         /** @var int<0, 4294967295> */
-        public int $timingCount = 0,
+        public int $timingCount,
+        /** @var list<VkLatencyTimingsFrameReportNV> */
+        public array $timings,
     ) {}
 
     /**
      * @param CData&object{
-     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GET_LATENCY_MARKER_INFO_NV>,
-     *     pNext: CData,
      *     timingCount: int<0, 4294967295>,
-     *     pTimings: CData,
+     *     pTimings: CData|null,
      * } $data
      *
      * @phpstan-param CData $data
      */
-    protected function write(Allocation $memory, CData $data): void
+    public static function createFromCData(CData $data): self
     {
-        $data->sType = self::STRUCTURE_TYPE;
-
-        $data->timingCount = $this->timingCount;
-
-        $this->timingsBuffer = null;
-
-        if ($this->timingCount !== 0) {
-            $this->timingsBuffer = $memory->new('VkLatencyTimingsFrameReportNV[' . $this->timingCount . ']');
-            $data->pTimings = $memory->ffi->cast('VkLatencyTimingsFrameReportNV*', $this->timingsBuffer);
-        }
+        return new self(
+            timingCount: $data->timingCount,
+            // @phpstan-ignore-next-line the member is named differently from the property
+            timings: self::createStructureListFromCData($data->pTimings, $data->timingCount, VkLatencyTimingsFrameReportNV::createFromCData(...)),
+        );
     }
 }

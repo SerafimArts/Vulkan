@@ -12,14 +12,14 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeAV1RateControlFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkVideoEncodeQualityLevelPropertiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeAV1QualityLevelPropertiesKHR.html
  * @since VK_KHR_video_encode_av1
  */
-final readonly class VkVideoEncodeAV1QualityLevelPropertiesKHR extends OutputStructure implements VkVideoEncodeQualityLevelPropertiesKHRExtension, Chained
+final readonly class VkVideoEncodeAV1QualityLevelPropertiesKHR extends OutputStructure implements VkVideoEncodeQualityLevelPropertiesKHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_QUALITY_LEVEL_PROPERTIES_KHR->value;
 

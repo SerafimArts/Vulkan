@@ -12,14 +12,14 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkVideoEncodeIntraRefreshModeFlagBitsKHR;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\Chained;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeIntraRefreshCapabilitiesKHR.html
  * @since VK_KHR_video_encode_intra_refresh
  */
-final readonly class VkVideoEncodeIntraRefreshCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, Chained
+final readonly class VkVideoEncodeIntraRefreshCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
 {
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR->value;
 
