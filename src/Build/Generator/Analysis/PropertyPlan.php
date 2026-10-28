@@ -35,4 +35,15 @@ final readonly class PropertyPlan
          */
         public int $arrayLength = 0,
     ) {}
+
+    /**
+     * Returns the name of the private property that keeps the native memory
+     * Vulkan fills for a result property.
+     *
+     * @return non-empty-string
+     */
+    public function createBufferName(): string
+    {
+        return $this->name . 'Buffer';
+    }
 }

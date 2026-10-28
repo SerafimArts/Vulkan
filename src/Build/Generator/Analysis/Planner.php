@@ -398,6 +398,10 @@ final readonly class Planner
             if (\in_array($property->kind, $nested, true)) {
                 $structs = $this->collectStruct($property->field->type, $role, $structs);
             }
+
+            if ($property->kind === PropertyKind::RESULT_STRUCTURE || $property->kind === PropertyKind::RESULT_ARRAY) {
+                $structs = $this->collectStruct($property->field->type, StructRole::OUTPUT, $structs);
+            }
         }
 
         return $structs;

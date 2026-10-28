@@ -95,6 +95,11 @@ final readonly class Writer
                 '    $data->' . $field . ' = \FFI::addr($memory->toStructure(' . $value . '));',
                 '}',
             ],
+            PropertyKind::RESULT_STRUCTURE => [
+                '$this->' . $property->createBufferName() . ' = $memory->new(' . \var_export($type, true) . ');',
+                '$data->' . $field . ' = \FFI::addr($this->' . $property->createBufferName() . ');',
+            ],
+            PropertyKind::RESULT_ARRAY => $this->createResultArrayLines($property),
             PropertyKind::STRUCTURE_VALUE => [$value . '->write($memory, $data->' . $field . ');'],
             PropertyKind::HANDLE => $this->createHandleLines($property),
             PropertyKind::SCALAR_POINTER => $this->createScalarPointerLines($property),
@@ -188,6 +193,27 @@ final readonly class Writer
         return [
             $guard,
             ...\array_map(static fn(string $line): string => '    ' . $line, $lines),
+            '}',
+        ];
+    }
+
+    /**
+     * Allocates the elements Vulkan fills, as many as the user has asked for.
+     *
+     * @return list<string>
+     */
+    private function createResultArrayLines(PropertyPlan $property): array
+    {
+        $buffer = '$this->' . $property->createBufferName();
+        $count = '$this->' . Names::createVariableName($property->field->length ?? '');
+        $type = $property->field->type;
+
+        return [
+            $buffer . ' = null;',
+            '',
+            'if (' . $count . ' !== 0) {',
+            '    ' . $buffer . ' = $memory->new(\'' . $type . '[\' . ' . $count . ' . \']\');',
+            '    $data->' . $property->field->name . ' = $memory->ffi->cast(\'' . $type . '*\', ' . $buffer . ');',
             '}',
         ];
     }

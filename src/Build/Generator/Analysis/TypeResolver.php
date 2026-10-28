@@ -81,6 +81,14 @@ final readonly class TypeResolver
         return TypeKind::UNSUPPORTED;
     }
 
+    /**
+     * Whether the type is a structure that only Vulkan fills.
+     */
+    public function isReturnedOnly(string $type): bool
+    {
+        return $this->registry->findStruct($type)?->isReturnedOnly === true;
+    }
+
     public function findFunctionPointer(string $type): ?FunctionPointer
     {
         return $this->registry->findFunctionPointer($type);

@@ -26,9 +26,24 @@ final class VkRenderPassCreationFeedbackCreateInfoEXT extends InputStructure imp
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATION_FEEDBACK_CREATE_INFO_EXT->value;
 
+    private CData $renderPassFeedbackBuffer;
+
+    /**
+     * Vulkan fills it while a command uses the structure. It is `null`
+     * before that.
+     */
+    public ?VkRenderPassCreationFeedbackInfoEXT $renderPassFeedback {
+        get {
+            if (!isset($this->renderPassFeedbackBuffer)) {
+                return null;
+            }
+
+            return VkRenderPassCreationFeedbackInfoEXT::createFromCData($this->renderPassFeedbackBuffer);
+        }
+    }
+
     public function __construct(
         public ?VkRenderPassCreateInfo2Extension $next = null,
-        public ?VkRenderPassCreationFeedbackInfoEXT $renderPassFeedback = null,
     ) {}
 
     /**
@@ -50,8 +65,7 @@ final class VkRenderPassCreationFeedbackCreateInfoEXT extends InputStructure imp
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }
 
-        if ($this->renderPassFeedback !== null) {
-            $data->pRenderPassFeedback = \FFI::addr($memory->toStructure($this->renderPassFeedback));
-        }
+        $this->renderPassFeedbackBuffer = $memory->new('VkRenderPassCreationFeedbackInfoEXT');
+        $data->pRenderPassFeedback = \FFI::addr($this->renderPassFeedbackBuffer);
     }
 }

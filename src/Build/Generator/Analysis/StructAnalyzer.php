@@ -38,6 +38,8 @@ final readonly class StructAnalyzer
         PropertyKind::STRUCTURE_LIST,
         PropertyKind::ENUMERATION_LIST,
         PropertyKind::STRUCTURE_POINTER,
+        PropertyKind::RESULT_STRUCTURE,
+        PropertyKind::RESULT_ARRAY,
         PropertyKind::STRUCTURE_VALUE,
         PropertyKind::HANDLE,
         PropertyKind::STRUCTURE_ARRAY,
@@ -120,7 +122,9 @@ final readonly class StructAnalyzer
 
         foreach ($struct->members as $member) {
             $kind = $this->kinds->find($struct, $member);
-            $isLengthKept = $kind === PropertyKind::SAMPLE_MASK || $kind === PropertyKind::NATIVE;
+            $isLengthKept = $kind === PropertyKind::SAMPLE_MASK
+                || $kind === PropertyKind::NATIVE
+                || $kind === PropertyKind::RESULT_ARRAY;
 
             if ($member->length !== null && !$member->isOptional && !$isLengthKept) {
                 $lengths[$member->length] = true;
@@ -359,6 +363,8 @@ final readonly class StructAnalyzer
             ),
             PropertyKind::NUMBER_LIST => $this->createNumberList($declaration, $member, $kind, $name, $isInput),
             PropertyKind::STRUCTURE_POINTER => new PropertyPlan($member, $kind, $name, null, true, true),
+            PropertyKind::RESULT_STRUCTURE => new PropertyPlan($member, $kind, $name, null, true),
+            PropertyKind::RESULT_ARRAY => new PropertyPlan($member, $kind, $name, 'array'),
             PropertyKind::STRUCTURE_VALUE => new PropertyPlan($member, $kind, $name, null),
             PropertyKind::HANDLE => new PropertyPlan(
                 $member,

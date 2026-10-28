@@ -8,6 +8,7 @@ use FFI\CData;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
+use Serafim\Vulkan\Build\Generator\Analysis\Names;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
@@ -63,6 +64,12 @@ final readonly class Properties
         array $chains = [],
         bool $isReturned = false,
     ): void {
+        $results = \array_values(\array_filter($properties, $this->isResult(...)));
+        $properties = \array_values(\array_filter(
+            $properties,
+            fn(PropertyPlan $property): bool => !$this->isResult($property),
+        ));
+
         $constructor = $class->addMethod('__construct');
 
         $counted = [];
@@ -73,7 +80,7 @@ final readonly class Properties
             }
         }
 
-        foreach (\array_values($properties) as $index => $property) {
+        foreach ($properties as $index => $property) {
             $this->recordBits($class, $property, $index, $isReturned);
 
             $parameter = $constructor->addPromotedParameter($property->name);
@@ -134,6 +141,88 @@ final readonly class Properties
                 $parameter->addComment('@var ' . $docType);
             }
         }
+
+        foreach ($results as $property) {
+            $this->emitResult($namespace, $class, $property);
+        }
+    }
+
+    private function isResult(PropertyPlan $property): bool
+    {
+        return $property->kind === PropertyKind::RESULT_STRUCTURE || $property->kind === PropertyKind::RESULT_ARRAY;
+    }
+
+    /**
+     * Adds the property that Vulkan fills while a command runs: it is read
+     * from the native memory the structure keeps after the structure is
+     * written.
+     */
+    private function emitResult(PhpNamespace $namespace, ClassType $class, PropertyPlan $property): void
+    {
+        $namespace->addUse(CData::class);
+
+        $element = Imports::import($namespace, Locations::STRUCT_NAMESPACE, $property->field->type);
+        $buffer = $class->addProperty($property->createBufferName());
+
+        $buffer->setPrivate();
+        $buffer->setType(CData::class);
+        $buffer->setNullable($property->kind === PropertyKind::RESULT_ARRAY);
+        $buffer->setInitialized(false);
+
+        $result = $class->addProperty($property->name);
+
+        $result->setPublic();
+
+        $description = DocComments::createLines($property->field->comment ?? '');
+        $notice = 'Vulkan fills it while a command uses the structure.';
+
+        if ($property->kind === PropertyKind::RESULT_STRUCTURE) {
+            $result->setType(Locations::createClassName(Locations::STRUCT_NAMESPACE, $property->field->type));
+            $result->setNullable();
+
+            $lines = DocComments::createLines($notice . ' It is `null` before that.');
+
+            if ($description !== []) {
+                $lines = [...$description, '', ...$lines];
+            }
+
+            foreach ($lines as $line) {
+                $result->addComment($line);
+            }
+
+            $result->addHook('get')->setBody(
+                "if (!isset(\$this->{$property->createBufferName()})) {\n"
+                . "    return null;\n"
+                . "}\n\n"
+                . "return {$element}::createFromCData(\$this->{$property->createBufferName()});",
+            );
+
+            return;
+        }
+
+        $result->setType('array');
+
+        $count = '`$' . Names::createVariableName($property->field->length ?? '') . '`';
+        $lines = DocComments::createLines(
+            $notice . ' The number of the elements is ' . $count . ', it is empty before that or when the count is zero.',
+        );
+
+        if ($description !== []) {
+            $lines = [...$description, '', ...$lines];
+        }
+
+        $lines = [...$lines, '', '@var list<' . $element . '>'];
+
+        foreach ($lines as $line) {
+            $result->addComment($line);
+        }
+
+        $result->addHook('get')->setBody(
+            "if (!isset(\$this->{$property->createBufferName()})) {\n"
+            . "    return [];\n"
+            . "}\n\n"
+            . "return self::createResultList(\$this->{$property->createBufferName()}, {$element}::createFromCData(...));",
+        );
     }
 
     /**

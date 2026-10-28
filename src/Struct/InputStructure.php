@@ -32,6 +32,30 @@ abstract class InputStructure
     abstract protected function write(Allocation $memory, CData $data): void;
 
     /**
+     * Copies the structures that Vulkan has written to the native array.
+     *
+     * @template T
+     *
+     * @param \Closure(CData): T $factory
+     *
+     * @return list<T>
+     */
+    final protected static function createResultList(CData $array, \Closure $factory): array
+    {
+        $list = [];
+
+        // @phpstan-ignore-next-line the native array is countable
+        for ($i = 0, $length = \count($array); $i < $length; ++$i) {
+            /** @var CData $element */
+            $element = $array[$i];
+
+            $list[] = $factory($element);
+        }
+
+        return $list;
+    }
+
+    /**
      * Allocates the native struct and writes the fields to it.
      *
      * @param CData|null $owner the struct that points to this one, the

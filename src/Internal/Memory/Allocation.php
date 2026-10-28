@@ -31,6 +31,17 @@ final readonly class Allocation
     }
 
     /**
+     * Allocates a zeroed value that Vulkan fills. It lives as long as the
+     * caller keeps it, not as long as the struct that points to it.
+     *
+     * @param non-empty-string $type C type of the value
+     */
+    public function new(string $type): CData
+    {
+        return $this->allocator->new($type);
+    }
+
+    /**
      * Returns the `char*` pointer to the copy of the string.
      */
     public function toCString(string $value): CData

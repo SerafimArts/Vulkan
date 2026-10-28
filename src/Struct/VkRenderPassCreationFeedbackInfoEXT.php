@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
  * Legacy functionality.
@@ -18,13 +17,11 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
  * @since VK_EXT_subpass_merge_feedback
  */
-final class VkRenderPassCreationFeedbackInfoEXT extends InputStructure
+final readonly class VkRenderPassCreationFeedbackInfoEXT extends OutputStructure
 {
-    protected const string NATIVE_TYPE = 'VkRenderPassCreationFeedbackInfoEXT';
-
     public function __construct(
         /** @var int<0, 4294967295> */
-        public int $postMergeSubpassCount = 0,
+        public int $postMergeSubpassCount,
     ) {}
 
     /**
@@ -34,8 +31,10 @@ final class VkRenderPassCreationFeedbackInfoEXT extends InputStructure
      *
      * @phpstan-param CData $data
      */
-    protected function write(Allocation $memory, CData $data): void
+    public static function createFromCData(CData $data): self
     {
-        $data->postMergeSubpassCount = $this->postMergeSubpassCount;
+        return new self(
+            postMergeSubpassCount: $data->postMergeSubpassCount,
+        );
     }
 }

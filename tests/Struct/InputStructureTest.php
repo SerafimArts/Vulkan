@@ -13,12 +13,14 @@ use Serafim\Vulkan\Struct\VkClearDepthStencilValue;
 use Serafim\Vulkan\Struct\VkClearValue;
 use Serafim\Vulkan\Struct\VkDebugUtilsLabelEXT;
 use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
+use Serafim\Vulkan\Struct\VkExtensionProperties;
 use Serafim\Vulkan\Struct\VkFenceCreateInfo;
 use Serafim\Vulkan\Struct\VkImageBlit;
 use Serafim\Vulkan\Struct\VkImageSubresourceLayers;
 use Serafim\Vulkan\Struct\VkImportMemoryHostPointerInfoEXT;
 use Serafim\Vulkan\Struct\VkOffset3D;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Features;
+use Serafim\Vulkan\Struct\VkPipelineCreationFeedbackCreateInfo;
 use Serafim\Vulkan\Struct\VkPipelineMultisampleStateCreateInfo;
 use Serafim\Vulkan\Struct\VkRenderPassSubpassFeedbackInfoEXT;
 use Serafim\Vulkan\Struct\VkSubmitInfo;
@@ -123,9 +125,40 @@ final class InputStructureTest extends TestCase
     {
         $vk = self::loadVulkan();
 
-        $data = new VkRenderPassSubpassFeedbackInfoEXT(description: 'subpass')->toCData($vk->memory);
+        $data = new VkExtensionProperties(extensionName: 'subpass')->toCData($vk->memory);
 
-        self::assertSame('subpass', \FFI::string($data->description));
+        self::assertSame('subpass', \FFI::string($data->extensionName));
+    }
+
+    public function testFeedbackThatVulkanFillsIsReadFromTheMemoryTheStructureKeeps(): void
+    {
+        $vk = self::loadVulkan();
+
+        $info = new VkPipelineCreationFeedbackCreateInfo(pipelineStageCreationFeedbackCount: 2);
+
+        self::assertNull($info->pipelineCreationFeedback);
+        self::assertSame([], $info->pipelineStageCreationFeedbacks);
+
+        $data = $info->toCData($vk->memory);
+
+        $data->pPipelineCreationFeedback->duration = 7;
+        $data->pPipelineStageCreationFeedbacks[1]->duration = 9;
+
+        self::assertSame(7, $info->pipelineCreationFeedback?->duration);
+        self::assertCount(2, $info->pipelineStageCreationFeedbacks);
+        self::assertSame(9, $info->pipelineStageCreationFeedbacks[1]->duration);
+    }
+
+    public function testFeedbackOfStagesIsEmptyWhenTheCountIsZero(): void
+    {
+        $vk = self::loadVulkan();
+
+        $info = new VkPipelineCreationFeedbackCreateInfo();
+
+        $info->toCData($vk->memory);
+
+        self::assertNotNull($info->pipelineCreationFeedback);
+        self::assertSame([], $info->pipelineStageCreationFeedbacks);
     }
 
     public function testSampleMaskFollowsTheNumberOfSamples(): void

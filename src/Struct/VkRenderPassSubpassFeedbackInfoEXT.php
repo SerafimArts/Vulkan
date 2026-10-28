@@ -10,8 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSubpassMergeStatusEXT;
-use Serafim\Vulkan\Exception\InvalidStructureException;
-use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * Legacy functionality.
@@ -20,15 +19,13 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
  * @since VK_EXT_subpass_merge_feedback
  */
-final class VkRenderPassSubpassFeedbackInfoEXT extends InputStructure
+final readonly class VkRenderPassSubpassFeedbackInfoEXT extends OutputStructure
 {
-    protected const string NATIVE_TYPE = 'VkRenderPassSubpassFeedbackInfoEXT';
-
     public function __construct(
-        public VkSubpassMergeStatusEXT $subpassMergeStatus = VkSubpassMergeStatusEXT::VK_SUBPASS_MERGE_STATUS_MERGED_EXT,
-        public string $description = '',
+        public VkSubpassMergeStatusEXT $subpassMergeStatus,
+        public string $description,
         /** @var int<0, 4294967295> */
-        public int $postMergeIndex = 0,
+        public int $postMergeIndex,
     ) {}
 
     /**
@@ -40,16 +37,12 @@ final class VkRenderPassSubpassFeedbackInfoEXT extends InputStructure
      *
      * @phpstan-param CData $data
      */
-    protected function write(Allocation $memory, CData $data): void
+    public static function createFromCData(CData $data): self
     {
-        $data->subpassMergeStatus = $this->subpassMergeStatus->value;
-
-        if (\strlen($this->description) >= 256) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkRenderPassSubpassFeedbackInfoEXT', 'description', 256 - 1);
-        }
-
-        \FFI::memcpy($data->description, $this->description . "\0", \strlen($this->description) + 1);
-
-        $data->postMergeIndex = $this->postMergeIndex;
+        return new self(
+            subpassMergeStatus: EnumCase::createFromValue(VkSubpassMergeStatusEXT::class, $data->subpassMergeStatus),
+            description: \FFI::string($data->description),
+            postMergeIndex: $data->postMergeIndex,
+        );
     }
 }

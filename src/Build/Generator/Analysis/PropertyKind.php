@@ -121,6 +121,18 @@ enum PropertyKind
     case STRUCTURE_LIST;
 
     /**
+     * `T*` of a returned structure that Vulkan fills: the user gives only the
+     * place for it
+     */
+    case RESULT_STRUCTURE;
+
+    /**
+     * `T*` of returned structures that Vulkan fills, the number of the
+     * elements is in another member the user gives
+     */
+    case RESULT_ARRAY;
+
+    /**
      * `const T*` of structures with the length in another member
      */
     case STRUCTURE_ARRAY;

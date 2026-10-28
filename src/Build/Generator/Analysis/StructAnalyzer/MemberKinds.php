@@ -79,6 +79,19 @@ final readonly class MemberKinds
             return PropertyKind::STRING_LIST;
         }
 
+        $isResult = $type === TypeKind::STRUCTURE
+            && $member->pointerDepth === 1
+            && !$member->isConst
+            && $this->types->isReturnedOnly($member->type);
+
+        if ($isResult && $member->length === null) {
+            return PropertyKind::RESULT_STRUCTURE;
+        }
+
+        if ($isResult && $this->hasLengthMember($struct, $member)) {
+            return PropertyKind::RESULT_ARRAY;
+        }
+
         if ($type === TypeKind::STRUCTURE && $member->pointerDepth === 1 && $member->length === null) {
             return PropertyKind::STRUCTURE_POINTER;
         }
