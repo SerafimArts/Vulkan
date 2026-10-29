@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Tests\Struct;
 
 use PHPUnit\Framework\Attributes\CoversNothing;
+use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Exception\UnknownEnumValueException;
+use Serafim\Vulkan\Struct\CountedStructureInterface;
 use Serafim\Vulkan\Struct\InputStructureInterface;
 use Serafim\Vulkan\Struct\OutputStructureInterface;
 use Serafim\Vulkan\Tests\TestCase;
@@ -65,7 +67,32 @@ final class GeneratedStructuresTest extends TestCase
             try {
                 $class::createFromCData(...$arguments);
             } catch (UnknownEnumValueException) {
-                // The memory has no valid value of an enum, the zero is not one of them.
+                // The memory has no valid value of an enum, the zero is not
+                // one of them.
+            } catch (\Throwable $e) {
+                $failed[$class] = $e::class . ': ' . $e->getMessage();
+            }
+        }
+
+        self::assertSame([], $failed);
+    }
+
+    public function testCountedStructuresAreReadFromZeroedNativeMemory(): void
+    {
+        $vk = self::loadVulkan();
+        $failed = [];
+
+        foreach ($this->findClasses(CountedStructureInterface::class) as $class => $type) {
+            if (!$this->isDeclared($vk->ffi, $type)) {
+                continue;
+            }
+
+            $counts = Quirks::findCounts($type);
+
+            self::assertNotNull($counts);
+
+            try {
+                $class::createFromCData($vk->memory->new($type), $vk->memory->new($counts[0]));
             } catch (\Throwable $e) {
                 $failed[$class] = $e::class . ': ' . $e->getMessage();
             }

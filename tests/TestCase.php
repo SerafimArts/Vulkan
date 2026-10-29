@@ -16,7 +16,7 @@ abstract class TestCase extends BaseTestCase
     protected static function loadVulkan(): Vulkan
     {
         try {
-            return Vulkan::create();
+            return Vulkan::load();
         } catch (InvalidLibraryException) {
             self::markTestSkipped('The Vulkan library is not installed');
         }

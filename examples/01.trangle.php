@@ -69,7 +69,7 @@ use const Serafim\Vulkan\VK_SUBPASS_EXTERNAL;
 require __DIR__ . '/../vendor/autoload.php';
 
 
-$vulkan = Vulkan::create();
+$vulkan = Vulkan::load();
 $kernel32  = FFI::cdef('void* GetModuleHandleW(void* name);', 'kernel32.dll');
 // @see https://www.glfw.org/download
 $glfw3     = FFI::cdef(file_get_contents(__DIR__ . '/glfw3.h'), __DIR__ . '/glfw3.dll');

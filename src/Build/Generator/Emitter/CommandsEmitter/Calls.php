@@ -10,6 +10,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\CommandKind;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\ParameterPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
+use Serafim\Vulkan\Build\Generator\Emitter\Code;
 use Serafim\Vulkan\CommandResult;
 use Serafim\Vulkan\Enum\VkResult;
 
@@ -164,15 +165,11 @@ final readonly class Calls
             return $call;
         }
 
-        $lines = [...$call, '', 'while (' . \implode(' || ', $conditions) . ') {'];
-
-        foreach (\array_slice($call, 2) as $line) {
-            $lines[] = \rtrim('    ' . $line);
-        }
-
-        $lines[] = '}';
-
-        return $lines;
+        return [
+            ...$call,
+            '',
+            ...Code::block('while (' . \implode(' || ', $conditions) . ') {', \array_slice($call, 2)),
+        ];
     }
 
     public function createProcedureLine(CommandPlan $plan): string
