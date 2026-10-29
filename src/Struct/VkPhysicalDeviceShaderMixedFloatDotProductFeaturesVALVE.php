@@ -70,6 +70,10 @@ final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE implements I
         $data->shaderMixedFloatDotProductFloat8AccFloat32 = (int) $this->shaderMixedFloatDotProductFloat8AccFloat32;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE');
@@ -87,6 +91,9 @@ final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE implements I
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

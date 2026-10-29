@@ -25,6 +25,10 @@ final readonly class VkPhysicalDeviceDepthStencilResolveProperties implements Ou
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_STENCIL_RESOLVE_PROPERTIES->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceDepthStencilResolveProperties');
@@ -70,6 +74,9 @@ final readonly class VkPhysicalDeviceDepthStencilResolveProperties implements Ou
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

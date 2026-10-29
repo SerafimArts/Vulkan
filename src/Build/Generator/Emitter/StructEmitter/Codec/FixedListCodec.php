@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec;
 
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 
 /**
  * An array of the fixed size: its elements are written one by one.
@@ -35,14 +35,14 @@ abstract readonly class FixedListCodec extends AbstractPropertyCodec
      */
     final protected function createListLines(PropertyContext $context, array $body): array
     {
-        $context->namespace->addUse(InvalidStructureException::class);
+        $context->namespace->addUse(ArrayTooLongException::class);
 
         $value = $context->createValueExpression();
         $size = (string) $context->property->arrayLength;
 
         return [
             'if (\count(' . $value . ') > ' . $size . ') {',
-            '    throw InvalidStructureException::becauseArrayIsTooLong('
+            '    throw ArrayTooLongException::becauseArrayIsTooLong('
                 . \var_export($context->structure, true) . ', ' . \var_export($context->property->name, true) . ', '
                 . $size . ');',
             '}',

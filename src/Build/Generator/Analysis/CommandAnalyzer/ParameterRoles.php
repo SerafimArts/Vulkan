@@ -10,6 +10,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
+use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Build\Generator\Registry\CommandDefinition;
 use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 
@@ -145,7 +146,7 @@ final readonly class ParameterRoles
             return null;
         }
 
-        if ($field->type === 'VkAllocationCallbacks' && $field->isConst) {
+        if ($field->type === Quirks::ALLOCATOR_TYPE && $field->isConst) {
             return ParameterRole::ALLOCATOR;
         }
 

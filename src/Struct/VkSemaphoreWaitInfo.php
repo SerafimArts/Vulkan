@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSemaphoreWaitFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -64,7 +64,7 @@ final class VkSemaphoreWaitInfo implements InputStructureInterface
 
         if ($this->values !== []) {
             if ($data->semaphoreCount !== 0 && $data->semaphoreCount !== \count($this->values)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkSemaphoreWaitInfo', 'values');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkSemaphoreWaitInfo', 'values');
             }
 
             $data->semaphoreCount = \count($this->values);

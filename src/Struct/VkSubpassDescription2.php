@@ -12,7 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineBindPoint;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubpassDescriptionFlagBits;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubpassDescription2Extension;
 
@@ -99,7 +99,7 @@ final class VkSubpassDescription2 implements InputStructureInterface
 
         if ($this->resolveAttachments !== []) {
             if ($data->colorAttachmentCount !== 0 && $data->colorAttachmentCount !== \count($this->resolveAttachments)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkSubpassDescription2', 'resolveAttachments');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkSubpassDescription2', 'resolveAttachments');
             }
 
             $data->colorAttachmentCount = \count($this->resolveAttachments);

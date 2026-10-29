@@ -18,6 +18,12 @@ enum CommandKind
     case EXECUTE;
 
     /**
+     * A command that fills the lengths of the arrays of a structure with the
+     * first call and the structure with the next one
+     */
+    case QUERY_COUNTED;
+
+    /**
      * Creates a handle.
      */
     case CREATE;

@@ -20,6 +20,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\MetaRecorder;
 use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec\Codecs;
 use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec\PropertyContext;
 use Serafim\Vulkan\Build\Generator\Registry\Constant;
+use Serafim\Vulkan\Internal\EnumCase;
 
 /**
  * The properties of a generated structure: the promoted parameters of the
@@ -149,11 +150,17 @@ final readonly class Properties
         foreach ($results as $property) {
             $this->emitResult($namespace, $class, $property);
         }
+
+        foreach ($properties as $property) {
+            if ($property->kind === PropertyKind::INOUT_INTEGER) {
+                $this->emitWrittenSize($namespace, $class, $property);
+            }
+        }
     }
 
     private function isResult(PropertyPlan $property): bool
     {
-        return $property->kind === PropertyKind::FEEDBACK_STRUCTURE || $property->kind === PropertyKind::FEEDBACK_ARRAY;
+        return $property->kind->isResult();
     }
 
     /**
@@ -164,6 +171,12 @@ final readonly class Properties
     private function emitResult(PhpNamespace $namespace, ClassType $class, PropertyPlan $property): void
     {
         $namespace->addUse(CData::class);
+
+        if ($property->kind === PropertyKind::FEEDBACK_ENUMERATION) {
+            $this->emitEnumerationResult($namespace, $class, $property);
+
+            return;
+        }
 
         $element = Imports::import($namespace, Locations::STRUCT_NAMESPACE, $property->field->type);
         $buffer = $class->addProperty($property->createBufferName());
@@ -226,6 +239,90 @@ final readonly class Properties
             . "    return [];\n"
             . "}\n\n"
             . "return self::createResultList(\$this->{$property->createBufferName()}, {$element}::createFromCData(...));",
+        );
+    }
+
+    /**
+     * Adds the size that Vulkan writes to the place where the user has given
+     * the size of the buffer.
+     */
+    private function emitWrittenSize(PhpNamespace $namespace, ClassType $class, PropertyPlan $property): void
+    {
+        $namespace->addUse(CData::class);
+
+        $name = $property->createBufferName();
+
+        $buffer = $class->addProperty($name);
+
+        $buffer->setPrivate();
+        $buffer->setType(CData::class);
+        $buffer->setInitialized(false);
+
+        $result = $class->addProperty($property->name . 'Written');
+
+        $result->setPublic();
+        $result->setType('int');
+        $result->setNullable();
+
+        $notice = 'The size Vulkan has written while a command uses the structure. It is `null` before that.';
+
+        foreach (DocComments::createLines($notice) as $line) {
+            $result->addComment($line);
+        }
+
+        $result->addComment('');
+        $result->addComment('@var int<0, max>|null');
+
+        $result->addHook('get')->setBody(
+            "if (!isset(\$this->{$name})) {\n"
+            . "    return null;\n"
+            . "}\n\n"
+            . "/** @var int<0, max> \$value */\n"
+            . "\$value = \$this->{$name}[0];\n\n"
+            . 'return $value;',
+        );
+    }
+
+    /**
+     * Adds the enum that Vulkan writes while a command uses the structure.
+     */
+    private function emitEnumerationResult(PhpNamespace $namespace, ClassType $class, PropertyPlan $property): void
+    {
+        $namespace->addUse(EnumCase::class);
+
+        $enum = Imports::import($namespace, Locations::ENUM_NAMESPACE, $property->field->type);
+        $name = $property->createBufferName();
+
+        $buffer = $class->addProperty($name);
+
+        $buffer->setPrivate();
+        $buffer->setType(CData::class);
+        $buffer->setInitialized(false);
+
+        $result = $class->addProperty($property->name);
+
+        $result->setPublic();
+        $result->setType(Locations::createClassName(Locations::ENUM_NAMESPACE, $property->field->type));
+        $result->setNullable();
+
+        $lines = DocComments::createLines($property->field->comment ?? '');
+        $notice = DocComments::createLines('Vulkan fills it while a command uses the structure. It is `null` before that.');
+
+        if ($lines !== []) {
+            $lines[] = '';
+        }
+
+        foreach ([...$lines, ...$notice] as $line) {
+            $result->addComment($line);
+        }
+
+        $result->addHook('get')->setBody(
+            "if (!isset(\$this->{$name})) {\n"
+            . "    return null;\n"
+            . "}\n\n"
+            . "/** @var int \$value */\n"
+            . "\$value = \$this->{$name}->cdata;\n\n"
+            . "return EnumCase::createFromValue({$enum}::class, \$value);",
         );
     }
 

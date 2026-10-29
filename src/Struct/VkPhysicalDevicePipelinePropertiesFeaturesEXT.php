@@ -58,6 +58,10 @@ final class VkPhysicalDevicePipelinePropertiesFeaturesEXT implements InputStruct
         $data->pipelinePropertiesIdentifier = (int) $this->pipelinePropertiesIdentifier;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDevicePipelinePropertiesFeaturesEXT');
@@ -72,6 +76,9 @@ final class VkPhysicalDevicePipelinePropertiesFeaturesEXT implements InputStruct
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

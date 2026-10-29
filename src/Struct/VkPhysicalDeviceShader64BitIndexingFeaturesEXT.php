@@ -58,6 +58,10 @@ final class VkPhysicalDeviceShader64BitIndexingFeaturesEXT implements InputStruc
         $data->shader64BitIndexing = (int) $this->shader64BitIndexing;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceShader64BitIndexingFeaturesEXT');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceShader64BitIndexingFeaturesEXT implements InputStruc
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

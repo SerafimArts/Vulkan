@@ -111,22 +111,13 @@ final readonly class PreprocessorHeadersLoader implements HeadersLoaderInterface
     private static function getMacro(Platform $platform): string
     {
         return match ($platform) {
-            Platform::ANDROID => 'VK_USE_PLATFORM_ANDROID_KHR',
-            Platform::FUCHSIA => 'VK_USE_PLATFORM_FUCHSIA',
-            Platform::IOS => 'VK_USE_PLATFORM_IOS_MVK',
             Platform::MACOS => 'VK_USE_PLATFORM_MACOS_MVK',
             Platform::METAL => 'VK_USE_PLATFORM_METAL_EXT',
-            Platform::VI => 'VK_USE_PLATFORM_VI_NN',
             Platform::WAYLAND => 'VK_USE_PLATFORM_WAYLAND_KHR',
             Platform::WIN32 => 'VK_USE_PLATFORM_WIN32_KHR',
             Platform::XCB => 'VK_USE_PLATFORM_XCB_KHR',
             Platform::XLIB => 'VK_USE_PLATFORM_XLIB_KHR',
-            Platform::DIRECTFB => 'VK_USE_PLATFORM_DIRECTFB_EXT',
             Platform::XLIB_XRANDR => 'VK_USE_PLATFORM_XLIB_XRANDR_EXT',
-            Platform::GGP => 'VK_USE_PLATFORM_GGP',
-            Platform::SCREEN => 'VK_USE_PLATFORM_SCREEN_QNX',
-            Platform::OHOS => 'VK_USE_PLATFORM_OHOS',
-            Platform::UBM => 'VK_USE_PLATFORM_UBM_SEC',
         };
     }
 }

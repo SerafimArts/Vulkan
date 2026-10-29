@@ -9,7 +9,8 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -48,12 +49,12 @@ final class VkClearColorValue implements InputStructureInterface
         $members = \count(\array_filter([$this->float32, $this->int32, $this->uint32], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkClearColorValue', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkClearColorValue', $members);
         }
 
         if ($this->float32 !== null) {
             if (\count($this->float32) > 4) {
-                throw InvalidStructureException::becauseArrayIsTooLong('VkClearColorValue', 'float32', 4);
+                throw ArrayTooLongException::becauseArrayIsTooLong('VkClearColorValue', 'float32', 4);
             }
 
             foreach ($this->float32 as $i => $item) {
@@ -63,7 +64,7 @@ final class VkClearColorValue implements InputStructureInterface
 
         if ($this->int32 !== null) {
             if (\count($this->int32) > 4) {
-                throw InvalidStructureException::becauseArrayIsTooLong('VkClearColorValue', 'int32', 4);
+                throw ArrayTooLongException::becauseArrayIsTooLong('VkClearColorValue', 'int32', 4);
             }
 
             foreach ($this->int32 as $i => $item) {
@@ -73,7 +74,7 @@ final class VkClearColorValue implements InputStructureInterface
 
         if ($this->uint32 !== null) {
             if (\count($this->uint32) > 4) {
-                throw InvalidStructureException::becauseArrayIsTooLong('VkClearColorValue', 'uint32', 4);
+                throw ArrayTooLongException::becauseArrayIsTooLong('VkClearColorValue', 'uint32', 4);
             }
 
             foreach ($this->uint32 as $i => $item) {

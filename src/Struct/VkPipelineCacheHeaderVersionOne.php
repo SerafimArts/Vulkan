@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineCacheHeaderVersion;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -59,7 +59,7 @@ final class VkPipelineCacheHeaderVersionOne implements InputStructureInterface
         $data->deviceID = $this->deviceID;
 
         if (\strlen($this->pipelineCacheUUID) > 16) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPipelineCacheHeaderVersionOne', 'pipelineCacheUUID', 16);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPipelineCacheHeaderVersionOne', 'pipelineCacheUUID', 16);
         }
 
         if ($this->pipelineCacheUUID !== '') {

@@ -100,6 +100,7 @@ use Serafim\Vulkan\Struct\VkWin32SurfaceCreateInfoKHR;
 use Serafim\Vulkan\Vulkan;
 use Serafim\Vulkan\VulkanBase;
 
+use Serafim\Vulkan\Tests\Support\TwoCallProcedure;
 use const Serafim\Vulkan\VK_API_VERSION_1_1;
 use const Serafim\Vulkan\VK_API_VERSION_1_2;
 use const Serafim\Vulkan\VK_KHR_CALIBRATED_TIMESTAMPS_EXTENSION_NAME;
@@ -1084,26 +1085,19 @@ final class VulkanTest extends TestCase
 
     public function testArraysOfStructureAreAllocatedBetweenTheCallsOfTheCommand(): void
     {
-        $calls = 0;
-        $vk = self::loadVulkan()->withProcedure(
-            'vkGetSwapchainTimeDomainPropertiesEXT',
-            static function (mixed $device, mixed $swapchain, CData $properties, CData $counter) use (&$calls): int {
-                ++$calls;
-
-                if ($properties->pTimeDomains === null) {
-                    $properties->timeDomainCount = 2;
-
-                    return 0;
-                }
-
+        $procedure = new TwoCallProcedure(
+            static fn(mixed $device, mixed $swapchain, CData $properties): bool => $properties->pTimeDomains === null,
+            static function (mixed $device, mixed $swapchain, CData $properties): void {
+                $properties->timeDomainCount = 2;
+            },
+            static function (mixed $device, mixed $swapchain, CData $properties): void {
                 $properties->pTimeDomains[0] = VkTimeDomainKHR::VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR->value;
                 $properties->pTimeDomains[1] = VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR->value;
                 $properties->pTimeDomainIds[0] = 10;
                 $properties->pTimeDomainIds[1] = 20;
-
-                return 0;
             },
         );
+        $vk = self::loadVulkan()->withProcedure('vkGetSwapchainTimeDomainPropertiesEXT', $procedure);
 
         $result = $vk->vkGetSwapchainTimeDomainPropertiesEXT(
             new VkDevice($vk, $vk->ffi->new('VkDevice')),
@@ -1112,7 +1106,7 @@ final class VulkanTest extends TestCase
 
         $properties = $result['swapchainTimeDomainProperties'];
 
-        self::assertSame(2, $calls);
+        self::assertSame(2, $procedure->calls);
         self::assertSame(
             [VkTimeDomainKHR::VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR, VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR],
             $properties->timeDomains,
@@ -1122,32 +1116,21 @@ final class VulkanTest extends TestCase
 
     public function testHandlesAreCreatedForTheNumberTheFirstCallHasReported(): void
     {
-        $calls = 0;
         $base = self::loadVulkan();
         $ffi = $base->ffi;
+        $procedure = new TwoCallProcedure(
+            static fn(mixed $device, mixed $createInfo, mixed $allocator, CData $binaries): bool
+                => $binaries->pPipelineBinaries === null,
+            static function (mixed $device, mixed $createInfo, mixed $allocator, CData $binaries): void {
+                $binaries->pipelineBinaryCount = 2;
+            },
+            static function (mixed $device, mixed $createInfo, mixed $allocator, CData $binaries) use ($ffi): void {
+                $binaries->pPipelineBinaries[0] = $ffi->cast('VkPipelineBinaryKHR', 16);
+                $binaries->pPipelineBinaries[1] = $ffi->cast('VkPipelineBinaryKHR', 32);
+            },
+        );
         $vk = $base
-            ->withProcedure(
-                'vkCreatePipelineBinariesKHR',
-                static function (
-                    mixed $device,
-                    mixed $createInfo,
-                    mixed $allocator,
-                    CData $binaries,
-                ) use (&$calls, $ffi): int {
-                    ++$calls;
-
-                    if ($binaries->pPipelineBinaries === null) {
-                        $binaries->pipelineBinaryCount = 2;
-
-                        return 0;
-                    }
-
-                    $binaries->pPipelineBinaries[0] = $ffi->cast('VkPipelineBinaryKHR', 16);
-                    $binaries->pPipelineBinaries[1] = $ffi->cast('VkPipelineBinaryKHR', 32);
-
-                    return 0;
-                },
-            )
+            ->withProcedure('vkCreatePipelineBinariesKHR', $procedure)
             ->withProcedure('vkDestroyPipelineBinaryKHR', static function (): void {});
 
         $binaries = $vk->vkCreatePipelineBinariesKHR(
@@ -1155,7 +1138,7 @@ final class VulkanTest extends TestCase
             new VkPipelineBinaryCreateInfoKHR(),
         );
 
-        self::assertSame(2, $calls);
+        self::assertSame(2, $procedure->calls);
         self::assertCount(2, $binaries);
         self::assertContainsOnlyInstancesOf(VkPipelineBinaryKHR::class, $binaries);
     }

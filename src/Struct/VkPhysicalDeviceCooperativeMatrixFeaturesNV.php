@@ -62,6 +62,10 @@ final class VkPhysicalDeviceCooperativeMatrixFeaturesNV implements InputStructur
         $data->cooperativeMatrixRobustBufferAccess = (int) $this->cooperativeMatrixRobustBufferAccess;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceCooperativeMatrixFeaturesNV');
@@ -77,6 +81,9 @@ final class VkPhysicalDeviceCooperativeMatrixFeaturesNV implements InputStructur
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

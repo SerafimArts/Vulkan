@@ -58,6 +58,10 @@ final class VkPhysicalDeviceImageRobustnessFeatures implements InputStructureInt
         $data->robustImageAccess = (int) $this->robustImageAccess;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceImageRobustnessFeatures');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceImageRobustnessFeatures implements InputStructureInt
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

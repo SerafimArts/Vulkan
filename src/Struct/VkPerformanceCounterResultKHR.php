@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -55,7 +55,7 @@ final class VkPerformanceCounterResultKHR implements InputStructureInterface
         $members = \count(\array_filter([$this->int32, $this->int64, $this->uint32, $this->uint64, $this->float32, $this->float64], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkPerformanceCounterResultKHR', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkPerformanceCounterResultKHR', $members);
         }
 
         if ($this->int32 !== null) {

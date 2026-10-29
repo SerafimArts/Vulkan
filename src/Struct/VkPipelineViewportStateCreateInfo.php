@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineViewportStateCreateInfoExtension;
 
@@ -84,7 +84,7 @@ final class VkPipelineViewportStateCreateInfo implements InputStructureInterface
 
         if ($this->viewports !== []) {
             if ($data->viewportCount !== 0 && $data->viewportCount !== \count($this->viewports)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPipelineViewportStateCreateInfo', 'viewports');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPipelineViewportStateCreateInfo', 'viewports');
             }
 
             $data->viewportCount = \count($this->viewports);
@@ -97,7 +97,7 @@ final class VkPipelineViewportStateCreateInfo implements InputStructureInterface
 
         if ($this->scissors !== []) {
             if ($data->scissorCount !== 0 && $data->scissorCount !== \count($this->scissors)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPipelineViewportStateCreateInfo', 'scissors');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPipelineViewportStateCreateInfo', 'scissors');
             }
 
             $data->scissorCount = \count($this->scissors);

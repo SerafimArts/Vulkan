@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkCoverageModulationModeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtension;
 
@@ -82,7 +82,7 @@ final class VkPipelineCoverageModulationStateCreateInfoNV implements InputStruct
 
         if ($this->coverageModulationTable !== []) {
             if ($data->coverageModulationTableCount !== 0 && $data->coverageModulationTableCount !== \count($this->coverageModulationTable)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPipelineCoverageModulationStateCreateInfoNV', 'coverageModulationTable');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPipelineCoverageModulationStateCreateInfoNV', 'coverageModulationTable');
             }
 
             $data->coverageModulationTableCount = \count($this->coverageModulationTable);

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -65,7 +65,7 @@ final class VkDescriptorMappingSourceDataEXT implements InputStructureInterface
         $members = \count(\array_filter([$this->constantOffset, $this->pushIndex, $this->indirectIndex, $this->indirectIndexArray, $this->heapData, $this->pushDataOffset, $this->pushAddressOffset, $this->indirectAddress, $this->shaderRecordIndex, $this->shaderRecordDataOffset, $this->shaderRecordAddressOffset], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkDescriptorMappingSourceDataEXT', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkDescriptorMappingSourceDataEXT', $members);
         }
 
         if ($this->constantOffset !== null) {

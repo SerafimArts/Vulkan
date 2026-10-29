@@ -24,6 +24,10 @@ final readonly class VkTextureLODGatherFormatPropertiesAMD implements OutputStru
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TEXTURE_LOD_GATHER_FORMAT_PROPERTIES_AMD->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkTextureLODGatherFormatPropertiesAMD');
@@ -42,6 +46,9 @@ final readonly class VkTextureLODGatherFormatPropertiesAMD implements OutputStru
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

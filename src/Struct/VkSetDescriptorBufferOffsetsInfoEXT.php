@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSetDescriptorBufferOffsetsInfoEXTExtension;
@@ -83,7 +83,7 @@ final class VkSetDescriptorBufferOffsetsInfoEXT implements InputStructureInterfa
 
         if ($this->offsets !== []) {
             if ($data->setCount !== 0 && $data->setCount !== \count($this->offsets)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkSetDescriptorBufferOffsetsInfoEXT', 'offsets');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkSetDescriptorBufferOffsetsInfoEXT', 'offsets');
             }
 
             $data->setCount = \count($this->offsets);

@@ -62,6 +62,10 @@ final class VkImageCreateFlags2CreateInfoKHR implements InputStructureInterface,
         $data->flags = $this->flags;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkImageCreateFlags2CreateInfoKHR');
@@ -76,6 +80,9 @@ final class VkImageCreateFlags2CreateInfoKHR implements InputStructureInterface,
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

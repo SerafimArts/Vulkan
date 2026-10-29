@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -44,7 +44,7 @@ final class VkDeviceOrHostAddressKHR implements InputStructureInterface
         $members = \count(\array_filter([$this->deviceAddress, $this->hostAddress], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkDeviceOrHostAddressKHR', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkDeviceOrHostAddressKHR', $members);
         }
 
         if ($this->deviceAddress !== null) {

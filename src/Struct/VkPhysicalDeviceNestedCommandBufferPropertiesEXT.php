@@ -24,6 +24,10 @@ final readonly class VkPhysicalDeviceNestedCommandBufferPropertiesEXT implements
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_NESTED_COMMAND_BUFFER_PROPERTIES_EXT->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceNestedCommandBufferPropertiesEXT');
@@ -47,6 +51,9 @@ final readonly class VkPhysicalDeviceNestedCommandBufferPropertiesEXT implements
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

@@ -58,6 +58,10 @@ final class VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE implements Inp
         $data->videoEncodeRgbConversion = (int) $this->videoEncodeRgbConversion;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceVideoEncodeRgbConversionFeaturesVALVE implements Inp
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

@@ -13,7 +13,7 @@ use Serafim\Vulkan\Enum\VkBuildMicromapFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkBuildMicromapModeEXT;
 use Serafim\Vulkan\Enum\VkMicromapTypeEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkMicromapEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -92,7 +92,7 @@ final class VkMicromapBuildInfoEXT implements InputStructureInterface
 
         if ($this->usageCounts !== []) {
             if ($data->usageCountsCount !== 0 && $data->usageCountsCount !== \count($this->usageCounts)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkMicromapBuildInfoEXT', 'usageCounts');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkMicromapBuildInfoEXT', 'usageCounts');
             }
 
             $data->usageCountsCount = \count($this->usageCounts);
@@ -101,7 +101,7 @@ final class VkMicromapBuildInfoEXT implements InputStructureInterface
 
         if ($this->usageCounts !== []) {
             if ($data->usageCountsCount !== 0 && $data->usageCountsCount !== \count($this->usageCounts)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkMicromapBuildInfoEXT', 'usageCounts');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkMicromapBuildInfoEXT', 'usageCounts');
             }
 
             $data->usageCountsCount = \count($this->usageCounts);

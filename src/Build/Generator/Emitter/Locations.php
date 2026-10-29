@@ -22,6 +22,8 @@ final class Locations
 
     public const string ROOT_NAMESPACE = 'Serafim\Vulkan';
 
+    public const string COMMANDS_NAMESPACE = 'Serafim\Vulkan\Commands';
+
     /**
      * Directories of the generated classes: the files of the Vulkan symbols
      * (the names start with `Vk`) in them are generated.

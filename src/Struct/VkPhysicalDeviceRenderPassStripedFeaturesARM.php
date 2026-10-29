@@ -58,6 +58,10 @@ final class VkPhysicalDeviceRenderPassStripedFeaturesARM implements InputStructu
         $data->renderPassStriped = (int) $this->renderPassStriped;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceRenderPassStripedFeaturesARM');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceRenderPassStripedFeaturesARM implements InputStructu
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

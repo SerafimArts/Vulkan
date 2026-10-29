@@ -102,6 +102,10 @@ final class VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT implements InputStruct
         $data->sparseImageFloat32AtomicMinMax = (int) $this->sparseImageFloat32AtomicMinMax;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT');
@@ -127,6 +131,9 @@ final class VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT implements InputStruct
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

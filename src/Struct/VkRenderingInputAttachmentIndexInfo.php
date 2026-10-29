@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
@@ -75,7 +75,7 @@ final class VkRenderingInputAttachmentIndexInfo implements InputStructureInterfa
 
         if ($this->colorAttachmentInputIndices !== []) {
             if ($data->colorAttachmentCount !== 0 && $data->colorAttachmentCount !== \count($this->colorAttachmentInputIndices)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkRenderingInputAttachmentIndexInfo', 'colorAttachmentInputIndices');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkRenderingInputAttachmentIndexInfo', 'colorAttachmentInputIndices');
             }
 
             $data->colorAttachmentCount = \count($this->colorAttachmentInputIndices);

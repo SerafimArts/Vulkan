@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -47,7 +47,7 @@ final class VkResourceDescriptorDataEXT implements InputStructureInterface
         $members = \count(\array_filter([$this->image, $this->texelBuffer, $this->addressRange, $this->tensorARM], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkResourceDescriptorDataEXT', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkResourceDescriptorDataEXT', $members);
         }
 
         if ($this->image !== null) {

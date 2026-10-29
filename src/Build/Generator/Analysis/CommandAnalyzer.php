@@ -7,6 +7,7 @@ namespace Serafim\Vulkan\Build\Generator\Analysis;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandAnalyzer\OutputLengths;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandAnalyzer\ParameterRoles;
 use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
+use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Build\Generator\Registry\CommandDefinition;
 use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
@@ -52,11 +53,25 @@ final readonly class CommandAnalyzer
         }
 
         $parameters = $this->roles->create($command);
+
         $outputs = \array_values(\array_filter($parameters, $this->isOutput(...)));
         $count = $this->findCount($parameters);
 
         if ($outputs !== [] && $returnKind !== null) {
             throw $this->createException($command, 'the command returns a value and has outputs');
+        }
+
+        $counted = $this->findCounted($outputs);
+
+        if ($counted !== null) {
+            return new CommandPlan(
+                $command,
+                CommandKind::QUERY_COUNTED,
+                $parameters,
+                $counted[1],
+                $returnsResult,
+                outputs: $counted,
+            );
         }
 
         if (\count($outputs) > 1) {
@@ -143,7 +158,7 @@ final readonly class CommandAnalyzer
         ParameterPlan $output,
         ?string $outputLength,
     ): ?array {
-        $member = MixedStructures::findInput($output->field->type);
+        $member = Quirks::findMixedInput($output->field->type);
 
         if ($kind !== CommandKind::QUERY_ARRAY || $member === null || $outputLength === null) {
             return null;
@@ -224,6 +239,39 @@ final readonly class CommandAnalyzer
             $outputs,
             $lengths,
         );
+    }
+
+    /**
+     * Returns the structure with the lengths that the first call fills and the
+     * structure whose arrays are allocated for them, when the command fills
+     * both.
+     *
+     * @param list<ParameterPlan> $outputs
+     *
+     * @return array{ParameterPlan, ParameterPlan}|null
+     */
+    private function findCounted(array $outputs): ?array
+    {
+        if (\count($outputs) !== 2) {
+            return null;
+        }
+
+        foreach ([[0, 1], [1, 0]] as [$countsIndex, $structIndex]) {
+            $counts = $outputs[$countsIndex];
+            $struct = $outputs[$structIndex];
+
+            if ($counts->role !== ParameterRole::OUTPUT_STRUCTURE || $struct->role !== ParameterRole::OUTPUT_STRUCTURE) {
+                continue;
+            }
+
+            $expected = Quirks::findCounts($struct->field->type)[0] ?? null;
+
+            if ($expected === $counts->field->type) {
+                return [$counts, $struct];
+            }
+        }
+
+        return null;
     }
 
     /**

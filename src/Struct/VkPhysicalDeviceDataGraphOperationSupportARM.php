@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPhysicalDeviceDataGraphOperationTypeARM;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -48,7 +48,7 @@ final class VkPhysicalDeviceDataGraphOperationSupportARM implements InputStructu
         $data->operationType = $this->operationType->value;
 
         if (\strlen($this->name) >= 128) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPhysicalDeviceDataGraphOperationSupportARM', 'name', 128 - 1);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPhysicalDeviceDataGraphOperationSupportARM', 'name', 128 - 1);
         }
 
         \FFI::memcpy($data->name, $this->name . "\0", \strlen($this->name) + 1);
@@ -64,6 +64,9 @@ final class VkPhysicalDeviceDataGraphOperationSupportARM implements InputStructu
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

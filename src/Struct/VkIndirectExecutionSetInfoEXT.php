@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -43,7 +43,7 @@ final class VkIndirectExecutionSetInfoEXT implements InputStructureInterface
         $members = \count(\array_filter([$this->pipelineInfo, $this->shaderInfo], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkIndirectExecutionSetInfoEXT', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkIndirectExecutionSetInfoEXT', $members);
         }
 
         if ($this->pipelineInfo !== null) {

@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFragmentShadingRateCombinerOpKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -60,7 +60,7 @@ final class VkPipelineFragmentShadingRateStateCreateInfoKHR implements InputStru
         $this->fragmentSize->write($memory, $data->fragmentSize);
 
         if (\count($this->combinerOps) > 2) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPipelineFragmentShadingRateStateCreateInfoKHR', 'combinerOps', 2);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPipelineFragmentShadingRateStateCreateInfoKHR', 'combinerOps', 2);
         }
 
         foreach ($this->combinerOps as $i => $item) {

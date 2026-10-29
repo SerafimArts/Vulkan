@@ -24,6 +24,10 @@ final readonly class VkVideoEncodeH264QuantizationMapCapabilitiesKHR implements 
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_QUANTIZATION_MAP_CAPABILITIES_KHR->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkVideoEncodeH264QuantizationMapCapabilitiesKHR');
@@ -54,6 +58,9 @@ final readonly class VkVideoEncodeH264QuantizationMapCapabilitiesKHR implements 
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

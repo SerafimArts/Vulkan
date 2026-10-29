@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\MissingContextException;
 use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\Struct\Extension\VkDisplayModeProperties2KHRExtension;
 use Serafim\Vulkan\VulkanBase;
@@ -38,6 +38,9 @@ final readonly class VkDisplayModeProperties2KHR implements OutputStructureInter
      * @param list<VkDisplayModeProperties2KHRExtension> $chain
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(
         CData $data,
@@ -46,7 +49,7 @@ final readonly class VkDisplayModeProperties2KHR implements OutputStructureInter
         ?Handle $parent = null,
     ): self {
         if ($vk === null) {
-            throw InvalidStructureException::becauseContextIsMissing(self::class);
+            throw MissingContextException::becauseContextIsMissing(self::class);
         }
 
         return new self(

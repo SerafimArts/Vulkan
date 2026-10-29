@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\MixedElementTypesException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 
@@ -56,7 +56,7 @@ trait InputStructureTrait
     {
         foreach ($structures as $structure) {
             if ($structure::class !== static::class) {
-                throw InvalidStructureException::becauseElementsAreOfDifferentTypes(
+                throw MixedElementTypesException::becauseElementsAreOfDifferentTypes(
                     static::class,
                     $structure::class,
                 );

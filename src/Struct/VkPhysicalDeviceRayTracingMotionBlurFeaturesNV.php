@@ -62,6 +62,10 @@ final class VkPhysicalDeviceRayTracingMotionBlurFeaturesNV implements InputStruc
         $data->rayTracingMotionBlurPipelineTraceRaysIndirect = (int) $this->rayTracingMotionBlurPipelineTraceRaysIndirect;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceRayTracingMotionBlurFeaturesNV');
@@ -77,6 +81,9 @@ final class VkPhysicalDeviceRayTracingMotionBlurFeaturesNV implements InputStruc
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

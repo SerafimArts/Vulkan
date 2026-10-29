@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -45,7 +45,7 @@ final class VkClusterAccelerationStructureOpInputNV implements InputStructureInt
         $members = \count(\array_filter([$this->clustersBottomLevel, $this->triangleClusters, $this->moveObjects], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkClusterAccelerationStructureOpInputNV', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkClusterAccelerationStructureOpInputNV', $members);
         }
 
         if ($this->clustersBottomLevel !== null) {

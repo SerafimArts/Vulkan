@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -57,7 +57,7 @@ final class VkImageBlit implements InputStructureInterface
         $this->srcSubresource->write($memory, $data->srcSubresource);
 
         if (\count($this->srcOffsets) > 2) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkImageBlit', 'srcOffsets', 2);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkImageBlit', 'srcOffsets', 2);
         }
 
         foreach ($this->srcOffsets as $i => $item) {
@@ -68,7 +68,7 @@ final class VkImageBlit implements InputStructureInterface
         $this->dstSubresource->write($memory, $data->dstSubresource);
 
         if (\count($this->dstOffsets) > 2) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkImageBlit', 'dstOffsets', 2);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkImageBlit', 'dstOffsets', 2);
         }
 
         foreach ($this->dstOffsets as $i => $item) {

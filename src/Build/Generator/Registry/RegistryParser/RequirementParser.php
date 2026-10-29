@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Registry\RegistryParser;
 
+use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Build\Generator\Registry\Deprecation;
 
 /**
@@ -51,6 +52,72 @@ final readonly class RequirementParser
 
         /** @var array<non-empty-string, non-empty-string> $since */
         return $since;
+    }
+
+    /**
+     * Returns the commands and the types that only the platforms other than
+     * Windows, Linux and macOS, Vulkan SC or the beta extensions provide.
+     *
+     * @return array<non-empty-string, true>
+     */
+    public function parseExcluded(): array
+    {
+        $excluded = [];
+
+        foreach ($this->elements->select('//extensions/extension') as $extension) {
+            if (!$this->isExcludedExtension($extension)) {
+                continue;
+            }
+
+            foreach ($this->elements->select(self::PROVIDED, $extension) as $item) {
+                $excluded[$item->getAttribute('name')] = true;
+            }
+        }
+
+        foreach ($this->elements->select('//require/*[@api="vulkansc"]') as $item) {
+            $excluded[$item->getAttribute('name')] = true;
+        }
+
+        foreach ($this->elements->select('//feature') as $feature) {
+            if ($this->isVulkan($feature->getAttribute('api'))) {
+                continue;
+            }
+
+            foreach ($this->elements->select(self::PROVIDED, $feature) as $item) {
+                $excluded[$item->getAttribute('name')] = true;
+            }
+        }
+
+        foreach ($this->findExtensionProviders() as $name => $extensions) {
+            $providers = \array_filter(
+                $extensions,
+                fn(string $extension): bool => !$this->isExcludedExtensionName($extension),
+            );
+
+            if ($providers !== []) {
+                unset($excluded[$name]);
+            }
+        }
+
+        foreach ($this->parseCoreNames() as $name => $_) {
+            unset($excluded[$name]);
+        }
+
+        /** @var array<non-empty-string, true> $excluded */
+        return $excluded;
+    }
+
+    private function isExcludedExtensionName(string $name): bool
+    {
+        $extension = $this->elements->select('//extensions/extension[@name="' . $name . '"]')[0] ?? null;
+
+        return $extension === null || $this->isExcludedExtension($extension);
+    }
+
+    private function isExcludedExtension(\DOMElement $extension): bool
+    {
+        return Quirks::isExcludedExtension($extension->getAttribute('name'), $extension->getAttribute('platform'))
+            || !$this->isVulkan($extension->getAttribute('supported'));
     }
 
     /**

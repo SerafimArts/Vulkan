@@ -10,33 +10,28 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultCountsEXT.html
  * @since VK_EXT_device_fault
  */
-final class VkDeviceFaultCountsEXT implements InputStructureInterface
+final readonly class VkDeviceFaultCountsEXT implements OutputStructureInterface
 {
-    use InputStructureTrait;
-
-    protected const string NATIVE_TYPE = 'VkDeviceFaultCountsEXT';
+    use OutputStructureTrait;
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT->value;
 
     public function __construct(
         /** @var int<0, 4294967295> */
-        public int $addressInfoCount = 0,
+        public int $addressInfoCount,
         /** @var int<0, 4294967295> */
-        public int $vendorInfoCount = 0,
+        public int $vendorInfoCount,
         /** Specified in bytes */
-        public int $vendorBinarySize = 0,
+        public int $vendorBinarySize,
     ) {}
 
     /**
      * @param CData&object{
-     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_COUNTS_EXT>,
-     *     pNext: CData,
      *     addressInfoCount: int<0, 4294967295>,
      *     vendorInfoCount: int<0, 4294967295>,
      *     vendorBinarySize: int,
@@ -47,14 +42,12 @@ final class VkDeviceFaultCountsEXT implements InputStructureInterface
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public function write(Allocation $memory, CData $data): void
+    public static function createFromCData(CData $data): self
     {
-        $data->sType = self::STRUCTURE_TYPE;
-
-        $data->addressInfoCount = $this->addressInfoCount;
-
-        $data->vendorInfoCount = $this->vendorInfoCount;
-
-        $data->vendorBinarySize = $this->vendorBinarySize;
+        return new self(
+            addressInfoCount: $data->addressInfoCount,
+            vendorInfoCount: $data->vendorInfoCount,
+            vendorBinarySize: $data->vendorBinarySize,
+        );
     }
 }

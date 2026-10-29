@@ -10,6 +10,7 @@ use PHPat\Test\Builder\Rule;
 use PHPat\Test\PHPat;
 use Serafim\Vulkan\Build\Generator\Exception\GeneratorException;
 use Serafim\Vulkan\CommandResult;
+use Serafim\Vulkan\Internal\DoubleCall;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\VulkanBase;
 
@@ -38,6 +39,7 @@ final class GeneratorArchitecture
                 Selector::classname(VulkanBase::class),
                 Selector::classname(CommandResult::class),
                 Selector::classname(EnumCase::class),
+                Selector::classname(DoubleCall::class),
             );
     }
 

@@ -74,6 +74,10 @@ final class VkPhysicalDeviceDataGraphFeaturesARM implements InputStructureInterf
         $data->dataGraphShaderModule = (int) $this->dataGraphShaderModule;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceDataGraphFeaturesARM');
@@ -92,6 +96,9 @@ final class VkPhysicalDeviceDataGraphFeaturesARM implements InputStructureInterf
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

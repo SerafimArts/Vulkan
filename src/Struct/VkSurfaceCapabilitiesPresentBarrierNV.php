@@ -24,6 +24,10 @@ final readonly class VkSurfaceCapabilitiesPresentBarrierNV implements OutputStru
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkSurfaceCapabilitiesPresentBarrierNV');
@@ -42,6 +46,9 @@ final readonly class VkSurfaceCapabilitiesPresentBarrierNV implements OutputStru
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

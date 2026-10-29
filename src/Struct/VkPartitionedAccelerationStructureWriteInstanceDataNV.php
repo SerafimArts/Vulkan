@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPartitionedAccelerationStructureInstanceFlagBitsNV;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -65,7 +65,7 @@ final class VkPartitionedAccelerationStructureWriteInstanceDataNV implements Inp
         $this->transform->write($memory, $data->transform);
 
         if (\count($this->explicitAABB) > 6) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPartitionedAccelerationStructureWriteInstanceDataNV', 'explicitAABB', 6);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPartitionedAccelerationStructureWriteInstanceDataNV', 'explicitAABB', 6);
         }
 
         foreach ($this->explicitAABB as $i => $item) {

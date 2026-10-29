@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Build\Generator;
 
 use Serafim\Vulkan\Build\Generator\Analysis\Planner;
-use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\StructRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter;
@@ -57,7 +56,7 @@ final readonly class CodeGenerator
 
         foreach ($plan->structs as $struct) {
             foreach ($struct->properties as $property) {
-                if ($property->kind === PropertyKind::QUERIED_ARRAY || $property->kind === PropertyKind::QUERIED_BYTES) {
+                if ($property->kind->isQueried()) {
                     $buffered = [...$buffered, ...$struct->implements];
                     $filled[] = $struct->struct->name;
                 }
@@ -66,7 +65,7 @@ final readonly class CodeGenerator
 
         $meta = new MetaRecorder();
         $files = [
-            new CommandsEmitter($registry, $types, new Structures(
+            ...new CommandsEmitter($registry, $types, new Structures(
                 $roots,
                 $contextual,
                 \array_values(\array_unique($buffered)),

@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -47,7 +47,7 @@ final class VkPipelineBinaryKeyKHR implements InputStructureInterface
         $data->sType = self::STRUCTURE_TYPE;
 
         if (\strlen($this->key) > 32) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPipelineBinaryKeyKHR', 'key', 32);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPipelineBinaryKeyKHR', 'key', 32);
         }
 
         if ($this->key !== '') {
@@ -61,6 +61,9 @@ final class VkPipelineBinaryKeyKHR implements InputStructureInterface
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

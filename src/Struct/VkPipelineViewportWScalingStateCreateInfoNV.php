@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineViewportStateCreateInfoExtension;
 
@@ -72,7 +72,7 @@ final class VkPipelineViewportWScalingStateCreateInfoNV implements InputStructur
 
         if ($this->viewportWScalings !== []) {
             if ($data->viewportCount !== 0 && $data->viewportCount !== \count($this->viewportWScalings)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPipelineViewportWScalingStateCreateInfoNV', 'viewportWScalings');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPipelineViewportWScalingStateCreateInfoNV', 'viewportWScalings');
             }
 
             $data->viewportCount = \count($this->viewportWScalings);

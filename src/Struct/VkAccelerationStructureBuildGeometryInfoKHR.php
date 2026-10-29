@@ -13,7 +13,7 @@ use Serafim\Vulkan\Enum\VkAccelerationStructureTypeKHR;
 use Serafim\Vulkan\Enum\VkBuildAccelerationStructureFlagBitsKHR;
 use Serafim\Vulkan\Enum\VkBuildAccelerationStructureModeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkAccelerationStructureKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -92,7 +92,7 @@ final class VkAccelerationStructureBuildGeometryInfoKHR implements InputStructur
 
         if ($this->geometries !== []) {
             if ($data->geometryCount !== 0 && $data->geometryCount !== \count($this->geometries)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkAccelerationStructureBuildGeometryInfoKHR', 'geometries');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkAccelerationStructureBuildGeometryInfoKHR', 'geometries');
             }
 
             $data->geometryCount = \count($this->geometries);
@@ -101,7 +101,7 @@ final class VkAccelerationStructureBuildGeometryInfoKHR implements InputStructur
 
         if ($this->geometries !== []) {
             if ($data->geometryCount !== 0 && $data->geometryCount !== \count($this->geometries)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkAccelerationStructureBuildGeometryInfoKHR', 'geometries');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkAccelerationStructureBuildGeometryInfoKHR', 'geometries');
             }
 
             $data->geometryCount = \count($this->geometries);

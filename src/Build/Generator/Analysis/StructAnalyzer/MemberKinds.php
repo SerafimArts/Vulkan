@@ -111,6 +111,14 @@ final readonly class MemberKinds
             return PropertyKind::SCALAR_POINTER;
         }
 
+        if ($type === TypeKind::INTEGER && $member->pointerDepth === 1 && !$member->isConst && $member->length === null) {
+            return PropertyKind::INOUT_INTEGER;
+        }
+
+        if ($type === TypeKind::ENUMERATION && $member->pointerDepth === 1 && !$member->isConst && $member->length === null) {
+            return PropertyKind::FEEDBACK_ENUMERATION;
+        }
+
         if ($type === TypeKind::HANDLE && $member->pointerDepth === 1 && $member->isConst && $member->length === null) {
             return PropertyKind::HANDLE_POINTER;
         }
@@ -119,6 +127,10 @@ final readonly class MemberKinds
             if ($this->hasLengthMember($struct, $member)) {
                 return PropertyKind::STRUCTURE_ARRAY;
             }
+        }
+
+        if ($member->type === 'void' && $member->pointerDepth === 2 && $member->isConst && $this->hasLengthMember($struct, $member)) {
+            return PropertyKind::VALUE_POINTER_ARRAY;
         }
 
         if (
@@ -149,6 +161,7 @@ final readonly class MemberKinds
                 TypeKind::HANDLE => PropertyKind::HANDLE_ARRAY,
                 TypeKind::INTEGER, TypeKind::FLOAT => PropertyKind::NUMBER_ARRAY,
                 TypeKind::ENUMERATION => PropertyKind::ENUMERATION_ARRAY,
+                TypeKind::BOOLEAN => PropertyKind::BOOLEAN_ARRAY,
                 default => null,
             };
         }
@@ -175,6 +188,10 @@ final readonly class MemberKinds
     {
         if ($member->length === null || $member->isNullTerminated) {
             return false;
+        }
+
+        if ($member->lengthStruct !== null) {
+            return true;
         }
 
         foreach ($struct->members as $candidate) {

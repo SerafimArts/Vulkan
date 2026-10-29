@@ -29,6 +29,10 @@ final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructu
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceVulkan14Properties');
@@ -69,6 +73,9 @@ final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructu
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
@@ -192,6 +199,9 @@ final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructu
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

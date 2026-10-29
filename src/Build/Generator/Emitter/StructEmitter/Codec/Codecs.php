@@ -52,6 +52,11 @@ final readonly class Codecs
             PropertyKind::HANDLE_ARRAY->name => new HandleArrayCodec(),
             PropertyKind::NUMBER_ARRAY->name => new NumberArrayCodec($numbers),
             PropertyKind::ENUMERATION_ARRAY->name => new EnumerationArrayCodec(),
+            PropertyKind::BOOLEAN_ARRAY->name => new BooleanArrayCodec(),
+            PropertyKind::VALUE_POINTER_ARRAY->name => new ValuePointerArrayCodec(),
+            PropertyKind::INOUT_INTEGER->name => new InoutIntegerCodec(),
+            PropertyKind::OWNED_ARRAY->name => new QueriedArrayCodec($types, $numbers),
+            PropertyKind::FEEDBACK_ENUMERATION->name => new FeedbackEnumerationCodec(),
             PropertyKind::NEXT->name => new NextCodec(),
             PropertyKind::CHAIN->name => new ChainCodec(),
         ];

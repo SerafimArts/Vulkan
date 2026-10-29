@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -47,7 +47,7 @@ final class VkExtensionProperties implements InputStructureInterface
     public function write(Allocation $memory, CData $data): void
     {
         if (\strlen($this->extensionName) >= 256) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkExtensionProperties', 'extensionName', 256 - 1);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkExtensionProperties', 'extensionName', 256 - 1);
         }
 
         \FFI::memcpy($data->extensionName, $this->extensionName . "\0", \strlen($this->extensionName) + 1);
@@ -62,6 +62,9 @@ final class VkExtensionProperties implements InputStructureInterface
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

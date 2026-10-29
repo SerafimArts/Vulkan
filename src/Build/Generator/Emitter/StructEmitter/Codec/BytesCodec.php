@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec;
 
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
+use Serafim\Vulkan\Exception\InvalidStructure\WrongArrayLengthException;
 
 /**
  * `uint8_t[N]`, the bytes of an identifier.
@@ -16,7 +17,8 @@ final readonly class BytesCodec extends AbstractPropertyCodec
 {
     public function createWriteLines(PropertyContext $context): array
     {
-        $context->namespace->addUse(InvalidStructureException::class);
+        $context->namespace->addUse(ArrayTooLongException::class);
+        $context->namespace->addUse(WrongArrayLengthException::class);
 
         $property = $context->property;
         $value = $context->createValueExpression();
@@ -25,7 +27,7 @@ final readonly class BytesCodec extends AbstractPropertyCodec
         if ($property->field->pointerDepth === 1) {
             return [
                 'if (\strlen(' . $value . ') !== ' . $size . ') {',
-                '    throw InvalidStructureException::becauseArrayHasWrongLength('
+                '    throw WrongArrayLengthException::becauseArrayHasWrongLength('
                     . \var_export($context->structure, true) . ', ' . \var_export($property->name, true) . ', '
                     . $size . ');',
                 '}',
@@ -37,7 +39,7 @@ final readonly class BytesCodec extends AbstractPropertyCodec
 
         return [
             'if (\strlen(' . $value . ') > ' . $size . ') {',
-            '    throw InvalidStructureException::becauseArrayIsTooLong('
+            '    throw ArrayTooLongException::becauseArrayIsTooLong('
                 . \var_export($context->structure, true) . ', ' . \var_export($property->name, true) . ', '
                 . $size . ');',
             '}',

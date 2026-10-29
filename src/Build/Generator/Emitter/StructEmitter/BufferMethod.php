@@ -53,11 +53,17 @@ final readonly class BufferMethod
         $namespace->addUse(Allocator::class);
         $namespace->addUse(CData::class);
 
-        $class->addImplement(
-            Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, 'BufferedStructureInterface'),
-        );
+        if ($plan->counts === null) {
+            $class->addImplement(
+                Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, 'BufferedStructureInterface'),
+            );
+        }
 
         $lines = ['$owner ??= $data;', '$isAllocated = false;'];
+
+        if ($plan->counts !== null) {
+            $lines = ['$owner = $data;', '$isAllocated = false;'];
+        }
 
         foreach ($plan->properties as $property) {
             if ($this->isQueried($property)) {
@@ -76,16 +82,24 @@ final readonly class BufferMethod
 
         $method->addParameter('memory')->setType(Allocator::class);
         $method->addParameter('data')->setType(CData::class);
-        $method->addParameter('owner', null)->setType(CData::class)->setNullable();
+        if ($plan->counts !== null) {
+            $method->addParameter('counts')->setType(CData::class);
+        }
 
-        foreach ($this->shape->createWritten($namespace, $plan) as $line) {
+        if ($plan->counts === null) {
+            $method->addParameter('owner', null)->setType(CData::class)->setNullable();
+        }
+
+        foreach ([...$this->shape->createWritten($namespace, $plan), ...$this->shape->createCounts($plan)] as $line) {
             $method->addComment($line);
         }
+
+        InternalMethod::mark($method);
     }
 
     private function isQueried(PropertyPlan $property): bool
     {
-        return $property->kind === PropertyKind::QUERIED_ARRAY || $property->kind === PropertyKind::QUERIED_BYTES;
+        return $property->kind->isQueried();
     }
 
     /**
@@ -98,6 +112,16 @@ final readonly class BufferMethod
     private function createLines(PhpNamespace $namespace, PropertyPlan $property): array
     {
         $length = '$data->' . ($property->field->length ?? '');
+        $prelude = [];
+
+        if ($property->field->lengthStruct !== null) {
+            $length = '$' . ($property->field->length ?? '');
+            $prelude = [
+                '/** @var int<0, max> ' . $length . ' */',
+                $length . ' = $counts->' . ($property->field->length ?? '') . ';',
+                '',
+            ];
+        }
         $field = '$data->' . $property->field->name;
         $type = $property->field->type;
         $lines = ['if (' . $length . ' !== 0) {', '    if (' . $field . ' === null) {'];
@@ -151,6 +175,6 @@ final readonly class BufferMethod
             ];
         }
 
-        return [...$lines, '}'];
+        return [...$prelude, ...$lines, '}'];
     }
 }

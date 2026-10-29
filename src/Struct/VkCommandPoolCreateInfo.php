@@ -12,6 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkCommandPoolCreateFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\Extension\VkCommandPoolCreateInfoExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandPoolCreateInfo.html
@@ -26,6 +27,7 @@ final class VkCommandPoolCreateInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO->value;
 
     public function __construct(
+        public ?VkCommandPoolCreateInfoExtension $next = null,
         /**
          * Command pool creation flags
          *
@@ -52,6 +54,12 @@ final class VkCommandPoolCreateInfo implements InputStructureInterface
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
+
+        if ($this->next !== null) {
+            \assert($this->next instanceof InputStructureInterface);
+
+            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
+        }
 
         $data->flags = $this->flags;
 

@@ -24,6 +24,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Writer;
 use Serafim\Vulkan\Build\Generator\Exception\InvalidRegistryException;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Struct\CountedStructureInterface;
 use Serafim\Vulkan\Struct\InputStructureInterface;
 use Serafim\Vulkan\Struct\InputStructureTrait;
 use Serafim\Vulkan\Struct\OutputStructureInterface;
@@ -68,7 +69,7 @@ final readonly class StructEmitter
         $numbers = new NumberTypes($types);
         $codecs = new Codecs($types, $numbers);
         $reader = new Reader($types, $codecs);
-        $shape = new Shape($reader);
+        $shape = new Shape($reader, $registry);
 
         $this->files = new PhpFiles();
         $this->properties = new Properties($types, $codecs, $meta);
@@ -167,6 +168,12 @@ final readonly class StructEmitter
         $class->setReadOnly();
         $class->addImplement(OutputStructureInterface::class);
         $class->addTrait(OutputStructureTrait::class);
+
+        if ($plan->counts !== null) {
+            $namespace->addUse(CountedStructureInterface::class);
+
+            $class->setImplements([CountedStructureInterface::class]);
+        }
 
         if ($plan->structureType !== null) {
             $this->emitStructureType($namespace, $class, $plan->structureType);

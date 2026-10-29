@@ -67,6 +67,8 @@ final readonly class ChainMethods
             );
 
         $method->addParameter('memory')->setType(Allocator::class);
+
+        InternalMethod::mark($method);
     }
 
     /**

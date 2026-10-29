@@ -58,6 +58,10 @@ final class VkPhysicalDeviceDepthClampZeroOneFeaturesKHR implements InputStructu
         $data->depthClampZeroOne = (int) $this->depthClampZeroOne;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceDepthClampZeroOneFeaturesKHR');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceDepthClampZeroOneFeaturesKHR implements InputStructu
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

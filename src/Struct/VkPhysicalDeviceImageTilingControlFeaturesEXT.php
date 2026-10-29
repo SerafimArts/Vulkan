@@ -58,6 +58,10 @@ final class VkPhysicalDeviceImageTilingControlFeaturesEXT implements InputStruct
         $data->imageTilingControl = (int) $this->imageTilingControl;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceImageTilingControlFeaturesEXT');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceImageTilingControlFeaturesEXT implements InputStruct
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

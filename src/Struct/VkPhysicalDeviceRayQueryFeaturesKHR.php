@@ -58,6 +58,10 @@ final class VkPhysicalDeviceRayQueryFeaturesKHR implements InputStructureInterfa
         $data->rayQuery = (int) $this->rayQuery;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceRayQueryFeaturesKHR');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceRayQueryFeaturesKHR implements InputStructureInterfa
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

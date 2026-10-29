@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -54,7 +54,7 @@ final class VkDebugUtilsLabelEXT implements InputStructureInterface
         }
 
         if (\count($this->color) > 4) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkDebugUtilsLabelEXT', 'color', 4);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkDebugUtilsLabelEXT', 'color', 4);
         }
 
         foreach ($this->color as $i => $item) {

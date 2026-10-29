@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkDeviceMemory;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfo2Extension;
@@ -77,7 +77,7 @@ final class VkWin32KeyedMutexAcquireReleaseInfoKHR implements InputStructureInte
 
         if ($this->acquireKeys !== []) {
             if ($data->acquireCount !== 0 && $data->acquireCount !== \count($this->acquireKeys)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkWin32KeyedMutexAcquireReleaseInfoKHR', 'acquireKeys');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkWin32KeyedMutexAcquireReleaseInfoKHR', 'acquireKeys');
             }
 
             $data->acquireCount = \count($this->acquireKeys);
@@ -86,7 +86,7 @@ final class VkWin32KeyedMutexAcquireReleaseInfoKHR implements InputStructureInte
 
         if ($this->acquireTimeouts !== []) {
             if ($data->acquireCount !== 0 && $data->acquireCount !== \count($this->acquireTimeouts)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkWin32KeyedMutexAcquireReleaseInfoKHR', 'acquireTimeouts');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkWin32KeyedMutexAcquireReleaseInfoKHR', 'acquireTimeouts');
             }
 
             $data->acquireCount = \count($this->acquireTimeouts);
@@ -100,7 +100,7 @@ final class VkWin32KeyedMutexAcquireReleaseInfoKHR implements InputStructureInte
 
         if ($this->releaseKeys !== []) {
             if ($data->releaseCount !== 0 && $data->releaseCount !== \count($this->releaseKeys)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkWin32KeyedMutexAcquireReleaseInfoKHR', 'releaseKeys');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkWin32KeyedMutexAcquireReleaseInfoKHR', 'releaseKeys');
             }
 
             $data->releaseCount = \count($this->releaseKeys);

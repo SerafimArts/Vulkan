@@ -62,6 +62,10 @@ final class VkPhysicalDeviceShaderAtomicInt64Features implements InputStructureI
         $data->shaderSharedInt64Atomics = (int) $this->shaderSharedInt64Atomics;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceShaderAtomicInt64Features');
@@ -77,6 +81,9 @@ final class VkPhysicalDeviceShaderAtomicInt64Features implements InputStructureI
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

@@ -35,6 +35,9 @@ final readonly class VkMemoryRequirements2 implements OutputStructureInterface
      * @param list<VkMemoryRequirements2Extension> $chain
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data, array $chain = []): self
     {

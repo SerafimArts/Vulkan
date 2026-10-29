@@ -25,6 +25,10 @@ final readonly class VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV implem
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_PROPERTIES_NV->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV');
@@ -48,6 +52,9 @@ final readonly class VkPhysicalDeviceFragmentShadingRateEnumsPropertiesNV implem
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

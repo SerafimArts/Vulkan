@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec;
 
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 
 /**
  * An array with the length in another member: the length and the pointer are written
@@ -27,12 +27,12 @@ abstract readonly class ArrayCodec extends AbstractPropertyCodec
         $lines = ['if (' . $value . ' !== []) {'];
 
         if ($context->isLengthShared) {
-            $context->namespace->addUse(InvalidStructureException::class);
+            $context->namespace->addUse(DifferentArrayLengthsException::class);
 
             \array_push(
                 $lines,
                 '    if (' . $length . ' !== 0 && ' . $length . ' !== \count(' . $value . ')) {',
-                '        throw InvalidStructureException::becauseArraysHaveDifferentLengths('
+                '        throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('
                     . \var_export($context->structure, true) . ', ' . \var_export($property->name, true) . ');',
                 '    }',
                 '',

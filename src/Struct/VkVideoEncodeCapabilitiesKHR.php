@@ -27,6 +27,10 @@ final readonly class VkVideoEncodeCapabilitiesKHR implements OutputStructureInte
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_CAPABILITIES_KHR->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkVideoEncodeCapabilitiesKHR');
@@ -72,6 +76,9 @@ final readonly class VkVideoEncodeCapabilitiesKHR implements OutputStructureInte
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

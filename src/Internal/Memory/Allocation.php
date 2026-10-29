@@ -92,6 +92,17 @@ final readonly class Allocation
     }
 
     /**
+     * Allocates the native array of the pointers to the values the user has
+     * allocated.
+     *
+     * @param list<CData> $values
+     */
+    public function toValuePointerArray(array $values): CData
+    {
+        return $this->allocator->toValuePointerArray($values, $this->owner);
+    }
+
+    /**
      * Writes the structure of the user to native memory.
      */
     public function toStructure(InputStructureInterface $structure): CData

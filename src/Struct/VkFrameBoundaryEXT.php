@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkFrameBoundaryFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkBuffer;
 use Serafim\Vulkan\Handle\VkImage;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -106,7 +106,7 @@ final class VkFrameBoundaryEXT implements InputStructureInterface, VkSubmitInfoE
 
         if ($this->images !== []) {
             if ($data->imageCount !== 0 && $data->imageCount !== \count($this->images)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkFrameBoundaryEXT', 'images');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkFrameBoundaryEXT', 'images');
             }
 
             $data->imageCount = \count($this->images);
@@ -119,7 +119,7 @@ final class VkFrameBoundaryEXT implements InputStructureInterface, VkSubmitInfoE
 
         if ($this->buffers !== []) {
             if ($data->bufferCount !== 0 && $data->bufferCount !== \count($this->buffers)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkFrameBoundaryEXT', 'buffers');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkFrameBoundaryEXT', 'buffers');
             }
 
             $data->bufferCount = \count($this->buffers);

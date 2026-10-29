@@ -38,7 +38,7 @@ final class VulkanLoaderTest extends TestCase
             $loader->load(new Environment('Plan9'));
             self::fail('The missing library has to fail the loading');
         } catch (LoadingException) {
-            self::assertSame([Platform::SCREEN], $platforms->getArrayCopy());
+            self::assertSame([Platform::METAL], $platforms->getArrayCopy());
         }
     }
 
@@ -108,7 +108,7 @@ final class VulkanLoaderTest extends TestCase
                     throw new \LogicException('Unexpected environment');
                 }
 
-                return Platform::SCREEN;
+                return Platform::METAL;
             }
         };
     }

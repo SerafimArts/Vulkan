@@ -58,6 +58,10 @@ final class VkPhysicalDeviceMaintenance10FeaturesKHR implements InputStructureIn
         $data->maintenance10 = (int) $this->maintenance10;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceMaintenance10FeaturesKHR');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceMaintenance10FeaturesKHR implements InputStructureIn
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

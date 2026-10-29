@@ -13,7 +13,7 @@ use Serafim\Vulkan\Enum\VkFragmentShadingRateCombinerOpKHR;
 use Serafim\Vulkan\Enum\VkFragmentShadingRateNV;
 use Serafim\Vulkan\Enum\VkFragmentShadingRateTypeNV;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkGraphicsPipelineCreateInfoExtension;
 
@@ -66,7 +66,7 @@ final class VkPipelineFragmentShadingRateEnumStateCreateInfoNV implements InputS
         $data->shadingRate = $this->shadingRate->value;
 
         if (\count($this->combinerOps) > 2) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPipelineFragmentShadingRateEnumStateCreateInfoNV', 'combinerOps', 2);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPipelineFragmentShadingRateEnumStateCreateInfoNV', 'combinerOps', 2);
         }
 
         foreach ($this->combinerOps as $i => $item) {

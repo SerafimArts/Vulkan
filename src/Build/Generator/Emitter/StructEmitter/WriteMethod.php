@@ -7,7 +7,6 @@ namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter;
 use FFI\CData;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpNamespace;
-use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\StructPlan;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -76,9 +75,7 @@ final readonly class WriteMethod
             $write->addComment($line);
         }
 
-        $write->addComment('');
-        $write->addComment('@internal this is an internal library method, please do not use it in your code');
-        $write->addComment('@psalm-internal Serafim\Vulkan');
+        InternalMethod::mark($write);
     }
 
     /**
@@ -122,16 +119,7 @@ final readonly class WriteMethod
      */
     private function findArrayLength(PropertyPlan $property): ?string
     {
-        $isArray = \in_array($property->kind, [
-            PropertyKind::STRING_LIST,
-            PropertyKind::BINARY,
-            PropertyKind::STRUCTURE_ARRAY,
-            PropertyKind::HANDLE_ARRAY,
-            PropertyKind::NUMBER_ARRAY,
-            PropertyKind::ENUMERATION_ARRAY,
-        ], true);
-
-        if ($isArray) {
+        if ($property->kind->isCounted()) {
             return $property->field->length;
         }
 

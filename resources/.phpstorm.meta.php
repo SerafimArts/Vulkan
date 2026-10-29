@@ -503,50 +503,6 @@ namespace PHPSTORM_META {
         \Serafim\Vulkan\Enum\VkFenceImportFlagBits::VK_FENCE_IMPORT_TEMPORARY_BIT,
         \Serafim\Vulkan\Enum\VkFenceImportFlagBits::VK_FENCE_IMPORT_TEMPORARY_BIT_KHR,
     );
-    registerArgumentsSet('VkFormatFeatureFlagBits',
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_BLIT_SRC_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_BLIT_DST_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_TRANSFER_SRC_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_TRANSFER_DST_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_DISJOINT_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_FRAGMENT_DENSITY_MAP_BIT_EXT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_VIDEO_ENCODE_INPUT_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_IMG,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_TRANSFER_SRC_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_TRANSFER_DST_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT_EXT,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_DISJOINT_BIT_KHR,
-        \Serafim\Vulkan\Enum\VkFormatFeatureFlagBits::VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT_KHR,
-    );
     registerArgumentsSet('VkFrameBoundaryFlagBitsEXT',
         \Serafim\Vulkan\Enum\VkFrameBoundaryFlagBitsEXT::VK_FRAME_BOUNDARY_FRAME_END_BIT_EXT,
     );
@@ -616,12 +572,11 @@ namespace PHPSTORM_META {
         \Serafim\Vulkan\Enum\VkImageAspectFlagBits::VK_IMAGE_ASPECT_PLANE_2_BIT_KHR,
         \Serafim\Vulkan\Enum\VkImageAspectFlagBits::VK_IMAGE_ASPECT_NONE_KHR,
     );
-    registerArgumentsSet('VkImageConstraintsInfoFlagBitsFUCHSIA',
-        \Serafim\Vulkan\Enum\VkImageConstraintsInfoFlagBitsFUCHSIA::VK_IMAGE_CONSTRAINTS_INFO_CPU_READ_RARELY_FUCHSIA,
-        \Serafim\Vulkan\Enum\VkImageConstraintsInfoFlagBitsFUCHSIA::VK_IMAGE_CONSTRAINTS_INFO_CPU_READ_OFTEN_FUCHSIA,
-        \Serafim\Vulkan\Enum\VkImageConstraintsInfoFlagBitsFUCHSIA::VK_IMAGE_CONSTRAINTS_INFO_CPU_WRITE_RARELY_FUCHSIA,
-        \Serafim\Vulkan\Enum\VkImageConstraintsInfoFlagBitsFUCHSIA::VK_IMAGE_CONSTRAINTS_INFO_CPU_WRITE_OFTEN_FUCHSIA,
-        \Serafim\Vulkan\Enum\VkImageConstraintsInfoFlagBitsFUCHSIA::VK_IMAGE_CONSTRAINTS_INFO_PROTECTED_OPTIONAL_FUCHSIA,
+    registerArgumentsSet('VkImageCompressionFlagBitsEXT',
+        \Serafim\Vulkan\Enum\VkImageCompressionFlagBitsEXT::VK_IMAGE_COMPRESSION_DEFAULT_EXT,
+        \Serafim\Vulkan\Enum\VkImageCompressionFlagBitsEXT::VK_IMAGE_COMPRESSION_FIXED_RATE_DEFAULT_EXT,
+        \Serafim\Vulkan\Enum\VkImageCompressionFlagBitsEXT::VK_IMAGE_COMPRESSION_FIXED_RATE_EXPLICIT_EXT,
+        \Serafim\Vulkan\Enum\VkImageCompressionFlagBitsEXT::VK_IMAGE_COMPRESSION_DISABLED_EXT,
     );
     registerArgumentsSet('VkImageCreateFlagBits',
         \Serafim\Vulkan\Enum\VkImageCreateFlagBits::VK_IMAGE_CREATE_SPARSE_BINDING_BIT,
@@ -1955,7 +1910,6 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkBindIndexBuffer3InfoKHR::__construct(), 1, argumentsSet('VkAddressCommandFlagBitsKHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkBindTransformFeedbackBuffer2InfoEXT::__construct(), 1, argumentsSet('VkAddressCommandFlagBitsKHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkBindVertexBuffer3InfoKHR::__construct(), 2, argumentsSet('VkAddressCommandFlagBitsKHR'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkBufferConstraintsInfoFUCHSIA::__construct(), 2, argumentsSet('VkFormatFeatureFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkBufferCreateInfo::__construct(), 1, argumentsSet('VkBufferCreateFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkBufferCreateInfo::__construct(), 3, argumentsSet('VkBufferUsageFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkBufferMemoryBarrier::__construct(), 2, argumentsSet('VkAccessFlagBits'));
@@ -1976,7 +1930,7 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkCommandBufferInheritanceRenderPassTransformInfoQCOM::__construct(), 2, argumentsSet('VkSurfaceTransformFlagBitsKHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkCommandBufferInheritanceRenderingInfo::__construct(), 1, argumentsSet('VkRenderingFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkCommandBufferInheritanceRenderingInfo::__construct(), 6, argumentsSet('VkSampleCountFlagBits'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkCommandPoolCreateInfo::__construct(), 0, argumentsSet('VkCommandPoolCreateFlagBits'));
+    expectedArguments(\Serafim\Vulkan\Struct\VkCommandPoolCreateInfo::__construct(), 1, argumentsSet('VkCommandPoolCreateFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkComputePipelineCreateInfo::__construct(), 2, argumentsSet('VkPipelineCreateFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkConditionalRenderingBeginInfo2EXT::__construct(), 1, argumentsSet('VkAddressCommandFlagBitsKHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkConditionalRenderingBeginInfo2EXT::__construct(), 2, argumentsSet('VkConditionalRenderingFlagBitsEXT'));
@@ -2048,12 +2002,11 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkGpaSampleBeginInfoAMD::__construct(), 12, argumentsSet('VkPipelineStageFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkGraphicsPipelineCreateInfo::__construct(), 1, argumentsSet('VkPipelineCreateFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkGraphicsPipelineLibraryCreateInfoEXT::__construct(), 1, argumentsSet('VkGraphicsPipelineLibraryFlagBitsEXT'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkImageConstraintsInfoFUCHSIA::__construct(), 2, argumentsSet('VkImageConstraintsInfoFlagBitsFUCHSIA'));
+    expectedArguments(\Serafim\Vulkan\Struct\VkImageCompressionControlEXT::__construct(), 1, argumentsSet('VkImageCompressionFlagBitsEXT'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImageCreateFlags2CreateInfoKHR::__construct(), 1, argumentsSet('VkImageCreateFlagBits2KHR'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImageCreateInfo::__construct(), 2, argumentsSet('VkImageCreateFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImageCreateInfo::__construct(), 7, argumentsSet('VkSampleCountFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImageCreateInfo::__construct(), 9, argumentsSet('VkImageUsageFlagBits'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkImageFormatConstraintsInfoFUCHSIA::__construct(), 1, argumentsSet('VkFormatFeatureFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImageMemoryBarrier::__construct(), 3, argumentsSet('VkAccessFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImageMemoryBarrier::__construct(), 4, argumentsSet('VkAccessFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImageMemoryBarrier2::__construct(), 3, argumentsSet('VkPipelineStageFlagBits2'));
@@ -2079,14 +2032,11 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkImportMemoryMetalHandleInfoEXT::__construct(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImportMemoryWin32HandleInfoKHR::__construct(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImportMemoryWin32HandleInfoNV::__construct(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBitsNV'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkImportMemoryZirconHandleInfoFUCHSIA::__construct(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImportMetalTextureInfoEXT::__construct(), 2, argumentsSet('VkImageAspectFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImportSemaphoreFdInfoKHR::__construct(), 1, argumentsSet('VkSemaphoreImportFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImportSemaphoreFdInfoKHR::__construct(), 2, argumentsSet('VkExternalSemaphoreHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImportSemaphoreWin32HandleInfoKHR::__construct(), 1, argumentsSet('VkSemaphoreImportFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkImportSemaphoreWin32HandleInfoKHR::__construct(), 2, argumentsSet('VkExternalSemaphoreHandleTypeFlagBits'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkImportSemaphoreZirconHandleInfoFUCHSIA::__construct(), 2, argumentsSet('VkSemaphoreImportFlagBits'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkImportSemaphoreZirconHandleInfoFUCHSIA::__construct(), 3, argumentsSet('VkExternalSemaphoreHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkIndirectCommandsExecutionSetTokenEXT::__construct(), 1, argumentsSet('VkShaderStageFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkIndirectCommandsIndexBufferTokenEXT::__construct(), 0, argumentsSet('VkIndirectCommandsInputModeFlagBitsEXT'));
     expectedArguments(\Serafim\Vulkan\Struct\VkIndirectCommandsLayoutCreateInfoEXT::__construct(), 1, argumentsSet('VkIndirectCommandsLayoutUsageFlagBitsEXT'));
@@ -2110,7 +2060,6 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkMemoryGetMetalHandleInfoEXT::__construct(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkMemoryGetRemoteAddressInfoNV::__construct(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkMemoryGetWin32HandleInfoKHR::__construct(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkMemoryGetZirconHandleInfoFUCHSIA::__construct(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkMemoryMapInfo::__construct(), 2, argumentsSet('VkMemoryMapFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkMemoryMarkerInfoAMD::__construct(), 1, argumentsSet('VkPipelineStageFlagBits2'));
     expectedArguments(\Serafim\Vulkan\Struct\VkMemoryMarkerInfoAMD::__construct(), 2, argumentsSet('VkAddressCommandFlagBitsKHR'));
@@ -2182,7 +2131,6 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Struct\VkSamplerCreateInfo::__construct(), 1, argumentsSet('VkSamplerCreateFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkSemaphoreGetFdInfoKHR::__construct(), 1, argumentsSet('VkExternalSemaphoreHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkSemaphoreGetWin32HandleInfoKHR::__construct(), 1, argumentsSet('VkExternalSemaphoreHandleTypeFlagBits'));
-    expectedArguments(\Serafim\Vulkan\Struct\VkSemaphoreGetZirconHandleInfoFUCHSIA::__construct(), 1, argumentsSet('VkExternalSemaphoreHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkSemaphoreSubmitInfo::__construct(), 2, argumentsSet('VkPipelineStageFlagBits2'));
     expectedArguments(\Serafim\Vulkan\Struct\VkSemaphoreWaitInfo::__construct(), 0, argumentsSet('VkSemaphoreWaitFlagBits'));
     expectedArguments(\Serafim\Vulkan\Struct\VkSetDescriptorBufferOffsetsInfoEXT::__construct(), 1, argumentsSet('VkShaderStageFlagBits'));
@@ -2281,7 +2229,6 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Vulkan::vkGetMemoryMetalHandlePropertiesEXT(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Vulkan::vkGetMemoryWin32HandleNV(), 2, argumentsSet('VkExternalMemoryHandleTypeFlagBitsNV'));
     expectedArguments(\Serafim\Vulkan\Vulkan::vkGetMemoryWin32HandlePropertiesKHR(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
-    expectedArguments(\Serafim\Vulkan\Vulkan::vkGetMemoryZirconHandlePropertiesFUCHSIA(), 1, argumentsSet('VkExternalMemoryHandleTypeFlagBits'));
     expectedArguments(\Serafim\Vulkan\Vulkan::vkGetPhysicalDeviceExternalImageFormatPropertiesNV(), 4, argumentsSet('VkImageUsageFlagBits'));
     expectedArguments(\Serafim\Vulkan\Vulkan::vkGetPhysicalDeviceExternalImageFormatPropertiesNV(), 5, argumentsSet('VkImageCreateFlagBits'));
     expectedArguments(\Serafim\Vulkan\Vulkan::vkGetPhysicalDeviceExternalImageFormatPropertiesNV(), 6, argumentsSet('VkExternalMemoryHandleTypeFlagBitsNV'));
@@ -2298,7 +2245,6 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Vulkan::vkResetCommandPool(), 2, argumentsSet('VkCommandPoolResetFlagBits'));
     expectedArguments(\Serafim\Vulkan\Vulkan::vkSubmitDebugUtilsMessageEXT(), 1, argumentsSet('VkDebugUtilsMessageSeverityFlagBitsEXT'));
     expectedArguments(\Serafim\Vulkan\Vulkan::vkSubmitDebugUtilsMessageEXT(), 2, argumentsSet('VkDebugUtilsMessageTypeFlagBitsEXT'));
-    override(\Serafim\Vulkan\Struct\VkAndroidHardwareBufferPropertiesANDROID::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkDescriptorSetLayoutSupport::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkDeviceFaultDebugInfoKHR::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkDisplayModeProperties2KHR::findChained(0), type(0));
@@ -2306,13 +2252,11 @@ namespace PHPSTORM_META {
     override(\Serafim\Vulkan\Struct\VkFormatProperties2::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkImageFormatProperties2::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkMemoryRequirements2::findChained(0), type(0));
-    override(\Serafim\Vulkan\Struct\VkNativeBufferPropertiesOHOS::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkPhysicalDeviceFeatures2::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkPhysicalDeviceLayeredApiPropertiesKHR::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkPhysicalDeviceMemoryProperties2::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkPhysicalDeviceProperties2::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkQueueFamilyProperties2::findChained(0), type(0));
-    override(\Serafim\Vulkan\Struct\VkScreenBufferPropertiesQNX::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkSubresourceLayout2::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkSurfaceCapabilities2KHR::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkSurfaceFormat2KHR::findChained(0), type(0));
@@ -2676,9 +2620,7 @@ namespace PHPSTORM_META {
         'vkCreateAccelerationStructure2KHR',
         'vkCreateAccelerationStructureKHR',
         'vkCreateAccelerationStructureNV',
-        'vkCreateAndroidSurfaceKHR',
         'vkCreateBuffer',
-        'vkCreateBufferCollectionFUCHSIA',
         'vkCreateBufferView',
         'vkCreateCommandPool',
         'vkCreateComputePipelines',
@@ -2694,7 +2636,6 @@ namespace PHPSTORM_META {
         'vkCreateDescriptorUpdateTemplate',
         'vkCreateDescriptorUpdateTemplateKHR',
         'vkCreateDevice',
-        'vkCreateDirectFBSurfaceEXT',
         'vkCreateDisplayModeKHR',
         'vkCreateDisplayPlaneSurfaceKHR',
         'vkCreateEvent',
@@ -2704,9 +2645,7 @@ namespace PHPSTORM_META {
         'vkCreateGpaSessionAMD',
         'vkCreateGraphicsPipelines',
         'vkCreateHeadlessSurfaceEXT',
-        'vkCreateIOSSurfaceMVK',
         'vkCreateImage',
-        'vkCreateImagePipeSurfaceFUCHSIA',
         'vkCreateImageView',
         'vkCreateIndirectCommandsLayoutEXT',
         'vkCreateIndirectCommandsLayoutNV',
@@ -2730,20 +2669,15 @@ namespace PHPSTORM_META {
         'vkCreateSampler',
         'vkCreateSamplerYcbcrConversion',
         'vkCreateSamplerYcbcrConversionKHR',
-        'vkCreateScreenSurfaceQNX',
         'vkCreateSemaphore',
         'vkCreateShaderInstrumentationARM',
         'vkCreateShaderModule',
         'vkCreateShadersEXT',
         'vkCreateSharedSwapchainsKHR',
-        'vkCreateStreamDescriptorSurfaceGGP',
-        'vkCreateSurfaceOHOS',
         'vkCreateSwapchainKHR',
         'vkCreateTensorARM',
         'vkCreateTensorViewARM',
-        'vkCreateUbmSurfaceSEC',
         'vkCreateValidationCacheEXT',
-        'vkCreateViSurfaceNN',
         'vkCreateVideoSessionKHR',
         'vkCreateVideoSessionParametersKHR',
         'vkCreateWaylandSurfaceKHR',
@@ -2757,7 +2691,6 @@ namespace PHPSTORM_META {
         'vkDestroyAccelerationStructureKHR',
         'vkDestroyAccelerationStructureNV',
         'vkDestroyBuffer',
-        'vkDestroyBufferCollectionFUCHSIA',
         'vkDestroyBufferView',
         'vkDestroyCommandPool',
         'vkDestroyCuFunctionNVX',
@@ -2830,8 +2763,6 @@ namespace PHPSTORM_META {
         'vkGetAccelerationStructureHandleNV',
         'vkGetAccelerationStructureMemoryRequirementsNV',
         'vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT',
-        'vkGetAndroidHardwareBufferPropertiesANDROID',
-        'vkGetBufferCollectionPropertiesFUCHSIA',
         'vkGetBufferDeviceAddress',
         'vkGetBufferDeviceAddressEXT',
         'vkGetBufferDeviceAddressKHR',
@@ -2923,21 +2854,16 @@ namespace PHPSTORM_META {
         'vkGetInstanceProcAddr',
         'vkGetLatencyTimingsLegacyNV',
         'vkGetLatencyTimingsNV',
-        'vkGetMemoryAndroidHardwareBufferANDROID',
         'vkGetMemoryFdKHR',
         'vkGetMemoryFdPropertiesKHR',
         'vkGetMemoryHostPointerPropertiesEXT',
         'vkGetMemoryMetalHandleEXT',
         'vkGetMemoryMetalHandlePropertiesEXT',
-        'vkGetMemoryNativeBufferOHOS',
         'vkGetMemoryRemoteAddressNV',
         'vkGetMemoryWin32HandleKHR',
         'vkGetMemoryWin32HandleNV',
         'vkGetMemoryWin32HandlePropertiesKHR',
-        'vkGetMemoryZirconHandleFUCHSIA',
-        'vkGetMemoryZirconHandlePropertiesFUCHSIA',
         'vkGetMicromapBuildSizesEXT',
-        'vkGetNativeBufferPropertiesOHOS',
         'vkGetPartitionedAccelerationStructuresBuildSizesNV',
         'vkGetPastPresentationTimingEXT',
         'vkGetPastPresentationTimingGOOGLE',
@@ -2950,7 +2876,6 @@ namespace PHPSTORM_META {
         'vkGetPhysicalDeviceCooperativeMatrixPropertiesNV',
         'vkGetPhysicalDeviceCooperativeVectorPropertiesNV',
         'vkGetPhysicalDeviceDescriptorSizeEXT',
-        'vkGetPhysicalDeviceDirectFBPresentationSupportEXT',
         'vkGetPhysicalDeviceDisplayPlaneProperties2KHR',
         'vkGetPhysicalDeviceDisplayPlanePropertiesKHR',
         'vkGetPhysicalDeviceDisplayProperties2KHR',
@@ -2990,7 +2915,6 @@ namespace PHPSTORM_META {
         'vkGetPhysicalDeviceQueueFamilyProperties',
         'vkGetPhysicalDeviceQueueFamilyProperties2',
         'vkGetPhysicalDeviceQueueFamilyProperties2KHR',
-        'vkGetPhysicalDeviceScreenPresentationSupportQNX',
         'vkGetPhysicalDeviceSparseImageFormatProperties',
         'vkGetPhysicalDeviceSparseImageFormatProperties2',
         'vkGetPhysicalDeviceSparseImageFormatProperties2KHR',
@@ -3005,7 +2929,6 @@ namespace PHPSTORM_META {
         'vkGetPhysicalDeviceSurfaceSupportKHR',
         'vkGetPhysicalDeviceToolProperties',
         'vkGetPhysicalDeviceToolPropertiesEXT',
-        'vkGetPhysicalDeviceUbmPresentationSupportSEC',
         'vkGetPhysicalDeviceVideoCapabilitiesKHR',
         'vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR',
         'vkGetPhysicalDeviceVideoFormatPropertiesKHR',
@@ -3037,12 +2960,10 @@ namespace PHPSTORM_META {
         'vkGetRenderingAreaGranularity',
         'vkGetRenderingAreaGranularityKHR',
         'vkGetSamplerOpaqueCaptureDescriptorDataEXT',
-        'vkGetScreenBufferPropertiesQNX',
         'vkGetSemaphoreCounterValue',
         'vkGetSemaphoreCounterValueKHR',
         'vkGetSemaphoreFdKHR',
         'vkGetSemaphoreWin32HandleKHR',
-        'vkGetSemaphoreZirconHandleFUCHSIA',
         'vkGetShaderBinaryDataEXT',
         'vkGetShaderInfoAMD',
         'vkGetShaderInstrumentationValuesARM',
@@ -3065,7 +2986,6 @@ namespace PHPSTORM_META {
         'vkImportFenceWin32HandleKHR',
         'vkImportSemaphoreFdKHR',
         'vkImportSemaphoreWin32HandleKHR',
-        'vkImportSemaphoreZirconHandleFUCHSIA',
         'vkInitializePerformanceApiINTEL',
         'vkInvalidateMappedMemoryRanges',
         'vkLatencySleepLegacyNV',
@@ -3106,8 +3026,6 @@ namespace PHPSTORM_META {
         'vkResetGpaSessionAMD',
         'vkResetQueryPool',
         'vkResetQueryPoolEXT',
-        'vkSetBufferCollectionBufferConstraintsFUCHSIA',
-        'vkSetBufferCollectionImageConstraintsFUCHSIA',
         'vkSetDebugUtilsObjectNameEXT',
         'vkSetDebugUtilsObjectTagEXT',
         'vkSetDeviceMemoryPriorityEXT',

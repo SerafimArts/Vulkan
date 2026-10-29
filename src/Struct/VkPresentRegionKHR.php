@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -59,7 +59,7 @@ final class VkPresentRegionKHR implements InputStructureInterface
 
         if ($this->rectangles !== []) {
             if ($data->rectangleCount !== 0 && $data->rectangleCount !== \count($this->rectangles)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPresentRegionKHR', 'rectangles');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPresentRegionKHR', 'rectangles');
             }
 
             $data->rectangleCount = \count($this->rectangles);

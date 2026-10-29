@@ -88,5 +88,12 @@ final readonly class FieldDefinition
          * @var int<0, max>
          */
         public int $bitOffset = 0,
+        /**
+         * The structure that holds the length of the array when it is not the
+         * structure of the field: the first call of the command fills it
+         *
+         * @var non-empty-string|null
+         */
+        public ?string $lengthStruct = null,
     ) {}
 }

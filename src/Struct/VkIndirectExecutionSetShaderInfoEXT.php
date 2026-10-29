@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkShaderEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -65,7 +65,7 @@ final class VkIndirectExecutionSetShaderInfoEXT implements InputStructureInterfa
 
         if ($this->setLayoutInfos !== []) {
             if ($data->shaderCount !== 0 && $data->shaderCount !== \count($this->setLayoutInfos)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkIndirectExecutionSetShaderInfoEXT', 'setLayoutInfos');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkIndirectExecutionSetShaderInfoEXT', 'setLayoutInfos');
             }
 
             $data->shaderCount = \count($this->setLayoutInfos);

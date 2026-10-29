@@ -13,7 +13,7 @@ use Serafim\Vulkan\Enum\VkFormat;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTensorTilingARM;
 use Serafim\Vulkan\Enum\VkTensorUsageFlagBitsARM;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineConstantARMExtension;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineResourceInfoARMExtension;
@@ -80,7 +80,7 @@ final class VkTensorDescriptionARM implements InputStructureInterface, VkDataGra
 
         if ($this->strides !== []) {
             if ($data->dimensionCount !== 0 && $data->dimensionCount !== \count($this->strides)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkTensorDescriptionARM', 'strides');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkTensorDescriptionARM', 'strides');
             }
 
             $data->dimensionCount = \count($this->strides);

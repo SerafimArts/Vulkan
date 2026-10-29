@@ -24,6 +24,10 @@ final readonly class VkVideoEncodeH265SessionParametersFeedbackInfoKHR implement
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkVideoEncodeH265SessionParametersFeedbackInfoKHR');
@@ -46,6 +50,9 @@ final readonly class VkVideoEncodeH265SessionParametersFeedbackInfoKHR implement
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

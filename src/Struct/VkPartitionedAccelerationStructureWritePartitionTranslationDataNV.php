@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -45,7 +45,7 @@ final class VkPartitionedAccelerationStructureWritePartitionTranslationDataNV im
         $data->partitionIndex = $this->partitionIndex;
 
         if (\count($this->partitionTranslation) > 3) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPartitionedAccelerationStructureWritePartitionTranslationDataNV', 'partitionTranslation', 3);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPartitionedAccelerationStructureWritePartitionTranslationDataNV', 'partitionTranslation', 3);
         }
 
         foreach ($this->partitionTranslation as $i => $item) {

@@ -194,6 +194,29 @@ final class Allocator
     }
 
     /**
+     * Allocates the native array of the pointers to the values the user has
+     * allocated. The values live as long as the array of the pointers does.
+     *
+     * @param list<CData> $values
+     * @param CData|null $owner the object that keeps the array alive
+     */
+    public function toValuePointerArray(array $values, ?CData $owner = null): CData
+    {
+        $pointers = $this->new('void*[' . \max(1, \count($values)) . ']', $owner);
+
+        $this->retained[$pointers] = new \ArrayObject($values);
+
+        foreach ($values as $i => $value) {
+            // @phpstan-ignore-next-line the assignment changes the native array
+            $pointers[$i] = $this->ffi->cast('void*', \FFI::addr($value));
+        }
+
+        \assert($pointers instanceof CData);
+
+        return $pointers;
+    }
+
+    /**
      * Allocates the native array of the numbers.
      *
      * @param non-empty-string $type C type of a number

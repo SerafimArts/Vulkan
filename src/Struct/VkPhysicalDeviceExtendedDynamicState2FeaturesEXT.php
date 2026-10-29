@@ -66,6 +66,10 @@ final class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT implements InputStr
         $data->extendedDynamicState2PatchControlPoints = (int) $this->extendedDynamicState2PatchControlPoints;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceExtendedDynamicState2FeaturesEXT');
@@ -82,6 +86,9 @@ final class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT implements InputStr
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

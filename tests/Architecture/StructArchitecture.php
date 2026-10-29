@@ -38,6 +38,7 @@ final class StructArchitecture
                 Selector::classname(OutputStructureInterface::class),
                 Selector::inNamespace('Serafim\Vulkan\Internal\Memory'),
                 Selector::classname(InvalidStructureException::class),
+                Selector::inNamespace('Serafim\Vulkan\Exception\InvalidStructure'),
                 Selector::classname(Handle::class),
                 Selector::classname(VulkanBase::class),
                 Selector::classname(EnumCase::class),

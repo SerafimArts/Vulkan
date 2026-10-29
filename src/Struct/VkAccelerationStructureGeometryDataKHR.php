@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -45,7 +45,7 @@ final class VkAccelerationStructureGeometryDataKHR implements InputStructureInte
         $members = \count(\array_filter([$this->triangles, $this->aabbs, $this->instances], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkAccelerationStructureGeometryDataKHR', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkAccelerationStructureGeometryDataKHR', $members);
         }
 
         if ($this->triangles !== null) {

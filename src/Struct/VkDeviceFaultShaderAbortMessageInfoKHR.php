@@ -25,6 +25,10 @@ final readonly class VkDeviceFaultShaderAbortMessageInfoKHR implements OutputStr
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_SHADER_ABORT_MESSAGE_INFO_KHR->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkDeviceFaultShaderAbortMessageInfoKHR');
@@ -42,6 +46,9 @@ final readonly class VkDeviceFaultShaderAbortMessageInfoKHR implements OutputStr
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
@@ -70,6 +77,9 @@ final readonly class VkDeviceFaultShaderAbortMessageInfoKHR implements OutputStr
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

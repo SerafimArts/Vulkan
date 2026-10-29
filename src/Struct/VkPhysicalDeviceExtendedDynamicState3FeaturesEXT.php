@@ -178,6 +178,10 @@ final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT implements InputStr
         $data->extendedDynamicState3ShadingRateImageEnable = (int) $this->extendedDynamicState3ShadingRateImageEnable;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceExtendedDynamicState3FeaturesEXT');
@@ -222,6 +226,9 @@ final class VkPhysicalDeviceExtendedDynamicState3FeaturesEXT implements InputStr
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

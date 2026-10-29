@@ -58,6 +58,10 @@ final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT implements InputStr
         $data->ycbcr2plane444Formats = (int) $this->ycbcr2plane444Formats;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT implements InputStr
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

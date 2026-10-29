@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkPipelineCreateFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkPipeline;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Handle\VkRenderPass;
@@ -128,7 +128,7 @@ final class VkGraphicsPipelineCreateInfo implements InputStructureInterface, VkP
 
         if ($this->stages !== []) {
             if ($data->stageCount !== 0 && $data->stageCount !== \count($this->stages)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkGraphicsPipelineCreateInfo', 'stages');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkGraphicsPipelineCreateInfo', 'stages');
             }
 
             $data->stageCount = \count($this->stages);

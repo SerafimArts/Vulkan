@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec;
 
 use Serafim\Vulkan\Build\Generator\Analysis\Names;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\WrongArrayLengthException;
 
 /**
  * `const uint32_t*` of the words of a mask of samples: the number of the words
@@ -22,7 +22,7 @@ final readonly class SampleMaskCodec extends AbstractPropertyCodec
 
     public function createWriteLines(PropertyContext $context): array
     {
-        $context->namespace->addUse(InvalidStructureException::class);
+        $context->namespace->addUse(WrongArrayLengthException::class);
 
         $property = $context->property;
         $value = $context->createValueExpression();
@@ -33,7 +33,7 @@ final readonly class SampleMaskCodec extends AbstractPropertyCodec
             '    $words = (' . $samples . ' + 31) >> 5;',
             '',
             '    if (\count(' . $value . ') !== $words) {',
-            '        throw InvalidStructureException::becauseArrayHasWrongLength('
+            '        throw WrongArrayLengthException::becauseArrayHasWrongLength('
                 . \var_export($context->structure, true) . ', ' . \var_export($property->name, true) . ', $words);',
             '    }',
             '',

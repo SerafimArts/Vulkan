@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 use Serafim\Vulkan\Handle\VkSampler;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -64,7 +64,7 @@ final class VkDescriptorDataEXT implements InputStructureInterface
         $members = \count(\array_filter([$this->sampler, $this->combinedImageSampler, $this->inputAttachmentImage, $this->sampledImage, $this->storageImage, $this->uniformTexelBuffer, $this->storageTexelBuffer, $this->uniformBuffer, $this->storageBuffer, $this->accelerationStructure], static fn(mixed $member): bool => $member !== null));
 
         if ($members !== 1) {
-            throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('VkDescriptorDataEXT', $members);
+            throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('VkDescriptorDataEXT', $members);
         }
 
         if ($this->sampler !== null) {

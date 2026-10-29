@@ -58,6 +58,10 @@ final class VkPhysicalDeviceVideoEncodeAV1FeaturesKHR implements InputStructureI
         $data->videoEncodeAV1 = (int) $this->videoEncodeAV1;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDeviceVideoEncodeAV1FeaturesKHR');
@@ -72,6 +76,9 @@ final class VkPhysicalDeviceVideoEncodeAV1FeaturesKHR implements InputStructureI
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

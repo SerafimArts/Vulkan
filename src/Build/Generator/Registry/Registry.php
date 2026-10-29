@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Build\Generator\Registry;
 
 use Serafim\Vulkan\Build\Generator\Exception\InvalidRegistryException;
+use Serafim\Vulkan\Build\Generator\Quirks;
 
 /**
  * Definitions of the Vulkan API read from `vk.xml`.
@@ -94,7 +95,23 @@ final readonly class Registry
          * @var list<Constant>
          */
         private array $defines = [],
+        /**
+         * The commands and the types of the platforms, Vulkan SC and the beta
+         * extensions that the library does not cover
+         *
+         * @var array<non-empty-string, true>
+         */
+        private array $excluded = [],
     ) {}
+
+    /**
+     * Whether the command or the type belongs to what the library does not
+     * cover.
+     */
+    public function isExcluded(string $name): bool
+    {
+        return isset($this->excluded[$name]);
+    }
 
     /**
      * Returns the version of Vulkan or the extensions a command or a type
@@ -299,7 +316,7 @@ final readonly class Registry
             $target = null;
 
             foreach ($command->parameters as $parameter) {
-                if ($parameter->type !== 'VkAllocationCallbacks') {
+                if ($parameter->type !== Quirks::ALLOCATOR_TYPE) {
                     $target = $parameter;
                 }
             }

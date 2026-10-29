@@ -24,6 +24,10 @@ final readonly class VkDescriptorSetVariableDescriptorCountLayoutSupport impleme
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkDescriptorSetVariableDescriptorCountLayoutSupport');
@@ -43,6 +47,9 @@ final readonly class VkDescriptorSetVariableDescriptorCountLayoutSupport impleme
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

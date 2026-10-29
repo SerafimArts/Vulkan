@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Build\Generator\Emitter;
 
 use FFI\CData;
-use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
+use Nette\PhpGenerator\TraitType;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandKind;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
+use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CountedBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CreateArrayBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CreateBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CreateHandlesBody;
@@ -77,19 +78,98 @@ final readonly class CommandsEmitter
     }
 
     /**
+     * Writes the commands as the traits of the objects they are called on and
+     * the class that uses them.
+     *
      * @param list<CommandPlan> $commands
      *
+     * @return list<GeneratedFile>
      * @throws UnsupportedDeclarationException in case of a command cannot be
      *         written
      */
-    public function emit(array $commands): GeneratedFile
+    public function emit(array $commands): array
+    {
+        \usort($commands, static fn(CommandPlan $a, CommandPlan $b): int => $a->command->name <=> $b->command->name);
+
+        $groups = [];
+
+        foreach ($commands as $command) {
+            $groups[$this->findGroup($command)][] = $command;
+        }
+
+        \ksort($groups);
+
+        $files = [];
+
+        foreach ($groups as $group => $plans) {
+            $files[] = $this->emitGroup($group, $plans);
+        }
+
+        $files[] = $this->emitClass(\array_keys($groups));
+
+        return $files;
+    }
+
+    /**
+     * Returns the name of the trait of the commands that are called on the
+     * object of the first handle of the command.
+     *
+     * @return non-empty-string
+     */
+    private function findGroup(CommandPlan $plan): string
+    {
+        $handle = $this->calls->findParent($plan);
+
+        return match ($handle?->field->type) {
+            'VkPhysicalDevice' => 'PhysicalDeviceCommands',
+            'VkDevice' => 'DeviceCommands',
+            'VkQueue' => 'QueueCommands',
+            'VkCommandBuffer' => 'CommandBufferCommands',
+            default => 'InstanceCommands',
+        };
+    }
+
+    /**
+     * @param non-empty-string $group
+     * @param list<CommandPlan> $commands
+     *
+     * @throws UnsupportedDeclarationException
+     */
+    private function emitGroup(string $group, array $commands): GeneratedFile
+    {
+        $file = $this->files->create();
+        $namespace = $file->addNamespace(Locations::COMMANDS_NAMESPACE);
+
+        $namespace->addUse(VulkanBase::class);
+        $namespace->addUse(CData::class);
+        $namespace->addUse(VulkanException::class);
+
+        $trait = $namespace->addTrait($group);
+
+        $trait->addComment('The commands of the Vulkan API that are called on one kind of the objects.');
+        $trait->addComment('');
+        $trait->addComment('@phpstan-require-extends VulkanBase');
+
+        foreach ($commands as $command) {
+            $method = $this->emitCommand($namespace, $trait, $command);
+
+            foreach ($this->registry->findAliases($command->command->name) as $alias) {
+                $this->emitAlias($trait, $method, $alias);
+            }
+        }
+
+        return new GeneratedFile(Locations::createPath('Commands', $group), $this->files->print($file));
+    }
+
+    /**
+     * @param list<non-empty-string> $groups
+     */
+    private function emitClass(array $groups): GeneratedFile
     {
         $file = $this->files->create();
         $namespace = $file->addNamespace(Locations::ROOT_NAMESPACE);
 
         $namespace->addUse(VulkanBase::class);
-        $namespace->addUse(CData::class);
-        $namespace->addUse(VulkanException::class);
 
         $class = $namespace->addClass('Vulkan');
 
@@ -97,14 +177,8 @@ final readonly class CommandsEmitter
         $class->setExtends(VulkanBase::class);
         $class->addComment('The commands of the Vulkan API.');
 
-        \usort($commands, static fn(CommandPlan $a, CommandPlan $b): int => $a->command->name <=> $b->command->name);
-
-        foreach ($commands as $command) {
-            $method = $this->emitCommand($namespace, $class, $command);
-
-            foreach ($this->registry->findAliases($command->command->name) as $alias) {
-                $this->emitAlias($class, $method, $alias);
-            }
+        foreach ($groups as $group) {
+            $class->addTrait(Locations::createClassName(Locations::COMMANDS_NAMESPACE, $group));
         }
 
         return new GeneratedFile('Vulkan.php', $this->files->print($file));
@@ -113,7 +187,7 @@ final readonly class CommandsEmitter
     /**
      * @throws UnsupportedDeclarationException
      */
-    private function emitCommand(PhpNamespace $namespace, ClassType $class, CommandPlan $plan): Method
+    private function emitCommand(PhpNamespace $namespace, TraitType $class, CommandPlan $plan): Method
     {
         $name = $plan->command->name;
         $method = $class->addMethod($name);
@@ -165,7 +239,7 @@ final readonly class CommandsEmitter
     /**
      * Writes the command under another name: the method calls the command.
      */
-    private function emitAlias(ClassType $class, Method $command, string $name): void
+    private function emitAlias(TraitType $class, Method $command, string $name): void
     {
         $method = $command->cloneWithName($name);
 
@@ -313,6 +387,7 @@ final readonly class CommandsEmitter
             CommandKind::QUERY_POINTER => new PointerQueryBody($this->calls),
             CommandKind::ENUMERATE => new EnumerateBody($this->calls, $this->registry, $this->structures),
             CommandKind::EXECUTE => new ExecuteBody($this->calls),
+            CommandKind::QUERY_COUNTED => new CountedBody($this->calls, $this->registry),
         };
     }
 }

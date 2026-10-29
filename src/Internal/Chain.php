@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Internal;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\StructureNotChainableException;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
@@ -39,7 +39,7 @@ final readonly class Chain
      * @param class-string $marker the interface that the structures implement
      *
      * @return self<TCreated>
-     * @throws InvalidStructureException in case of a class cannot be chained to the root
+     * @throws StructureNotChainableException in case of a class cannot be chained to the root
      */
     public static function allocate(Allocator $memory, CData $root, array $classes, string $marker): self
     {
@@ -47,7 +47,7 @@ final readonly class Chain
 
         foreach ($classes as $class) {
             if (!\is_a($class, $marker, true)) {
-                throw InvalidStructureException::becauseStructureCannotBeChained($class, $marker);
+                throw StructureNotChainableException::becauseStructureCannotBeChained($class, $marker);
             }
 
             $natives[] = [$class, $class::createNative($memory)];
@@ -75,7 +75,7 @@ final readonly class Chain
      * @param class-string $marker the interface that the structures implement
      *
      * @return list<self<TCreated>> the chains by the indexes of the elements
-     * @throws InvalidStructureException in case of a class cannot be chained to the element
+     * @throws StructureNotChainableException in case of a class cannot be chained to the element
      */
     public static function allocateEach(
         Allocator $memory,

@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkTensorCreateInfoARMExtension;
 
@@ -55,7 +55,7 @@ final class VkTensorRollingBackingCreateInfoARM implements InputStructureInterfa
         }
 
         if (\count($this->wraps) > 4) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkTensorRollingBackingCreateInfoARM', 'wraps', 4);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkTensorRollingBackingCreateInfoARM', 'wraps', 4);
         }
 
         foreach ($this->wraps as $i => $item) {

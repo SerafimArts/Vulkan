@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -50,7 +50,7 @@ final class VkPipelineBinaryKeysAndDataKHR implements InputStructureInterface
 
         if ($this->pipelineBinaryData !== []) {
             if ($data->binaryCount !== 0 && $data->binaryCount !== \count($this->pipelineBinaryData)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPipelineBinaryKeysAndDataKHR', 'pipelineBinaryData');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPipelineBinaryKeysAndDataKHR', 'pipelineBinaryData');
             }
 
             $data->binaryCount = \count($this->pipelineBinaryData);

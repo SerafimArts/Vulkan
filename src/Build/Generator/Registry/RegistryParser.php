@@ -56,6 +56,7 @@ final readonly class RegistryParser
             functionPointers: new FunctionPointerParser($elements, $fields)->parse(),
             declared: $declared,
             defines: new ConstantParser($elements)->parse(),
+            excluded: $requirements->parseExcluded(),
         );
     }
 

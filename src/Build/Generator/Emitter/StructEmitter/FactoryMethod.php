@@ -15,7 +15,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec\NumberTypes;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\MissingContextException;
 use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\VulkanBase;
 
@@ -65,10 +65,10 @@ final readonly class FactoryMethod
         if ($plan->needsContext) {
             $namespace->addUse(VulkanBase::class);
             $namespace->addUse(Handle::class);
-            $namespace->addUse(InvalidStructureException::class);
+            $namespace->addUse(MissingContextException::class);
 
             $body = "if (\$vk === null) {\n"
-                . '    throw InvalidStructureException::becauseContextIsMissing(self::class);'
+                . '    throw MissingContextException::becauseContextIsMissing(self::class);'
                 . "\n}\n\n" . $body;
         }
 
@@ -79,6 +79,10 @@ final readonly class FactoryMethod
             ->setBody($body);
 
         $method->addParameter('data')->setType(CData::class);
+
+        if ($plan->counts !== null) {
+            $method->addParameter('counts')->setType(CData::class);
+        }
 
         if ($isChained) {
             $method->addParameter('chain', [])->setType('array');
@@ -99,9 +103,13 @@ final readonly class FactoryMethod
             ) . '> $chain';
         }
 
+        \array_push($comments, ...$this->shape->createCounts($plan));
+
         foreach ($comments as $comment) {
             $method->addComment($comment);
         }
+
+        InternalMethod::mark($method);
     }
 
     /**
@@ -123,6 +131,7 @@ final readonly class FactoryMethod
 
         $isNamedDifferently = $property->kind === PropertyKind::NATIVE
             || $property->kind === PropertyKind::QUERIED_ARRAY
+            || $property->kind === PropertyKind::OWNED_ARRAY
             || $property->kind === PropertyKind::QUERIED_BYTES;
 
         if ($isNamedDifferently && $property->name !== $property->field->name) {

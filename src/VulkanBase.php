@@ -9,6 +9,9 @@ use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Exception\CommandFailedException;
 use Serafim\Vulkan\Exception\CommandNotAvailableException;
 use Serafim\Vulkan\Handle\Handle;
+use Serafim\Vulkan\Internal\Driver\DriverInterface;
+use Serafim\Vulkan\Internal\Driver\NativeDriver;
+use Serafim\Vulkan\Internal\Driver\OverrideDriver;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Loader\Exception\InvalidHeadersException;
 use Serafim\Vulkan\Loader\Exception\InvalidLibraryException;
@@ -20,6 +23,9 @@ use Serafim\Vulkan\Loader\VulkanLoader;
 /**
  * Base of the commands of the Vulkan API: the loading of the library and the
  * helpers the generated commands are made of.
+ *
+ * The allocation callbacks `VkAllocationCallbacks` are not supported: every
+ * command passes `NULL` and Vulkan uses its own allocator.
  *
  * @phpstan-consistent-constructor
  */
@@ -41,10 +47,16 @@ abstract class VulkanBase
      */
     private array $procedures = [];
 
+    /**
+     * Where the pointers to the commands come from
+     */
+    private DriverInterface $driver;
+
     final public function __construct(
         public readonly \FFI $ffi,
     ) {
         $this->memory = new Allocator($ffi);
+        $this->driver = new NativeDriver($ffi);
     }
 
     /**
@@ -90,7 +102,9 @@ abstract class VulkanBase
     }
 
     /**
-     * Checks the `VkResult` returned by the command.
+     * Checks the `VkResult` returned by the command: only `VK_SUCCESS` passes.
+     * A command whose specification lists other success codes is checked by
+     * {@see self::getResult()}.
      *
      * @param non-empty-string $command
      *
@@ -135,7 +149,7 @@ abstract class VulkanBase
      */
     public function vkGetInstanceProc(string $command, ?Handle $handle = null): callable
     {
-        return $this->procedures[$command] ??= $this->findInstanceProc($command, $handle);
+        return $this->procedures[$command] ??= $this->driver->getProcedure($command, $handle);
     }
 
     /**
@@ -150,35 +164,10 @@ abstract class VulkanBase
     public function withProcedure(string $command, callable $procedure): static
     {
         $self = clone $this;
-        $self->procedures[$command] = $procedure;
+        $self->driver = new OverrideDriver($this->driver, $command, $procedure);
+
+        unset($self->procedures[$command]);
 
         return $self;
-    }
-
-    /**
-     * @param non-empty-string $command
-     *
-     * @throws CommandNotAvailableException in case of the command is not
-     *         supported
-     */
-    private function findInstanceProc(string $command, ?Handle $handle): callable
-    {
-        $root = $handle;
-
-        while ($root?->parent !== null) {
-            $root = $root->parent;
-        }
-
-        // @phpstan-ignore-next-line the function is declared by the headers of the library
-        $pointer = $this->ffi->vkGetInstanceProcAddr($root?->pointer, $command);
-
-        \assert($pointer === null || $pointer instanceof CData);
-
-        if ($pointer === null || \FFI::isNull($pointer)) {
-            throw CommandNotAvailableException::becauseCommandNotAvailable($command);
-        }
-
-        // @phpstan-ignore-next-line a pointer to a function is callable
-        return $this->ffi->cast('PFN_' . $command, $pointer);
     }
 }

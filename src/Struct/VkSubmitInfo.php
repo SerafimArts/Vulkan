@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkCommandBuffer;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -78,7 +78,7 @@ final class VkSubmitInfo implements InputStructureInterface
 
         if ($this->waitDstStageMask !== []) {
             if ($data->waitSemaphoreCount !== 0 && $data->waitSemaphoreCount !== \count($this->waitDstStageMask)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkSubmitInfo', 'waitDstStageMask');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkSubmitInfo', 'waitDstStageMask');
             }
 
             $data->waitSemaphoreCount = \count($this->waitDstStageMask);

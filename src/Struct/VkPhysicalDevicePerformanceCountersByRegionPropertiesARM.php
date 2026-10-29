@@ -24,6 +24,10 @@ final readonly class VkPhysicalDevicePerformanceCountersByRegionPropertiesARM im
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PERFORMANCE_COUNTERS_BY_REGION_PROPERTIES_ARM->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDevicePerformanceCountersByRegionPropertiesARM');
@@ -67,6 +71,9 @@ final readonly class VkPhysicalDevicePerformanceCountersByRegionPropertiesARM im
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

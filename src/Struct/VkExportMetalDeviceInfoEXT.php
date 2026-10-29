@@ -24,6 +24,10 @@ final readonly class VkExportMetalDeviceInfoEXT implements OutputStructureInterf
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_DEVICE_INFO_EXT->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkExportMetalDeviceInfoEXT');
@@ -42,6 +46,9 @@ final readonly class VkExportMetalDeviceInfoEXT implements OutputStructureInterf
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

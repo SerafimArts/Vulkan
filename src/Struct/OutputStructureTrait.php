@@ -11,9 +11,7 @@ use Serafim\Vulkan\VulkanBase;
 
 /**
  * Copies of the members of a native struct for the structures that implement
- * {@see OutputStructureInterface}.
- *
- * @phpstan-require-implements OutputStructureInterface
+ * {@see OutputStructureInterface} or {@see CountedStructureInterface}.
  */
 trait OutputStructureTrait
 {

@@ -62,6 +62,10 @@ final class VkPhysicalDevice4444FormatsFeaturesEXT implements InputStructureInte
         $data->formatA4B4G4R4 = (int) $this->formatA4B4G4R4;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkPhysicalDevice4444FormatsFeaturesEXT');
@@ -77,6 +81,9 @@ final class VkPhysicalDevice4444FormatsFeaturesEXT implements InputStructureInte
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

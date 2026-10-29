@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\WrongArrayLengthException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -46,7 +46,7 @@ final class VkMicromapVersionInfoEXT implements InputStructureInterface
         $data->sType = self::STRUCTURE_TYPE;
 
         if (\strlen($this->versionData) !== 32) {
-            throw InvalidStructureException::becauseArrayHasWrongLength('VkMicromapVersionInfoEXT', 'versionData', 32);
+            throw WrongArrayLengthException::becauseArrayHasWrongLength('VkMicromapVersionInfoEXT', 'versionData', 32);
         }
 
         $data->pVersionData = $memory->ffi->cast('uint8_t*', $memory->toCString($this->versionData));

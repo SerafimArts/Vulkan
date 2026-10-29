@@ -12,7 +12,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\WrongArrayLengthException;
 
 /**
  * Writes the arguments of the user to native memory before the call.
@@ -130,11 +130,11 @@ final readonly class Preparation
         }
 
         if ($parameter->field->arraySize !== null) {
-            $namespace->addUse(InvalidStructureException::class);
+            $namespace->addUse(WrongArrayLengthException::class);
 
             return [
                 'if (\count(' . $value . ') !== ' . $parameter->field->arraySize . ') {',
-                '    throw InvalidStructureException::becauseArrayHasWrongLength('
+                '    throw WrongArrayLengthException::becauseArrayHasWrongLength('
                     . \var_export($plan->command->name, true) . ', '
                     . \var_export($parameter->name, true) . ', ' . $parameter->field->arraySize . ');',
                 '}',

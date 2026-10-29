@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorType;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkSampler;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
@@ -90,7 +90,7 @@ final class VkDescriptorSetLayoutBinding implements InputStructureInterface
 
         if ($this->immutableSamplers !== []) {
             if ($data->descriptorCount !== 0 && $data->descriptorCount !== \count($this->immutableSamplers)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkDescriptorSetLayoutBinding', 'immutableSamplers');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkDescriptorSetLayoutBinding', 'immutableSamplers');
             }
 
             $data->descriptorCount = \count($this->immutableSamplers);

@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
 
@@ -79,7 +79,7 @@ final class VkD3D12FenceSubmitInfoKHR implements InputStructureInterface, VkSubm
 
         if ($this->waitSemaphoreValues !== []) {
             if ($data->waitSemaphoreValuesCount !== 0 && $data->waitSemaphoreValuesCount !== \count($this->waitSemaphoreValues)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkD3D12FenceSubmitInfoKHR', 'waitSemaphoreValues');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkD3D12FenceSubmitInfoKHR', 'waitSemaphoreValues');
             }
 
             $data->waitSemaphoreValuesCount = \count($this->waitSemaphoreValues);
@@ -92,7 +92,7 @@ final class VkD3D12FenceSubmitInfoKHR implements InputStructureInterface, VkSubm
 
         if ($this->signalSemaphoreValues !== []) {
             if ($data->signalSemaphoreValuesCount !== 0 && $data->signalSemaphoreValuesCount !== \count($this->signalSemaphoreValues)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkD3D12FenceSubmitInfoKHR', 'signalSemaphoreValues');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkD3D12FenceSubmitInfoKHR', 'signalSemaphoreValues');
             }
 
             $data->signalSemaphoreValuesCount = \count($this->signalSemaphoreValues);

@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPresentInfoKHRExtension;
 
@@ -74,7 +74,7 @@ final class VkPresentRegionsKHR implements InputStructureInterface, VkPresentInf
 
         if ($this->regions !== []) {
             if ($data->swapchainCount !== 0 && $data->swapchainCount !== \count($this->regions)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPresentRegionsKHR', 'regions');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPresentRegionsKHR', 'regions');
             }
 
             $data->swapchainCount = \count($this->regions);

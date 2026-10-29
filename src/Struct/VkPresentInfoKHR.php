@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Handle\VkSwapchainKHR;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -89,7 +89,7 @@ final class VkPresentInfoKHR implements InputStructureInterface
 
         if ($this->imageIndices !== []) {
             if ($data->swapchainCount !== 0 && $data->swapchainCount !== \count($this->imageIndices)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPresentInfoKHR', 'imageIndices');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPresentInfoKHR', 'imageIndices');
             }
 
             $data->swapchainCount = \count($this->imageIndices);

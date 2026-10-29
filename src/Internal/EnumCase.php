@@ -26,9 +26,7 @@ final readonly class EnumCase
      */
     public static function createFromValue(string $enum, int $value): \BackedEnum
     {
-        return $enum::tryFrom($value) ?? throw UnknownEnumValueException::becauseValueIsNotInEnumeration(
-            $enum,
-            $value,
-        );
+        return $enum::tryFrom($value)
+            ?? throw UnknownEnumValueException::becauseValueIsNotInEnumeration($enum, $value);
     }
 }

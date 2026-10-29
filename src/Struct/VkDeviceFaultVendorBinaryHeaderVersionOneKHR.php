@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDeviceFaultVendorBinaryHeaderVersionKHR;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -79,7 +79,7 @@ final class VkDeviceFaultVendorBinaryHeaderVersionOneKHR implements InputStructu
         $data->driverVersion = $this->driverVersion;
 
         if (\strlen($this->pipelineCacheUUID) > 16) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkDeviceFaultVendorBinaryHeaderVersionOneKHR', 'pipelineCacheUUID', 16);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkDeviceFaultVendorBinaryHeaderVersionOneKHR', 'pipelineCacheUUID', 16);
         }
 
         if ($this->pipelineCacheUUID !== '') {

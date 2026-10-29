@@ -63,7 +63,13 @@ final readonly class PropertyContext
      */
     public function createLengthExpression(): string
     {
-        return '$data->' . ($this->property->field->length ?? '');
+        $field = $this->property->field;
+
+        if ($field->lengthStruct !== null) {
+            return '$counts->' . ($field->length ?? '');
+        }
+
+        return '$data->' . ($field->length ?? '');
     }
 
     /**

@@ -81,9 +81,17 @@ final readonly class Planner
             structs: \array_values($structs),
             handles: $this->registry->getHandles(),
             enums: $this->registry->getEnums(),
-            skipped: $skipped,
+            skipped: \array_filter(
+                $skipped,
+                fn(string $reason, string $name): bool => !$this->registry->isExcluded($name),
+                \ARRAY_FILTER_USE_BOTH,
+            ),
             extensions: $extensions,
-            skippedStructs: \array_diff_key($rejected, $structs),
+            skippedStructs: \array_filter(
+                \array_diff_key($rejected, $structs),
+                fn(string $reason, string $name): bool => !$this->registry->isExcluded($name),
+                \ARRAY_FILTER_USE_BOTH,
+            ),
         );
     }
 
@@ -264,6 +272,7 @@ final readonly class Planner
                 $plan->structureType,
                 $chains,
                 $implements,
+                counts: $plan->counts,
             );
         }
 
@@ -280,6 +289,7 @@ final readonly class Planner
                 $plan->chains,
                 $plan->implements,
                 true,
+                $plan->counts,
             );
         }
 
@@ -416,14 +426,7 @@ final readonly class Planner
         $structs[$name] = $plan;
 
         foreach ($plan->properties as $property) {
-            $nested = [
-                PropertyKind::STRUCTURE_POINTER,
-                PropertyKind::STRUCTURE_VALUE,
-                PropertyKind::STRUCTURE_ARRAY,
-                PropertyKind::STRUCTURE_LIST,
-            ];
-
-            if (\in_array($property->kind, $nested, true)) {
+            if ($property->kind->isNested()) {
                 $structs = $this->collectStruct($property->field->type, $role, $structs);
             }
 

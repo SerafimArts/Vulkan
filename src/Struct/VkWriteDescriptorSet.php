@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDescriptorType;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkBufferView;
 use Serafim\Vulkan\Handle\VkDescriptorSet;
 use Serafim\Vulkan\Internal\Memory\Allocation;
@@ -121,7 +121,7 @@ final class VkWriteDescriptorSet implements InputStructureInterface
 
         if ($this->bufferInfo !== []) {
             if ($data->descriptorCount !== 0 && $data->descriptorCount !== \count($this->bufferInfo)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkWriteDescriptorSet', 'bufferInfo');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkWriteDescriptorSet', 'bufferInfo');
             }
 
             $data->descriptorCount = \count($this->bufferInfo);
@@ -130,7 +130,7 @@ final class VkWriteDescriptorSet implements InputStructureInterface
 
         if ($this->texelBufferView !== []) {
             if ($data->descriptorCount !== 0 && $data->descriptorCount !== \count($this->texelBufferView)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkWriteDescriptorSet', 'texelBufferView');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkWriteDescriptorSet', 'texelBufferView');
             }
 
             $data->descriptorCount = \count($this->texelBufferView);

@@ -35,6 +35,9 @@ final readonly class VkDescriptorSetLayoutSupport implements OutputStructureInte
      * @param list<VkDescriptorSetLayoutSupportExtension> $chain
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data, array $chain = []): self
     {

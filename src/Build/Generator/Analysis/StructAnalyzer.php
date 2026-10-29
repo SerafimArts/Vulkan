@@ -6,6 +6,7 @@ namespace Serafim\Vulkan\Build\Generator\Analysis;
 
 use Serafim\Vulkan\Build\Generator\Analysis\StructAnalyzer\MemberKinds;
 use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
+use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 use Serafim\Vulkan\Build\Generator\Registry\StructDefinition;
@@ -19,88 +20,6 @@ use Serafim\Vulkan\Struct\InputStructureInterface;
  */
 final readonly class StructAnalyzer
 {
-    private const array INPUT_KINDS = [
-        PropertyKind::INTEGER,
-        PropertyKind::FLOAT,
-        PropertyKind::BOOLEAN,
-        PropertyKind::ENUMERATION,
-        PropertyKind::STRING,
-        PropertyKind::STRING_LIST,
-        PropertyKind::BINARY,
-        PropertyKind::NATIVE,
-        PropertyKind::CALLBACK,
-        PropertyKind::SCALAR_POINTER,
-        PropertyKind::HANDLE_POINTER,
-        PropertyKind::SAMPLE_MASK,
-        PropertyKind::TEXT,
-        PropertyKind::BYTES,
-        PropertyKind::NUMBER_LIST,
-        PropertyKind::STRUCTURE_LIST,
-        PropertyKind::ENUMERATION_LIST,
-        PropertyKind::STRUCTURE_POINTER,
-        PropertyKind::FEEDBACK_STRUCTURE,
-        PropertyKind::FEEDBACK_ARRAY,
-        PropertyKind::STRUCTURE_VALUE,
-        PropertyKind::HANDLE,
-        PropertyKind::STRUCTURE_ARRAY,
-        PropertyKind::HANDLE_ARRAY,
-        PropertyKind::NUMBER_ARRAY,
-        PropertyKind::ENUMERATION_ARRAY,
-        PropertyKind::NEXT,
-    ];
-
-    private const array DUAL_KINDS = [
-        PropertyKind::INTEGER,
-        PropertyKind::FLOAT,
-        PropertyKind::BOOLEAN,
-        PropertyKind::ENUMERATION,
-        PropertyKind::TEXT,
-        PropertyKind::BYTES,
-        PropertyKind::NATIVE,
-        PropertyKind::NUMBER_LIST,
-        PropertyKind::STRUCTURE_VALUE,
-        PropertyKind::STRUCTURE_LIST,
-        PropertyKind::ENUMERATION_LIST,
-        PropertyKind::NEXT,
-    ];
-
-    /**
-     * The pointers a union holds are not read: which one is valid depends on
-     * another member.
-     */
-    private const array POINTER_KINDS = [
-        PropertyKind::STRING,
-        PropertyKind::NATIVE,
-        PropertyKind::STRUCTURE_POINTER,
-        PropertyKind::CALLBACK,
-    ];
-
-    private const array OUTPUT_KINDS = [
-        PropertyKind::INTEGER,
-        PropertyKind::FLOAT,
-        PropertyKind::BOOLEAN,
-        PropertyKind::ENUMERATION,
-        PropertyKind::STRING,
-        PropertyKind::TEXT,
-        PropertyKind::BYTES,
-        PropertyKind::NATIVE,
-        PropertyKind::HANDLE,
-        PropertyKind::HANDLE_LIST,
-        PropertyKind::NUMBER_LIST,
-        PropertyKind::STRUCTURE_VALUE,
-        PropertyKind::STRUCTURE_LIST,
-        PropertyKind::ENUMERATION_LIST,
-        PropertyKind::QUERIED_ARRAY,
-        PropertyKind::QUERIED_BYTES,
-    ];
-
-    /**
-     * Defaults of the members for which zero is not a usable value.
-     */
-    private const array DEFAULTS = [
-        'VkApplicationInfo::apiVersion' => 1 << 22,
-    ];
-
     private MemberKinds $kinds;
 
     public function __construct(
@@ -116,6 +35,12 @@ final readonly class StructAnalyzer
      */
     public function analyze(StructDefinition $struct, StructRole $role): StructPlan
     {
+        $counted = Quirks::findCounts($struct->name);
+
+        if ($counted !== null) {
+            $struct = $this->withCounts($struct, $counted[0], $counted[1]);
+        }
+
         if ($struct->isUnion) {
             return $this->analyzeUnion($struct, $role);
         }
@@ -124,9 +49,7 @@ final readonly class StructAnalyzer
 
         foreach ($struct->members as $member) {
             $kind = $this->kinds->find($struct, $member);
-            $isLengthKept = $kind === PropertyKind::SAMPLE_MASK
-                || $kind === PropertyKind::NATIVE
-                || $kind === PropertyKind::FEEDBACK_ARRAY;
+            $isLengthKept = $kind?->keepsLength() ?? false;
 
             if ($member->length !== null && !$member->isOptional && !$isLengthKept) {
                 $lengths[$member->length] = true;
@@ -173,7 +96,59 @@ final readonly class StructAnalyzer
             $properties[] = $this->createProperty($struct, $member, $role);
         }
 
-        return new StructPlan($struct, $role, $properties, $structureType);
+        return new StructPlan($struct, $role, $properties, $structureType, counts: $counted[0] ?? null);
+    }
+
+    /**
+     * Returns the structure whose arrays have their lengths in the members of
+     * another structure.
+     *
+     * @param non-empty-string $counts
+     * @param array<non-empty-string, non-empty-string> $lengths the members
+     *        with the lengths by the members with the arrays
+     */
+    private function withCounts(StructDefinition $struct, string $counts, array $lengths): StructDefinition
+    {
+        $members = [];
+
+        foreach ($struct->members as $member) {
+            $length = $lengths[$member->name] ?? null;
+
+            if ($length === null) {
+                $members[] = $member;
+
+                continue;
+            }
+
+            $members[] = new FieldDefinition(
+                $member->name,
+                $member->type,
+                $member->pointerDepth,
+                $member->isConst,
+                $member->arraySize,
+                $length,
+                $member->isNullTerminated,
+                $member->isOptional,
+                $member->value,
+                $member->unsupported,
+                $member->comment,
+                $member->limitType,
+                $member->lengthDivisor,
+                $member->bits,
+                $member->isMultidimensional,
+                $member->bitWord,
+                $member->bitOffset,
+                $counts,
+            );
+        }
+
+        return new StructDefinition(
+            $struct->name,
+            $members,
+            $struct->extends,
+            $struct->isUnion,
+            $struct->isReturnedOnly,
+        );
     }
 
     /**
@@ -196,7 +171,7 @@ final readonly class StructAnalyzer
 
         foreach ($struct->members as $member) {
             if ($role === StructRole::OUTPUT) {
-                if (\in_array($this->kinds->find($struct, $member), self::POINTER_KINDS, true)) {
+                if ($this->kinds->find($struct, $member)?->isPointer() ?? false) {
                     continue;
                 }
 
@@ -251,7 +226,9 @@ final readonly class StructAnalyzer
             $kind = PropertyKind::QUERIED_ARRAY;
         }
 
-        $isFilledByVulkan = $struct->isReturnedOnly || MixedStructures::findInput($struct->name) !== null;
+        $kind = $this->adaptKind($kind, $role, $struct, $member);
+
+        $isFilledByVulkan = $struct->isReturnedOnly || Quirks::findMixedInput($struct->name) !== null;
 
         if ($role === StructRole::OUTPUT && $isFilledByVulkan && $this->kinds->isQueriedBuffer($struct, $member)) {
             $kind = PropertyKind::QUERIED_BYTES;
@@ -271,13 +248,7 @@ final readonly class StructAnalyzer
             );
         }
 
-        $allowed = match ($role) {
-            StructRole::INPUT => self::INPUT_KINDS,
-            StructRole::OUTPUT => self::OUTPUT_KINDS,
-            StructRole::DUAL => self::DUAL_KINDS,
-        };
-
-        if (!\in_array($kind, $allowed, true)) {
+        if (!$kind->isAllowedIn($role)) {
             throw UnsupportedDeclarationException::becauseDeclarationIsNotSupported(
                 $declaration,
                 'the kind of the member is not supported in this kind of structures',
@@ -294,7 +265,7 @@ final readonly class StructAnalyzer
                 $name,
                 'int',
                 hasDefault: $isInput,
-                default: self::DEFAULTS[$declaration] ?? 0,
+                default: Quirks::findDefault($declaration) ?? 0,
             ),
             PropertyKind::FLOAT => new PropertyPlan($member, $kind, $name, 'float', hasDefault: $isInput, default: 0.0),
             PropertyKind::BOOLEAN => new PropertyPlan(
@@ -399,6 +370,8 @@ final readonly class StructAnalyzer
             PropertyKind::HANDLE_ARRAY,
             PropertyKind::NUMBER_ARRAY,
             PropertyKind::SAMPLE_MASK,
+            PropertyKind::BOOLEAN_ARRAY,
+            PropertyKind::VALUE_POINTER_ARRAY,
             PropertyKind::ENUMERATION_ARRAY => new PropertyPlan(
                 $member,
                 $kind,
@@ -407,11 +380,44 @@ final readonly class StructAnalyzer
                 hasDefault: true,
                 default: [],
             ),
-            PropertyKind::NEXT => throw UnsupportedDeclarationException::becauseDeclarationIsNotSupported(
+            PropertyKind::INOUT_INTEGER => new PropertyPlan($member, $kind, $name, 'int', hasDefault: true, default: 0),
+            PropertyKind::OWNED_ARRAY => new PropertyPlan($member, $kind, $name, 'array'),
+            PropertyKind::FEEDBACK_ENUMERATION => new PropertyPlan($member, $kind, $name, null, true),
+            PropertyKind::NEXT, PropertyKind::CHAIN => throw UnsupportedDeclarationException::becauseDeclarationIsNotSupported(
                 $declaration,
                 'the member is not described',
             ),
         };
+    }
+
+    /**
+     * Adjusts the kind to the role of the structure: the array of an input
+     * structure is written by the user even if the pointer is not constant,
+     * the constant array of a returned structure is owned by the driver.
+     */
+    private function adaptKind(?PropertyKind $kind, StructRole $role, StructDefinition $struct, FieldDefinition $member): ?PropertyKind
+    {
+        if ($kind === PropertyKind::QUERIED_ARRAY && $role === StructRole::INPUT) {
+            if (Quirks::findMixedInput($struct->name) !== null) {
+                return $kind;
+            }
+
+            return match ($this->types->resolve($member->type)) {
+                TypeKind::STRUCTURE => PropertyKind::STRUCTURE_ARRAY,
+                TypeKind::ENUMERATION => PropertyKind::ENUMERATION_ARRAY,
+                default => PropertyKind::NUMBER_ARRAY,
+            };
+        }
+
+        $isArray = $kind === PropertyKind::STRUCTURE_ARRAY
+            || $kind === PropertyKind::NUMBER_ARRAY
+            || $kind === PropertyKind::ENUMERATION_ARRAY;
+
+        if ($isArray && $role === StructRole::OUTPUT) {
+            return PropertyKind::OWNED_ARRAY;
+        }
+
+        return $kind;
     }
 
     /**

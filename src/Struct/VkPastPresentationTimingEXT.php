@@ -39,6 +39,9 @@ final readonly class VkPastPresentationTimingEXT implements OutputStructureInter
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
@@ -95,6 +98,9 @@ final readonly class VkPastPresentationTimingEXT implements OutputStructureInter
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

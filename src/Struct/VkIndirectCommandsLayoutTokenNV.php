@@ -14,7 +14,7 @@ use Serafim\Vulkan\Enum\VkIndirectCommandsTokenTypeNV;
 use Serafim\Vulkan\Enum\VkIndirectStateFlagBitsNV;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkPipelineLayout;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkIndirectCommandsLayoutTokenNVExtension;
@@ -119,7 +119,7 @@ final class VkIndirectCommandsLayoutTokenNV implements InputStructureInterface
 
         if ($this->indexTypeValues !== []) {
             if ($data->indexTypeCount !== 0 && $data->indexTypeCount !== \count($this->indexTypeValues)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkIndirectCommandsLayoutTokenNV', 'indexTypeValues');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkIndirectCommandsLayoutTokenNV', 'indexTypeValues');
             }
 
             $data->indexTypeCount = \count($this->indexTypeValues);

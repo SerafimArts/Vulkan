@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkIndexType;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkMicromapEXT;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryTrianglesDataKHRExtension;
@@ -90,7 +90,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapEXT implements InputS
 
         if ($this->usageCounts !== []) {
             if ($data->usageCountsCount !== 0 && $data->usageCountsCount !== \count($this->usageCounts)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkAccelerationStructureTrianglesOpacityMicromapEXT', 'usageCounts');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkAccelerationStructureTrianglesOpacityMicromapEXT', 'usageCounts');
             }
 
             $data->usageCountsCount = \count($this->usageCounts);
@@ -99,7 +99,7 @@ final class VkAccelerationStructureTrianglesOpacityMicromapEXT implements InputS
 
         if ($this->usageCounts !== []) {
             if ($data->usageCountsCount !== 0 && $data->usageCountsCount !== \count($this->usageCounts)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkAccelerationStructureTrianglesOpacityMicromapEXT', 'usageCounts');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkAccelerationStructureTrianglesOpacityMicromapEXT', 'usageCounts');
             }
 
             $data->usageCountsCount = \count($this->usageCounts);

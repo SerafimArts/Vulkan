@@ -12,7 +12,8 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkLogicOp;
 use Serafim\Vulkan\Enum\VkPipelineColorBlendStateCreateFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineColorBlendStateCreateInfoExtension;
 
@@ -88,7 +89,7 @@ final class VkPipelineColorBlendStateCreateInfo implements InputStructureInterfa
 
         if ($this->attachments !== []) {
             if ($data->attachmentCount !== 0 && $data->attachmentCount !== \count($this->attachments)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkPipelineColorBlendStateCreateInfo', 'attachments');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkPipelineColorBlendStateCreateInfo', 'attachments');
             }
 
             $data->attachmentCount = \count($this->attachments);
@@ -96,7 +97,7 @@ final class VkPipelineColorBlendStateCreateInfo implements InputStructureInterfa
         }
 
         if (\count($this->blendConstants) > 4) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPipelineColorBlendStateCreateInfo', 'blendConstants', 4);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPipelineColorBlendStateCreateInfo', 'blendConstants', 4);
         }
 
         foreach ($this->blendConstants as $i => $item) {

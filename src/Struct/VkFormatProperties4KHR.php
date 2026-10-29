@@ -24,6 +24,10 @@ final readonly class VkFormatProperties4KHR implements OutputStructureInterface,
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_4_KHR->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkFormatProperties4KHR');
@@ -46,6 +50,9 @@ final readonly class VkFormatProperties4KHR implements OutputStructureInterface,
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

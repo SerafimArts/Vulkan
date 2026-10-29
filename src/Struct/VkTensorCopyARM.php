@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -66,7 +66,7 @@ final class VkTensorCopyARM implements InputStructureInterface
 
         if ($this->srcOffset !== []) {
             if ($data->dimensionCount !== 0 && $data->dimensionCount !== \count($this->srcOffset)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkTensorCopyARM', 'srcOffset');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkTensorCopyARM', 'srcOffset');
             }
 
             $data->dimensionCount = \count($this->srcOffset);
@@ -75,7 +75,7 @@ final class VkTensorCopyARM implements InputStructureInterface
 
         if ($this->dstOffset !== []) {
             if ($data->dimensionCount !== 0 && $data->dimensionCount !== \count($this->dstOffset)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkTensorCopyARM', 'dstOffset');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkTensorCopyARM', 'dstOffset');
             }
 
             $data->dimensionCount = \count($this->dstOffset);
@@ -84,7 +84,7 @@ final class VkTensorCopyARM implements InputStructureInterface
 
         if ($this->extent !== []) {
             if ($data->dimensionCount !== 0 && $data->dimensionCount !== \count($this->extent)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkTensorCopyARM', 'extent');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkTensorCopyARM', 'extent');
             }
 
             $data->dimensionCount = \count($this->extent);

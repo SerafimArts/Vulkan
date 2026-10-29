@@ -12,6 +12,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Calls;
+use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Enum\VkResult;
 
 /**
@@ -71,11 +72,13 @@ final readonly class ExecuteBody implements Body
      */
     private function createRetainLines(CommandPlan $plan): array
     {
-        if ($plan->command->name === 'vkUpdateDescriptorSets') {
-            return $this->createDescriptorRetainLines($plan);
+        $writing = Quirks::findWriting($plan->command->name);
+
+        if ($writing !== null) {
+            return $this->createWritingRetainLines($plan, $writing[0], $writing[1]);
         }
 
-        if (!\str_starts_with($plan->command->name, 'vkBind')) {
+        if (!Quirks::isBinding($plan->command->name)) {
             return [];
         }
 
@@ -103,21 +106,26 @@ final readonly class ExecuteBody implements Body
     }
 
     /**
-     * A descriptor set keeps alive the resources written to it.
+     * The owner of a written structure keeps it alive: a descriptor set keeps
+     * the resources written to it.
+     *
+     * @param non-empty-string $type the type of the written structures
+     * @param non-empty-string $owner the member of the structure with the
+     *        owner
      *
      * @return list<string>
      */
-    private function createDescriptorRetainLines(CommandPlan $plan): array
+    private function createWritingRetainLines(CommandPlan $plan, string $type, string $owner): array
     {
         foreach ($plan->parameters as $parameter) {
-            if ($parameter->field->type !== 'VkWriteDescriptorSet') {
+            if ($parameter->field->type !== $type) {
                 continue;
             }
 
             return [
                 '',
                 'foreach ($' . $parameter->name . ' as $write) {',
-                '    $write->dstSet->retain($write);',
+                '    $write->' . $owner . '->retain($write);',
                 '}',
             ];
         }

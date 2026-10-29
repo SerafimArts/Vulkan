@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Handle\VkShaderModule;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineCreateInfoARMExtension;
@@ -88,7 +88,7 @@ final class VkDataGraphPipelineShaderModuleCreateInfoARM implements InputStructu
 
         if ($this->constants !== []) {
             if ($data->constantCount !== 0 && $data->constantCount !== \count($this->constants)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkDataGraphPipelineShaderModuleCreateInfoARM', 'constants');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkDataGraphPipelineShaderModuleCreateInfoARM', 'constants');
             }
 
             $data->constantCount = \count($this->constants);

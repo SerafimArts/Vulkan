@@ -8,6 +8,7 @@ use PHPat\Selector\Selector;
 use PHPat\Test\Attributes\TestRule;
 use PHPat\Test\Builder\Rule;
 use PHPat\Test\PHPat;
+use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Exception\VulkanException;
 use Serafim\Vulkan\Loader\Exception\LoaderException;
 
@@ -17,6 +18,8 @@ use Serafim\Vulkan\Loader\Exception\LoaderException;
 final class ExceptionArchitecture
 {
     private const string NAMESPACE = 'Serafim\Vulkan\Loader\Exception';
+
+    private const string STRUCTURE_NAMESPACE = 'Serafim\Vulkan\Exception\InvalidStructure';
 
     #[TestRule]
     public function testExceptionsDependOnlyOnTheirBranch(): Rule
@@ -71,6 +74,39 @@ final class ExceptionArchitecture
     {
         return PHPat::rule()
             ->classes(Selector::inNamespace(self::NAMESPACE))
+            ->shouldBeNamed('/Exception$/', true);
+    }
+
+    #[TestRule]
+    public function testInvalidStructureRootIsAbstract(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::classname(InvalidStructureException::class))
+            ->shouldBeAbstract();
+    }
+
+    #[TestRule]
+    public function testInvalidStructureLeavesExtendTheirRoot(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace(self::STRUCTURE_NAMESPACE))
+            ->shouldExtend()
+            ->classes(Selector::classname(InvalidStructureException::class));
+    }
+
+    #[TestRule]
+    public function testInvalidStructureLeavesAreFinal(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace(self::STRUCTURE_NAMESPACE))
+            ->shouldBeFinal();
+    }
+
+    #[TestRule]
+    public function testInvalidStructureLeavesAreNamedWithExceptionSuffix(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace(self::STRUCTURE_NAMESPACE))
             ->shouldBeNamed('/Exception$/', true);
     }
 }

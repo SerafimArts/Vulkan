@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\WrongArrayLengthException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtension;
 
@@ -94,7 +94,7 @@ final class VkPipelineMultisampleStateCreateInfo implements InputStructureInterf
             $words = ($this->rasterizationSamples + 31) >> 5;
 
             if (\count($this->sampleMask) !== $words) {
-                throw InvalidStructureException::becauseArrayHasWrongLength('VkPipelineMultisampleStateCreateInfo', 'sampleMask', $words);
+                throw WrongArrayLengthException::becauseArrayHasWrongLength('VkPipelineMultisampleStateCreateInfo', 'sampleMask', $words);
             }
 
             $data->pSampleMask = $memory->ffi->cast('uint32_t*', $memory->toNumberArray('uint32_t', $this->sampleMask));

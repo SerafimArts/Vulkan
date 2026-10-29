@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -42,7 +42,7 @@ final class VkTransformMatrixKHR implements InputStructureInterface
         $flat = $memory->ffi->cast('float[12]', $data->matrix);
 
         if (\count($this->matrix) > 12) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkTransformMatrixKHR', 'matrix', 12);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkTransformMatrixKHR', 'matrix', 12);
         }
 
         foreach ($this->matrix as $i => $item) {

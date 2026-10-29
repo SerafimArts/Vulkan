@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Internal;
 
 use FFI\CData;
-use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Exception\CommandFailedException;
-use Serafim\Vulkan\Internal\Memory\Buffers;
+use Serafim\Vulkan\Internal\VkEnumerator\ArrayQuery;
+use Serafim\Vulkan\Internal\VkEnumerator\ParallelQuery;
 use Serafim\Vulkan\VulkanBase;
 
 /**
@@ -71,7 +71,7 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
     }
 
     /**
-     * Calls the command that fills several arrays of the same length and wraps
+     * Calls the command that fills several arrays with the same length and wraps
      * each native array it has filled.
      *
      * @param non-empty-string $command
@@ -88,45 +88,17 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
      */
     public static function createParallel(VulkanBase $vk, string $command, \Closure $call, array $arrays): array
     {
-        $count = $vk->memory->new('uint32_t');
-        $pointer = \FFI::addr($count);
+        $query = new ParallelQuery($vk, $call, \array_map(
+            static fn(array $array): array => [$array[0], $array[2]],
+            $arrays,
+        ));
 
-        do {
-            $vk->assertSuccess($command, self::getCode($call($pointer, ...\array_fill(0, \count($arrays), null))));
-
-            $length = self::readLength($count);
-
-            if ($length === 0) {
-                return \array_map(
-                    static fn(array $array): self => new self(null, 0, $array[1]),
-                    $arrays,
-                );
-            }
-
-            $natives = [];
-
-            foreach ($arrays as $name => [$type, , $structureType]) {
-                $items = $vk->memory->new($type . '[' . $length . ']');
-
-                for ($i = 0; $i < $length; ++$i) {
-                    /** @var CData $item */
-                    $item = $items[$i];
-
-                    $item->sType = $structureType;
-                }
-
-                $natives[$name] = $items;
-            }
-
-            $result = self::getCode($call($pointer, ...\array_values($natives)));
-        } while ($result === VkResult::VK_INCOMPLETE->value);
-
-        $vk->assertSuccess($command, $result);
+        DoubleCall::execute($vk, $command, $query);
 
         $enumerators = [];
 
         foreach ($arrays as $name => [, $factory]) {
-            $enumerators[$name] = new self($natives[$name], self::readLength($count), $factory);
+            $enumerators[$name] = new self($query->findItems($name), $query->getLength(), $factory);
         }
 
         return $enumerators;
@@ -241,62 +213,16 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
         string $countType = 'uint32_t',
         ?\Closure $buffered = null,
     ): array {
-        $count = $vk->memory->new($countType);
-        $pointer = \FFI::addr($count);
+        $query = new ArrayQuery($vk, $call, $type, $structureType, $countType, $buffered);
 
-        do {
-            $vk->assertSuccess($command, self::getCode($call($pointer, null)));
+        DoubleCall::execute($vk, $command, $query);
 
-            $length = self::readLength($count);
+        $items = $query->findItems();
 
-            if ($length === 0) {
-                return [null, 0];
-            }
-
-            $items = $vk->memory->new($type . '[' . $length . ']');
-
-            if ($structureType !== null) {
-                for ($i = 0; $i < $length; ++$i) {
-                    /** @var CData $item */
-                    $item = $items[$i];
-
-                    $item->sType = $structureType;
-                }
-            }
-
-            $result = self::getCode($call($pointer, $items));
-
-            while ($buffered !== null && Buffers::allocateEach($buffered, $items, $length)) {
-                $result = self::getCode($call($pointer, $items));
-            }
-        } while ($result === VkResult::VK_INCOMPLETE->value);
-
-        $vk->assertSuccess($command, $result);
-
-        return [$items, self::readLength($count)];
-    }
-
-    /**
-     * Returns the code the command has returned, a command that returns
-     * nothing is successful.
-     */
-    private static function getCode(mixed $result): int
-    {
-        if (\is_int($result)) {
-            return $result;
+        if ($items === null) {
+            return [null, 0];
         }
 
-        return 0;
-    }
-
-    /**
-     * @return int<0, max>
-     */
-    private static function readLength(CData $count): int
-    {
-        /** @var int<0, max> $length */
-        $length = $count->cdata;
-
-        return $length;
+        return [$items, $query->getLength()];
     }
 }

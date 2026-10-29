@@ -87,10 +87,10 @@ final class PlatformDetectorTest extends TestCase
     public function testAddedDriverSupportsNewFamily(): void
     {
         $detector = PlatformDetector::createDefault()
-            ->withDriver(self::createDriver('Plan9', Platform::SCREEN));
+            ->withDriver(self::createDriver('Plan9', Platform::METAL));
 
         self::assertSame(
-            Platform::SCREEN,
+            Platform::METAL,
             $detector->getPlatform(new Environment('Plan9')),
         );
     }

@@ -9,6 +9,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\StructPlan;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
+use Serafim\Vulkan\Build\Generator\Registry\Registry;
 
 /**
  * The docblock that describes the members of the native struct a method of a
@@ -21,7 +22,43 @@ final readonly class Shape
 {
     public function __construct(
         private Reader $reader,
+        private Registry $registry,
     ) {}
+
+    /**
+     * Returns the lines that describe the members of the structure with the
+     * lengths of the arrays, {@see null} lines if the structure has them
+     * itself.
+     *
+     * @return list<string>
+     */
+    public function createCounts(StructPlan $plan): array
+    {
+        if ($plan->counts === null) {
+            return [];
+        }
+
+        $used = [];
+
+        foreach ($plan->properties as $property) {
+            if ($property->field->lengthStruct !== null && $property->field->length !== null) {
+                $used[$property->field->length] = true;
+            }
+        }
+
+        $shape = ['@param CData&object{'];
+
+        foreach ($this->registry->getStruct($plan->counts)->members as $member) {
+            if (isset($used[$member->name])) {
+                $shape[] = '    ' . $member->name . ': ' . $this->reader->createFieldType($member) . ',';
+            }
+        }
+
+        $shape[] = '} $counts';
+        $shape[] = '@phpstan-param CData $counts';
+
+        return $shape;
+    }
 
     /**
      * Returns the lines that describe every member of the native struct.

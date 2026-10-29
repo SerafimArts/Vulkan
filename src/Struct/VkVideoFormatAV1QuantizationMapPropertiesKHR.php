@@ -25,6 +25,10 @@ final readonly class VkVideoFormatAV1QuantizationMapPropertiesKHR implements Out
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR->value;
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
     public static function createNative(Allocator $memory): CData
     {
         $data = $memory->new('VkVideoFormatAV1QuantizationMapPropertiesKHR');
@@ -44,6 +48,9 @@ final readonly class VkVideoFormatAV1QuantizationMapPropertiesKHR implements Out
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
     public static function createFromCData(CData $data): self
     {

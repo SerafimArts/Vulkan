@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\DifferentArrayLengthsException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryKHRExtension;
 
@@ -75,7 +75,7 @@ final class VkAccelerationStructureGeometryMicromapDataKHR implements InputStruc
 
         if ($this->usageCounts !== []) {
             if ($data->usageCountsCount !== 0 && $data->usageCountsCount !== \count($this->usageCounts)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkAccelerationStructureGeometryMicromapDataKHR', 'usageCounts');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkAccelerationStructureGeometryMicromapDataKHR', 'usageCounts');
             }
 
             $data->usageCountsCount = \count($this->usageCounts);
@@ -84,7 +84,7 @@ final class VkAccelerationStructureGeometryMicromapDataKHR implements InputStruc
 
         if ($this->usageCounts !== []) {
             if ($data->usageCountsCount !== 0 && $data->usageCountsCount !== \count($this->usageCounts)) {
-                throw InvalidStructureException::becauseArraysHaveDifferentLengths('VkAccelerationStructureGeometryMicromapDataKHR', 'usageCounts');
+                throw DifferentArrayLengthsException::becauseArraysHaveDifferentLengths('VkAccelerationStructureGeometryMicromapDataKHR', 'usageCounts');
             }
 
             $data->usageCountsCount = \count($this->usageCounts);

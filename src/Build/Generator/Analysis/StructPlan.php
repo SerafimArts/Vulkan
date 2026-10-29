@@ -40,5 +40,12 @@ final readonly class StructPlan
          * context of the commands that created them
          */
         public bool $needsContext = false,
+        /**
+         * The structure that holds the lengths of the arrays, the first call
+         * of the command fills it
+         *
+         * @var non-empty-string|null
+         */
+        public ?string $counts = null,
     ) {}
 }

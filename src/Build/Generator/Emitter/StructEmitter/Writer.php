@@ -10,7 +10,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\StructPlan;
 use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec\Codecs;
 use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec\PropertyContext;
 use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\InvalidUnionException;
 
 /**
  * Writing of the properties to the members of a native struct.
@@ -55,7 +55,7 @@ final readonly class Writer
      */
     public function createUnionLines(PhpNamespace $namespace, StructPlan $plan): array
     {
-        $namespace->addUse(InvalidStructureException::class);
+        $namespace->addUse(InvalidUnionException::class);
 
         $members = [];
 
@@ -68,7 +68,7 @@ final readonly class Writer
                 . '], static fn(mixed $member): bool => $member !== null));',
             '',
             'if ($members !== 1) {',
-            '    throw InvalidStructureException::becauseUnionDoesNotHaveOneMember('
+            '    throw InvalidUnionException::becauseUnionDoesNotHaveOneMember('
                 . \var_export($plan->struct->name, true) . ', $members);',
             '}',
         ];

@@ -12,11 +12,12 @@ use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Exception\CommandFailedException;
 use Serafim\Vulkan\Exception\CommandNotAvailableException;
 use Serafim\Vulkan\Handle\Handle;
-use Serafim\Vulkan\Loader\Headers\PreprocessorHeadersLoader;
-use Serafim\Vulkan\Loader\VulkanLoader;
+use Serafim\Vulkan\Internal\DoubleCall;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Internal\Memory\Buffers;
 use Serafim\Vulkan\Internal\VkEnumerator;
+use Serafim\Vulkan\Loader\Headers\PreprocessorHeadersLoader;
+use Serafim\Vulkan\Loader\VulkanLoader;
 use Serafim\Vulkan\VulkanBase;
 
 /**
@@ -65,8 +66,37 @@ final class RuntimeArchitecture
                 Selector::classname(VkEnumerator::class),
                 Selector::classname(VulkanBase::class),
                 Selector::classname(CommandFailedException::class),
+                Selector::classname(DoubleCall::class),
+                Selector::inNamespace('Serafim\Vulkan\Internal\VkEnumerator'),
+            );
+    }
+
+    #[TestRule]
+    public function testDoubleCallDependsOnlyOnCommandsAndResults(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::classname(DoubleCall::class))
+            ->canOnlyDependOn()
+            ->classes(
+                Selector::inNamespace('Serafim\Vulkan\Internal\DoubleCall'),
+                Selector::classname(DoubleCall::class),
+                Selector::classname(VulkanBase::class),
+                Selector::classname(CommandFailedException::class),
                 Selector::classname(VkResult::class),
+            );
+    }
+
+    #[TestRule]
+    public function testVkEnumeratorQueriesDependOnlyOnTheRuntime(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace('Serafim\Vulkan\Internal\VkEnumerator'))
+            ->canOnlyDependOn()
+            ->classes(
+                Selector::inNamespace('Serafim\Vulkan\Internal\VkEnumerator'),
+                Selector::inNamespace('Serafim\Vulkan\Internal\DoubleCall'),
                 Selector::classname(Buffers::class),
+                Selector::classname(VulkanBase::class),
             );
     }
 
@@ -93,6 +123,20 @@ final class RuntimeArchitecture
                 Selector::classname(VkResult::class),
                 Selector::classname(Handle::class),
                 Selector::classname(Allocator::class),
+                Selector::inNamespace('Serafim\Vulkan\Internal\Driver'),
+            );
+    }
+
+    #[TestRule]
+    public function testDriversDependOnlyOnCommandsAndHandles(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace('Serafim\Vulkan\Internal\Driver'))
+            ->canOnlyDependOn()
+            ->classes(
+                Selector::inNamespace('Serafim\Vulkan\Internal\Driver'),
+                Selector::classname(CommandNotAvailableException::class),
+                Selector::classname(Handle::class),
             );
     }
 

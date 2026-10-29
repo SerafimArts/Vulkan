@@ -10,7 +10,7 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -62,7 +62,7 @@ final class VkDebugMarkerMarkerInfoEXT implements InputStructureInterface
         }
 
         if (\count($this->color) > 4) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkDebugMarkerMarkerInfoEXT', 'color', 4);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkDebugMarkerMarkerInfoEXT', 'color', 4);
         }
 
         foreach ($this->color as $i => $item) {

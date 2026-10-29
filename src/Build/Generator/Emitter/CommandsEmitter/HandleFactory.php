@@ -9,6 +9,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\ParameterPlan;
 use Serafim\Vulkan\Build\Generator\Analysis\ParameterRole;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
+use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 
 /**
@@ -76,7 +77,7 @@ final readonly class HandleFactory
                 continue;
             }
 
-            if ($parameter->type === 'VkAllocationCallbacks') {
+            if ($parameter->type === Quirks::ALLOCATOR_TYPE) {
                 $arguments[] = 'null';
 
                 continue;

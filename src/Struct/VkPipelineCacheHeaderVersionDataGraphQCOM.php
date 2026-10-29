@@ -11,7 +11,7 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphModelCacheTypeQCOM;
 use Serafim\Vulkan\Enum\VkPipelineCacheHeaderVersion;
-use Serafim\Vulkan\Exception\InvalidStructureException;
+use Serafim\Vulkan\Exception\InvalidStructure\ArrayTooLongException;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 
 /**
@@ -60,7 +60,7 @@ final class VkPipelineCacheHeaderVersionDataGraphQCOM implements InputStructureI
         $data->cacheVersion = $this->cacheVersion;
 
         if (\count($this->toolchainVersion) > 3) {
-            throw InvalidStructureException::becauseArrayIsTooLong('VkPipelineCacheHeaderVersionDataGraphQCOM', 'toolchainVersion', 3);
+            throw ArrayTooLongException::becauseArrayIsTooLong('VkPipelineCacheHeaderVersionDataGraphQCOM', 'toolchainVersion', 3);
         }
 
         foreach ($this->toolchainVersion as $i => $item) {
