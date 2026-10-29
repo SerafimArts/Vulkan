@@ -95,12 +95,9 @@ $properties = $vk->vkGetPhysicalDeviceProperties2($device, [
 
 $vulkan13 = $properties->findChained(VkPhysicalDeviceVulkan13Properties::class);
 
-echo $vulkan13->driverName . "
-";   // Vulkan 1.2
-echo $vulkan13->deviceUUID . "
-";    // Vulkan 1.1
-echo $vulkan13->maxSubgroupSize . "
-";
+echo $vulkan13->driverName . "\n";   // Vulkan 1.2
+echo $vulkan13->deviceUUID . "\n";    // Vulkan 1.1
+echo $vulkan13->maxSubgroupSize . "\n";
 ```
 
 ### Logical device and queue
@@ -145,4 +142,4 @@ try {
 }
 ```
 
-More [in `./examples/*.php`](examples/).
+More [in `./examples/*.php`](examples/)
