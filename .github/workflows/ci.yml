@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  analysis:
+    name: Static analysis and code style
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ffi
+          ini-values: ffi.enable=1
+          tools: composer
+      - run: composer install --no-interaction --no-progress
+      - run: composer linter:check
+      - run: composer phpcs:check
+
+  tests:
+    name: Tests, PHP ${{ matrix.php }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        php: ['8.4', '8.5']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ffi
+          ini-values: ffi.enable=1
+          tools: composer
+      - name: Install the software Vulkan implementation
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libvulkan1 mesa-vulkan-drivers
+      - name: Install the Vulkan loader
+        if: runner.os == 'macOS'
+        run: brew install vulkan-loader molten-vk
+      - run: composer install --no-interaction --no-progress
+      - run: composer test:unit
+
+  generated:
+    name: Generated code is up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ffi
+          ini-values: ffi.enable=1
+          tools: composer
+      - run: composer install --no-interaction --no-progress
+      - run: php bin/vulkan download 1.4.366
+      - run: php bin/vulkan build
+      - run: php bin/vulkan generate
+      - name: The generator leaves no changes
+        run: git diff --exit-code
