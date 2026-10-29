@@ -70,7 +70,10 @@ final class StructArchitecture
     {
         return PHPat::rule()
             ->classes(Selector::implements(InputStructureInterface::class))
-            ->excluding(Selector::classname(InputStructureInterface::class))
+            ->excluding(
+                Selector::classname(InputStructureInterface::class),
+                Selector::classname('/VkPhysicalDeviceVulkan\d+Features$/', true),
+            )
             ->shouldBeFinal();
     }
 }

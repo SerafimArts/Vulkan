@@ -22,7 +22,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Properties.html
  * @since 1.2
  */
-final readonly class VkPhysicalDeviceVulkan11Properties implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
+readonly class VkPhysicalDeviceVulkan11Properties implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
 {
     use OutputStructureTrait;
 

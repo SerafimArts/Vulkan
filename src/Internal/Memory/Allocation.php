@@ -42,6 +42,17 @@ final readonly class Allocation
     }
 
     /**
+     * Allocates a zeroed value that lives as long as the struct that points
+     * to it.
+     *
+     * @param non-empty-string $type C type of the value
+     */
+    public function newRetained(string $type): CData
+    {
+        return $this->allocator->new($type, $this->owner);
+    }
+
+    /**
      * Returns the `char*` pointer to the copy of the string.
      */
     public function toCString(string $value): CData

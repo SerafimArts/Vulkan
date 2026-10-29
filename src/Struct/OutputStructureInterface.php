@@ -15,5 +15,5 @@ interface OutputStructureInterface
     /**
      * Copies the fields of the native struct.
      */
-    public static function createFromCData(CData $data): static;
+    public static function createFromCData(CData $data): self;
 }

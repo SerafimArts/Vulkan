@@ -12,7 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
@@ -20,16 +20,106 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan14Features.html
  * @since 1.4
  */
-final class VkPhysicalDeviceVulkan14Features implements InputStructureInterface, VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface
+final class VkPhysicalDeviceVulkan14Features extends VkPhysicalDeviceVulkan13Features implements VersionedStructureInterface
 {
-    use InputStructureTrait;
-
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan14Features';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_FEATURES->value;
 
+    /**
+     * @param bool $storageBuffer16BitAccess 16-bit integer/floating-point variables supported in BufferBlock
+     * @param bool $uniformAndStorageBuffer16BitAccess 16-bit integer/floating-point variables supported in BufferBlock
+     *         and Block
+     * @param bool $storagePushConstant16 16-bit integer/floating-point variables supported in
+     *         PushConstant
+     * @param bool $storageInputOutput16 16-bit integer/floating-point variables supported in shader
+     *         inputs and outputs
+     * @param bool $multiview Multiple views in a render pass
+     * @param bool $multiviewGeometryShader Multiple views in a render pass w/ geometry shader
+     * @param bool $multiviewTessellationShader Multiple views in a render pass w/ tessellation shader
+     * @param bool $samplerYcbcrConversion Sampler color conversion supported
+     * @param bool $storageBuffer8BitAccess 8-bit integer variables supported in StorageBuffer
+     * @param bool $uniformAndStorageBuffer8BitAccess 8-bit integer variables supported in StorageBuffer and Uniform
+     * @param bool $storagePushConstant8 8-bit integer variables supported in PushConstant
+     * @param bool $shaderFloat16 16-bit floats (halfs) in shaders
+     * @param bool $shaderInt8 8-bit integers in shaders
+     */
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
+        VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
+        bool $storageBuffer16BitAccess = false,
+        bool $uniformAndStorageBuffer16BitAccess = false,
+        bool $storagePushConstant16 = false,
+        bool $storageInputOutput16 = false,
+        bool $multiview = false,
+        bool $multiviewGeometryShader = false,
+        bool $multiviewTessellationShader = false,
+        bool $variablePointersStorageBuffer = false,
+        bool $variablePointers = false,
+        bool $protectedMemory = false,
+        bool $samplerYcbcrConversion = false,
+        bool $shaderDrawParameters = false,
+        bool $samplerMirrorClampToEdge = false,
+        bool $drawIndirectCount = false,
+        bool $storageBuffer8BitAccess = false,
+        bool $uniformAndStorageBuffer8BitAccess = false,
+        bool $storagePushConstant8 = false,
+        bool $shaderBufferInt64Atomics = false,
+        bool $shaderSharedInt64Atomics = false,
+        bool $shaderFloat16 = false,
+        bool $shaderInt8 = false,
+        bool $descriptorIndexing = false,
+        bool $shaderInputAttachmentArrayDynamicIndexing = false,
+        bool $shaderUniformTexelBufferArrayDynamicIndexing = false,
+        bool $shaderStorageTexelBufferArrayDynamicIndexing = false,
+        bool $shaderUniformBufferArrayNonUniformIndexing = false,
+        bool $shaderSampledImageArrayNonUniformIndexing = false,
+        bool $shaderStorageBufferArrayNonUniformIndexing = false,
+        bool $shaderStorageImageArrayNonUniformIndexing = false,
+        bool $shaderInputAttachmentArrayNonUniformIndexing = false,
+        bool $shaderUniformTexelBufferArrayNonUniformIndexing = false,
+        bool $shaderStorageTexelBufferArrayNonUniformIndexing = false,
+        bool $descriptorBindingUniformBufferUpdateAfterBind = false,
+        bool $descriptorBindingSampledImageUpdateAfterBind = false,
+        bool $descriptorBindingStorageImageUpdateAfterBind = false,
+        bool $descriptorBindingStorageBufferUpdateAfterBind = false,
+        bool $descriptorBindingUniformTexelBufferUpdateAfterBind = false,
+        bool $descriptorBindingStorageTexelBufferUpdateAfterBind = false,
+        bool $descriptorBindingUpdateUnusedWhilePending = false,
+        bool $descriptorBindingPartiallyBound = false,
+        bool $descriptorBindingVariableDescriptorCount = false,
+        bool $runtimeDescriptorArray = false,
+        bool $samplerFilterMinmax = false,
+        bool $scalarBlockLayout = false,
+        bool $imagelessFramebuffer = false,
+        bool $uniformBufferStandardLayout = false,
+        bool $shaderSubgroupExtendedTypes = false,
+        bool $separateDepthStencilLayouts = false,
+        bool $hostQueryReset = false,
+        bool $timelineSemaphore = false,
+        bool $bufferDeviceAddress = false,
+        bool $bufferDeviceAddressCaptureReplay = false,
+        bool $bufferDeviceAddressMultiDevice = false,
+        bool $vulkanMemoryModel = false,
+        bool $vulkanMemoryModelDeviceScope = false,
+        bool $vulkanMemoryModelAvailabilityVisibilityChains = false,
+        bool $shaderOutputViewportIndex = false,
+        bool $shaderOutputLayer = false,
+        bool $subgroupBroadcastDynamicId = false,
+        bool $robustImageAccess = false,
+        bool $inlineUniformBlock = false,
+        bool $descriptorBindingInlineUniformBlockUpdateAfterBind = false,
+        bool $pipelineCreationCacheControl = false,
+        bool $privateData = false,
+        bool $shaderDemoteToHelperInvocation = false,
+        bool $shaderTerminateInvocation = false,
+        bool $subgroupSizeControl = false,
+        bool $computeFullSubgroups = false,
+        bool $synchronization2 = false,
+        bool $textureCompressionASTC_HDR = false,
+        bool $shaderZeroInitializeWorkgroupMemory = false,
+        bool $dynamicRendering = false,
+        bool $shaderIntegerDotProduct = false,
+        bool $maintenance4 = false,
         public bool $globalPriorityQuery = false,
         public bool $shaderSubgroupRotate = false,
         public bool $shaderSubgroupRotateClustered = false,
@@ -51,7 +141,85 @@ final class VkPhysicalDeviceVulkan14Features implements InputStructureInterface,
         public bool $pipelineRobustness = false,
         public bool $hostImageCopy = false,
         public bool $pushDescriptor = false,
-    ) {}
+    ) {
+        parent::__construct(
+            next: $next,
+            storageBuffer16BitAccess: $storageBuffer16BitAccess,
+            uniformAndStorageBuffer16BitAccess: $uniformAndStorageBuffer16BitAccess,
+            storagePushConstant16: $storagePushConstant16,
+            storageInputOutput16: $storageInputOutput16,
+            multiview: $multiview,
+            multiviewGeometryShader: $multiviewGeometryShader,
+            multiviewTessellationShader: $multiviewTessellationShader,
+            variablePointersStorageBuffer: $variablePointersStorageBuffer,
+            variablePointers: $variablePointers,
+            protectedMemory: $protectedMemory,
+            samplerYcbcrConversion: $samplerYcbcrConversion,
+            shaderDrawParameters: $shaderDrawParameters,
+            samplerMirrorClampToEdge: $samplerMirrorClampToEdge,
+            drawIndirectCount: $drawIndirectCount,
+            storageBuffer8BitAccess: $storageBuffer8BitAccess,
+            uniformAndStorageBuffer8BitAccess: $uniformAndStorageBuffer8BitAccess,
+            storagePushConstant8: $storagePushConstant8,
+            shaderBufferInt64Atomics: $shaderBufferInt64Atomics,
+            shaderSharedInt64Atomics: $shaderSharedInt64Atomics,
+            shaderFloat16: $shaderFloat16,
+            shaderInt8: $shaderInt8,
+            descriptorIndexing: $descriptorIndexing,
+            shaderInputAttachmentArrayDynamicIndexing: $shaderInputAttachmentArrayDynamicIndexing,
+            shaderUniformTexelBufferArrayDynamicIndexing: $shaderUniformTexelBufferArrayDynamicIndexing,
+            shaderStorageTexelBufferArrayDynamicIndexing: $shaderStorageTexelBufferArrayDynamicIndexing,
+            shaderUniformBufferArrayNonUniformIndexing: $shaderUniformBufferArrayNonUniformIndexing,
+            shaderSampledImageArrayNonUniformIndexing: $shaderSampledImageArrayNonUniformIndexing,
+            shaderStorageBufferArrayNonUniformIndexing: $shaderStorageBufferArrayNonUniformIndexing,
+            shaderStorageImageArrayNonUniformIndexing: $shaderStorageImageArrayNonUniformIndexing,
+            shaderInputAttachmentArrayNonUniformIndexing: $shaderInputAttachmentArrayNonUniformIndexing,
+            shaderUniformTexelBufferArrayNonUniformIndexing: $shaderUniformTexelBufferArrayNonUniformIndexing,
+            shaderStorageTexelBufferArrayNonUniformIndexing: $shaderStorageTexelBufferArrayNonUniformIndexing,
+            descriptorBindingUniformBufferUpdateAfterBind: $descriptorBindingUniformBufferUpdateAfterBind,
+            descriptorBindingSampledImageUpdateAfterBind: $descriptorBindingSampledImageUpdateAfterBind,
+            descriptorBindingStorageImageUpdateAfterBind: $descriptorBindingStorageImageUpdateAfterBind,
+            descriptorBindingStorageBufferUpdateAfterBind: $descriptorBindingStorageBufferUpdateAfterBind,
+            descriptorBindingUniformTexelBufferUpdateAfterBind: $descriptorBindingUniformTexelBufferUpdateAfterBind,
+            descriptorBindingStorageTexelBufferUpdateAfterBind: $descriptorBindingStorageTexelBufferUpdateAfterBind,
+            descriptorBindingUpdateUnusedWhilePending: $descriptorBindingUpdateUnusedWhilePending,
+            descriptorBindingPartiallyBound: $descriptorBindingPartiallyBound,
+            descriptorBindingVariableDescriptorCount: $descriptorBindingVariableDescriptorCount,
+            runtimeDescriptorArray: $runtimeDescriptorArray,
+            samplerFilterMinmax: $samplerFilterMinmax,
+            scalarBlockLayout: $scalarBlockLayout,
+            imagelessFramebuffer: $imagelessFramebuffer,
+            uniformBufferStandardLayout: $uniformBufferStandardLayout,
+            shaderSubgroupExtendedTypes: $shaderSubgroupExtendedTypes,
+            separateDepthStencilLayouts: $separateDepthStencilLayouts,
+            hostQueryReset: $hostQueryReset,
+            timelineSemaphore: $timelineSemaphore,
+            bufferDeviceAddress: $bufferDeviceAddress,
+            bufferDeviceAddressCaptureReplay: $bufferDeviceAddressCaptureReplay,
+            bufferDeviceAddressMultiDevice: $bufferDeviceAddressMultiDevice,
+            vulkanMemoryModel: $vulkanMemoryModel,
+            vulkanMemoryModelDeviceScope: $vulkanMemoryModelDeviceScope,
+            vulkanMemoryModelAvailabilityVisibilityChains: $vulkanMemoryModelAvailabilityVisibilityChains,
+            shaderOutputViewportIndex: $shaderOutputViewportIndex,
+            shaderOutputLayer: $shaderOutputLayer,
+            subgroupBroadcastDynamicId: $subgroupBroadcastDynamicId,
+            robustImageAccess: $robustImageAccess,
+            inlineUniformBlock: $inlineUniformBlock,
+            descriptorBindingInlineUniformBlockUpdateAfterBind: $descriptorBindingInlineUniformBlockUpdateAfterBind,
+            pipelineCreationCacheControl: $pipelineCreationCacheControl,
+            privateData: $privateData,
+            shaderDemoteToHelperInvocation: $shaderDemoteToHelperInvocation,
+            shaderTerminateInvocation: $shaderTerminateInvocation,
+            subgroupSizeControl: $subgroupSizeControl,
+            computeFullSubgroups: $computeFullSubgroups,
+            synchronization2: $synchronization2,
+            textureCompressionASTC_HDR: $textureCompressionASTC_HDR,
+            shaderZeroInitializeWorkgroupMemory: $shaderZeroInitializeWorkgroupMemory,
+            dynamicRendering: $dynamicRendering,
+            shaderIntegerDotProduct: $shaderIntegerDotProduct,
+            maintenance4: $maintenance4,
+        );
+    }
 
     /**
      * @param CData&object{
@@ -87,13 +255,12 @@ final class VkPhysicalDeviceVulkan14Features implements InputStructureInterface,
      */
     public function write(Allocation $memory, CData $data): void
     {
+        $ancestor = $memory->newRetained('VkPhysicalDeviceVulkan13Features');
+
+        parent::write($memory, $ancestor);
+
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $data->pNext = $memory->ffi->cast('void*', \FFI::addr($ancestor));
 
         $data->globalPriorityQuery = (int) $this->globalPriorityQuery;
 
@@ -151,6 +318,15 @@ final class VkPhysicalDeviceVulkan14Features implements InputStructureInterface,
     }
 
     /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getAncestors(): array
+    {
+        return [VkPhysicalDeviceVulkan13Features::class, VkPhysicalDeviceVulkan12Features::class, VkPhysicalDeviceVulkan11Features::class];
+    }
+
+    /**
      * @param CData&object{
      *     globalPriorityQuery: int<0, 1>,
      *     shaderSubgroupRotate: int<0, 1>,
@@ -180,9 +356,86 @@ final class VkPhysicalDeviceVulkan14Features implements InputStructureInterface,
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, CData ...$ancestors): self
     {
+        $parent = VkPhysicalDeviceVulkan13Features::createFromCData(...$ancestors);
+
         return new self(
+            next: $parent->next,
+            storageBuffer16BitAccess: $parent->storageBuffer16BitAccess,
+            uniformAndStorageBuffer16BitAccess: $parent->uniformAndStorageBuffer16BitAccess,
+            storagePushConstant16: $parent->storagePushConstant16,
+            storageInputOutput16: $parent->storageInputOutput16,
+            multiview: $parent->multiview,
+            multiviewGeometryShader: $parent->multiviewGeometryShader,
+            multiviewTessellationShader: $parent->multiviewTessellationShader,
+            variablePointersStorageBuffer: $parent->variablePointersStorageBuffer,
+            variablePointers: $parent->variablePointers,
+            protectedMemory: $parent->protectedMemory,
+            samplerYcbcrConversion: $parent->samplerYcbcrConversion,
+            shaderDrawParameters: $parent->shaderDrawParameters,
+            samplerMirrorClampToEdge: $parent->samplerMirrorClampToEdge,
+            drawIndirectCount: $parent->drawIndirectCount,
+            storageBuffer8BitAccess: $parent->storageBuffer8BitAccess,
+            uniformAndStorageBuffer8BitAccess: $parent->uniformAndStorageBuffer8BitAccess,
+            storagePushConstant8: $parent->storagePushConstant8,
+            shaderBufferInt64Atomics: $parent->shaderBufferInt64Atomics,
+            shaderSharedInt64Atomics: $parent->shaderSharedInt64Atomics,
+            shaderFloat16: $parent->shaderFloat16,
+            shaderInt8: $parent->shaderInt8,
+            descriptorIndexing: $parent->descriptorIndexing,
+            shaderInputAttachmentArrayDynamicIndexing: $parent->shaderInputAttachmentArrayDynamicIndexing,
+            shaderUniformTexelBufferArrayDynamicIndexing: $parent->shaderUniformTexelBufferArrayDynamicIndexing,
+            shaderStorageTexelBufferArrayDynamicIndexing: $parent->shaderStorageTexelBufferArrayDynamicIndexing,
+            shaderUniformBufferArrayNonUniformIndexing: $parent->shaderUniformBufferArrayNonUniformIndexing,
+            shaderSampledImageArrayNonUniformIndexing: $parent->shaderSampledImageArrayNonUniformIndexing,
+            shaderStorageBufferArrayNonUniformIndexing: $parent->shaderStorageBufferArrayNonUniformIndexing,
+            shaderStorageImageArrayNonUniformIndexing: $parent->shaderStorageImageArrayNonUniformIndexing,
+            shaderInputAttachmentArrayNonUniformIndexing: $parent->shaderInputAttachmentArrayNonUniformIndexing,
+            shaderUniformTexelBufferArrayNonUniformIndexing: $parent->shaderUniformTexelBufferArrayNonUniformIndexing,
+            shaderStorageTexelBufferArrayNonUniformIndexing: $parent->shaderStorageTexelBufferArrayNonUniformIndexing,
+            descriptorBindingUniformBufferUpdateAfterBind: $parent->descriptorBindingUniformBufferUpdateAfterBind,
+            descriptorBindingSampledImageUpdateAfterBind: $parent->descriptorBindingSampledImageUpdateAfterBind,
+            descriptorBindingStorageImageUpdateAfterBind: $parent->descriptorBindingStorageImageUpdateAfterBind,
+            descriptorBindingStorageBufferUpdateAfterBind: $parent->descriptorBindingStorageBufferUpdateAfterBind,
+            descriptorBindingUniformTexelBufferUpdateAfterBind: $parent->descriptorBindingUniformTexelBufferUpdateAfterBind,
+            descriptorBindingStorageTexelBufferUpdateAfterBind: $parent->descriptorBindingStorageTexelBufferUpdateAfterBind,
+            descriptorBindingUpdateUnusedWhilePending: $parent->descriptorBindingUpdateUnusedWhilePending,
+            descriptorBindingPartiallyBound: $parent->descriptorBindingPartiallyBound,
+            descriptorBindingVariableDescriptorCount: $parent->descriptorBindingVariableDescriptorCount,
+            runtimeDescriptorArray: $parent->runtimeDescriptorArray,
+            samplerFilterMinmax: $parent->samplerFilterMinmax,
+            scalarBlockLayout: $parent->scalarBlockLayout,
+            imagelessFramebuffer: $parent->imagelessFramebuffer,
+            uniformBufferStandardLayout: $parent->uniformBufferStandardLayout,
+            shaderSubgroupExtendedTypes: $parent->shaderSubgroupExtendedTypes,
+            separateDepthStencilLayouts: $parent->separateDepthStencilLayouts,
+            hostQueryReset: $parent->hostQueryReset,
+            timelineSemaphore: $parent->timelineSemaphore,
+            bufferDeviceAddress: $parent->bufferDeviceAddress,
+            bufferDeviceAddressCaptureReplay: $parent->bufferDeviceAddressCaptureReplay,
+            bufferDeviceAddressMultiDevice: $parent->bufferDeviceAddressMultiDevice,
+            vulkanMemoryModel: $parent->vulkanMemoryModel,
+            vulkanMemoryModelDeviceScope: $parent->vulkanMemoryModelDeviceScope,
+            vulkanMemoryModelAvailabilityVisibilityChains: $parent->vulkanMemoryModelAvailabilityVisibilityChains,
+            shaderOutputViewportIndex: $parent->shaderOutputViewportIndex,
+            shaderOutputLayer: $parent->shaderOutputLayer,
+            subgroupBroadcastDynamicId: $parent->subgroupBroadcastDynamicId,
+            robustImageAccess: $parent->robustImageAccess,
+            inlineUniformBlock: $parent->inlineUniformBlock,
+            descriptorBindingInlineUniformBlockUpdateAfterBind: $parent->descriptorBindingInlineUniformBlockUpdateAfterBind,
+            pipelineCreationCacheControl: $parent->pipelineCreationCacheControl,
+            privateData: $parent->privateData,
+            shaderDemoteToHelperInvocation: $parent->shaderDemoteToHelperInvocation,
+            shaderTerminateInvocation: $parent->shaderTerminateInvocation,
+            subgroupSizeControl: $parent->subgroupSizeControl,
+            computeFullSubgroups: $parent->computeFullSubgroups,
+            synchronization2: $parent->synchronization2,
+            textureCompressionASTC_HDR: $parent->textureCompressionASTC_HDR,
+            shaderZeroInitializeWorkgroupMemory: $parent->shaderZeroInitializeWorkgroupMemory,
+            dynamicRendering: $parent->dynamicRendering,
+            shaderIntegerDotProduct: $parent->shaderIntegerDotProduct,
+            maintenance4: $parent->maintenance4,
             globalPriorityQuery: $data->globalPriorityQuery !== 0,
             shaderSubgroupRotate: $data->shaderSubgroupRotate !== 0,
             shaderSubgroupRotateClustered: $data->shaderSubgroupRotateClustered !== 0,

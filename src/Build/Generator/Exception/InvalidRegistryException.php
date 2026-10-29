@@ -17,6 +17,13 @@ final class InvalidRegistryException extends GeneratorException
             MESSAGE, $pathname), previous: $prev);
     }
 
+    public static function becauseVersionsAreInconsistent(string $struct, string $reason, ?\Throwable $prev = null): self
+    {
+        return new self(\sprintf(<<<'MESSAGE'
+            The structures of the versions of Vulkan do not extend each other at [%s]: %s
+            MESSAGE, $struct, $reason), previous: $prev);
+    }
+
     public static function becauseDefinitionNotFound(string $kind, string $name, ?\Throwable $prev = null): self
     {
         return new self(\sprintf(<<<'MESSAGE'

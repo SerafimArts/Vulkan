@@ -6,6 +6,7 @@ namespace Serafim\Vulkan\Build\Generator\Analysis;
 
 use Serafim\Vulkan\Build\Generator\Exception\InvalidRegistryException;
 use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
+use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 
 /**
@@ -75,6 +76,7 @@ final readonly class Planner
         $structs = $this->collectRemaining($structs, $rejected);
 
         [$structs, $extensions] = $this->resolveChains($structs);
+        $structs = $this->resolveVersions($structs);
 
         return new GenerationPlan(
             commands: $commands,
@@ -294,6 +296,152 @@ final readonly class Planner
         }
 
         return [$structs, \array_keys($extended)];
+    }
+
+    /**
+     * Makes the structure of every version of Vulkan extend the one of the
+     * previous version: it keeps only the members the version has added.
+     *
+     * @param array<non-empty-string, StructPlan> $structs
+     *
+     * @return array<non-empty-string, StructPlan>
+     * @throws InvalidRegistryException in case of the structures of the
+     *         versions do not extend each other
+     */
+    private function resolveVersions(array $structs): array
+    {
+        $kinds = [];
+
+        foreach (\array_keys($structs) as $name) {
+            $version = Quirks::findVersion($name);
+
+            if ($version !== null) {
+                $kinds[$version[0]][$version[1]] = $name;
+            }
+        }
+
+        foreach ($kinds as $versions) {
+            \ksort($versions);
+
+            $parent = null;
+            $number = 0;
+            $members = [];
+
+            foreach ($versions as $current => $name) {
+                $plan = $structs[$name];
+                $own = \array_values(\array_filter(
+                    $plan->properties,
+                    static fn(PropertyPlan $property): bool => $property->kind !== PropertyKind::NEXT
+                        && $property->kind !== PropertyKind::CHAIN,
+                ));
+
+                if ($parent === null) {
+                    $parent = $plan;
+                    $number = $current;
+                    $members = $this->findMemberNames($plan->properties);
+
+                    continue;
+                }
+
+                $this->assertVersionExtends($plan, $parent, $current === $number + 1, $own, $members);
+
+                $structs[$parent->struct->name] = $this->createVersioned($parent, $parent->properties, $parent->ancestors, $parent->inherited, true);
+
+                $parent = $this->createVersioned(
+                    $plan,
+                    $own,
+                    [$parent->struct->name, ...$parent->ancestors],
+                    [...$parent->inherited, ...$parent->properties],
+                    false,
+                );
+                $structs[$name] = $parent;
+                $number = $current;
+                $members = [...$members, ...$this->findMemberNames($own)];
+            }
+        }
+
+        return $structs;
+    }
+
+    /**
+     * @param list<PropertyPlan> $own
+     * @param list<string> $members the members of the previous versions
+     *
+     * @throws InvalidRegistryException
+     */
+    private function assertVersionExtends(
+        StructPlan $plan,
+        StructPlan $parent,
+        bool $isNext,
+        array $own,
+        array $members,
+    ): void {
+        $name = $plan->struct->name;
+
+        if (!$isNext) {
+            throw InvalidRegistryException::becauseVersionsAreInconsistent($name, 'the previous version is missing');
+        }
+
+        if ($plan->role !== $parent->role || $plan->struct->extends !== $parent->struct->extends) {
+            throw InvalidRegistryException::becauseVersionsAreInconsistent(
+                $name,
+                'the structure is read or extends the structures differently from the previous version',
+            );
+        }
+
+        $repeated = \array_intersect($this->findMemberNames($own), $members);
+
+        if ($repeated !== []) {
+            throw InvalidRegistryException::becauseVersionsAreInconsistent(
+                $name,
+                'the members of the previous versions are repeated: ' . \implode(', ', $repeated),
+            );
+        }
+    }
+
+    /**
+     * @param list<PropertyPlan> $properties
+     *
+     * @return list<string>
+     */
+    private function findMemberNames(array $properties): array
+    {
+        $names = [];
+
+        foreach ($properties as $property) {
+            if ($property->kind !== PropertyKind::NEXT && $property->kind !== PropertyKind::CHAIN) {
+                $names[] = $property->field->name;
+            }
+        }
+
+        return $names;
+    }
+
+    /**
+     * @param list<PropertyPlan> $properties
+     * @param list<non-empty-string> $ancestors
+     * @param list<PropertyPlan> $inherited
+     */
+    private function createVersioned(
+        StructPlan $plan,
+        array $properties,
+        array $ancestors,
+        array $inherited,
+        bool $hasDescendants,
+    ): StructPlan {
+        return new StructPlan(
+            $plan->struct,
+            $plan->role,
+            $properties,
+            $plan->structureType,
+            $plan->chains,
+            $plan->implements,
+            $plan->needsContext,
+            $plan->counts,
+            $ancestors,
+            $inherited,
+            $hasDescendants,
+        );
     }
 
     /**

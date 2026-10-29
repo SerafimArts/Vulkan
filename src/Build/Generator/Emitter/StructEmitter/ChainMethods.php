@@ -52,9 +52,11 @@ final readonly class ChainMethods
         $namespace->addUse(Allocator::class);
         $namespace->addUse(CData::class);
 
-        $class->addImplement(
-            Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, 'ChainedStructureInterface'),
-        );
+        if ($plan->ancestors === []) {
+            $class->addImplement(
+                Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, 'ChainedStructureInterface'),
+            );
+        }
 
         $method = $class->addMethod('createNative')
             ->setPublic()
@@ -67,6 +69,36 @@ final readonly class ChainMethods
             );
 
         $method->addParameter('memory')->setType(Allocator::class);
+
+        InternalMethod::mark($method);
+    }
+
+    /**
+     * Makes the structure of a version of Vulkan tell the structures of the
+     * previous versions, whose native structures a command fills together
+     * with its own.
+     */
+    public function emitAncestors(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
+    {
+        if ($plan->ancestors === []) {
+            return;
+        }
+
+        $class->addImplement(
+            Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, 'VersionedStructureInterface'),
+        );
+
+        $classes = [];
+
+        foreach ($plan->ancestors as $ancestor) {
+            $classes[] = $ancestor . '::class';
+        }
+
+        $method = $class->addMethod('getAncestors')
+            ->setPublic()
+            ->setStatic()
+            ->setReturnType('array')
+            ->setBody('return [' . \implode(', ', $classes) . '];');
 
         InternalMethod::mark($method);
     }

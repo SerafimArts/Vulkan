@@ -9,6 +9,7 @@ use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Exception\UnknownEnumValueException;
 use Serafim\Vulkan\Struct\CountedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 use Serafim\Vulkan\Struct\InputStructureInterface;
 use Serafim\Vulkan\Struct\OutputStructureInterface;
 use Serafim\Vulkan\Tests\TestCase;
@@ -59,6 +60,12 @@ final class GeneratedStructuresTest extends TestCase
             }
 
             $arguments = [$vk->memory->new($type)];
+
+            if (\is_subclass_of($class, VersionedStructureInterface::class)) {
+                foreach ($class::getAncestors() as $ancestor) {
+                    $arguments[] = $vk->memory->new(\basename(\str_replace('\\', '/', $ancestor)));
+                }
+            }
 
             if (new \ReflectionMethod($class, 'createFromCData')->getNumberOfParameters() > 2) {
                 $arguments['vk'] = $vk;

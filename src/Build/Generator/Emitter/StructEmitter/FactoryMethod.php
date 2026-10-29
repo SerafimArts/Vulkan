@@ -48,6 +48,10 @@ final readonly class FactoryMethod
         $read = $this->findReadProperties($plan);
         $arguments = [];
 
+        foreach ($plan->inherited as $property) {
+            $arguments[] = $property->name . ': $parent->' . $property->name . ',';
+        }
+
         foreach ($read as $property) {
             \array_push($arguments, ...$this->createArgument($namespace, $property));
         }
@@ -60,6 +64,10 @@ final readonly class FactoryMethod
 
         if ($arguments === []) {
             $body = 'return new self();';
+        }
+
+        if ($plan->ancestors !== []) {
+            $body = '$parent = ' . $plan->ancestors[0] . '::createFromCData(...$ancestors);' . "\n\n" . $body;
         }
 
         if ($plan->needsContext) {
@@ -79,6 +87,11 @@ final readonly class FactoryMethod
             ->setBody($body);
 
         $method->addParameter('data')->setType(CData::class);
+
+        if ($plan->ancestors !== []) {
+            $method->addParameter('ancestors')->setType(CData::class);
+            $method->setVariadic();
+        }
 
         if ($plan->counts !== null) {
             $method->addParameter('counts')->setType(CData::class);

@@ -10,23 +10,23 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDriverId;
+use Serafim\Vulkan\Enum\VkPointClippingBehavior;
 use Serafim\Vulkan\Enum\VkResolveModeFlagBits;
 use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
 use Serafim\Vulkan\Enum\VkShaderFloatControlsIndependence;
+use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Enum\VkSubgroupFeatureFlagBits;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
-use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
+use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan12Properties.html
  * @since 1.2
  */
-final readonly class VkPhysicalDeviceVulkan12Properties implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
+readonly class VkPhysicalDeviceVulkan12Properties extends VkPhysicalDeviceVulkan11Properties implements VersionedStructureInterface
 {
-    use OutputStructureTrait;
-
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_PROPERTIES->value;
 
     /**
@@ -41,7 +41,54 @@ final readonly class VkPhysicalDeviceVulkan12Properties implements OutputStructu
         return $data;
     }
 
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getAncestors(): array
+    {
+        return [VkPhysicalDeviceVulkan11Properties::class];
+    }
+
+    /**
+     * @param string $deviceUUID the value is exactly the required one
+     * @param string $driverUUID the value is exactly the required one
+     * @param string $deviceLUID the value is exactly the required one
+     * @param int<0, 4294967295> $deviceNodeMask the value is exactly the required one
+     * @param bool $deviceLUIDValid the value is exactly the required one
+     * @param int<0, 4294967295> $subgroupSize The size of a subgroup for this queue.
+     *         The value is at least the required one. The value is a power of
+     *         two.
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $subgroupSupportedStages Bitfield of what shader stages support subgroup operations
+     * @param int-mask-of<VkSubgroupFeatureFlagBits::*> $subgroupSupportedOperations bitfield of what subgroup operations are supported
+     * @param bool $subgroupQuadOperationsInAllStages Flag to specify whether quad operations are available in all
+     *         stages.
+     *         The value is at least the required one.
+     * @param VkPointClippingBehavior $pointClippingBehavior the value is exactly the required one
+     * @param int<0, 4294967295> $maxMultiviewViewCount max number of views in a subpass
+     *         The value is at least the required one
+     * @param int<0, 4294967295> $maxMultiviewInstanceIndex max instance index for a draw in a multiview subpass
+     *         The value is at least the required one
+     * @param bool $protectedNoFault the value is exactly the required one
+     * @param int<0, 4294967295> $maxPerSetDescriptors the value is at least the required one
+     * @param int $maxMemoryAllocationSize the value is at least the required one
+     */
     public function __construct(
+        string $deviceUUID,
+        string $driverUUID,
+        string $deviceLUID,
+        int $deviceNodeMask,
+        bool $deviceLUIDValid,
+        int $subgroupSize,
+        int $subgroupSupportedStages,
+        int $subgroupSupportedOperations,
+        bool $subgroupQuadOperationsInAllStages,
+        VkPointClippingBehavior $pointClippingBehavior,
+        int $maxMultiviewViewCount,
+        int $maxMultiviewInstanceIndex,
+        bool $protectedNoFault,
+        int $maxPerSetDescriptors,
+        int $maxMemoryAllocationSize,
         public VkDriverId $driverID,
         public string $driverName,
         public string $driverInfo,
@@ -283,7 +330,25 @@ final readonly class VkPhysicalDeviceVulkan12Properties implements OutputStructu
         public int $maxTimelineSemaphoreValueDifference,
         /** @var int-mask-of<VkSampleCountFlagBits::*> */
         public int $framebufferIntegerColorSampleCounts,
-    ) {}
+    ) {
+        parent::__construct(
+            deviceUUID: $deviceUUID,
+            driverUUID: $driverUUID,
+            deviceLUID: $deviceLUID,
+            deviceNodeMask: $deviceNodeMask,
+            deviceLUIDValid: $deviceLUIDValid,
+            subgroupSize: $subgroupSize,
+            subgroupSupportedStages: $subgroupSupportedStages,
+            subgroupSupportedOperations: $subgroupSupportedOperations,
+            subgroupQuadOperationsInAllStages: $subgroupQuadOperationsInAllStages,
+            pointClippingBehavior: $pointClippingBehavior,
+            maxMultiviewViewCount: $maxMultiviewViewCount,
+            maxMultiviewInstanceIndex: $maxMultiviewInstanceIndex,
+            protectedNoFault: $protectedNoFault,
+            maxPerSetDescriptors: $maxPerSetDescriptors,
+            maxMemoryAllocationSize: $maxMemoryAllocationSize,
+        );
+    }
 
     /**
      * @param CData&object{
@@ -346,9 +411,26 @@ final readonly class VkPhysicalDeviceVulkan12Properties implements OutputStructu
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, CData ...$ancestors): self
     {
+        $parent = VkPhysicalDeviceVulkan11Properties::createFromCData(...$ancestors);
+
         return new self(
+            deviceUUID: $parent->deviceUUID,
+            driverUUID: $parent->driverUUID,
+            deviceLUID: $parent->deviceLUID,
+            deviceNodeMask: $parent->deviceNodeMask,
+            deviceLUIDValid: $parent->deviceLUIDValid,
+            subgroupSize: $parent->subgroupSize,
+            subgroupSupportedStages: $parent->subgroupSupportedStages,
+            subgroupSupportedOperations: $parent->subgroupSupportedOperations,
+            subgroupQuadOperationsInAllStages: $parent->subgroupQuadOperationsInAllStages,
+            pointClippingBehavior: $parent->pointClippingBehavior,
+            maxMultiviewViewCount: $parent->maxMultiviewViewCount,
+            maxMultiviewInstanceIndex: $parent->maxMultiviewInstanceIndex,
+            protectedNoFault: $parent->protectedNoFault,
+            maxPerSetDescriptors: $parent->maxPerSetDescriptors,
+            maxMemoryAllocationSize: $parent->maxMemoryAllocationSize,
             driverID: EnumCase::createFromValue(VkDriverId::class, $data->driverID),
             driverName: \FFI::string($data->driverName),
             driverInfo: \FFI::string($data->driverInfo),

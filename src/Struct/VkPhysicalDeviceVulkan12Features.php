@@ -12,7 +12,7 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
-use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
@@ -20,16 +20,39 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan12Features.html
  * @since 1.2
  */
-final class VkPhysicalDeviceVulkan12Features implements InputStructureInterface, VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface
+class VkPhysicalDeviceVulkan12Features extends VkPhysicalDeviceVulkan11Features implements VersionedStructureInterface
 {
-    use InputStructureTrait;
-
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceVulkan12Features';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES->value;
 
+    /**
+     * @param bool $storageBuffer16BitAccess 16-bit integer/floating-point variables supported in BufferBlock
+     * @param bool $uniformAndStorageBuffer16BitAccess 16-bit integer/floating-point variables supported in BufferBlock
+     *         and Block
+     * @param bool $storagePushConstant16 16-bit integer/floating-point variables supported in
+     *         PushConstant
+     * @param bool $storageInputOutput16 16-bit integer/floating-point variables supported in shader
+     *         inputs and outputs
+     * @param bool $multiview Multiple views in a render pass
+     * @param bool $multiviewGeometryShader Multiple views in a render pass w/ geometry shader
+     * @param bool $multiviewTessellationShader Multiple views in a render pass w/ tessellation shader
+     * @param bool $samplerYcbcrConversion Sampler color conversion supported
+     */
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
+        VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
+        bool $storageBuffer16BitAccess = false,
+        bool $uniformAndStorageBuffer16BitAccess = false,
+        bool $storagePushConstant16 = false,
+        bool $storageInputOutput16 = false,
+        bool $multiview = false,
+        bool $multiviewGeometryShader = false,
+        bool $multiviewTessellationShader = false,
+        bool $variablePointersStorageBuffer = false,
+        bool $variablePointers = false,
+        bool $protectedMemory = false,
+        bool $samplerYcbcrConversion = false,
+        bool $shaderDrawParameters = false,
         public bool $samplerMirrorClampToEdge = false,
         public bool $drawIndirectCount = false,
         /** 8-bit integer variables supported in StorageBuffer */
@@ -82,7 +105,23 @@ final class VkPhysicalDeviceVulkan12Features implements InputStructureInterface,
         public bool $shaderOutputViewportIndex = false,
         public bool $shaderOutputLayer = false,
         public bool $subgroupBroadcastDynamicId = false,
-    ) {}
+    ) {
+        parent::__construct(
+            next: $next,
+            storageBuffer16BitAccess: $storageBuffer16BitAccess,
+            uniformAndStorageBuffer16BitAccess: $uniformAndStorageBuffer16BitAccess,
+            storagePushConstant16: $storagePushConstant16,
+            storageInputOutput16: $storageInputOutput16,
+            multiview: $multiview,
+            multiviewGeometryShader: $multiviewGeometryShader,
+            multiviewTessellationShader: $multiviewTessellationShader,
+            variablePointersStorageBuffer: $variablePointersStorageBuffer,
+            variablePointers: $variablePointers,
+            protectedMemory: $protectedMemory,
+            samplerYcbcrConversion: $samplerYcbcrConversion,
+            shaderDrawParameters: $shaderDrawParameters,
+        );
+    }
 
     /**
      * @param CData&object{
@@ -144,13 +183,12 @@ final class VkPhysicalDeviceVulkan12Features implements InputStructureInterface,
      */
     public function write(Allocation $memory, CData $data): void
     {
+        $ancestor = $memory->newRetained('VkPhysicalDeviceVulkan11Features');
+
+        parent::write($memory, $ancestor);
+
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $data->pNext = $memory->ffi->cast('void*', \FFI::addr($ancestor));
 
         $data->samplerMirrorClampToEdge = (int) $this->samplerMirrorClampToEdge;
 
@@ -260,6 +298,15 @@ final class VkPhysicalDeviceVulkan12Features implements InputStructureInterface,
     }
 
     /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getAncestors(): array
+    {
+        return [VkPhysicalDeviceVulkan11Features::class];
+    }
+
+    /**
      * @param CData&object{
      *     samplerMirrorClampToEdge: int<0, 1>,
      *     drawIndirectCount: int<0, 1>,
@@ -315,9 +362,24 @@ final class VkPhysicalDeviceVulkan12Features implements InputStructureInterface,
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, CData ...$ancestors): self
     {
+        $parent = VkPhysicalDeviceVulkan11Features::createFromCData(...$ancestors);
+
         return new self(
+            next: $parent->next,
+            storageBuffer16BitAccess: $parent->storageBuffer16BitAccess,
+            uniformAndStorageBuffer16BitAccess: $parent->uniformAndStorageBuffer16BitAccess,
+            storagePushConstant16: $parent->storagePushConstant16,
+            storageInputOutput16: $parent->storageInputOutput16,
+            multiview: $parent->multiview,
+            multiviewGeometryShader: $parent->multiviewGeometryShader,
+            multiviewTessellationShader: $parent->multiviewTessellationShader,
+            variablePointersStorageBuffer: $parent->variablePointersStorageBuffer,
+            variablePointers: $parent->variablePointers,
+            protectedMemory: $parent->protectedMemory,
+            samplerYcbcrConversion: $parent->samplerYcbcrConversion,
+            shaderDrawParameters: $parent->shaderDrawParameters,
             samplerMirrorClampToEdge: $data->samplerMirrorClampToEdge !== 0,
             drawIndirectCount: $data->drawIndirectCount !== 0,
             storageBuffer8BitAccess: $data->storageBuffer8BitAccess !== 0,

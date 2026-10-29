@@ -29,7 +29,16 @@ final readonly class WriteMethod
     {
         $lines = [];
 
-        if ($plan->structureType !== null) {
+        if ($plan->ancestors !== []) {
+            $lines = [
+                '$ancestor = $memory->newRetained(' . \var_export($plan->ancestors[0], true) . ');',
+                '',
+                'parent::write($memory, $ancestor);',
+                '',
+                '$data->sType = self::STRUCTURE_TYPE;',
+                '$data->pNext = $memory->ffi->cast(\'void*\', \FFI::addr($ancestor));',
+            ];
+        } elseif ($plan->structureType !== null) {
             $lines[] = '$data->sType = self::STRUCTURE_TYPE;';
         }
 

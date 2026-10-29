@@ -47,5 +47,23 @@ final readonly class StructPlan
          * @var non-empty-string|null
          */
         public ?string $counts = null,
+        /**
+         * The structures of the previous versions of Vulkan whose members
+         * this one holds, the nearest first
+         *
+         * @var list<non-empty-string>
+         */
+        public array $ancestors = [],
+        /**
+         * The properties of the structure of the previous version, they are
+         * the first arguments of the constructor
+         *
+         * @var list<PropertyPlan>
+         */
+        public array $inherited = [],
+        /**
+         * Whether the structure of the next version extends this one
+         */
+        public bool $hasDescendants = false,
     ) {}
 }

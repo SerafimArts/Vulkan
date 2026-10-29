@@ -20,7 +20,7 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Features.html
  * @since 1.2
  */
-final class VkPhysicalDeviceVulkan11Features implements InputStructureInterface, VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface
+class VkPhysicalDeviceVulkan11Features implements InputStructureInterface, VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface
 {
     use InputStructureTrait;
 

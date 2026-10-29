@@ -91,7 +91,13 @@ final readonly class StructEmitter
 
         $class = $namespace->addClass($plan->struct->name);
 
-        $class->setFinal();
+        if (!$plan->hasDescendants) {
+            $class->setFinal();
+        }
+
+        if ($plan->ancestors !== []) {
+            $class->setExtends(Locations::createClassName(Locations::STRUCT_NAMESPACE, $plan->ancestors[0]));
+        }
 
         foreach ($this->tags->createLines($plan->struct->name) as $line) {
             $class->addComment($line);
@@ -119,8 +125,10 @@ final readonly class StructEmitter
         $namespace->addUse(CData::class);
         $namespace->addUse(Allocation::class);
 
-        $class->addImplement(InputStructureInterface::class);
-        $class->addTrait(InputStructureTrait::class);
+        if ($plan->ancestors === []) {
+            $class->addImplement(InputStructureInterface::class);
+            $class->addTrait(InputStructureTrait::class);
+        }
 
         $native = $class->addConstant('NATIVE_TYPE', $plan->struct->name);
 
@@ -132,6 +140,7 @@ final readonly class StructEmitter
             $class,
             $this->properties->sortRequiredFirst($plan->properties),
             $plan->chains,
+            inherited: $plan->inherited,
         );
 
         $this->emitMarkers($namespace, $class, $plan);
@@ -154,6 +163,7 @@ final readonly class StructEmitter
             $this->chains->emitNative($namespace, $class, $plan);
         }
 
+        $this->chains->emitAncestors($namespace, $class, $plan);
         $this->factory->emit($namespace, $class, $plan);
     }
 
@@ -166,8 +176,11 @@ final readonly class StructEmitter
         $namespace->addUse(OutputStructureTrait::class);
 
         $class->setReadOnly();
-        $class->addImplement(OutputStructureInterface::class);
-        $class->addTrait(OutputStructureTrait::class);
+
+        if ($plan->ancestors === []) {
+            $class->addImplement(OutputStructureInterface::class);
+            $class->addTrait(OutputStructureTrait::class);
+        }
 
         if ($plan->counts !== null) {
             $namespace->addUse(CountedStructureInterface::class);
@@ -185,6 +198,8 @@ final readonly class StructEmitter
             $this->chains->emitNative($namespace, $class, $plan);
         }
 
+        $this->chains->emitAncestors($namespace, $class, $plan);
+
         if ($this->buffers->hasArrays($plan)) {
             $this->buffers->emit($namespace, $class, $plan);
         }
@@ -195,6 +210,7 @@ final readonly class StructEmitter
             $this->properties->sortRequiredFirst($plan->properties),
             $plan->chains,
             true,
+            $plan->inherited,
         );
         $this->factory->emit($namespace, $class, $plan);
 
@@ -209,6 +225,10 @@ final readonly class StructEmitter
      */
     private function emitMarkers(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
     {
+        if ($plan->ancestors !== []) {
+            return;
+        }
+
         foreach ($plan->implements as $root) {
             $class->addImplement(
                 Imports::importFullName(

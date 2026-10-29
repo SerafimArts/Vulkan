@@ -9,6 +9,7 @@ use Serafim\Vulkan\Exception\InvalidStructure\StructureNotChainableException;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 
 /**
  * The structures that a command fills in the chain of a returned structure:
@@ -22,11 +23,20 @@ use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
  */
 final readonly class Chain
 {
-    /**
-     * @param list<array{class-string<TStructure>, CData}> $natives
-     */
     private function __construct(
+        /**
+         * Every native structure of the chain once
+         *
+         * @var list<array{class-string<TStructure>, CData}>
+         */
         private array $natives,
+        /**
+         * The structures the user asked for with their native structures, the
+         * ones of the previous versions follow
+         *
+         * @var list<array{class-string<TStructure>, non-empty-list<CData>}>
+         */
+        private array $requested,
     ) {}
 
     /**
@@ -43,24 +53,35 @@ final readonly class Chain
      */
     public static function allocate(Allocator $memory, CData $root, array $classes, string $marker): self
     {
-        $natives = [];
+        $created = [];
+        $requested = [];
 
         foreach ($classes as $class) {
             if (!\is_a($class, $marker, true)) {
                 throw StructureNotChainableException::becauseStructureCannotBeChained($class, $marker);
             }
 
-            $natives[] = [$class, $class::createNative($memory)];
+            $group = [];
+
+            foreach ([$class, ...self::findAncestors($class)] as $member) {
+                $created[$member] ??= $member::createNative($memory);
+                $group[] = $created[$member];
+            }
+
+            $requested[] = [$class, $group];
         }
 
+        $natives = [];
         $previous = $root;
 
-        foreach ($natives as [, $native]) {
+        foreach ($created as $class => $native) {
+            $natives[] = [$class, $native];
             $previous->pNext = $memory->ffi->cast('void*', \FFI::addr($native));
             $previous = $native;
         }
 
-        return new self($natives);
+        /** @var self<TCreated> */
+        return new self($natives, $requested);
     }
 
     /**
@@ -129,10 +150,29 @@ final readonly class Chain
     {
         $chain = [];
 
-        foreach ($this->natives as [$class, $native]) {
-            $chain[] = $class::createFromCData($native);
+        foreach ($this->requested as [$class, $natives]) {
+            /** @var TStructure $structure */
+            $structure = $class::createFromCData(...$natives);
+
+            $chain[] = $structure;
         }
 
         return $chain;
+    }
+
+    /**
+     * Returns the structures of the previous versions of the structure.
+     *
+     * @param class-string $class
+     *
+     * @return list<class-string<ChainedStructureInterface>>
+     */
+    private static function findAncestors(string $class): array
+    {
+        if (!\is_a($class, VersionedStructureInterface::class, true)) {
+            return [];
+        }
+
+        return $class::getAncestors();
     }
 }

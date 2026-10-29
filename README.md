@@ -87,13 +87,20 @@ Properties are split across extension structures linked by `pNext`. List the
 classes you need and read each back by class.
 
 ```php
-use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Properties;
+use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan13Properties;
 
 $properties = $vk->vkGetPhysicalDeviceProperties2($device, [
-    VkPhysicalDeviceVulkan12Properties::class,
+    VkPhysicalDeviceVulkan13Properties::class,
 ]);
 
-echo $properties->findChained(VkPhysicalDeviceVulkan12Properties::class)?->driverName;
+$vulkan13 = $properties->findChained(VkPhysicalDeviceVulkan13Properties::class);
+
+echo $vulkan13->driverName . "
+";   // Vulkan 1.2
+echo $vulkan13->deviceUUID . "
+";    // Vulkan 1.1
+echo $vulkan13->maxSubgroupSize . "
+";
 ```
 
 ### Logical device and queue
@@ -107,7 +114,10 @@ use Serafim\Vulkan\Struct\VkDeviceQueueCreateInfo;
 
 $logical = $vk->vkCreateDevice($device, new VkDeviceCreateInfo(
     queueCreateInfos: [
-        new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0]),
+        new VkDeviceQueueCreateInfo(
+            queueFamilyIndex: 0, 
+            queuePriorities: [1.0],
+        ),
     ],
 ));
 

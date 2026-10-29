@@ -20,5 +20,5 @@ interface ChainedStructureInterface
     /**
      * Copies the fields of the native structure the command has filled.
      */
-    public static function createFromCData(CData $data): static;
+    public static function createFromCData(CData $data): self;
 }

@@ -50,6 +50,14 @@ final readonly class Quirks
     ];
 
     /**
+     * The structures that gather the members of the structures a version of
+     * Vulkan has promoted to the core (`VkPhysicalDeviceVulkan13Features`):
+     * the number of the version without the dot and the kind of the structure.
+     * The one of a newer version holds the members of the older ones.
+     */
+    private const string VERSIONED = '/^VkPhysicalDeviceVulkan(\d+)(Properties|Features)$/';
+
+    /**
      * The platforms of `vk.xml` the library does not cover, the beta
      * extensions are marked with `provisional`.
      */
@@ -113,6 +121,28 @@ final readonly class Quirks
     public static function findCounts(string $struct): ?array
     {
         return self::COUNTED[$struct] ?? null;
+    }
+
+    /**
+     * Returns the kind of the structure that gathers the members of a version
+     * of Vulkan and the number of the version, {@see null} if the structure is
+     * not one.
+     *
+     * @return array{non-empty-string, int<0, max>}|null
+     */
+    public static function findVersion(string $struct): ?array
+    {
+        if (\preg_match(self::VERSIONED, $struct, $matches) !== 1) {
+            return null;
+        }
+
+        /** @var non-empty-string $kind */
+        $kind = $matches[2];
+
+        /** @var int<0, max> $number */
+        $number = (int) $matches[1];
+
+        return [$kind, $number];
     }
 
     /**

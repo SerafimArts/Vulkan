@@ -221,7 +221,9 @@ final class VulkanTest extends TestCase
 
         self::assertInstanceOf(VkPhysicalDeviceVulkan12Properties::class, $vulkan12);
         self::assertNotSame('', $vulkan12->driverName);
-        self::assertNull($properties->findChained(VkPhysicalDeviceVulkan11Properties::class));
+        self::assertNotSame('', $vulkan12->deviceUUID);
+        self::assertCount(1, $properties->chain);
+        self::assertSame($vulkan12, $properties->findChained(VkPhysicalDeviceVulkan11Properties::class));
     }
 
     public function testFeaturesOfTheChainAreReturnedToTheDevice(): void

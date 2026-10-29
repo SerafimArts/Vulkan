@@ -7,6 +7,7 @@ namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter;
 use FFI\CData;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\Literal;
+use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\Names;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
@@ -58,6 +59,9 @@ final readonly class Properties
      *        accepts
      * @param bool $isReturned whether the structure is read from native memory:
      *        a string that Vulkan has written may be empty
+     * @param list<PropertyPlan> $inherited the properties of the structure
+     *        of the previous version: the constructor takes them and passes
+     *        to the constructor of that structure
      */
     public function emit(
         PhpNamespace $namespace,
@@ -65,6 +69,7 @@ final readonly class Properties
         array $properties,
         array $chains = [],
         bool $isReturned = false,
+        array $inherited = [],
     ): void {
         $results = \array_values(\array_filter($properties, $this->isResult(...)));
         $properties = \array_values(\array_filter(
@@ -73,6 +78,8 @@ final readonly class Properties
         ));
 
         $constructor = $class->addMethod('__construct');
+
+        $this->emitInherited($namespace, $constructor, $inherited, $chains, $isReturned);
 
         $counted = [];
 
@@ -83,7 +90,7 @@ final readonly class Properties
         }
 
         foreach ($properties as $index => $property) {
-            $this->recordBits($class, $property, $index, $isReturned);
+            $this->recordBits($class, $property, $index + \count($inherited), $isReturned);
 
             $parameter = $constructor->addPromotedParameter($property->name);
 
@@ -155,6 +162,79 @@ final readonly class Properties
             if ($property->kind === PropertyKind::INOUT_INTEGER) {
                 $this->emitWrittenSize($namespace, $class, $property);
             }
+        }
+    }
+
+    /**
+     * Adds the parameters of the members of the previous version, which the
+     * structure it extends keeps.
+     *
+     * @param list<PropertyPlan> $inherited
+     * @param list<non-empty-string> $chains
+     */
+    private function emitInherited(
+        PhpNamespace $namespace,
+        Method $constructor,
+        array $inherited,
+        array $chains,
+        bool $isReturned,
+    ): void {
+        $arguments = [];
+
+        foreach ($inherited as $property) {
+            $codec = $this->codecs->get($property->kind);
+            $context = new PropertyContext($namespace, $property, isReturned: $isReturned);
+            $parameter = $constructor->addParameter($property->name);
+
+            if ($property->hasDefault) {
+                $parameter = $constructor->addParameter($property->name, $this->createDefault($property));
+            }
+
+            $arguments[] = $property->name . ': $' . $property->name . ',';
+
+            if ($property->kind === PropertyKind::NEXT) {
+                $parameter->setType($this->createChainType($namespace, $chains));
+
+                continue;
+            }
+
+            $parameter->setType($codec->createPhpType($context));
+            $parameter->setNullable($property->isNullable);
+
+            $codec->importElementClass($context);
+
+            $type = $namespace->simplifyType($parameter->getType() ?? 'mixed');
+
+            if ($property->isNullable) {
+                $type .= '|null';
+            }
+
+            $docType = $codec->createDocType($context);
+
+            if ($docType !== null && $property->isNullable) {
+                $docType .= '|null';
+            }
+
+            $description = [
+                ...DocComments::createLines($property->field->comment ?? ''),
+                ...$this->createLimitDescription($property),
+            ];
+
+            if ($description === [] && ($docType === null || $docType === $property->builtinType)) {
+                continue;
+            }
+
+            $first = \array_shift($description) ?? '';
+
+            $constructor->addComment(\rtrim('@param ' . ($docType ?? $type) . ' $' . $property->name . ' ' . $first));
+
+            foreach ($description as $line) {
+                $constructor->addComment('        ' . $line);
+            }
+        }
+
+        if ($arguments !== []) {
+            $constructor->setBody("parent::__construct(\n    " . \implode("\n    ", $arguments) . "\n);");
         }
     }
 

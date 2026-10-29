@@ -9,24 +9,28 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
+use Serafim\Vulkan\Enum\VkDriverId;
 use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessBufferBehavior;
 use Serafim\Vulkan\Enum\VkPipelineRobustnessImageBehavior;
+use Serafim\Vulkan\Enum\VkPointClippingBehavior;
+use Serafim\Vulkan\Enum\VkResolveModeFlagBits;
+use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
+use Serafim\Vulkan\Enum\VkShaderFloatControlsIndependence;
+use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Enum\VkSubgroupFeatureFlagBits;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
-use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
-use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
+use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan14Properties.html
  * @since 1.4
  */
-final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface, BufferedStructureInterface
+final readonly class VkPhysicalDeviceVulkan14Properties extends VkPhysicalDeviceVulkan13Properties implements VersionedStructureInterface, BufferedStructureInterface
 {
-    use OutputStructureTrait;
-
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES->value;
 
     /**
@@ -39,6 +43,15 @@ final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructu
         $data->sType = self::STRUCTURE_TYPE;
 
         return $data;
+    }
+
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getAncestors(): array
+    {
+        return [VkPhysicalDeviceVulkan13Properties::class, VkPhysicalDeviceVulkan12Properties::class, VkPhysicalDeviceVulkan11Properties::class];
     }
 
     /**
@@ -99,7 +112,260 @@ final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructu
         return $isAllocated;
     }
 
+    /**
+     * @param string $deviceUUID the value is exactly the required one
+     * @param string $driverUUID the value is exactly the required one
+     * @param string $deviceLUID the value is exactly the required one
+     * @param int<0, 4294967295> $deviceNodeMask the value is exactly the required one
+     * @param bool $deviceLUIDValid the value is exactly the required one
+     * @param int<0, 4294967295> $subgroupSize The size of a subgroup for this queue.
+     *         The value is at least the required one. The value is a power of
+     *         two.
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $subgroupSupportedStages Bitfield of what shader stages support subgroup operations
+     * @param int-mask-of<VkSubgroupFeatureFlagBits::*> $subgroupSupportedOperations bitfield of what subgroup operations are supported
+     * @param bool $subgroupQuadOperationsInAllStages Flag to specify whether quad operations are available in all
+     *         stages.
+     *         The value is at least the required one.
+     * @param VkPointClippingBehavior $pointClippingBehavior the value is exactly the required one
+     * @param int<0, 4294967295> $maxMultiviewViewCount max number of views in a subpass
+     *         The value is at least the required one
+     * @param int<0, 4294967295> $maxMultiviewInstanceIndex max instance index for a draw in a multiview subpass
+     *         The value is at least the required one
+     * @param bool $protectedNoFault the value is exactly the required one
+     * @param int<0, 4294967295> $maxPerSetDescriptors the value is at least the required one
+     * @param int $maxMemoryAllocationSize the value is at least the required one
+     * @param VkShaderFloatControlsIndependence $denormBehaviorIndependence the value is exactly the required one
+     * @param VkShaderFloatControlsIndependence $roundingModeIndependence the value is exactly the required one
+     * @param bool $shaderSignedZeroInfNanPreserveFloat16 an implementation can preserve signed zero, nan, inf
+     *         The value is at least the required one
+     * @param bool $shaderSignedZeroInfNanPreserveFloat32 an implementation can preserve signed zero, nan, inf
+     *         The value is at least the required one
+     * @param bool $shaderSignedZeroInfNanPreserveFloat64 an implementation can preserve signed zero, nan, inf
+     *         The value is at least the required one
+     * @param bool $shaderDenormPreserveFloat16 an implementation can preserve denormals
+     *         The value is at least the required one
+     * @param bool $shaderDenormPreserveFloat32 an implementation can preserve denormals
+     *         The value is at least the required one
+     * @param bool $shaderDenormPreserveFloat64 an implementation can preserve denormals
+     *         The value is at least the required one
+     * @param bool $shaderDenormFlushToZeroFloat16 an implementation can flush to zero denormals
+     *         The value is at least the required one
+     * @param bool $shaderDenormFlushToZeroFloat32 an implementation can flush to zero denormals
+     *         The value is at least the required one
+     * @param bool $shaderDenormFlushToZeroFloat64 an implementation can flush to zero denormals
+     *         The value is at least the required one
+     * @param bool $shaderRoundingModeRTEFloat16 an implementation can support RTE
+     *         The value is at least the required one
+     * @param bool $shaderRoundingModeRTEFloat32 an implementation can support RTE
+     *         The value is at least the required one
+     * @param bool $shaderRoundingModeRTEFloat64 an implementation can support RTE
+     *         The value is at least the required one
+     * @param bool $shaderRoundingModeRTZFloat16 an implementation can support RTZ
+     *         The value is at least the required one
+     * @param bool $shaderRoundingModeRTZFloat32 an implementation can support RTZ
+     *         The value is at least the required one
+     * @param bool $shaderRoundingModeRTZFloat64 an implementation can support RTZ
+     *         The value is at least the required one
+     * @param int<0, 4294967295> $maxUpdateAfterBindDescriptorsInAllPools the value is at least the required one
+     * @param bool $shaderUniformBufferArrayNonUniformIndexingNative the value is at least the required one
+     * @param bool $shaderSampledImageArrayNonUniformIndexingNative the value is at least the required one
+     * @param bool $shaderStorageBufferArrayNonUniformIndexingNative the value is at least the required one
+     * @param bool $shaderStorageImageArrayNonUniformIndexingNative the value is at least the required one
+     * @param bool $shaderInputAttachmentArrayNonUniformIndexingNative the value is at least the required one
+     * @param bool $robustBufferAccessUpdateAfterBind the value is at least the required one
+     * @param bool $quadDivergentImplicitLod the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageDescriptorUpdateAfterBindSamplers the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageDescriptorUpdateAfterBindUniformBuffers the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageDescriptorUpdateAfterBindStorageBuffers the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageDescriptorUpdateAfterBindSampledImages the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageDescriptorUpdateAfterBindStorageImages the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageDescriptorUpdateAfterBindInputAttachments the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageUpdateAfterBindResources the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindSamplers the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindUniformBuffers the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindUniformBuffersDynamic the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindStorageBuffers the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindStorageBuffersDynamic the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindSampledImages the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindStorageImages the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindInputAttachments the value is at least the required one
+     * @param int-mask-of<VkResolveModeFlagBits::*> $supportedDepthResolveModes Supported depth resolve modes
+     * @param int-mask-of<VkResolveModeFlagBits::*> $supportedStencilResolveModes Supported stencil resolve modes
+     * @param bool $independentResolveNone depth and stencil resolve modes can be set independently if one
+     *         of them is none
+     *         The value is at least the required one
+     * @param bool $independentResolve depth and stencil resolve modes can be set independently
+     *         The value is at least the required one
+     * @param bool $filterMinmaxSingleComponentFormats the value is at least the required one
+     * @param bool $filterMinmaxImageComponentMapping the value is at least the required one
+     * @param int $maxTimelineSemaphoreValueDifference the value is at least the required one
+     * @param int-mask-of<VkSampleCountFlagBits::*> $framebufferIntegerColorSampleCounts
+     * @param int<0, 4294967295> $minSubgroupSize The minimum subgroup size supported by this device
+     *         The value is at most the required one. The value is a power of
+     *         two.
+     * @param int<0, 4294967295> $maxSubgroupSize The maximum subgroup size supported by this device
+     *         The value is at least the required one. The value is a power of
+     *         two.
+     * @param int<0, 4294967295> $maxComputeWorkgroupSubgroups the maximum number of subgroups supported in a workgroup
+     *         The value is at least the required one
+     * @param int<0, 4294967295>|(VkShaderStageFlagBits::*) $requiredSubgroupSizeStages The shader stages that support specifying a subgroup size
+     * @param int<0, 4294967295> $maxInlineUniformBlockSize the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageDescriptorInlineUniformBlocks the value is at least the required one
+     * @param int<0, 4294967295> $maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetInlineUniformBlocks the value is at least the required one
+     * @param int<0, 4294967295> $maxDescriptorSetUpdateAfterBindInlineUniformBlocks the value is at least the required one
+     * @param int<0, 4294967295> $maxInlineUniformTotalSize the value is at least the required one
+     * @param bool $integerDotProduct8BitUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct8BitSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct8BitMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProduct4x8BitPackedUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct4x8BitPackedSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct4x8BitPackedMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProduct16BitUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct16BitSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct16BitMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProduct32BitUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct32BitSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct32BitMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProduct64BitUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct64BitSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProduct64BitMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating8BitUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating8BitSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating16BitUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating16BitSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating32BitUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating32BitSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating64BitUnsignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating64BitSignedAccelerated the value is at least the required one
+     * @param bool $integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated the value is at least the required one
+     * @param int $storageTexelBufferOffsetAlignmentBytes The value is at most the required one. The value is a power of
+     *         two.
+     * @param bool $storageTexelBufferOffsetSingleTexelAlignment the value is exactly the required one
+     * @param int $uniformTexelBufferOffsetAlignmentBytes The value is at most the required one. The value is a power of
+     *         two.
+     * @param bool $uniformTexelBufferOffsetSingleTexelAlignment the value is exactly the required one
+     * @param int $maxBufferSize the value is at least the required one
+     */
     public function __construct(
+        string $deviceUUID,
+        string $driverUUID,
+        string $deviceLUID,
+        int $deviceNodeMask,
+        bool $deviceLUIDValid,
+        int $subgroupSize,
+        int $subgroupSupportedStages,
+        int $subgroupSupportedOperations,
+        bool $subgroupQuadOperationsInAllStages,
+        VkPointClippingBehavior $pointClippingBehavior,
+        int $maxMultiviewViewCount,
+        int $maxMultiviewInstanceIndex,
+        bool $protectedNoFault,
+        int $maxPerSetDescriptors,
+        int $maxMemoryAllocationSize,
+        VkDriverId $driverID,
+        string $driverName,
+        string $driverInfo,
+        VkConformanceVersion $conformanceVersion,
+        VkShaderFloatControlsIndependence $denormBehaviorIndependence,
+        VkShaderFloatControlsIndependence $roundingModeIndependence,
+        bool $shaderSignedZeroInfNanPreserveFloat16,
+        bool $shaderSignedZeroInfNanPreserveFloat32,
+        bool $shaderSignedZeroInfNanPreserveFloat64,
+        bool $shaderDenormPreserveFloat16,
+        bool $shaderDenormPreserveFloat32,
+        bool $shaderDenormPreserveFloat64,
+        bool $shaderDenormFlushToZeroFloat16,
+        bool $shaderDenormFlushToZeroFloat32,
+        bool $shaderDenormFlushToZeroFloat64,
+        bool $shaderRoundingModeRTEFloat16,
+        bool $shaderRoundingModeRTEFloat32,
+        bool $shaderRoundingModeRTEFloat64,
+        bool $shaderRoundingModeRTZFloat16,
+        bool $shaderRoundingModeRTZFloat32,
+        bool $shaderRoundingModeRTZFloat64,
+        int $maxUpdateAfterBindDescriptorsInAllPools,
+        bool $shaderUniformBufferArrayNonUniformIndexingNative,
+        bool $shaderSampledImageArrayNonUniformIndexingNative,
+        bool $shaderStorageBufferArrayNonUniformIndexingNative,
+        bool $shaderStorageImageArrayNonUniformIndexingNative,
+        bool $shaderInputAttachmentArrayNonUniformIndexingNative,
+        bool $robustBufferAccessUpdateAfterBind,
+        bool $quadDivergentImplicitLod,
+        int $maxPerStageDescriptorUpdateAfterBindSamplers,
+        int $maxPerStageDescriptorUpdateAfterBindUniformBuffers,
+        int $maxPerStageDescriptorUpdateAfterBindStorageBuffers,
+        int $maxPerStageDescriptorUpdateAfterBindSampledImages,
+        int $maxPerStageDescriptorUpdateAfterBindStorageImages,
+        int $maxPerStageDescriptorUpdateAfterBindInputAttachments,
+        int $maxPerStageUpdateAfterBindResources,
+        int $maxDescriptorSetUpdateAfterBindSamplers,
+        int $maxDescriptorSetUpdateAfterBindUniformBuffers,
+        int $maxDescriptorSetUpdateAfterBindUniformBuffersDynamic,
+        int $maxDescriptorSetUpdateAfterBindStorageBuffers,
+        int $maxDescriptorSetUpdateAfterBindStorageBuffersDynamic,
+        int $maxDescriptorSetUpdateAfterBindSampledImages,
+        int $maxDescriptorSetUpdateAfterBindStorageImages,
+        int $maxDescriptorSetUpdateAfterBindInputAttachments,
+        int $supportedDepthResolveModes,
+        int $supportedStencilResolveModes,
+        bool $independentResolveNone,
+        bool $independentResolve,
+        bool $filterMinmaxSingleComponentFormats,
+        bool $filterMinmaxImageComponentMapping,
+        int $maxTimelineSemaphoreValueDifference,
+        int $framebufferIntegerColorSampleCounts,
+        int $minSubgroupSize,
+        int $maxSubgroupSize,
+        int $maxComputeWorkgroupSubgroups,
+        int $requiredSubgroupSizeStages,
+        int $maxInlineUniformBlockSize,
+        int $maxPerStageDescriptorInlineUniformBlocks,
+        int $maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks,
+        int $maxDescriptorSetInlineUniformBlocks,
+        int $maxDescriptorSetUpdateAfterBindInlineUniformBlocks,
+        int $maxInlineUniformTotalSize,
+        bool $integerDotProduct8BitUnsignedAccelerated,
+        bool $integerDotProduct8BitSignedAccelerated,
+        bool $integerDotProduct8BitMixedSignednessAccelerated,
+        bool $integerDotProduct4x8BitPackedUnsignedAccelerated,
+        bool $integerDotProduct4x8BitPackedSignedAccelerated,
+        bool $integerDotProduct4x8BitPackedMixedSignednessAccelerated,
+        bool $integerDotProduct16BitUnsignedAccelerated,
+        bool $integerDotProduct16BitSignedAccelerated,
+        bool $integerDotProduct16BitMixedSignednessAccelerated,
+        bool $integerDotProduct32BitUnsignedAccelerated,
+        bool $integerDotProduct32BitSignedAccelerated,
+        bool $integerDotProduct32BitMixedSignednessAccelerated,
+        bool $integerDotProduct64BitUnsignedAccelerated,
+        bool $integerDotProduct64BitSignedAccelerated,
+        bool $integerDotProduct64BitMixedSignednessAccelerated,
+        bool $integerDotProductAccumulatingSaturating8BitUnsignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating8BitSignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated,
+        bool $integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated,
+        bool $integerDotProductAccumulatingSaturating16BitUnsignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating16BitSignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated,
+        bool $integerDotProductAccumulatingSaturating32BitUnsignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating32BitSignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated,
+        bool $integerDotProductAccumulatingSaturating64BitUnsignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating64BitSignedAccelerated,
+        bool $integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated,
+        int $storageTexelBufferOffsetAlignmentBytes,
+        bool $storageTexelBufferOffsetSingleTexelAlignment,
+        int $uniformTexelBufferOffsetAlignmentBytes,
+        bool $uniformTexelBufferOffsetSingleTexelAlignment,
+        int $maxBufferSize,
         /**
          * The value has at least the required bits set.
          *
@@ -167,7 +433,122 @@ final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructu
         public string $optimalTilingLayoutUUID,
         /** The value is at least the required one. */
         public bool $identicalMemoryTypeRequirements,
-    ) {}
+    ) {
+        parent::__construct(
+            deviceUUID: $deviceUUID,
+            driverUUID: $driverUUID,
+            deviceLUID: $deviceLUID,
+            deviceNodeMask: $deviceNodeMask,
+            deviceLUIDValid: $deviceLUIDValid,
+            subgroupSize: $subgroupSize,
+            subgroupSupportedStages: $subgroupSupportedStages,
+            subgroupSupportedOperations: $subgroupSupportedOperations,
+            subgroupQuadOperationsInAllStages: $subgroupQuadOperationsInAllStages,
+            pointClippingBehavior: $pointClippingBehavior,
+            maxMultiviewViewCount: $maxMultiviewViewCount,
+            maxMultiviewInstanceIndex: $maxMultiviewInstanceIndex,
+            protectedNoFault: $protectedNoFault,
+            maxPerSetDescriptors: $maxPerSetDescriptors,
+            maxMemoryAllocationSize: $maxMemoryAllocationSize,
+            driverID: $driverID,
+            driverName: $driverName,
+            driverInfo: $driverInfo,
+            conformanceVersion: $conformanceVersion,
+            denormBehaviorIndependence: $denormBehaviorIndependence,
+            roundingModeIndependence: $roundingModeIndependence,
+            shaderSignedZeroInfNanPreserveFloat16: $shaderSignedZeroInfNanPreserveFloat16,
+            shaderSignedZeroInfNanPreserveFloat32: $shaderSignedZeroInfNanPreserveFloat32,
+            shaderSignedZeroInfNanPreserveFloat64: $shaderSignedZeroInfNanPreserveFloat64,
+            shaderDenormPreserveFloat16: $shaderDenormPreserveFloat16,
+            shaderDenormPreserveFloat32: $shaderDenormPreserveFloat32,
+            shaderDenormPreserveFloat64: $shaderDenormPreserveFloat64,
+            shaderDenormFlushToZeroFloat16: $shaderDenormFlushToZeroFloat16,
+            shaderDenormFlushToZeroFloat32: $shaderDenormFlushToZeroFloat32,
+            shaderDenormFlushToZeroFloat64: $shaderDenormFlushToZeroFloat64,
+            shaderRoundingModeRTEFloat16: $shaderRoundingModeRTEFloat16,
+            shaderRoundingModeRTEFloat32: $shaderRoundingModeRTEFloat32,
+            shaderRoundingModeRTEFloat64: $shaderRoundingModeRTEFloat64,
+            shaderRoundingModeRTZFloat16: $shaderRoundingModeRTZFloat16,
+            shaderRoundingModeRTZFloat32: $shaderRoundingModeRTZFloat32,
+            shaderRoundingModeRTZFloat64: $shaderRoundingModeRTZFloat64,
+            maxUpdateAfterBindDescriptorsInAllPools: $maxUpdateAfterBindDescriptorsInAllPools,
+            shaderUniformBufferArrayNonUniformIndexingNative: $shaderUniformBufferArrayNonUniformIndexingNative,
+            shaderSampledImageArrayNonUniformIndexingNative: $shaderSampledImageArrayNonUniformIndexingNative,
+            shaderStorageBufferArrayNonUniformIndexingNative: $shaderStorageBufferArrayNonUniformIndexingNative,
+            shaderStorageImageArrayNonUniformIndexingNative: $shaderStorageImageArrayNonUniformIndexingNative,
+            shaderInputAttachmentArrayNonUniformIndexingNative: $shaderInputAttachmentArrayNonUniformIndexingNative,
+            robustBufferAccessUpdateAfterBind: $robustBufferAccessUpdateAfterBind,
+            quadDivergentImplicitLod: $quadDivergentImplicitLod,
+            maxPerStageDescriptorUpdateAfterBindSamplers: $maxPerStageDescriptorUpdateAfterBindSamplers,
+            maxPerStageDescriptorUpdateAfterBindUniformBuffers: $maxPerStageDescriptorUpdateAfterBindUniformBuffers,
+            maxPerStageDescriptorUpdateAfterBindStorageBuffers: $maxPerStageDescriptorUpdateAfterBindStorageBuffers,
+            maxPerStageDescriptorUpdateAfterBindSampledImages: $maxPerStageDescriptorUpdateAfterBindSampledImages,
+            maxPerStageDescriptorUpdateAfterBindStorageImages: $maxPerStageDescriptorUpdateAfterBindStorageImages,
+            maxPerStageDescriptorUpdateAfterBindInputAttachments: $maxPerStageDescriptorUpdateAfterBindInputAttachments,
+            maxPerStageUpdateAfterBindResources: $maxPerStageUpdateAfterBindResources,
+            maxDescriptorSetUpdateAfterBindSamplers: $maxDescriptorSetUpdateAfterBindSamplers,
+            maxDescriptorSetUpdateAfterBindUniformBuffers: $maxDescriptorSetUpdateAfterBindUniformBuffers,
+            maxDescriptorSetUpdateAfterBindUniformBuffersDynamic: $maxDescriptorSetUpdateAfterBindUniformBuffersDynamic,
+            maxDescriptorSetUpdateAfterBindStorageBuffers: $maxDescriptorSetUpdateAfterBindStorageBuffers,
+            maxDescriptorSetUpdateAfterBindStorageBuffersDynamic: $maxDescriptorSetUpdateAfterBindStorageBuffersDynamic,
+            maxDescriptorSetUpdateAfterBindSampledImages: $maxDescriptorSetUpdateAfterBindSampledImages,
+            maxDescriptorSetUpdateAfterBindStorageImages: $maxDescriptorSetUpdateAfterBindStorageImages,
+            maxDescriptorSetUpdateAfterBindInputAttachments: $maxDescriptorSetUpdateAfterBindInputAttachments,
+            supportedDepthResolveModes: $supportedDepthResolveModes,
+            supportedStencilResolveModes: $supportedStencilResolveModes,
+            independentResolveNone: $independentResolveNone,
+            independentResolve: $independentResolve,
+            filterMinmaxSingleComponentFormats: $filterMinmaxSingleComponentFormats,
+            filterMinmaxImageComponentMapping: $filterMinmaxImageComponentMapping,
+            maxTimelineSemaphoreValueDifference: $maxTimelineSemaphoreValueDifference,
+            framebufferIntegerColorSampleCounts: $framebufferIntegerColorSampleCounts,
+            minSubgroupSize: $minSubgroupSize,
+            maxSubgroupSize: $maxSubgroupSize,
+            maxComputeWorkgroupSubgroups: $maxComputeWorkgroupSubgroups,
+            requiredSubgroupSizeStages: $requiredSubgroupSizeStages,
+            maxInlineUniformBlockSize: $maxInlineUniformBlockSize,
+            maxPerStageDescriptorInlineUniformBlocks: $maxPerStageDescriptorInlineUniformBlocks,
+            maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks: $maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks,
+            maxDescriptorSetInlineUniformBlocks: $maxDescriptorSetInlineUniformBlocks,
+            maxDescriptorSetUpdateAfterBindInlineUniformBlocks: $maxDescriptorSetUpdateAfterBindInlineUniformBlocks,
+            maxInlineUniformTotalSize: $maxInlineUniformTotalSize,
+            integerDotProduct8BitUnsignedAccelerated: $integerDotProduct8BitUnsignedAccelerated,
+            integerDotProduct8BitSignedAccelerated: $integerDotProduct8BitSignedAccelerated,
+            integerDotProduct8BitMixedSignednessAccelerated: $integerDotProduct8BitMixedSignednessAccelerated,
+            integerDotProduct4x8BitPackedUnsignedAccelerated: $integerDotProduct4x8BitPackedUnsignedAccelerated,
+            integerDotProduct4x8BitPackedSignedAccelerated: $integerDotProduct4x8BitPackedSignedAccelerated,
+            integerDotProduct4x8BitPackedMixedSignednessAccelerated: $integerDotProduct4x8BitPackedMixedSignednessAccelerated,
+            integerDotProduct16BitUnsignedAccelerated: $integerDotProduct16BitUnsignedAccelerated,
+            integerDotProduct16BitSignedAccelerated: $integerDotProduct16BitSignedAccelerated,
+            integerDotProduct16BitMixedSignednessAccelerated: $integerDotProduct16BitMixedSignednessAccelerated,
+            integerDotProduct32BitUnsignedAccelerated: $integerDotProduct32BitUnsignedAccelerated,
+            integerDotProduct32BitSignedAccelerated: $integerDotProduct32BitSignedAccelerated,
+            integerDotProduct32BitMixedSignednessAccelerated: $integerDotProduct32BitMixedSignednessAccelerated,
+            integerDotProduct64BitUnsignedAccelerated: $integerDotProduct64BitUnsignedAccelerated,
+            integerDotProduct64BitSignedAccelerated: $integerDotProduct64BitSignedAccelerated,
+            integerDotProduct64BitMixedSignednessAccelerated: $integerDotProduct64BitMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating8BitUnsignedAccelerated: $integerDotProductAccumulatingSaturating8BitUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating8BitSignedAccelerated: $integerDotProductAccumulatingSaturating8BitSignedAccelerated,
+            integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated: $integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated: $integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated: $integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated,
+            integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated: $integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating16BitUnsignedAccelerated: $integerDotProductAccumulatingSaturating16BitUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating16BitSignedAccelerated: $integerDotProductAccumulatingSaturating16BitSignedAccelerated,
+            integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated: $integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating32BitUnsignedAccelerated: $integerDotProductAccumulatingSaturating32BitUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating32BitSignedAccelerated: $integerDotProductAccumulatingSaturating32BitSignedAccelerated,
+            integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated: $integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating64BitUnsignedAccelerated: $integerDotProductAccumulatingSaturating64BitUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating64BitSignedAccelerated: $integerDotProductAccumulatingSaturating64BitSignedAccelerated,
+            integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated: $integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated,
+            storageTexelBufferOffsetAlignmentBytes: $storageTexelBufferOffsetAlignmentBytes,
+            storageTexelBufferOffsetSingleTexelAlignment: $storageTexelBufferOffsetSingleTexelAlignment,
+            uniformTexelBufferOffsetAlignmentBytes: $uniformTexelBufferOffsetAlignmentBytes,
+            uniformTexelBufferOffsetSingleTexelAlignment: $uniformTexelBufferOffsetSingleTexelAlignment,
+            maxBufferSize: $maxBufferSize,
+        );
+    }
 
     /**
      * @param CData&object{
@@ -203,9 +584,123 @@ final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructu
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, CData ...$ancestors): self
     {
+        $parent = VkPhysicalDeviceVulkan13Properties::createFromCData(...$ancestors);
+
         return new self(
+            deviceUUID: $parent->deviceUUID,
+            driverUUID: $parent->driverUUID,
+            deviceLUID: $parent->deviceLUID,
+            deviceNodeMask: $parent->deviceNodeMask,
+            deviceLUIDValid: $parent->deviceLUIDValid,
+            subgroupSize: $parent->subgroupSize,
+            subgroupSupportedStages: $parent->subgroupSupportedStages,
+            subgroupSupportedOperations: $parent->subgroupSupportedOperations,
+            subgroupQuadOperationsInAllStages: $parent->subgroupQuadOperationsInAllStages,
+            pointClippingBehavior: $parent->pointClippingBehavior,
+            maxMultiviewViewCount: $parent->maxMultiviewViewCount,
+            maxMultiviewInstanceIndex: $parent->maxMultiviewInstanceIndex,
+            protectedNoFault: $parent->protectedNoFault,
+            maxPerSetDescriptors: $parent->maxPerSetDescriptors,
+            maxMemoryAllocationSize: $parent->maxMemoryAllocationSize,
+            driverID: $parent->driverID,
+            driverName: $parent->driverName,
+            driverInfo: $parent->driverInfo,
+            conformanceVersion: $parent->conformanceVersion,
+            denormBehaviorIndependence: $parent->denormBehaviorIndependence,
+            roundingModeIndependence: $parent->roundingModeIndependence,
+            shaderSignedZeroInfNanPreserveFloat16: $parent->shaderSignedZeroInfNanPreserveFloat16,
+            shaderSignedZeroInfNanPreserveFloat32: $parent->shaderSignedZeroInfNanPreserveFloat32,
+            shaderSignedZeroInfNanPreserveFloat64: $parent->shaderSignedZeroInfNanPreserveFloat64,
+            shaderDenormPreserveFloat16: $parent->shaderDenormPreserveFloat16,
+            shaderDenormPreserveFloat32: $parent->shaderDenormPreserveFloat32,
+            shaderDenormPreserveFloat64: $parent->shaderDenormPreserveFloat64,
+            shaderDenormFlushToZeroFloat16: $parent->shaderDenormFlushToZeroFloat16,
+            shaderDenormFlushToZeroFloat32: $parent->shaderDenormFlushToZeroFloat32,
+            shaderDenormFlushToZeroFloat64: $parent->shaderDenormFlushToZeroFloat64,
+            shaderRoundingModeRTEFloat16: $parent->shaderRoundingModeRTEFloat16,
+            shaderRoundingModeRTEFloat32: $parent->shaderRoundingModeRTEFloat32,
+            shaderRoundingModeRTEFloat64: $parent->shaderRoundingModeRTEFloat64,
+            shaderRoundingModeRTZFloat16: $parent->shaderRoundingModeRTZFloat16,
+            shaderRoundingModeRTZFloat32: $parent->shaderRoundingModeRTZFloat32,
+            shaderRoundingModeRTZFloat64: $parent->shaderRoundingModeRTZFloat64,
+            maxUpdateAfterBindDescriptorsInAllPools: $parent->maxUpdateAfterBindDescriptorsInAllPools,
+            shaderUniformBufferArrayNonUniformIndexingNative: $parent->shaderUniformBufferArrayNonUniformIndexingNative,
+            shaderSampledImageArrayNonUniformIndexingNative: $parent->shaderSampledImageArrayNonUniformIndexingNative,
+            shaderStorageBufferArrayNonUniformIndexingNative: $parent->shaderStorageBufferArrayNonUniformIndexingNative,
+            shaderStorageImageArrayNonUniformIndexingNative: $parent->shaderStorageImageArrayNonUniformIndexingNative,
+            shaderInputAttachmentArrayNonUniformIndexingNative: $parent->shaderInputAttachmentArrayNonUniformIndexingNative,
+            robustBufferAccessUpdateAfterBind: $parent->robustBufferAccessUpdateAfterBind,
+            quadDivergentImplicitLod: $parent->quadDivergentImplicitLod,
+            maxPerStageDescriptorUpdateAfterBindSamplers: $parent->maxPerStageDescriptorUpdateAfterBindSamplers,
+            maxPerStageDescriptorUpdateAfterBindUniformBuffers: $parent->maxPerStageDescriptorUpdateAfterBindUniformBuffers,
+            maxPerStageDescriptorUpdateAfterBindStorageBuffers: $parent->maxPerStageDescriptorUpdateAfterBindStorageBuffers,
+            maxPerStageDescriptorUpdateAfterBindSampledImages: $parent->maxPerStageDescriptorUpdateAfterBindSampledImages,
+            maxPerStageDescriptorUpdateAfterBindStorageImages: $parent->maxPerStageDescriptorUpdateAfterBindStorageImages,
+            maxPerStageDescriptorUpdateAfterBindInputAttachments: $parent->maxPerStageDescriptorUpdateAfterBindInputAttachments,
+            maxPerStageUpdateAfterBindResources: $parent->maxPerStageUpdateAfterBindResources,
+            maxDescriptorSetUpdateAfterBindSamplers: $parent->maxDescriptorSetUpdateAfterBindSamplers,
+            maxDescriptorSetUpdateAfterBindUniformBuffers: $parent->maxDescriptorSetUpdateAfterBindUniformBuffers,
+            maxDescriptorSetUpdateAfterBindUniformBuffersDynamic: $parent->maxDescriptorSetUpdateAfterBindUniformBuffersDynamic,
+            maxDescriptorSetUpdateAfterBindStorageBuffers: $parent->maxDescriptorSetUpdateAfterBindStorageBuffers,
+            maxDescriptorSetUpdateAfterBindStorageBuffersDynamic: $parent->maxDescriptorSetUpdateAfterBindStorageBuffersDynamic,
+            maxDescriptorSetUpdateAfterBindSampledImages: $parent->maxDescriptorSetUpdateAfterBindSampledImages,
+            maxDescriptorSetUpdateAfterBindStorageImages: $parent->maxDescriptorSetUpdateAfterBindStorageImages,
+            maxDescriptorSetUpdateAfterBindInputAttachments: $parent->maxDescriptorSetUpdateAfterBindInputAttachments,
+            supportedDepthResolveModes: $parent->supportedDepthResolveModes,
+            supportedStencilResolveModes: $parent->supportedStencilResolveModes,
+            independentResolveNone: $parent->independentResolveNone,
+            independentResolve: $parent->independentResolve,
+            filterMinmaxSingleComponentFormats: $parent->filterMinmaxSingleComponentFormats,
+            filterMinmaxImageComponentMapping: $parent->filterMinmaxImageComponentMapping,
+            maxTimelineSemaphoreValueDifference: $parent->maxTimelineSemaphoreValueDifference,
+            framebufferIntegerColorSampleCounts: $parent->framebufferIntegerColorSampleCounts,
+            minSubgroupSize: $parent->minSubgroupSize,
+            maxSubgroupSize: $parent->maxSubgroupSize,
+            maxComputeWorkgroupSubgroups: $parent->maxComputeWorkgroupSubgroups,
+            requiredSubgroupSizeStages: $parent->requiredSubgroupSizeStages,
+            maxInlineUniformBlockSize: $parent->maxInlineUniformBlockSize,
+            maxPerStageDescriptorInlineUniformBlocks: $parent->maxPerStageDescriptorInlineUniformBlocks,
+            maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks: $parent->maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks,
+            maxDescriptorSetInlineUniformBlocks: $parent->maxDescriptorSetInlineUniformBlocks,
+            maxDescriptorSetUpdateAfterBindInlineUniformBlocks: $parent->maxDescriptorSetUpdateAfterBindInlineUniformBlocks,
+            maxInlineUniformTotalSize: $parent->maxInlineUniformTotalSize,
+            integerDotProduct8BitUnsignedAccelerated: $parent->integerDotProduct8BitUnsignedAccelerated,
+            integerDotProduct8BitSignedAccelerated: $parent->integerDotProduct8BitSignedAccelerated,
+            integerDotProduct8BitMixedSignednessAccelerated: $parent->integerDotProduct8BitMixedSignednessAccelerated,
+            integerDotProduct4x8BitPackedUnsignedAccelerated: $parent->integerDotProduct4x8BitPackedUnsignedAccelerated,
+            integerDotProduct4x8BitPackedSignedAccelerated: $parent->integerDotProduct4x8BitPackedSignedAccelerated,
+            integerDotProduct4x8BitPackedMixedSignednessAccelerated: $parent->integerDotProduct4x8BitPackedMixedSignednessAccelerated,
+            integerDotProduct16BitUnsignedAccelerated: $parent->integerDotProduct16BitUnsignedAccelerated,
+            integerDotProduct16BitSignedAccelerated: $parent->integerDotProduct16BitSignedAccelerated,
+            integerDotProduct16BitMixedSignednessAccelerated: $parent->integerDotProduct16BitMixedSignednessAccelerated,
+            integerDotProduct32BitUnsignedAccelerated: $parent->integerDotProduct32BitUnsignedAccelerated,
+            integerDotProduct32BitSignedAccelerated: $parent->integerDotProduct32BitSignedAccelerated,
+            integerDotProduct32BitMixedSignednessAccelerated: $parent->integerDotProduct32BitMixedSignednessAccelerated,
+            integerDotProduct64BitUnsignedAccelerated: $parent->integerDotProduct64BitUnsignedAccelerated,
+            integerDotProduct64BitSignedAccelerated: $parent->integerDotProduct64BitSignedAccelerated,
+            integerDotProduct64BitMixedSignednessAccelerated: $parent->integerDotProduct64BitMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating8BitUnsignedAccelerated: $parent->integerDotProductAccumulatingSaturating8BitUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating8BitSignedAccelerated: $parent->integerDotProductAccumulatingSaturating8BitSignedAccelerated,
+            integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated: $parent->integerDotProductAccumulatingSaturating8BitMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated: $parent->integerDotProductAccumulatingSaturating4x8BitPackedUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated: $parent->integerDotProductAccumulatingSaturating4x8BitPackedSignedAccelerated,
+            integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated: $parent->integerDotProductAccumulatingSaturating4x8BitPackedMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating16BitUnsignedAccelerated: $parent->integerDotProductAccumulatingSaturating16BitUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating16BitSignedAccelerated: $parent->integerDotProductAccumulatingSaturating16BitSignedAccelerated,
+            integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated: $parent->integerDotProductAccumulatingSaturating16BitMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating32BitUnsignedAccelerated: $parent->integerDotProductAccumulatingSaturating32BitUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating32BitSignedAccelerated: $parent->integerDotProductAccumulatingSaturating32BitSignedAccelerated,
+            integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated: $parent->integerDotProductAccumulatingSaturating32BitMixedSignednessAccelerated,
+            integerDotProductAccumulatingSaturating64BitUnsignedAccelerated: $parent->integerDotProductAccumulatingSaturating64BitUnsignedAccelerated,
+            integerDotProductAccumulatingSaturating64BitSignedAccelerated: $parent->integerDotProductAccumulatingSaturating64BitSignedAccelerated,
+            integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated: $parent->integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated,
+            storageTexelBufferOffsetAlignmentBytes: $parent->storageTexelBufferOffsetAlignmentBytes,
+            storageTexelBufferOffsetSingleTexelAlignment: $parent->storageTexelBufferOffsetSingleTexelAlignment,
+            uniformTexelBufferOffsetAlignmentBytes: $parent->uniformTexelBufferOffsetAlignmentBytes,
+            uniformTexelBufferOffsetSingleTexelAlignment: $parent->uniformTexelBufferOffsetSingleTexelAlignment,
+            maxBufferSize: $parent->maxBufferSize,
             lineSubPixelPrecisionBits: $data->lineSubPixelPrecisionBits,
             maxVertexAttribDivisor: $data->maxVertexAttribDivisor,
             supportsNonZeroFirstInstance: $data->supportsNonZeroFirstInstance !== 0,
