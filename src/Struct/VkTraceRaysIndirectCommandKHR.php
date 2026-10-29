@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTraceRaysIndirectCommandKHR.html
  * @since VK_KHR_ray_tracing_pipeline
  */
-final class VkTraceRaysIndirectCommandKHR extends InputStructure
+final class VkTraceRaysIndirectCommandKHR implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkTraceRaysIndirectCommandKHR';
 
     public function __construct(
@@ -36,8 +38,11 @@ final class VkTraceRaysIndirectCommandKHR extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->width = $this->width;
 

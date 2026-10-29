@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkLayerProperties.html
  * @since 1.0
  */
-final readonly class VkLayerProperties extends OutputStructure
+final readonly class VkLayerProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** Layer name */
         public string $layerName,

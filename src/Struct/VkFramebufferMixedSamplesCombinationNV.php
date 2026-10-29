@@ -18,8 +18,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkFramebufferMixedSamplesCombinationNV.html
  * @since VK_NV_coverage_reduction_mode
  */
-final readonly class VkFramebufferMixedSamplesCombinationNV extends OutputStructure
+final readonly class VkFramebufferMixedSamplesCombinationNV implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_MIXED_SAMPLES_COMBINATION_NV->value;
 
     public function __construct(

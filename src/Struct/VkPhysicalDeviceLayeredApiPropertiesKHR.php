@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceLayeredApiPropertiesKHRExten
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesKHR.html
  * @since VK_KHR_maintenance7
  */
-final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR extends OutputStructure
+final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR->value;
 
     public function __construct(

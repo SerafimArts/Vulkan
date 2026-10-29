@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutSupport.html
  * @since 1.1
  */
-final readonly class VkDescriptorSetLayoutSupport extends OutputStructure
+final readonly class VkDescriptorSetLayoutSupport implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT->value;
 
     public function __construct(

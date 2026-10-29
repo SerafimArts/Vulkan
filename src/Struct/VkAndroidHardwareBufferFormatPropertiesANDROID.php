@@ -24,8 +24,10 @@ use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExte
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferFormatPropertiesANDROID.html
  * @since VK_ANDROID_external_memory_android_hardware_buffer
  */
-final readonly class VkAndroidHardwareBufferFormatPropertiesANDROID extends OutputStructure implements VkAndroidHardwareBufferPropertiesANDROIDExtension, ChainedStructureInterface
+final readonly class VkAndroidHardwareBufferFormatPropertiesANDROID implements OutputStructureInterface, VkAndroidHardwareBufferPropertiesANDROIDExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_ANDROID->value;
 
     public static function createNative(Allocator $memory): CData

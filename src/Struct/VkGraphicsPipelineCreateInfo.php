@@ -23,8 +23,10 @@ use Serafim\Vulkan\Struct\Extension\VkPipelineCreateInfoKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGraphicsPipelineCreateInfo.html
  * @since 1.0
  */
-final class VkGraphicsPipelineCreateInfo extends InputStructure implements VkPipelineCreateInfoKHRExtension
+final class VkGraphicsPipelineCreateInfo implements InputStructureInterface, VkPipelineCreateInfoKHRExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkGraphicsPipelineCreateInfo';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO->value;
@@ -104,13 +106,16 @@ final class VkGraphicsPipelineCreateInfo extends InputStructure implements VkPip
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureMatrixMotionInstanceNV.html
  * @since VK_NV_ray_tracing_motion_blur
  */
-final class VkAccelerationStructureMatrixMotionInstanceNV extends InputStructure
+final class VkAccelerationStructureMatrixMotionInstanceNV implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkAccelerationStructureMatrixMotionInstanceNV';
 
     public function __construct(
@@ -44,8 +46,11 @@ final class VkAccelerationStructureMatrixMotionInstanceNV extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $this->transformT0->write($memory, $data->transformT0);
 

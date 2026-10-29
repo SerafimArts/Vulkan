@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultiviewPerViewAttributesInfoNVX.html
  * @since VK_NVX_multiview_per_view_attributes
  */
-final class VkMultiviewPerViewAttributesInfoNVX extends InputStructure implements VkCommandBufferInheritanceInfoExtension, VkGraphicsPipelineCreateInfoExtension, VkRenderingInfoExtension
+final class VkMultiviewPerViewAttributesInfoNVX implements InputStructureInterface, VkCommandBufferInheritanceInfoExtension, VkGraphicsPipelineCreateInfoExtension, VkRenderingInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkMultiviewPerViewAttributesInfoNVX';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_ATTRIBUTES_INFO_NVX->value;
@@ -40,13 +42,16 @@ final class VkMultiviewPerViewAttributesInfoNVX extends InputStructure implement
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

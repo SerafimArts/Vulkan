@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkSemaphoreCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueryLowLatencySupportNV.html
  * @since VK_NV_low_latency
  */
-final class VkQueryLowLatencySupportNV extends InputStructure implements VkSemaphoreCreateInfoExtension
+final class VkQueryLowLatencySupportNV implements InputStructureInterface, VkSemaphoreCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkQueryLowLatencySupportNV';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV->value;
@@ -38,13 +40,16 @@ final class VkQueryLowLatencySupportNV extends InputStructure implements VkSemap
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

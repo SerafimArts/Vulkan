@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultVendorInfoKHR.html
  * @since VK_KHR_device_fault
  */
-final readonly class VkDeviceFaultVendorInfoKHR extends OutputStructure
+final readonly class VkDeviceFaultVendorInfoKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** Free-form description of the fault */
         public string $description,

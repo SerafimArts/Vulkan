@@ -43,7 +43,7 @@ final readonly class Parameters
         foreach ($plan->parameters as $parameter) {
             $type = $this->findType($namespace, $parameter);
 
-            if ($type === null) {
+            if ($type === null || $parameter->name === ($plan->requested[0] ?? null)) {
                 continue;
             }
 
@@ -75,6 +75,8 @@ final readonly class Parameters
             $this->emitOptional($method, $parameter, $type);
         }
 
+        $this->emitRequested($namespace, $method, $plan);
+
         // A handle is described by its type.
         $documented = \array_filter(
             [...$required, ...$optional],
@@ -92,6 +94,31 @@ final readonly class Parameters
                 $parameter->name,
             ));
         }
+    }
+
+    /**
+     * Adds the list of the values that the user gives to the structures the
+     * command fills in part, it replaces the number of the structures.
+     */
+    private function emitRequested(PhpNamespace $namespace, Method $method, CommandPlan $plan): void
+    {
+        $output = $plan->output;
+
+        if ($plan->requested === null || $output === null) {
+            return;
+        }
+
+        $type = 'mixed';
+
+        foreach ($this->registry->getStruct($output->field->type)->members as $member) {
+            if ($member->name === $plan->requested[1]) {
+                $type = Imports::import($namespace, Locations::ENUM_NAMESPACE, $member->type);
+            }
+        }
+
+        $method->addParameter('requested')->setType('array');
+        $method->addComment('');
+        $method->addComment('@param list<' . $type . '> $requested the values of the structures to query');
     }
 
     private function emitOptional(Method $method, ParameterPlan $parameter, string $type): void

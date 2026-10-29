@@ -20,8 +20,10 @@ use Serafim\Vulkan\Struct\Extension\VkImageMemoryBarrierExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryAcquireUnmodifiedEXT.html
  * @since VK_EXT_external_memory_acquire_unmodified
  */
-final class VkExternalMemoryAcquireUnmodifiedEXT extends InputStructure implements VkBufferMemoryBarrierExtension, VkBufferMemoryBarrier2Extension, VkImageMemoryBarrierExtension, VkImageMemoryBarrier2Extension
+final class VkExternalMemoryAcquireUnmodifiedEXT implements InputStructureInterface, VkBufferMemoryBarrierExtension, VkBufferMemoryBarrier2Extension, VkImageMemoryBarrierExtension, VkImageMemoryBarrier2Extension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkExternalMemoryAcquireUnmodifiedEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_ACQUIRE_UNMODIFIED_EXT->value;
@@ -39,13 +41,16 @@ final class VkExternalMemoryAcquireUnmodifiedEXT extends InputStructure implemen
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

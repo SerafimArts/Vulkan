@@ -20,8 +20,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV.html
  * @since VK_NV_shader_atomic_float16_vector
  */
-final class VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV extends InputStructure implements VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface
+final class VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV implements InputStructureInterface, VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV->value;
@@ -39,13 +41,16 @@ final class VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV extends InputStr
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

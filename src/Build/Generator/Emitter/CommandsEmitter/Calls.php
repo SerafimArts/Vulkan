@@ -145,6 +145,36 @@ final readonly class Calls
         return $lines;
     }
 
+    /**
+     * Returns the lines of the call that is repeated while the structures
+     * Vulkan fills hold arrays to allocate: the first call writes the lengths,
+     * the arrays are allocated for them and the next call fills the arrays.
+     *
+     * @param list<string> $arguments
+     * @param list<string> $conditions the expressions that allocate the arrays
+     *        and tell whether they did
+     *
+     * @return list<string>
+     */
+    public function createBufferedCallLines(CommandPlan $plan, array $arguments, array $conditions): array
+    {
+        $call = $this->createCallLines($plan, $arguments);
+
+        if ($conditions === []) {
+            return $call;
+        }
+
+        $lines = [...$call, '', 'while (' . \implode(' || ', $conditions) . ') {'];
+
+        foreach (\array_slice($call, 2) as $line) {
+            $lines[] = \rtrim('    ' . $line);
+        }
+
+        $lines[] = '}';
+
+        return $lines;
+    }
+
     public function createProcedureLine(CommandPlan $plan): string
     {
         $parent = $this->findParent($plan);

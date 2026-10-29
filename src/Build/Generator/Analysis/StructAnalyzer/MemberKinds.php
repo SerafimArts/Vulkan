@@ -85,11 +85,11 @@ final readonly class MemberKinds
             && $this->types->isReturnedOnly($member->type);
 
         if ($isResult && $member->length === null) {
-            return PropertyKind::RESULT_STRUCTURE;
+            return PropertyKind::FEEDBACK_STRUCTURE;
         }
 
         if ($isResult && $this->hasLengthMember($struct, $member)) {
-            return PropertyKind::RESULT_ARRAY;
+            return PropertyKind::FEEDBACK_ARRAY;
         }
 
         $isFilled = $member->pointerDepth === 1
@@ -98,7 +98,7 @@ final readonly class MemberKinds
             && $this->hasLengthMember($struct, $member);
 
         if ($isFilled) {
-            return PropertyKind::FILLED_ARRAY;
+            return PropertyKind::QUERIED_ARRAY;
         }
 
         if ($type === TypeKind::STRUCTURE && $member->pointerDepth === 1 && $member->length === null) {
@@ -154,6 +154,18 @@ final readonly class MemberKinds
         }
 
         return null;
+    }
+
+    /**
+     * Whether the member is the buffer of bytes that Vulkan fills: `void*`
+     * with the size in another member.
+     */
+    public function isQueriedBuffer(StructDefinition $struct, FieldDefinition $member): bool
+    {
+        return $member->type === 'void'
+            && $member->pointerDepth === 1
+            && !$member->isConst
+            && $this->hasLengthMember($struct, $member);
     }
 
     /**

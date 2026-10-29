@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryWin32HandlePropertiesKHR.html
  * @since VK_KHR_external_memory_win32
  */
-final readonly class VkMemoryWin32HandlePropertiesKHR extends OutputStructure
+final readonly class VkMemoryWin32HandlePropertiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_WIN32_HANDLE_PROPERTIES_KHR->value;
 
     public function __construct(

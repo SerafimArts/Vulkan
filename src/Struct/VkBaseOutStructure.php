@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBaseOutStructure.html
  * @since 1.0
  */
-final readonly class VkBaseOutStructure extends OutputStructure
+final readonly class VkBaseOutStructure implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         public VkStructureType $sType,
     ) {}

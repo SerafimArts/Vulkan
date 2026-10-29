@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRefreshCycleDurationGOOGLE.html
  * @since VK_GOOGLE_display_timing
  */
-final readonly class VkRefreshCycleDurationGOOGLE extends OutputStructure
+final readonly class VkRefreshCycleDurationGOOGLE implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Number of nanoseconds from the start of one refresh cycle to the

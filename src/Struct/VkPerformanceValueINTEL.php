@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceValueINTEL.html
  * @since VK_INTEL_performance_query
  */
-final readonly class VkPerformanceValueINTEL extends OutputStructure
+final readonly class VkPerformanceValueINTEL implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         public VkPerformanceValueTypeINTEL $type,
         public VkPerformanceValueDataINTEL $data,

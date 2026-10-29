@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphOpticalFlowPropertiesARM.html
  * @since VK_ARM_data_graph_optical_flow
  */
-final readonly class VkQueueFamilyDataGraphOpticalFlowPropertiesARM extends OutputStructure
+final readonly class VkQueueFamilyDataGraphOpticalFlowPropertiesARM implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_OPTICAL_FLOW_PROPERTIES_ARM->value;
 
     public function __construct(

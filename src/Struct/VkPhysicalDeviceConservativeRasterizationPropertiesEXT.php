@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceConservativeRasterizationPropertiesEXT.html
  * @since VK_EXT_conservative_rasterization
  */
-final readonly class VkPhysicalDeviceConservativeRasterizationPropertiesEXT extends OutputStructure implements VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
+final readonly class VkPhysicalDeviceConservativeRasterizationPropertiesEXT implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData

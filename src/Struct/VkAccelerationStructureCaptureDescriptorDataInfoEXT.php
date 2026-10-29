@@ -21,8 +21,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since VK_EXT_descriptor_buffer
  */
-final class VkAccelerationStructureCaptureDescriptorDataInfoEXT extends InputStructure
+final class VkAccelerationStructureCaptureDescriptorDataInfoEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkAccelerationStructureCaptureDescriptorDataInfoEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CAPTURE_DESCRIPTOR_DATA_INFO_EXT->value;
@@ -41,8 +43,11 @@ final class VkAccelerationStructureCaptureDescriptorDataInfoEXT extends InputStr
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 

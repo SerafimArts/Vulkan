@@ -9,7 +9,7 @@ use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
 use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 use Serafim\Vulkan\Build\Generator\Registry\StructDefinition;
-use Serafim\Vulkan\Struct\InputStructure;
+use Serafim\Vulkan\Struct\InputStructureInterface;
 
 /**
  * Decides how the members of a structure are represented in PHP.
@@ -38,8 +38,8 @@ final readonly class StructAnalyzer
         PropertyKind::STRUCTURE_LIST,
         PropertyKind::ENUMERATION_LIST,
         PropertyKind::STRUCTURE_POINTER,
-        PropertyKind::RESULT_STRUCTURE,
-        PropertyKind::RESULT_ARRAY,
+        PropertyKind::FEEDBACK_STRUCTURE,
+        PropertyKind::FEEDBACK_ARRAY,
         PropertyKind::STRUCTURE_VALUE,
         PropertyKind::HANDLE,
         PropertyKind::STRUCTURE_ARRAY,
@@ -90,7 +90,8 @@ final readonly class StructAnalyzer
         PropertyKind::STRUCTURE_VALUE,
         PropertyKind::STRUCTURE_LIST,
         PropertyKind::ENUMERATION_LIST,
-        PropertyKind::FILLED_ARRAY,
+        PropertyKind::QUERIED_ARRAY,
+        PropertyKind::QUERIED_BYTES,
     ];
 
     /**
@@ -125,7 +126,7 @@ final readonly class StructAnalyzer
             $kind = $this->kinds->find($struct, $member);
             $isLengthKept = $kind === PropertyKind::SAMPLE_MASK
                 || $kind === PropertyKind::NATIVE
-                || $kind === PropertyKind::RESULT_ARRAY;
+                || $kind === PropertyKind::FEEDBACK_ARRAY;
 
             if ($member->length !== null && !$member->isOptional && !$isLengthKept) {
                 $lengths[$member->length] = true;
@@ -148,7 +149,7 @@ final readonly class StructAnalyzer
                         $member,
                         PropertyKind::NEXT,
                         'next',
-                        InputStructure::class,
+                        InputStructureInterface::class,
                         true,
                         true,
                     );
@@ -246,8 +247,14 @@ final readonly class StructAnalyzer
 
         $kind = $this->kinds->find($struct, $member);
 
-        if ($kind === PropertyKind::RESULT_ARRAY && $role === StructRole::OUTPUT) {
-            $kind = PropertyKind::FILLED_ARRAY;
+        if ($kind === PropertyKind::FEEDBACK_ARRAY && $role === StructRole::OUTPUT) {
+            $kind = PropertyKind::QUERIED_ARRAY;
+        }
+
+        $isFilledByVulkan = $struct->isReturnedOnly || MixedStructures::findInput($struct->name) !== null;
+
+        if ($role === StructRole::OUTPUT && $isFilledByVulkan && $this->kinds->isQueriedBuffer($struct, $member)) {
+            $kind = PropertyKind::QUERIED_BYTES;
         }
 
         if ($kind === null) {
@@ -368,9 +375,10 @@ final readonly class StructAnalyzer
             ),
             PropertyKind::NUMBER_LIST => $this->createNumberList($declaration, $member, $kind, $name, $isInput),
             PropertyKind::STRUCTURE_POINTER => new PropertyPlan($member, $kind, $name, null, true, true),
-            PropertyKind::RESULT_STRUCTURE => new PropertyPlan($member, $kind, $name, null, true),
-            PropertyKind::RESULT_ARRAY => new PropertyPlan($member, $kind, $name, 'array'),
-            PropertyKind::FILLED_ARRAY => new PropertyPlan($member, $kind, $name, 'array'),
+            PropertyKind::FEEDBACK_STRUCTURE => new PropertyPlan($member, $kind, $name, null, true),
+            PropertyKind::FEEDBACK_ARRAY => new PropertyPlan($member, $kind, $name, 'array'),
+            PropertyKind::QUERIED_ARRAY => new PropertyPlan($member, $kind, $name, 'array'),
+            PropertyKind::QUERIED_BYTES => new PropertyPlan($member, $kind, $name, 'string'),
             PropertyKind::STRUCTURE_VALUE => new PropertyPlan($member, $kind, $name, null),
             PropertyKind::HANDLE => new PropertyPlan(
                 $member,

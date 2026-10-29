@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkDataGraphTOSAQualityFlagBitsARM;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphTOSANameQualityARM.html
  * @since VK_ARM_data_graph_instruction_set_tosa
  */
-final readonly class VkDataGraphTOSANameQualityARM extends OutputStructure
+final readonly class VkDataGraphTOSANameQualityARM implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         public string $name,
         /** @var int-mask-of<VkDataGraphTOSAQualityFlagBitsARM::*> */

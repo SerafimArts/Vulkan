@@ -18,8 +18,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceMemoryReportCallbackDataEXT.html
  * @since VK_EXT_device_memory_report
  */
-final readonly class VkDeviceMemoryReportCallbackDataEXT extends OutputStructure
+final readonly class VkDeviceMemoryReportCallbackDataEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT->value;
 
     public function __construct(

@@ -50,6 +50,10 @@ final readonly class Planner
                 $collected = $structs;
 
                 foreach ($command->parameters as $parameter) {
+                    if ($command->kind === CommandKind::CREATE_HANDLES && $parameter === $command->output) {
+                        continue;
+                    }
+
                     $collected = $this->collectStructs($parameter, $collected);
                 }
             } catch (UnsupportedDeclarationException $e) {
@@ -64,9 +68,11 @@ final readonly class Planner
             $commands[] = $command;
         }
 
-        $structs = $this->collectExtenders($structs);
-        $structs = $this->collectExtenders($this->collectOutputExtenders($structs));
-        $structs = $this->collectRemaining($structs);
+        $rejected = [];
+
+        $structs = $this->collectExtenders($structs, $rejected);
+        $structs = $this->collectExtenders($this->collectOutputExtenders($structs, $rejected), $rejected);
+        $structs = $this->collectRemaining($structs, $rejected);
 
         [$structs, $extensions] = $this->resolveChains($structs);
 
@@ -77,6 +83,7 @@ final readonly class Planner
             enums: $this->registry->getEnums(),
             skipped: $skipped,
             extensions: $extensions,
+            skippedStructs: \array_diff_key($rejected, $structs),
         );
     }
 
@@ -85,11 +92,13 @@ final readonly class Planner
      * the ones that cannot be represented are left out.
      *
      * @param array<non-empty-string, StructPlan> $structs
+     * @param array<non-empty-string, non-empty-string> $rejected the reasons
+     *        by the names of the structures that cannot be represented
      *
      * @return array<non-empty-string, StructPlan>
      * @throws InvalidRegistryException
      */
-    private function collectExtenders(array $structs): array
+    private function collectExtenders(array $structs, array &$rejected): array
     {
         $queue = \array_keys(\array_filter($structs, $this->hasNext(...)));
 
@@ -103,7 +112,9 @@ final readonly class Planner
 
                 try {
                     $collected = $this->collectStruct($extender->name, StructRole::INPUT, $structs);
-                } catch (UnsupportedDeclarationException) {
+                } catch (UnsupportedDeclarationException $e) {
+                    $rejected[$extender->name] = $this->createReason($e);
+
                     continue;
                 }
 
@@ -127,11 +138,12 @@ final readonly class Planner
      * left out.
      *
      * @param array<non-empty-string, StructPlan> $structs
+     * @param array<non-empty-string, non-empty-string> $rejected
      *
      * @return array<non-empty-string, StructPlan>
      * @throws InvalidRegistryException
      */
-    private function collectRemaining(array $structs): array
+    private function collectRemaining(array $structs, array &$rejected): array
     {
         foreach ($this->registry->getStructs() as $struct) {
             if (isset($structs[$struct->name]) || !$this->registry->hasStructureType($struct)) {
@@ -146,7 +158,9 @@ final readonly class Planner
 
             try {
                 $structs = $this->collectStruct($struct->name, $role, $structs);
-            } catch (UnsupportedDeclarationException) {
+            } catch (UnsupportedDeclarationException $e) {
+                $rejected[$struct->name] = $this->createReason($e);
+
                 continue;
             }
         }
@@ -159,11 +173,12 @@ final readonly class Planner
      * structure. The ones that cannot be read are left out.
      *
      * @param array<non-empty-string, StructPlan> $structs
+     * @param array<non-empty-string, non-empty-string> $rejected
      *
      * @return array<non-empty-string, StructPlan>
      * @throws InvalidRegistryException
      */
-    private function collectOutputExtenders(array $structs): array
+    private function collectOutputExtenders(array $structs, array &$rejected): array
     {
         $queue = \array_keys(\array_filter(
             $structs,
@@ -183,7 +198,9 @@ final readonly class Planner
             foreach ($this->registry->findExtenders($name) as $extender) {
                 try {
                     $collected = $this->collectStruct($extender->name, StructRole::OUTPUT, $structs);
-                } catch (UnsupportedDeclarationException) {
+                } catch (UnsupportedDeclarationException $e) {
+                    $rejected[$extender->name] = $this->createReason($e);
+
                     continue;
                 }
 
@@ -315,6 +332,17 @@ final readonly class Planner
         };
     }
 
+    /**
+     * @return non-empty-string
+     */
+    private function createReason(UnsupportedDeclarationException $e): string
+    {
+        /** @var non-empty-string $reason */
+        $reason = $e->getMessage();
+
+        return $reason;
+    }
+
     private function hasNext(StructPlan $plan): bool
     {
         foreach ($plan->properties as $property) {
@@ -399,14 +427,14 @@ final readonly class Planner
                 $structs = $this->collectStruct($property->field->type, $role, $structs);
             }
 
-            $isFilledStructure = $property->kind === PropertyKind::FILLED_ARRAY
+            $isFilledStructure = $property->kind === PropertyKind::QUERIED_ARRAY
                 && $this->registry->findStruct($property->field->type) !== null;
 
             if ($isFilledStructure) {
                 $structs = $this->collectStruct($property->field->type, StructRole::OUTPUT, $structs);
             }
 
-            if ($property->kind === PropertyKind::RESULT_STRUCTURE || $property->kind === PropertyKind::RESULT_ARRAY) {
+            if ($property->kind === PropertyKind::FEEDBACK_STRUCTURE || $property->kind === PropertyKind::FEEDBACK_ARRAY) {
                 $structs = $this->collectStruct($property->field->type, StructRole::OUTPUT, $structs);
             }
         }

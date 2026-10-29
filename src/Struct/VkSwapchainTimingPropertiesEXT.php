@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainTimingPropertiesEXT.html
  * @since VK_EXT_present_timing
  */
-final readonly class VkSwapchainTimingPropertiesEXT extends OutputStructure
+final readonly class VkSwapchainTimingPropertiesEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_TIMING_PROPERTIES_EXT->value;
 
     public function __construct(

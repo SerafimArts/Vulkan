@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageViewAddressPropertiesNVX.html
  * @since VK_NVX_image_view_handle
  */
-final readonly class VkImageViewAddressPropertiesNVX extends OutputStructure
+final readonly class VkImageViewAddressPropertiesNVX implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_ADDRESS_PROPERTIES_NVX->value;
 
     public function __construct(

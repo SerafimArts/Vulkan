@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainFlagsSurfaceCapabilitiesEXT.html
  * @since VK_EXT_multisampled_render_to_swapchain
  */
-final readonly class VkSwapchainFlagsSurfaceCapabilitiesEXT extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
+final readonly class VkSwapchainFlagsSurfaceCapabilitiesEXT implements OutputStructureInterface, VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_FLAGS_SURFACE_CAPABILITIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData

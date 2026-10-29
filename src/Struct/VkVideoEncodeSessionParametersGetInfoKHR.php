@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoEncodeSessionParametersGetInfoKHRExte
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionParametersGetInfoKHR.html
  * @since VK_KHR_video_encode_queue
  */
-final class VkVideoEncodeSessionParametersGetInfoKHR extends InputStructure
+final class VkVideoEncodeSessionParametersGetInfoKHR implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkVideoEncodeSessionParametersGetInfoKHR';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_GET_INFO_KHR->value;
@@ -37,13 +39,16 @@ final class VkVideoEncodeSessionParametersGetInfoKHR extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

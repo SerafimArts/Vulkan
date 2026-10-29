@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryRequirements.html
  * @since 1.0
  */
-final readonly class VkSparseImageMemoryRequirements extends OutputStructure
+final readonly class VkSparseImageMemoryRequirements implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         public VkSparseImageFormatProperties $formatProperties,
         /** @var int<0, 4294967295> */

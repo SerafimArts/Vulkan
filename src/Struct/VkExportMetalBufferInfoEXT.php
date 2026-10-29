@@ -22,8 +22,10 @@ use Serafim\Vulkan\VulkanBase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalBufferInfoEXT.html
  * @since VK_EXT_metal_objects
  */
-final readonly class VkExportMetalBufferInfoEXT extends OutputStructure implements VkExportMetalObjectsInfoEXTExtension, ChainedStructureInterface
+final readonly class VkExportMetalBufferInfoEXT implements OutputStructureInterface, VkExportMetalObjectsInfoEXTExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_BUFFER_INFO_EXT->value;
 
     public static function createNative(Allocator $memory): CData

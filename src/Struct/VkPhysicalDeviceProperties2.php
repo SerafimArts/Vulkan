@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties2.html
  * @since 1.1
  */
-final readonly class VkPhysicalDeviceProperties2 extends OutputStructure
+final readonly class VkPhysicalDeviceProperties2 implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2->value;
 
     public function __construct(

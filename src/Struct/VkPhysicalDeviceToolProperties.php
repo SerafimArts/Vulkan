@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkToolPurposeFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceToolProperties.html
  * @since 1.3
  */
-final readonly class VkPhysicalDeviceToolProperties extends OutputStructure
+final readonly class VkPhysicalDeviceToolProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TOOL_PROPERTIES->value;
 
     public function __construct(

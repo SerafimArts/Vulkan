@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceInlineUniformBlockProperties.html
  * @since 1.3
  */
-final readonly class VkPhysicalDeviceInlineUniformBlockProperties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
+final readonly class VkPhysicalDeviceInlineUniformBlockProperties implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData

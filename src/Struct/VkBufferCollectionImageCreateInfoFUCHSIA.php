@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionImageCreateInfoFUCHSIA.html
  * @since VK_FUCHSIA_buffer_collection
  */
-final class VkBufferCollectionImageCreateInfoFUCHSIA extends InputStructure implements VkImageCreateInfoExtension
+final class VkBufferCollectionImageCreateInfoFUCHSIA implements InputStructureInterface, VkImageCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkBufferCollectionImageCreateInfoFUCHSIA';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COLLECTION_IMAGE_CREATE_INFO_FUCHSIA->value;
@@ -40,13 +42,16 @@ final class VkBufferCollectionImageCreateInfoFUCHSIA extends InputStructure impl
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

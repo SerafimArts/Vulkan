@@ -11,14 +11,51 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTimeDomainKHR;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSwapchainTimeDomainPropertiesEXT.html
  * @since VK_EXT_present_timing
  */
-final readonly class VkSwapchainTimeDomainPropertiesEXT extends OutputStructure
+final readonly class VkSwapchainTimeDomainPropertiesEXT implements OutputStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT->value;
+
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_TIME_DOMAIN_PROPERTIES_EXT>,
+     *     pNext: CData,
+     *     timeDomainCount: int<0, 4294967295>,
+     *     pTimeDomains: CData|null,
+     *     pTimeDomainIds: CData|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
+    {
+        $owner ??= $data;
+        $isAllocated = false;
+
+        if ($data->timeDomainCount !== 0) {
+            if ($data->pTimeDomains === null) {
+                $data->pTimeDomains = $memory->newArray('VkTimeDomainKHR', $data->timeDomainCount, $owner);
+                $isAllocated = true;
+            }
+        }
+
+        if ($data->timeDomainCount !== 0) {
+            if ($data->pTimeDomainIds === null) {
+                $data->pTimeDomainIds = $memory->newArray('uint64_t', $data->timeDomainCount, $owner);
+                $isAllocated = true;
+            }
+        }
+
+        return $isAllocated;
+    }
 
     public function __construct(
         /** @var int<0, 4294967295> */

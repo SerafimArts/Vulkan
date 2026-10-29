@@ -20,8 +20,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalFormatResolvePropertiesANDROID.html
  * @since VK_ANDROID_external_format_resolve
  */
-final readonly class VkPhysicalDeviceExternalFormatResolvePropertiesANDROID extends OutputStructure implements VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
+final readonly class VkPhysicalDeviceExternalFormatResolvePropertiesANDROID implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_FORMAT_RESOLVE_PROPERTIES_ANDROID->value;
 
     public static function createNative(Allocator $memory): CData

@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTransformMatrixKHR.html
  * @since VK_KHR_acceleration_structure
  */
-final class VkTransformMatrixKHR extends InputStructure
+final class VkTransformMatrixKHR implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkTransformMatrixKHR';
 
     public function __construct(
@@ -31,8 +33,11 @@ final class VkTransformMatrixKHR extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $flat = $memory->ffi->cast('float[12]', $data->matrix);
 

@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatProperties2.html
  * @since 1.1
  */
-final readonly class VkSparseImageFormatProperties2 extends OutputStructure
+final readonly class VkSparseImageFormatProperties2 implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SPARSE_IMAGE_FORMAT_PROPERTIES_2->value;
 
     public function __construct(

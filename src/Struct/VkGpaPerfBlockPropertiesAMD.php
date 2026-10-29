@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGpaPerfBlockPropertiesAMD.html
  * @since VK_AMD_gpa_interface
  */
-final readonly class VkGpaPerfBlockPropertiesAMD extends OutputStructure
+final readonly class VkGpaPerfBlockPropertiesAMD implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         public VkGpaPerfBlockAMD $blockType,
         /** @var int<0, 4294967295> */

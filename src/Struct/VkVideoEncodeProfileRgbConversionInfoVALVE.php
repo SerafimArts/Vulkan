@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoProfileInfoKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeProfileRgbConversionInfoVALVE.html
  * @since VK_VALVE_video_encode_rgb_conversion
  */
-final class VkVideoEncodeProfileRgbConversionInfoVALVE extends InputStructure implements VkVideoProfileInfoKHRExtension
+final class VkVideoEncodeProfileRgbConversionInfoVALVE implements InputStructureInterface, VkVideoProfileInfoKHRExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkVideoEncodeProfileRgbConversionInfoVALVE';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_PROFILE_RGB_CONVERSION_INFO_VALVE->value;
@@ -36,13 +38,16 @@ final class VkVideoEncodeProfileRgbConversionInfoVALVE extends InputStructure im
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

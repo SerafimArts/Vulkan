@@ -20,8 +20,10 @@ use Serafim\Vulkan\Struct\Extension\VkCommandBufferInheritanceInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCommandBufferInheritanceRenderingInfo.html
  * @since 1.3
  */
-final class VkCommandBufferInheritanceRenderingInfo extends InputStructure implements VkCommandBufferInheritanceInfoExtension
+final class VkCommandBufferInheritanceRenderingInfo implements InputStructureInterface, VkCommandBufferInheritanceInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkCommandBufferInheritanceRenderingInfo';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_RENDERING_INFO->value;
@@ -54,13 +56,16 @@ final class VkCommandBufferInheritanceRenderingInfo extends InputStructure imple
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

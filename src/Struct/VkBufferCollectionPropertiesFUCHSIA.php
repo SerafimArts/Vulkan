@@ -20,8 +20,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferCollectionPropertiesFUCHSIA.html
  * @since VK_FUCHSIA_buffer_collection
  */
-final readonly class VkBufferCollectionPropertiesFUCHSIA extends OutputStructure
+final readonly class VkBufferCollectionPropertiesFUCHSIA implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_COLLECTION_PROPERTIES_FUCHSIA->value;
 
     public function __construct(

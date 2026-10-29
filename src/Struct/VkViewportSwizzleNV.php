@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkViewportSwizzleNV.html
  * @since VK_NV_viewport_swizzle
  */
-final class VkViewportSwizzleNV extends InputStructure
+final class VkViewportSwizzleNV implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkViewportSwizzleNV';
 
     public function __construct(
@@ -36,8 +38,11 @@ final class VkViewportSwizzleNV extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->x = $this->x->value;
 

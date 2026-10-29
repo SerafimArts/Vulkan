@@ -20,8 +20,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since VK_EXT_descriptor_buffer
  */
-final class VkDescriptorDataEXT extends InputStructure
+final class VkDescriptorDataEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkDescriptorDataEXT';
 
     public function __construct(
@@ -53,8 +55,11 @@ final class VkDescriptorDataEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->sampler, $this->combinedImageSampler, $this->inputAttachmentImage, $this->sampledImage, $this->storageImage, $this->uniformTexelBuffer, $this->storageTexelBuffer, $this->uniformBuffer, $this->storageBuffer, $this->accelerationStructure], static fn(mixed $member): bool => $member !== null));
 

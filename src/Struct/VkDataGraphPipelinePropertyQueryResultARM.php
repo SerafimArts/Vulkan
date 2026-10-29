@@ -11,30 +11,19 @@ namespace Serafim\Vulkan\Struct;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkDataGraphPipelinePropertyARM;
 use Serafim\Vulkan\Enum\VkStructureType;
-use Serafim\Vulkan\Internal\Memory\Allocation;
+use Serafim\Vulkan\Internal\EnumCase;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelinePropertyQueryResultARM.html
  * @since VK_ARM_data_graph
  */
-final class VkDataGraphPipelinePropertyQueryResultARM extends InputStructure
+final readonly class VkDataGraphPipelinePropertyQueryResultARM implements OutputStructureInterface, BufferedStructureInterface
 {
-    protected const string NATIVE_TYPE = 'VkDataGraphPipelinePropertyQueryResultARM';
+    use OutputStructureTrait;
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM->value;
-
-    public function __construct(
-        public VkDataGraphPipelinePropertyARM $property = VkDataGraphPipelinePropertyARM::VK_DATA_GRAPH_PIPELINE_PROPERTY_CREATION_LOG_ARM,
-        public bool $isText = false,
-        /**
-         * The number of the elements of `$data`, it follows the array when
-         * it is given.
-         *
-         * @var int<0, max>
-         */
-        public int $dataSize = 0,
-        public CData|int|null $data = null,
-    ) {}
 
     /**
      * @param CData&object{
@@ -43,23 +32,52 @@ final class VkDataGraphPipelinePropertyQueryResultARM extends InputStructure
      *     property: value-of<VkDataGraphPipelinePropertyARM>,
      *     isText: int<0, 1>,
      *     dataSize: int<0, max>,
-     *     pData: CData|int|null,
+     *     pData: CData|null,
      * } $data
      *
      * @phpstan-param CData $data
      */
-    protected function write(Allocation $memory, CData $data): void
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
-        $data->sType = self::STRUCTURE_TYPE;
+        $owner ??= $data;
+        $isAllocated = false;
 
-        $data->property = $this->property->value;
-
-        $data->isText = (int) $this->isText;
-
-        $data->dataSize = $this->dataSize;
-
-        if ($this->data !== null) {
-            $data->pData = $memory->ffi->cast('void*', $this->data);
+        if ($data->dataSize !== 0) {
+            if ($data->pData === null) {
+                $data->pData = $memory->ffi->cast('void*', $memory->newArray('uint8_t', $data->dataSize, $owner));
+                $isAllocated = true;
+            }
         }
+
+        return $isAllocated;
+    }
+
+    public function __construct(
+        public VkDataGraphPipelinePropertyARM $property,
+        public bool $isText,
+        /** @var int<0, max> */
+        public int $dataSize,
+        public string $data,
+    ) {}
+
+    /**
+     * @param CData&object{
+     *     property: value-of<VkDataGraphPipelinePropertyARM>,
+     *     isText: int<0, 1>,
+     *     dataSize: int<0, max>,
+     *     pData: CData|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function createFromCData(CData $data): self
+    {
+        return new self(
+            property: EnumCase::createFromValue(VkDataGraphPipelinePropertyARM::class, $data->property),
+            isText: $data->isText !== 0,
+            dataSize: $data->dataSize,
+            // @phpstan-ignore-next-line the member is named differently from the property
+            data: self::createBinaryFromCData($data->pData, $data->dataSize),
+        );
     }
 }

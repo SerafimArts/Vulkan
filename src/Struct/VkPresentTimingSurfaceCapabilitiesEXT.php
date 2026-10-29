@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimingSurfaceCapabilitiesEXT.html
  * @since VK_EXT_present_timing
  */
-final readonly class VkPresentTimingSurfaceCapabilitiesEXT extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
+final readonly class VkPresentTimingSurfaceCapabilitiesEXT implements OutputStructureInterface, VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_TIMING_SURFACE_CAPABILITIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData

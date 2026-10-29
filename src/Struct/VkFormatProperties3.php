@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatProperties3.html
  * @since 1.3
  */
-final readonly class VkFormatProperties3 extends OutputStructure implements VkFormatProperties2Extension, ChainedStructureInterface
+final readonly class VkFormatProperties3 implements OutputStructureInterface, VkFormatProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3->value;
 
     public static function createNative(Allocator $memory): CData

@@ -20,8 +20,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoSessionCreateInfoKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionRgbConversionCreateInfoVALVE.html
  * @since VK_VALVE_video_encode_rgb_conversion
  */
-final class VkVideoEncodeSessionRgbConversionCreateInfoVALVE extends InputStructure implements VkVideoSessionCreateInfoKHRExtension
+final class VkVideoEncodeSessionRgbConversionCreateInfoVALVE implements InputStructureInterface, VkVideoSessionCreateInfoKHRExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkVideoEncodeSessionRgbConversionCreateInfoVALVE';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE->value;
@@ -49,13 +51,16 @@ final class VkVideoEncodeSessionRgbConversionCreateInfoVALVE extends InputStruct
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

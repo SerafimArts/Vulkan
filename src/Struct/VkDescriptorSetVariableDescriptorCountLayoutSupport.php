@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetVariableDescriptorCountLayoutSupport.html
  * @since 1.2
  */
-final readonly class VkDescriptorSetVariableDescriptorCountLayoutSupport extends OutputStructure implements VkDescriptorSetLayoutSupportExtension, ChainedStructureInterface
+final readonly class VkDescriptorSetVariableDescriptorCountLayoutSupport implements OutputStructureInterface, VkDescriptorSetLayoutSupportExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_LAYOUT_SUPPORT->value;
 
     public static function createNative(Allocator $memory): CData

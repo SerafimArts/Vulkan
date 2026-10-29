@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV.html
  * @since VK_NV_cluster_acceleration_structure
  */
-final class VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV extends InputStructure
+final class VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV';
 
     public function __construct(
@@ -34,8 +36,11 @@ final class VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV extend
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->bits0 = $this->geometryIndex & 0xFFFFFF;
 

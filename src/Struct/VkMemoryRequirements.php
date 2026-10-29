@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryRequirements.html
  * @since 1.0
  */
-final readonly class VkMemoryRequirements extends OutputStructure
+final readonly class VkMemoryRequirements implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** Specified in bytes */
         public int $size,

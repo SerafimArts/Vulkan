@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyCheckpointProperties2NV.html
  * @since VK_NV_device_diagnostic_checkpoints
  */
-final readonly class VkQueueFamilyCheckpointProperties2NV extends OutputStructure implements VkQueueFamilyProperties2Extension, ChainedStructureInterface
+final readonly class VkQueueFamilyCheckpointProperties2NV implements OutputStructureInterface, VkQueueFamilyProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_CHECKPOINT_PROPERTIES_2_NV->value;
 
     public static function createNative(Allocator $memory): CData

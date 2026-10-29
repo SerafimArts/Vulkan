@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkPipelineViewportStateCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineViewportSwizzleStateCreateInfoNV.html
  * @since VK_NV_viewport_swizzle
  */
-final class VkPipelineViewportSwizzleStateCreateInfoNV extends InputStructure implements VkPipelineViewportStateCreateInfoExtension
+final class VkPipelineViewportSwizzleStateCreateInfoNV implements InputStructureInterface, VkPipelineViewportStateCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPipelineViewportSwizzleStateCreateInfoNV';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_SWIZZLE_STATE_CREATE_INFO_NV->value;
@@ -41,13 +43,16 @@ final class VkPipelineViewportSwizzleStateCreateInfoNV extends InputStructure im
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

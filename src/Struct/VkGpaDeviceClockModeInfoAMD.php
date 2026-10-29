@@ -17,8 +17,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGpaDeviceClockModeInfoAMD.html
  * @since VK_AMD_gpa_interface
  */
-final readonly class VkGpaDeviceClockModeInfoAMD extends OutputStructure
+final readonly class VkGpaDeviceClockModeInfoAMD implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GPA_DEVICE_CLOCK_MODE_INFO_AMD->value;
 
     public function __construct(

@@ -21,8 +21,10 @@ use Serafim\Vulkan\Struct\Extension\VkRayTracingPipelineCreateInfoNVExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedbackCreateInfo.html
  * @since 1.3
  */
-final class VkPipelineCreationFeedbackCreateInfo extends InputStructure implements VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension, VkRayTracingPipelineCreateInfoNVExtension, VkRayTracingPipelineCreateInfoKHRExtension, VkDataGraphPipelineCreateInfoARMExtension
+final class VkPipelineCreationFeedbackCreateInfo implements InputStructureInterface, VkGraphicsPipelineCreateInfoExtension, VkComputePipelineCreateInfoExtension, VkRayTracingPipelineCreateInfoNVExtension, VkRayTracingPipelineCreateInfoKHRExtension, VkDataGraphPipelineCreateInfoARMExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPipelineCreationFeedbackCreateInfo';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CREATION_FEEDBACK_CREATE_INFO->value;
@@ -83,13 +85,16 @@ final class VkPipelineCreationFeedbackCreateInfo extends InputStructure implemen
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

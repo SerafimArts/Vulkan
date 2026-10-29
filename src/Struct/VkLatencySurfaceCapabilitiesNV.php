@@ -13,14 +13,17 @@ use Serafim\Vulkan\Enum\VkPresentModeKHR;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySurfaceCapabilitiesNV.html
  * @since VK_NV_low_latency2
  */
-final readonly class VkLatencySurfaceCapabilitiesNV extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, BufferedStructureInterface
+final readonly class VkLatencySurfaceCapabilitiesNV implements OutputStructureInterface, VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SURFACE_CAPABILITIES_NV->value;
 
     public static function createNative(Allocator $memory): CData
@@ -41,13 +44,16 @@ final readonly class VkLatencySurfaceCapabilitiesNV extends OutputStructure impl
      *
      * @phpstan-param CData $data
      */
-    public static function allocateBuffers(Allocator $memory, CData $data): bool
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
+        $owner ??= $data;
         $isAllocated = false;
 
         if ($data->presentModeCount !== 0) {
-            $data->pPresentModes = $memory->ffi->cast('VkPresentModeKHR*', $memory->new('VkPresentModeKHR[' . $data->presentModeCount . ']', $data));
-            $isAllocated = true;
+            if ($data->pPresentModes === null) {
+                $data->pPresentModes = $memory->newArray('VkPresentModeKHR', $data->presentModeCount, $owner);
+                $isAllocated = true;
+            }
         }
 
         return $isAllocated;

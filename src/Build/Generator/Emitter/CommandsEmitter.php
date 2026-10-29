@@ -14,6 +14,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CreateArrayBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CreateBody;
+use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\CreateHandlesBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\EnumerateBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\ExecuteBody;
 use Serafim\Vulkan\Build\Generator\Emitter\CommandsEmitter\Body\MultipleBody;
@@ -297,6 +298,7 @@ final readonly class CommandsEmitter
         return match ($kind) {
             CommandKind::CREATE => new CreateBody($this->calls, $this->handles),
             CommandKind::CREATE_ARRAY => new CreateArrayBody($this->calls, $this->handles),
+            CommandKind::CREATE_HANDLES => new CreateHandlesBody($this->calls, $this->handles, $this->registry),
             CommandKind::QUERY => new QueryBody($this->calls, $this->registry, $this->structures),
             CommandKind::QUERY_SCALAR => new ScalarQueryBody($this->calls),
             CommandKind::QUERY_BINARY => new QueryBinaryBody($this->calls),

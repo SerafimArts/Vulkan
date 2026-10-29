@@ -17,8 +17,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
  * @since VK_EXT_subpass_merge_feedback
  */
-final readonly class VkRenderPassCreationFeedbackInfoEXT extends OutputStructure
+final readonly class VkRenderPassCreationFeedbackInfoEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $postMergeSubpassCount,

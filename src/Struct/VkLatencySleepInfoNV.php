@@ -17,8 +17,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencySleepInfoNV.html
  * @since VK_NV_low_latency2
  */
-final class VkLatencySleepInfoNV extends InputStructure
+final class VkLatencySleepInfoNV implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkLatencySleepInfoNV';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_LATENCY_SLEEP_INFO_NV->value;
@@ -37,8 +39,11 @@ final class VkLatencySleepInfoNV extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 

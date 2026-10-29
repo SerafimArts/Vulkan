@@ -19,8 +19,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterKHR.html
  * @since VK_KHR_performance_query
  */
-final readonly class VkPerformanceCounterKHR extends OutputStructure
+final readonly class VkPerformanceCounterKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_KHR->value;
 
     public function __construct(

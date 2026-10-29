@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupPresentCapabilitiesKHR.html
  * @since VK_KHR_swapchain, VK_KHR_device_group
  */
-final readonly class VkDeviceGroupPresentCapabilitiesKHR extends OutputStructure
+final readonly class VkDeviceGroupPresentCapabilitiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_PRESENT_CAPABILITIES_KHR->value;
 
     public function __construct(

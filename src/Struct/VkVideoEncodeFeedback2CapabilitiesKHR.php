@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeFeedback2CapabilitiesKHR.html
  * @since VK_KHR_video_encode_feedback2
  */
-final readonly class VkVideoEncodeFeedback2CapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
+final readonly class VkVideoEncodeFeedback2CapabilitiesKHR implements OutputStructureInterface, VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData

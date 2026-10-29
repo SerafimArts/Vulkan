@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkMemoryPropertyFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryType.html
  * @since 1.0
  */
-final readonly class VkMemoryType extends OutputStructure
+final readonly class VkMemoryType implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Memory properties of this memory type

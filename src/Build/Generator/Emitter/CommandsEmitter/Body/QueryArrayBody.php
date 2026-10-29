@@ -18,6 +18,7 @@ use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 use Serafim\Vulkan\Internal\EnumCase;
+use Serafim\Vulkan\Internal\Memory\Buffers;
 
 /**
  * A command that fills an array of structures or numbers, the number of them
@@ -52,15 +53,75 @@ final readonly class QueryArrayBody implements Body
         }
 
         return [
+            ...$this->createRequestedLines($plan),
             ...$this->calls->createPreparationLines($namespace, $plan),
             ...$result->allocate,
+            ...$this->createRequestedValueLines($plan, $output),
             '',
-            ...$this->calls->createCallLines($plan, $this->calls->createArguments($plan)),
+            ...$this->createCallLines($namespace, $plan, $output),
             '',
             ...$result->read,
             '',
             'return ' . $result->variable . ';',
         ];
+    }
+
+    /**
+     * The number of the structures follows the list the user has given.
+     *
+     * @return list<string>
+     */
+    private function createRequestedLines(CommandPlan $plan): array
+    {
+        if ($plan->requested === null) {
+            return [];
+        }
+
+        return ['$' . $plan->requested[0] . ' = \count($requested);'];
+    }
+
+    /**
+     * Writes the members the user gives to the structures before the call.
+     *
+     * @return list<string>
+     */
+    private function createRequestedValueLines(CommandPlan $plan, ParameterPlan $output): array
+    {
+        if ($plan->requested === null) {
+            return [];
+        }
+
+        return [
+            '',
+            'foreach ($requested as $index => $value) {',
+            '    /** @var CData $element */',
+            '    $element = $native' . \ucfirst($output->name) . '[$index];',
+            '',
+            '    $element->' . $plan->requested[1] . ' = $value->value;',
+            '}',
+        ];
+    }
+
+    /**
+     * The call is repeated while the structures hold arrays to allocate.
+     *
+     * @return list<string>
+     */
+    private function createCallLines(PhpNamespace $namespace, CommandPlan $plan, ParameterPlan $output): array
+    {
+        $conditions = [];
+
+        if ($this->structures->hasArrays($output->field->type)) {
+            $namespace->addUse(Buffers::class);
+
+            $class = Imports::import($namespace, Locations::STRUCT_NAMESPACE, $output->field->type);
+            $native = '$native' . \ucfirst($output->name);
+
+            $conditions[] = 'Buffers::allocateEach(fn(CData $item, CData $items): bool => ' . $class
+                . '::allocateBuffers($this->memory, $item, $items), ' . $native . ', $' . $output->name . 'Total)';
+        }
+
+        return $this->calls->createBufferedCallLines($plan, $this->calls->createArguments($plan), $conditions);
     }
 
     /**

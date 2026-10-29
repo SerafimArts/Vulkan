@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderStatisticsInfoAMD.html
  * @since VK_AMD_shader_info
  */
-final readonly class VkShaderStatisticsInfoAMD extends OutputStructure
+final readonly class VkShaderStatisticsInfoAMD implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $shaderStageMask,

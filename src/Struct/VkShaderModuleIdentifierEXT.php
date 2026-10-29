@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderModuleIdentifierEXT.html
  * @since VK_EXT_shader_module_identifier
  */
-final readonly class VkShaderModuleIdentifierEXT extends OutputStructure
+final readonly class VkShaderModuleIdentifierEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_MODULE_IDENTIFIER_EXT->value;
 
     public function __construct(

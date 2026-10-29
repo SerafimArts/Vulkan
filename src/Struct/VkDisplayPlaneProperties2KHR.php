@@ -18,8 +18,10 @@ use Serafim\Vulkan\VulkanBase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneProperties2KHR.html
  * @since VK_KHR_get_display_properties2
  */
-final readonly class VkDisplayPlaneProperties2KHR extends OutputStructure
+final readonly class VkDisplayPlaneProperties2KHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_PLANE_PROPERTIES_2_KHR->value;
 
     public function __construct(

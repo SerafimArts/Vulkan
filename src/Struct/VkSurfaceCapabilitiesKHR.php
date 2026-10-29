@@ -20,8 +20,10 @@ use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-gpdsc2
  * @since VK_KHR_surface
  */
-final readonly class VkSurfaceCapabilitiesKHR extends OutputStructure
+final readonly class VkSurfaceCapabilitiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Supported minimum number of images for the surface

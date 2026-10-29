@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkAttachmentReference2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAttachmentReferenceStencilLayout.html
  * @since 1.2
  */
-final class VkAttachmentReferenceStencilLayout extends InputStructure implements VkAttachmentReference2Extension
+final class VkAttachmentReferenceStencilLayout implements InputStructureInterface, VkAttachmentReference2Extension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkAttachmentReferenceStencilLayout';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT->value;
@@ -37,13 +39,16 @@ final class VkAttachmentReferenceStencilLayout extends InputStructure implements
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

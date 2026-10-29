@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderInstrumentationCreateInfoARM.html
  * @since VK_ARM_shader_instrumentation
  */
-final class VkShaderInstrumentationCreateInfoARM extends InputStructure
+final class VkShaderInstrumentationCreateInfoARM implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkShaderInstrumentationCreateInfoARM';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_INSTRUMENTATION_CREATE_INFO_ARM->value;
@@ -31,8 +33,11 @@ final class VkShaderInstrumentationCreateInfoARM extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
     }

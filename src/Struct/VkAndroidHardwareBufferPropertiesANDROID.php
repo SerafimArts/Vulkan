@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExte
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAndroidHardwareBufferPropertiesANDROID.html
  * @since VK_ANDROID_external_memory_android_hardware_buffer
  */
-final readonly class VkAndroidHardwareBufferPropertiesANDROID extends OutputStructure
+final readonly class VkAndroidHardwareBufferPropertiesANDROID implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_PROPERTIES_ANDROID->value;
 
     public function __construct(

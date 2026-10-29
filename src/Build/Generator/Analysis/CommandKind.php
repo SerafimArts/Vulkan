@@ -28,6 +28,12 @@ enum CommandKind
     case CREATE_ARRAY;
 
     /**
+     * Creates several handles, the structure the command fills reports the
+     * number of them and holds them.
+     */
+    case CREATE_HANDLES;
+
+    /**
      * Fills a structure.
      */
     case QUERY;

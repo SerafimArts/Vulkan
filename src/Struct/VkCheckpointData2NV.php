@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCheckpointData2NV.html
  * @since VK_NV_device_diagnostic_checkpoints
  */
-final readonly class VkCheckpointData2NV extends OutputStructure
+final readonly class VkCheckpointData2NV implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CHECKPOINT_DATA_2_NV->value;
 
     public function __construct(

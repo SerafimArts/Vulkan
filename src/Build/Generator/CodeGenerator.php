@@ -53,22 +53,29 @@ final readonly class CodeGenerator
         }
 
         $buffered = [];
+        $filled = [];
 
         foreach ($plan->structs as $struct) {
             foreach ($struct->properties as $property) {
-                if ($property->kind === PropertyKind::FILLED_ARRAY) {
+                if ($property->kind === PropertyKind::QUERIED_ARRAY || $property->kind === PropertyKind::QUERIED_BYTES) {
                     $buffered = [...$buffered, ...$struct->implements];
+                    $filled[] = $struct->struct->name;
                 }
             }
         }
 
         $meta = new MetaRecorder();
         $files = [
-            new CommandsEmitter($registry, $types, new Structures($roots, $contextual, \array_values(\array_unique($buffered))), $meta)->emit($plan->commands),
+            new CommandsEmitter($registry, $types, new Structures(
+                $roots,
+                $contextual,
+                \array_values(\array_unique($buffered)),
+                \array_values(\array_unique($filled)),
+            ), $meta)->emit($plan->commands),
             new ConstantsEmitter()->emit($registry->getDefines()),
         ];
 
-        $structs = new StructEmitter($registry, $types, $contextual, $meta);
+        $structs = new StructEmitter($registry, $types, $contextual, $meta, \array_values(\array_unique($filled)));
         $handles = new HandleEmitter($registry);
         $enums = new EnumEmitter($registry);
 
@@ -92,6 +99,6 @@ final readonly class CodeGenerator
 
         $files[] = new MetaEmitter($registry)->emit($meta);
 
-        return new GenerationResult($files, $plan->skipped);
+        return new GenerationResult($files, $plan->skipped, $plan->skippedStructs);
     }
 }

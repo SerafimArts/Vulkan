@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkImageCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageSwapchainCreateInfoKHR.html
  * @since VK_KHR_swapchain, VK_KHR_device_group
  */
-final class VkImageSwapchainCreateInfoKHR extends InputStructure implements VkImageCreateInfoExtension
+final class VkImageSwapchainCreateInfoKHR implements InputStructureInterface, VkImageCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkImageSwapchainCreateInfoKHR';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_SWAPCHAIN_CREATE_INFO_KHR->value;
@@ -37,13 +39,16 @@ final class VkImageSwapchainCreateInfoKHR extends InputStructure implements VkIm
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

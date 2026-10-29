@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkPresentInfoKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentFrameTokenGGP.html
  * @since VK_GGP_frame_token
  */
-final class VkPresentFrameTokenGGP extends InputStructure implements VkPresentInfoKHRExtension
+final class VkPresentFrameTokenGGP implements InputStructureInterface, VkPresentInfoKHRExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPresentFrameTokenGGP';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_FRAME_TOKEN_GGP->value;
@@ -36,13 +38,16 @@ final class VkPresentFrameTokenGGP extends InputStructure implements VkPresentIn
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

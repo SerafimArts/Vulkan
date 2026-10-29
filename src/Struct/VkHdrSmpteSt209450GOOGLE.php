@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkHdrMetadataEXTExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkHdrSmpteSt209450GOOGLE.html
  * @since VK_GOOGLE_hdr_smpte_st_209450_metadata
  */
-final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMetadataEXTExtension
+final class VkHdrSmpteSt209450GOOGLE implements InputStructureInterface, VkHdrMetadataEXTExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkHdrSmpteSt209450GOOGLE';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_HDR_SMPTE_ST_209450_GOOGLE->value;
@@ -40,13 +42,16 @@ final class VkHdrSmpteSt209450GOOGLE extends InputStructure implements VkHdrMeta
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

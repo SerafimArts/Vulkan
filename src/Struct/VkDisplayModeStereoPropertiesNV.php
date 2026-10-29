@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkDisplayModeProperties2KHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeStereoPropertiesNV.html
  * @since VK_NV_display_stereo
  */
-final readonly class VkDisplayModeStereoPropertiesNV extends OutputStructure implements VkDisplayModeProperties2KHRExtension, ChainedStructureInterface
+final readonly class VkDisplayModeStereoPropertiesNV implements OutputStructureInterface, VkDisplayModeProperties2KHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPLAY_MODE_STEREO_PROPERTIES_NV->value;
 
     public static function createNative(Allocator $memory): CData

@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferPropertiesOHOS.html
  * @since VK_OHOS_external_memory
  */
-final readonly class VkNativeBufferPropertiesOHOS extends OutputStructure
+final readonly class VkNativeBufferPropertiesOHOS implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_NATIVE_BUFFER_PROPERTIES_OHOS->value;
 
     public function __construct(

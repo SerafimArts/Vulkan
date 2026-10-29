@@ -12,14 +12,48 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkTimeDomainKHR;
 use Serafim\Vulkan\Internal\EnumCase;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingEXT.html
  * @since VK_EXT_present_timing
  */
-final readonly class VkPastPresentationTimingEXT extends OutputStructure
+final readonly class VkPastPresentationTimingEXT implements OutputStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_EXT->value;
+
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_EXT>,
+     *     pNext: CData,
+     *     presentId: int,
+     *     targetTime: int,
+     *     presentStageCount: int<0, 4294967295>,
+     *     pPresentStages: CData|null,
+     *     timeDomain: value-of<VkTimeDomainKHR>,
+     *     timeDomainId: int,
+     *     reportComplete: int<0, 1>,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
+    {
+        $owner ??= $data;
+        $isAllocated = false;
+
+        if ($data->presentStageCount !== 0) {
+            if ($data->pPresentStages === null) {
+                $data->pPresentStages = $memory->newArray('VkPresentStageTimeEXT', $data->presentStageCount, $owner);
+                $isAllocated = true;
+            }
+        }
+
+        return $isAllocated;
+    }
 
     public function __construct(
         /**

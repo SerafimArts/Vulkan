@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceCounterDescriptionKHR.html
  * @since VK_KHR_performance_query
  */
-final readonly class VkPerformanceCounterDescriptionKHR extends OutputStructure
+final readonly class VkPerformanceCounterDescriptionKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_COUNTER_DESCRIPTION_KHR->value;
 
     public function __construct(

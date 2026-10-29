@@ -17,8 +17,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalSemaphoreProperties.html
  * @since 1.1
  */
-final readonly class VkExternalSemaphoreProperties extends OutputStructure
+final readonly class VkExternalSemaphoreProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_SEMAPHORE_PROPERTIES->value;
 
     public function __construct(

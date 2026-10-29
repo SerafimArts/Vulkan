@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatAV1QuantizationMapPropertiesKHR.html
  * @since VK_KHR_video_encode_quantization_map
  */
-final readonly class VkVideoFormatAV1QuantizationMapPropertiesKHR extends OutputStructure implements VkVideoFormatPropertiesKHRExtension, ChainedStructureInterface
+final readonly class VkVideoFormatAV1QuantizationMapPropertiesKHR implements OutputStructureInterface, VkVideoFormatPropertiesKHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData

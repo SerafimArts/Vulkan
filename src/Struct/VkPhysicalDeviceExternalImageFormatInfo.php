@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceImageFormatInfo2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceExternalImageFormatInfo.html
  * @since 1.1
  */
-final class VkPhysicalDeviceExternalImageFormatInfo extends InputStructure implements VkPhysicalDeviceImageFormatInfo2Extension
+final class VkPhysicalDeviceExternalImageFormatInfo implements InputStructureInterface, VkPhysicalDeviceImageFormatInfo2Extension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceExternalImageFormatInfo';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_IMAGE_FORMAT_INFO->value;
@@ -38,13 +40,16 @@ final class VkPhysicalDeviceExternalImageFormatInfo extends InputStructure imple
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

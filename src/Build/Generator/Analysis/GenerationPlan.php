@@ -44,5 +44,12 @@ final readonly class GenerationPlan
          * @var list<non-empty-string>
          */
         public array $extensions = [],
+        /**
+         * Reasons by the names of the structures that cannot be represented
+         * and that no command or chain needs
+         *
+         * @var array<non-empty-string, non-empty-string>
+         */
+        public array $skippedStructs = [],
     ) {}
 }

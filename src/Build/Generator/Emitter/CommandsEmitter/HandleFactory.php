@@ -30,6 +30,8 @@ final readonly class HandleFactory
      * expression that creates the handle.
      *
      * @param string $native the expression of the native handle
+     * @param non-empty-string|null $type C type of the handle when it is not
+     *        the type of the output
      *
      * @return array{list<string>, string}
      * @throws UnsupportedDeclarationException in case of the destroyed handle
@@ -41,8 +43,10 @@ final readonly class HandleFactory
         string $class,
         ?ParameterPlan $parent,
         string $native,
+        ?string $type = null,
     ): array {
-        $destroy = $this->registry->findReleaseCommand($output->field->type);
+        $type ??= $output->field->type;
+        $destroy = $this->registry->findReleaseCommand($type);
         $creation = 'new ' . $class . '($this, ' . $native . ', ' . $this->calls->createParentExpression($parent);
         $references = $this->createReferences($plan);
 
@@ -66,7 +70,7 @@ final readonly class HandleFactory
         }
 
         foreach ($destroy->parameters as $parameter) {
-            if ($parameter->type === $output->field->type && $parameter->pointerDepth === 0) {
+            if ($parameter->type === $type && $parameter->pointerDepth === 0) {
                 $arguments[] = '$handle->pointer';
 
                 continue;

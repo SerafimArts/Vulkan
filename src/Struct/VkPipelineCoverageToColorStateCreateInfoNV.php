@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkPipelineMultisampleStateCreateInfoExtensio
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCoverageToColorStateCreateInfoNV.html
  * @since VK_NV_fragment_coverage_to_color
  */
-final class VkPipelineCoverageToColorStateCreateInfoNV extends InputStructure implements VkPipelineMultisampleStateCreateInfoExtension
+final class VkPipelineCoverageToColorStateCreateInfoNV implements InputStructureInterface, VkPipelineMultisampleStateCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPipelineCoverageToColorStateCreateInfoNV';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_TO_COLOR_STATE_CREATE_INFO_NV->value;
@@ -42,13 +44,16 @@ final class VkPipelineCoverageToColorStateCreateInfoNV extends InputStructure im
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

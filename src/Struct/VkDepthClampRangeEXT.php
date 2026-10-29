@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDepthClampRangeEXT.html
  * @since VK_EXT_depth_clamp_control
  */
-final class VkDepthClampRangeEXT extends InputStructure
+final class VkDepthClampRangeEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkDepthClampRangeEXT';
 
     public function __construct(
@@ -31,8 +33,11 @@ final class VkDepthClampRangeEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->minDepthClamp = $this->minDepthClamp;
 

@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkGeneratedCommandsMemoryRequirementsInfoEXT
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGeneratedCommandsPipelineInfoEXT.html
  * @since VK_EXT_device_generated_commands
  */
-final class VkGeneratedCommandsPipelineInfoEXT extends InputStructure implements VkGeneratedCommandsInfoEXTExtension, VkGeneratedCommandsMemoryRequirementsInfoEXTExtension
+final class VkGeneratedCommandsPipelineInfoEXT implements InputStructureInterface, VkGeneratedCommandsInfoEXTExtension, VkGeneratedCommandsMemoryRequirementsInfoEXTExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkGeneratedCommandsPipelineInfoEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GENERATED_COMMANDS_PIPELINE_INFO_EXT->value;
@@ -38,13 +40,16 @@ final class VkGeneratedCommandsPipelineInfoEXT extends InputStructure implements
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageFormatProperties.html
  * @since 1.0
  */
-final readonly class VkImageFormatProperties extends OutputStructure
+final readonly class VkImageFormatProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** Max image dimensions for this resource type */
         public VkExtent3D $maxExtent,

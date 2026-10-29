@@ -10,14 +10,66 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingPropertiesEXT.html
  * @since VK_EXT_present_timing
  */
-final readonly class VkPastPresentationTimingPropertiesEXT extends OutputStructure
+final readonly class VkPastPresentationTimingPropertiesEXT implements OutputStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_PROPERTIES_EXT->value;
+
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_PAST_PRESENTATION_TIMING_PROPERTIES_EXT>,
+     *     pNext: CData,
+     *     timingPropertiesCounter: int,
+     *     timeDomainsCounter: int,
+     *     presentationTimingCount: int<0, 4294967295>,
+     *     pPresentationTimings: CData|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
+    {
+        $owner ??= $data;
+        $isAllocated = false;
+
+        if ($data->presentationTimingCount !== 0) {
+            if ($data->pPresentationTimings === null) {
+                $items = $memory->newArray('VkPastPresentationTimingEXT', $data->presentationTimingCount, $owner);
+
+                for ($i = 0; $i < $data->presentationTimingCount; ++$i) {
+                    /** @var CData $item */
+                    $item = $items[$i];
+
+                    $item->sType = VkPastPresentationTimingEXT::STRUCTURE_TYPE;
+                }
+
+                $data->pPresentationTimings = $items;
+                $isAllocated = true;
+            }
+
+            /** @var CData $items */
+            $items = $data->pPresentationTimings;
+
+            for ($i = 0; $i < $data->presentationTimingCount; ++$i) {
+                /** @var CData $item */
+                $item = $items[$i];
+
+                if (VkPastPresentationTimingEXT::allocateBuffers($memory, $item, $owner)) {
+                    $isAllocated = true;
+                }
+            }
+        }
+
+        return $isAllocated;
+    }
 
     public function __construct(
         public int $timingPropertiesCounter,

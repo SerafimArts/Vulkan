@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryZirconHandlePropertiesFUCHSIA.html
  * @since VK_FUCHSIA_external_memory
  */
-final readonly class VkMemoryZirconHandlePropertiesFUCHSIA extends OutputStructure
+final readonly class VkMemoryZirconHandlePropertiesFUCHSIA implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_ZIRCON_HANDLE_PROPERTIES_FUCHSIA->value;
 
     public function __construct(

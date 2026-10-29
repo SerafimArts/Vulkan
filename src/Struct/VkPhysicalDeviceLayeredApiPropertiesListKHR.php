@@ -12,14 +12,17 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesListKHR.html
  * @since VK_KHR_maintenance7
  */
-final readonly class VkPhysicalDeviceLayeredApiPropertiesListKHR extends OutputStructure implements VkPhysicalDeviceProperties2Extension, BufferedStructureInterface
+final readonly class VkPhysicalDeviceLayeredApiPropertiesListKHR implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR->value;
 
     public static function createNative(Allocator $memory): CData
@@ -40,13 +43,25 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesListKHR extends OutputS
      *
      * @phpstan-param CData $data
      */
-    public static function allocateBuffers(Allocator $memory, CData $data): bool
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
+        $owner ??= $data;
         $isAllocated = false;
 
         if ($data->layeredApiCount !== 0) {
-            $data->pLayeredApis = $memory->ffi->cast('VkPhysicalDeviceLayeredApiPropertiesKHR*', $memory->new('VkPhysicalDeviceLayeredApiPropertiesKHR[' . $data->layeredApiCount . ']', $data));
-            $isAllocated = true;
+            if ($data->pLayeredApis === null) {
+                $items = $memory->newArray('VkPhysicalDeviceLayeredApiPropertiesKHR', $data->layeredApiCount, $owner);
+
+                for ($i = 0; $i < $data->layeredApiCount; ++$i) {
+                    /** @var CData $item */
+                    $item = $items[$i];
+
+                    $item->sType = VkPhysicalDeviceLayeredApiPropertiesKHR::STRUCTURE_TYPE;
+                }
+
+                $data->pLayeredApis = $items;
+                $isAllocated = true;
+            }
         }
 
         return $isAllocated;

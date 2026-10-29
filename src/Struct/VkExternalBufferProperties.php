@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalBufferProperties.html
  * @since 1.1
  */
-final readonly class VkExternalBufferProperties extends OutputStructure
+final readonly class VkExternalBufferProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_BUFFER_PROPERTIES->value;
 
     public function __construct(

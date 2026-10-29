@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkSampleCountFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLimits.html
  * @since 1.0
  */
-final readonly class VkPhysicalDeviceLimits extends OutputStructure
+final readonly class VkPhysicalDeviceLimits implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Max 1D image dimension

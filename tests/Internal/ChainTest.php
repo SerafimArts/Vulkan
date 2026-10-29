@@ -9,6 +9,8 @@ use Serafim\Vulkan\Enum\VkImageLayout;
 use Serafim\Vulkan\Internal\Chain;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceHostImageCopyProperties;
+use Serafim\Vulkan\Struct\VkPhysicalDeviceLayeredApiPropertiesKHR;
+use Serafim\Vulkan\Struct\VkPhysicalDeviceLayeredApiPropertiesListKHR;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceProperties2;
 use Serafim\Vulkan\Tests\TestCase;
 
@@ -50,5 +52,16 @@ final class ChainTest extends TestCase
             $host->copySrcLayouts,
         );
         self::assertSame([], $host->copyDstLayouts);
+    }
+
+    public function testStructureTypeOfTheElementsIsSetBeforeTheSecondCall(): void
+    {
+        $vk = self::loadVulkan();
+        $native = VkPhysicalDeviceLayeredApiPropertiesListKHR::createNative($vk->memory);
+
+        $native->layeredApiCount = 2;
+
+        self::assertTrue(VkPhysicalDeviceLayeredApiPropertiesListKHR::allocateBuffers($vk->memory, $native));
+        self::assertSame(VkPhysicalDeviceLayeredApiPropertiesKHR::STRUCTURE_TYPE, $native->pLayeredApis[1]->sType);
     }
 }

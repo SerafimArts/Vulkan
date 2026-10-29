@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkDisplayPlaneAlphaFlagBitsKHR;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlaneCapabilitiesKHR.html
  * @since VK_KHR_display
  */
-final readonly class VkDisplayPlaneCapabilitiesKHR extends OutputStructure
+final readonly class VkDisplayPlaneCapabilitiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Types of alpha blending supported, if any.

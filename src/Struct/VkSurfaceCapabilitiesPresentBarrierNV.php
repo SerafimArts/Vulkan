@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentBarrierNV.html
  * @since VK_NV_present_barrier
  */
-final readonly class VkSurfaceCapabilitiesPresentBarrierNV extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
+final readonly class VkSurfaceCapabilitiesPresentBarrierNV implements OutputStructureInterface, VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_BARRIER_NV->value;
 
     public static function createNative(Allocator $memory): CData

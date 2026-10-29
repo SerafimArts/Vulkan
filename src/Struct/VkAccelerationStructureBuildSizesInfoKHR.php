@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureBuildSizesInfoKHR.html
  * @since VK_KHR_acceleration_structure
  */
-final readonly class VkAccelerationStructureBuildSizesInfoKHR extends OutputStructure
+final readonly class VkAccelerationStructureBuildSizesInfoKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR->value;
 
     public function __construct(

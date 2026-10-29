@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyOwnershipTransferPropertiesKHR.html
  * @since VK_KHR_maintenance9
  */
-final readonly class VkQueueFamilyOwnershipTransferPropertiesKHR extends OutputStructure implements VkQueueFamilyProperties2Extension, ChainedStructureInterface
+final readonly class VkQueueFamilyOwnershipTransferPropertiesKHR implements OutputStructureInterface, VkQueueFamilyProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData

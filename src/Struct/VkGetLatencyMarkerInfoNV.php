@@ -10,14 +10,52 @@ namespace Serafim\Vulkan\Struct;
 
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
+use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGetLatencyMarkerInfoNV.html
  * @since VK_NV_low_latency2
  */
-final readonly class VkGetLatencyMarkerInfoNV extends OutputStructure
+final readonly class VkGetLatencyMarkerInfoNV implements OutputStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GET_LATENCY_MARKER_INFO_NV->value;
+
+    /**
+     * @param CData&object{
+     *     sType: value-of<VkStructureType::VK_STRUCTURE_TYPE_GET_LATENCY_MARKER_INFO_NV>,
+     *     pNext: CData,
+     *     timingCount: int<0, 4294967295>,
+     *     pTimings: CData|null,
+     * } $data
+     *
+     * @phpstan-param CData $data
+     */
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
+    {
+        $owner ??= $data;
+        $isAllocated = false;
+
+        if ($data->timingCount !== 0) {
+            if ($data->pTimings === null) {
+                $items = $memory->newArray('VkLatencyTimingsFrameReportNV', $data->timingCount, $owner);
+
+                for ($i = 0; $i < $data->timingCount; ++$i) {
+                    /** @var CData $item */
+                    $item = $items[$i];
+
+                    $item->sType = VkLatencyTimingsFrameReportNV::STRUCTURE_TYPE;
+                }
+
+                $data->pTimings = $items;
+                $isAllocated = true;
+            }
+        }
+
+        return $isAllocated;
+    }
 
     public function __construct(
         /** @var int<0, 4294967295> */

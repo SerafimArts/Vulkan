@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatProperties2.html
  * @since 1.1
  */
-final readonly class VkFormatProperties2 extends OutputStructure
+final readonly class VkFormatProperties2 implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2->value;
 
     public function __construct(

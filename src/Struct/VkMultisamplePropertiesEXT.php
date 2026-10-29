@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMultisamplePropertiesEXT.html
  * @since VK_EXT_sample_locations
  */
-final readonly class VkMultisamplePropertiesEXT extends OutputStructure
+final readonly class VkMultisamplePropertiesEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MULTISAMPLE_PROPERTIES_EXT->value;
 
     public function __construct(

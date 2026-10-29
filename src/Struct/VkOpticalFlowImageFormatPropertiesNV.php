@@ -17,8 +17,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowImageFormatPropertiesNV.html
  * @since VK_NV_optical_flow
  */
-final readonly class VkOpticalFlowImageFormatPropertiesNV extends OutputStructure
+final readonly class VkOpticalFlowImageFormatPropertiesNV implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_IMAGE_FORMAT_PROPERTIES_NV->value;
 
     public function __construct(

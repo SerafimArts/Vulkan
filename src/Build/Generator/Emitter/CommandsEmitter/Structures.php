@@ -32,7 +32,18 @@ final readonly class Structures
          * @var list<non-empty-string>
          */
         private array $buffered = [],
+        /**
+         * The returned structures whose arrays Vulkan fills
+         *
+         * @var list<non-empty-string>
+         */
+        private array $filled = [],
     ) {}
+
+    public function hasArrays(string $name): bool
+    {
+        return \in_array($name, $this->filled, true);
+    }
 
     public function hasBuffers(string $name): bool
     {

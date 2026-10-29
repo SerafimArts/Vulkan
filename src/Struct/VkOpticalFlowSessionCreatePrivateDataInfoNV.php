@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkOpticalFlowSessionCreateInfoNVExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkOpticalFlowSessionCreatePrivateDataInfoNV.html
  * @since VK_NV_optical_flow
  */
-final class VkOpticalFlowSessionCreatePrivateDataInfoNV extends InputStructure implements VkOpticalFlowSessionCreateInfoNVExtension
+final class VkOpticalFlowSessionCreatePrivateDataInfoNV implements InputStructureInterface, VkOpticalFlowSessionCreateInfoNVExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkOpticalFlowSessionCreatePrivateDataInfoNV';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_PRIVATE_DATA_INFO_NV->value;
@@ -42,13 +44,16 @@ final class VkOpticalFlowSessionCreatePrivateDataInfoNV extends InputStructure i
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

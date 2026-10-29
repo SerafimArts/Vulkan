@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkBindDescriptorBufferEmbeddedSamplersInfoEX
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBindDescriptorBufferEmbeddedSamplersInfoEXT.html
  * @since VK_KHR_maintenance6
  */
-final class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends InputStructure
+final class VkBindDescriptorBufferEmbeddedSamplersInfoEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkBindDescriptorBufferEmbeddedSamplersInfoEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT->value;
@@ -44,13 +46,16 @@ final class VkBindDescriptorBufferEmbeddedSamplersInfoEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

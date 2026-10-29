@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferUsageOHOS.html
  * @since VK_OHOS_external_memory
  */
-final readonly class VkNativeBufferUsageOHOS extends OutputStructure implements VkImageFormatProperties2Extension, ChainedStructureInterface
+final readonly class VkNativeBufferUsageOHOS implements OutputStructureInterface, VkImageFormatProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_NATIVE_BUFFER_USAGE_OHOS->value;
 
     public static function createNative(Allocator $memory): CData

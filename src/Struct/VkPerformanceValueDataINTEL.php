@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceValueDataINTEL.html
  * @since VK_INTEL_performance_query
  */
-final readonly class VkPerformanceValueDataINTEL extends OutputStructure
+final readonly class VkPerformanceValueDataINTEL implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $value32,

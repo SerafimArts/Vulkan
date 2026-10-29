@@ -17,8 +17,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageDescriptorInfoEXT.html
  * @since VK_EXT_descriptor_heap
  */
-final class VkImageDescriptorInfoEXT extends InputStructure
+final class VkImageDescriptorInfoEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkImageDescriptorInfoEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DESCRIPTOR_INFO_EXT->value;
@@ -37,8 +39,11 @@ final class VkImageDescriptorInfoEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 

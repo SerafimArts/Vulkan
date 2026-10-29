@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultInfoKHR.html
  * @since VK_KHR_device_fault
  */
-final readonly class VkDeviceFaultInfoKHR extends OutputStructure
+final readonly class VkDeviceFaultInfoKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_FAULT_INFO_KHR->value;
 
     public function __construct(

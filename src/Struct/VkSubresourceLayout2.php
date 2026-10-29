@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkSubresourceLayout2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout2.html
  * @since 1.4
  */
-final readonly class VkSubresourceLayout2 extends OutputStructure
+final readonly class VkSubresourceLayout2 implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2->value;
 
     public function __construct(

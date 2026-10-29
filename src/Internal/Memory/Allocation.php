@@ -6,7 +6,7 @@ namespace Serafim\Vulkan\Internal\Memory;
 
 use FFI\CData;
 use Serafim\Vulkan\Handle\Handle;
-use Serafim\Vulkan\Struct\InputStructure;
+use Serafim\Vulkan\Struct\InputStructureInterface;
 
 /**
  * The allocations of one native struct: everything it points to lives as long
@@ -94,7 +94,7 @@ final readonly class Allocation
     /**
      * Writes the structure of the user to native memory.
      */
-    public function toStructure(InputStructure $structure): CData
+    public function toStructure(InputStructureInterface $structure): CData
     {
         return $structure->toCData($this->allocator, $this->owner);
     }
@@ -103,7 +103,7 @@ final readonly class Allocation
      * Writes the structures of the user to native memory and returns the array
      * of the pointers to them.
      *
-     * @param list<InputStructure> $structures
+     * @param list<InputStructureInterface> $structures
      */
     public function toStructurePointerArray(array $structures): CData
     {
@@ -122,11 +122,11 @@ final readonly class Allocation
     /**
      * Writes the structures of the user to a native array.
      *
-     * @param non-empty-list<InputStructure> $structures the structures of one
+     * @param non-empty-list<InputStructureInterface> $structures the structures of one
      *        class
      */
     public function toStructureArray(array $structures): CData
     {
-        return InputStructure::createArray($this->allocator, $structures, $this->owner);
+        return $structures[0]::createArray($this->allocator, $structures, $this->owner);
     }
 }

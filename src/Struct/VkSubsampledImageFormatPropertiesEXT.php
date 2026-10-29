@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubsampledImageFormatPropertiesEXT.html
  * @since VK_EXT_descriptor_heap
  */
-final readonly class VkSubsampledImageFormatPropertiesEXT extends OutputStructure implements VkImageFormatProperties2Extension, ChainedStructureInterface
+final readonly class VkSubsampledImageFormatPropertiesEXT implements OutputStructureInterface, VkImageFormatProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBSAMPLED_IMAGE_FORMAT_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData

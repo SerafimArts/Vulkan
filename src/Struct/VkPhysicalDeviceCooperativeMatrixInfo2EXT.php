@@ -18,8 +18,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceCooperativeMatrixInfo2EXT.html
  * @since VK_EXT_cooperative_matrix_maintenance1
  */
-final class VkPhysicalDeviceCooperativeMatrixInfo2EXT extends InputStructure
+final class VkPhysicalDeviceCooperativeMatrixInfo2EXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPhysicalDeviceCooperativeMatrixInfo2EXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT->value;
@@ -45,8 +47,11 @@ final class VkPhysicalDeviceCooperativeMatrixInfo2EXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 

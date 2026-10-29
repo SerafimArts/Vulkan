@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Build\Generator\Analysis;
 
 use Serafim\Vulkan\Build\Generator\Registry\CommandDefinition;
+use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 
 /**
  * @internal this is an internal library class, please do not use it in your code
@@ -52,6 +53,18 @@ final readonly class CommandPlan
          * @var array<string, string>
          */
         public array $outputLengths = [],
+        /**
+         * The member of the output structure that holds the created handles
+         */
+        public ?FieldDefinition $handles = null,
+        /**
+         * The name of the parameter with the number of the structures and the
+         * name of their member that the user gives, for a command that fills
+         * the structures the user fills in part
+         *
+         * @var array{non-empty-string, non-empty-string}|null
+         */
+        public ?array $requested = null,
     ) {}
 
     /**

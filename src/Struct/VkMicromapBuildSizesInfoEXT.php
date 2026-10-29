@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMicromapBuildSizesInfoEXT.html
  * @since VK_EXT_opacity_micromap
  */
-final readonly class VkMicromapBuildSizesInfoEXT extends OutputStructure
+final readonly class VkMicromapBuildSizesInfoEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MICROMAP_BUILD_SIZES_INFO_EXT->value;
 
     public function __construct(

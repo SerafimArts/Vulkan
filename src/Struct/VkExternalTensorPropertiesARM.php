@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalTensorPropertiesARM.html
  * @since VK_ARM_tensors
  */
-final readonly class VkExternalTensorPropertiesARM extends OutputStructure
+final readonly class VkExternalTensorPropertiesARM implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_TENSOR_PROPERTIES_ARM->value;
 
     public function __construct(

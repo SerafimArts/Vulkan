@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkSubresourceLayout2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceHostMemcpySize.html
  * @since 1.4
  */
-final readonly class VkSubresourceHostMemcpySize extends OutputStructure implements VkSubresourceLayout2Extension, ChainedStructureInterface
+final readonly class VkSubresourceHostMemcpySize implements OutputStructureInterface, VkSubresourceLayout2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBRESOURCE_HOST_MEMCPY_SIZE->value;
 
     public static function createNative(Allocator $memory): CData

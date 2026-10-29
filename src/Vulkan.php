@@ -69,6 +69,7 @@ use Serafim\Vulkan\Enum\VkShaderInfoTypeAMD;
 use Serafim\Vulkan\Enum\VkShaderStageFlagBits;
 use Serafim\Vulkan\Enum\VkStencilFaceFlagBits;
 use Serafim\Vulkan\Enum\VkStencilOp;
+use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Enum\VkSubpassContents;
 use Serafim\Vulkan\Enum\VkSurfaceCounterFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkTessellationDomainOrigin;
@@ -136,10 +137,12 @@ use Serafim\Vulkan\Handle\VkVideoSessionKHR;
 use Serafim\Vulkan\Handle\VkVideoSessionParametersKHR;
 use Serafim\Vulkan\Internal\Chain;
 use Serafim\Vulkan\Internal\EnumCase;
+use Serafim\Vulkan\Internal\Memory\Buffers;
 use Serafim\Vulkan\Internal\VkEnumerator;
 use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkAndroidHardwareBufferPropertiesANDROIDExtension;
 use Serafim\Vulkan\Struct\Extension\VkDescriptorSetLayoutSupportExtension;
+use Serafim\Vulkan\Struct\Extension\VkDeviceFaultDebugInfoKHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkDisplayModeProperties2KHRExtension;
 use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
 use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
@@ -251,6 +254,7 @@ use Serafim\Vulkan\Struct\VkDataGraphOpticalFlowImageFormatPropertiesARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineCreateInfoARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineDispatchInfoARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineInfoARM;
+use Serafim\Vulkan\Struct\VkDataGraphPipelinePropertyQueryResultARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineSessionBindPointRequirementARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineSessionBindPointRequirementsInfoARM;
 use Serafim\Vulkan\Struct\VkDataGraphPipelineSessionCreateInfoARM;
@@ -282,6 +286,7 @@ use Serafim\Vulkan\Struct\VkDeviceAddressRangeKHR;
 use Serafim\Vulkan\Struct\VkDeviceBufferMemoryRequirements;
 use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
 use Serafim\Vulkan\Struct\VkDeviceEventInfoEXT;
+use Serafim\Vulkan\Struct\VkDeviceFaultDebugInfoKHR;
 use Serafim\Vulkan\Struct\VkDeviceFaultInfoKHR;
 use Serafim\Vulkan\Struct\VkDeviceGroupPresentCapabilitiesKHR;
 use Serafim\Vulkan\Struct\VkDeviceImageMemoryRequirements;
@@ -442,11 +447,13 @@ use Serafim\Vulkan\Struct\VkPhysicalDeviceSurfaceInfo2KHR;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceToolProperties;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVideoFormatInfoKHR;
+use Serafim\Vulkan\Struct\VkPipelineBinaryCreateInfoKHR;
 use Serafim\Vulkan\Struct\VkPipelineBinaryDataInfoKHR;
 use Serafim\Vulkan\Struct\VkPipelineBinaryKeyKHR;
 use Serafim\Vulkan\Struct\VkPipelineCacheCreateInfo;
 use Serafim\Vulkan\Struct\VkPipelineCreateInfoKHR;
 use Serafim\Vulkan\Struct\VkPipelineExecutableInfoKHR;
+use Serafim\Vulkan\Struct\VkPipelineExecutableInternalRepresentationKHR;
 use Serafim\Vulkan\Struct\VkPipelineExecutablePropertiesKHR;
 use Serafim\Vulkan\Struct\VkPipelineExecutableStatisticKHR;
 use Serafim\Vulkan\Struct\VkPipelineIndirectDeviceAddressInfoNV;
@@ -10225,6 +10232,56 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineBinariesKHR.html
+     * @since VK_KHR_pipeline_binary
+     *
+     * @api
+     *
+     * @return list<VkPipelineBinaryKHR>
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_INITIALIZATION_FAILED}
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkCreatePipelineBinariesKHR(VkDevice $device, VkPipelineBinaryCreateInfoKHR $createInfo): array
+    {
+        $nativeCreateInfo = $createInfo->toCData($this->memory);
+
+        $nativeBinaries = $this->memory->new('VkPipelineBinaryHandlesInfoKHR');
+        $nativeBinaries->sType = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_BINARY_HANDLES_INFO_KHR->value;
+
+        $procedure = $this->vkGetInstanceProc('vkCreatePipelineBinariesKHR', $device);
+
+        $this->assertSuccess('vkCreatePipelineBinariesKHR', $procedure($device->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeBinaries)));
+
+        /** @var int<0, max> $total */
+        $total = $nativeBinaries->pipelineBinaryCount;
+
+        if ($total === 0) {
+            return [];
+        }
+
+        $handles = $this->memory->newArray('VkPipelineBinaryKHR', $total, $nativeBinaries);
+        $nativeBinaries->pPipelineBinaries = $handles;
+
+        $this->assertSuccess('vkCreatePipelineBinariesKHR', $procedure($device->pointer, \FFI::addr($nativeCreateInfo), null, \FFI::addr($nativeBinaries)));
+
+        $destroy = $this->vkGetInstanceProc('vkDestroyPipelineBinaryKHR', $device);
+        $devicePointer = $device->pointer;
+
+        $created = [];
+        for ($index = 0; $index < $nativeBinaries->pipelineBinaryCount; ++$index) {
+            /** @var CData $element */
+            $element = $handles[$index];
+
+            $created[] = new VkPipelineBinaryKHR($this, $element, $device, function (Handle $handle) use ($destroy, $devicePointer): void {
+                $destroy($devicePointer, $handle->pointer, null);
+            }, [$createInfo]);
+        }
+
+        return $created;
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkCreatePipelineCache.html
      * @since 1.0
      *
@@ -13060,6 +13117,60 @@ final class Vulkan extends VulkanBase
     }
 
     /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelinePropertiesARM.html
+     * @since VK_ARM_data_graph
+     *
+     * @api
+     *
+     * @param list<VkDataGraphPipelinePropertyARM> $requested the values of the structures to query
+     *
+     * @return list<VkDataGraphPipelinePropertyQueryResultARM>
+     * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkGetDataGraphPipelinePropertiesARM(
+        VkDevice $device,
+        VkDataGraphPipelineInfoARM $pipelineInfo,
+        array $requested,
+    ): array {
+        $propertiesCount = \count($requested);
+        $nativePipelineInfo = $pipelineInfo->toCData($this->memory);
+
+        $propertiesTotal = $propertiesCount;
+        $nativeProperties = $this->memory->new('VkDataGraphPipelinePropertyQueryResultARM[' . \max(1, $propertiesTotal) . ']');
+        for ($index = 0; $index < $propertiesTotal; ++$index) {
+            /** @var CData $element */
+            $element = $nativeProperties[$index];
+
+            $element->sType = VkDataGraphPipelinePropertyQueryResultARM::STRUCTURE_TYPE;
+        }
+
+        foreach ($requested as $index => $value) {
+            /** @var CData $element */
+            $element = $nativeProperties[$index];
+
+            $element->property = $value->value;
+        }
+
+        $procedure = $this->vkGetInstanceProc('vkGetDataGraphPipelinePropertiesARM', $device);
+
+        $this->assertSuccess('vkGetDataGraphPipelinePropertiesARM', $procedure($device->pointer, \FFI::addr($nativePipelineInfo), $propertiesCount, $nativeProperties));
+
+        while (Buffers::allocateEach(fn(CData $item, CData $items): bool => VkDataGraphPipelinePropertyQueryResultARM::allocateBuffers($this->memory, $item, $items), $nativeProperties, $propertiesTotal)) {
+            $this->assertSuccess('vkGetDataGraphPipelinePropertiesARM', $procedure($device->pointer, \FFI::addr($nativePipelineInfo), $propertiesCount, $nativeProperties));
+        }
+
+        $properties = [];
+        for ($index = 0; $index < $propertiesTotal; ++$index) {
+            /** @var CData $element */
+            $element = $nativeProperties[$index];
+            $properties[] = VkDataGraphPipelinePropertyQueryResultARM::createFromCData($element);
+        }
+
+        return $properties;
+    }
+
+    /**
      * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDataGraphPipelineSessionBindPointRequirementsARM.html
      * @since VK_ARM_data_graph
      *
@@ -13432,6 +13543,35 @@ final class Vulkan extends VulkanBase
         \assert(\is_int($result));
 
         return $result;
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetDeviceFaultDebugInfoKHR.html
+     * @since VK_KHR_device_fault
+     *
+     * @api
+     *
+     * @param list<class-string<ChainedStructureInterface&VkDeviceFaultDebugInfoKHRExtension>> $chain the structures to fill
+     *
+     * @throws CommandFailedException in case of the command fails, for example
+     *         with {@see VkResult::VK_ERROR_NOT_ENOUGH_SPACE_KHR}
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkGetDeviceFaultDebugInfoKHR(VkDevice $device, array $chain = []): VkDeviceFaultDebugInfoKHR
+    {
+        $nativeDebugInfo = $this->memory->new('VkDeviceFaultDebugInfoKHR');
+        $nativeDebugInfo->sType = VkDeviceFaultDebugInfoKHR::STRUCTURE_TYPE;
+        $natives = Chain::allocate($this->memory, $nativeDebugInfo, $chain, VkDeviceFaultDebugInfoKHRExtension::class);
+
+        $procedure = $this->vkGetInstanceProc('vkGetDeviceFaultDebugInfoKHR', $device);
+
+        $this->assertSuccess('vkGetDeviceFaultDebugInfoKHR', $procedure($device->pointer, \FFI::addr($nativeDebugInfo)));
+
+        while ($natives->allocateBuffers($this->memory)) {
+            $this->assertSuccess('vkGetDeviceFaultDebugInfoKHR', $procedure($device->pointer, \FFI::addr($nativeDebugInfo)));
+        }
+
+        return VkDeviceFaultDebugInfoKHR::createFromCData($nativeDebugInfo, $natives->read());
     }
 
     /**
@@ -14935,6 +15075,10 @@ final class Vulkan extends VulkanBase
 
         $procedure($device->pointer, $swapchain->pointer, \FFI::addr($nativeLatencyMarkerInfo));
 
+        while (VkGetLatencyMarkerInfoNV::allocateBuffers($this->memory, $nativeLatencyMarkerInfo)) {
+            $procedure($device->pointer, $swapchain->pointer, \FFI::addr($nativeLatencyMarkerInfo));
+        }
+
         return VkGetLatencyMarkerInfoNV::createFromCData($nativeLatencyMarkerInfo);
     }
 
@@ -15373,6 +15517,10 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkGetPastPresentationTimingEXT', $device);
 
         $this->assertSuccess('vkGetPastPresentationTimingEXT', $procedure($device->pointer, \FFI::addr($nativePastPresentationTimingInfo), \FFI::addr($nativePastPresentationTimingProperties)));
+
+        while (VkPastPresentationTimingPropertiesEXT::allocateBuffers($this->memory, $nativePastPresentationTimingProperties)) {
+            $this->assertSuccess('vkGetPastPresentationTimingEXT', $procedure($device->pointer, \FFI::addr($nativePastPresentationTimingInfo), \FFI::addr($nativePastPresentationTimingProperties)));
+        }
 
         return VkPastPresentationTimingPropertiesEXT::createFromCData($nativePastPresentationTimingProperties);
     }
@@ -16072,7 +16220,7 @@ final class Vulkan extends VulkanBase
 
         $procedure($physicalDevice->pointer, $format->value, \FFI::addr($nativeFormatProperties));
 
-        if ($natives->allocateBuffers($this->memory)) {
+        while ($natives->allocateBuffers($this->memory)) {
             $procedure($physicalDevice->pointer, $format->value, \FFI::addr($nativeFormatProperties));
         }
 
@@ -16426,7 +16574,7 @@ final class Vulkan extends VulkanBase
 
         $procedure($physicalDevice->pointer, \FFI::addr($nativeProperties));
 
-        if ($natives->allocateBuffers($this->memory)) {
+        while ($natives->allocateBuffers($this->memory)) {
             $procedure($physicalDevice->pointer, \FFI::addr($nativeProperties));
         }
 
@@ -16901,7 +17049,7 @@ final class Vulkan extends VulkanBase
 
         $this->assertSuccess('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $procedure($physicalDevice->pointer, \FFI::addr($nativeSurfaceInfo), \FFI::addr($nativeSurfaceCapabilities)));
 
-        if ($natives->allocateBuffers($this->memory)) {
+        while ($natives->allocateBuffers($this->memory)) {
             $this->assertSuccess('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $procedure($physicalDevice->pointer, \FFI::addr($nativeSurfaceInfo), \FFI::addr($nativeSurfaceCapabilities)));
         }
 
@@ -17474,6 +17622,40 @@ final class Vulkan extends VulkanBase
                 $count,
                 $items,
             ),
+        );
+    }
+
+    /**
+     * @see https://registry.khronos.org/vulkan/specs/latest/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html
+     * @since VK_KHR_pipeline_executable_properties
+     *
+     * @api
+     *
+     * @return VkEnumerator<VkPipelineExecutableInternalRepresentationKHR>
+     * @throws CommandFailedException in case of the command fails
+     * @throws VulkanException in case of internal error occurs
+     */
+    public function vkGetPipelineExecutableInternalRepresentationsKHR(
+        VkDevice $device,
+        VkPipelineExecutableInfoKHR $executableInfo,
+    ): VkEnumerator {
+        $nativeExecutableInfo = $executableInfo->toCData($this->memory);
+
+        $procedure = $this->vkGetInstanceProc('vkGetPipelineExecutableInternalRepresentationsKHR', $device);
+
+        return VkEnumerator::create(
+            $this,
+            'vkGetPipelineExecutableInternalRepresentationsKHR',
+            static fn(CData $count, ?CData $items): mixed => $procedure(
+                $device->pointer,
+                \FFI::addr($nativeExecutableInfo),
+                $count,
+                $items,
+            ),
+            'VkPipelineExecutableInternalRepresentationKHR',
+            fn(CData $item): VkPipelineExecutableInternalRepresentationKHR => VkPipelineExecutableInternalRepresentationKHR::createFromCData($item),
+            VkPipelineExecutableInternalRepresentationKHR::STRUCTURE_TYPE,
+            buffered: fn(CData $item, CData $items): bool => VkPipelineExecutableInternalRepresentationKHR::allocateBuffers($this->memory, $item, $items),
         );
     }
 
@@ -18444,6 +18626,10 @@ final class Vulkan extends VulkanBase
         $procedure = $this->vkGetInstanceProc('vkGetSwapchainTimeDomainPropertiesEXT', $device);
 
         $this->assertSuccess('vkGetSwapchainTimeDomainPropertiesEXT', $procedure($device->pointer, $swapchain->pointer, \FFI::addr($nativeSwapchainTimeDomainProperties), \FFI::addr($nativeTimeDomainsCounter)));
+
+        while (VkSwapchainTimeDomainPropertiesEXT::allocateBuffers($this->memory, $nativeSwapchainTimeDomainProperties)) {
+            $this->assertSuccess('vkGetSwapchainTimeDomainPropertiesEXT', $procedure($device->pointer, $swapchain->pointer, \FFI::addr($nativeSwapchainTimeDomainProperties), \FFI::addr($nativeTimeDomainsCounter)));
+        }
 
         $swapchainTimeDomainProperties = VkSwapchainTimeDomainPropertiesEXT::createFromCData($nativeSwapchainTimeDomainProperties);
         /** @var int $timeDomainsCounter */

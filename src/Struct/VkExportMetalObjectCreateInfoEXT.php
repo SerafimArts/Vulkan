@@ -24,8 +24,10 @@ use Serafim\Vulkan\Struct\Extension\VkSemaphoreCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectCreateInfoEXT.html
  * @since VK_EXT_metal_objects
  */
-final class VkExportMetalObjectCreateInfoEXT extends InputStructure implements VkInstanceCreateInfoExtension, VkMemoryAllocateInfoExtension, VkImageCreateInfoExtension, VkImageViewCreateInfoExtension, VkBufferViewCreateInfoExtension, VkSemaphoreCreateInfoExtension, VkEventCreateInfoExtension
+final class VkExportMetalObjectCreateInfoEXT implements InputStructureInterface, VkInstanceCreateInfoExtension, VkMemoryAllocateInfoExtension, VkImageCreateInfoExtension, VkImageViewCreateInfoExtension, VkBufferViewCreateInfoExtension, VkSemaphoreCreateInfoExtension, VkEventCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkExportMetalObjectCreateInfoEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT->value;
@@ -44,13 +46,16 @@ final class VkExportMetalObjectCreateInfoEXT extends InputStructure implements V
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

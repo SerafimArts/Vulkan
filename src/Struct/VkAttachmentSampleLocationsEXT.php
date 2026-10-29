@@ -18,8 +18,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
  * @since VK_EXT_sample_locations
  */
-final class VkAttachmentSampleLocationsEXT extends InputStructure
+final class VkAttachmentSampleLocationsEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkAttachmentSampleLocationsEXT';
 
     public function __construct(
@@ -35,8 +37,11 @@ final class VkAttachmentSampleLocationsEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->attachmentIndex = $this->attachmentIndex;
 

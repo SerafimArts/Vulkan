@@ -12,14 +12,17 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceGpaPropertiesAMD.html
  * @since VK_AMD_gpa_interface
  */
-final readonly class VkPhysicalDeviceGpaPropertiesAMD extends OutputStructure implements VkPhysicalDeviceProperties2Extension, BufferedStructureInterface
+final readonly class VkPhysicalDeviceGpaPropertiesAMD implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GPA_PROPERTIES_AMD->value;
 
     public static function createNative(Allocator $memory): CData
@@ -43,13 +46,16 @@ final readonly class VkPhysicalDeviceGpaPropertiesAMD extends OutputStructure im
      *
      * @phpstan-param CData $data
      */
-    public static function allocateBuffers(Allocator $memory, CData $data): bool
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
+        $owner ??= $data;
         $isAllocated = false;
 
         if ($data->perfBlockCount !== 0) {
-            $data->pPerfBlocks = $memory->ffi->cast('VkGpaPerfBlockPropertiesAMD*', $memory->new('VkGpaPerfBlockPropertiesAMD[' . $data->perfBlockCount . ']', $data));
-            $isAllocated = true;
+            if ($data->pPerfBlocks === null) {
+                $data->pPerfBlocks = $memory->newArray('VkGpaPerfBlockPropertiesAMD', $data->perfBlockCount, $owner);
+                $isAllocated = true;
+            }
         }
 
         return $isAllocated;

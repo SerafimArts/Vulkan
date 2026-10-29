@@ -11,14 +11,14 @@ use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\Names;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
-use Serafim\Vulkan\Build\Generator\Analysis\TypeKind;
 use Serafim\Vulkan\Build\Generator\Analysis\TypeResolver;
 use Serafim\Vulkan\Build\Generator\Emitter\DocComments;
 use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
-use Serafim\Vulkan\Build\Generator\Emitter\IntegerTypes;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
 use Serafim\Vulkan\Build\Generator\Emitter\MetaRecorder;
+use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec\Codecs;
+use Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec\PropertyContext;
 use Serafim\Vulkan\Build\Generator\Registry\Constant;
 
 /**
@@ -47,6 +47,7 @@ final readonly class Properties
 
     public function __construct(
         private TypeResolver $types,
+        private Codecs $codecs,
         private MetaRecorder $meta = new MetaRecorder(),
     ) {}
 
@@ -91,6 +92,9 @@ final readonly class Properties
 
             $parameter->setPublic();
 
+            $codec = $this->codecs->get($property->kind);
+            $context = new PropertyContext($namespace, $property, isReturned: $isReturned);
+
             if ($property->kind === PropertyKind::CHAIN) {
                 $parameter->setType('array');
                 $parameter->addComment('@var list<' . $this->createMarker($namespace, $chains[0] ?? '') . '>');
@@ -101,7 +105,7 @@ final readonly class Properties
             if ($property->kind === PropertyKind::NEXT) {
                 $parameter->setType($this->createChainType($namespace, $chains));
             } else {
-                $parameter->setType($this->createType($namespace, $property));
+                $parameter->setType($codec->createPhpType($context));
                 $parameter->setNullable($property->isNullable);
             }
 
@@ -125,13 +129,13 @@ final readonly class Properties
                 $parameter->addComment($line);
             }
 
-            $docType = $this->createDocType($namespace, $property, $isReturned);
+            $docType = $codec->createDocType($context);
 
             if ($docType !== null && $property->isNullable) {
                 $docType .= '|null';
             }
 
-            $this->importElementClass($namespace, $property);
+            $codec->importElementClass($context);
 
             if ($docType !== null && $docType !== $property->builtinType) {
                 if ($description !== []) {
@@ -149,7 +153,7 @@ final readonly class Properties
 
     private function isResult(PropertyPlan $property): bool
     {
-        return $property->kind === PropertyKind::RESULT_STRUCTURE || $property->kind === PropertyKind::RESULT_ARRAY;
+        return $property->kind === PropertyKind::FEEDBACK_STRUCTURE || $property->kind === PropertyKind::FEEDBACK_ARRAY;
     }
 
     /**
@@ -166,7 +170,7 @@ final readonly class Properties
 
         $buffer->setPrivate();
         $buffer->setType(CData::class);
-        $buffer->setNullable($property->kind === PropertyKind::RESULT_ARRAY);
+        $buffer->setNullable($property->kind === PropertyKind::FEEDBACK_ARRAY);
         $buffer->setInitialized(false);
 
         $result = $class->addProperty($property->name);
@@ -176,7 +180,7 @@ final readonly class Properties
         $description = DocComments::createLines($property->field->comment ?? '');
         $notice = 'Vulkan fills it while a command uses the structure.';
 
-        if ($property->kind === PropertyKind::RESULT_STRUCTURE) {
+        if ($property->kind === PropertyKind::FEEDBACK_STRUCTURE) {
             $result->setType(Locations::createClassName(Locations::STRUCT_NAMESPACE, $property->field->type));
             $result->setNullable();
 
@@ -238,18 +242,6 @@ final readonly class Properties
         $optional = \array_filter($properties, static fn(PropertyPlan $property): bool => $property->hasDefault);
 
         return [...\array_values($required), ...\array_values($optional)];
-    }
-
-    /**
-     * Returns the type of the elements of a list of numbers.
-     */
-    public function createNumberType(PropertyPlan $property): string
-    {
-        if (\in_array($property->field->type, ['float', 'double'], true)) {
-            return 'float';
-        }
-
-        return $this->types->getIntegerRange($property->field->type);
     }
 
     /**
@@ -356,153 +348,5 @@ final readonly class Properties
         }
 
         return $property->default;
-    }
-
-    private function createType(PhpNamespace $namespace, PropertyPlan $property): string
-    {
-        if ($property->kind === PropertyKind::NATIVE) {
-            $namespace->addUse(CData::class);
-        }
-
-        if ($property->builtinType !== null) {
-            return $property->builtinType;
-        }
-
-        $space = match ($property->kind) {
-            PropertyKind::ENUMERATION, PropertyKind::SCALAR_POINTER => Locations::ENUM_NAMESPACE,
-            PropertyKind::HANDLE, PropertyKind::HANDLE_POINTER => Locations::HANDLE_NAMESPACE,
-            default => Locations::STRUCT_NAMESPACE,
-        };
-
-        Imports::import($namespace, $space, $property->field->type);
-
-        return Locations::createClassName($space, $property->field->type);
-    }
-
-    private function findFilledNamespace(PropertyPlan $property): ?string
-    {
-        return match ($this->types->resolve($property->field->type)) {
-            TypeKind::STRUCTURE => Locations::STRUCT_NAMESPACE,
-            TypeKind::ENUMERATION => Locations::ENUM_NAMESPACE,
-            default => null,
-        };
-    }
-
-    /**
-     * Imports the class of the elements of an array, the docblock refers to it.
-     */
-    private function importElementClass(PhpNamespace $namespace, PropertyPlan $property): void
-    {
-        $space = match ($property->kind) {
-            PropertyKind::FILLED_ARRAY => $this->findFilledNamespace($property),
-            PropertyKind::STRUCTURE_ARRAY, PropertyKind::STRUCTURE_LIST => Locations::STRUCT_NAMESPACE,
-            PropertyKind::HANDLE_ARRAY, PropertyKind::HANDLE_LIST => Locations::HANDLE_NAMESPACE,
-            PropertyKind::ENUMERATION_ARRAY, PropertyKind::ENUMERATION_LIST => Locations::ENUM_NAMESPACE,
-            default => null,
-        };
-
-        if ($space !== null) {
-            Imports::import($namespace, $space, $property->field->type);
-        }
-    }
-
-    /**
-     * Returns the signature of the function Vulkan calls: the pointers are
-     * given as they are.
-     */
-    private function createCallbackType(PropertyPlan $property): ?string
-    {
-        $pointer = $this->types->findFunctionPointer($property->field->type);
-
-        if ($pointer === null) {
-            return null;
-        }
-
-        $parameters = [];
-
-        foreach ($pointer->parameters as $parameter) {
-            $parameters[] = $this->createCallbackValueType($parameter->type, $parameter->pointerDepth);
-        }
-
-        $return = 'void';
-
-        if ($pointer->returnType !== 'void' || $pointer->returnPointerDepth > 0) {
-            $return = $this->createCallbackValueType($pointer->returnType, $pointer->returnPointerDepth);
-        }
-
-        if (\str_contains($return, '|')) {
-            $return = '(' . $return . ')';
-        }
-
-        return '\Closure(' . \implode(', ', $parameters) . '): ' . $return;
-    }
-
-    private function createCallbackValueType(string $type, int $pointerDepth): string
-    {
-        if ($pointerDepth > 0) {
-            return 'CData|null';
-        }
-
-        return match ($this->types->resolve($type)) {
-            TypeKind::BOOLEAN => 'bool|int',
-            TypeKind::FLOAT => 'float',
-            TypeKind::INTEGER, TypeKind::ENUMERATION => 'int',
-            default => 'CData',
-        };
-    }
-
-    private function createScalarPointerType(PhpNamespace $namespace, PropertyPlan $property): ?string
-    {
-        if ($property->builtinType === 'int') {
-            return IntegerTypes::create($namespace, $this->types, $property->field->type);
-        }
-
-        return null;
-    }
-
-    private function createStringType(PropertyPlan $property, bool $isReturned): ?string
-    {
-        if ($property->field->isOptional || $isReturned) {
-            return null;
-        }
-
-        return 'non-empty-string';
-    }
-
-    private function createFilledType(PropertyPlan $property): string
-    {
-        if ($this->types->resolve($property->field->type) === TypeKind::STRUCTURE
-            || $this->types->resolve($property->field->type) === TypeKind::ENUMERATION) {
-            return 'list<' . $property->field->type . '>';
-        }
-
-        return 'list<' . $this->createNumberType($property) . '>';
-    }
-
-    private function createDocType(PhpNamespace $namespace, PropertyPlan $property, bool $isReturned): ?string
-    {
-        return match ($property->kind) {
-            PropertyKind::INTEGER => IntegerTypes::create(
-                $namespace,
-                $this->types,
-                $property->field->type,
-                $property->field->bits,
-            ),
-            PropertyKind::SCALAR_POINTER => $this->createScalarPointerType($namespace, $property),
-            PropertyKind::STRING => $this->createStringType($property, $isReturned),
-            PropertyKind::CALLBACK => $this->createCallbackType($property),
-            PropertyKind::STRING_LIST => 'list<string>',
-            PropertyKind::NUMBER_LIST,
-            PropertyKind::NUMBER_ARRAY,
-            PropertyKind::SAMPLE_MASK => 'list<' . $this->createNumberType($property) . '>',
-            PropertyKind::FILLED_ARRAY => $this->createFilledType($property),
-            PropertyKind::STRUCTURE_ARRAY,
-            PropertyKind::STRUCTURE_LIST,
-            PropertyKind::HANDLE_ARRAY,
-            PropertyKind::HANDLE_LIST,
-            PropertyKind::ENUMERATION_LIST,
-            PropertyKind::ENUMERATION_ARRAY => 'list<' . $property->field->type . '>',
-            default => null,
-        };
     }
 }

@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyQueryResultStatusPropertiesKHR.html
  * @since VK_KHR_video_queue
  */
-final readonly class VkQueueFamilyQueryResultStatusPropertiesKHR extends OutputStructure implements VkQueueFamilyProperties2Extension, ChainedStructureInterface
+final readonly class VkQueueFamilyQueryResultStatusPropertiesKHR implements OutputStructureInterface, VkQueueFamilyProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_QUERY_RESULT_STATUS_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData

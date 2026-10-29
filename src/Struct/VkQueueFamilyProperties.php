@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkQueueFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyProperties.html
  * @since 1.0
  */
-final readonly class VkQueueFamilyProperties extends OutputStructure
+final readonly class VkQueueFamilyProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Queue flags

@@ -28,7 +28,7 @@ abstract class VulkanBase
     /**
      * Native memory of the commands.
      *
-     * @internal this is an internal library class, please do not use it in your code
+     * @internal this is an internal library property, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
     public readonly Allocator $memory;
@@ -75,7 +75,7 @@ abstract class VulkanBase
      *
      * @throws CommandFailedException in case of the result is an error
      *
-     * @internal this is an internal library class, please do not use it in your code
+     * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
     public function getResult(string $command, int $result): VkResult
@@ -96,7 +96,7 @@ abstract class VulkanBase
      *
      * @throws CommandFailedException in case of the result is an error
      *
-     * @internal this is an internal library class, please do not use it in your code
+     * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
     public function assertSuccess(string $command, mixed $result): void
@@ -136,6 +136,23 @@ abstract class VulkanBase
     public function vkGetInstanceProc(string $command, ?Handle $handle = null): callable
     {
         return $this->procedures[$command] ??= $this->findInstanceProc($command, $handle);
+    }
+
+    /**
+     * Returns the copy whose command calls the procedure instead of the
+     * function of the library.
+     *
+     * @param non-empty-string $command
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public function withProcedure(string $command, callable $procedure): static
+    {
+        $self = clone $this;
+        $self->procedures[$command] = $procedure;
+
+        return $self;
     }
 
     /**

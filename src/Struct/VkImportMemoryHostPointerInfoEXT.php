@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkMemoryAllocateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImportMemoryHostPointerInfoEXT.html
  * @since VK_EXT_external_memory_host
  */
-final class VkImportMemoryHostPointerInfoEXT extends InputStructure implements VkMemoryAllocateInfoExtension
+final class VkImportMemoryHostPointerInfoEXT implements InputStructureInterface, VkMemoryAllocateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkImportMemoryHostPointerInfoEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_HOST_POINTER_INFO_EXT->value;
@@ -40,13 +42,16 @@ final class VkImportMemoryHostPointerInfoEXT extends InputStructure implements V
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

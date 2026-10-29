@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentTimeGOOGLE.html
  * @since VK_GOOGLE_display_timing
  */
-final class VkPresentTimeGOOGLE extends InputStructure
+final class VkPresentTimeGOOGLE implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPresentTimeGOOGLE';
 
     public function __construct(
@@ -37,8 +39,11 @@ final class VkPresentTimeGOOGLE extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->presentID = $this->presentID;
 

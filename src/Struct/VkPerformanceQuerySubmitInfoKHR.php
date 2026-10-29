@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkSubmitInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPerformanceQuerySubmitInfoKHR.html
  * @since VK_KHR_performance_query
  */
-final class VkPerformanceQuerySubmitInfoKHR extends InputStructure implements VkSubmitInfoExtension, VkSubmitInfo2Extension
+final class VkPerformanceQuerySubmitInfoKHR implements InputStructureInterface, VkSubmitInfoExtension, VkSubmitInfo2Extension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPerformanceQuerySubmitInfoKHR';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PERFORMANCE_QUERY_SUBMIT_INFO_KHR->value;
@@ -42,13 +44,16 @@ final class VkPerformanceQuerySubmitInfoKHR extends InputStructure implements Vk
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

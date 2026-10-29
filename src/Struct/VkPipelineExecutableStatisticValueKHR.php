@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticValueKHR.html
  * @since VK_KHR_pipeline_executable_properties
  */
-final readonly class VkPipelineExecutableStatisticValueKHR extends OutputStructure
+final readonly class VkPipelineExecutableStatisticValueKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         public bool $b32,
         public int $i64,

@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilitiesPresentWait2KHR.html
  * @since VK_KHR_present_wait2
  */
-final readonly class VkSurfaceCapabilitiesPresentWait2KHR extends OutputStructure implements VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
+final readonly class VkSurfaceCapabilitiesPresentWait2KHR implements OutputStructureInterface, VkSurfaceCapabilities2KHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR->value;
 
     public static function createNative(Allocator $memory): CData

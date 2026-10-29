@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264QpKHR.html
  * @since VK_KHR_video_encode_h264
  */
-final class VkVideoEncodeH264QpKHR extends InputStructure
+final class VkVideoEncodeH264QpKHR implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkVideoEncodeH264QpKHR';
 
     public function __construct(
@@ -36,8 +38,11 @@ final class VkVideoEncodeH264QpKHR extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->qpI = $this->qpI;
 

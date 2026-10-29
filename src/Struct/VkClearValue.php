@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkClearValue.html
  * @since 1.0
  */
-final class VkClearValue extends InputStructure
+final class VkClearValue implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkClearValue';
 
     public function __construct(
@@ -32,8 +34,11 @@ final class VkClearValue extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->color, $this->depthStencil], static fn(mixed $member): bool => $member !== null));
 

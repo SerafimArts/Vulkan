@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalComputeQueueDataParamsNV.html
  * @since VK_NV_external_compute_queue
  */
-final readonly class VkExternalComputeQueueDataParamsNV extends OutputStructure
+final readonly class VkExternalComputeQueueDataParamsNV implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV->value;
 
     public function __construct(

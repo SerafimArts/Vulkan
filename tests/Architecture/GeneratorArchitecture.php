@@ -50,8 +50,21 @@ final class GeneratorArchitecture
                 Selector::isInterface(),
                 Selector::isEnum(),
                 Selector::classname(GeneratorException::class),
+                Selector::AllOf(Selector::inNamespace(self::NAMESPACE . '\Emitter\StructEmitter\Codec'), Selector::isAbstract()),
             )
             ->shouldBeFinal();
+    }
+
+    #[TestRule]
+    public function testAbstractClassesAreCodecBases(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::AllOf(Selector::inNamespace(self::NAMESPACE), Selector::isAbstract()))
+            ->excluding(
+                Selector::inNamespace(self::NAMESPACE . '\Emitter\StructEmitter\Codec'),
+                Selector::classname(GeneratorException::class),
+            )
+            ->shouldNotExist();
     }
 
     #[TestRule]

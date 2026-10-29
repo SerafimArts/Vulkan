@@ -17,8 +17,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineExecutableStatisticKHR.html
  * @since VK_KHR_pipeline_executable_properties
  */
-final readonly class VkPipelineExecutableStatisticKHR extends OutputStructure
+final readonly class VkPipelineExecutableStatisticKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_EXECUTABLE_STATISTIC_KHR->value;
 
     public function __construct(

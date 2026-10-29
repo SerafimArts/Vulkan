@@ -7,6 +7,7 @@ namespace Serafim\Vulkan\Internal;
 use FFI\CData;
 use Serafim\Vulkan\Enum\VkResult;
 use Serafim\Vulkan\Exception\CommandFailedException;
+use Serafim\Vulkan\Internal\Memory\Buffers;
 use Serafim\Vulkan\VulkanBase;
 
 /**
@@ -47,6 +48,10 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
      *        from the native one with its index
      * @param int|null $structureType the `sType` of the elements that the
      *        command requires to be set before it fills them
+     * @param \Closure(CData, CData): bool|null $buffered allocates the arrays
+     *        of an element for the lengths the command has written and tells
+     *        whether it did, the native array keeps them alive: the command is
+     *        called again after that
      *
      * @return self<TCreated>
      * @throws CommandFailedException in case of the command fails
@@ -58,8 +63,9 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
         string $type,
         \Closure $factory,
         ?int $structureType = null,
+        ?\Closure $buffered = null,
     ): self {
-        [$items, $length] = self::fill($vk, $command, $call, $type, $structureType);
+        [$items, $length] = self::fill($vk, $command, $call, $type, $structureType, buffered: $buffered);
 
         return new self($items, $length, $factory);
     }
@@ -159,6 +165,7 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
      * @param \Closure(CData, CData|null): mixed $call
      * @param non-empty-string $type
      * @param non-empty-string $countType C type of the length
+     * @param \Closure(CData, CData): bool|null $buffered
      *
      * @return array{CData|null, int<0, max>}
      * @throws CommandFailedException
@@ -170,6 +177,7 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
         string $type,
         ?int $structureType,
         string $countType = 'uint32_t',
+        ?\Closure $buffered = null,
     ): array {
         $count = $vk->memory->new($countType);
         $pointer = \FFI::addr($count);
@@ -195,6 +203,10 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
             }
 
             $result = self::getCode($call($pointer, $items));
+
+            while ($buffered !== null && Buffers::allocateEach($buffered, $items, $length)) {
+                $result = self::getCode($call($pointer, $items));
+            }
         } while ($result === VkResult::VK_INCOMPLETE->value);
 
         $vk->assertSuccess($command, $result);

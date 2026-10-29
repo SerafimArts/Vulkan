@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoEncodeSessionParametersFeedbackInfoKH
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH265SessionParametersFeedbackInfoKHR.html
  * @since VK_KHR_video_encode_h265
  */
-final readonly class VkVideoEncodeH265SessionParametersFeedbackInfoKHR extends OutputStructure implements VkVideoEncodeSessionParametersFeedbackInfoKHRExtension, ChainedStructureInterface
+final readonly class VkVideoEncodeH265SessionParametersFeedbackInfoKHR implements OutputStructureInterface, VkVideoEncodeSessionParametersFeedbackInfoKHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_SESSION_PARAMETERS_FEEDBACK_INFO_KHR->value;
 
     public static function createNative(Allocator $memory): CData

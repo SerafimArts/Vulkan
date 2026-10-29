@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkHostImageCopyDevicePerformanceQuery.html
  * @since 1.4
  */
-final readonly class VkHostImageCopyDevicePerformanceQuery extends OutputStructure implements VkImageFormatProperties2Extension, ChainedStructureInterface
+final readonly class VkHostImageCopyDevicePerformanceQuery implements OutputStructureInterface, VkImageFormatProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_HOST_IMAGE_COPY_DEVICE_PERFORMANCE_QUERY->value;
 
     public static function createNative(Allocator $memory): CData

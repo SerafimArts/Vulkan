@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDispatchTileInfoQCOM.html
  * @since VK_QCOM_tile_shading
  */
-final class VkDispatchTileInfoQCOM extends InputStructure
+final class VkDispatchTileInfoQCOM implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkDispatchTileInfoQCOM';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DISPATCH_TILE_INFO_QCOM->value;
@@ -31,8 +33,11 @@ final class VkDispatchTileInfoQCOM extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
     }

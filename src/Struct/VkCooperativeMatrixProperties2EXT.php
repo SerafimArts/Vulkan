@@ -17,8 +17,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkCooperativeMatrixProperties2EXT.html
  * @since VK_EXT_cooperative_matrix_maintenance1
  */
-final readonly class VkCooperativeMatrixProperties2EXT extends OutputStructure
+final readonly class VkCooperativeMatrixProperties2EXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_2_EXT->value;
 
     public function __construct(

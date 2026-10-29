@@ -17,8 +17,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetAndroidHardwareBufferInfoANDROID.html
  * @since VK_ANDROID_external_memory_android_hardware_buffer
  */
-final class VkMemoryGetAndroidHardwareBufferInfoANDROID extends InputStructure
+final class VkMemoryGetAndroidHardwareBufferInfoANDROID implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkMemoryGetAndroidHardwareBufferInfoANDROID';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_GET_ANDROID_HARDWARE_BUFFER_INFO_ANDROID->value;
@@ -35,8 +37,11 @@ final class VkMemoryGetAndroidHardwareBufferInfoANDROID extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 

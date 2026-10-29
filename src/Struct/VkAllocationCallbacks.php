@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAllocationCallbacks.html
  * @since 1.0
  */
-final class VkAllocationCallbacks extends InputStructure
+final class VkAllocationCallbacks implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkAllocationCallbacks';
 
     public function __construct(
@@ -44,8 +46,11 @@ final class VkAllocationCallbacks extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         if ($this->userData !== null) {
             $data->pUserData = $memory->ffi->cast('void*', $this->userData);

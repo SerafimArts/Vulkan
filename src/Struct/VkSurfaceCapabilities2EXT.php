@@ -19,8 +19,10 @@ use Serafim\Vulkan\Enum\VkSurfaceTransformFlagBitsKHR;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilities2EXT.html
  * @since VK_EXT_display_surface_counter
  */
-final readonly class VkSurfaceCapabilities2EXT extends OutputStructure
+final readonly class VkSurfaceCapabilities2EXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_2_EXT->value;
 
     public function __construct(

@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeIntraRefreshCapabilitiesKHR.html
  * @since VK_KHR_video_encode_intra_refresh
  */
-final readonly class VkVideoEncodeIntraRefreshCapabilitiesKHR extends OutputStructure implements VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
+final readonly class VkVideoEncodeIntraRefreshCapabilitiesKHR implements OutputStructureInterface, VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData

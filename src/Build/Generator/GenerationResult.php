@@ -23,5 +23,11 @@ final readonly class GenerationResult
          * @var array<non-empty-string, non-empty-string>
          */
         public array $skipped,
+        /**
+         * Reasons by the names of the structures that cannot be represented
+         *
+         * @var array<non-empty-string, non-empty-string>
+         */
+        public array $skippedStructs = [],
     ) {}
 }

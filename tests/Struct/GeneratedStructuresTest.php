@@ -7,8 +7,8 @@ namespace Serafim\Vulkan\Tests\Struct;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Exception\UnknownEnumValueException;
-use Serafim\Vulkan\Struct\InputStructure;
-use Serafim\Vulkan\Struct\OutputStructure;
+use Serafim\Vulkan\Struct\InputStructureInterface;
+use Serafim\Vulkan\Struct\OutputStructureInterface;
 use Serafim\Vulkan\Tests\TestCase;
 
 #[CoversNothing]
@@ -19,7 +19,7 @@ final class GeneratedStructuresTest extends TestCase
         $vk = self::loadVulkan();
         $failed = [];
 
-        foreach ($this->findClasses(InputStructure::class) as $class => $type) {
+        foreach ($this->findClasses(InputStructureInterface::class) as $class => $type) {
             $constructor = new \ReflectionClass($class)->getConstructor();
 
             if ($constructor !== null && $constructor->getNumberOfRequiredParameters() > 0) {
@@ -29,7 +29,7 @@ final class GeneratedStructuresTest extends TestCase
             try {
                 $structure = new $class();
 
-                \assert($structure instanceof InputStructure);
+                \assert($structure instanceof InputStructureInterface);
 
                 $structure->toCData($vk->memory);
             } catch (InvalidStructureException) {
@@ -51,7 +51,7 @@ final class GeneratedStructuresTest extends TestCase
         $vk = self::loadVulkan();
         $failed = [];
 
-        foreach ($this->findClasses(OutputStructure::class) as $class => $type) {
+        foreach ($this->findClasses(OutputStructureInterface::class) as $class => $type) {
             if (!$this->isDeclared($vk->ffi, $type)) {
                 continue;
             }

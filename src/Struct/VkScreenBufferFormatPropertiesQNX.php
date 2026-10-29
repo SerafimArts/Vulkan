@@ -24,8 +24,10 @@ use Serafim\Vulkan\Struct\Extension\VkScreenBufferPropertiesQNXExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkScreenBufferFormatPropertiesQNX.html
  * @since VK_QNX_external_memory_screen_buffer
  */
-final readonly class VkScreenBufferFormatPropertiesQNX extends OutputStructure implements VkScreenBufferPropertiesQNXExtension, ChainedStructureInterface
+final readonly class VkScreenBufferFormatPropertiesQNX implements OutputStructureInterface, VkScreenBufferPropertiesQNXExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SCREEN_BUFFER_FORMAT_PROPERTIES_QNX->value;
 
     public static function createNative(Allocator $memory): CData

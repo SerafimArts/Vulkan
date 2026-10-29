@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout.html
  * @since 1.0
  */
-final class VkSubresourceLayout extends InputStructure
+final class VkSubresourceLayout implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkSubresourceLayout';
 
     public function __construct(
@@ -42,8 +44,11 @@ final class VkSubresourceLayout extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->offset = $this->offset;
 

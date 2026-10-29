@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryFdPropertiesKHR.html
  * @since VK_KHR_external_memory_fd
  */
-final readonly class VkMemoryFdPropertiesKHR extends OutputStructure
+final readonly class VkMemoryFdPropertiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_FD_PROPERTIES_KHR->value;
 
     public function __construct(

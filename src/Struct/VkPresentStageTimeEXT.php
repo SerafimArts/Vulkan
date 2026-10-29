@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkPresentStageFlagBitsEXT;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPresentStageTimeEXT.html
  * @since VK_EXT_present_timing
  */
-final readonly class VkPresentStageTimeEXT extends OutputStructure
+final readonly class VkPresentStageTimeEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int-mask-of<VkPresentStageFlagBitsEXT::*> */
         public int $stage,

@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceFormat2KHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormat2KHR.html
  * @since VK_KHR_get_surface_capabilities2
  */
-final readonly class VkSurfaceFormat2KHR extends OutputStructure
+final readonly class VkSurfaceFormat2KHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR->value;
 
     public function __construct(

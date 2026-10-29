@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkSwapchainCreateInfoKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFullScreenExclusiveWin32InfoEXT.html
  * @since VK_EXT_full_screen_exclusive
  */
-final class VkSurfaceFullScreenExclusiveWin32InfoEXT extends InputStructure implements VkPhysicalDeviceSurfaceInfo2KHRExtension, VkSwapchainCreateInfoKHRExtension
+final class VkSurfaceFullScreenExclusiveWin32InfoEXT implements InputStructureInterface, VkPhysicalDeviceSurfaceInfo2KHRExtension, VkSwapchainCreateInfoKHRExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkSurfaceFullScreenExclusiveWin32InfoEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_FULL_SCREEN_EXCLUSIVE_WIN32_INFO_EXT->value;
@@ -37,13 +39,16 @@ final class VkSurfaceFullScreenExclusiveWin32InfoEXT extends InputStructure impl
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

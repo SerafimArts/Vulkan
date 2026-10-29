@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkResourceDescriptorDataEXT.html
  * @since VK_EXT_descriptor_heap
  */
-final class VkResourceDescriptorDataEXT extends InputStructure
+final class VkResourceDescriptorDataEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkResourceDescriptorDataEXT';
 
     public function __construct(
@@ -36,8 +38,11 @@ final class VkResourceDescriptorDataEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $members = \count(\array_filter([$this->image, $this->texelBuffer, $this->addressRange, $this->tensorARM], static fn(mixed $member): bool => $member !== null));
 

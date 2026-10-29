@@ -10,16 +10,13 @@ use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\VulkanBase;
 
 /**
- * Structure returned by Vulkan: an immutable snapshot of the data of its
- * owner. It has no lifecycle and is never converted back to native memory.
+ * Copies of the members of a native struct for the structures that implement
+ * {@see OutputStructureInterface}.
+ *
+ * @phpstan-require-implements OutputStructureInterface
  */
-abstract readonly class OutputStructure
+trait OutputStructureTrait
 {
-    /**
-     * Copies the fields of the native struct.
-     */
-    abstract public static function createFromCData(CData $data): static;
-
     /**
      * Creates the structures from the elements of the native array.
      *
@@ -76,6 +73,20 @@ abstract readonly class OutputStructure
         }
 
         return $list;
+    }
+
+    /**
+     * Copies the bytes that Vulkan has written.
+     *
+     * @param int<0, max> $length
+     */
+    final protected static function createBinaryFromCData(?CData $pointer, int $length): string
+    {
+        if ($pointer === null || $length === 0) {
+            return '';
+        }
+
+        return \FFI::string($pointer, $length);
     }
 
     /**

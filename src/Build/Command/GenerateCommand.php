@@ -76,8 +76,12 @@ final class GenerateCommand extends Command
         $output->writeln(\sprintf('<info>%d files generated</info>', \count($files)));
         $output->writeln(\sprintf('%d commands are left out, run with -v to list them', \count($result->skipped)));
 
-        foreach ($result->skipped as $command => $reason) {
-            $output->writeln(\sprintf('%s: %s', $command, $reason), OutputInterface::VERBOSITY_VERBOSE);
+        $output->writeln(
+            \sprintf('%d structures are left out, run with -v to list them', \count($result->skippedStructs)),
+        );
+
+        foreach ([...$result->skipped, ...$result->skippedStructs] as $declaration => $reason) {
+            $output->writeln(\sprintf('%s: %s', $declaration, $reason), OutputInterface::VERBOSITY_VERBOSE);
         }
 
         return self::SUCCESS;

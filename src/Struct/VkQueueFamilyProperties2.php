@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyProperties2.html
  * @since 1.1
  */
-final readonly class VkQueueFamilyProperties2 extends OutputStructure
+final readonly class VkQueueFamilyProperties2 implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_PROPERTIES_2->value;
 
     public function __construct(

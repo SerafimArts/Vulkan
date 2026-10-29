@@ -22,8 +22,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatPropertiesKHR.html
  * @since VK_KHR_video_queue
  */
-final readonly class VkVideoFormatPropertiesKHR extends OutputStructure
+final readonly class VkVideoFormatPropertiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_FORMAT_PROPERTIES_KHR->value;
 
     public function __construct(

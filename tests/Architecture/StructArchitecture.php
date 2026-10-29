@@ -11,8 +11,10 @@ use PHPat\Test\PHPat;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\Internal\EnumCase;
-use Serafim\Vulkan\Struct\InputStructure;
-use Serafim\Vulkan\Struct\OutputStructure;
+use Serafim\Vulkan\Struct\InputStructureInterface;
+use Serafim\Vulkan\Struct\InputStructureTrait;
+use Serafim\Vulkan\Struct\OutputStructureInterface;
+use Serafim\Vulkan\Struct\OutputStructureTrait;
 use Serafim\Vulkan\VulkanBase;
 
 /**
@@ -21,17 +23,19 @@ use Serafim\Vulkan\VulkanBase;
 final class StructArchitecture
 {
     #[TestRule]
-    public function testBasesDependOnlyOnCommands(): Rule
+    public function testContractsDependOnlyOnCommands(): Rule
     {
         return PHPat::rule()
             ->classes(
-                Selector::classname(InputStructure::class),
-                Selector::classname(OutputStructure::class),
+                Selector::classname(InputStructureInterface::class),
+                Selector::classname(InputStructureTrait::class),
+                Selector::classname(OutputStructureInterface::class),
+                Selector::classname(OutputStructureTrait::class),
             )
             ->canOnlyDependOn()
             ->classes(
-                Selector::classname(InputStructure::class),
-                Selector::classname(OutputStructure::class),
+                Selector::classname(InputStructureInterface::class),
+                Selector::classname(OutputStructureInterface::class),
                 Selector::inNamespace('Serafim\Vulkan\Internal\Memory'),
                 Selector::classname(InvalidStructureException::class),
                 Selector::classname(Handle::class),
@@ -41,21 +45,31 @@ final class StructArchitecture
     }
 
     #[TestRule]
-    public function testBasesAreAbstract(): Rule
+    public function testContractsAreInterfaces(): Rule
     {
         return PHPat::rule()
             ->classes(
-                Selector::classname(InputStructure::class),
-                Selector::classname(OutputStructure::class),
+                Selector::classname(InputStructureInterface::class),
+                Selector::classname(OutputStructureInterface::class),
             )
-            ->shouldBeAbstract();
+            ->shouldBeInterface();
     }
 
     #[TestRule]
-    public function testOutputBaseIsReadonly(): Rule
+    public function testOutputStructuresAreReadonly(): Rule
     {
         return PHPat::rule()
-            ->classes(Selector::classname(OutputStructure::class))
+            ->classes(Selector::implements(OutputStructureInterface::class))
+            ->excluding(Selector::classname(OutputStructureInterface::class))
             ->shouldBeReadonly();
+    }
+
+    #[TestRule]
+    public function testInputStructuresAreFinal(): Rule
+    {
+        return PHPat::rule()
+            ->classes(Selector::implements(InputStructureInterface::class))
+            ->excluding(Selector::classname(InputStructureInterface::class))
+            ->shouldBeFinal();
     }
 }

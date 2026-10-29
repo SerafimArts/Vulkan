@@ -135,6 +135,11 @@ final readonly class EnumerateBody implements Body
             $expression[] = '    ' . $class . '::STRUCTURE_TYPE,';
         }
 
+        if ($this->structures->hasArrays($output->field->type)) {
+            $expression[] = '    buffered: fn(CData $item, CData $items): bool => ' . $class
+                . '::allocateBuffers($this->memory, $item, $items),';
+        }
+
         $expression[] = ')';
 
         return new Enumeration([], $expression, self::ENUMERATOR, 'VkEnumerator<' . $class . '>');

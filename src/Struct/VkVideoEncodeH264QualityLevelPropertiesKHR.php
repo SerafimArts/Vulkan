@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoEncodeQualityLevelPropertiesKHRExtens
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeH264QualityLevelPropertiesKHR.html
  * @since VK_KHR_video_encode_h264
  */
-final readonly class VkVideoEncodeH264QualityLevelPropertiesKHR extends OutputStructure implements VkVideoEncodeQualityLevelPropertiesKHRExtension, ChainedStructureInterface
+final readonly class VkVideoEncodeH264QualityLevelPropertiesKHR implements OutputStructureInterface, VkVideoEncodeQualityLevelPropertiesKHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H264_QUALITY_LEVEL_PROPERTIES_KHR->value;
 
     public static function createNative(Allocator $memory): CData

@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkMemoryHeapFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHeap.html
  * @since 1.0
  */
-final readonly class VkMemoryHeap extends OutputStructure
+final readonly class VkMemoryHeap implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** Available memory in the heap */
         public int $size,

@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoEncodeSessionParametersFeedbackInfoKH
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionParametersFeedbackInfoKHR.html
  * @since VK_KHR_video_encode_queue
  */
-final readonly class VkVideoEncodeSessionParametersFeedbackInfoKHR extends OutputStructure
+final readonly class VkVideoEncodeSessionParametersFeedbackInfoKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_PARAMETERS_FEEDBACK_INFO_KHR->value;
 
     public function __construct(

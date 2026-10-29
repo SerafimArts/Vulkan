@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoEncodeQualityLevelPropertiesKHRExtens
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQualityLevelPropertiesKHR.html
  * @since VK_KHR_video_encode_queue
  */
-final readonly class VkVideoEncodeQualityLevelPropertiesKHR extends OutputStructure
+final readonly class VkVideoEncodeQualityLevelPropertiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_PROPERTIES_KHR->value;
 
     public function __construct(

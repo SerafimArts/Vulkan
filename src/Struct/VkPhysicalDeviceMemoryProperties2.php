@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceMemoryProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties2.html
  * @since 1.1
  */
-final readonly class VkPhysicalDeviceMemoryProperties2 extends OutputStructure
+final readonly class VkPhysicalDeviceMemoryProperties2 implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PROPERTIES_2->value;
 
     public function __construct(

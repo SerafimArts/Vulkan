@@ -20,8 +20,10 @@ use Serafim\Vulkan\Struct\Extension\VkFramebufferCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
  * @since 1.2
  */
-final class VkFramebufferAttachmentsCreateInfo extends InputStructure implements VkFramebufferCreateInfoExtension
+final class VkFramebufferAttachmentsCreateInfo implements InputStructureInterface, VkFramebufferCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkFramebufferAttachmentsCreateInfo';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO->value;
@@ -41,13 +43,16 @@ final class VkFramebufferAttachmentsCreateInfo extends InputStructure implements
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

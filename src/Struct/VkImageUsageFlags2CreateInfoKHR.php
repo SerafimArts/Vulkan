@@ -27,8 +27,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageUsageFlags2CreateInfoKHR.html
  * @since VK_KHR_extended_flags
  */
-final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements VkFramebufferAttachmentImageInfoExtension, VkImageCreateInfoExtension, VkPhysicalDeviceImageFormatInfo2Extension, VkPhysicalDeviceSparseImageFormatInfo2Extension, VkPhysicalDeviceVideoFormatInfoKHRExtension, VkSurfaceCapabilities2KHRExtension, VkSwapchainCreateInfoKHRExtension, VkVideoFormatPropertiesKHRExtension, ChainedStructureInterface
+final class VkImageUsageFlags2CreateInfoKHR implements InputStructureInterface, VkFramebufferAttachmentImageInfoExtension, VkImageCreateInfoExtension, VkPhysicalDeviceImageFormatInfo2Extension, VkPhysicalDeviceSparseImageFormatInfo2Extension, VkPhysicalDeviceVideoFormatInfoKHRExtension, VkSurfaceCapabilities2KHRExtension, VkSwapchainCreateInfoKHRExtension, VkVideoFormatPropertiesKHRExtension, ChainedStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkImageUsageFlags2CreateInfoKHR';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR->value;
@@ -47,13 +49,16 @@ final class VkImageUsageFlags2CreateInfoKHR extends InputStructure implements Vk
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties.html
  * @since 1.0
  */
-final readonly class VkPhysicalDeviceMemoryProperties extends OutputStructure
+final readonly class VkPhysicalDeviceMemoryProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $memoryTypeCount,

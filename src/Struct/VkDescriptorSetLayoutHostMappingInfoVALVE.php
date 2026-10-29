@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorSetLayoutHostMappingInfoVALVE.html
  * @since VK_VALVE_descriptor_set_host_mapping
  */
-final readonly class VkDescriptorSetLayoutHostMappingInfoVALVE extends OutputStructure
+final readonly class VkDescriptorSetLayoutHostMappingInfoVALVE implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_HOST_MAPPING_INFO_VALVE->value;
 
     public function __construct(

@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkRenderingInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderingFragmentShadingRateAttachmentInfoKHR.html
  * @since VK_KHR_fragment_shading_rate
  */
-final class VkRenderingFragmentShadingRateAttachmentInfoKHR extends InputStructure implements VkRenderingInfoExtension
+final class VkRenderingFragmentShadingRateAttachmentInfoKHR implements InputStructureInterface, VkRenderingInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkRenderingFragmentShadingRateAttachmentInfoKHR';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_INFO_KHR->value;
@@ -42,13 +44,16 @@ final class VkRenderingFragmentShadingRateAttachmentInfoKHR extends InputStructu
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

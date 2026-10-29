@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkImageFormatProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalImageFormatProperties.html
  * @since 1.1
  */
-final readonly class VkExternalImageFormatProperties extends OutputStructure implements VkImageFormatProperties2Extension, ChainedStructureInterface
+final readonly class VkExternalImageFormatProperties implements OutputStructureInterface, VkImageFormatProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXTERNAL_IMAGE_FORMAT_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData

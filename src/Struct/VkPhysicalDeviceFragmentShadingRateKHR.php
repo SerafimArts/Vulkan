@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceFragmentShadingRateKHR.html
  * @since VK_KHR_fragment_shading_rate
  */
-final readonly class VkPhysicalDeviceFragmentShadingRateKHR extends OutputStructure
+final readonly class VkPhysicalDeviceFragmentShadingRateKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_KHR->value;
 
     public function __construct(

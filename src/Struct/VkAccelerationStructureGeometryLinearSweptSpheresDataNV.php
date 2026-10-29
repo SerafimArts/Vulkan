@@ -21,8 +21,10 @@ use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryLinearSweptSpheresDataNV.html
  * @since VK_NV_ray_tracing_linear_swept_spheres
  */
-final class VkAccelerationStructureGeometryLinearSweptSpheresDataNV extends InputStructure implements VkAccelerationStructureGeometryKHRExtension
+final class VkAccelerationStructureGeometryLinearSweptSpheresDataNV implements InputStructureInterface, VkAccelerationStructureGeometryKHRExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkAccelerationStructureGeometryLinearSweptSpheresDataNV';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV->value;
@@ -60,13 +62,16 @@ final class VkAccelerationStructureGeometryLinearSweptSpheresDataNV extends Inpu
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

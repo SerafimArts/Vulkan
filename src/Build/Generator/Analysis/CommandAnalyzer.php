@@ -8,6 +8,7 @@ use Serafim\Vulkan\Build\Generator\Analysis\CommandAnalyzer\OutputLengths;
 use Serafim\Vulkan\Build\Generator\Analysis\CommandAnalyzer\ParameterRoles;
 use Serafim\Vulkan\Build\Generator\Exception\UnsupportedDeclarationException;
 use Serafim\Vulkan\Build\Generator\Registry\CommandDefinition;
+use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 
 /**
@@ -68,6 +69,19 @@ final readonly class CommandAnalyzer
             return new CommandPlan($command, CommandKind::EXECUTE, $parameters, null, $returnsResult, null, $returnKind);
         }
 
+        $handles = $this->findHandles($output);
+
+        if ($handles !== null) {
+            return new CommandPlan(
+                $command,
+                CommandKind::CREATE_HANDLES,
+                $parameters,
+                $output,
+                $returnsResult,
+                handles: $handles,
+            );
+        }
+
         $outputLength = null;
 
         $isArray = $output->role === ParameterRole::OUTPUT_ARRAY || $output->role === ParameterRole::OUTPUT_BINARY;
@@ -104,7 +118,47 @@ final readonly class CommandAnalyzer
             throw $this->createException($command, 'the command that releases the handle is unknown');
         }
 
-        return new CommandPlan($command, $kind, $parameters, $output, $returnsResult, $outputLength);
+        return new CommandPlan(
+            $command,
+            $kind,
+            $parameters,
+            $output,
+            $returnsResult,
+            $outputLength,
+            requested: $this->findRequested($kind, $parameters, $output, $outputLength),
+        );
+    }
+
+    /**
+     * Returns the parameter with the number of the structures and the member
+     * that the user gives, when the structures are filled in part by the user.
+     *
+     * @param list<ParameterPlan> $parameters
+     *
+     * @return array{non-empty-string, non-empty-string}|null
+     */
+    private function findRequested(
+        CommandKind $kind,
+        array $parameters,
+        ParameterPlan $output,
+        ?string $outputLength,
+    ): ?array {
+        $member = MixedStructures::findInput($output->field->type);
+
+        if ($kind !== CommandKind::QUERY_ARRAY || $member === null || $outputLength === null) {
+            return null;
+        }
+
+        foreach ($parameters as $parameter) {
+            if ($parameter->role === ParameterRole::SCALAR && '$' . $parameter->name === $outputLength) {
+                /** @var non-empty-string $name */
+                $name = $parameter->name;
+
+                return [$name, $member];
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -169,6 +223,49 @@ final readonly class CommandAnalyzer
             $outputs,
             $lengths,
         );
+    }
+
+    /**
+     * Returns the member that holds the created handles when the structure
+     * the command fills consists of nothing but their number and the handles.
+     */
+    private function findHandles(ParameterPlan $output): ?FieldDefinition
+    {
+        if ($output->role !== ParameterRole::OUTPUT_STRUCTURE) {
+            return null;
+        }
+
+        $struct = $this->registry->findStruct($output->field->type);
+
+        if ($struct === null) {
+            return null;
+        }
+
+        $handles = null;
+        $others = [];
+
+        foreach ($struct->members as $member) {
+            $isHandles = $member->pointerDepth === 1
+                && !$member->isConst
+                && $member->length !== null
+                && $this->types->resolve($member->type) === TypeKind::HANDLE;
+
+            if ($isHandles) {
+                $handles = $member;
+
+                continue;
+            }
+
+            if (!\in_array($member->name, ['sType', 'pNext'], true)) {
+                $others[] = $member->name;
+            }
+        }
+
+        if ($handles === null || $others !== [$handles->length]) {
+            return null;
+        }
+
+        return $handles;
     }
 
     private function isOutput(ParameterPlan $parameter): bool

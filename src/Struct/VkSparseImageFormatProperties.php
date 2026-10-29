@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkSparseImageFormatFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageFormatProperties.html
  * @since 1.0
  */
-final readonly class VkSparseImageFormatProperties extends OutputStructure
+final readonly class VkSparseImageFormatProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int-mask-of<VkImageAspectFlagBits::*> */
         public int $aspectMask,

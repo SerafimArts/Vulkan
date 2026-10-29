@@ -16,14 +16,17 @@ use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan14Properties.html
  * @since 1.4
  */
-final readonly class VkPhysicalDeviceVulkan14Properties extends OutputStructure implements VkPhysicalDeviceProperties2Extension, BufferedStructureInterface
+final readonly class VkPhysicalDeviceVulkan14Properties implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_4_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData
@@ -67,18 +70,23 @@ final readonly class VkPhysicalDeviceVulkan14Properties extends OutputStructure 
      *
      * @phpstan-param CData $data
      */
-    public static function allocateBuffers(Allocator $memory, CData $data): bool
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
+        $owner ??= $data;
         $isAllocated = false;
 
         if ($data->copySrcLayoutCount !== 0) {
-            $data->pCopySrcLayouts = $memory->ffi->cast('VkImageLayout*', $memory->new('VkImageLayout[' . $data->copySrcLayoutCount . ']', $data));
-            $isAllocated = true;
+            if ($data->pCopySrcLayouts === null) {
+                $data->pCopySrcLayouts = $memory->newArray('VkImageLayout', $data->copySrcLayoutCount, $owner);
+                $isAllocated = true;
+            }
         }
 
         if ($data->copyDstLayoutCount !== 0) {
-            $data->pCopyDstLayouts = $memory->ffi->cast('VkImageLayout*', $memory->new('VkImageLayout[' . $data->copyDstLayoutCount . ']', $data));
-            $isAllocated = true;
+            if ($data->pCopyDstLayouts === null) {
+                $data->pCopyDstLayouts = $memory->newArray('VkImageLayout', $data->copyDstLayoutCount, $owner);
+                $isAllocated = true;
+            }
         }
 
         return $isAllocated;

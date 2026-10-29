@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTensorExplicitTilingFormatPropertiesARM.html
  * @since VK_ARM_tensor_controls
  */
-final readonly class VkTensorExplicitTilingFormatPropertiesARM extends OutputStructure implements VkFormatProperties2Extension, ChainedStructureInterface
+final readonly class VkTensorExplicitTilingFormatPropertiesARM implements OutputStructureInterface, VkFormatProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_EXPLICIT_TILING_FORMAT_PROPERTIES_ARM->value;
 
     public static function createNative(Allocator $memory): CData

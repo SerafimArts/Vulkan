@@ -18,8 +18,10 @@ use Serafim\Vulkan\VulkanBase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPlanePropertiesKHR.html
  * @since VK_KHR_display
  */
-final readonly class VkDisplayPlanePropertiesKHR extends OutputStructure
+final readonly class VkDisplayPlanePropertiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Display the plane is currently associated with. Will be

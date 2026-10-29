@@ -79,7 +79,11 @@ final readonly class MultipleBody implements Body
             return [
                 ...$lines,
                 '',
-                ...$this->calls->createCallLines($plan, $this->calls->createArguments($plan)),
+                ...$this->calls->createBufferedCallLines(
+                    $plan,
+                    $this->calls->createArguments($plan),
+                    $this->findBuffered($namespace, $plan),
+                ),
                 '',
                 ...$this->flatten($reads),
                 '',
@@ -97,6 +101,26 @@ final readonly class MultipleBody implements Body
             '',
             ...$result,
         ];
+    }
+
+    /**
+     * Returns the expressions that allocate the arrays of the outputs Vulkan
+     * fills.
+     *
+     * @return list<string>
+     */
+    private function findBuffered(PhpNamespace $namespace, CommandPlan $plan): array
+    {
+        $buffered = [];
+
+        foreach ($plan->outputs as $output) {
+            if ($output->role === ParameterRole::OUTPUT_STRUCTURE && $this->structures->hasArrays($output->field->type)) {
+                $buffered[] = Imports::import($namespace, Locations::STRUCT_NAMESPACE, $output->field->type)
+                    . '::allocateBuffers($this->memory, $native' . \ucfirst($output->name) . ')';
+            }
+        }
+
+        return $buffered;
     }
 
     /**

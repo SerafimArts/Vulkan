@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceSparseProperties.html
  * @since 1.0
  */
-final readonly class VkPhysicalDeviceSparseProperties extends OutputStructure
+final readonly class VkPhysicalDeviceSparseProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Sparse resources support: GPU will access all 2D (single sample)

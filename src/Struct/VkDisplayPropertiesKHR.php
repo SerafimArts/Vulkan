@@ -19,8 +19,10 @@ use Serafim\Vulkan\VulkanBase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayPropertiesKHR.html
  * @since VK_KHR_display
  */
-final readonly class VkDisplayPropertiesKHR extends OutputStructure
+final readonly class VkDisplayPropertiesKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** Handle of the display object */
         public ?VkDisplayKHR $display,

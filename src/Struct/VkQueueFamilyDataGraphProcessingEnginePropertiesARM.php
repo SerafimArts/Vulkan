@@ -17,8 +17,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyDataGraphProcessingEnginePropertiesARM.html
  * @since VK_ARM_data_graph
  */
-final readonly class VkQueueFamilyDataGraphProcessingEnginePropertiesARM extends OutputStructure
+final readonly class VkQueueFamilyDataGraphProcessingEnginePropertiesARM implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM->value;
 
     public function __construct(

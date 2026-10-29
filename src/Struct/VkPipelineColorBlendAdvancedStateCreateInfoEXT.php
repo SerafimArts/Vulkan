@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkPipelineColorBlendStateCreateInfoExtension
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineColorBlendAdvancedStateCreateInfoEXT.html
  * @since VK_EXT_blend_operation_advanced
  */
-final class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends InputStructure implements VkPipelineColorBlendStateCreateInfoExtension
+final class VkPipelineColorBlendAdvancedStateCreateInfoEXT implements InputStructureInterface, VkPipelineColorBlendStateCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkPipelineColorBlendAdvancedStateCreateInfoEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_ADVANCED_STATE_CREATE_INFO_EXT->value;
@@ -41,13 +43,16 @@ final class VkPipelineColorBlendAdvancedStateCreateInfoEXT extends InputStructur
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

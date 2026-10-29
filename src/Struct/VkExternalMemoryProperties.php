@@ -16,8 +16,10 @@ use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalMemoryProperties.html
  * @since 1.1
  */
-final readonly class VkExternalMemoryProperties extends OutputStructure
+final readonly class VkExternalMemoryProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int-mask-of<VkExternalMemoryFeatureFlagBits::*> */
         public int $externalMemoryFeatures,

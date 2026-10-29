@@ -18,8 +18,10 @@ use Serafim\Vulkan\Enum\VkExternalMemoryHandleTypeFlagBitsNV;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExternalImageFormatPropertiesNV.html
  * @since VK_NV_external_memory_capabilities
  */
-final readonly class VkExternalImageFormatPropertiesNV extends OutputStructure
+final readonly class VkExternalImageFormatPropertiesNV implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         public VkImageFormatProperties $imageFormatProperties,
         /** @var int-mask-of<VkExternalMemoryFeatureFlagBitsNV::*> */

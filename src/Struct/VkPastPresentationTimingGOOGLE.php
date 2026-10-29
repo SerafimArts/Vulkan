@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPastPresentationTimingGOOGLE.html
  * @since VK_GOOGLE_display_timing
  */
-final readonly class VkPastPresentationTimingGOOGLE extends OutputStructure
+final readonly class VkPastPresentationTimingGOOGLE implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Application-provided identifier, previously given to

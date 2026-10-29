@@ -19,8 +19,10 @@ use Serafim\Vulkan\VulkanBase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceGroupProperties.html
  * @since 1.1
  */
-final readonly class VkPhysicalDeviceGroupProperties extends OutputStructure
+final readonly class VkPhysicalDeviceGroupProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_GROUP_PROPERTIES->value;
 
     public function __construct(

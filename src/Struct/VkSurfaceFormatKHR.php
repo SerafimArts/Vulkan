@@ -20,8 +20,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-gpdsc2
  * @since VK_KHR_surface
  */
-final readonly class VkSurfaceFormatKHR extends OutputStructure
+final readonly class VkSurfaceFormatKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** Supported pair of rendering format */
         public VkFormat $format,

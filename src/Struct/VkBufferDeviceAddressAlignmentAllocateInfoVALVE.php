@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkMemoryAllocateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkBufferDeviceAddressAlignmentAllocateInfoVALVE.html
  * @since VK_VALVE_buffer_device_address_allocation_alignment
  */
-final class VkBufferDeviceAddressAlignmentAllocateInfoVALVE extends InputStructure implements VkBufferCreateInfoExtension, VkMemoryAllocateInfoExtension
+final class VkBufferDeviceAddressAlignmentAllocateInfoVALVE implements InputStructureInterface, VkBufferCreateInfoExtension, VkMemoryAllocateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkBufferDeviceAddressAlignmentAllocateInfoVALVE';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_ALIGNMENT_ALLOCATE_INFO_VALVE->value;
@@ -38,13 +40,16 @@ final class VkBufferDeviceAddressAlignmentAllocateInfoVALVE extends InputStructu
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

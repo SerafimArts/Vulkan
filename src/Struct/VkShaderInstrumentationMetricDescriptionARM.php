@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderInstrumentationMetricDescriptionARM.html
  * @since VK_ARM_shader_instrumentation
  */
-final readonly class VkShaderInstrumentationMetricDescriptionARM extends OutputStructure
+final readonly class VkShaderInstrumentationMetricDescriptionARM implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_INSTRUMENTATION_METRIC_DESCRIPTION_ARM->value;
 
     public function __construct(

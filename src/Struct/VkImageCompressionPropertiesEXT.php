@@ -22,8 +22,10 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceFormat2KHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkImageCompressionPropertiesEXT.html
  * @since VK_EXT_image_compression_control
  */
-final readonly class VkImageCompressionPropertiesEXT extends OutputStructure implements VkImageFormatProperties2Extension, VkSurfaceFormat2KHRExtension, VkSubresourceLayout2Extension, ChainedStructureInterface
+final readonly class VkImageCompressionPropertiesEXT implements OutputStructureInterface, VkImageFormatProperties2Extension, VkSurfaceFormat2KHRExtension, VkSubresourceLayout2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_COMPRESSION_PROPERTIES_EXT->value;
 
     public static function createNative(Allocator $memory): CData

@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryHostPointerPropertiesEXT.html
  * @since VK_EXT_external_memory_host
  */
-final readonly class VkMemoryHostPointerPropertiesEXT extends OutputStructure
+final readonly class VkMemoryHostPointerPropertiesEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_HOST_POINTER_PROPERTIES_EXT->value;
 
     public function __construct(

@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkShaderResourceUsageAMD.html
  * @since VK_AMD_shader_info
  */
-final readonly class VkShaderResourceUsageAMD extends OutputStructure
+final readonly class VkShaderResourceUsageAMD implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $numUsedVgprs,

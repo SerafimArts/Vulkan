@@ -24,8 +24,10 @@ use Serafim\Vulkan\Struct\Extension\VkNativeBufferPropertiesOHOSExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkNativeBufferFormatPropertiesOHOS.html
  * @since VK_OHOS_external_memory
  */
-final readonly class VkNativeBufferFormatPropertiesOHOS extends OutputStructure implements VkNativeBufferPropertiesOHOSExtension, ChainedStructureInterface
+final readonly class VkNativeBufferFormatPropertiesOHOS implements OutputStructureInterface, VkNativeBufferPropertiesOHOSExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_NATIVE_BUFFER_FORMAT_PROPERTIES_OHOS->value;
 
     public static function createNative(Allocator $memory): CData

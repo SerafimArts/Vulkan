@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineConstantARMExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM.html
  * @since VK_ARM_data_graph
  */
-final class VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM extends InputStructure implements VkDataGraphPipelineConstantARMExtension
+final class VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM implements InputStructureInterface, VkDataGraphPipelineConstantARMExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM->value;
@@ -43,13 +45,16 @@ final class VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM exten
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

@@ -18,8 +18,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryGetZirconHandleInfoFUCHSIA.html
  * @since VK_FUCHSIA_external_memory
  */
-final class VkMemoryGetZirconHandleInfoFUCHSIA extends InputStructure
+final class VkMemoryGetZirconHandleInfoFUCHSIA implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkMemoryGetZirconHandleInfoFUCHSIA';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_GET_ZIRCON_HANDLE_INFO_FUCHSIA->value;
@@ -39,8 +41,11 @@ final class VkMemoryGetZirconHandleInfoFUCHSIA extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 

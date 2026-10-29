@@ -124,20 +124,26 @@ enum PropertyKind
      * `T*` of a returned structure that Vulkan fills: the user gives only the
      * place for it
      */
-    case RESULT_STRUCTURE;
+    case FEEDBACK_STRUCTURE;
 
     /**
      * `T*` of returned structures that Vulkan fills, the number of the
      * elements is in another member the user gives
      */
-    case RESULT_ARRAY;
+    case FEEDBACK_ARRAY;
 
     /**
      * `T*` of numbers, enums or structures that Vulkan fills in a returned
      * structure, the number of the elements is in another member Vulkan reads
      * and writes
      */
-    case FILLED_ARRAY;
+    case QUERIED_ARRAY;
+
+    /**
+     * `void*` of the bytes that Vulkan fills in a returned structure, the size
+     * is in another member
+     */
+    case QUERIED_BYTES;
 
     /**
      * `const T*` of structures with the length in another member

@@ -14,8 +14,10 @@ use FFI\CData;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkConformanceVersion.html
  * @since 1.2
  */
-final readonly class VkConformanceVersion extends OutputStructure
+final readonly class VkConformanceVersion implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int<0, 255> */
         public int $major,

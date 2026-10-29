@@ -2300,6 +2300,7 @@ namespace PHPSTORM_META {
     expectedArguments(\Serafim\Vulkan\Vulkan::vkSubmitDebugUtilsMessageEXT(), 2, argumentsSet('VkDebugUtilsMessageTypeFlagBitsEXT'));
     override(\Serafim\Vulkan\Struct\VkAndroidHardwareBufferPropertiesANDROID::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkDescriptorSetLayoutSupport::findChained(0), type(0));
+    override(\Serafim\Vulkan\Struct\VkDeviceFaultDebugInfoKHR::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkDisplayModeProperties2KHR::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkExportMetalObjectsInfoEXT::findChained(0), type(0));
     override(\Serafim\Vulkan\Struct\VkFormatProperties2::findChained(0), type(0));

@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV.html
  * @since VK_NV_cluster_acceleration_structure
  */
-final class VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV extends InputStructure
+final class VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV';
 
     public function __construct(
@@ -35,8 +37,11 @@ final class VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV extends
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->clusterReferencesCount = $this->clusterReferencesCount;
 

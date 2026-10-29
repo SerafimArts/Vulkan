@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkQueueFamilyProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkQueueFamilyGlobalPriorityProperties.html
  * @since 1.4
  */
-final readonly class VkQueueFamilyGlobalPriorityProperties extends OutputStructure implements VkQueueFamilyProperties2Extension, ChainedStructureInterface
+final readonly class VkQueueFamilyGlobalPriorityProperties implements OutputStructureInterface, VkQueueFamilyProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUEUE_FAMILY_GLOBAL_PRIORITY_PROPERTIES->value;
 
     public static function createNative(Allocator $memory): CData

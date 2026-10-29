@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubpassResolvePerformanceQueryEXT.html
  * @since VK_EXT_multisampled_render_to_single_sampled
  */
-final readonly class VkSubpassResolvePerformanceQueryEXT extends OutputStructure implements VkFormatProperties2Extension, ChainedStructureInterface
+final readonly class VkSubpassResolvePerformanceQueryEXT implements OutputStructureInterface, VkFormatProperties2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_RESOLVE_PERFORMANCE_QUERY_EXT->value;
 
     public static function createNative(Allocator $memory): CData

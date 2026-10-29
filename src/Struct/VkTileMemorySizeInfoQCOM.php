@@ -19,8 +19,10 @@ use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemorySizeInfoQCOM.html
  * @since VK_QCOM_tile_memory_heap
  */
-final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderPassCreateInfoExtension, VkRenderPassCreateInfo2Extension, VkRenderingInfoExtension
+final class VkTileMemorySizeInfoQCOM implements InputStructureInterface, VkRenderPassCreateInfoExtension, VkRenderPassCreateInfo2Extension, VkRenderingInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkTileMemorySizeInfoQCOM';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM->value;
@@ -38,13 +40,16 @@ final class VkTileMemorySizeInfoQCOM extends InputStructure implements VkRenderP
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

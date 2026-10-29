@@ -17,8 +17,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkColorBlendEquationEXT.html
  * @since VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
  */
-final class VkColorBlendEquationEXT extends InputStructure
+final class VkColorBlendEquationEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkColorBlendEquationEXT';
 
     public function __construct(
@@ -41,8 +43,11 @@ final class VkColorBlendEquationEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->srcColorBlendFactor = $this->srcColorBlendFactor->value;
 

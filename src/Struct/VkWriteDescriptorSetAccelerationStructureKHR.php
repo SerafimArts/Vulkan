@@ -21,8 +21,10 @@ use Serafim\Vulkan\Struct\Extension\VkWriteDescriptorSetExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-descriptor-sets
  * @since VK_KHR_acceleration_structure
  */
-final class VkWriteDescriptorSetAccelerationStructureKHR extends InputStructure implements VkWriteDescriptorSetExtension
+final class VkWriteDescriptorSetAccelerationStructureKHR implements InputStructureInterface, VkWriteDescriptorSetExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkWriteDescriptorSetAccelerationStructureKHR';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR->value;
@@ -42,13 +44,16 @@ final class VkWriteDescriptorSetAccelerationStructureKHR extends InputStructure 
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

@@ -18,8 +18,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionMemoryRequirementsInfoARM.html
  * @since VK_ARM_data_graph
  */
-final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM extends InputStructure
+final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineSessionMemoryRequirementsInfoARM';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM->value;
@@ -41,8 +43,11 @@ final class VkDataGraphPipelineSessionMemoryRequirementsInfoARM extends InputStr
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 

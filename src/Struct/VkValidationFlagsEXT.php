@@ -20,8 +20,10 @@ use Serafim\Vulkan\Struct\Extension\VkInstanceCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkValidationFlagsEXT.html
  * @since VK_EXT_validation_flags
  */
-final class VkValidationFlagsEXT extends InputStructure implements VkInstanceCreateInfoExtension
+final class VkValidationFlagsEXT implements InputStructureInterface, VkInstanceCreateInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkValidationFlagsEXT';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VALIDATION_FLAGS_EXT->value;
@@ -45,13 +47,16 @@ final class VkValidationFlagsEXT extends InputStructure implements VkInstanceCre
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkMemoryRequirements2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTileMemoryRequirementsQCOM.html
  * @since VK_QCOM_tile_memory_heap
  */
-final readonly class VkTileMemoryRequirementsQCOM extends OutputStructure implements VkMemoryRequirements2Extension, ChainedStructureInterface
+final readonly class VkTileMemoryRequirementsQCOM implements OutputStructureInterface, VkMemoryRequirements2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_REQUIREMENTS_QCOM->value;
 
     public static function createNative(Allocator $memory): CData

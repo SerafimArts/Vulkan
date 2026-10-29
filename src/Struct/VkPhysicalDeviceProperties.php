@@ -16,8 +16,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceProperties.html
  * @since 1.0
  */
-final readonly class VkPhysicalDeviceProperties extends OutputStructure
+final readonly class VkPhysicalDeviceProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int<0, 4294967295> */
         public int $apiVersion,

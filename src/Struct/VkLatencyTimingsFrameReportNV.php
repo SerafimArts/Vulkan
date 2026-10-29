@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkLatencyTimingsFrameReportNV.html
  * @since VK_NV_low_latency2
  */
-final readonly class VkLatencyTimingsFrameReportNV extends OutputStructure
+final readonly class VkLatencyTimingsFrameReportNV implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_LATENCY_TIMINGS_FRAME_REPORT_NV->value;
 
     public function __construct(

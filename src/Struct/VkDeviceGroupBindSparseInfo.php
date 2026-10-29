@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkBindSparseInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceGroupBindSparseInfo.html
  * @since 1.1
  */
-final class VkDeviceGroupBindSparseInfo extends InputStructure implements VkBindSparseInfoExtension
+final class VkDeviceGroupBindSparseInfo implements InputStructureInterface, VkBindSparseInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkDeviceGroupBindSparseInfo';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_BIND_SPARSE_INFO->value;
@@ -40,13 +42,16 @@ final class VkDeviceGroupBindSparseInfo extends InputStructure implements VkBind
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

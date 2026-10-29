@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelinePropertiesIdentifierEXT.html
  * @since VK_EXT_pipeline_properties
  */
-final readonly class VkPipelinePropertiesIdentifierEXT extends OutputStructure
+final readonly class VkPipelinePropertiesIdentifierEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_PROPERTIES_IDENTIFIER_EXT->value;
 
     public function __construct(

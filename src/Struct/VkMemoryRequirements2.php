@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkMemoryRequirements2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryRequirements2.html
  * @since 1.1
  */
-final readonly class VkMemoryRequirements2 extends OutputStructure
+final readonly class VkMemoryRequirements2 implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_REQUIREMENTS_2->value;
 
     public function __construct(

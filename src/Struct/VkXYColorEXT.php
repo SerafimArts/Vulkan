@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkXYColorEXT.html
  * @since VK_EXT_hdr_metadata
  */
-final class VkXYColorEXT extends InputStructure
+final class VkXYColorEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkXYColorEXT';
 
     public function __construct(
@@ -31,8 +33,11 @@ final class VkXYColorEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->x = $this->x;
 

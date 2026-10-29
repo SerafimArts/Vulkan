@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkFormatProperties.html
  * @since 1.0
  */
-final readonly class VkFormatProperties extends OutputStructure
+final readonly class VkFormatProperties implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /**
          * Format features in case of linear tiling

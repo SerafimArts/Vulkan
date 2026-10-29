@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSparseImageMemoryRequirements2.html
  * @since 1.1
  */
-final readonly class VkSparseImageMemoryRequirements2 extends OutputStructure
+final readonly class VkSparseImageMemoryRequirements2 implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SPARSE_IMAGE_MEMORY_REQUIREMENTS_2->value;
 
     public function __construct(

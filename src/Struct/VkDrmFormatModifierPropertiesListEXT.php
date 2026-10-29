@@ -12,14 +12,17 @@ use FFI\CData;
 use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkFormatProperties2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierPropertiesListEXT.html
  * @since VK_EXT_image_drm_format_modifier
  */
-final readonly class VkDrmFormatModifierPropertiesListEXT extends OutputStructure implements VkFormatProperties2Extension, BufferedStructureInterface
+final readonly class VkDrmFormatModifierPropertiesListEXT implements OutputStructureInterface, VkFormatProperties2Extension, ChainedStructureInterface, BufferedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DRM_FORMAT_MODIFIER_PROPERTIES_LIST_EXT->value;
 
     public static function createNative(Allocator $memory): CData
@@ -40,13 +43,16 @@ final readonly class VkDrmFormatModifierPropertiesListEXT extends OutputStructur
      *
      * @phpstan-param CData $data
      */
-    public static function allocateBuffers(Allocator $memory, CData $data): bool
+    public static function allocateBuffers(Allocator $memory, CData $data, ?CData $owner = null): bool
     {
+        $owner ??= $data;
         $isAllocated = false;
 
         if ($data->drmFormatModifierCount !== 0) {
-            $data->pDrmFormatModifierProperties = $memory->ffi->cast('VkDrmFormatModifierPropertiesEXT*', $memory->new('VkDrmFormatModifierPropertiesEXT[' . $data->drmFormatModifierCount . ']', $data));
-            $isAllocated = true;
+            if ($data->pDrmFormatModifierProperties === null) {
+                $data->pDrmFormatModifierProperties = $memory->newArray('VkDrmFormatModifierPropertiesEXT', $data->drmFormatModifierCount, $owner);
+                $isAllocated = true;
+            }
         }
 
         return $isAllocated;

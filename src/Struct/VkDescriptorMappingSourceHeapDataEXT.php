@@ -15,8 +15,10 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDescriptorMappingSourceHeapDataEXT.html
  * @since VK_EXT_descriptor_heap
  */
-final class VkDescriptorMappingSourceHeapDataEXT extends InputStructure
+final class VkDescriptorMappingSourceHeapDataEXT implements InputStructureInterface
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkDescriptorMappingSourceHeapDataEXT';
 
     public function __construct(
@@ -33,8 +35,11 @@ final class VkDescriptorMappingSourceHeapDataEXT extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->heapOffset = $this->heapOffset;
 

@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkDataGraphPipelineResourceInfoARMExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineResourceInfoImageLayoutARM.html
  * @since VK_ARM_data_graph_optical_flow
  */
-final class VkDataGraphPipelineResourceInfoImageLayoutARM extends InputStructure implements VkDataGraphPipelineResourceInfoARMExtension
+final class VkDataGraphPipelineResourceInfoImageLayoutARM implements InputStructureInterface, VkDataGraphPipelineResourceInfoARMExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkDataGraphPipelineResourceInfoImageLayoutARM';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_IMAGE_LAYOUT_ARM->value;
@@ -37,13 +39,16 @@ final class VkDataGraphPipelineResourceInfoImageLayoutARM extends InputStructure
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Tests\Struct;
 
-use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkSemaphore;
-use Serafim\Vulkan\Struct\InputStructure;
+use Serafim\Vulkan\Struct\InputStructureTrait;
 use Serafim\Vulkan\Struct\VkClearColorValue;
 use Serafim\Vulkan\Struct\VkClearDepthStencilValue;
 use Serafim\Vulkan\Struct\VkClearValue;
@@ -22,12 +22,11 @@ use Serafim\Vulkan\Struct\VkOffset3D;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan12Features;
 use Serafim\Vulkan\Struct\VkPipelineCreationFeedbackCreateInfo;
 use Serafim\Vulkan\Struct\VkPipelineMultisampleStateCreateInfo;
-use Serafim\Vulkan\Struct\VkRenderPassSubpassFeedbackInfoEXT;
 use Serafim\Vulkan\Struct\VkSubmitInfo;
 use Serafim\Vulkan\Tests\TestCase;
 use Serafim\Vulkan\Vulkan;
 
-#[CoversClass(InputStructure::class)]
+#[CoversTrait(InputStructureTrait::class)]
 final class InputStructureTest extends TestCase
 {
     public function testArraysShareTheLengthTheyAreWrittenWith(): void
@@ -70,7 +69,7 @@ final class InputStructureTest extends TestCase
 
         $this->expectException(InvalidStructureException::class);
 
-        InputStructure::createArray($vk->memory, [new VkSubmitInfo(), new VkFenceCreateInfo()]);
+        VkSubmitInfo::createArray($vk->memory, [new VkSubmitInfo(), new VkFenceCreateInfo()]);
     }
 
     public function testChainedStructureIsWrittenToPNext(): void

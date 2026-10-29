@@ -19,8 +19,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/appendices/legacy.html#legacy-dynamicrendering
  * @since VK_EXT_subpass_merge_feedback
  */
-final readonly class VkRenderPassSubpassFeedbackInfoEXT extends OutputStructure
+final readonly class VkRenderPassSubpassFeedbackInfoEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         public VkSubpassMergeStatusEXT $subpassMergeStatus,
         public string $description,

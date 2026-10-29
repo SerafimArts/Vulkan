@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkTilePropertiesQCOM.html
  * @since VK_QCOM_tile_properties
  */
-final readonly class VkTilePropertiesQCOM extends OutputStructure
+final readonly class VkTilePropertiesQCOM implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TILE_PROPERTIES_QCOM->value;
 
     public function __construct(

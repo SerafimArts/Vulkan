@@ -6,6 +6,13 @@ namespace Serafim\Vulkan\Tests;
 
 use FFI\CData;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Serafim\Vulkan\Enum\VkDataGraphPipelinePropertyARM;
+use Serafim\Vulkan\Handle\VkPipeline;
+use Serafim\Vulkan\Handle\VkPipelineBinaryKHR;
+use Serafim\Vulkan\Handle\VkSwapchainKHR;
+use Serafim\Vulkan\Struct\VkDataGraphPipelineInfoARM;
+use Serafim\Vulkan\Struct\VkPhysicalDeviceHostImageCopyProperties;
+use Serafim\Vulkan\Struct\VkPipelineBinaryCreateInfoKHR;
 use Serafim\Vulkan\Enum\VkPresentModeKHR;
 use Serafim\Vulkan\Enum\VkDebugUtilsMessageSeverityFlagBitsEXT;
 use Serafim\Vulkan\Enum\VkDebugUtilsMessageTypeFlagBitsEXT;
@@ -1073,5 +1080,150 @@ final class VulkanTest extends TestCase
         }
 
         self::markTestSkipped('There are no physical devices');
+    }
+
+    public function testArraysOfStructureAreAllocatedBetweenTheCallsOfTheCommand(): void
+    {
+        $calls = 0;
+        $vk = self::loadVulkan()->withProcedure(
+            'vkGetSwapchainTimeDomainPropertiesEXT',
+            static function (mixed $device, mixed $swapchain, CData $properties, CData $counter) use (&$calls): int {
+                ++$calls;
+
+                if ($properties->pTimeDomains === null) {
+                    $properties->timeDomainCount = 2;
+
+                    return 0;
+                }
+
+                $properties->pTimeDomains[0] = VkTimeDomainKHR::VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR->value;
+                $properties->pTimeDomains[1] = VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR->value;
+                $properties->pTimeDomainIds[0] = 10;
+                $properties->pTimeDomainIds[1] = 20;
+
+                return 0;
+            },
+        );
+
+        $result = $vk->vkGetSwapchainTimeDomainPropertiesEXT(
+            new VkDevice($vk, $vk->ffi->new('VkDevice')),
+            new VkSwapchainKHR($vk, $vk->ffi->new('VkSwapchainKHR')),
+        );
+
+        $properties = $result['swapchainTimeDomainProperties'];
+
+        self::assertSame(2, $calls);
+        self::assertSame(
+            [VkTimeDomainKHR::VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR, VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR],
+            $properties->timeDomains,
+        );
+        self::assertSame([10, 20], $properties->timeDomainIds);
+    }
+
+    public function testHandlesAreCreatedForTheNumberTheFirstCallHasReported(): void
+    {
+        $calls = 0;
+        $base = self::loadVulkan();
+        $ffi = $base->ffi;
+        $vk = $base
+            ->withProcedure(
+                'vkCreatePipelineBinariesKHR',
+                static function (
+                    mixed $device,
+                    mixed $createInfo,
+                    mixed $allocator,
+                    CData $binaries,
+                ) use (&$calls, $ffi): int {
+                    ++$calls;
+
+                    if ($binaries->pPipelineBinaries === null) {
+                        $binaries->pipelineBinaryCount = 2;
+
+                        return 0;
+                    }
+
+                    $binaries->pPipelineBinaries[0] = $ffi->cast('VkPipelineBinaryKHR', 16);
+                    $binaries->pPipelineBinaries[1] = $ffi->cast('VkPipelineBinaryKHR', 32);
+
+                    return 0;
+                },
+            )
+            ->withProcedure('vkDestroyPipelineBinaryKHR', static function (): void {});
+
+        $binaries = $vk->vkCreatePipelineBinariesKHR(
+            new VkDevice($vk, $vk->ffi->new('VkDevice')),
+            new VkPipelineBinaryCreateInfoKHR(),
+        );
+
+        self::assertSame(2, $calls);
+        self::assertCount(2, $binaries);
+        self::assertContainsOnlyInstancesOf(VkPipelineBinaryKHR::class, $binaries);
+    }
+
+    public function testStructuresFilledInPartAreGivenTheRequestedValuesAndTheirBytesAreAllocated(): void
+    {
+        $calls = 0;
+        $requested = null;
+        $vk = self::loadVulkan()->withProcedure(
+            'vkGetDataGraphPipelinePropertiesARM',
+            static function (mixed $device, mixed $info, int $count, CData $properties) use (&$calls, &$requested): int {
+                ++$calls;
+                $requested = $properties[0]->property;
+
+                if ($properties[0]->pData === null) {
+                    $properties[0]->dataSize = 3;
+
+                    return 0;
+                }
+
+                \FFI::memcpy($properties[0]->pData, 'abc', 3);
+
+                return 0;
+            },
+        );
+
+        $results = $vk->vkGetDataGraphPipelinePropertiesARM(
+            new VkDevice($vk, $vk->ffi->new('VkDevice')),
+            new VkDataGraphPipelineInfoARM(new VkPipeline($vk, $vk->ffi->new('VkPipeline'))),
+            [VkDataGraphPipelinePropertyARM::VK_DATA_GRAPH_PIPELINE_PROPERTY_IDENTIFIER_ARM],
+        );
+
+        self::assertSame(2, $calls);
+        self::assertSame(VkDataGraphPipelinePropertyARM::VK_DATA_GRAPH_PIPELINE_PROPERTY_IDENTIFIER_ARM->value, $requested);
+        self::assertCount(1, $results);
+        self::assertSame('abc', $results[0]->data);
+    }
+
+    public function testStructureOfTheChainIsFilledInTheSecondCallOfTheCommand(): void
+    {
+        $calls = 0;
+        $base = self::loadVulkan();
+        $ffi = $base->ffi;
+        $vk = $base->withProcedure(
+            'vkGetPhysicalDeviceProperties2',
+            static function (mixed $device, CData $properties) use (&$calls, $ffi): void {
+                ++$calls;
+
+                $host = $ffi->cast('VkPhysicalDeviceHostImageCopyProperties*', $properties->pNext);
+
+                if ($host->pCopySrcLayouts === null) {
+                    $host->copySrcLayoutCount = 1;
+
+                    return;
+                }
+
+                $host->pCopySrcLayouts[0] = VkImageLayout::VK_IMAGE_LAYOUT_GENERAL->value;
+            },
+        );
+
+        $properties = $vk->vkGetPhysicalDeviceProperties2(
+            new VkPhysicalDevice($vk, $vk->ffi->new('VkPhysicalDevice')),
+            [VkPhysicalDeviceHostImageCopyProperties::class],
+        );
+
+        $host = $properties->findChained(VkPhysicalDeviceHostImageCopyProperties::class);
+
+        self::assertSame(2, $calls);
+        self::assertSame([VkImageLayout::VK_IMAGE_LAYOUT_GENERAL], $host?->copySrcLayouts);
     }
 }

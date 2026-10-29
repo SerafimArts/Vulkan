@@ -57,6 +57,20 @@ final class Allocator
     }
 
     /**
+     * Allocates a zeroed array that Vulkan fills and returns the pointer to
+     * its first element.
+     *
+     * @param non-empty-string $type C type of an element
+     * @param CData $owner the object that keeps the array alive
+     */
+    public function newArray(string $type, int $length, CData $owner): CData
+    {
+        $array = $this->new($type . '[' . \max(1, $length) . ']', $owner);
+
+        return $this->ffi->cast($type . '*', \FFI::addr($array));
+    }
+
+    /**
      * Returns the function pointer of the C type that calls the closure.
      *
      * @param non-empty-string $type C type of the function pointer

@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkPipelineCreationFeedbackFlagBits;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPipelineCreationFeedback.html
  * @since 1.3
  */
-final readonly class VkPipelineCreationFeedback extends OutputStructure
+final readonly class VkPipelineCreationFeedback implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** @var int-mask-of<VkPipelineCreationFeedbackFlagBits::*> */
         public int $flags,

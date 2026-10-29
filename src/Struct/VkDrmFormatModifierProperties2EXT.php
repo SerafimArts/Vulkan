@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkFormatFeatureFlagBits2;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDrmFormatModifierProperties2EXT.html
  * @since VK_EXT_image_drm_format_modifier
  */
-final readonly class VkDrmFormatModifierProperties2EXT extends OutputStructure
+final readonly class VkDrmFormatModifierProperties2EXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public function __construct(
         /** The value is exactly the required one. */
         public int $drmFormatModifier,

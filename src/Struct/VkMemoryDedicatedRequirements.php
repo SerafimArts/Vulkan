@@ -18,8 +18,10 @@ use Serafim\Vulkan\Struct\Extension\VkMemoryRequirements2Extension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkMemoryDedicatedRequirements.html
  * @since 1.1
  */
-final readonly class VkMemoryDedicatedRequirements extends OutputStructure implements VkMemoryRequirements2Extension, ChainedStructureInterface
+final readonly class VkMemoryDedicatedRequirements implements OutputStructureInterface, VkMemoryRequirements2Extension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_DEDICATED_REQUIREMENTS->value;
 
     public static function createNative(Allocator $memory): CData

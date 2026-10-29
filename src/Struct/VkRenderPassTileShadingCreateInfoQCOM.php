@@ -21,8 +21,10 @@ use Serafim\Vulkan\Struct\Extension\VkRenderPassCreateInfoExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkRenderPassTileShadingCreateInfoQCOM.html
  * @since VK_QCOM_tile_shading
  */
-final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure implements VkRenderPassCreateInfoExtension, VkRenderPassCreateInfo2Extension, VkRenderingInfoExtension, VkCommandBufferInheritanceInfoExtension
+final class VkRenderPassTileShadingCreateInfoQCOM implements InputStructureInterface, VkRenderPassCreateInfoExtension, VkRenderPassCreateInfo2Extension, VkRenderingInfoExtension, VkCommandBufferInheritanceInfoExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkRenderPassTileShadingCreateInfoQCOM';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM->value;
@@ -43,13 +45,16 @@ final class VkRenderPassTileShadingCreateInfoQCOM extends InputStructure impleme
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

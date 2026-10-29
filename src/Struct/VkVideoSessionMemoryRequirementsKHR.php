@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoSessionMemoryRequirementsKHR.html
  * @since VK_KHR_video_queue
  */
-final readonly class VkVideoSessionMemoryRequirementsKHR extends OutputStructure
+final readonly class VkVideoSessionMemoryRequirementsKHR implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_SESSION_MEMORY_REQUIREMENTS_KHR->value;
 
     public function __construct(

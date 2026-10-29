@@ -14,8 +14,8 @@ use Serafim\Vulkan\Exception\CommandNotAvailableException;
 use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\Loader\Headers\PreprocessorHeadersLoader;
 use Serafim\Vulkan\Loader\VulkanLoader;
-use Serafim\Vulkan\Struct\OutputStructure;
 use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Internal\Memory\Buffers;
 use Serafim\Vulkan\Internal\VkEnumerator;
 use Serafim\Vulkan\VulkanBase;
 
@@ -66,6 +66,7 @@ final class RuntimeArchitecture
                 Selector::classname(VulkanBase::class),
                 Selector::classname(CommandFailedException::class),
                 Selector::classname(VkResult::class),
+                Selector::classname(Buffers::class),
             );
     }
 

@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectsInfoEXT.html
  * @since VK_EXT_metal_objects
  */
-final readonly class VkExportMetalObjectsInfoEXT extends OutputStructure
+final readonly class VkExportMetalObjectsInfoEXT implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECTS_INFO_EXT->value;
 
     public function __construct(

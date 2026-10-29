@@ -21,8 +21,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeRgbConversionCapabilitiesVALVE.html
  * @since VK_VALVE_video_encode_rgb_conversion
  */
-final readonly class VkVideoEncodeRgbConversionCapabilitiesVALVE extends OutputStructure implements VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
+final readonly class VkVideoEncodeRgbConversionCapabilitiesVALVE implements OutputStructureInterface, VkVideoCapabilitiesKHRExtension, ChainedStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_RGB_CONVERSION_CAPABILITIES_VALVE->value;
 
     public static function createNative(Allocator $memory): CData

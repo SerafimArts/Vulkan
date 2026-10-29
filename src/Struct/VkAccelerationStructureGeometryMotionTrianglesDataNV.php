@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkAccelerationStructureGeometryTrianglesData
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkAccelerationStructureGeometryMotionTrianglesDataNV.html
  * @since VK_NV_ray_tracing_motion_blur
  */
-final class VkAccelerationStructureGeometryMotionTrianglesDataNV extends InputStructure implements VkAccelerationStructureGeometryTrianglesDataKHRExtension
+final class VkAccelerationStructureGeometryMotionTrianglesDataNV implements InputStructureInterface, VkAccelerationStructureGeometryTrianglesDataKHRExtension
 {
+    use InputStructureTrait;
+
     protected const string NATIVE_TYPE = 'VkAccelerationStructureGeometryMotionTrianglesDataNV';
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_MOTION_TRIANGLES_DATA_NV->value;
@@ -36,13 +38,16 @@ final class VkAccelerationStructureGeometryMotionTrianglesDataNV extends InputSt
      * } $data
      *
      * @phpstan-param CData $data
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
      */
-    protected function write(Allocation $memory, CData $data): void
+    public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
 
         if ($this->next !== null) {
-            \assert($this->next instanceof InputStructure);
+            \assert($this->next instanceof InputStructureInterface);
 
             $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
         }

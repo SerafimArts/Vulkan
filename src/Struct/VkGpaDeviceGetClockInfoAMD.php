@@ -15,8 +15,10 @@ use Serafim\Vulkan\Enum\VkStructureType;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkGpaDeviceGetClockInfoAMD.html
  * @since VK_AMD_gpa_interface
  */
-final readonly class VkGpaDeviceGetClockInfoAMD extends OutputStructure
+final readonly class VkGpaDeviceGetClockInfoAMD implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GPA_DEVICE_GET_CLOCK_INFO_AMD->value;
 
     public function __construct(

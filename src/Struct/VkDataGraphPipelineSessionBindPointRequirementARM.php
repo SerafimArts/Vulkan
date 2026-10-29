@@ -18,8 +18,10 @@ use Serafim\Vulkan\Internal\EnumCase;
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDataGraphPipelineSessionBindPointRequirementARM.html
  * @since VK_ARM_data_graph
  */
-final readonly class VkDataGraphPipelineSessionBindPointRequirementARM extends OutputStructure
+final readonly class VkDataGraphPipelineSessionBindPointRequirementARM implements OutputStructureInterface
 {
+    use OutputStructureTrait;
+
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM->value;
 
     public function __construct(

@@ -54,8 +54,17 @@ final readonly class QueryBody implements Body
             return $this->emitChained($namespace, $method, $plan, $class, $lines);
         }
 
+        $buffered = [];
+
+        if ($this->structures->hasArrays($output->field->type)) {
+            $buffered[] = $class . '::allocateBuffers($this->memory, $' . $native . ')';
+        }
+
         $lines[] = '';
-        $lines = [...$lines, ...$this->calls->createCallLines($plan, $this->calls->createArguments($plan))];
+        $lines = [
+            ...$lines,
+            ...$this->calls->createBufferedCallLines($plan, $this->calls->createArguments($plan), $buffered),
+        ];
         $lines[] = '';
         $lines[] = 'return ' . $class . '::createFromCData($' . $native . $this->createContext($plan, $output) . ');';
 
@@ -111,21 +120,16 @@ final readonly class QueryBody implements Body
 
         $lines[] = '$natives = Chain::allocate($this->memory, ' . $native . ', $chain, ' . $marker . '::class);';
         $lines[] = '';
-        $call = $this->calls->createCallLines($plan, $this->calls->createArguments($plan));
-        $lines = [...$lines, ...$call];
+        $buffered = [];
 
         if ($this->structures->hasBuffers($output->field->type)) {
-            $lines[] = '';
-            $lines[] = 'if ($natives->allocateBuffers($this->memory)) {';
-
-            foreach (\array_slice($call, 2) as $line) {
-                $lines[] =
-trim('    ' . $line);
-            }
-
-            $lines[] = '}';
+            $buffered[] = '$natives->allocateBuffers($this->memory)';
         }
 
+        $lines = [
+            ...$lines,
+            ...$this->calls->createBufferedCallLines($plan, $this->calls->createArguments($plan), $buffered),
+        ];
         $lines[] = '';
         $lines[] = 'return ' . $class . '::createFromCData(' . $native . ', $natives->read());';
 
