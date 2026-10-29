@@ -146,6 +146,60 @@ final readonly class EnumerateBody implements Body
     }
 
     /**
+     * Describes the call that fills several arrays of structures of the same
+     * length: the expression returns the enumerators by the names of the
+     * arrays.
+     *
+     * @param list<ParameterPlan> $outputs
+     */
+    public function describeParallel(PhpNamespace $namespace, CommandPlan $plan, array $outputs): Enumeration
+    {
+        $namespace->addUse(self::ENUMERATOR);
+
+        $arguments = $this->calls->createLeadingArguments($plan);
+        $parent = $this->calls->createParentExpression($this->calls->findParent($plan));
+        $arrays = [];
+
+        foreach ($outputs as $output) {
+            $class = Imports::import($namespace, Locations::STRUCT_NAMESPACE, $output->field->type);
+            $factory = $class . '::createFromCData($item)';
+
+            if ($this->structures->needsContext($output->field->type)) {
+                $factory = $class . '::createFromCData($item, vk: $this, parent: ' . $parent . ')';
+            }
+
+            $arrays[] = '        ' . \var_export($output->name, true) . ' => [';
+            $arrays[] = '            ' . \var_export($output->field->type, true) . ',';
+            $arrays[] = '            fn(CData $item): ' . $class . ' => ' . $factory . ',';
+            $arrays[] = '            ' . $class . '::STRUCTURE_TYPE,';
+            $arrays[] = '        ],';
+        }
+
+        $call = ['    static fn(CData $count, ?CData ...$items): mixed => $procedure('];
+
+        foreach ([...$arguments, '$count', '...$items'] as $argument) {
+            $call[] = '        ' . $argument . ',';
+        }
+
+        $call[] = '    ),';
+
+        return new Enumeration(
+            [],
+            [
+                'VkEnumerator::createParallel(',
+                '    $this,',
+                '    ' . \var_export($plan->command->name, true) . ',',
+                ...$call,
+                '    [',
+                ...$arrays,
+                '    ],',
+                ')',
+            ],
+            'array',
+        );
+    }
+
+    /**
      * The structures that others are chained to: the user lists the classes of
      * the structures to fill in each element.
      */

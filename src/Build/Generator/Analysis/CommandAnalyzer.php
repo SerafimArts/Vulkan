@@ -162,8 +162,9 @@ final readonly class CommandAnalyzer
     }
 
     /**
-     * A command that fills several outputs: at most one array of them is
-     * filled in two calls, the others are filled by the user's length.
+     * A command that fills several outputs: the arrays of unknown length are
+     * filled in two calls and share the length, the others are filled by the
+     * user's length.
      *
      * @param list<ParameterPlan> $parameters
      * @param list<ParameterPlan> $outputs
@@ -184,7 +185,7 @@ final readonly class CommandAnalyzer
         ];
         $plan = new CommandPlan($command, CommandKind::QUERY_MULTIPLE, $parameters, $outputs[0], $returnsResult);
         $lengths = [];
-        $enumerated = 0;
+        $enumerated = [];
 
         foreach ($outputs as $output) {
             if (!\in_array($output->role, $roles, true)) {
@@ -192,7 +193,7 @@ final readonly class CommandAnalyzer
             }
 
             if ($plan->isEnumerated($output)) {
-                ++$enumerated;
+                $enumerated[] = $output;
 
                 continue;
             }
@@ -208,7 +209,7 @@ final readonly class CommandAnalyzer
             }
         }
 
-        if ($enumerated > 1) {
+        if (\count($enumerated) > 1 && !$this->isParallel($enumerated)) {
             throw $this->createException($command, 'the command fills several arrays of unknown length');
         }
 
@@ -223,6 +224,27 @@ final readonly class CommandAnalyzer
             $outputs,
             $lengths,
         );
+    }
+
+    /**
+     * Whether the arrays of structures share the length: each of them is
+     * filled with the same number of elements.
+     *
+     * @param list<ParameterPlan> $arrays
+     */
+    private function isParallel(array $arrays): bool
+    {
+        foreach ($arrays as $array) {
+            if ($array->role !== ParameterRole::OUTPUT_ARRAY || $array->kind !== TypeKind::STRUCTURE) {
+                return false;
+            }
+
+            if ($array->field->length !== $arrays[0]->field->length) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

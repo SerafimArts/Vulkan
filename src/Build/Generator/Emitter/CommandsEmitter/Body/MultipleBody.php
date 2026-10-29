@@ -44,10 +44,29 @@ final readonly class MultipleBody implements Body
         $enumeration = null;
         $assignment = [];
 
+        $enumerated = \array_values(\array_filter($plan->outputs, $plan->isEnumerated(...)));
+
+        if (\count($enumerated) > 1) {
+            $enumeration = $this->enumerations->describeParallel($namespace, $plan, $enumerated);
+            $assignment = [
+                '/** @var ' . $this->createEnumeratorsShape($namespace, $enumerated) . ' $enumerators */',
+                ...$this->createAssignment('enumerators', $enumeration),
+            ];
+        }
+
         foreach ($plan->outputs as $output) {
+            if (\count($enumerated) > 1 && $plan->isEnumerated($output)) {
+                $class = Imports::import($namespace, Locations::STRUCT_NAMESPACE, $output->field->type);
+
+                $docs[$output->name] = 'VkEnumerator<' . $class . '>';
+                $values[$output->name] = '$enumerators[' . \var_export($output->name, true) . ']';
+
+                continue;
+            }
+
             if ($plan->isEnumerated($output)) {
                 $enumeration = $this->enumerations->describe($namespace, $plan, $output);
-                $assignment = $this->createAssignment($output, $enumeration);
+                $assignment = $this->createAssignment($output->name, $enumeration);
                 $docs[$output->name] = $enumeration->doc ?? $enumeration->type;
                 $values[$output->name] = '$' . $output->name;
 
@@ -65,7 +84,7 @@ final readonly class MultipleBody implements Body
 
         $method->setReturnType('array');
         $method->addComment('');
-        $method->addComment($this->createShape($docs));
+        $method->addComment('@return ' . $this->createShape($docs));
 
         $result = ['return ['];
 
@@ -124,6 +143,22 @@ final readonly class MultipleBody implements Body
     }
 
     /**
+     * @param list<ParameterPlan> $enumerated
+     */
+    private function createEnumeratorsShape(PhpNamespace $namespace, array $enumerated): string
+    {
+        $docs = [];
+
+        foreach ($enumerated as $output) {
+            $class = Imports::import($namespace, Locations::STRUCT_NAMESPACE, $output->field->type);
+
+            $docs[$output->name] = 'VkEnumerator<' . $class . '>';
+        }
+
+        return $this->createShape($docs);
+    }
+
+    /**
      * @param array<string, string> $docs
      */
     private function createShape(array $docs): string
@@ -134,7 +169,7 @@ final readonly class MultipleBody implements Body
             $items[] = $name . ': ' . $doc;
         }
 
-        return '@return array{' . \implode(', ', $items) . '}';
+        return 'array{' . \implode(', ', $items) . '}';
     }
 
     /**
@@ -153,13 +188,13 @@ final readonly class MultipleBody implements Body
      *
      * @return list<string>
      */
-    private function createAssignment(ParameterPlan $output, Enumeration $enumeration): array
+    private function createAssignment(string $name, Enumeration $enumeration): array
     {
         $expression = $enumeration->expression;
         $first = (string) \array_shift($expression);
         $last = (string) \array_pop($expression);
 
-        return ['$' . $output->name . ' = ' . $first, ...$expression, $last . ';'];
+        return ['$' . $name . ' = ' . $first, ...$expression, $last . ';'];
     }
 
     /**

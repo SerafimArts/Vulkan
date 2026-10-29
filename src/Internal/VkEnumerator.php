@@ -71,6 +71,68 @@ final readonly class VkEnumerator implements \IteratorAggregate, \Countable
     }
 
     /**
+     * Calls the command that fills several arrays of the same length and wraps
+     * each native array it has filled.
+     *
+     * @param non-empty-string $command
+     * @param \Closure(CData, CData|null...): mixed $call calls the command with
+     *        the pointer to the length and the native arrays in the order of
+     *        the given ones
+     * @param array<non-empty-string, array{non-empty-string, \Closure(CData, int<0, max>): mixed, int}> $arrays
+     *        the C type of an element, the factory that creates an element
+     *        from the native one with its index and the `sType` of the
+     *        element, by the names of the arrays
+     *
+     * @return array<non-empty-string, self<mixed>>
+     * @throws CommandFailedException in case of the command fails
+     */
+    public static function createParallel(VulkanBase $vk, string $command, \Closure $call, array $arrays): array
+    {
+        $count = $vk->memory->new('uint32_t');
+        $pointer = \FFI::addr($count);
+
+        do {
+            $vk->assertSuccess($command, self::getCode($call($pointer, ...\array_fill(0, \count($arrays), null))));
+
+            $length = self::readLength($count);
+
+            if ($length === 0) {
+                return \array_map(
+                    static fn(array $array): self => new self(null, 0, $array[1]),
+                    $arrays,
+                );
+            }
+
+            $natives = [];
+
+            foreach ($arrays as $name => [$type, , $structureType]) {
+                $items = $vk->memory->new($type . '[' . $length . ']');
+
+                for ($i = 0; $i < $length; ++$i) {
+                    /** @var CData $item */
+                    $item = $items[$i];
+
+                    $item->sType = $structureType;
+                }
+
+                $natives[$name] = $items;
+            }
+
+            $result = self::getCode($call($pointer, ...\array_values($natives)));
+        } while ($result === VkResult::VK_INCOMPLETE->value);
+
+        $vk->assertSuccess($command, $result);
+
+        $enumerators = [];
+
+        foreach ($arrays as $name => [, $factory]) {
+            $enumerators[$name] = new self($natives[$name], self::readLength($count), $factory);
+        }
+
+        return $enumerators;
+    }
+
+    /**
      * Calls the command and returns the numbers it has written to the native
      * array.
      *
