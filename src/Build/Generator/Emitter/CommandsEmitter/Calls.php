@@ -210,6 +210,21 @@ final readonly class Calls
         return null;
     }
 
+    /**
+     * Returns the expression of the version of Vulkan the instance of the
+     * command was created for.
+     */
+    public function createApiVersionExpression(CommandPlan $plan): string
+    {
+        $parent = $this->findParent($plan);
+
+        if ($parent === null) {
+            return 'null';
+        }
+
+        return 'ApiVersion::find($' . $parent->name . ')';
+    }
+
     public function createParentExpression(?ParameterPlan $parent): string
     {
         if ($parent === null) {

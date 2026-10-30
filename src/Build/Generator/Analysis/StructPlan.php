@@ -65,5 +65,12 @@ final readonly class StructPlan
          * Whether the structure of the next version extends this one
          */
         public bool $hasDescendants = false,
+        /**
+         * The version of Vulkan the structure gathers the members of: the
+         * major and the minor number
+         *
+         * @var array{int, int}|null
+         */
+        public ?array $version = null,
     ) {}
 }

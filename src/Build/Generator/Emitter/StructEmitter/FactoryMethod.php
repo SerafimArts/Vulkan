@@ -89,7 +89,7 @@ final readonly class FactoryMethod
 
         $method->addParameter('data')->setType(CData::class);
 
-        if ($plan->ancestors !== []) {
+        if ($plan->version !== null) {
             $method->addParameter('ancestors')->setType(CData::class);
             $method->setVariadic();
         }

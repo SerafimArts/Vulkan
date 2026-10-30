@@ -75,13 +75,23 @@ final readonly class ChainMethods
      */
     public function emitAncestors(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
     {
-        if ($plan->ancestors === []) {
+        if ($plan->version === null) {
             return;
         }
 
         $class->addImplement(
             Imports::importFullName($namespace, Locations::EXTENSION_NAMESPACE, 'VersionedStructureInterface'),
         );
+
+        $namespace->addUseFunction(Locations::ROOT_NAMESPACE . '\vk_make_api_version');
+
+        $version = $class->addMethod('getVersion')
+            ->setPublic()
+            ->setStatic()
+            ->setReturnType('int')
+            ->setBody('return vk_make_api_version(0, ' . $plan->version[0] . ', ' . $plan->version[1] . ', 0);');
+
+        InternalMethod::mark($version);
 
         $classes = [];
 

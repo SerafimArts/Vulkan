@@ -117,8 +117,15 @@ final readonly class QueryBody implements Body
 
         $namespace->addUse(Locations::EXTENSION_NAMESPACE . '\ChainedStructureInterface');
         $namespace->addUse(Locations::ROOT_NAMESPACE . '\Internal\Chain');
+        $namespace->addUse(Locations::ROOT_NAMESPACE . '\Internal\ApiVersion');
 
-        $lines[] = '$natives = Chain::allocate($this->memory, ' . $native . ', $chain, ' . $marker . '::class);';
+        $lines[] = '$natives = Chain::allocate(
+            $this->memory,
+            ' . $native . ',
+            $chain,
+            ' . $marker . '::class,
+            ' . $this->calls->createApiVersionExpression($plan) . ',
+        );';
         $lines[] = '';
         $buffered = [];
 

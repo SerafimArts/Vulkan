@@ -336,7 +336,8 @@ final readonly class Planner
                 ));
 
                 if ($parent === null) {
-                    $parent = $plan;
+                    $parent = $this->createVersioned($plan, $plan->properties, [], [], false, $current);
+                    $structs[$name] = $parent;
                     $number = $current;
                     $members = $this->findMemberNames($plan->properties);
 
@@ -345,7 +346,14 @@ final readonly class Planner
 
                 $this->assertVersionExtends($plan, $parent, $current === $number + 1, $own, $members);
 
-                $structs[$parent->struct->name] = $this->createVersioned($parent, $parent->properties, $parent->ancestors, $parent->inherited, true);
+                $structs[$parent->struct->name] = $this->createVersioned(
+                    $parent,
+                    $parent->properties,
+                    $parent->ancestors,
+                    $parent->inherited,
+                    true,
+                    $number,
+                );
 
                 $parent = $this->createVersioned(
                     $plan,
@@ -353,6 +361,7 @@ final readonly class Planner
                     [$parent->struct->name, ...$parent->ancestors],
                     [...$parent->inherited, ...$parent->properties],
                     false,
+                    $current,
                 );
                 $structs[$name] = $parent;
                 $number = $current;
@@ -421,6 +430,7 @@ final readonly class Planner
      * @param list<PropertyPlan> $properties
      * @param list<non-empty-string> $ancestors
      * @param list<PropertyPlan> $inherited
+     * @param int<0, max> $number the number of the version without the dot
      */
     private function createVersioned(
         StructPlan $plan,
@@ -428,6 +438,7 @@ final readonly class Planner
         array $ancestors,
         array $inherited,
         bool $hasDescendants,
+        int $number,
     ): StructPlan {
         return new StructPlan(
             $plan->struct,
@@ -441,6 +452,7 @@ final readonly class Planner
             $ancestors,
             $inherited,
             $hasDescendants,
+            [\intdiv($number, 10), $number % 10],
         );
     }
 

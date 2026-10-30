@@ -216,11 +216,12 @@ final readonly class EnumerateBody implements Body
         );
 
         $namespace->addUse(Locations::ROOT_NAMESPACE . '\Internal\Chain');
+        $namespace->addUse(Locations::ROOT_NAMESPACE . '\Internal\ApiVersion');
 
         $arguments = $this->calls->createLeadingArguments($plan);
         $call = [
             '    function (CData $count, ?CData $items) use (' . \implode(', ', $this->findCaptured($arguments))
-                . ', $chain, &$natives): mixed {',
+                . ', $chain, $apiVersion, &$natives): mixed {',
             '        if ($items !== null) {',
             '            $natives = Chain::allocateEach(',
             '                $this->memory,',
@@ -229,6 +230,7 @@ final readonly class EnumerateBody implements Body
             '                ' . $class . '::STRUCTURE_TYPE,',
             '                $chain,',
             '                ' . $marker . '::class,',
+            '                $apiVersion,',
             '            );',
             '        }',
             '',
@@ -246,6 +248,7 @@ final readonly class EnumerateBody implements Body
             [
                 '/** @var list<Chain<ChainedStructureInterface&' . $marker . '>> $natives */',
                 '$natives = [];',
+                '$apiVersion = ' . $this->calls->createApiVersionExpression($plan) . ';',
             ],
             [
                 'VkEnumerator::create(',
