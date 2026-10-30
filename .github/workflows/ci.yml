@@ -56,7 +56,7 @@ jobs:
           cache: true
       - run: composer install --no-interaction --no-progress
       - run: php bin/vulkan download 1.4.366
-      - run: composer test:unit
+      - run: composer test:unit -- --debug
 
   generated:
     name: Generated code is up to date
