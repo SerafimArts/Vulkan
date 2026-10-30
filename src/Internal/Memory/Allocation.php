@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Internal\Memory;
 
 use FFI\CData;
+use Serafim\Vulkan\Exception\InvalidStructure\StructureNotChainableException;
 use Serafim\Vulkan\Handle\Handle;
 use Serafim\Vulkan\Struct\InputStructureInterface;
 
@@ -119,6 +120,43 @@ final readonly class Allocation
     public function toStructure(InputStructureInterface $structure): CData
     {
         return $structure->toCData($this->allocator, $this->owner);
+    }
+
+    /**
+     * Writes the structures of the user to native memory and chains them to
+     * the struct through `pNext`, one after another. A structure that writes
+     * several native structures (the one of a version of Vulkan) or a chain
+     * of its own is followed by the next one after its last native structure.
+     *
+     * @param CData $data the native struct the chain starts from
+     * @param list<object> $structures
+     * @param class-string $marker the interface the structures implement
+     *
+     * @throws StructureNotChainableException in case of a structure cannot be chained to the struct
+     */
+    public function linkChain(CData $data, array $structures, string $marker): void
+    {
+        /** @var CData $tail */
+        $tail = $this->ffi->cast('VkBaseOutStructure*', \FFI::addr($data));
+
+        foreach ($structures as $structure) {
+            if (!$structure instanceof $marker || !$structure instanceof InputStructureInterface) {
+                throw StructureNotChainableException::becauseStructureCannotBeChained($structure::class, $marker);
+            }
+
+            $native = $this->toStructure($structure);
+
+            /** @var CData $head */
+            $head = $this->ffi->cast('VkBaseOutStructure*', \FFI::addr($native));
+
+            $tail->pNext = $head;
+            $tail = $head;
+
+            while ($tail->pNext !== null) {
+                /** @var CData $tail */
+                $tail = $tail->pNext;
+            }
+        }
     }
 
     /**

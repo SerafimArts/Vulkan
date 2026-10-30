@@ -26,7 +26,6 @@ final class VkVideoEncodeH265SessionParametersGetInfoKHR implements InputStructu
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_SESSION_PARAMETERS_GET_INFO_KHR->value;
 
     public function __construct(
-        public ?VkVideoEncodeSessionParametersGetInfoKHRExtension $next = null,
         public bool $writeStdVPS = false,
         public bool $writeStdSPS = false,
         public bool $writeStdPPS = false,
@@ -58,12 +57,6 @@ final class VkVideoEncodeH265SessionParametersGetInfoKHR implements InputStructu
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->writeStdVPS = (int) $this->writeStdVPS;
 

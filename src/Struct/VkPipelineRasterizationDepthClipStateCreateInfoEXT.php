@@ -26,7 +26,6 @@ final class VkPipelineRasterizationDepthClipStateCreateInfoEXT implements InputS
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
         /**
          * Reserved
          *
@@ -52,12 +51,6 @@ final class VkPipelineRasterizationDepthClipStateCreateInfoEXT implements InputS
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

@@ -31,7 +31,6 @@ final class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT implements In
 
     public function __construct(
         public VkBuffer $buffer,
-        public ?VkDescriptorBufferBindingInfoEXTExtension $next = null,
     ) {}
 
     /**
@@ -49,12 +48,6 @@ final class VkDescriptorBufferBindingPushDescriptorBufferHandleEXT implements In
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->buffer = $memory->ffi->cast('VkBuffer', $this->buffer->pointer);
     }

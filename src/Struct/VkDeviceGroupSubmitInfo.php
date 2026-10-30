@@ -26,7 +26,6 @@ final class VkDeviceGroupSubmitInfo implements InputStructureInterface, VkSubmit
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_SUBMIT_INFO->value;
 
     public function __construct(
-        public ?VkSubmitInfoExtension $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $waitSemaphoreDeviceIndices = [],
         /** @var list<int<0, 4294967295>> */
@@ -55,12 +54,6 @@ final class VkDeviceGroupSubmitInfo implements InputStructureInterface, VkSubmit
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->waitSemaphoreDeviceIndices !== []) {
             $data->waitSemaphoreCount = \count($this->waitSemaphoreDeviceIndices);

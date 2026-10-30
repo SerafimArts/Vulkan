@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceLayeredApiPropertiesKHRExten
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceLayeredApiPropertiesKHR.html
  * @since VK_KHR_maintenance7
+ *
+ * @implements ChainRootInterface<VkPhysicalDeviceLayeredApiPropertiesKHRExtension>
  */
-final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR implements OutputStructureInterface
+final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -31,8 +33,8 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR implements OutputSt
         public int $deviceID,
         public VkPhysicalDeviceLayeredApiKHR $layeredAPI,
         public string $deviceName,
-        /** @var list<VkPhysicalDeviceLayeredApiPropertiesKHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkPhysicalDeviceLayeredApiPropertiesKHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
@@ -42,14 +44,14 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR implements OutputSt
      *     layeredAPI: value-of<VkPhysicalDeviceLayeredApiKHR>,
      *     deviceName: CData,
      * } $data
-     * @param list<VkPhysicalDeviceLayeredApiPropertiesKHRExtension> $chain
+     * @param ChainSetInterface<VkPhysicalDeviceLayeredApiPropertiesKHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             vendorID: $data->vendorID,
@@ -58,25 +60,5 @@ final readonly class VkPhysicalDeviceLayeredApiPropertiesKHR implements OutputSt
             deviceName: \FFI::string($data->deviceName),
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkPhysicalDeviceLayeredApiPropertiesKHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

@@ -28,7 +28,12 @@ final class VkImageMemoryRequirementsInfo2 implements InputStructureInterface
 
     public function __construct(
         public VkImage $image,
-        public ?VkImageMemoryRequirementsInfo2Extension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkImageMemoryRequirementsInfo2Extension>
+         */
+        public array $chain = [],
     ) {}
 
     /**
@@ -47,11 +52,7 @@ final class VkImageMemoryRequirementsInfo2 implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkImageMemoryRequirementsInfo2Extension::class);
 
         $data->image = $memory->ffi->cast('VkImage', $this->image->pointer);
     }

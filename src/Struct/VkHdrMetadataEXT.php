@@ -34,7 +34,12 @@ final class VkHdrMetadataEXT implements InputStructureInterface
         public VkXYColorEXT $displayPrimaryBlue,
         /** Display primary's Blue */
         public VkXYColorEXT $whitePoint,
-        public ?VkHdrMetadataEXTExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkHdrMetadataEXTExtension>
+         */
+        public array $chain = [],
         /** Display maximum luminance */
         public float $maxLuminance = 0.0,
         /** Display minimum luminance */
@@ -67,11 +72,7 @@ final class VkHdrMetadataEXT implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkHdrMetadataEXTExtension::class);
 
         $this->displayPrimaryRed->write($memory, $data->displayPrimaryRed);
 

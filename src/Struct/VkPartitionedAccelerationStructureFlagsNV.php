@@ -26,7 +26,6 @@ final class VkPartitionedAccelerationStructureFlagsNV implements InputStructureI
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV->value;
 
     public function __construct(
-        public ?VkPartitionedAccelerationStructureInstancesInputNVExtension $next = null,
         public bool $enablePartitionTranslation = false,
     ) {}
 
@@ -45,12 +44,6 @@ final class VkPartitionedAccelerationStructureFlagsNV implements InputStructureI
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->enablePartitionTranslation = (int) $this->enablePartitionTranslation;
     }

@@ -29,10 +29,11 @@ final class VkShaderModuleCreateInfo implements InputStructureInterface, VkPipel
 
     public function __construct(
         /**
-         * Noautovalidity because this structure can be either an explicit
-         * parameter, or passed in a pNext chain
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkShaderModuleCreateInfoExtension>
          */
-        public VkShaderModuleCreateInfoExtension|VkPipelineShaderStageCreateInfoExtension|VkDataGraphPipelineCreateInfoARMExtension|null $next = null,
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         /** Binary code of size codeSize */
@@ -57,11 +58,7 @@ final class VkShaderModuleCreateInfo implements InputStructureInterface, VkPipel
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkShaderModuleCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

@@ -37,7 +37,6 @@ final class VkPipelineLayoutCreateInfo implements InputStructureInterface, VkBin
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO->value;
 
     public function __construct(
-        public VkBindDescriptorSetsInfoExtension|VkPushConstantsInfoExtension|VkPushDescriptorSetInfoExtension|VkPushDescriptorSetWithTemplateInfoExtension|VkSetDescriptorBufferOffsetsInfoEXTExtension|VkBindDescriptorBufferEmbeddedSamplersInfoEXTExtension|VkIndirectCommandsLayoutCreateInfoEXTExtension|null $next = null,
         /** @var int-mask-of<VkPipelineLayoutCreateFlagBits::*> */
         public int $flags = 0,
         /**
@@ -75,12 +74,6 @@ final class VkPipelineLayoutCreateInfo implements InputStructureInterface, VkBin
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

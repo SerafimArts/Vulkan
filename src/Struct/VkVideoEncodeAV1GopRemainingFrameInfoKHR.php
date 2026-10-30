@@ -26,7 +26,6 @@ final class VkVideoEncodeAV1GopRemainingFrameInfoKHR implements InputStructureIn
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR->value;
 
     public function __construct(
-        public ?VkVideoBeginCodingInfoKHRExtension $next = null,
         public bool $useGopRemainingFrames = false,
         /** @var int<0, 4294967295> */
         public int $gopRemainingIntra = 0,
@@ -54,12 +53,6 @@ final class VkVideoEncodeAV1GopRemainingFrameInfoKHR implements InputStructureIn
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->useGopRemainingFrames = (int) $this->useGopRemainingFrames;
 

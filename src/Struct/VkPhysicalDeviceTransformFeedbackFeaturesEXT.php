@@ -29,7 +29,6 @@ final class VkPhysicalDeviceTransformFeedbackFeaturesEXT implements InputStructu
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TRANSFORM_FEEDBACK_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $transformFeedback = false,
         public bool $geometryStreams = false,
     ) {}
@@ -50,12 +49,6 @@ final class VkPhysicalDeviceTransformFeedbackFeaturesEXT implements InputStructu
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->transformFeedback = (int) $this->transformFeedback;
 

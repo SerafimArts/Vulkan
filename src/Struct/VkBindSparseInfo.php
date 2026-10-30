@@ -27,7 +27,12 @@ final class VkBindSparseInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_SPARSE_INFO->value;
 
     public function __construct(
-        public ?VkBindSparseInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkBindSparseInfoExtension>
+         */
+        public array $chain = [],
         /** @var list<VkSemaphore> */
         public array $waitSemaphores = [],
         /** @var list<VkSparseBufferMemoryBindInfo> */
@@ -65,11 +70,7 @@ final class VkBindSparseInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkBindSparseInfoExtension::class);
 
         if ($this->waitSemaphores !== []) {
             $data->waitSemaphoreCount = \count($this->waitSemaphores);

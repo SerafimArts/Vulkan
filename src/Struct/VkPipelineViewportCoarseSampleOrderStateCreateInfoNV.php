@@ -27,7 +27,6 @@ final class VkPipelineViewportCoarseSampleOrderStateCreateInfoNV implements Inpu
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_COARSE_SAMPLE_ORDER_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkPipelineViewportStateCreateInfoExtension $next = null,
         public VkCoarseSampleOrderTypeNV $sampleOrderType = VkCoarseSampleOrderTypeNV::VK_COARSE_SAMPLE_ORDER_TYPE_DEFAULT_NV,
         /** @var list<VkCoarseSampleOrderCustomNV> */
         public array $customSampleOrders = [],
@@ -50,12 +49,6 @@ final class VkPipelineViewportCoarseSampleOrderStateCreateInfoNV implements Inpu
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->sampleOrderType = $this->sampleOrderType->value;
 

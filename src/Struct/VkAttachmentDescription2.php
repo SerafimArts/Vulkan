@@ -35,7 +35,12 @@ final class VkAttachmentDescription2 implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2->value;
 
     public function __construct(
-        public ?VkAttachmentDescription2Extension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkAttachmentDescription2Extension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkAttachmentDescriptionFlagBits::*> */
         public int $flags = 0,
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
@@ -77,11 +82,7 @@ final class VkAttachmentDescription2 implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkAttachmentDescription2Extension::class);
 
         $data->flags = $this->flags;
 

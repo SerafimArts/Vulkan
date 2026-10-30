@@ -32,7 +32,12 @@ final class VkRenderingAttachmentInfo implements InputStructureInterface
 
     public function __construct(
         public VkClearValue $clearValue,
-        public ?VkRenderingAttachmentInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkRenderingAttachmentInfoExtension>
+         */
+        public array $chain = [],
         public ?VkImageView $imageView = null,
         public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         /** @var int<0, 4294967295>|(VkResolveModeFlagBits::*) */
@@ -66,11 +71,7 @@ final class VkRenderingAttachmentInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkRenderingAttachmentInfoExtension::class);
 
         if ($this->imageView !== null) {
             $data->imageView = $memory->ffi->cast('VkImageView', $this->imageView->pointer);

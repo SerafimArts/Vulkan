@@ -29,7 +29,6 @@ final class VkGeneratedCommandsPipelineInfoEXT implements InputStructureInterfac
 
     public function __construct(
         public VkPipeline $pipeline,
-        public VkGeneratedCommandsInfoEXTExtension|VkGeneratedCommandsMemoryRequirementsInfoEXTExtension|null $next = null,
     ) {}
 
     /**
@@ -47,12 +46,6 @@ final class VkGeneratedCommandsPipelineInfoEXT implements InputStructureInterfac
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->pipeline = $memory->ffi->cast('VkPipeline', $this->pipeline->pointer);
     }

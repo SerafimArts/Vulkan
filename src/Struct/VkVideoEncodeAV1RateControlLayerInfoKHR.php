@@ -29,7 +29,6 @@ final class VkVideoEncodeAV1RateControlLayerInfoKHR implements InputStructureInt
         public VkVideoEncodeAV1QIndexKHR $minQIndex,
         public VkVideoEncodeAV1QIndexKHR $maxQIndex,
         public VkVideoEncodeAV1FrameSizeKHR $maxFrameSize,
-        public ?VkVideoEncodeRateControlLayerInfoKHRExtension $next = null,
         public bool $useMinQIndex = false,
         public bool $useMaxQIndex = false,
         public bool $useMaxFrameSize = false,
@@ -55,12 +54,6 @@ final class VkVideoEncodeAV1RateControlLayerInfoKHR implements InputStructureInt
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->useMinQIndex = (int) $this->useMinQIndex;
 

@@ -27,7 +27,6 @@ final class VkPipelineTessellationDomainOriginStateCreateInfo implements InputSt
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_DOMAIN_ORIGIN_STATE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkPipelineTessellationStateCreateInfoExtension $next = null,
         public VkTessellationDomainOrigin $domainOrigin = VkTessellationDomainOrigin::VK_TESSELLATION_DOMAIN_ORIGIN_UPPER_LEFT,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkPipelineTessellationDomainOriginStateCreateInfo implements InputSt
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->domainOrigin = $this->domainOrigin->value;
     }

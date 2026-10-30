@@ -28,7 +28,12 @@ final class VkIndirectCommandsLayoutTokenEXT implements InputStructureInterface
 
     public function __construct(
         public VkIndirectCommandsTokenDataEXT $data,
-        public ?VkIndirectCommandsLayoutTokenEXTExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkIndirectCommandsLayoutTokenEXTExtension>
+         */
+        public array $chain = [],
         public VkIndirectCommandsTokenTypeEXT $type = VkIndirectCommandsTokenTypeEXT::VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT,
         /** @var int<0, 4294967295> */
         public int $offset = 0,
@@ -52,11 +57,7 @@ final class VkIndirectCommandsLayoutTokenEXT implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkIndirectCommandsLayoutTokenEXTExtension::class);
 
         $data->type = $this->type->value;
 

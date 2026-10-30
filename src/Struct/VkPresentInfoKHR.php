@@ -29,7 +29,12 @@ final class VkPresentInfoKHR implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_INFO_KHR->value;
 
     public function __construct(
-        public ?VkPresentInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPresentInfoKHRExtension>
+         */
+        public array $chain = [],
         /**
          * Semaphores to wait for before presenting
          *
@@ -71,11 +76,7 @@ final class VkPresentInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPresentInfoKHRExtension::class);
 
         if ($this->waitSemaphores !== []) {
             $data->waitSemaphoreCount = \count($this->waitSemaphores);

@@ -26,7 +26,12 @@ final class VkDataGraphPipelineResourceInfoARM implements InputStructureInterfac
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM->value;
 
     public function __construct(
-        public ?VkDataGraphPipelineResourceInfoARMExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDataGraphPipelineResourceInfoARMExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $descriptorSet = 0,
         /** @var int<0, 4294967295> */
@@ -53,11 +58,7 @@ final class VkDataGraphPipelineResourceInfoARM implements InputStructureInterfac
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDataGraphPipelineResourceInfoARMExtension::class);
 
         $data->descriptorSet = $this->descriptorSet;
 

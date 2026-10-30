@@ -29,7 +29,6 @@ final class VkCustomResolveCreateInfoEXT implements InputStructureInterface, VkG
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CUSTOM_RESOLVE_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,
         public bool $customResolve = false,
         /** @var list<VkFormat> */
         public array $colorAttachmentFormats = [],
@@ -56,12 +55,6 @@ final class VkCustomResolveCreateInfoEXT implements InputStructureInterface, VkG
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->customResolve = (int) $this->customResolve;
 

@@ -29,7 +29,6 @@ final class VkPushConstantBankInfoNV implements InputStructureInterface, VkDescr
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PUSH_CONSTANT_BANK_INFO_NV->value;
 
     public function __construct(
-        public VkDescriptorSetAndBindingMappingEXTExtension|VkPushDataInfoEXTExtension|VkPushConstantsInfoExtension|VkIndirectCommandsLayoutTokenEXTExtension|null $next = null,
         /** @var int<0, 4294967295> */
         public int $bank = 0,
     ) {}
@@ -49,12 +48,6 @@ final class VkPushConstantBankInfoNV implements InputStructureInterface, VkDescr
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->bank = $this->bank;
     }

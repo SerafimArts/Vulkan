@@ -34,7 +34,12 @@ final class VkBufferImageCopy2 implements InputStructureInterface
         public VkOffset3D $imageOffset,
         /** Specified in pixels for both compressed and uncompressed images */
         public VkExtent3D $imageExtent,
-        public ?VkBufferImageCopy2Extension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkBufferImageCopy2Extension>
+         */
+        public array $chain = [],
         /** Specified in bytes */
         public int $bufferOffset = 0,
         /**
@@ -68,11 +73,7 @@ final class VkBufferImageCopy2 implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkBufferImageCopy2Extension::class);
 
         $data->bufferOffset = $this->bufferOffset;
 

@@ -15,8 +15,10 @@ use Serafim\Vulkan\Struct\Extension\VkSubresourceLayout2Extension;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSubresourceLayout2.html
  * @since 1.4
+ *
+ * @implements ChainRootInterface<VkSubresourceLayout2Extension>
  */
-final readonly class VkSubresourceLayout2 implements OutputStructureInterface
+final readonly class VkSubresourceLayout2 implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -24,46 +26,26 @@ final readonly class VkSubresourceLayout2 implements OutputStructureInterface
 
     public function __construct(
         public VkSubresourceLayout $subresourceLayout,
-        /** @var list<VkSubresourceLayout2Extension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkSubresourceLayout2Extension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
      * @param CData&object{
      *     subresourceLayout: CData,
      * } $data
-     * @param list<VkSubresourceLayout2Extension> $chain
+     * @param ChainSetInterface<VkSubresourceLayout2Extension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             subresourceLayout: VkSubresourceLayout::createFromCData($data->subresourceLayout),
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkSubresourceLayout2Extension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

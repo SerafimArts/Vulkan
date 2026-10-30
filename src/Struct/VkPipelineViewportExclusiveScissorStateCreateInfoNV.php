@@ -26,7 +26,6 @@ final class VkPipelineViewportExclusiveScissorStateCreateInfoNV implements Input
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_EXCLUSIVE_SCISSOR_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkPipelineViewportStateCreateInfoExtension $next = null,
         /** @var list<VkRect2D> */
         public array $exclusiveScissors = [],
     ) {}
@@ -47,12 +46,6 @@ final class VkPipelineViewportExclusiveScissorStateCreateInfoNV implements Input
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->exclusiveScissors !== []) {
             $data->exclusiveScissorCount = \count($this->exclusiveScissors);

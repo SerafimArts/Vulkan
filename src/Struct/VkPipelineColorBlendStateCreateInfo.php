@@ -30,7 +30,12 @@ final class VkPipelineColorBlendStateCreateInfo implements InputStructureInterfa
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkPipelineColorBlendStateCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPipelineColorBlendStateCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkPipelineColorBlendStateCreateFlagBits::*> */
         public int $flags = 0,
         public bool $logicOpEnable = false,
@@ -71,11 +76,7 @@ final class VkPipelineColorBlendStateCreateInfo implements InputStructureInterfa
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPipelineColorBlendStateCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

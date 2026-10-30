@@ -30,7 +30,12 @@ final class VkRayTracingPipelineCreateInfoKHR implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR->value;
 
     public function __construct(
-        public VkRayTracingPipelineCreateInfoKHRExtension|VkPipelineCreateInfoKHRExtension|null $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkRayTracingPipelineCreateInfoKHRExtension>
+         */
+        public array $chain = [],
         /**
          * Pipeline creation flags
          *
@@ -95,11 +100,7 @@ final class VkRayTracingPipelineCreateInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkRayTracingPipelineCreateInfoKHRExtension::class);
 
         $data->flags = $this->flags;
 

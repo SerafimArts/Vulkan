@@ -21,8 +21,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoFormatPropertiesKHRExtension;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoFormatPropertiesKHR.html
  * @since VK_KHR_video_queue
+ *
+ * @implements ChainRootInterface<VkVideoFormatPropertiesKHRExtension>
  */
-final readonly class VkVideoFormatPropertiesKHR implements OutputStructureInterface
+final readonly class VkVideoFormatPropertiesKHR implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -41,8 +43,8 @@ final readonly class VkVideoFormatPropertiesKHR implements OutputStructureInterf
         public VkImageTiling $imageTiling,
         /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
         public int $imageUsageFlags,
-        /** @var list<VkVideoFormatPropertiesKHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkVideoFormatPropertiesKHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
@@ -54,14 +56,14 @@ final readonly class VkVideoFormatPropertiesKHR implements OutputStructureInterf
      *     imageTiling: value-of<VkImageTiling>,
      *     imageUsageFlags: int<0, 4294967295>,
      * } $data
-     * @param list<VkVideoFormatPropertiesKHRExtension> $chain
+     * @param ChainSetInterface<VkVideoFormatPropertiesKHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             format: EnumCase::createFromValue(VkFormat::class, $data->format),
@@ -72,25 +74,5 @@ final readonly class VkVideoFormatPropertiesKHR implements OutputStructureInterf
             imageUsageFlags: $data->imageUsageFlags,
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkVideoFormatPropertiesKHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

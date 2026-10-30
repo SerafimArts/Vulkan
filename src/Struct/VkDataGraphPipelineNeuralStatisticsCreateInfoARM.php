@@ -26,7 +26,6 @@ final class VkDataGraphPipelineNeuralStatisticsCreateInfoARM implements InputStr
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_NEURAL_STATISTICS_CREATE_INFO_ARM->value;
 
     public function __construct(
-        public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
         public bool $allowNeuralStatistics = false,
     ) {}
 
@@ -45,12 +44,6 @@ final class VkDataGraphPipelineNeuralStatisticsCreateInfoARM implements InputStr
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->allowNeuralStatistics = (int) $this->allowNeuralStatistics;
     }

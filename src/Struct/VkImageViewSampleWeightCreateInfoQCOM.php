@@ -28,7 +28,6 @@ final class VkImageViewSampleWeightCreateInfoQCOM implements InputStructureInter
     public function __construct(
         public VkOffset2D $filterCenter,
         public VkExtent2D $filterSize,
-        public ?VkImageViewCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $numPhases = 0,
     ) {}
@@ -50,12 +49,6 @@ final class VkImageViewSampleWeightCreateInfoQCOM implements InputStructureInter
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->filterCenter->write($memory, $data->filterCenter);
 

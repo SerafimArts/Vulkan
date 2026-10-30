@@ -38,7 +38,6 @@ final class VkOpaqueCaptureDescriptorDataCreateInfoEXT implements InputStructure
 
     public function __construct(
         public CData|int $opaqueCaptureDescriptorData,
-        public VkBufferCreateInfoExtension|VkImageCreateInfoExtension|VkImageViewCreateInfoExtension|VkSamplerCreateInfoExtension|VkAccelerationStructureCreateInfoKHRExtension|VkAccelerationStructureCreateInfoNVExtension|VkTensorCreateInfoARMExtension|VkTensorViewCreateInfoARMExtension|VkAccelerationStructureCreateInfo2KHRExtension|null $next = null,
     ) {}
 
     /**
@@ -56,12 +55,6 @@ final class VkOpaqueCaptureDescriptorDataCreateInfoEXT implements InputStructure
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->opaqueCaptureDescriptorData = $memory->ffi->cast('void*', $this->opaqueCaptureDescriptorData);
     }

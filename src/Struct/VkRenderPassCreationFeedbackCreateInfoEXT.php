@@ -44,9 +44,7 @@ final class VkRenderPassCreationFeedbackCreateInfoEXT implements InputStructureI
         }
     }
 
-    public function __construct(
-        public ?VkRenderPassCreateInfo2Extension $next = null,
-    ) {}
+    public function __construct() {}
 
     /**
      * @param CData&object{
@@ -63,12 +61,6 @@ final class VkRenderPassCreationFeedbackCreateInfoEXT implements InputStructureI
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->renderPassFeedbackBuffer = $memory->new('VkRenderPassCreationFeedbackInfoEXT');
         $data->pRenderPassFeedback = \FFI::addr($this->renderPassFeedbackBuffer);

@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoCapabilitiesKHRExtension;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoCapabilitiesKHR.html
  * @since VK_KHR_video_queue
+ *
+ * @implements ChainRootInterface<VkVideoCapabilitiesKHRExtension>
  */
-final readonly class VkVideoCapabilitiesKHR implements OutputStructureInterface
+final readonly class VkVideoCapabilitiesKHR implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -55,8 +57,8 @@ final readonly class VkVideoCapabilitiesKHR implements OutputStructureInterface
          */
         public int $maxActiveReferencePictures,
         public VkExtensionProperties $stdHeaderVersion,
-        /** @var list<VkVideoCapabilitiesKHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkVideoCapabilitiesKHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
@@ -71,14 +73,14 @@ final readonly class VkVideoCapabilitiesKHR implements OutputStructureInterface
      *     maxActiveReferencePictures: int<0, 4294967295>,
      *     stdHeaderVersion: CData,
      * } $data
-     * @param list<VkVideoCapabilitiesKHRExtension> $chain
+     * @param ChainSetInterface<VkVideoCapabilitiesKHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             flags: $data->flags,
@@ -92,25 +94,5 @@ final readonly class VkVideoCapabilitiesKHR implements OutputStructureInterface
             stdHeaderVersion: VkExtensionProperties::createFromCData($data->stdHeaderVersion),
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkVideoCapabilitiesKHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

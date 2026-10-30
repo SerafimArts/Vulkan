@@ -28,7 +28,12 @@ final class VkCommandBufferSubmitInfo implements InputStructureInterface
 
     public function __construct(
         public VkCommandBuffer $commandBuffer,
-        public ?VkCommandBufferSubmitInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkCommandBufferSubmitInfoExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $deviceMask = 0,
     ) {}
@@ -50,11 +55,7 @@ final class VkCommandBufferSubmitInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkCommandBufferSubmitInfoExtension::class);
 
         $data->commandBuffer = $memory->ffi->cast('VkCommandBuffer', $this->commandBuffer->pointer);
 

@@ -27,7 +27,6 @@ final class VkImportMemoryFdInfoKHR implements InputStructureInterface, VkMemory
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_FD_INFO_KHR->value;
 
     public function __construct(
-        public ?VkMemoryAllocateInfoExtension $next = null,
         /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $handleType = 0,
         public int $fd = 0,
@@ -49,12 +48,6 @@ final class VkImportMemoryFdInfoKHR implements InputStructureInterface, VkMemory
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->handleType = $this->handleType;
 

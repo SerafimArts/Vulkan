@@ -29,7 +29,6 @@ final class VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT implements Input
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXTURE_COMPRESSION_ASTC_3D_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $textureCompressionASTC_3D = false,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkPhysicalDeviceTextureCompressionASTC3DFeaturesEXT implements Input
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->textureCompressionASTC_3D = (int) $this->textureCompressionASTC_3D;
     }

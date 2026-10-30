@@ -27,7 +27,12 @@ final class VkVideoCodingControlInfoKHR implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_CODING_CONTROL_INFO_KHR->value;
 
     public function __construct(
-        public ?VkVideoCodingControlInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoCodingControlInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkVideoCodingControlFlagBitsKHR::*> */
         public int $flags = 0,
     ) {}
@@ -48,11 +53,7 @@ final class VkVideoCodingControlInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoCodingControlInfoKHRExtension::class);
 
         $data->flags = $this->flags;
     }

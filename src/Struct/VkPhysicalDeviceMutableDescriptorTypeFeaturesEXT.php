@@ -32,7 +32,6 @@ final class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT implements InputStr
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MUTABLE_DESCRIPTOR_TYPE_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $mutableDescriptorType = false,
     ) {}
 
@@ -51,12 +50,6 @@ final class VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT implements InputStr
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->mutableDescriptorType = (int) $this->mutableDescriptorType;
     }

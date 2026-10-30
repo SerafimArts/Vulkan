@@ -28,7 +28,6 @@ final class VkVideoEncodeH265RateControlInfoKHR implements InputStructureInterfa
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_H265_RATE_CONTROL_INFO_KHR->value;
 
     public function __construct(
-        public VkVideoCodingControlInfoKHRExtension|VkVideoBeginCodingInfoKHRExtension|null $next = null,
         /** @var int-mask-of<VkVideoEncodeH265RateControlFlagBitsKHR::*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
@@ -60,12 +59,6 @@ final class VkVideoEncodeH265RateControlInfoKHR implements InputStructureInterfa
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

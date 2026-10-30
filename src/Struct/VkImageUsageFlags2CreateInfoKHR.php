@@ -36,7 +36,6 @@ final class VkImageUsageFlags2CreateInfoKHR implements InputStructureInterface, 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_USAGE_FLAGS_2_CREATE_INFO_KHR->value;
 
     public function __construct(
-        public VkFramebufferAttachmentImageInfoExtension|VkImageCreateInfoExtension|VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceSparseImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkSurfaceCapabilities2KHRExtension|VkSwapchainCreateInfoKHRExtension|VkVideoFormatPropertiesKHRExtension|null $next = null,
         /** @var int|(VkImageUsageFlagBits2KHR::*) */
         public int $usage = 0,
     ) {}
@@ -56,12 +55,6 @@ final class VkImageUsageFlags2CreateInfoKHR implements InputStructureInterface, 
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->usage = $this->usage;
     }

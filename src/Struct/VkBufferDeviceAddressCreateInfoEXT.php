@@ -28,7 +28,6 @@ final class VkBufferDeviceAddressCreateInfoEXT implements InputStructureInterfac
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public ?VkBufferCreateInfoExtension $next = null,
         public int $deviceAddress = 0,
     ) {}
 
@@ -47,12 +46,6 @@ final class VkBufferDeviceAddressCreateInfoEXT implements InputStructureInterfac
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->deviceAddress = $this->deviceAddress;
     }

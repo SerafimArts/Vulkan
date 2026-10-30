@@ -27,7 +27,12 @@ final class VkPhysicalDeviceVideoFormatInfoKHR implements InputStructureInterfac
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_FORMAT_INFO_KHR->value;
 
     public function __construct(
-        public ?VkPhysicalDeviceVideoFormatInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPhysicalDeviceVideoFormatInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295>|(VkImageUsageFlagBits::*) */
         public int $imageUsage = 0,
     ) {}
@@ -48,11 +53,7 @@ final class VkPhysicalDeviceVideoFormatInfoKHR implements InputStructureInterfac
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPhysicalDeviceVideoFormatInfoKHRExtension::class);
 
         $data->imageUsage = $this->imageUsage;
     }

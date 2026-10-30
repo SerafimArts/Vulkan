@@ -28,7 +28,6 @@ final class VkOpticalFlowImageFormatInfoNV implements InputStructureInterface, V
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_IMAGE_FORMAT_INFO_NV->value;
 
     public function __construct(
-        public VkPhysicalDeviceImageFormatInfo2Extension|VkImageCreateInfoExtension|null $next = null,
         /** @var int-mask-of<VkOpticalFlowUsageFlagBitsNV::*> */
         public int $usage = 0,
     ) {}
@@ -48,12 +47,6 @@ final class VkOpticalFlowImageFormatInfoNV implements InputStructureInterface, V
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->usage = $this->usage;
     }

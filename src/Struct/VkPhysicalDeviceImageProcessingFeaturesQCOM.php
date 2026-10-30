@@ -29,7 +29,6 @@ final class VkPhysicalDeviceImageProcessingFeaturesQCOM implements InputStructur
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_PROCESSING_FEATURES_QCOM->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $textureSampleWeighted = false,
         public bool $textureBoxFilter = false,
         public bool $textureBlockMatch = false,
@@ -52,12 +51,6 @@ final class VkPhysicalDeviceImageProcessingFeaturesQCOM implements InputStructur
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->textureSampleWeighted = (int) $this->textureSampleWeighted;
 

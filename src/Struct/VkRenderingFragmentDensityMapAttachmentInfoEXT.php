@@ -29,7 +29,6 @@ final class VkRenderingFragmentDensityMapAttachmentInfoEXT implements InputStruc
 
     public function __construct(
         public VkImageView $imageView,
-        public ?VkRenderingInfoExtension $next = null,
         public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
@@ -49,12 +48,6 @@ final class VkRenderingFragmentDensityMapAttachmentInfoEXT implements InputStruc
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->imageView = $memory->ffi->cast('VkImageView', $this->imageView->pointer);
 

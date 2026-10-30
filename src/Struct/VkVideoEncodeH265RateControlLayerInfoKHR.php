@@ -29,7 +29,6 @@ final class VkVideoEncodeH265RateControlLayerInfoKHR implements InputStructureIn
         public VkVideoEncodeH265QpKHR $minQp,
         public VkVideoEncodeH265QpKHR $maxQp,
         public VkVideoEncodeH265FrameSizeKHR $maxFrameSize,
-        public ?VkVideoEncodeRateControlLayerInfoKHRExtension $next = null,
         public bool $useMinQp = false,
         public bool $useMaxQp = false,
         public bool $useMaxFrameSize = false,
@@ -55,12 +54,6 @@ final class VkVideoEncodeH265RateControlLayerInfoKHR implements InputStructureIn
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->useMinQp = (int) $this->useMinQp;
 

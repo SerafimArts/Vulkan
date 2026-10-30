@@ -29,7 +29,6 @@ final class VkSwapchainCalibratedTimestampInfoEXT implements InputStructureInter
 
     public function __construct(
         public VkSwapchainKHR $swapchain,
-        public ?VkCalibratedTimestampInfoKHRExtension $next = null,
         /** @var int-mask-of<VkPresentStageFlagBitsEXT::*> */
         public int $presentStage = 0,
         public int $timeDomainId = 0,
@@ -52,12 +51,6 @@ final class VkSwapchainCalibratedTimestampInfoEXT implements InputStructureInter
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->swapchain = $memory->ffi->cast('VkSwapchainKHR', $this->swapchain->pointer);
 

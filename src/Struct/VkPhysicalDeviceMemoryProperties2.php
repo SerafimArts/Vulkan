@@ -15,8 +15,10 @@ use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceMemoryProperties2Extension;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceMemoryProperties2.html
  * @since 1.1
+ *
+ * @implements ChainRootInterface<VkPhysicalDeviceMemoryProperties2Extension>
  */
-final readonly class VkPhysicalDeviceMemoryProperties2 implements OutputStructureInterface
+final readonly class VkPhysicalDeviceMemoryProperties2 implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -24,46 +26,26 @@ final readonly class VkPhysicalDeviceMemoryProperties2 implements OutputStructur
 
     public function __construct(
         public VkPhysicalDeviceMemoryProperties $memoryProperties,
-        /** @var list<VkPhysicalDeviceMemoryProperties2Extension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkPhysicalDeviceMemoryProperties2Extension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
      * @param CData&object{
      *     memoryProperties: CData,
      * } $data
-     * @param list<VkPhysicalDeviceMemoryProperties2Extension> $chain
+     * @param ChainSetInterface<VkPhysicalDeviceMemoryProperties2Extension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             memoryProperties: VkPhysicalDeviceMemoryProperties::createFromCData($data->memoryProperties),
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkPhysicalDeviceMemoryProperties2Extension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

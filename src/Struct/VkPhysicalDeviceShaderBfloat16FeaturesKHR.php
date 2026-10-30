@@ -29,7 +29,6 @@ final class VkPhysicalDeviceShaderBfloat16FeaturesKHR implements InputStructureI
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderBFloat16Type = false,
         public bool $shaderBFloat16DotProduct = false,
         public bool $shaderBFloat16CooperativeMatrix = false,
@@ -52,12 +51,6 @@ final class VkPhysicalDeviceShaderBfloat16FeaturesKHR implements InputStructureI
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->shaderBFloat16Type = (int) $this->shaderBFloat16Type;
 

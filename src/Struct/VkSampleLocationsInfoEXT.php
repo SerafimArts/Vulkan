@@ -29,7 +29,6 @@ final class VkSampleLocationsInfoEXT implements InputStructureInterface, VkImage
 
     public function __construct(
         public VkExtent2D $sampleLocationGridSize,
-        public VkImageMemoryBarrierExtension|VkImageMemoryBarrier2Extension|null $next = null,
         /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
         public int $sampleLocationsPerPixel = 0,
         /** @var list<VkSampleLocationEXT> */
@@ -54,12 +53,6 @@ final class VkSampleLocationsInfoEXT implements InputStructureInterface, VkImage
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->sampleLocationsPerPixel = $this->sampleLocationsPerPixel;
 

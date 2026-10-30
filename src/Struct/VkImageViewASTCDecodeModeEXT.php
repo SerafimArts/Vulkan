@@ -27,7 +27,6 @@ final class VkImageViewASTCDecodeModeEXT implements InputStructureInterface, VkI
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_VIEW_ASTC_DECODE_MODE_EXT->value;
 
     public function __construct(
-        public ?VkImageViewCreateInfoExtension $next = null,
         public VkFormat $decodeMode = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkImageViewASTCDecodeModeEXT implements InputStructureInterface, VkI
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->decodeMode = $this->decodeMode->value;
     }

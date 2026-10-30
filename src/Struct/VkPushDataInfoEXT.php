@@ -27,7 +27,12 @@ final class VkPushDataInfoEXT implements InputStructureInterface
 
     public function __construct(
         public VkHostAddressRangeConstEXT $data,
-        public ?VkPushDataInfoEXTExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPushDataInfoEXTExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $offset = 0,
     ) {}
@@ -49,11 +54,7 @@ final class VkPushDataInfoEXT implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPushDataInfoEXTExtension::class);
 
         $data->offset = $this->offset;
 

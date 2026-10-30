@@ -29,7 +29,6 @@ final class VkVideoProfileListInfoKHR implements InputStructureInterface, VkPhys
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_PROFILE_LIST_INFO_KHR->value;
 
     public function __construct(
-        public VkPhysicalDeviceImageFormatInfo2Extension|VkPhysicalDeviceVideoFormatInfoKHRExtension|VkImageCreateInfoExtension|VkBufferCreateInfoExtension|null $next = null,
         /** @var list<VkVideoProfileInfoKHR> */
         public array $profiles = [],
     ) {}
@@ -50,12 +49,6 @@ final class VkVideoProfileListInfoKHR implements InputStructureInterface, VkPhys
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->profiles !== []) {
             $data->profileCount = \count($this->profiles);

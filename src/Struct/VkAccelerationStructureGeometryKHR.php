@@ -29,7 +29,12 @@ final class VkAccelerationStructureGeometryKHR implements InputStructureInterfac
 
     public function __construct(
         public VkAccelerationStructureGeometryDataKHR $geometry,
-        public ?VkAccelerationStructureGeometryKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkAccelerationStructureGeometryKHRExtension>
+         */
+        public array $chain = [],
         public VkGeometryTypeKHR $geometryType = VkGeometryTypeKHR::VK_GEOMETRY_TYPE_TRIANGLES_KHR,
         /** @var int-mask-of<VkGeometryFlagBitsKHR::*> */
         public int $flags = 0,
@@ -53,11 +58,7 @@ final class VkAccelerationStructureGeometryKHR implements InputStructureInterfac
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkAccelerationStructureGeometryKHRExtension::class);
 
         $data->geometryType = $this->geometryType->value;
 

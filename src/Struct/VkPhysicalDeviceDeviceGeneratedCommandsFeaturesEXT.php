@@ -29,7 +29,6 @@ final class VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT implements InputS
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $deviceGeneratedCommands = false,
         public bool $dynamicGeneratedPipelineLayout = false,
     ) {}
@@ -50,12 +49,6 @@ final class VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT implements InputS
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->deviceGeneratedCommands = (int) $this->deviceGeneratedCommands;
 

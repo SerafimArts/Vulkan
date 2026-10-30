@@ -29,7 +29,12 @@ final class VkDataGraphPipelineCreateInfoARM implements InputStructureInterface
 
     public function __construct(
         public VkPipelineLayout $layout,
-        public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDataGraphPipelineCreateInfoARMExtension>
+         */
+        public array $chain = [],
         /** @var int|(VkPipelineCreateFlagBits2::*) */
         public int $flags = 0,
         /** @var list<VkDataGraphPipelineResourceInfoARM> */
@@ -55,11 +60,7 @@ final class VkDataGraphPipelineCreateInfoARM implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDataGraphPipelineCreateInfoARMExtension::class);
 
         $data->flags = $this->flags;
 

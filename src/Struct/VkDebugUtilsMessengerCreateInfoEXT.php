@@ -30,7 +30,6 @@ final class VkDebugUtilsMessengerCreateInfoEXT implements InputStructureInterfac
     public function __construct(
         /** @var \Closure(int, int, CData|null, CData|null): (bool|int) */
         public \Closure $pfnUserCallback,
-        public ?VkInstanceCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         /** @var int-mask-of<VkDebugUtilsMessageSeverityFlagBitsEXT::*> */
@@ -59,12 +58,6 @@ final class VkDebugUtilsMessengerCreateInfoEXT implements InputStructureInterfac
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

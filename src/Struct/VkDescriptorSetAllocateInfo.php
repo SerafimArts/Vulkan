@@ -32,7 +32,12 @@ final class VkDescriptorSetAllocateInfo implements InputStructureInterface
 
     public function __construct(
         public VkDescriptorPool $descriptorPool,
-        public ?VkDescriptorSetAllocateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDescriptorSetAllocateInfoExtension>
+         */
+        public array $chain = [],
         /** @var list<VkDescriptorSetLayout> */
         public array $setLayouts = [],
     ) {}
@@ -55,11 +60,7 @@ final class VkDescriptorSetAllocateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDescriptorSetAllocateInfoExtension::class);
 
         $data->descriptorPool = $memory->ffi->cast('VkDescriptorPool', $this->descriptorPool->pointer);
 

@@ -13,8 +13,6 @@ use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
-use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
-use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan12Features.html
@@ -40,7 +38,6 @@ class VkPhysicalDeviceVulkan12Features extends VkPhysicalDeviceVulkan11Features 
      * @param bool $samplerYcbcrConversion Sampler color conversion supported
      */
     public function __construct(
-        VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         bool $storageBuffer16BitAccess = false,
         bool $uniformAndStorageBuffer16BitAccess = false,
         bool $storagePushConstant16 = false,
@@ -107,7 +104,6 @@ class VkPhysicalDeviceVulkan12Features extends VkPhysicalDeviceVulkan11Features 
         public bool $subgroupBroadcastDynamicId = false,
     ) {
         parent::__construct(
-            next: $next,
             storageBuffer16BitAccess: $storageBuffer16BitAccess,
             uniformAndStorageBuffer16BitAccess: $uniformAndStorageBuffer16BitAccess,
             storagePushConstant16: $storagePushConstant16,
@@ -367,7 +363,6 @@ class VkPhysicalDeviceVulkan12Features extends VkPhysicalDeviceVulkan11Features 
         $parent = VkPhysicalDeviceVulkan11Features::createFromCData(...$ancestors);
 
         return new self(
-            next: $parent->next,
             storageBuffer16BitAccess: $parent->storageBuffer16BitAccess,
             uniformAndStorageBuffer16BitAccess: $parent->uniformAndStorageBuffer16BitAccess,
             storagePushConstant16: $parent->storagePushConstant16,

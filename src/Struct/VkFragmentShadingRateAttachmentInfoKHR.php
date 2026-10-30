@@ -30,7 +30,6 @@ final class VkFragmentShadingRateAttachmentInfoKHR implements InputStructureInte
 
     public function __construct(
         public VkExtent2D $shadingRateAttachmentTexelSize,
-        public ?VkSubpassDescription2Extension $next = null,
         public ?VkAttachmentReference2 $fragmentShadingRateAttachment = null,
     ) {}
 
@@ -50,12 +49,6 @@ final class VkFragmentShadingRateAttachmentInfoKHR implements InputStructureInte
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->fragmentShadingRateAttachment !== null) {
             $data->pFragmentShadingRateAttachment = \FFI::addr($memory->toStructure($this->fragmentShadingRateAttachment));

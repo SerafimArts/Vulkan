@@ -30,7 +30,12 @@ final class VkShaderCreateInfoEXT implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public ?VkShaderCreateInfoEXTExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkShaderCreateInfoEXTExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295>|(VkShaderCreateFlagBitsEXT::*) */
         public int $flags = 0,
         /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
@@ -74,11 +79,7 @@ final class VkShaderCreateInfoEXT implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkShaderCreateInfoEXTExtension::class);
 
         $data->flags = $this->flags;
 

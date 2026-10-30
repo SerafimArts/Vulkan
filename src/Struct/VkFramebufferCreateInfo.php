@@ -33,7 +33,12 @@ final class VkFramebufferCreateInfo implements InputStructureInterface
 
     public function __construct(
         public VkRenderPass $renderPass,
-        public ?VkFramebufferCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkFramebufferCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkFramebufferCreateFlagBits::*> */
         public int $flags = 0,
         /** @var list<VkImageView> */
@@ -68,11 +73,7 @@ final class VkFramebufferCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkFramebufferCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

@@ -30,7 +30,12 @@ final class VkVideoEncodeInfoKHR implements InputStructureInterface
     public function __construct(
         public VkBuffer $dstBuffer,
         public VkVideoPictureResourceInfoKHR $srcPictureResource,
-        public ?VkVideoEncodeInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoEncodeInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkVideoEncodeFlagBitsKHR::*> */
         public int $flags = 0,
         public int $dstBufferOffset = 0,
@@ -66,11 +71,7 @@ final class VkVideoEncodeInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoEncodeInfoKHRExtension::class);
 
         $data->flags = $this->flags;
 

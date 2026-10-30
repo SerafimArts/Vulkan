@@ -26,7 +26,6 @@ final class VkPipelineColorWriteCreateInfoEXT implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COLOR_WRITE_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public ?VkPipelineColorBlendStateCreateInfoExtension $next = null,
         /** @var list<bool> */
         public array $colorWriteEnables = [],
     ) {}
@@ -47,12 +46,6 @@ final class VkPipelineColorWriteCreateInfoEXT implements InputStructureInterface
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->colorWriteEnables !== []) {
             $data->attachmentCount = \count($this->colorWriteEnables);

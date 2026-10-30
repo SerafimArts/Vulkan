@@ -28,7 +28,12 @@ final class VkVideoEncodeSessionParametersGetInfoKHR implements InputStructureIn
 
     public function __construct(
         public VkVideoSessionParametersKHR $videoSessionParameters,
-        public ?VkVideoEncodeSessionParametersGetInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoEncodeSessionParametersGetInfoKHRExtension>
+         */
+        public array $chain = [],
     ) {}
 
     /**
@@ -47,11 +52,7 @@ final class VkVideoEncodeSessionParametersGetInfoKHR implements InputStructureIn
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoEncodeSessionParametersGetInfoKHRExtension::class);
 
         $data->videoSessionParameters = $memory->ffi->cast('VkVideoSessionParametersKHR', $this->videoSessionParameters->pointer);
     }

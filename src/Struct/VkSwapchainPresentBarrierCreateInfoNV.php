@@ -26,7 +26,6 @@ final class VkSwapchainPresentBarrierCreateInfoNV implements InputStructureInter
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_BARRIER_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkSwapchainCreateInfoKHRExtension $next = null,
         public bool $presentBarrierEnable = false,
     ) {}
 
@@ -45,12 +44,6 @@ final class VkSwapchainPresentBarrierCreateInfoNV implements InputStructureInter
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->presentBarrierEnable = (int) $this->presentBarrierEnable;
     }

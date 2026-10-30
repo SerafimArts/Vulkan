@@ -29,7 +29,12 @@ final class VkPipelineShaderStageCreateInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkPipelineShaderStageCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPipelineShaderStageCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkPipelineShaderStageCreateFlagBits::*> */
         public int $flags = 0,
         /**
@@ -69,11 +74,7 @@ final class VkPipelineShaderStageCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPipelineShaderStageCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

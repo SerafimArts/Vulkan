@@ -29,7 +29,12 @@ final class VkAccelerationStructureCreateInfoNV implements InputStructureInterfa
 
     public function __construct(
         public VkAccelerationStructureInfoNV $info,
-        public ?VkAccelerationStructureCreateInfoNVExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkAccelerationStructureCreateInfoNVExtension>
+         */
+        public array $chain = [],
         public int $compactedSize = 0,
     ) {}
 
@@ -50,11 +55,7 @@ final class VkAccelerationStructureCreateInfoNV implements InputStructureInterfa
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkAccelerationStructureCreateInfoNVExtension::class);
 
         $data->compactedSize = $this->compactedSize;
 

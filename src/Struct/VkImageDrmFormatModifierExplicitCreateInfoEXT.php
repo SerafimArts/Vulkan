@@ -26,7 +26,6 @@ final class VkImageDrmFormatModifierExplicitCreateInfoEXT implements InputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_DRM_FORMAT_MODIFIER_EXPLICIT_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public ?VkImageCreateInfoExtension $next = null,
         public int $drmFormatModifier = 0,
         /** @var list<VkSubresourceLayout> */
         public array $planeLayouts = [],
@@ -49,12 +48,6 @@ final class VkImageDrmFormatModifierExplicitCreateInfoEXT implements InputStruct
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->drmFormatModifier = $this->drmFormatModifier;
 

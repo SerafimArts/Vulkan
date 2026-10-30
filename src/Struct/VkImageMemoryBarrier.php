@@ -36,7 +36,12 @@ final class VkImageMemoryBarrier implements InputStructureInterface
         public VkImage $image,
         /** Subresource range to sync */
         public VkImageSubresourceRange $subresourceRange,
-        public ?VkImageMemoryBarrierExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkImageMemoryBarrierExtension>
+         */
+        public array $chain = [],
         /**
          * Memory accesses from the source of the dependency to synchronize
          *
@@ -91,11 +96,7 @@ final class VkImageMemoryBarrier implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkImageMemoryBarrierExtension::class);
 
         $data->srcAccessMask = $this->srcAccessMask;
 

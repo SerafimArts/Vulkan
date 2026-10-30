@@ -30,7 +30,12 @@ final class VkDescriptorSetLayoutCreateInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkDescriptorSetLayoutCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDescriptorSetLayoutCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkDescriptorSetLayoutCreateFlagBits::*> */
         public int $flags = 0,
         /**
@@ -59,11 +64,7 @@ final class VkDescriptorSetLayoutCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDescriptorSetLayoutCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

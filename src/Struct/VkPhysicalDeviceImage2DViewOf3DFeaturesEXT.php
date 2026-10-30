@@ -29,7 +29,6 @@ final class VkPhysicalDeviceImage2DViewOf3DFeaturesEXT implements InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_2D_VIEW_OF_3D_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $image2DViewOf3D = false,
         public bool $sampler2DViewOf3D = false,
     ) {}
@@ -50,12 +49,6 @@ final class VkPhysicalDeviceImage2DViewOf3DFeaturesEXT implements InputStructure
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->image2DViewOf3D = (int) $this->image2DViewOf3D;
 

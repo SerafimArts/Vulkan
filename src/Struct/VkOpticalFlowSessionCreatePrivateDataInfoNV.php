@@ -27,7 +27,6 @@ final class VkOpticalFlowSessionCreatePrivateDataInfoNV implements InputStructur
 
     public function __construct(
         public CData|int $privateData,
-        public ?VkOpticalFlowSessionCreateInfoNVExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $id = 0,
         /** @var int<0, 4294967295> */
@@ -51,12 +50,6 @@ final class VkOpticalFlowSessionCreatePrivateDataInfoNV implements InputStructur
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->id = $this->id;
 

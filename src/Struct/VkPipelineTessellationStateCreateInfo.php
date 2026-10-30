@@ -26,7 +26,12 @@ final class VkPipelineTessellationStateCreateInfo implements InputStructureInter
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkPipelineTessellationStateCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPipelineTessellationStateCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
@@ -50,11 +55,7 @@ final class VkPipelineTessellationStateCreateInfo implements InputStructureInter
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPipelineTessellationStateCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

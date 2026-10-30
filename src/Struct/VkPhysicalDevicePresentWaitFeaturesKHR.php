@@ -29,7 +29,6 @@ final class VkPhysicalDevicePresentWaitFeaturesKHR implements InputStructureInte
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** VkWaitForPresentKHR is supported */
         public bool $presentWait = false,
     ) {}
@@ -49,12 +48,6 @@ final class VkPhysicalDevicePresentWaitFeaturesKHR implements InputStructureInte
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->presentWait = (int) $this->presentWait;
     }

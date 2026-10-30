@@ -27,7 +27,6 @@ final class VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM implements Inpu
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MULTIVIEW_PER_VIEW_RENDER_AREAS_RENDER_PASS_BEGIN_INFO_QCOM->value;
 
     public function __construct(
-        public VkRenderPassBeginInfoExtension|VkRenderingInfoExtension|null $next = null,
         /** @var list<VkRect2D> */
         public array $perViewRenderAreas = [],
     ) {}
@@ -48,12 +47,6 @@ final class VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM implements Inpu
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->perViewRenderAreas !== []) {
             $data->perViewRenderAreaCount = \count($this->perViewRenderAreas);

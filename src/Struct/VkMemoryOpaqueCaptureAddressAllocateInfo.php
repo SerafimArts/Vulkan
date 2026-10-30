@@ -26,7 +26,6 @@ final class VkMemoryOpaqueCaptureAddressAllocateInfo implements InputStructureIn
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_OPAQUE_CAPTURE_ADDRESS_ALLOCATE_INFO->value;
 
     public function __construct(
-        public ?VkMemoryAllocateInfoExtension $next = null,
         public int $opaqueCaptureAddress = 0,
     ) {}
 
@@ -45,12 +44,6 @@ final class VkMemoryOpaqueCaptureAddressAllocateInfo implements InputStructureIn
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->opaqueCaptureAddress = $this->opaqueCaptureAddress;
     }

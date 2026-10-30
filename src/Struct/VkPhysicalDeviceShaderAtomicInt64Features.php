@@ -29,7 +29,6 @@ final class VkPhysicalDeviceShaderAtomicInt64Features implements InputStructureI
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_INT64_FEATURES->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderBufferInt64Atomics = false,
         public bool $shaderSharedInt64Atomics = false,
     ) {}
@@ -50,12 +49,6 @@ final class VkPhysicalDeviceShaderAtomicInt64Features implements InputStructureI
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->shaderBufferInt64Atomics = (int) $this->shaderBufferInt64Atomics;
 

@@ -29,7 +29,6 @@ final class VkPhysicalDeviceCopyMemoryIndirectFeaturesNV implements InputStructu
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $indirectCopy = false,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkPhysicalDeviceCopyMemoryIndirectFeaturesNV implements InputStructu
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->indirectCopy = (int) $this->indirectCopy;
     }

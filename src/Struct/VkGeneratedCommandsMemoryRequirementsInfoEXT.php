@@ -29,7 +29,12 @@ final class VkGeneratedCommandsMemoryRequirementsInfoEXT implements InputStructu
 
     public function __construct(
         public VkIndirectCommandsLayoutEXT $indirectCommandsLayout,
-        public ?VkGeneratedCommandsMemoryRequirementsInfoEXTExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkGeneratedCommandsMemoryRequirementsInfoEXTExtension>
+         */
+        public array $chain = [],
         public ?VkIndirectExecutionSetEXT $indirectExecutionSet = null,
         /** @var int<0, 4294967295> */
         public int $maxSequenceCount = 0,
@@ -56,11 +61,7 @@ final class VkGeneratedCommandsMemoryRequirementsInfoEXT implements InputStructu
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkGeneratedCommandsMemoryRequirementsInfoEXTExtension::class);
 
         if ($this->indirectExecutionSet !== null) {
             $data->indirectExecutionSet = $memory->ffi->cast('VkIndirectExecutionSetEXT', $this->indirectExecutionSet->pointer);

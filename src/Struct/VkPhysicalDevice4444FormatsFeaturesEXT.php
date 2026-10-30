@@ -29,7 +29,6 @@ final class VkPhysicalDevice4444FormatsFeaturesEXT implements InputStructureInte
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $formatA4R4G4B4 = false,
         public bool $formatA4B4G4R4 = false,
     ) {}
@@ -50,12 +49,6 @@ final class VkPhysicalDevice4444FormatsFeaturesEXT implements InputStructureInte
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->formatA4R4G4B4 = (int) $this->formatA4R4G4B4;
 

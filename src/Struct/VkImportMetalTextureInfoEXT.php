@@ -28,7 +28,6 @@ final class VkImportMetalTextureInfoEXT implements InputStructureInterface, VkIm
 
     public function __construct(
         public CData|int $mtlTexture,
-        public ?VkImageCreateInfoExtension $next = null,
         /** @var int<0, 4294967295>|(VkImageAspectFlagBits::*) */
         public int $plane = 0,
     ) {}
@@ -49,12 +48,6 @@ final class VkImportMetalTextureInfoEXT implements InputStructureInterface, VkIm
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->plane = $this->plane;
 

@@ -29,7 +29,6 @@ final class VkPhysicalDeviceInlineUniformBlockFeatures implements InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_INLINE_UNIFORM_BLOCK_FEATURES->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $inlineUniformBlock = false,
         public bool $descriptorBindingInlineUniformBlockUpdateAfterBind = false,
     ) {}
@@ -50,12 +49,6 @@ final class VkPhysicalDeviceInlineUniformBlockFeatures implements InputStructure
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->inlineUniformBlock = (int) $this->inlineUniformBlock;
 

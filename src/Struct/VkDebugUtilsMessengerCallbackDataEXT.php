@@ -26,7 +26,12 @@ final class VkDebugUtilsMessengerCallbackDataEXT implements InputStructureInterf
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CALLBACK_DATA_EXT->value;
 
     public function __construct(
-        public ?VkDebugUtilsMessengerCallbackDataEXTExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDebugUtilsMessengerCallbackDataEXTExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         public ?string $messageIdName = null,
@@ -66,11 +71,7 @@ final class VkDebugUtilsMessengerCallbackDataEXT implements InputStructureInterf
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDebugUtilsMessengerCallbackDataEXTExtension::class);
 
         $data->flags = $this->flags;
 

@@ -31,7 +31,12 @@ final class VkAccelerationStructureGeometryTrianglesDataKHR implements InputStru
         public VkDeviceOrHostAddressConstKHR $vertexData,
         public VkDeviceOrHostAddressConstKHR $indexData,
         public VkDeviceOrHostAddressConstKHR $transformData,
-        public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkAccelerationStructureGeometryTrianglesDataKHRExtension>
+         */
+        public array $chain = [],
         public VkFormat $vertexFormat = VkFormat::VK_FORMAT_UNDEFINED,
         public int $vertexStride = 0,
         /** @var int<0, 4294967295> */
@@ -61,11 +66,7 @@ final class VkAccelerationStructureGeometryTrianglesDataKHR implements InputStru
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkAccelerationStructureGeometryTrianglesDataKHRExtension::class);
 
         $data->vertexFormat = $this->vertexFormat->value;
 

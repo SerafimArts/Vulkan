@@ -27,7 +27,6 @@ final class VkImportMetalBufferInfoEXT implements InputStructureInterface, VkMem
 
     public function __construct(
         public CData|int $mtlBuffer,
-        public ?VkMemoryAllocateInfoExtension $next = null,
     ) {}
 
     /**
@@ -45,12 +44,6 @@ final class VkImportMetalBufferInfoEXT implements InputStructureInterface, VkMem
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->mtlBuffer = $memory->ffi->cast('MTLBuffer_id', $this->mtlBuffer);
     }

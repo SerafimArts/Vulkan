@@ -32,7 +32,12 @@ final class VkIndirectCommandsLayoutTokenNV implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_INDIRECT_COMMANDS_LAYOUT_TOKEN_NV->value;
 
     public function __construct(
-        public ?VkIndirectCommandsLayoutTokenNVExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkIndirectCommandsLayoutTokenNVExtension>
+         */
+        public array $chain = [],
         public VkIndirectCommandsTokenTypeNV $tokenType = VkIndirectCommandsTokenTypeNV::VK_INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV,
         /** @var int<0, 4294967295> */
         public int $stream = 0,
@@ -84,11 +89,7 @@ final class VkIndirectCommandsLayoutTokenNV implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkIndirectCommandsLayoutTokenNVExtension::class);
 
         $data->tokenType = $this->tokenType->value;
 

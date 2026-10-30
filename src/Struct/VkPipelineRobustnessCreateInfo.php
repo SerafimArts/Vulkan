@@ -31,7 +31,6 @@ final class VkPipelineRobustnessCreateInfo implements InputStructureInterface, V
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_ROBUSTNESS_CREATE_INFO->value;
 
     public function __construct(
-        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkPipelineShaderStageCreateInfoExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
         public VkPipelineRobustnessBufferBehavior $storageBuffers = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
         public VkPipelineRobustnessBufferBehavior $uniformBuffers = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
         public VkPipelineRobustnessBufferBehavior $vertexInputs = VkPipelineRobustnessBufferBehavior::VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT,
@@ -56,12 +55,6 @@ final class VkPipelineRobustnessCreateInfo implements InputStructureInterface, V
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->storageBuffers = $this->storageBuffers->value;
 

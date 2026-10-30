@@ -29,7 +29,6 @@ final class VkDebugUtilsObjectNameInfoEXT implements InputStructureInterface, Vk
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT->value;
 
     public function __construct(
-        public VkPipelineShaderStageCreateInfoExtension|VkResourceDescriptorInfoEXTExtension|VkSamplerCreateInfoExtension|null $next = null,
         public VkObjectType $objectType = VkObjectType::VK_OBJECT_TYPE_UNKNOWN,
         public int $objectHandle = 0,
         public ?string $objectName = null,
@@ -52,12 +51,6 @@ final class VkDebugUtilsObjectNameInfoEXT implements InputStructureInterface, Vk
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->objectType = $this->objectType->value;
 

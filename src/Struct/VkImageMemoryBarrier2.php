@@ -32,7 +32,12 @@ final class VkImageMemoryBarrier2 implements InputStructureInterface
     public function __construct(
         public VkImage $image,
         public VkImageSubresourceRange $subresourceRange,
-        public ?VkImageMemoryBarrier2Extension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkImageMemoryBarrier2Extension>
+         */
+        public array $chain = [],
         /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $srcStageMask = 0,
         /** @var int|(VkAccessFlagBits2::*) */
@@ -74,11 +79,7 @@ final class VkImageMemoryBarrier2 implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkImageMemoryBarrier2Extension::class);
 
         $data->srcStageMask = $this->srcStageMask;
 

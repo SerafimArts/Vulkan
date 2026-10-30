@@ -26,7 +26,6 @@ final class VkTensorDependencyInfoARM implements InputStructureInterface, VkDepe
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM->value;
 
     public function __construct(
-        public ?VkDependencyInfoExtension $next = null,
         /** @var list<VkTensorMemoryBarrierARM> */
         public array $tensorMemoryBarriers = [],
     ) {}
@@ -47,12 +46,6 @@ final class VkTensorDependencyInfoARM implements InputStructureInterface, VkDepe
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->tensorMemoryBarriers !== []) {
             $data->tensorMemoryBarrierCount = \count($this->tensorMemoryBarriers);

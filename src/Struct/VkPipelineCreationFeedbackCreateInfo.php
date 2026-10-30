@@ -70,7 +70,6 @@ final class VkPipelineCreationFeedbackCreateInfo implements InputStructureInterf
     }
 
     public function __construct(
-        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|VkRayTracingPipelineCreateInfoKHRExtension|VkDataGraphPipelineCreateInfoARMExtension|null $next = null,
         /** @var int<0, 4294967295> */
         public int $pipelineStageCreationFeedbackCount = 0,
     ) {}
@@ -92,12 +91,6 @@ final class VkPipelineCreationFeedbackCreateInfo implements InputStructureInterf
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->pipelineCreationFeedbackBuffer = $memory->new('VkPipelineCreationFeedback');
         $data->pPipelineCreationFeedback = \FFI::addr($this->pipelineCreationFeedbackBuffer);

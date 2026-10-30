@@ -27,7 +27,6 @@ final class VkSamplerCubicWeightsCreateInfoQCOM implements InputStructureInterfa
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_CUBIC_WEIGHTS_CREATE_INFO_QCOM->value;
 
     public function __construct(
-        public ?VkSamplerCreateInfoExtension $next = null,
         public VkCubicFilterWeightsQCOM $cubicWeights = VkCubicFilterWeightsQCOM::VK_CUBIC_FILTER_WEIGHTS_CATMULL_ROM_QCOM,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkSamplerCubicWeightsCreateInfoQCOM implements InputStructureInterfa
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->cubicWeights = $this->cubicWeights->value;
     }

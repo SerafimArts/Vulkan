@@ -29,7 +29,6 @@ class VkPhysicalDeviceVulkan11Features implements InputStructureInterface, VkPhy
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_1_FEATURES->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         /** 16-bit integer/floating-point variables supported in BufferBlock */
         public bool $storageBuffer16BitAccess = false,
         /**
@@ -87,12 +86,6 @@ class VkPhysicalDeviceVulkan11Features implements InputStructureInterface, VkPhy
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->storageBuffer16BitAccess = (int) $this->storageBuffer16BitAccess;
 

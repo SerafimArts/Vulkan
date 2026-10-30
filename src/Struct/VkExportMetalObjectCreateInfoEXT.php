@@ -33,7 +33,6 @@ final class VkExportMetalObjectCreateInfoEXT implements InputStructureInterface,
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECT_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public VkInstanceCreateInfoExtension|VkMemoryAllocateInfoExtension|VkImageCreateInfoExtension|VkImageViewCreateInfoExtension|VkBufferViewCreateInfoExtension|VkSemaphoreCreateInfoExtension|VkEventCreateInfoExtension|null $next = null,
         /** @var int<0, 4294967295>|(VkExportMetalObjectTypeFlagBitsEXT::*) */
         public int $exportObjectType = 0,
     ) {}
@@ -53,12 +52,6 @@ final class VkExportMetalObjectCreateInfoEXT implements InputStructureInterface,
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->exportObjectType = $this->exportObjectType;
     }

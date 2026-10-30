@@ -30,7 +30,6 @@ final class VkFrameBoundaryTensorsARM implements InputStructureInterface, VkSubm
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM->value;
 
     public function __construct(
-        public VkSubmitInfoExtension|VkSubmitInfo2Extension|VkPresentInfoKHRExtension|VkBindSparseInfoExtension|null $next = null,
         /** @var list<VkTensorARM> */
         public array $tensors = [],
     ) {}
@@ -51,12 +50,6 @@ final class VkFrameBoundaryTensorsARM implements InputStructureInterface, VkSubm
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->tensors !== []) {
             $data->tensorCount = \count($this->tensors);

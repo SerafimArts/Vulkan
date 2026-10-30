@@ -28,7 +28,6 @@ final class VkExportMemoryWin32HandleInfoKHR implements InputStructureInterface,
     public function __construct(
         public CData|int $dwAccess,
         public CData|int $name,
-        public ?VkMemoryAllocateInfoExtension $next = null,
         public CData|int|null $attributes = null,
     ) {}
 
@@ -49,12 +48,6 @@ final class VkExportMemoryWin32HandleInfoKHR implements InputStructureInterface,
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->attributes !== null) {
             $data->pAttributes = $memory->ffi->cast('SECURITY_ATTRIBUTES*', $this->attributes);

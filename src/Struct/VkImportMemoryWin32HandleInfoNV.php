@@ -29,7 +29,6 @@ final class VkImportMemoryWin32HandleInfoNV implements InputStructureInterface, 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMPORT_MEMORY_WIN32_HANDLE_INFO_NV->value;
 
     public function __construct(
-        public ?VkMemoryAllocateInfoExtension $next = null,
         /** @var int-mask-of<VkExternalMemoryHandleTypeFlagBitsNV::*> */
         public int $handleType = 0,
         public CData|int|null $handle = null,
@@ -51,12 +50,6 @@ final class VkImportMemoryWin32HandleInfoNV implements InputStructureInterface, 
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->handleType = $this->handleType;
 

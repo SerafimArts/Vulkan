@@ -28,7 +28,6 @@ final class VkSubpassShadingPipelineCreateInfoHUAWEI implements InputStructureIn
 
     public function __construct(
         public VkRenderPass $renderPass,
-        public ?VkComputePipelineCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $subpass = 0,
     ) {}
@@ -49,12 +48,6 @@ final class VkSubpassShadingPipelineCreateInfoHUAWEI implements InputStructureIn
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->renderPass = $memory->ffi->cast('VkRenderPass', $this->renderPass->pointer);
 

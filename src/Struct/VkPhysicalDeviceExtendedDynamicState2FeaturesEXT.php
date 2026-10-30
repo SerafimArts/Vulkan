@@ -29,7 +29,6 @@ final class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT implements InputStr
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_DYNAMIC_STATE_2_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $extendedDynamicState2 = false,
         public bool $extendedDynamicState2LogicOp = false,
         public bool $extendedDynamicState2PatchControlPoints = false,
@@ -52,12 +51,6 @@ final class VkPhysicalDeviceExtendedDynamicState2FeaturesEXT implements InputStr
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->extendedDynamicState2 = (int) $this->extendedDynamicState2;
 

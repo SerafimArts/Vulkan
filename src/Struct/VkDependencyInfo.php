@@ -27,7 +27,12 @@ final class VkDependencyInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEPENDENCY_INFO->value;
 
     public function __construct(
-        public ?VkDependencyInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDependencyInfoExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkDependencyFlagBits::*> */
         public int $dependencyFlags = 0,
         /** @var list<VkMemoryBarrier2> */
@@ -60,11 +65,7 @@ final class VkDependencyInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDependencyInfoExtension::class);
 
         $data->dependencyFlags = $this->dependencyFlags;
 

@@ -29,7 +29,12 @@ final class VkVideoSessionCreateInfoKHR implements InputStructureInterface
 
     public function __construct(
         public VkExtent2D $maxCodedExtent,
-        public ?VkVideoSessionCreateInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoSessionCreateInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $queueFamilyIndex = 0,
         /** @var int-mask-of<VkVideoSessionCreateFlagBitsKHR::*> */
@@ -68,11 +73,7 @@ final class VkVideoSessionCreateInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoSessionCreateInfoKHRExtension::class);
 
         $data->queueFamilyIndex = $this->queueFamilyIndex;
 

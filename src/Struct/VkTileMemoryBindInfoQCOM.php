@@ -28,7 +28,6 @@ final class VkTileMemoryBindInfoQCOM implements InputStructureInterface, VkComma
 
     public function __construct(
         public VkDeviceMemory $memory,
-        public ?VkCommandBufferInheritanceInfoExtension $next = null,
     ) {}
 
     /**
@@ -46,12 +45,6 @@ final class VkTileMemoryBindInfoQCOM implements InputStructureInterface, VkComma
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->memory = $memory->ffi->cast('VkDeviceMemory', $this->memory->pointer);
     }

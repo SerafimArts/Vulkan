@@ -28,7 +28,6 @@ final class VkRenderingInputAttachmentIndexInfo implements InputStructureInterfa
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_INPUT_ATTACHMENT_INDEX_INFO->value;
 
     public function __construct(
-        public VkGraphicsPipelineCreateInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
         /**
          * The number of the elements of `$colorAttachmentInputIndices`, it
          * follows the array when it is given.
@@ -62,12 +61,6 @@ final class VkRenderingInputAttachmentIndexInfo implements InputStructureInterfa
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->colorAttachmentCount !== 0) {
             $data->colorAttachmentCount = $this->colorAttachmentCount;

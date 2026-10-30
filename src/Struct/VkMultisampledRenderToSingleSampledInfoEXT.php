@@ -28,7 +28,6 @@ final class VkMultisampledRenderToSingleSampledInfoEXT implements InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_INFO_EXT->value;
 
     public function __construct(
-        public VkSubpassDescription2Extension|VkRenderingInfoExtension|null $next = null,
         public bool $multisampledRenderToSingleSampledEnable = false,
         /** @var int<0, 4294967295>|(VkSampleCountFlagBits::*) */
         public int $rasterizationSamples = 0,
@@ -50,12 +49,6 @@ final class VkMultisampledRenderToSingleSampledInfoEXT implements InputStructure
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->multisampledRenderToSingleSampledEnable = (int) $this->multisampledRenderToSingleSampledEnable;
 

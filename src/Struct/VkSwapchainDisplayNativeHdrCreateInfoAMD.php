@@ -26,7 +26,6 @@ final class VkSwapchainDisplayNativeHdrCreateInfoAMD implements InputStructureIn
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_DISPLAY_NATIVE_HDR_CREATE_INFO_AMD->value;
 
     public function __construct(
-        public ?VkSwapchainCreateInfoKHRExtension $next = null,
         public bool $localDimmingEnable = false,
     ) {}
 
@@ -45,12 +44,6 @@ final class VkSwapchainDisplayNativeHdrCreateInfoAMD implements InputStructureIn
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->localDimmingEnable = (int) $this->localDimmingEnable;
     }

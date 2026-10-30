@@ -29,7 +29,12 @@ final class VkPipelineRasterizationStateCreateInfo implements InputStructureInte
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPipelineRasterizationStateCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         public bool $depthClampEnable = false,
@@ -72,11 +77,7 @@ final class VkPipelineRasterizationStateCreateInfo implements InputStructureInte
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPipelineRasterizationStateCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

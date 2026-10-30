@@ -31,7 +31,6 @@ final class VkMemoryBarrierAccessFlags3KHR implements InputStructureInterface, V
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_BARRIER_ACCESS_FLAGS_3_KHR->value;
 
     public function __construct(
-        public VkSubpassDependency2Extension|VkBufferMemoryBarrier2Extension|VkImageMemoryBarrier2Extension|VkMemoryBarrier2Extension|VkMemoryRangeBarrierKHRExtension|null $next = null,
         /** @var int-mask-of<VkAccessFlagBits3KHR::*> */
         public int $srcAccessMask3 = 0,
         /** @var int-mask-of<VkAccessFlagBits3KHR::*> */
@@ -54,12 +53,6 @@ final class VkMemoryBarrierAccessFlags3KHR implements InputStructureInterface, V
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->srcAccessMask3 = $this->srcAccessMask3;
 

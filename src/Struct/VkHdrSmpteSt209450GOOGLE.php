@@ -27,7 +27,6 @@ final class VkHdrSmpteSt209450GOOGLE implements InputStructureInterface, VkHdrMe
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_HDR_SMPTE_ST_209450_GOOGLE->value;
 
     public function __construct(
-        public ?VkHdrMetadataEXTExtension $next = null,
         public string $metadata = '',
         public VkHdrSmpteSt209450PowerPreferenceGOOGLE $powerPreference = VkHdrSmpteSt209450PowerPreferenceGOOGLE::VK_HDR_SMPTE_ST_209450_POWER_PREFERENCE_COLOR_ACCURACY_GOOGLE,
     ) {}
@@ -49,12 +48,6 @@ final class VkHdrSmpteSt209450GOOGLE implements InputStructureInterface, VkHdrMe
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->metadata !== '') {
             $data->metadataSize = \strlen($this->metadata);

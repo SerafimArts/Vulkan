@@ -27,7 +27,6 @@ final class VkPipelineRenderingCreateInfo implements InputStructureInterface, Vk
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RENDERING_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $viewMask = 0,
         /** @var list<VkFormat> */
@@ -55,12 +54,6 @@ final class VkPipelineRenderingCreateInfo implements InputStructureInterface, Vk
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->viewMask = $this->viewMask;
 

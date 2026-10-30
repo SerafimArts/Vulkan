@@ -28,7 +28,6 @@ final class VkBindImageMemorySwapchainInfoKHR implements InputStructureInterface
 
     public function __construct(
         public VkSwapchainKHR $swapchain,
-        public ?VkBindImageMemoryInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $imageIndex = 0,
     ) {}
@@ -49,12 +48,6 @@ final class VkBindImageMemorySwapchainInfoKHR implements InputStructureInterface
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->swapchain = $memory->ffi->cast('VkSwapchainKHR', $this->swapchain->pointer);
 

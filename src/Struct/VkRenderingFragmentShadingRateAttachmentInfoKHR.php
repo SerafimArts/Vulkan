@@ -29,7 +29,6 @@ final class VkRenderingFragmentShadingRateAttachmentInfoKHR implements InputStru
 
     public function __construct(
         public VkExtent2D $shadingRateAttachmentTexelSize,
-        public ?VkRenderingInfoExtension $next = null,
         public ?VkImageView $imageView = null,
         public VkImageLayout $imageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
@@ -51,12 +50,6 @@ final class VkRenderingFragmentShadingRateAttachmentInfoKHR implements InputStru
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->imageView !== null) {
             $data->imageView = $memory->ffi->cast('VkImageView', $this->imageView->pointer);

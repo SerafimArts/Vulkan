@@ -27,7 +27,6 @@ final class VkShaderDescriptorSetAndBindingMappingInfoEXT implements InputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SHADER_DESCRIPTOR_SET_AND_BINDING_MAPPING_INFO_EXT->value;
 
     public function __construct(
-        public VkPipelineShaderStageCreateInfoExtension|VkShaderCreateInfoEXTExtension|null $next = null,
         /** @var list<VkDescriptorSetAndBindingMappingEXT> */
         public array $mappings = [],
     ) {}
@@ -48,12 +47,6 @@ final class VkShaderDescriptorSetAndBindingMappingInfoEXT implements InputStruct
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->mappings !== []) {
             $data->mappingCount = \count($this->mappings);

@@ -26,7 +26,6 @@ final class VkBindImageMemoryDeviceGroupInfo implements InputStructureInterface,
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_BIND_IMAGE_MEMORY_DEVICE_GROUP_INFO->value;
 
     public function __construct(
-        public ?VkBindImageMemoryInfoExtension $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $deviceIndices = [],
         /** @var list<VkRect2D> */
@@ -51,12 +50,6 @@ final class VkBindImageMemoryDeviceGroupInfo implements InputStructureInterface,
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->deviceIndices !== []) {
             $data->deviceIndexCount = \count($this->deviceIndices);

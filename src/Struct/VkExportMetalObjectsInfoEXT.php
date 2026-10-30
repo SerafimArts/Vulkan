@@ -15,52 +15,34 @@ use Serafim\Vulkan\Struct\Extension\VkExportMetalObjectsInfoEXTExtension;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkExportMetalObjectsInfoEXT.html
  * @since VK_EXT_metal_objects
+ *
+ * @implements ChainRootInterface<VkExportMetalObjectsInfoEXTExtension>
  */
-final readonly class VkExportMetalObjectsInfoEXT implements OutputStructureInterface
+final readonly class VkExportMetalObjectsInfoEXT implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_EXPORT_METAL_OBJECTS_INFO_EXT->value;
 
     public function __construct(
-        /** @var list<VkExportMetalObjectsInfoEXTExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkExportMetalObjectsInfoEXTExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
      * @param CData&object{
      * } $data
-     * @param list<VkExportMetalObjectsInfoEXTExtension> $chain
+     * @param ChainSetInterface<VkExportMetalObjectsInfoEXTExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkExportMetalObjectsInfoEXTExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

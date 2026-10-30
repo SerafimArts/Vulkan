@@ -32,7 +32,12 @@ final class VkDeviceMemoryImageCopyKHR implements InputStructureInterface
         public VkImageSubresourceLayers $imageSubresource,
         public VkOffset3D $imageOffset,
         public VkExtent3D $imageExtent,
-        public ?VkDeviceMemoryImageCopyKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDeviceMemoryImageCopyKHRExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkAddressCommandFlagBitsKHR::*> */
         public int $addressFlags = 0,
         /** @var int<0, 4294967295> */
@@ -65,11 +70,7 @@ final class VkDeviceMemoryImageCopyKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDeviceMemoryImageCopyKHRExtension::class);
 
         $this->addressRange->write($memory, $data->addressRange);
 

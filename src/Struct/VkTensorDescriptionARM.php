@@ -31,7 +31,6 @@ final class VkTensorDescriptionARM implements InputStructureInterface, VkDataGra
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM->value;
 
     public function __construct(
-        public VkDataGraphPipelineResourceInfoARMExtension|VkDataGraphPipelineConstantARMExtension|null $next = null,
         public VkTensorTilingARM $tiling = VkTensorTilingARM::VK_TENSOR_TILING_OPTIMAL_ARM,
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
         /** @var list<int> */
@@ -62,12 +61,6 @@ final class VkTensorDescriptionARM implements InputStructureInterface, VkDataGra
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->tiling = $this->tiling->value;
 

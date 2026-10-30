@@ -30,7 +30,12 @@ final class VkVideoSessionParametersCreateInfoKHR implements InputStructureInter
 
     public function __construct(
         public VkVideoSessionKHR $videoSession,
-        public ?VkVideoSessionParametersCreateInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoSessionParametersCreateInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkVideoSessionParametersCreateFlagBitsKHR::*> */
         public int $flags = 0,
         public ?VkVideoSessionParametersKHR $videoSessionParametersTemplate = null,
@@ -54,11 +59,7 @@ final class VkVideoSessionParametersCreateInfoKHR implements InputStructureInter
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoSessionParametersCreateInfoKHRExtension::class);
 
         $data->flags = $this->flags;
 

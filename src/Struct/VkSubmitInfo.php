@@ -32,7 +32,12 @@ final class VkSubmitInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBMIT_INFO->value;
 
     public function __construct(
-        public ?VkSubmitInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkSubmitInfoExtension>
+         */
+        public array $chain = [],
         /** @var list<VkSemaphore> */
         public array $waitSemaphores = [],
         /** @var list<int<0, 4294967295>> */
@@ -65,11 +70,7 @@ final class VkSubmitInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkSubmitInfoExtension::class);
 
         if ($this->waitSemaphores !== []) {
             $data->waitSemaphoreCount = \count($this->waitSemaphores);

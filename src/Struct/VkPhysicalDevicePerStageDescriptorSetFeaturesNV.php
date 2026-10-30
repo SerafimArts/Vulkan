@@ -31,7 +31,6 @@ final class VkPhysicalDevicePerStageDescriptorSetFeaturesNV implements InputStru
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PER_STAGE_DESCRIPTOR_SET_FEATURES_NV->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $perStageDescriptorSet = false,
         public bool $dynamicPipelineLayout = false,
     ) {}
@@ -52,12 +51,6 @@ final class VkPhysicalDevicePerStageDescriptorSetFeaturesNV implements InputStru
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->perStageDescriptorSet = (int) $this->perStageDescriptorSet;
 

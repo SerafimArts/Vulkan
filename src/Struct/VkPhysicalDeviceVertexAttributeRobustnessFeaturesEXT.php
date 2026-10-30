@@ -29,7 +29,6 @@ final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT implements Inpu
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $vertexAttributeRobustness = false,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT implements Inpu
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->vertexAttributeRobustness = (int) $this->vertexAttributeRobustness;
     }

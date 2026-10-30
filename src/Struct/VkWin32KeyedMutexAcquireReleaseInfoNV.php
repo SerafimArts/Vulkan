@@ -29,7 +29,6 @@ final class VkWin32KeyedMutexAcquireReleaseInfoNV implements InputStructureInter
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_WIN32_KEYED_MUTEX_ACQUIRE_RELEASE_INFO_NV->value;
 
     public function __construct(
-        public VkSubmitInfoExtension|VkSubmitInfo2Extension|null $next = null,
         /** @var list<VkDeviceMemory> */
         public array $acquireSyncs = [],
         /** @var list<int> */
@@ -63,12 +62,6 @@ final class VkWin32KeyedMutexAcquireReleaseInfoNV implements InputStructureInter
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->acquireSyncs !== []) {
             $data->acquireCount = \count($this->acquireSyncs);

@@ -29,7 +29,12 @@ final class VkMemoryMapInfo implements InputStructureInterface
 
     public function __construct(
         public VkDeviceMemory $memory,
-        public ?VkMemoryMapInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkMemoryMapInfoExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkMemoryMapFlagBits::*> */
         public int $flags = 0,
         public int $offset = 0,
@@ -55,11 +60,7 @@ final class VkMemoryMapInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkMemoryMapInfoExtension::class);
 
         $data->flags = $this->flags;
 

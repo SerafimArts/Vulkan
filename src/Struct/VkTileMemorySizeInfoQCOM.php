@@ -28,7 +28,6 @@ final class VkTileMemorySizeInfoQCOM implements InputStructureInterface, VkRende
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM->value;
 
     public function __construct(
-        public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkRenderingInfoExtension|null $next = null,
         public int $size = 0,
     ) {}
 
@@ -47,12 +46,6 @@ final class VkTileMemorySizeInfoQCOM implements InputStructureInterface, VkRende
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->size = $this->size;
     }

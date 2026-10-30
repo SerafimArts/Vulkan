@@ -26,7 +26,6 @@ final class VkDataGraphPipelineIdentifierCreateInfoARM implements InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM->value;
 
     public function __construct(
-        public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
         /** @var list<int<0, 255>> */
         public array $identifier = [],
     ) {}
@@ -47,12 +46,6 @@ final class VkDataGraphPipelineIdentifierCreateInfoARM implements InputStructure
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->identifier !== []) {
             $data->identifierSize = \count($this->identifier);

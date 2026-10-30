@@ -26,7 +26,6 @@ final class VkImageAlignmentControlCreateInfoMESA implements InputStructureInter
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_ALIGNMENT_CONTROL_CREATE_INFO_MESA->value;
 
     public function __construct(
-        public ?VkImageCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $maximumRequestedAlignment = 0,
     ) {}
@@ -46,12 +45,6 @@ final class VkImageAlignmentControlCreateInfoMESA implements InputStructureInter
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->maximumRequestedAlignment = $this->maximumRequestedAlignment;
     }

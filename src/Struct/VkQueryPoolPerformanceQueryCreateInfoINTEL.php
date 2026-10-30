@@ -27,7 +27,6 @@ final class VkQueryPoolPerformanceQueryCreateInfoINTEL implements InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_PERFORMANCE_QUERY_CREATE_INFO_INTEL->value;
 
     public function __construct(
-        public ?VkQueryPoolCreateInfoExtension $next = null,
         public VkQueryPoolSamplingModeINTEL $performanceCountersSampling = VkQueryPoolSamplingModeINTEL::VK_QUERY_POOL_SAMPLING_MODE_MANUAL_INTEL,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkQueryPoolPerformanceQueryCreateInfoINTEL implements InputStructure
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->performanceCountersSampling = $this->performanceCountersSampling->value;
     }

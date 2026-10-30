@@ -26,7 +26,12 @@ final class VkSemaphoreCreateInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkSemaphoreCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkSemaphoreCreateInfoExtension>
+         */
+        public array $chain = [],
         /**
          * Semaphore creation flags
          *
@@ -51,11 +56,7 @@ final class VkSemaphoreCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkSemaphoreCreateInfoExtension::class);
 
         $data->flags = $this->flags;
     }

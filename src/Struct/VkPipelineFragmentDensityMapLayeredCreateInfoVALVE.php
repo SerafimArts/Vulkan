@@ -26,7 +26,6 @@ final class VkPipelineFragmentDensityMapLayeredCreateInfoVALVE implements InputS
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE->value;
 
     public function __construct(
-        public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $maxFragmentDensityMapLayers = 0,
     ) {}
@@ -46,12 +45,6 @@ final class VkPipelineFragmentDensityMapLayeredCreateInfoVALVE implements InputS
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->maxFragmentDensityMapLayers = $this->maxFragmentDensityMapLayers;
     }

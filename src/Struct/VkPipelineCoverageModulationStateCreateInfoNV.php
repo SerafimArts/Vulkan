@@ -28,7 +28,6 @@ final class VkPipelineCoverageModulationStateCreateInfoNV implements InputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COVERAGE_MODULATION_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         public VkCoverageModulationModeNV $coverageModulationMode = VkCoverageModulationModeNV::VK_COVERAGE_MODULATION_MODE_NONE_NV,
@@ -63,12 +62,6 @@ final class VkPipelineCoverageModulationStateCreateInfoNV implements InputStruct
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

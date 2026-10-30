@@ -47,9 +47,7 @@ final class VkBindMemoryStatus implements InputStructureInterface, VkBindBufferM
         }
     }
 
-    public function __construct(
-        public VkBindBufferMemoryInfoExtension|VkBindImageMemoryInfoExtension|null $next = null,
-    ) {}
+    public function __construct() {}
 
     /**
      * @param CData&object{
@@ -66,12 +64,6 @@ final class VkBindMemoryStatus implements InputStructureInterface, VkBindBufferM
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->resultBuffer = $memory->new('VkResult');
         $data->pResult = \FFI::addr($this->resultBuffer);

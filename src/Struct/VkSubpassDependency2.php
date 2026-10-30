@@ -32,7 +32,12 @@ final class VkSubpassDependency2 implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SUBPASS_DEPENDENCY_2->value;
 
     public function __construct(
-        public ?VkSubpassDependency2Extension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkSubpassDependency2Extension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $srcSubpass = 0,
         /** @var int<0, 4294967295> */
@@ -74,11 +79,7 @@ final class VkSubpassDependency2 implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkSubpassDependency2Extension::class);
 
         $data->srcSubpass = $this->srcSubpass;
 

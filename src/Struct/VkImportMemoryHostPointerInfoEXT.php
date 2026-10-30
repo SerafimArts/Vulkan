@@ -28,7 +28,6 @@ final class VkImportMemoryHostPointerInfoEXT implements InputStructureInterface,
 
     public function __construct(
         public CData|int $hostPointer,
-        public ?VkMemoryAllocateInfoExtension $next = null,
         /** @var int<0, 4294967295>|(VkExternalMemoryHandleTypeFlagBits::*) */
         public int $handleType = 0,
     ) {}
@@ -49,12 +48,6 @@ final class VkImportMemoryHostPointerInfoEXT implements InputStructureInterface,
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->handleType = $this->handleType;
 

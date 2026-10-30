@@ -15,8 +15,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoEncodeSessionParametersFeedbackInfoKH
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeSessionParametersFeedbackInfoKHR.html
  * @since VK_KHR_video_encode_queue
+ *
+ * @implements ChainRootInterface<VkVideoEncodeSessionParametersFeedbackInfoKHRExtension>
  */
-final readonly class VkVideoEncodeSessionParametersFeedbackInfoKHR implements OutputStructureInterface
+final readonly class VkVideoEncodeSessionParametersFeedbackInfoKHR implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -24,46 +26,26 @@ final readonly class VkVideoEncodeSessionParametersFeedbackInfoKHR implements Ou
 
     public function __construct(
         public bool $hasOverrides,
-        /** @var list<VkVideoEncodeSessionParametersFeedbackInfoKHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkVideoEncodeSessionParametersFeedbackInfoKHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
      * @param CData&object{
      *     hasOverrides: int<0, 1>,
      * } $data
-     * @param list<VkVideoEncodeSessionParametersFeedbackInfoKHRExtension> $chain
+     * @param ChainSetInterface<VkVideoEncodeSessionParametersFeedbackInfoKHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             hasOverrides: $data->hasOverrides !== 0,
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkVideoEncodeSessionParametersFeedbackInfoKHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

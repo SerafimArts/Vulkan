@@ -27,7 +27,6 @@ final class VkSamplerBorderColorComponentMappingCreateInfoEXT implements InputSt
 
     public function __construct(
         public VkComponentMapping $components,
-        public ?VkSamplerCreateInfoExtension $next = null,
         public bool $srgb = false,
     ) {}
 
@@ -47,12 +46,6 @@ final class VkSamplerBorderColorComponentMappingCreateInfoEXT implements InputSt
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->components->write($memory, $data->components);
 

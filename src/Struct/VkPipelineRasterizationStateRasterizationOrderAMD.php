@@ -27,7 +27,6 @@ final class VkPipelineRasterizationStateRasterizationOrderAMD implements InputSt
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_RASTERIZATION_ORDER_AMD->value;
 
     public function __construct(
-        public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
         /** Rasterization order to use for the pipeline */
         public VkRasterizationOrderAMD $rasterizationOrder = VkRasterizationOrderAMD::VK_RASTERIZATION_ORDER_STRICT_AMD,
     ) {}
@@ -47,12 +46,6 @@ final class VkPipelineRasterizationStateRasterizationOrderAMD implements InputSt
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->rasterizationOrder = $this->rasterizationOrder->value;
     }

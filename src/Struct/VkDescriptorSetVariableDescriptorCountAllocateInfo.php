@@ -29,7 +29,6 @@ final class VkDescriptorSetVariableDescriptorCountAllocateInfo implements InputS
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_VARIABLE_DESCRIPTOR_COUNT_ALLOCATE_INFO->value;
 
     public function __construct(
-        public ?VkDescriptorSetAllocateInfoExtension $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $descriptorCounts = [],
     ) {}
@@ -50,12 +49,6 @@ final class VkDescriptorSetVariableDescriptorCountAllocateInfo implements InputS
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->descriptorCounts !== []) {
             $data->descriptorSetCount = \count($this->descriptorCounts);

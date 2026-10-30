@@ -27,7 +27,6 @@ final class VkSamplerReductionModeCreateInfo implements InputStructureInterface,
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SAMPLER_REDUCTION_MODE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkSamplerCreateInfoExtension $next = null,
         public VkSamplerReductionMode $reductionMode = VkSamplerReductionMode::VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkSamplerReductionModeCreateInfo implements InputStructureInterface,
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->reductionMode = $this->reductionMode->value;
     }

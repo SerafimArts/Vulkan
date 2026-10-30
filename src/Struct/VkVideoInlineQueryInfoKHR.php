@@ -28,7 +28,6 @@ final class VkVideoInlineQueryInfoKHR implements InputStructureInterface, VkVide
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_INLINE_QUERY_INFO_KHR->value;
 
     public function __construct(
-        public VkVideoDecodeInfoKHRExtension|VkVideoEncodeInfoKHRExtension|null $next = null,
         public ?VkQueryPool $queryPool = null,
         /** @var int<0, 4294967295> */
         public int $firstQuery = 0,
@@ -53,12 +52,6 @@ final class VkVideoInlineQueryInfoKHR implements InputStructureInterface, VkVide
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->queryPool !== null) {
             $data->queryPool = $memory->ffi->cast('VkQueryPool', $this->queryPool->pointer);

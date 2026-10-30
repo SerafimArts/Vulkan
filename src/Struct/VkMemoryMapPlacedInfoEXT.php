@@ -27,7 +27,6 @@ final class VkMemoryMapPlacedInfoEXT implements InputStructureInterface, VkMemor
 
     public function __construct(
         public CData|int $placedAddress,
-        public ?VkMemoryMapInfoExtension $next = null,
     ) {}
 
     /**
@@ -45,12 +44,6 @@ final class VkMemoryMapPlacedInfoEXT implements InputStructureInterface, VkMemor
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->pPlacedAddress = $memory->ffi->cast('void*', $this->placedAddress);
     }

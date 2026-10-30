@@ -29,7 +29,6 @@ final class VkVideoEncodeSessionRgbConversionCreateInfoVALVE implements InputStr
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_RGB_CONVERSION_CREATE_INFO_VALVE->value;
 
     public function __construct(
-        public ?VkVideoSessionCreateInfoKHRExtension $next = null,
         /** @var int<0, 4294967295>|(VkVideoEncodeRgbModelConversionFlagBitsVALVE::*) */
         public int $rgbModel = 0,
         /** @var int<0, 4294967295>|(VkVideoEncodeRgbRangeCompressionFlagBitsVALVE::*) */
@@ -58,12 +57,6 @@ final class VkVideoEncodeSessionRgbConversionCreateInfoVALVE implements InputStr
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->rgbModel = $this->rgbModel;
 

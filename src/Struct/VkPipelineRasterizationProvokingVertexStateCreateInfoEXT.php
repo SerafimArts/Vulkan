@@ -27,7 +27,6 @@ final class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT implements 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_PROVOKING_VERTEX_STATE_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public ?VkPipelineRasterizationStateCreateInfoExtension $next = null,
         public VkProvokingVertexModeEXT $provokingVertexMode = VkProvokingVertexModeEXT::VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkPipelineRasterizationProvokingVertexStateCreateInfoEXT implements 
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->provokingVertexMode = $this->provokingVertexMode->value;
     }

@@ -29,7 +29,6 @@ final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT implements InputStr
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $ycbcr2plane444Formats = false,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT implements InputStr
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->ycbcr2plane444Formats = (int) $this->ycbcr2plane444Formats;
     }

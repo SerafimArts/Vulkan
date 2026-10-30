@@ -32,7 +32,12 @@ final class VkFramebufferAttachmentImageInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENT_IMAGE_INFO->value;
 
     public function __construct(
-        public ?VkFramebufferAttachmentImageInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkFramebufferAttachmentImageInfoExtension>
+         */
+        public array $chain = [],
         /**
          * Image creation flags
          *
@@ -77,11 +82,7 @@ final class VkFramebufferAttachmentImageInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkFramebufferAttachmentImageInfoExtension::class);
 
         $data->flags = $this->flags;
 

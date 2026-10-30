@@ -29,7 +29,12 @@ final class VkDataGraphPipelineSessionCreateInfoARM implements InputStructureInt
 
     public function __construct(
         public VkPipeline $dataGraphPipeline,
-        public ?VkDataGraphPipelineSessionCreateInfoARMExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDataGraphPipelineSessionCreateInfoARMExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkDataGraphPipelineSessionCreateFlagBitsARM::*> */
         public int $flags = 0,
     ) {}
@@ -51,11 +56,7 @@ final class VkDataGraphPipelineSessionCreateInfoARM implements InputStructureInt
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDataGraphPipelineSessionCreateInfoARMExtension::class);
 
         $data->flags = $this->flags;
 

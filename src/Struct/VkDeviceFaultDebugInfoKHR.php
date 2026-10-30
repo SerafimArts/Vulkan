@@ -17,8 +17,10 @@ use Serafim\Vulkan\Struct\Extension\VkDeviceFaultDebugInfoKHRExtension;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDeviceFaultDebugInfoKHR.html
  * @since VK_KHR_device_fault
+ *
+ * @implements ChainRootInterface<VkDeviceFaultDebugInfoKHRExtension>
  */
-final readonly class VkDeviceFaultDebugInfoKHR implements OutputStructureInterface, BufferedStructureInterface
+final readonly class VkDeviceFaultDebugInfoKHR implements OutputStructureInterface, BufferedStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -56,8 +58,8 @@ final readonly class VkDeviceFaultDebugInfoKHR implements OutputStructureInterfa
         /** @var int<0, 4294967295> */
         public int $vendorBinarySize,
         public string $vendorBinaryData,
-        /** @var list<VkDeviceFaultDebugInfoKHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkDeviceFaultDebugInfoKHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
@@ -65,14 +67,14 @@ final readonly class VkDeviceFaultDebugInfoKHR implements OutputStructureInterfa
      *     vendorBinarySize: int<0, 4294967295>,
      *     pVendorBinaryData: CData|null,
      * } $data
-     * @param list<VkDeviceFaultDebugInfoKHRExtension> $chain
+     * @param ChainSetInterface<VkDeviceFaultDebugInfoKHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             vendorBinarySize: $data->vendorBinarySize,
@@ -80,25 +82,5 @@ final readonly class VkDeviceFaultDebugInfoKHR implements OutputStructureInterfa
             vendorBinaryData: self::createBinaryFromCData($data->pVendorBinaryData, $data->vendorBinarySize),
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkDeviceFaultDebugInfoKHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

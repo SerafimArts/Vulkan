@@ -28,7 +28,12 @@ final class VkPushConstantsInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PUSH_CONSTANTS_INFO->value;
 
     public function __construct(
-        public ?VkPushConstantsInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPushConstantsInfoExtension>
+         */
+        public array $chain = [],
         public ?VkPipelineLayout $layout = null,
         /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $stageFlags = 0,
@@ -57,11 +62,7 @@ final class VkPushConstantsInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPushConstantsInfoExtension::class);
 
         if ($this->layout !== null) {
             $data->layout = $memory->ffi->cast('VkPipelineLayout', $this->layout->pointer);

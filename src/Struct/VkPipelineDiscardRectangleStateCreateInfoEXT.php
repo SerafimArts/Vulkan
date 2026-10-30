@@ -27,7 +27,6 @@ final class VkPipelineDiscardRectangleStateCreateInfoEXT implements InputStructu
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_DISCARD_RECTANGLE_STATE_CREATE_INFO_EXT->value;
 
     public function __construct(
-        public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         public VkDiscardRectangleModeEXT $discardRectangleMode = VkDiscardRectangleModeEXT::VK_DISCARD_RECTANGLE_MODE_INCLUSIVE_EXT,
@@ -53,12 +52,6 @@ final class VkPipelineDiscardRectangleStateCreateInfoEXT implements InputStructu
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

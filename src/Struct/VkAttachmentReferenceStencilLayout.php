@@ -27,7 +27,6 @@ final class VkAttachmentReferenceStencilLayout implements InputStructureInterfac
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_STENCIL_LAYOUT->value;
 
     public function __construct(
-        public ?VkAttachmentReference2Extension $next = null,
         public VkImageLayout $stencilLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkAttachmentReferenceStencilLayout implements InputStructureInterfac
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->stencilLayout = $this->stencilLayout->value;
     }

@@ -27,7 +27,6 @@ final class VkGraphicsPipelineShaderGroupsCreateInfoNV implements InputStructure
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_SHADER_GROUPS_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         /** @var list<VkGraphicsShaderGroupCreateInfoNV> */
         public array $groups = [],
         /** @var list<VkPipeline> */
@@ -52,12 +51,6 @@ final class VkGraphicsPipelineShaderGroupsCreateInfoNV implements InputStructure
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->groups !== []) {
             $data->groupCount = \count($this->groups);

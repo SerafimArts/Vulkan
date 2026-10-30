@@ -29,7 +29,6 @@ final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR implements 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_FEATURES_KHR->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $workgroupMemoryExplicitLayout = false,
         public bool $workgroupMemoryExplicitLayoutScalarBlockLayout = false,
         public bool $workgroupMemoryExplicitLayout8BitAccess = false,
@@ -54,12 +53,6 @@ final class VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR implements 
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->workgroupMemoryExplicitLayout = (int) $this->workgroupMemoryExplicitLayout;
 

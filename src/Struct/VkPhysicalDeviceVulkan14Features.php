@@ -13,8 +13,6 @@ use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
-use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
-use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan14Features.html
@@ -45,7 +43,6 @@ final class VkPhysicalDeviceVulkan14Features extends VkPhysicalDeviceVulkan13Fea
      * @param bool $shaderInt8 8-bit integers in shaders
      */
     public function __construct(
-        VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         bool $storageBuffer16BitAccess = false,
         bool $uniformAndStorageBuffer16BitAccess = false,
         bool $storagePushConstant16 = false,
@@ -143,7 +140,6 @@ final class VkPhysicalDeviceVulkan14Features extends VkPhysicalDeviceVulkan13Fea
         public bool $pushDescriptor = false,
     ) {
         parent::__construct(
-            next: $next,
             storageBuffer16BitAccess: $storageBuffer16BitAccess,
             uniformAndStorageBuffer16BitAccess: $uniformAndStorageBuffer16BitAccess,
             storagePushConstant16: $storagePushConstant16,
@@ -361,7 +357,6 @@ final class VkPhysicalDeviceVulkan14Features extends VkPhysicalDeviceVulkan13Fea
         $parent = VkPhysicalDeviceVulkan13Features::createFromCData(...$ancestors);
 
         return new self(
-            next: $parent->next,
             storageBuffer16BitAccess: $parent->storageBuffer16BitAccess,
             uniformAndStorageBuffer16BitAccess: $parent->uniformAndStorageBuffer16BitAccess,
             storagePushConstant16: $parent->storagePushConstant16,

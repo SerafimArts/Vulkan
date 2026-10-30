@@ -27,7 +27,6 @@ final class VkPipelineCompilerControlCreateInfoAMD implements InputStructureInte
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_COMPILER_CONTROL_CREATE_INFO_AMD->value;
 
     public function __construct(
-        public VkGraphicsPipelineCreateInfoExtension|VkComputePipelineCreateInfoExtension|null $next = null,
         /** @var int<0, 4294967295> */
         public int $compilerControlFlags = 0,
     ) {}
@@ -47,12 +46,6 @@ final class VkPipelineCompilerControlCreateInfoAMD implements InputStructureInte
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->compilerControlFlags = $this->compilerControlFlags;
     }

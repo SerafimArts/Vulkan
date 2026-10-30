@@ -26,7 +26,6 @@ final class VkHdrVividDynamicMetadataHUAWEI implements InputStructureInterface, 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_HDR_VIVID_DYNAMIC_METADATA_HUAWEI->value;
 
     public function __construct(
-        public ?VkHdrMetadataEXTExtension $next = null,
         /** Binary code of size dynamicMetadataSize */
         public string $dynamicMetadata = '',
     ) {}
@@ -47,12 +46,6 @@ final class VkHdrVividDynamicMetadataHUAWEI implements InputStructureInterface, 
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->dynamicMetadata !== '') {
             $data->dynamicMetadataSize = \strlen($this->dynamicMetadata);

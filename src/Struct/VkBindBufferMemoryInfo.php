@@ -30,7 +30,12 @@ final class VkBindBufferMemoryInfo implements InputStructureInterface
     public function __construct(
         public VkBuffer $buffer,
         public VkDeviceMemory $memory,
-        public ?VkBindBufferMemoryInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkBindBufferMemoryInfoExtension>
+         */
+        public array $chain = [],
         public int $memoryOffset = 0,
     ) {}
 
@@ -52,11 +57,7 @@ final class VkBindBufferMemoryInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkBindBufferMemoryInfoExtension::class);
 
         $data->buffer = $memory->ffi->cast('VkBuffer', $this->buffer->pointer);
 

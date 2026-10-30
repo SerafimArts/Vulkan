@@ -27,7 +27,6 @@ final class VkDataGraphPipelineOpticalFlowDispatchInfoARM implements InputStruct
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_OPTICAL_FLOW_DISPATCH_INFO_ARM->value;
 
     public function __construct(
-        public ?VkDataGraphPipelineDispatchInfoARMExtension $next = null,
         /** @var int-mask-of<VkDataGraphOpticalFlowExecuteFlagBitsARM::*> */
         public int $flags = 0,
         /** @var int<0, 4294967295> */
@@ -50,12 +49,6 @@ final class VkDataGraphPipelineOpticalFlowDispatchInfoARM implements InputStruct
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

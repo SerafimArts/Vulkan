@@ -27,7 +27,6 @@ final class VkPresentId2KHR implements InputStructureInterface, VkPresentInfoKHR
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PRESENT_ID_2_KHR->value;
 
     public function __construct(
-        public ?VkPresentInfoKHRExtension $next = null,
         /**
          * Copy of VkPresentInfoKHR::swapchainCount
          *
@@ -61,12 +60,6 @@ final class VkPresentId2KHR implements InputStructureInterface, VkPresentInfoKHR
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->swapchainCount !== 0) {
             $data->swapchainCount = $this->swapchainCount;

@@ -30,7 +30,12 @@ final class VkPushDescriptorSetWithTemplateInfo implements InputStructureInterfa
     public function __construct(
         public VkDescriptorUpdateTemplate $descriptorUpdateTemplate,
         public CData|int $data,
-        public ?VkPushDescriptorSetWithTemplateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPushDescriptorSetWithTemplateInfoExtension>
+         */
+        public array $chain = [],
         public ?VkPipelineLayout $layout = null,
         /** @var int<0, 4294967295> */
         public int $set = 0,
@@ -55,11 +60,7 @@ final class VkPushDescriptorSetWithTemplateInfo implements InputStructureInterfa
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPushDescriptorSetWithTemplateInfoExtension::class);
 
         $data->descriptorUpdateTemplate = $memory->ffi->cast('VkDescriptorUpdateTemplate', $this->descriptorUpdateTemplate->pointer);
 

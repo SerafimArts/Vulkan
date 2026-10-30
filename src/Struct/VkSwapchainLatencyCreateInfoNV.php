@@ -26,7 +26,6 @@ final class VkSwapchainLatencyCreateInfoNV implements InputStructureInterface, V
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkSwapchainCreateInfoKHRExtension $next = null,
         public bool $latencyModeEnable = false,
     ) {}
 
@@ -45,12 +44,6 @@ final class VkSwapchainLatencyCreateInfoNV implements InputStructureInterface, V
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->latencyModeEnable = (int) $this->latencyModeEnable;
     }

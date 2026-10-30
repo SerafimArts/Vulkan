@@ -31,7 +31,12 @@ final class VkBlitImageInfo2 implements InputStructureInterface
     public function __construct(
         public VkImage $srcImage,
         public VkImage $dstImage,
-        public ?VkBlitImageInfo2Extension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkBlitImageInfo2Extension>
+         */
+        public array $chain = [],
         public VkImageLayout $srcImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         public VkImageLayout $dstImageLayout = VkImageLayout::VK_IMAGE_LAYOUT_UNDEFINED,
         /** @var list<VkImageBlit2> */
@@ -61,11 +66,7 @@ final class VkBlitImageInfo2 implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkBlitImageInfo2Extension::class);
 
         $data->srcImage = $memory->ffi->cast('VkImage', $this->srcImage->pointer);
 

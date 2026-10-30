@@ -41,7 +41,12 @@ final class VkImageBlit2 implements InputStructureInterface
          * @var list<VkOffset3D>
          */
         public array $dstOffsets,
-        public ?VkImageBlit2Extension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkImageBlit2Extension>
+         */
+        public array $chain = [],
     ) {}
 
     /**
@@ -63,11 +68,7 @@ final class VkImageBlit2 implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkImageBlit2Extension::class);
 
         $this->srcSubresource->write($memory, $data->srcSubresource);
 

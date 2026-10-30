@@ -32,7 +32,12 @@ final class VkSamplerYcbcrConversionCreateInfo implements InputStructureInterfac
 
     public function __construct(
         public VkComponentMapping $components,
-        public ?VkSamplerYcbcrConversionCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkSamplerYcbcrConversionCreateInfoExtension>
+         */
+        public array $chain = [],
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
         public VkSamplerYcbcrModelConversion $ycbcrModel = VkSamplerYcbcrModelConversion::VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY,
         public VkSamplerYcbcrRange $ycbcrRange = VkSamplerYcbcrRange::VK_SAMPLER_YCBCR_RANGE_ITU_FULL,
@@ -65,11 +70,7 @@ final class VkSamplerYcbcrConversionCreateInfo implements InputStructureInterfac
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkSamplerYcbcrConversionCreateInfoExtension::class);
 
         $data->format = $this->format->value;
 

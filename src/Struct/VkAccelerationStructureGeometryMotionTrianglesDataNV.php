@@ -27,7 +27,6 @@ final class VkAccelerationStructureGeometryMotionTrianglesDataNV implements Inpu
 
     public function __construct(
         public VkDeviceOrHostAddressConstKHR $vertexData,
-        public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
     ) {}
 
     /**
@@ -45,12 +44,6 @@ final class VkAccelerationStructureGeometryMotionTrianglesDataNV implements Inpu
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->vertexData->write($memory, $data->vertexData);
     }

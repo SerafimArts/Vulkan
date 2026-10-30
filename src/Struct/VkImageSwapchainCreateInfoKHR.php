@@ -27,7 +27,6 @@ final class VkImageSwapchainCreateInfoKHR implements InputStructureInterface, Vk
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_SWAPCHAIN_CREATE_INFO_KHR->value;
 
     public function __construct(
-        public ?VkImageCreateInfoExtension $next = null,
         public ?VkSwapchainKHR $swapchain = null,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkImageSwapchainCreateInfoKHR implements InputStructureInterface, Vk
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->swapchain !== null) {
             $data->swapchain = $memory->ffi->cast('VkSwapchainKHR', $this->swapchain->pointer);

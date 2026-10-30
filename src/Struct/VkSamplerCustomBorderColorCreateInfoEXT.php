@@ -28,7 +28,6 @@ final class VkSamplerCustomBorderColorCreateInfoEXT implements InputStructureInt
 
     public function __construct(
         public VkClearColorValue $customBorderColor,
-        public ?VkSamplerCreateInfoExtension $next = null,
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkSamplerCustomBorderColorCreateInfoEXT implements InputStructureInt
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->customBorderColor->write($memory, $data->customBorderColor);
 

@@ -18,8 +18,10 @@ use Serafim\Vulkan\VulkanBase;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkDisplayModeProperties2KHR.html
  * @since VK_KHR_get_display_properties2
+ *
+ * @implements ChainRootInterface<VkDisplayModeProperties2KHRExtension>
  */
-final readonly class VkDisplayModeProperties2KHR implements OutputStructureInterface
+final readonly class VkDisplayModeProperties2KHR implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -27,15 +29,15 @@ final readonly class VkDisplayModeProperties2KHR implements OutputStructureInter
 
     public function __construct(
         public VkDisplayModePropertiesKHR $displayModeProperties,
-        /** @var list<VkDisplayModeProperties2KHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkDisplayModeProperties2KHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
      * @param CData&object{
      *     displayModeProperties: CData,
      * } $data
-     * @param list<VkDisplayModeProperties2KHRExtension> $chain
+     * @param ChainSetInterface<VkDisplayModeProperties2KHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
@@ -44,7 +46,7 @@ final readonly class VkDisplayModeProperties2KHR implements OutputStructureInter
      */
     public static function createFromCData(
         CData $data,
-        array $chain = [],
+        ChainSetInterface $chain = new ChainSet(),
         ?VulkanBase $vk = null,
         ?Handle $parent = null,
     ): self {
@@ -56,25 +58,5 @@ final readonly class VkDisplayModeProperties2KHR implements OutputStructureInter
             displayModeProperties: VkDisplayModePropertiesKHR::createFromCData($data->displayModeProperties, vk: $vk, parent: $parent),
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkDisplayModeProperties2KHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

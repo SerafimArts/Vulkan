@@ -34,7 +34,12 @@ final class VkRenderPassBeginInfo implements InputStructureInterface
         public VkRenderPass $renderPass,
         public VkFramebuffer $framebuffer,
         public VkRect2D $renderArea,
-        public ?VkRenderPassBeginInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkRenderPassBeginInfoExtension>
+         */
+        public array $chain = [],
         /** @var list<VkClearValue> */
         public array $clearValues = [],
     ) {}
@@ -59,11 +64,7 @@ final class VkRenderPassBeginInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkRenderPassBeginInfoExtension::class);
 
         $data->renderPass = $memory->ffi->cast('VkRenderPass', $this->renderPass->pointer);
 

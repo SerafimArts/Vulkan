@@ -27,7 +27,6 @@ final class VkQueryPoolVideoEncodePerPartitionFeedbackCreateInfoKHR implements I
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_QUERY_POOL_VIDEO_ENCODE_PER_PARTITION_FEEDBACK_CREATE_INFO_KHR->value;
 
     public function __construct(
-        public ?VkQueryPoolCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $maxPerPartitionFeedbackEntries = 0,
         /** @var int-mask-of<VkVideoEncodePerPartitionFeedbackFlagBitsKHR::*> */
@@ -50,12 +49,6 @@ final class VkQueryPoolVideoEncodePerPartitionFeedbackCreateInfoKHR implements I
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->maxPerPartitionFeedbackEntries = $this->maxPerPartitionFeedbackEntries;
 

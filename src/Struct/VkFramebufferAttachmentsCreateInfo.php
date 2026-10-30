@@ -29,7 +29,6 @@ final class VkFramebufferAttachmentsCreateInfo implements InputStructureInterfac
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FRAMEBUFFER_ATTACHMENTS_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkFramebufferCreateInfoExtension $next = null,
         /** @var list<VkFramebufferAttachmentImageInfo> */
         public array $attachmentImageInfos = [],
     ) {}
@@ -50,12 +49,6 @@ final class VkFramebufferAttachmentsCreateInfo implements InputStructureInterfac
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->attachmentImageInfos !== []) {
             $data->attachmentImageInfoCount = \count($this->attachmentImageInfos);

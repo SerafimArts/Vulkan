@@ -28,7 +28,6 @@ final class VkSemaphoreTypeCreateInfo implements InputStructureInterface, VkSema
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SEMAPHORE_TYPE_CREATE_INFO->value;
 
     public function __construct(
-        public VkSemaphoreCreateInfoExtension|VkPhysicalDeviceExternalSemaphoreInfoExtension|null $next = null,
         public VkSemaphoreType $semaphoreType = VkSemaphoreType::VK_SEMAPHORE_TYPE_BINARY,
         public int $initialValue = 0,
     ) {}
@@ -49,12 +48,6 @@ final class VkSemaphoreTypeCreateInfo implements InputStructureInterface, VkSema
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->semaphoreType = $this->semaphoreType->value;
 

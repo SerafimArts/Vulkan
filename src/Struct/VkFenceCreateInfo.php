@@ -27,7 +27,12 @@ final class VkFenceCreateInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_FENCE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkFenceCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkFenceCreateInfoExtension>
+         */
+        public array $chain = [],
         /**
          * Fence creation flags
          *
@@ -52,11 +57,7 @@ final class VkFenceCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkFenceCreateInfoExtension::class);
 
         $data->flags = $this->flags;
     }

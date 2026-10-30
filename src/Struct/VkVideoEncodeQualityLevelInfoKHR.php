@@ -27,7 +27,6 @@ final class VkVideoEncodeQualityLevelInfoKHR implements InputStructureInterface,
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUALITY_LEVEL_INFO_KHR->value;
 
     public function __construct(
-        public VkVideoCodingControlInfoKHRExtension|VkVideoSessionParametersCreateInfoKHRExtension|null $next = null,
         /** @var int<0, 4294967295> */
         public int $qualityLevel = 0,
     ) {}
@@ -47,12 +46,6 @@ final class VkVideoEncodeQualityLevelInfoKHR implements InputStructureInterface,
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->qualityLevel = $this->qualityLevel;
     }

@@ -28,7 +28,6 @@ final class VkDataGraphProcessingEngineCreateInfoARM implements InputStructureIn
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM->value;
 
     public function __construct(
-        public VkDataGraphPipelineCreateInfoARMExtension|VkDescriptorPoolCreateInfoExtension|VkCommandPoolCreateInfoExtension|null $next = null,
         /** @var list<VkPhysicalDeviceDataGraphProcessingEngineARM> */
         public array $processingEngines = [],
     ) {}
@@ -49,12 +48,6 @@ final class VkDataGraphProcessingEngineCreateInfoARM implements InputStructureIn
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->processingEngines !== []) {
             $data->processingEngineCount = \count($this->processingEngines);

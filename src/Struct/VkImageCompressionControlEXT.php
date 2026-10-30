@@ -29,7 +29,6 @@ final class VkImageCompressionControlEXT implements InputStructureInterface, VkI
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_COMPRESSION_CONTROL_EXT->value;
 
     public function __construct(
-        public VkImageCreateInfoExtension|VkSwapchainCreateInfoKHRExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,
         /** @var int-mask-of<VkImageCompressionFlagBitsEXT::*> */
         public int $flags = 0,
         /** @var list<int<0, 4294967295>> */
@@ -53,12 +52,6 @@ final class VkImageCompressionControlEXT implements InputStructureInterface, VkI
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

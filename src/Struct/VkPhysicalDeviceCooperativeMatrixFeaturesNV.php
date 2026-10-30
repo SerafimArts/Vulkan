@@ -29,7 +29,6 @@ final class VkPhysicalDeviceCooperativeMatrixFeaturesNV implements InputStructur
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $cooperativeMatrix = false,
         public bool $cooperativeMatrixRobustBufferAccess = false,
     ) {}
@@ -50,12 +49,6 @@ final class VkPhysicalDeviceCooperativeMatrixFeaturesNV implements InputStructur
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->cooperativeMatrix = (int) $this->cooperativeMatrix;
 

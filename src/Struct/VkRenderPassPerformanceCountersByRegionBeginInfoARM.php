@@ -27,8 +27,6 @@ final class VkRenderPassPerformanceCountersByRegionBeginInfoARM implements Input
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_PERFORMANCE_COUNTERS_BY_REGION_BEGIN_INFO_ARM->value;
 
     public function __construct(
-        /** Pointer to next structure */
-        public VkRenderPassBeginInfoExtension|VkRenderingInfoExtension|null $next = null,
         /** @var list<int> */
         public array $counterAddresses = [],
         public bool $serializeRegions = false,
@@ -55,12 +53,6 @@ final class VkRenderPassPerformanceCountersByRegionBeginInfoARM implements Input
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->counterAddresses !== []) {
             $data->counterAddressCount = \count($this->counterAddresses);

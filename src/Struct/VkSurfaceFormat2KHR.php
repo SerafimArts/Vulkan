@@ -15,8 +15,10 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceFormat2KHRExtension;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceFormat2KHR.html
  * @since VK_KHR_get_surface_capabilities2
+ *
+ * @implements ChainRootInterface<VkSurfaceFormat2KHRExtension>
  */
-final readonly class VkSurfaceFormat2KHR implements OutputStructureInterface
+final readonly class VkSurfaceFormat2KHR implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -24,46 +26,26 @@ final readonly class VkSurfaceFormat2KHR implements OutputStructureInterface
 
     public function __construct(
         public VkSurfaceFormatKHR $surfaceFormat,
-        /** @var list<VkSurfaceFormat2KHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkSurfaceFormat2KHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
      * @param CData&object{
      *     surfaceFormat: CData,
      * } $data
-     * @param list<VkSurfaceFormat2KHRExtension> $chain
+     * @param ChainSetInterface<VkSurfaceFormat2KHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             surfaceFormat: VkSurfaceFormatKHR::createFromCData($data->surfaceFormat),
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkSurfaceFormat2KHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

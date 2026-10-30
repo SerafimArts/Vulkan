@@ -33,7 +33,12 @@ final class VkImageViewCreateInfo implements InputStructureInterface
         public VkImage $image,
         public VkComponentMapping $components,
         public VkImageSubresourceRange $subresourceRange,
-        public ?VkImageViewCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkImageViewCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkImageViewCreateFlagBits::*> */
         public int $flags = 0,
         public VkImageViewType $viewType = VkImageViewType::VK_IMAGE_VIEW_TYPE_1D,
@@ -61,11 +66,7 @@ final class VkImageViewCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkImageViewCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

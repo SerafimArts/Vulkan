@@ -31,7 +31,12 @@ final class VkPhysicalDeviceImageFormatInfo2 implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_FORMAT_INFO_2->value;
 
     public function __construct(
-        public ?VkPhysicalDeviceImageFormatInfo2Extension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPhysicalDeviceImageFormatInfo2Extension>
+         */
+        public array $chain = [],
         public VkFormat $format = VkFormat::VK_FORMAT_UNDEFINED,
         public VkImageType $type = VkImageType::VK_IMAGE_TYPE_1D,
         public VkImageTiling $tiling = VkImageTiling::VK_IMAGE_TILING_OPTIMAL,
@@ -61,11 +66,7 @@ final class VkPhysicalDeviceImageFormatInfo2 implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPhysicalDeviceImageFormatInfo2Extension::class);
 
         $data->format = $this->format->value;
 

@@ -40,7 +40,12 @@ final class VkSwapchainCreateInfoKHR implements InputStructureInterface
         public VkSurfaceKHR $surface,
         /** Dimensions of the presentation images */
         public VkExtent2D $imageExtent,
-        public ?VkSwapchainCreateInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkSwapchainCreateInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkSwapchainCreateFlagBitsKHR::*> */
         public int $flags = 0,
         /**
@@ -130,11 +135,7 @@ final class VkSwapchainCreateInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkSwapchainCreateInfoKHRExtension::class);
 
         $data->flags = $this->flags;
 

@@ -28,7 +28,6 @@ final class VkAccelerationStructureTrianglesOpacityMicromapKHR implements InputS
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_TRIANGLES_OPACITY_MICROMAP_KHR->value;
 
     public function __construct(
-        public ?VkAccelerationStructureGeometryTrianglesDataKHRExtension $next = null,
         public VkIndexType $indexType = VkIndexType::VK_INDEX_TYPE_UINT16,
         public int $indexBuffer = 0,
         public int $indexStride = 0,
@@ -56,12 +55,6 @@ final class VkAccelerationStructureTrianglesOpacityMicromapKHR implements InputS
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->indexType = $this->indexType->value;
 

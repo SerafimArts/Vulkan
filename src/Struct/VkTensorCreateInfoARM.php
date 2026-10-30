@@ -28,7 +28,12 @@ final class VkTensorCreateInfoARM implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM->value;
 
     public function __construct(
-        public ?VkTensorCreateInfoARMExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkTensorCreateInfoARMExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkTensorCreateFlagBitsARM::*> */
         public int $flags = 0,
         public ?VkTensorDescriptionARM $description = null,
@@ -57,11 +62,7 @@ final class VkTensorCreateInfoARM implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkTensorCreateInfoARMExtension::class);
 
         $data->flags = $this->flags;
 

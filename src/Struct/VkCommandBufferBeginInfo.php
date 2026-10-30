@@ -27,7 +27,12 @@ final class VkCommandBufferBeginInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO->value;
 
     public function __construct(
-        public ?VkCommandBufferBeginInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkCommandBufferBeginInfoExtension>
+         */
+        public array $chain = [],
         /**
          * Command buffer usage flags
          *
@@ -55,11 +60,7 @@ final class VkCommandBufferBeginInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkCommandBufferBeginInfoExtension::class);
 
         $data->flags = $this->flags;
 

@@ -26,7 +26,12 @@ final class VkVideoEncodeRateControlLayerInfoKHR implements InputStructureInterf
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_ENCODE_RATE_CONTROL_LAYER_INFO_KHR->value;
 
     public function __construct(
-        public ?VkVideoEncodeRateControlLayerInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoEncodeRateControlLayerInfoKHRExtension>
+         */
+        public array $chain = [],
         public int $averageBitrate = 0,
         public int $maxBitrate = 0,
         /** @var int<0, 4294967295> */
@@ -54,11 +59,7 @@ final class VkVideoEncodeRateControlLayerInfoKHR implements InputStructureInterf
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoEncodeRateControlLayerInfoKHRExtension::class);
 
         $data->averageBitrate = $this->averageBitrate;
 

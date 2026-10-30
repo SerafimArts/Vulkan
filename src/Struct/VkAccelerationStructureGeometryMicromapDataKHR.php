@@ -27,7 +27,6 @@ final class VkAccelerationStructureGeometryMicromapDataKHR implements InputStruc
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_MICROMAP_DATA_KHR->value;
 
     public function __construct(
-        public ?VkAccelerationStructureGeometryKHRExtension $next = null,
         /**
          * The number of the elements of `$usageCounts`, `$usageCounts`, it
          * follows the array when it is given.
@@ -62,12 +61,6 @@ final class VkAccelerationStructureGeometryMicromapDataKHR implements InputStruc
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->usageCountsCount !== 0) {
             $data->usageCountsCount = $this->usageCountsCount;

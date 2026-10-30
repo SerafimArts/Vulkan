@@ -27,7 +27,6 @@ final class VkD3D12FenceSubmitInfoKHR implements InputStructureInterface, VkSubm
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_D3D12_FENCE_SUBMIT_INFO_KHR->value;
 
     public function __construct(
-        public ?VkSubmitInfoExtension $next = null,
         /**
          * The number of the elements of `$waitSemaphoreValues`, it follows
          * the array when it is given.
@@ -66,12 +65,6 @@ final class VkD3D12FenceSubmitInfoKHR implements InputStructureInterface, VkSubm
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->waitSemaphoreValuesCount !== 0) {
             $data->waitSemaphoreValuesCount = $this->waitSemaphoreValuesCount;

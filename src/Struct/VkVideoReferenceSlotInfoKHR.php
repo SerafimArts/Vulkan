@@ -26,7 +26,12 @@ final class VkVideoReferenceSlotInfoKHR implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_REFERENCE_SLOT_INFO_KHR->value;
 
     public function __construct(
-        public ?VkVideoReferenceSlotInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoReferenceSlotInfoKHRExtension>
+         */
+        public array $chain = [],
         /**
          * The reference slot index
          *
@@ -54,11 +59,7 @@ final class VkVideoReferenceSlotInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoReferenceSlotInfoKHRExtension::class);
 
         $data->slotIndex = $this->slotIndex;
 

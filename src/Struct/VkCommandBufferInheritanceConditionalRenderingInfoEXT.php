@@ -26,7 +26,6 @@ final class VkCommandBufferInheritanceConditionalRenderingInfoEXT implements Inp
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_CONDITIONAL_RENDERING_INFO_EXT->value;
 
     public function __construct(
-        public ?VkCommandBufferInheritanceInfoExtension $next = null,
         /**
          * Whether this secondary command buffer may be executed during an
          * active conditional rendering
@@ -49,12 +48,6 @@ final class VkCommandBufferInheritanceConditionalRenderingInfoEXT implements Inp
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->conditionalRenderingEnable = (int) $this->conditionalRenderingEnable;
     }

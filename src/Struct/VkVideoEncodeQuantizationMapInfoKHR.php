@@ -28,7 +28,6 @@ final class VkVideoEncodeQuantizationMapInfoKHR implements InputStructureInterfa
 
     public function __construct(
         public VkExtent2D $quantizationMapExtent,
-        public ?VkVideoEncodeInfoKHRExtension $next = null,
         public ?VkImageView $quantizationMap = null,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkVideoEncodeQuantizationMapInfoKHR implements InputStructureInterfa
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->quantizationMap !== null) {
             $data->quantizationMap = $memory->ffi->cast('VkImageView', $this->quantizationMap->pointer);

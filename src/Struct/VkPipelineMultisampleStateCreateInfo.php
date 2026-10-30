@@ -28,7 +28,12 @@ final class VkPipelineMultisampleStateCreateInfo implements InputStructureInterf
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkPipelineMultisampleStateCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPipelineMultisampleStateCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         /**
@@ -76,11 +81,7 @@ final class VkPipelineMultisampleStateCreateInfo implements InputStructureInterf
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPipelineMultisampleStateCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

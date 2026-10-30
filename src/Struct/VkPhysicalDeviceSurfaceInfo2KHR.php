@@ -27,7 +27,12 @@ final class VkPhysicalDeviceSurfaceInfo2KHR implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SURFACE_INFO_2_KHR->value;
 
     public function __construct(
-        public ?VkPhysicalDeviceSurfaceInfo2KHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPhysicalDeviceSurfaceInfo2KHRExtension>
+         */
+        public array $chain = [],
         public ?VkSurfaceKHR $surface = null,
     ) {}
 
@@ -47,11 +52,7 @@ final class VkPhysicalDeviceSurfaceInfo2KHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPhysicalDeviceSurfaceInfo2KHRExtension::class);
 
         if ($this->surface !== null) {
             $data->surface = $memory->ffi->cast('VkSurfaceKHR', $this->surface->pointer);

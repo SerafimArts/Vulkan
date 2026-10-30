@@ -29,7 +29,6 @@ final class VkShaderModuleValidationCacheCreateInfoEXT implements InputStructure
 
     public function __construct(
         public VkValidationCacheEXT $validationCache,
-        public VkShaderModuleCreateInfoExtension|VkPipelineShaderStageCreateInfoExtension|null $next = null,
     ) {}
 
     /**
@@ -47,12 +46,6 @@ final class VkShaderModuleValidationCacheCreateInfoEXT implements InputStructure
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->validationCache = $memory->ffi->cast('VkValidationCacheEXT', $this->validationCache->pointer);
     }

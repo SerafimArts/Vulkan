@@ -15,8 +15,10 @@ use Serafim\Vulkan\Struct\Extension\VkSurfaceCapabilities2KHRExtension;
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkSurfaceCapabilities2KHR.html
  * @since VK_KHR_get_surface_capabilities2
+ *
+ * @implements ChainRootInterface<VkSurfaceCapabilities2KHRExtension>
  */
-final readonly class VkSurfaceCapabilities2KHR implements OutputStructureInterface
+final readonly class VkSurfaceCapabilities2KHR implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -24,46 +26,26 @@ final readonly class VkSurfaceCapabilities2KHR implements OutputStructureInterfa
 
     public function __construct(
         public VkSurfaceCapabilitiesKHR $surfaceCapabilities,
-        /** @var list<VkSurfaceCapabilities2KHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkSurfaceCapabilities2KHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
      * @param CData&object{
      *     surfaceCapabilities: CData,
      * } $data
-     * @param list<VkSurfaceCapabilities2KHRExtension> $chain
+     * @param ChainSetInterface<VkSurfaceCapabilities2KHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             surfaceCapabilities: VkSurfaceCapabilitiesKHR::createFromCData($data->surfaceCapabilities),
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkSurfaceCapabilities2KHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

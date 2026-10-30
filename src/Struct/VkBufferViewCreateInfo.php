@@ -29,7 +29,12 @@ final class VkBufferViewCreateInfo implements InputStructureInterface
 
     public function __construct(
         public VkBuffer $buffer,
-        public ?VkBufferViewCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkBufferViewCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         /** Optionally specifies format of elements */
@@ -60,11 +65,7 @@ final class VkBufferViewCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkBufferViewCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

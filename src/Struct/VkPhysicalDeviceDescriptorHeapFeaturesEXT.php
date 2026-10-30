@@ -29,7 +29,6 @@ final class VkPhysicalDeviceDescriptorHeapFeaturesEXT implements InputStructureI
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_HEAP_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $descriptorHeap = false,
         public bool $descriptorHeapCaptureReplay = false,
     ) {}
@@ -50,12 +49,6 @@ final class VkPhysicalDeviceDescriptorHeapFeaturesEXT implements InputStructureI
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->descriptorHeap = (int) $this->descriptorHeap;
 

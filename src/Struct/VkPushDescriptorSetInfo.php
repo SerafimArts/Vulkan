@@ -28,7 +28,12 @@ final class VkPushDescriptorSetInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PUSH_DESCRIPTOR_SET_INFO->value;
 
     public function __construct(
-        public ?VkPushDescriptorSetInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkPushDescriptorSetInfoExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295>|(VkShaderStageFlagBits::*) */
         public int $stageFlags = 0,
         public ?VkPipelineLayout $layout = null,
@@ -58,11 +63,7 @@ final class VkPushDescriptorSetInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkPushDescriptorSetInfoExtension::class);
 
         $data->stageFlags = $this->stageFlags;
 

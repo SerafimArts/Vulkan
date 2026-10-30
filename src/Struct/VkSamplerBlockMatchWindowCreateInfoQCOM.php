@@ -28,7 +28,6 @@ final class VkSamplerBlockMatchWindowCreateInfoQCOM implements InputStructureInt
 
     public function __construct(
         public VkExtent2D $windowExtent,
-        public ?VkSamplerCreateInfoExtension $next = null,
         public VkBlockMatchWindowCompareModeQCOM $windowCompareMode = VkBlockMatchWindowCompareModeQCOM::VK_BLOCK_MATCH_WINDOW_COMPARE_MODE_MIN_QCOM,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkSamplerBlockMatchWindowCreateInfoQCOM implements InputStructureInt
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->windowExtent->write($memory, $data->windowExtent);
 

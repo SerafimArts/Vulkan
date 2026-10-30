@@ -26,7 +26,6 @@ final class VkDeviceGroupCommandBufferBeginInfo implements InputStructureInterfa
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_COMMAND_BUFFER_BEGIN_INFO->value;
 
     public function __construct(
-        public ?VkCommandBufferBeginInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $deviceMask = 0,
     ) {}
@@ -46,12 +45,6 @@ final class VkDeviceGroupCommandBufferBeginInfo implements InputStructureInterfa
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->deviceMask = $this->deviceMask;
     }

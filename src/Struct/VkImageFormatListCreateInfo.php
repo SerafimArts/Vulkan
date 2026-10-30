@@ -29,7 +29,6 @@ final class VkImageFormatListCreateInfo implements InputStructureInterface, VkIm
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_FORMAT_LIST_CREATE_INFO->value;
 
     public function __construct(
-        public VkImageCreateInfoExtension|VkSwapchainCreateInfoKHRExtension|VkPhysicalDeviceImageFormatInfo2Extension|null $next = null,
         /** @var list<VkFormat> */
         public array $viewFormats = [],
     ) {}
@@ -50,12 +49,6 @@ final class VkImageFormatListCreateInfo implements InputStructureInterface, VkIm
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->viewFormats !== []) {
             $data->viewFormatCount = \count($this->viewFormats);

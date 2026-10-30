@@ -30,7 +30,12 @@ final class VkVideoProfileInfoKHR implements InputStructureInterface, VkQueryPoo
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_VIDEO_PROFILE_INFO_KHR->value;
 
     public function __construct(
-        public VkVideoProfileInfoKHRExtension|VkQueryPoolCreateInfoExtension|null $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoProfileInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295>|(VkVideoCodecOperationFlagBitsKHR::*) */
         public int $videoCodecOperation = 0,
         /** @var int-mask-of<VkVideoChromaSubsamplingFlagBitsKHR::*> */
@@ -60,11 +65,7 @@ final class VkVideoProfileInfoKHR implements InputStructureInterface, VkQueryPoo
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoProfileInfoKHRExtension::class);
 
         $data->videoCodecOperation = $this->videoCodecOperation;
 

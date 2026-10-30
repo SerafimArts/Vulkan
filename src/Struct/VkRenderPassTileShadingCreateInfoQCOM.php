@@ -31,7 +31,6 @@ final class VkRenderPassTileShadingCreateInfoQCOM implements InputStructureInter
 
     public function __construct(
         public VkExtent2D $tileApronSize,
-        public VkRenderPassCreateInfoExtension|VkRenderPassCreateInfo2Extension|VkRenderingInfoExtension|VkCommandBufferInheritanceInfoExtension|null $next = null,
         /** @var int-mask-of<VkTileShadingRenderPassFlagBitsQCOM::*> */
         public int $flags = 0,
     ) {}
@@ -52,12 +51,6 @@ final class VkRenderPassTileShadingCreateInfoQCOM implements InputStructureInter
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

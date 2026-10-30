@@ -29,7 +29,6 @@ final class VkSamplerYcbcrConversionInfo implements InputStructureInterface, VkS
 
     public function __construct(
         public VkSamplerYcbcrConversion $conversion,
-        public VkSamplerCreateInfoExtension|VkImageViewCreateInfoExtension|null $next = null,
     ) {}
 
     /**
@@ -47,12 +46,6 @@ final class VkSamplerYcbcrConversionInfo implements InputStructureInterface, VkS
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->conversion = $memory->ffi->cast('VkSamplerYcbcrConversion', $this->conversion->pointer);
     }

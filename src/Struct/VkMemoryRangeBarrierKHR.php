@@ -30,7 +30,12 @@ final class VkMemoryRangeBarrierKHR implements InputStructureInterface
 
     public function __construct(
         public VkDeviceAddressRangeKHR $addressRange,
-        public ?VkMemoryRangeBarrierKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkMemoryRangeBarrierKHRExtension>
+         */
+        public array $chain = [],
         /** @var int|(VkPipelineStageFlagBits2::*) */
         public int $srcStageMask = 0,
         /** @var int|(VkAccessFlagBits2::*) */
@@ -70,11 +75,7 @@ final class VkMemoryRangeBarrierKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkMemoryRangeBarrierKHRExtension::class);
 
         $data->srcStageMask = $this->srcStageMask;
 

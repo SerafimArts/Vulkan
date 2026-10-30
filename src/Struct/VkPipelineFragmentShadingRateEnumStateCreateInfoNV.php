@@ -32,7 +32,6 @@ final class VkPipelineFragmentShadingRateEnumStateCreateInfoNV implements InputS
     public function __construct(
         /** @var list<VkFragmentShadingRateCombinerOpKHR> */
         public array $combinerOps,
-        public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         public VkFragmentShadingRateTypeNV $shadingRateType = VkFragmentShadingRateTypeNV::VK_FRAGMENT_SHADING_RATE_TYPE_FRAGMENT_SIZE_NV,
         public VkFragmentShadingRateNV $shadingRate = VkFragmentShadingRateNV::VK_FRAGMENT_SHADING_RATE_1_INVOCATION_PER_PIXEL_NV,
     ) {}
@@ -54,12 +53,6 @@ final class VkPipelineFragmentShadingRateEnumStateCreateInfoNV implements InputS
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->shadingRateType = $this->shadingRateType->value;
 

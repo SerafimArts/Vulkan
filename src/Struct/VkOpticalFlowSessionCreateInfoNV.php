@@ -30,7 +30,12 @@ final class VkOpticalFlowSessionCreateInfoNV implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_OPTICAL_FLOW_SESSION_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkOpticalFlowSessionCreateInfoNVExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkOpticalFlowSessionCreateInfoNVExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $width = 0,
         /** @var int<0, 4294967295> */
@@ -71,11 +76,7 @@ final class VkOpticalFlowSessionCreateInfoNV implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkOpticalFlowSessionCreateInfoNVExtension::class);
 
         $data->width = $this->width;
 

@@ -27,7 +27,6 @@ final class VkRenderingAttachmentFlagsInfoKHR implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_FLAGS_INFO_KHR->value;
 
     public function __construct(
-        public ?VkRenderingAttachmentInfoExtension $next = null,
         /** @var int-mask-of<VkRenderingAttachmentFlagBitsKHR::*> */
         public int $flags = 0,
     ) {}
@@ -47,12 +46,6 @@ final class VkRenderingAttachmentFlagsInfoKHR implements InputStructureInterface
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
     }

@@ -27,7 +27,12 @@ final class VkCalibratedTimestampInfoKHR implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR->value;
 
     public function __construct(
-        public ?VkCalibratedTimestampInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkCalibratedTimestampInfoKHRExtension>
+         */
+        public array $chain = [],
         public VkTimeDomainKHR $timeDomain = VkTimeDomainKHR::VK_TIME_DOMAIN_DEVICE_KHR,
     ) {}
 
@@ -47,11 +52,7 @@ final class VkCalibratedTimestampInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkCalibratedTimestampInfoKHRExtension::class);
 
         $data->timeDomain = $this->timeDomain->value;
     }

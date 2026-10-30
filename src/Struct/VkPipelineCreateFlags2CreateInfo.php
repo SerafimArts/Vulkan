@@ -30,7 +30,6 @@ final class VkPipelineCreateFlags2CreateInfo implements InputStructureInterface,
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_CREATE_FLAGS_2_CREATE_INFO->value;
 
     public function __construct(
-        public VkComputePipelineCreateInfoExtension|VkGraphicsPipelineCreateInfoExtension|VkRayTracingPipelineCreateInfoNVExtension|VkRayTracingPipelineCreateInfoKHRExtension|null $next = null,
         /** @var int|(VkPipelineCreateFlagBits2::*) */
         public int $flags = 0,
     ) {}
@@ -50,12 +49,6 @@ final class VkPipelineCreateFlags2CreateInfo implements InputStructureInterface,
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
     }

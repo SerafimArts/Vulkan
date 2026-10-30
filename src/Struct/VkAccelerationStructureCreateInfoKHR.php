@@ -33,7 +33,12 @@ final class VkAccelerationStructureCreateInfoKHR implements InputStructureInterf
 
     public function __construct(
         public VkBuffer $buffer,
-        public ?VkAccelerationStructureCreateInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkAccelerationStructureCreateInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkAccelerationStructureCreateFlagBitsKHR::*> */
         public int $createFlags = 0,
         /** Specified in bytes */
@@ -64,11 +69,7 @@ final class VkAccelerationStructureCreateInfoKHR implements InputStructureInterf
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkAccelerationStructureCreateInfoKHRExtension::class);
 
         $data->createFlags = $this->createFlags;
 

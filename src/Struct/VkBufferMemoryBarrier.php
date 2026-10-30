@@ -33,7 +33,12 @@ final class VkBufferMemoryBarrier implements InputStructureInterface
     public function __construct(
         /** Buffer to sync */
         public VkBuffer $buffer,
-        public ?VkBufferMemoryBarrierExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkBufferMemoryBarrierExtension>
+         */
+        public array $chain = [],
         /**
          * Memory accesses from the source of the dependency to synchronize
          *
@@ -87,11 +92,7 @@ final class VkBufferMemoryBarrier implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkBufferMemoryBarrierExtension::class);
 
         $data->srcAccessMask = $this->srcAccessMask;
 

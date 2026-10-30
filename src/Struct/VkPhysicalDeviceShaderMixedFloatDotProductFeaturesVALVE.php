@@ -29,7 +29,6 @@ final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE implements I
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MIXED_FLOAT_DOT_PRODUCT_FEATURES_VALVE->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderMixedFloatDotProductFloat16AccFloat32 = false,
         public bool $shaderMixedFloatDotProductFloat16AccFloat16 = false,
         public bool $shaderMixedFloatDotProductBFloat16Acc = false,
@@ -54,12 +53,6 @@ final class VkPhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE implements I
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->shaderMixedFloatDotProductFloat16AccFloat32 = (int) $this->shaderMixedFloatDotProductFloat16AccFloat32;
 

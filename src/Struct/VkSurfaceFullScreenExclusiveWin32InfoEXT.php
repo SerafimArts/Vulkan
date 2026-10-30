@@ -28,7 +28,6 @@ final class VkSurfaceFullScreenExclusiveWin32InfoEXT implements InputStructureIn
 
     public function __construct(
         public CData|int $hmonitor,
-        public VkPhysicalDeviceSurfaceInfo2KHRExtension|VkSwapchainCreateInfoKHRExtension|null $next = null,
     ) {}
 
     /**
@@ -46,12 +45,6 @@ final class VkSurfaceFullScreenExclusiveWin32InfoEXT implements InputStructureIn
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->hmonitor = $memory->ffi->cast('HMONITOR', $this->hmonitor);
     }

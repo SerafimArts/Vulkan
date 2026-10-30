@@ -28,7 +28,6 @@ final class VkImportMetalSharedEventInfoEXT implements InputStructureInterface, 
 
     public function __construct(
         public CData|int $mtlSharedEvent,
-        public VkSemaphoreCreateInfoExtension|VkEventCreateInfoExtension|null $next = null,
     ) {}
 
     /**
@@ -46,12 +45,6 @@ final class VkImportMetalSharedEventInfoEXT implements InputStructureInterface, 
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->mtlSharedEvent = $memory->ffi->cast('MTLSharedEvent_id', $this->mtlSharedEvent);
     }

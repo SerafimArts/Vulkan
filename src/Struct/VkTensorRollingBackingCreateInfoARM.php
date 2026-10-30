@@ -27,7 +27,6 @@ final class VkTensorRollingBackingCreateInfoARM implements InputStructureInterfa
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TENSOR_ROLLING_BACKING_CREATE_INFO_ARM->value;
 
     public function __construct(
-        public ?VkTensorCreateInfoARMExtension $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $wraps = [0, 0, 0, 0],
     ) {}
@@ -47,12 +46,6 @@ final class VkTensorRollingBackingCreateInfoARM implements InputStructureInterfa
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if (\count($this->wraps) > 4) {
             throw ArrayTooLongException::becauseArrayIsTooLong('VkTensorRollingBackingCreateInfoARM', 'wraps', 4);

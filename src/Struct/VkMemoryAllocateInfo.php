@@ -26,7 +26,12 @@ final class VkMemoryAllocateInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO->value;
 
     public function __construct(
-        public ?VkMemoryAllocateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkMemoryAllocateInfoExtension>
+         */
+        public array $chain = [],
         /** Size of memory allocation */
         public int $allocationSize = 0,
         /**
@@ -54,11 +59,7 @@ final class VkMemoryAllocateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkMemoryAllocateInfoExtension::class);
 
         $data->allocationSize = $this->allocationSize;
 

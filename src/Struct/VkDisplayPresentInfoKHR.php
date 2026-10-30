@@ -36,7 +36,6 @@ final class VkDisplayPresentInfoKHR implements InputStructureInterface, VkPresen
          * display srcRectangle in.
          */
         public VkRect2D $dstRect,
-        public ?VkPresentInfoKHRExtension $next = null,
         /**
          * For smart displays, use buffered mode. If the display properties
          * member "persistentMode" is VK_FALSE, this member must always be
@@ -62,12 +61,6 @@ final class VkDisplayPresentInfoKHR implements InputStructureInterface, VkPresen
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $this->srcRect->write($memory, $data->srcRect);
 

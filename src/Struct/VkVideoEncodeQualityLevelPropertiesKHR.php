@@ -16,8 +16,10 @@ use Serafim\Vulkan\Struct\Extension\VkVideoEncodeQualityLevelPropertiesKHRExtens
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkVideoEncodeQualityLevelPropertiesKHR.html
  * @since VK_KHR_video_encode_queue
+ *
+ * @implements ChainRootInterface<VkVideoEncodeQualityLevelPropertiesKHRExtension>
  */
-final readonly class VkVideoEncodeQualityLevelPropertiesKHR implements OutputStructureInterface
+final readonly class VkVideoEncodeQualityLevelPropertiesKHR implements OutputStructureInterface, ChainRootInterface
 {
     use OutputStructureTrait;
 
@@ -28,8 +30,8 @@ final readonly class VkVideoEncodeQualityLevelPropertiesKHR implements OutputStr
         public int $preferredRateControlMode,
         /** @var int<0, 4294967295> */
         public int $preferredRateControlLayerCount,
-        /** @var list<VkVideoEncodeQualityLevelPropertiesKHRExtension> */
-        public array $chain = [],
+        /** @var ChainSetInterface<VkVideoEncodeQualityLevelPropertiesKHRExtension> */
+        public ChainSetInterface $chain = new ChainSet(),
     ) {}
 
     /**
@@ -37,39 +39,19 @@ final readonly class VkVideoEncodeQualityLevelPropertiesKHR implements OutputStr
      *     preferredRateControlMode: int<0, 4294967295>,
      *     preferredRateControlLayerCount: int<0, 4294967295>,
      * } $data
-     * @param list<VkVideoEncodeQualityLevelPropertiesKHRExtension> $chain
+     * @param ChainSetInterface<VkVideoEncodeQualityLevelPropertiesKHRExtension> $chain
      *
      * @phpstan-param CData $data
      *
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data, array $chain = []): self
+    public static function createFromCData(CData $data, ChainSetInterface $chain = new ChainSet()): self
     {
         return new self(
             preferredRateControlMode: $data->preferredRateControlMode,
             preferredRateControlLayerCount: $data->preferredRateControlLayerCount,
             chain: $chain,
         );
-    }
-
-    /**
-     * Returns the structure of the chain that is an instance of the class.
-     *
-     * @template TChained of VkVideoEncodeQualityLevelPropertiesKHRExtension
-     *
-     * @param class-string<TChained> $class
-     *
-     * @return TChained|null
-     */
-    public function findChained(string $class): ?object
-    {
-        foreach ($this->chain as $item) {
-            if ($item instanceof $class) {
-                return $item;
-            }
-        }
-
-        return null;
     }
 }

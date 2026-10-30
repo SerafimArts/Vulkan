@@ -29,7 +29,6 @@ final class VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT implements Inp
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_OCP_MICROSCALING_TYPES_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $shaderFloat4 = false,
         public bool $shaderFloat6 = false,
         public bool $shaderFloat8UnsignedE8M0 = false,
@@ -54,12 +53,6 @@ final class VkPhysicalDeviceShaderOCPMicroscalingTypesFeaturesEXT implements Inp
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->shaderFloat4 = (int) $this->shaderFloat4;
 

@@ -26,7 +26,6 @@ final class VkPipelineViewportShadingRateImageStateCreateInfoNV implements Input
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_SHADING_RATE_IMAGE_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkPipelineViewportStateCreateInfoExtension $next = null,
         public bool $shadingRateImageEnable = false,
         /** @var list<VkShadingRatePaletteNV> */
         public array $shadingRatePalettes = [],
@@ -49,12 +48,6 @@ final class VkPipelineViewportShadingRateImageStateCreateInfoNV implements Input
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->shadingRateImageEnable = (int) $this->shadingRateImageEnable;
 

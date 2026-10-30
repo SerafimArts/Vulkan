@@ -26,7 +26,6 @@ final class VkDataGraphPipelineCompilerControlCreateInfoARM implements InputStru
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM->value;
 
     public function __construct(
-        public ?VkDataGraphPipelineCreateInfoARMExtension $next = null,
         /** @var non-empty-string|null */
         public ?string $vendorOptions = null,
     ) {}
@@ -46,12 +45,6 @@ final class VkDataGraphPipelineCompilerControlCreateInfoARM implements InputStru
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->vendorOptions !== null) {
             $data->pVendorOptions = $memory->toCString($this->vendorOptions);

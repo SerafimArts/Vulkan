@@ -7,6 +7,7 @@ namespace Serafim\Vulkan\Internal;
 use FFI\CData;
 use Serafim\Vulkan\Exception\InvalidStructure\StructureNotChainableException;
 use Serafim\Vulkan\Internal\Memory\Allocator;
+use Serafim\Vulkan\Struct\ChainSet;
 use Serafim\Vulkan\Struct\Extension\BufferedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
@@ -144,20 +145,20 @@ final readonly class Chain
     /**
      * Creates the structures from the native ones the command has filled.
      *
-     * @return list<TStructure>
+     * @return ChainSet<TStructure>
      */
-    public function read(): array
+    public function read(): ChainSet
     {
-        $chain = [];
+        $structures = [];
 
         foreach ($this->requested as [$class, $natives]) {
             /** @var TStructure $structure */
             $structure = $class::createFromCData(...$natives);
 
-            $chain[] = $structure;
+            $structures[] = $structure;
         }
 
-        return $chain;
+        return new ChainSet($structures);
     }
 
     /**

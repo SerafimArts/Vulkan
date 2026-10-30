@@ -29,7 +29,6 @@ final class VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT implements InputStruc
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_SLICED_VIEW_OF_3D_FEATURES_EXT->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $imageSlicedViewOf3D = false,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkPhysicalDeviceImageSlicedViewOf3DFeaturesEXT implements InputStruc
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->imageSlicedViewOf3D = (int) $this->imageSlicedViewOf3D;
     }

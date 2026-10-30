@@ -26,7 +26,6 @@ final class VkPipelineRepresentativeFragmentTestStateCreateInfoNV implements Inp
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PIPELINE_REPRESENTATIVE_FRAGMENT_TEST_STATE_CREATE_INFO_NV->value;
 
     public function __construct(
-        public ?VkGraphicsPipelineCreateInfoExtension $next = null,
         public bool $representativeFragmentTestEnable = false,
     ) {}
 
@@ -45,12 +44,6 @@ final class VkPipelineRepresentativeFragmentTestStateCreateInfoNV implements Inp
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->representativeFragmentTestEnable = (int) $this->representativeFragmentTestEnable;
     }

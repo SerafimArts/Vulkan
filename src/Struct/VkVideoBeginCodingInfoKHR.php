@@ -29,7 +29,12 @@ final class VkVideoBeginCodingInfoKHR implements InputStructureInterface
 
     public function __construct(
         public VkVideoSessionKHR $videoSession,
-        public ?VkVideoBeginCodingInfoKHRExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkVideoBeginCodingInfoKHRExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         public ?VkVideoSessionParametersKHR $videoSessionParameters = null,
@@ -57,11 +62,7 @@ final class VkVideoBeginCodingInfoKHR implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkVideoBeginCodingInfoKHRExtension::class);
 
         $data->flags = $this->flags;
 

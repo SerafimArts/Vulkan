@@ -27,7 +27,6 @@ final class VkDirectDriverLoadingListLUNARG implements InputStructureInterface, 
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG->value;
 
     public function __construct(
-        public ?VkInstanceCreateInfoExtension $next = null,
         public VkDirectDriverLoadingModeLUNARG $mode = VkDirectDriverLoadingModeLUNARG::VK_DIRECT_DRIVER_LOADING_MODE_EXCLUSIVE_LUNARG,
         /** @var list<VkDirectDriverLoadingInfoLUNARG> */
         public array $drivers = [],
@@ -50,12 +49,6 @@ final class VkDirectDriverLoadingListLUNARG implements InputStructureInterface, 
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->mode = $this->mode->value;
 

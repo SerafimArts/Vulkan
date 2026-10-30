@@ -27,7 +27,6 @@ final class VkSurfacePresentModeKHR implements InputStructureInterface, VkPhysic
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR->value;
 
     public function __construct(
-        public ?VkPhysicalDeviceSurfaceInfo2KHRExtension $next = null,
         public VkPresentModeKHR $presentMode = VkPresentModeKHR::VK_PRESENT_MODE_IMMEDIATE_KHR,
     ) {}
 
@@ -46,12 +45,6 @@ final class VkSurfacePresentModeKHR implements InputStructureInterface, VkPhysic
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->presentMode = $this->presentMode->value;
     }

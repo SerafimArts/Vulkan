@@ -30,7 +30,12 @@ final class VkRenderPassCreateInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkRenderPassCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkRenderPassCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int-mask-of<VkRenderPassCreateFlagBits::*> */
         public int $flags = 0,
         /** @var list<VkAttachmentDescription> */
@@ -63,11 +68,7 @@ final class VkRenderPassCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkRenderPassCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

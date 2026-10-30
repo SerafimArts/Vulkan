@@ -26,7 +26,12 @@ final class VkDeviceCreateInfo implements InputStructureInterface
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkDeviceCreateInfoExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkDeviceCreateInfoExtension>
+         */
+        public array $chain = [],
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         /** @var list<VkDeviceQueueCreateInfo> */
@@ -65,11 +70,7 @@ final class VkDeviceCreateInfo implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkDeviceCreateInfoExtension::class);
 
         $data->flags = $this->flags;
 

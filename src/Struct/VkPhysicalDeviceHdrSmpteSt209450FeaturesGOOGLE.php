@@ -29,7 +29,6 @@ final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE implements InputStruc
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_SMPTE_ST_209450_FEATURES_GOOGLE->value;
 
     public function __construct(
-        public VkPhysicalDeviceFeatures2Extension|VkDeviceCreateInfoExtension|null $next = null,
         public bool $hdrSmpteSt209450 = false,
     ) {}
 
@@ -48,12 +47,6 @@ final class VkPhysicalDeviceHdrSmpteSt209450FeaturesGOOGLE implements InputStruc
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->hdrSmpteSt209450 = (int) $this->hdrSmpteSt209450;
     }

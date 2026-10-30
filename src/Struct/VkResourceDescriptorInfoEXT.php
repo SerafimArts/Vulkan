@@ -28,7 +28,12 @@ final class VkResourceDescriptorInfoEXT implements InputStructureInterface
 
     public function __construct(
         public VkResourceDescriptorDataEXT $data,
-        public ?VkResourceDescriptorInfoEXTExtension $next = null,
+        /**
+         * The structures chained to it through `pNext`.
+         *
+         * @var list<VkResourceDescriptorInfoEXTExtension>
+         */
+        public array $chain = [],
         public VkDescriptorType $type = VkDescriptorType::VK_DESCRIPTOR_TYPE_SAMPLER,
     ) {}
 
@@ -49,11 +54,7 @@ final class VkResourceDescriptorInfoEXT implements InputStructureInterface
     {
         $data->sType = self::STRUCTURE_TYPE;
 
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
+        $memory->linkChain($data, $this->chain, VkResourceDescriptorInfoEXTExtension::class);
 
         $data->type = $this->type->value;
 

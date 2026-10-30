@@ -29,7 +29,6 @@ final class VkDescriptorSetLayoutBindingFlagsCreateInfo implements InputStructur
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO->value;
 
     public function __construct(
-        public ?VkDescriptorSetLayoutCreateInfoExtension $next = null,
         /** @var list<int<0, 4294967295>> */
         public array $bindingFlags = [],
     ) {}
@@ -50,12 +49,6 @@ final class VkDescriptorSetLayoutBindingFlagsCreateInfo implements InputStructur
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->bindingFlags !== []) {
             $data->bindingCount = \count($this->bindingFlags);

@@ -27,7 +27,6 @@ final class VkTimelineSemaphoreSubmitInfo implements InputStructureInterface, Vk
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_TIMELINE_SEMAPHORE_SUBMIT_INFO->value;
 
     public function __construct(
-        public VkSubmitInfoExtension|VkBindSparseInfoExtension|null $next = null,
         /** @var list<int> */
         public array $waitSemaphoreValues = [],
         /** @var list<int> */
@@ -52,12 +51,6 @@ final class VkTimelineSemaphoreSubmitInfo implements InputStructureInterface, Vk
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->waitSemaphoreValues !== []) {
             $data->waitSemaphoreValueCount = \count($this->waitSemaphoreValues);

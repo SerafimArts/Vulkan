@@ -29,7 +29,6 @@ final class VkMemoryDedicatedAllocateInfoTensorARM implements InputStructureInte
     public function __construct(
         /** Tensor that this allocation will be bound to */
         public VkTensorARM $tensor,
-        public ?VkMemoryAllocateInfoExtension $next = null,
     ) {}
 
     /**
@@ -47,12 +46,6 @@ final class VkMemoryDedicatedAllocateInfoTensorARM implements InputStructureInte
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->tensor = $memory->ffi->cast('VkTensorARM', $this->tensor->pointer);
     }

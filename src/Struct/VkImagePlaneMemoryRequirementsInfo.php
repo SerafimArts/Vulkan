@@ -27,7 +27,6 @@ final class VkImagePlaneMemoryRequirementsInfo implements InputStructureInterfac
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_IMAGE_PLANE_MEMORY_REQUIREMENTS_INFO->value;
 
     public function __construct(
-        public ?VkImageMemoryRequirementsInfo2Extension $next = null,
         /** @var int<0, 4294967295>|(VkImageAspectFlagBits::*) */
         public int $planeAspect = 0,
     ) {}
@@ -47,12 +46,6 @@ final class VkImagePlaneMemoryRequirementsInfo implements InputStructureInterfac
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->planeAspect = $this->planeAspect;
     }

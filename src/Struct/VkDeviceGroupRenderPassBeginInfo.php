@@ -27,7 +27,6 @@ final class VkDeviceGroupRenderPassBeginInfo implements InputStructureInterface,
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_DEVICE_GROUP_RENDER_PASS_BEGIN_INFO->value;
 
     public function __construct(
-        public VkRenderPassBeginInfoExtension|VkRenderingInfoExtension|null $next = null,
         /** @var int<0, 4294967295> */
         public int $deviceMask = 0,
         /** @var list<VkRect2D> */
@@ -51,12 +50,6 @@ final class VkDeviceGroupRenderPassBeginInfo implements InputStructureInterface,
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->deviceMask = $this->deviceMask;
 

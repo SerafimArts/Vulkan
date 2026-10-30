@@ -28,7 +28,6 @@ final class VkDeviceDeviceMemoryReportCreateInfoEXT implements InputStructureInt
     public function __construct(
         /** @var \Closure(CData|null, CData|null): void */
         public \Closure $pfnUserCallback,
-        public ?VkDeviceCreateInfoExtension $next = null,
         /** @var int<0, 4294967295> */
         public int $flags = 0,
         public CData|int|null $userData = null,
@@ -51,12 +50,6 @@ final class VkDeviceDeviceMemoryReportCreateInfoEXT implements InputStructureInt
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         $data->flags = $this->flags;
 

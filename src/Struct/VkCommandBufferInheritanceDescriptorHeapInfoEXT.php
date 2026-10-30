@@ -26,7 +26,6 @@ final class VkCommandBufferInheritanceDescriptorHeapInfoEXT implements InputStru
     public const int STRUCTURE_TYPE = VkStructureType::VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_DESCRIPTOR_HEAP_INFO_EXT->value;
 
     public function __construct(
-        public ?VkCommandBufferInheritanceInfoExtension $next = null,
         public ?VkBindHeapInfoEXT $samplerHeapBindInfo = null,
         public ?VkBindHeapInfoEXT $resourceHeapBindInfo = null,
     ) {}
@@ -47,12 +46,6 @@ final class VkCommandBufferInheritanceDescriptorHeapInfoEXT implements InputStru
     public function write(Allocation $memory, CData $data): void
     {
         $data->sType = self::STRUCTURE_TYPE;
-
-        if ($this->next !== null) {
-            \assert($this->next instanceof InputStructureInterface);
-
-            $data->pNext = $memory->ffi->cast('void*', \FFI::addr($memory->toStructure($this->next)));
-        }
 
         if ($this->samplerHeapBindInfo !== null) {
             $data->pSamplerHeapBindInfo = \FFI::addr($memory->toStructure($this->samplerHeapBindInfo));
