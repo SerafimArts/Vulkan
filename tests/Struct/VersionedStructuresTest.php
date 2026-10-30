@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\CoversNothing;
 use Serafim\Vulkan\Internal\Chain;
 use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
+use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
 use Serafim\Vulkan\Struct\VkPhysicalDevice16BitStorageFeatures;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceProperties2;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan11Features;
@@ -45,18 +46,19 @@ final class VersionedStructuresTest extends TestCase
         $tail = new VkPhysicalDevice16BitStorageFeatures(storageBuffer16BitAccess: true);
 
         $features = new VkPhysicalDeviceVulkan13Features(
-            next: $tail,
             multiview: true,
             bufferDeviceAddress: true,
             dynamicRendering: true,
         );
 
-        $data = $features->toCData($vk->memory);
+        $data = new VkDeviceCreateInfo(chain: [$features, $tail])->toCData($vk->memory);
 
-        self::assertSame(VkPhysicalDeviceVulkan13Features::STRUCTURE_TYPE, $data->sType);
-        self::assertSame(1, $data->dynamicRendering);
+        $first = $vk->memory->ffi->cast('VkPhysicalDeviceVulkan13Features*', $data->pNext);
 
-        $second = $vk->memory->ffi->cast('VkPhysicalDeviceVulkan12Features*', $data->pNext);
+        self::assertSame(VkPhysicalDeviceVulkan13Features::STRUCTURE_TYPE, $first->sType);
+        self::assertSame(1, $first->dynamicRendering);
+
+        $second = $vk->memory->ffi->cast('VkPhysicalDeviceVulkan12Features*', $first->pNext);
 
         self::assertSame(VkPhysicalDeviceVulkan12Features::STRUCTURE_TYPE, $second->sType);
         self::assertSame(1, $second->bufferDeviceAddress);
@@ -117,7 +119,7 @@ final class VersionedStructuresTest extends TestCase
             $types,
         );
 
-        [$thirteen, $twelve] = $chain->read();
+        [$thirteen, $twelve] = [...$chain->read()];
 
         self::assertInstanceOf(VkPhysicalDeviceVulkan13Properties::class, $thirteen);
         self::assertInstanceOf(VkPhysicalDeviceVulkan12Properties::class, $twelve);

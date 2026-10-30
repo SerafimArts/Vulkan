@@ -217,13 +217,13 @@ final class VulkanTest extends TestCase
         }
 
         $properties = $vk->vkGetPhysicalDeviceProperties2($devices[0], [VkPhysicalDeviceVulkan12Properties::class]);
-        $vulkan12 = $properties->findChained(VkPhysicalDeviceVulkan12Properties::class);
+        $vulkan12 = $properties->chain->find(VkPhysicalDeviceVulkan12Properties::class);
 
         self::assertInstanceOf(VkPhysicalDeviceVulkan12Properties::class, $vulkan12);
         self::assertNotSame('', $vulkan12->driverName);
         self::assertNotSame('', $vulkan12->deviceUUID);
         self::assertCount(1, $properties->chain);
-        self::assertSame($vulkan12, $properties->findChained(VkPhysicalDeviceVulkan11Properties::class));
+        self::assertSame($vulkan12, $properties->chain[VkPhysicalDeviceVulkan11Properties::class]);
     }
 
     public function testFeaturesOfTheChainAreReturnedToTheDevice(): void
@@ -241,12 +241,12 @@ final class VulkanTest extends TestCase
         }
 
         $features = $vk->vkGetPhysicalDeviceFeatures2($devices[0], [VkPhysicalDeviceVulkan12Features::class]);
-        $vulkan12 = $features->findChained(VkPhysicalDeviceVulkan12Features::class);
+        $vulkan12 = $features->chain->find(VkPhysicalDeviceVulkan12Features::class);
 
         self::assertInstanceOf(VkPhysicalDeviceVulkan12Features::class, $vulkan12);
 
         $device = $vk->vkCreateDevice($devices[0], new VkDeviceCreateInfo(
-            next: $vulkan12,
+            chain: [$vulkan12],
             queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
         ));
 
@@ -316,7 +316,7 @@ final class VulkanTest extends TestCase
             self::assertGreaterThan(0, $family->queueFamilyProperties->queueCount);
             self::assertInstanceOf(
                 VkQueueFamilyCheckpointPropertiesNV::class,
-                $family->findChained(VkQueueFamilyCheckpointPropertiesNV::class),
+                $family->chain->find(VkQueueFamilyCheckpointPropertiesNV::class),
             );
         }
     }
@@ -910,7 +910,7 @@ final class VulkanTest extends TestCase
         $vk = self::loadVulkan();
 
         $device = $vk->vkCreateDevice(self::getPhysicalDevice($vk), new VkDeviceCreateInfo(
-            next: new VkPhysicalDeviceVulkan12Features(),
+            chain: [new VkPhysicalDeviceVulkan12Features()],
             queueCreateInfos: [new VkDeviceQueueCreateInfo(queueFamilyIndex: 0, queuePriorities: [1.0])],
         ));
 
@@ -1206,7 +1206,7 @@ final class VulkanTest extends TestCase
             [VkPhysicalDeviceHostImageCopyProperties::class],
         );
 
-        $host = $properties->findChained(VkPhysicalDeviceHostImageCopyProperties::class);
+        $host = $properties->chain->find(VkPhysicalDeviceHostImageCopyProperties::class);
 
         self::assertSame(2, $calls);
         self::assertSame([VkImageLayout::VK_IMAGE_LAYOUT_GENERAL], $host?->copySrcLayouts);

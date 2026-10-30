@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Tests\Struct;
 
 use PHPUnit\Framework\Attributes\CoversTrait;
+use Serafim\Vulkan\Exception\InvalidStructure\StructureNotChainableException;
 use Serafim\Vulkan\Exception\InvalidStructureException;
 use Serafim\Vulkan\Handle\VkSemaphore;
 use Serafim\Vulkan\Struct\InputStructureTrait;
@@ -76,7 +77,7 @@ final class InputStructureTest extends TestCase
     {
         $vk = self::loadVulkan();
 
-        $data = new VkDeviceCreateInfo(next: new VkPhysicalDeviceVulkan12Features(drawIndirectCount: true))
+        $data = new VkDeviceCreateInfo(chain: [new VkPhysicalDeviceVulkan12Features(drawIndirectCount: true)])
             ->toCData($vk->memory);
 
         $chained = $vk->ffi->cast('VkPhysicalDeviceVulkan12Features*', $data->pNext);
@@ -229,9 +230,11 @@ final class InputStructureTest extends TestCase
 
     public function testStructureThatCannotBeChainedIsRejected(): void
     {
-        $this->expectException(\TypeError::class);
+        $vk = self::loadVulkan();
 
-        new VkDeviceCreateInfo(next: new VkFenceCreateInfo());
+        $this->expectException(StructureNotChainableException::class);
+
+        new VkDeviceCreateInfo(chain: [new VkFenceCreateInfo()])->toCData($vk->memory);
     }
 
     private static function createSemaphore(Vulkan $vk): VkSemaphore

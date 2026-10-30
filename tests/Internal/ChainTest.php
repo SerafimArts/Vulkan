@@ -44,7 +44,7 @@ final class ChainTest extends TestCase
         $native->pCopySrcLayouts[0] = VkImageLayout::VK_IMAGE_LAYOUT_GENERAL->value;
         $native->pCopySrcLayouts[1] = VkImageLayout::VK_IMAGE_LAYOUT_PREINITIALIZED->value;
 
-        $host = $chain->read()[0];
+        $host = $chain->read()->get(VkPhysicalDeviceHostImageCopyProperties::class);
 
         self::assertInstanceOf(VkPhysicalDeviceHostImageCopyProperties::class, $host);
         self::assertSame(
