@@ -93,7 +93,7 @@ $properties = $vk->vkGetPhysicalDeviceProperties2($device, [
     VkPhysicalDeviceVulkan13Properties::class,
 ]);
 
-$vulkan13 = $properties->findChained(VkPhysicalDeviceVulkan13Properties::class);
+$vulkan13 = $properties->chain[VkPhysicalDeviceVulkan13Properties::class];
 
 echo $vulkan13->driverName . "\n";   // Vulkan 1.2
 echo $vulkan13->deviceUUID . "\n";    // Vulkan 1.1
@@ -112,7 +112,7 @@ use Serafim\Vulkan\Struct\VkDeviceQueueCreateInfo;
 $logical = $vk->vkCreateDevice($device, new VkDeviceCreateInfo(
     queueCreateInfos: [
         new VkDeviceQueueCreateInfo(
-            queueFamilyIndex: 0, 
+            queueFamilyIndex: 0,
             queuePriorities: [1.0],
         ),
     ],
@@ -120,6 +120,27 @@ $logical = $vk->vkCreateDevice($device, new VkDeviceCreateInfo(
 
 $queue = $vk->vkGetDeviceQueue($logical, 0, 0);
 $vk->vkQueueWaitIdle($queue);
+```
+
+### Enabling features
+
+Structures that extend the one a command takes are given in its `chain` list.
+The structure of a Vulkan version holds the features of all the older ones.
+
+```php
+use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan13Features;
+
+$logical = $vk->vkCreateDevice($device, new VkDeviceCreateInfo(
+    queueCreateInfos: [new VkDeviceQueueCreateInfo(
+        queueFamilyIndex: 0, 
+        queuePriorities: [1.0],
+    )],
+    chain: [new VkPhysicalDeviceVulkan13Features(
+        dynamicRendering: true,
+        bufferDeviceAddress: true, // Vulkan 1.2
+        multiview: true,           // Vulkan 1.1
+    )],
+));
 ```
 
 ### Errors
@@ -137,7 +158,7 @@ try {
     ));
 } catch (CommandFailedException $e) {
     $result = VkResult::from($e->getCode());
-    
+
     echo $result->name;
 }
 ```
