@@ -17,5 +17,5 @@ interface CountedStructureInterface
      *
      * @param CData $counts the native structure with the lengths of the arrays
      */
-    public static function createFromCData(CData $data, CData $counts): static;
+    public static function createFromCData(CData $data, CData $counts): self;
 }
