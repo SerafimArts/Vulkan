@@ -16,13 +16,16 @@ use Serafim\Vulkan\Enum\VkSubgroupFeatureFlagBits;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
+
+use function Serafim\Vulkan\vk_make_api_version;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Properties.html
  * @since 1.2
  */
-readonly class VkPhysicalDeviceVulkan11Properties implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface
+readonly class VkPhysicalDeviceVulkan11Properties implements OutputStructureInterface, VkPhysicalDeviceProperties2Extension, ChainedStructureInterface, VersionedStructureInterface
 {
     use OutputStructureTrait;
 
@@ -38,6 +41,24 @@ readonly class VkPhysicalDeviceVulkan11Properties implements OutputStructureInte
         $data->sType = self::STRUCTURE_TYPE;
 
         return $data;
+    }
+
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getVersion(): int
+    {
+        return vk_make_api_version(0, 1, 1, 0);
+    }
+
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getAncestors(): array
+    {
+        return [];
     }
 
     public function __construct(
@@ -137,7 +158,7 @@ readonly class VkPhysicalDeviceVulkan11Properties implements OutputStructureInte
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, CData ...$ancestors): self
     {
         return new self(
             deviceUUID: \FFI::string($data->deviceUUID, 16),

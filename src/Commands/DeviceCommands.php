@@ -83,6 +83,7 @@ use Serafim\Vulkan\Handle\VkTensorViewARM;
 use Serafim\Vulkan\Handle\VkValidationCacheEXT;
 use Serafim\Vulkan\Handle\VkVideoSessionKHR;
 use Serafim\Vulkan\Handle\VkVideoSessionParametersKHR;
+use Serafim\Vulkan\Internal\ApiVersion;
 use Serafim\Vulkan\Internal\Chain;
 use Serafim\Vulkan\Internal\DoubleCall;
 use Serafim\Vulkan\Internal\EnumCase;
@@ -3803,7 +3804,13 @@ trait DeviceCommands
     {
         $nativeMetalObjectsInfo = $this->memory->new('VkExportMetalObjectsInfoEXT');
         $nativeMetalObjectsInfo->sType = VkExportMetalObjectsInfoEXT::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMetalObjectsInfo, $chain, VkExportMetalObjectsInfoEXTExtension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMetalObjectsInfo,
+            $chain,
+            VkExportMetalObjectsInfoEXTExtension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkExportMetalObjectsEXT', $device);
 
@@ -4004,7 +4011,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetAccelerationStructureMemoryRequirementsNV', $device);
 
@@ -4129,7 +4142,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetBufferMemoryRequirements2', $device);
 
@@ -4442,7 +4461,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetDataGraphPipelineSessionMemoryRequirementsARM', $device);
 
@@ -4641,7 +4666,13 @@ trait DeviceCommands
 
         $nativeSupport = $this->memory->new('VkDescriptorSetLayoutSupport');
         $nativeSupport->sType = VkDescriptorSetLayoutSupport::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeSupport, $chain, VkDescriptorSetLayoutSupportExtension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeSupport,
+            $chain,
+            VkDescriptorSetLayoutSupportExtension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetDescriptorSetLayoutSupport', $device);
 
@@ -4715,7 +4746,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceBufferMemoryRequirements', $device);
 
@@ -4781,7 +4818,13 @@ trait DeviceCommands
     {
         $nativeDebugInfo = $this->memory->new('VkDeviceFaultDebugInfoKHR');
         $nativeDebugInfo->sType = VkDeviceFaultDebugInfoKHR::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeDebugInfo, $chain, VkDeviceFaultDebugInfoKHRExtension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeDebugInfo,
+            $chain,
+            VkDeviceFaultDebugInfoKHRExtension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceFaultDebugInfoKHR', $device);
 
@@ -5019,7 +5062,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceImageMemoryRequirements', $device);
 
@@ -5117,7 +5166,13 @@ trait DeviceCommands
 
         $nativeLayout = $this->memory->new('VkSubresourceLayout2');
         $nativeLayout->sType = VkSubresourceLayout2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeLayout, $chain, VkSubresourceLayout2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeLayout,
+            $chain,
+            VkSubresourceLayout2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceImageSubresourceLayout', $device);
 
@@ -5340,7 +5395,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetDeviceTensorMemoryRequirementsARM', $device);
 
@@ -5558,7 +5619,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetGeneratedCommandsMemoryRequirementsEXT', $device);
 
@@ -5586,7 +5653,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetGeneratedCommandsMemoryRequirementsNV', $device);
 
@@ -5721,7 +5794,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetImageMemoryRequirements2', $device);
 
@@ -5933,7 +6012,13 @@ trait DeviceCommands
 
         $nativeLayout = $this->memory->new('VkSubresourceLayout2');
         $nativeLayout->sType = VkSubresourceLayout2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeLayout, $chain, VkSubresourceLayout2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeLayout,
+            $chain,
+            VkSubresourceLayout2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetImageSubresourceLayout2', $device);
 
@@ -6690,7 +6775,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPipelineIndirectMemoryRequirementsNV', $device);
 
@@ -7476,7 +7567,13 @@ trait DeviceCommands
 
         $nativeMemoryRequirements = $this->memory->new('VkMemoryRequirements2');
         $nativeMemoryRequirements->sType = VkMemoryRequirements2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryRequirements, $chain, VkMemoryRequirements2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryRequirements,
+            $chain,
+            VkMemoryRequirements2Extension::class,
+            ApiVersion::find($device),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetTensorMemoryRequirementsARM', $device);
 

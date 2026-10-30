@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Tests\Struct;
 
 use PHPUnit\Framework\Attributes\CoversNothing;
+use Serafim\Vulkan\Exception\ApiVersionTooLowException;
 use Serafim\Vulkan\Internal\Chain;
 use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceProperties2Extension;
 use Serafim\Vulkan\Struct\VkDeviceCreateInfo;
+use Serafim\Vulkan\Struct\VkInstanceCreateInfo;
 use Serafim\Vulkan\Struct\VkPhysicalDevice16BitStorageFeatures;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceProperties2;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan11Features;
@@ -19,6 +21,8 @@ use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan13Features;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan13Properties;
 use Serafim\Vulkan\Struct\VkPhysicalDeviceVulkan14Properties;
 use Serafim\Vulkan\Tests\TestCase;
+
+use function Serafim\Vulkan\vk_make_api_version;
 
 #[CoversNothing]
 final class VersionedStructuresTest extends TestCase
@@ -37,7 +41,65 @@ final class VersionedStructuresTest extends TestCase
             [VkPhysicalDeviceVulkan12Properties::class, VkPhysicalDeviceVulkan11Properties::class],
             VkPhysicalDeviceVulkan13Properties::getAncestors(),
         );
-        self::assertFalse(\is_subclass_of(VkPhysicalDeviceVulkan11Properties::class, VersionedStructureInterface::class));
+        self::assertSame([], VkPhysicalDeviceVulkan11Properties::getAncestors());
+    }
+
+    public function testStructureTellsTheVersionOfVulkan(): void
+    {
+        self::assertSame(vk_make_api_version(0, 1, 1, 0), VkPhysicalDeviceVulkan11Properties::getVersion());
+        self::assertSame(vk_make_api_version(0, 1, 3, 0), VkPhysicalDeviceVulkan13Features::getVersion());
+        self::assertInstanceOf(
+            VersionedStructureInterface::class,
+            new VkPhysicalDeviceVulkan11Features(),
+        );
+    }
+
+    public function testStructureOfANewerVersionIsRejectedForAnOlderInstance(): void
+    {
+        $vk = self::loadVulkan();
+        $root = $vk->memory->new('VkPhysicalDeviceProperties2');
+
+        $this->expectException(ApiVersionTooLowException::class);
+        $this->expectExceptionMessage('needs Vulkan 1.2, the instance was created for Vulkan 1.0');
+
+        Chain::allocate(
+            $vk->memory,
+            $root,
+            [VkPhysicalDeviceVulkan12Properties::class],
+            VkPhysicalDeviceProperties2Extension::class,
+            vk_make_api_version(0, 1, 0, 0),
+        );
+    }
+
+    public function testStructureOfTheVersionOfTheInstanceIsAccepted(): void
+    {
+        $vk = self::loadVulkan();
+        $root = $vk->memory->new('VkPhysicalDeviceProperties2');
+
+        Chain::allocate(
+            $vk->memory,
+            $root,
+            [VkPhysicalDeviceVulkan12Properties::class],
+            VkPhysicalDeviceProperties2Extension::class,
+            vk_make_api_version(0, 1, 2, 7),
+        );
+
+        self::assertNotNull($root->pNext);
+    }
+
+    public function testInstanceWithoutTheVersionRejectsTheStructureOfTheCore(): void
+    {
+        $vk = self::loadVulkan();
+        $instance = $vk->vkCreateInstance(new VkInstanceCreateInfo());
+        $devices = [...$vk->vkEnumeratePhysicalDevices($instance)];
+
+        if ($devices === []) {
+            self::markTestSkipped('There are no physical devices');
+        }
+
+        $this->expectException(ApiVersionTooLowException::class);
+
+        $vk->vkGetPhysicalDeviceProperties2($devices[0], [VkPhysicalDeviceVulkan12Properties::class]);
     }
 
     public function testNativeStructuresOfAllVersionsAreWrittenOnceAndChained(): void

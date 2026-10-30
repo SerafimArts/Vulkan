@@ -32,8 +32,6 @@ final class HandleLifetime
      * native object is.
      *
      * @var list<mixed>
-     *
-     * @phpstan-ignore-next-line phpstan false positive, required to keep the references in memory
      */
     private array $references = [];
 
@@ -45,6 +43,26 @@ final class HandleLifetime
     public function retain(mixed $reference): void
     {
         $this->references[] = $reference;
+    }
+
+    /**
+     * Returns the object of the class that the native object refers to.
+     *
+     * @template T of object
+     *
+     * @param class-string<T> $class
+     *
+     * @return T|null
+     */
+    public function find(string $class): ?object
+    {
+        foreach ($this->references as $reference) {
+            if ($reference instanceof $class) {
+                return $reference;
+            }
+        }
+
+        return null;
     }
 
     public function adopt(Handle $child): void

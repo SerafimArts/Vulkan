@@ -28,6 +28,7 @@ use Serafim\Vulkan\Handle\VkDisplayKHR;
 use Serafim\Vulkan\Handle\VkDisplayModeKHR;
 use Serafim\Vulkan\Handle\VkPhysicalDevice;
 use Serafim\Vulkan\Handle\VkSurfaceKHR;
+use Serafim\Vulkan\Internal\ApiVersion;
 use Serafim\Vulkan\Internal\Chain;
 use Serafim\Vulkan\Internal\EnumCase;
 use Serafim\Vulkan\Internal\VkEnumerator;
@@ -459,11 +460,12 @@ trait PhysicalDeviceCommands
         $procedure = $this->vkGetInstanceProc('vkGetDisplayModeProperties2KHR', $physicalDevice);
         /** @var list<Chain<ChainedStructureInterface&VkDisplayModeProperties2KHRExtension>> $natives */
         $natives = [];
+        $apiVersion = ApiVersion::find($physicalDevice);
 
         return VkEnumerator::create(
             $this,
             'vkGetDisplayModeProperties2KHR',
-            function (CData $count, ?CData $items) use ($procedure, $physicalDevice, $display, $chain, &$natives): mixed {
+            function (CData $count, ?CData $items) use ($procedure, $physicalDevice, $display, $chain, $apiVersion, &$natives): mixed {
                 if ($items !== null) {
                     $natives = Chain::allocateEach(
                         $this->memory,
@@ -472,6 +474,7 @@ trait PhysicalDeviceCommands
                         VkDisplayModeProperties2KHR::STRUCTURE_TYPE,
                         $chain,
                         VkDisplayModeProperties2KHRExtension::class,
+                        $apiVersion,
                     );
                 }
 
@@ -1170,7 +1173,13 @@ trait PhysicalDeviceCommands
     ): VkPhysicalDeviceFeatures2 {
         $nativeFeatures = $this->memory->new('VkPhysicalDeviceFeatures2');
         $nativeFeatures->sType = VkPhysicalDeviceFeatures2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeFeatures, $chain, VkPhysicalDeviceFeatures2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeFeatures,
+            $chain,
+            VkPhysicalDeviceFeatures2Extension::class,
+            ApiVersion::find($physicalDevice),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceFeatures2', $physicalDevice);
 
@@ -1240,7 +1249,13 @@ trait PhysicalDeviceCommands
     ): VkFormatProperties2 {
         $nativeFormatProperties = $this->memory->new('VkFormatProperties2');
         $nativeFormatProperties->sType = VkFormatProperties2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeFormatProperties, $chain, VkFormatProperties2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeFormatProperties,
+            $chain,
+            VkFormatProperties2Extension::class,
+            ApiVersion::find($physicalDevice),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceFormatProperties2', $physicalDevice);
 
@@ -1361,7 +1376,13 @@ trait PhysicalDeviceCommands
 
         $nativeImageFormatProperties = $this->memory->new('VkImageFormatProperties2');
         $nativeImageFormatProperties->sType = VkImageFormatProperties2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeImageFormatProperties, $chain, VkImageFormatProperties2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeImageFormatProperties,
+            $chain,
+            VkImageFormatProperties2Extension::class,
+            ApiVersion::find($physicalDevice),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceImageFormatProperties2', $physicalDevice);
 
@@ -1437,7 +1458,13 @@ trait PhysicalDeviceCommands
     ): VkPhysicalDeviceMemoryProperties2 {
         $nativeMemoryProperties = $this->memory->new('VkPhysicalDeviceMemoryProperties2');
         $nativeMemoryProperties->sType = VkPhysicalDeviceMemoryProperties2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeMemoryProperties, $chain, VkPhysicalDeviceMemoryProperties2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeMemoryProperties,
+            $chain,
+            VkPhysicalDeviceMemoryProperties2Extension::class,
+            ApiVersion::find($physicalDevice),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceMemoryProperties2', $physicalDevice);
 
@@ -1594,7 +1621,13 @@ trait PhysicalDeviceCommands
     ): VkPhysicalDeviceProperties2 {
         $nativeProperties = $this->memory->new('VkPhysicalDeviceProperties2');
         $nativeProperties->sType = VkPhysicalDeviceProperties2::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeProperties, $chain, VkPhysicalDeviceProperties2Extension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeProperties,
+            $chain,
+            VkPhysicalDeviceProperties2Extension::class,
+            ApiVersion::find($physicalDevice),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceProperties2', $physicalDevice);
 
@@ -1827,11 +1860,12 @@ trait PhysicalDeviceCommands
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceQueueFamilyProperties2', $physicalDevice);
         /** @var list<Chain<ChainedStructureInterface&VkQueueFamilyProperties2Extension>> $natives */
         $natives = [];
+        $apiVersion = ApiVersion::find($physicalDevice);
 
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceQueueFamilyProperties2',
-            function (CData $count, ?CData $items) use ($procedure, $physicalDevice, $chain, &$natives): mixed {
+            function (CData $count, ?CData $items) use ($procedure, $physicalDevice, $chain, $apiVersion, &$natives): mixed {
                 if ($items !== null) {
                     $natives = Chain::allocateEach(
                         $this->memory,
@@ -1840,6 +1874,7 @@ trait PhysicalDeviceCommands
                         VkQueueFamilyProperties2::STRUCTURE_TYPE,
                         $chain,
                         VkQueueFamilyProperties2Extension::class,
+                        $apiVersion,
                     );
                 }
 
@@ -2044,7 +2079,13 @@ trait PhysicalDeviceCommands
 
         $nativeSurfaceCapabilities = $this->memory->new('VkSurfaceCapabilities2KHR');
         $nativeSurfaceCapabilities->sType = VkSurfaceCapabilities2KHR::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeSurfaceCapabilities, $chain, VkSurfaceCapabilities2KHRExtension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeSurfaceCapabilities,
+            $chain,
+            VkSurfaceCapabilities2KHRExtension::class,
+            ApiVersion::find($physicalDevice),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceSurfaceCapabilities2KHR', $physicalDevice);
 
@@ -2107,11 +2148,12 @@ trait PhysicalDeviceCommands
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceSurfaceFormats2KHR', $physicalDevice);
         /** @var list<Chain<ChainedStructureInterface&VkSurfaceFormat2KHRExtension>> $natives */
         $natives = [];
+        $apiVersion = ApiVersion::find($physicalDevice);
 
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceSurfaceFormats2KHR',
-            function (CData $count, ?CData $items) use ($procedure, $physicalDevice, $nativeSurfaceInfo, $chain, &$natives): mixed {
+            function (CData $count, ?CData $items) use ($procedure, $physicalDevice, $nativeSurfaceInfo, $chain, $apiVersion, &$natives): mixed {
                 if ($items !== null) {
                     $natives = Chain::allocateEach(
                         $this->memory,
@@ -2120,6 +2162,7 @@ trait PhysicalDeviceCommands
                         VkSurfaceFormat2KHR::STRUCTURE_TYPE,
                         $chain,
                         VkSurfaceFormat2KHRExtension::class,
+                        $apiVersion,
                     );
                 }
 
@@ -2335,7 +2378,13 @@ trait PhysicalDeviceCommands
 
         $nativeCapabilities = $this->memory->new('VkVideoCapabilitiesKHR');
         $nativeCapabilities->sType = VkVideoCapabilitiesKHR::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeCapabilities, $chain, VkVideoCapabilitiesKHRExtension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeCapabilities,
+            $chain,
+            VkVideoCapabilitiesKHRExtension::class,
+            ApiVersion::find($physicalDevice),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceVideoCapabilitiesKHR', $physicalDevice);
 
@@ -2369,7 +2418,13 @@ trait PhysicalDeviceCommands
 
         $nativeQualityLevelProperties = $this->memory->new('VkVideoEncodeQualityLevelPropertiesKHR');
         $nativeQualityLevelProperties->sType = VkVideoEncodeQualityLevelPropertiesKHR::STRUCTURE_TYPE;
-        $natives = Chain::allocate($this->memory, $nativeQualityLevelProperties, $chain, VkVideoEncodeQualityLevelPropertiesKHRExtension::class);
+        $natives = Chain::allocate(
+            $this->memory,
+            $nativeQualityLevelProperties,
+            $chain,
+            VkVideoEncodeQualityLevelPropertiesKHRExtension::class,
+            ApiVersion::find($physicalDevice),
+        );
 
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR', $physicalDevice);
 
@@ -2405,11 +2460,12 @@ trait PhysicalDeviceCommands
         $procedure = $this->vkGetInstanceProc('vkGetPhysicalDeviceVideoFormatPropertiesKHR', $physicalDevice);
         /** @var list<Chain<ChainedStructureInterface&VkVideoFormatPropertiesKHRExtension>> $natives */
         $natives = [];
+        $apiVersion = ApiVersion::find($physicalDevice);
 
         return VkEnumerator::create(
             $this,
             'vkGetPhysicalDeviceVideoFormatPropertiesKHR',
-            function (CData $count, ?CData $items) use ($procedure, $physicalDevice, $nativeVideoFormatInfo, $chain, &$natives): mixed {
+            function (CData $count, ?CData $items) use ($procedure, $physicalDevice, $nativeVideoFormatInfo, $chain, $apiVersion, &$natives): mixed {
                 if ($items !== null) {
                     $natives = Chain::allocateEach(
                         $this->memory,
@@ -2418,6 +2474,7 @@ trait PhysicalDeviceCommands
                         VkVideoFormatPropertiesKHR::STRUCTURE_TYPE,
                         $chain,
                         VkVideoFormatPropertiesKHRExtension::class,
+                        $apiVersion,
                     );
                 }
 

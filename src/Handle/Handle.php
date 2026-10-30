@@ -64,6 +64,24 @@ abstract readonly class Handle
         $this->lifetime->retain($reference);
     }
 
+    /**
+     * Returns the object of the class that the handle was created with (the
+     * structure the command was given).
+     *
+     * @template T of object
+     *
+     * @param class-string<T> $class
+     *
+     * @return T|null
+     *
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    final public function findReference(string $class): ?object
+    {
+        return $this->lifetime->find($class);
+    }
+
     public function __destruct()
     {
         $this->destroy();

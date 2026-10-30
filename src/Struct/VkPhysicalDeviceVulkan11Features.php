@@ -13,14 +13,17 @@ use Serafim\Vulkan\Enum\VkStructureType;
 use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\ChainedStructureInterface;
+use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 use Serafim\Vulkan\Struct\Extension\VkDeviceCreateInfoExtension;
 use Serafim\Vulkan\Struct\Extension\VkPhysicalDeviceFeatures2Extension;
+
+use function Serafim\Vulkan\vk_make_api_version;
 
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan11Features.html
  * @since 1.2
  */
-class VkPhysicalDeviceVulkan11Features implements InputStructureInterface, VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface
+class VkPhysicalDeviceVulkan11Features implements InputStructureInterface, VkPhysicalDeviceFeatures2Extension, VkDeviceCreateInfoExtension, ChainedStructureInterface, VersionedStructureInterface
 {
     use InputStructureTrait;
 
@@ -125,6 +128,24 @@ class VkPhysicalDeviceVulkan11Features implements InputStructureInterface, VkPhy
     }
 
     /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getVersion(): int
+    {
+        return vk_make_api_version(0, 1, 1, 0);
+    }
+
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getAncestors(): array
+    {
+        return [];
+    }
+
+    /**
      * @param CData&object{
      *     storageBuffer16BitAccess: int<0, 1>,
      *     uniformAndStorageBuffer16BitAccess: int<0, 1>,
@@ -145,7 +166,7 @@ class VkPhysicalDeviceVulkan11Features implements InputStructureInterface, VkPhy
      * @internal this is an internal library method, please do not use it in your code
      * @psalm-internal Serafim\Vulkan
      */
-    public static function createFromCData(CData $data): self
+    public static function createFromCData(CData $data, CData ...$ancestors): self
     {
         return new self(
             storageBuffer16BitAccess: $data->storageBuffer16BitAccess !== 0,

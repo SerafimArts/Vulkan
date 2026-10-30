@@ -14,6 +14,8 @@ use Serafim\Vulkan\Internal\Memory\Allocation;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\Extension\VersionedStructureInterface;
 
+use function Serafim\Vulkan\vk_make_api_version;
+
 /**
  * @see https://registry.khronos.org/vulkan/specs/latest/man/html/VkPhysicalDeviceVulkan14Features.html
  * @since 1.4
@@ -311,6 +313,15 @@ final class VkPhysicalDeviceVulkan14Features extends VkPhysicalDeviceVulkan13Fea
         $data->sType = self::STRUCTURE_TYPE;
 
         return $data;
+    }
+
+    /**
+     * @internal this is an internal library method, please do not use it in your code
+     * @psalm-internal Serafim\Vulkan
+     */
+    public static function getVersion(): int
+    {
+        return vk_make_api_version(0, 1, 4, 0);
     }
 
     /**

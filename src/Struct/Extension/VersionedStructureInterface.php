@@ -17,9 +17,15 @@ interface VersionedStructureInterface extends ChainedStructureInterface
     /**
      * Returns the structures of the previous versions, the nearest first.
      *
-     * @return non-empty-list<class-string<ChainedStructureInterface>>
+     * @return list<class-string<ChainedStructureInterface>>
      */
     public static function getAncestors(): array;
+
+    /**
+     * Returns the version of Vulkan the structure belongs to, the value of
+     * `VK_MAKE_API_VERSION`.
+     */
+    public static function getVersion(): int;
 
     /**
      * Copies the fields of the native structures the command has filled.

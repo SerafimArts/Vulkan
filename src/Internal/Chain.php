@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Serafim\Vulkan\Internal;
 
 use FFI\CData;
+use Serafim\Vulkan\Exception\ApiVersionTooLowException;
 use Serafim\Vulkan\Exception\InvalidStructure\StructureNotChainableException;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 use Serafim\Vulkan\Struct\ChainSet;
@@ -48,12 +49,20 @@ final readonly class Chain
      * @param CData $root the native structure whose `pNext` starts the chain
      * @param list<class-string<TCreated>> $classes the structures to fill
      * @param class-string $marker the interface that the structures implement
+     * @param int|null $apiVersion the version of Vulkan the instance was created
+     *        for, {@see null} if it is not known
      *
      * @return self<TCreated>
      * @throws StructureNotChainableException in case of a class cannot be chained to the root
+     * @throws ApiVersionTooLowException in case of a structure belongs to a newer version of Vulkan
      */
-    public static function allocate(Allocator $memory, CData $root, array $classes, string $marker): self
-    {
+    public static function allocate(
+        Allocator $memory,
+        CData $root,
+        array $classes,
+        string $marker,
+        ?int $apiVersion = null,
+    ): self {
         $created = [];
         $requested = [];
 
@@ -61,6 +70,8 @@ final readonly class Chain
             if (!\is_a($class, $marker, true)) {
                 throw StructureNotChainableException::becauseStructureCannotBeChained($class, $marker);
             }
+
+            self::assertVersion($class, $apiVersion);
 
             $group = [];
 
@@ -95,9 +106,12 @@ final readonly class Chain
      * @param int $structureType the `sType` of the elements
      * @param list<class-string<TCreated>> $classes the structures to fill in each element
      * @param class-string $marker the interface that the structures implement
+     * @param int|null $apiVersion the version of Vulkan the instance was created
+     *        for, {@see null} if it is not known
      *
      * @return list<self<TCreated>> the chains by the indexes of the elements
      * @throws StructureNotChainableException in case of a class cannot be chained to the element
+     * @throws ApiVersionTooLowException in case of a structure belongs to a newer version of Vulkan
      */
     public static function allocateEach(
         Allocator $memory,
@@ -106,6 +120,7 @@ final readonly class Chain
         int $structureType,
         array $classes,
         string $marker,
+        ?int $apiVersion = null,
     ): array {
         /** @var int<0, max> $length */
         $length = $count[0];
@@ -116,7 +131,7 @@ final readonly class Chain
             $item = $items[$i];
 
             $item->sType = $structureType;
-            $chains[] = self::allocate($memory, $item, $classes, $marker);
+            $chains[] = self::allocate($memory, $item, $classes, $marker, $apiVersion);
         }
 
         return $chains;
@@ -159,6 +174,27 @@ final readonly class Chain
         }
 
         return new ChainSet($structures);
+    }
+
+    /**
+     * Makes sure the instance was created for the version of Vulkan the
+     * structure belongs to.
+     *
+     * @param class-string $class
+     *
+     * @throws ApiVersionTooLowException in case of the instance is older
+     */
+    private static function assertVersion(string $class, ?int $apiVersion): void
+    {
+        if ($apiVersion === null || !\is_a($class, VersionedStructureInterface::class, true)) {
+            return;
+        }
+
+        $required = $class::getVersion();
+
+        if (($required >> 12) > ($apiVersion >> 12)) {
+            throw ApiVersionTooLowException::becauseStructureNeedsNewerVersion($class, $required, $apiVersion);
+        }
     }
 
     /**
