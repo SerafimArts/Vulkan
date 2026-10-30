@@ -6,6 +6,7 @@ namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter;
 
 use FFI\CData;
 use Nette\PhpGenerator\ClassType;
+use Nette\PhpGenerator\Literal;
 use Nette\PhpGenerator\PhpNamespace;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyKind;
 use Serafim\Vulkan\Build\Generator\Analysis\PropertyPlan;
@@ -98,7 +99,8 @@ final readonly class FactoryMethod
         }
 
         if ($isChained) {
-            $method->addParameter('chain', [])->setType('array');
+            $method->addParameter('chain', new Literal('new ChainSet()'))
+                ->setType(Locations::createClassName(Locations::STRUCT_NAMESPACE, 'ChainSetInterface'));
         }
 
         if ($plan->needsContext) {
@@ -109,7 +111,7 @@ final readonly class FactoryMethod
         $comments = $this->shape->createRead($namespace, $read);
 
         if ($isChained) {
-            $comments[] = '@param list<' . Imports::import(
+            $comments[] = '@param ChainSetInterface<' . Imports::import(
                 $namespace,
                 Locations::EXTENSION_NAMESPACE,
                 ExtensionEmitter::createName($plan->chains[0] ?? ''),

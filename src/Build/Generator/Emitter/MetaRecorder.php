@@ -22,11 +22,6 @@ final class MetaRecorder
     private array $arguments = [];
 
     /**
-     * @var list<string>
-     */
-    private array $finders = [];
-
-    /**
      * Records that the argument is made of the bits.
      *
      * @param int<0, max> $index
@@ -48,26 +43,10 @@ final class MetaRecorder
     }
 
     /**
-     * Records that the class finds the structure of its chain by the class.
-     */
-    public function recordFinder(string $class): void
-    {
-        $this->finders[] = $class;
-    }
-
-    /**
      * @return array<string, array<string, array<int, string>>>
      */
     public function getArguments(): array
     {
         return $this->arguments;
-    }
-
-    /**
-     * @return list<string>
-     */
-    public function getFinders(): array
-    {
-        return $this->finders;
     }
 }

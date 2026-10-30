@@ -12,7 +12,6 @@ use Serafim\Vulkan\Build\Generator\Analysis\StructPlan;
 use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
 use Serafim\Vulkan\Build\Generator\Emitter\Imports;
 use Serafim\Vulkan\Build\Generator\Emitter\Locations;
-use Serafim\Vulkan\Build\Generator\Emitter\MetaRecorder;
 use Serafim\Vulkan\Internal\Memory\Allocator;
 
 /**
@@ -25,10 +24,6 @@ use Serafim\Vulkan\Internal\Memory\Allocator;
  */
 final readonly class ChainMethods
 {
-    public function __construct(
-        private MetaRecorder $meta,
-    ) {}
-
     /**
      * Whether the structure keeps the structures a command has filled in its
      * chain.
@@ -104,9 +99,10 @@ final readonly class ChainMethods
     }
 
     /**
-     * Adds the method that finds the structure of the chain by its class.
+     * Makes the structure one that keeps the structures a command has filled
+     * in its chain.
      */
-    public function emitFinder(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
+    public function emitRoot(PhpNamespace $namespace, ClassType $class, StructPlan $plan): void
     {
         $marker = Imports::import(
             $namespace,
@@ -114,28 +110,8 @@ final readonly class ChainMethods
             ExtensionEmitter::createName($plan->chains[0] ?? ''),
         );
 
-        $this->meta->recordFinder(Locations::createClassName(Locations::STRUCT_NAMESPACE, $plan->struct->name));
-
-        $method = $class->addMethod('findChained')
-            ->setPublic()
-            ->setReturnType('object')
-            ->setReturnNullable()
-            ->setBody(
-                "foreach (\$this->chain as \$item) {\n"
-                . "    if (\$item instanceof \$class) {\n"
-                . "        return \$item;\n"
-                . "    }\n"
-                . "}\n\n"
-                . 'return null;',
-            );
-
-        $method->addParameter('class')->setType('string');
-        $method->addComment('Returns the structure of the chain that is an instance of the class.');
-        $method->addComment('');
-        $method->addComment('@template TChained of ' . $marker);
-        $method->addComment('');
-        $method->addComment('@param class-string<TChained> $class');
-        $method->addComment('');
-        $method->addComment('@return TChained|null');
+        $class->addImplement(Locations::createClassName(Locations::STRUCT_NAMESPACE, 'ChainRootInterface'));
+        $class->addComment('');
+        $class->addComment('@implements ChainRootInterface<' . $marker . '>');
     }
 }

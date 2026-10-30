@@ -77,14 +77,6 @@ final readonly class MetaEmitter
             }
         }
 
-        $finders = $recorder->getFinders();
-
-        \sort($finders);
-
-        foreach ($finders as $class) {
-            $lines[] = '    override(' . $this->createClass($class) . '::findChained(0), type(0));';
-        }
-
         $commands = $this->createCommands();
 
         $lines[] = '    registerArgumentsSet(\'VulkanCommands\',';

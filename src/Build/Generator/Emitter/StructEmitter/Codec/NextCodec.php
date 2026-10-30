@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Serafim\Vulkan\Build\Generator\Emitter\StructEmitter\Codec;
 
+use Serafim\Vulkan\Build\Generator\Emitter\ExtensionEmitter;
+use Serafim\Vulkan\Build\Generator\Emitter\Imports;
+use Serafim\Vulkan\Build\Generator\Emitter\Locations;
+
 /**
- * `pNext`, the next structure of the chain.
+ * `pNext`, the structures chained to the structure.
  *
  * @internal this is an internal library class, please do not use it in your code
  * @psalm-internal Serafim\Vulkan\Build
@@ -14,14 +18,12 @@ final readonly class NextCodec extends AbstractPropertyCodec
 {
     public function createWriteLines(PropertyContext $context): array
     {
-        $value = $context->createValueExpression();
+        $marker = Imports::import(
+            $context->namespace,
+            Locations::EXTENSION_NAMESPACE,
+            ExtensionEmitter::createName($context->structure),
+        );
 
-        return [
-            'if (' . $value . ' !== null) {',
-            '    \assert(' . $value . ' instanceof InputStructureInterface);',
-            '',
-            '    $data->pNext = $memory->ffi->cast(\'void*\', \FFI::addr($memory->toStructure(' . $value . ')));',
-            '}',
-        ];
+        return ['$memory->linkChain($data, ' . $context->createValueExpression() . ', ' . $marker . '::class);'];
     }
 }

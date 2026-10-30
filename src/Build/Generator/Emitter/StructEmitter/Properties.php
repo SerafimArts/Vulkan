@@ -79,7 +79,7 @@ final readonly class Properties
 
         $constructor = $class->addMethod('__construct');
 
-        $this->emitInherited($namespace, $constructor, $inherited, $chains, $isReturned);
+        $this->emitInherited($namespace, $constructor, $inherited, $isReturned);
 
         $counted = [];
 
@@ -103,19 +103,24 @@ final readonly class Properties
             $codec = $this->codecs->get($property->kind);
             $context = new PropertyContext($namespace, $property, isReturned: $isReturned);
 
-            if ($property->kind === PropertyKind::CHAIN) {
+            if ($property->kind === PropertyKind::NEXT) {
                 $parameter->setType('array');
+                $parameter->addComment('The structures chained to it through `pNext`.');
+                $parameter->addComment('');
                 $parameter->addComment('@var list<' . $this->createMarker($namespace, $chains[0] ?? '') . '>');
 
                 continue;
             }
 
-            if ($property->kind === PropertyKind::NEXT) {
-                $parameter->setType($this->createChainType($namespace, $chains));
-            } else {
-                $parameter->setType($codec->createPhpType($context));
-                $parameter->setNullable($property->isNullable);
+            if ($property->kind === PropertyKind::CHAIN) {
+                $parameter->setType(Locations::createClassName(Locations::STRUCT_NAMESPACE, 'ChainSetInterface'));
+                $parameter->addComment('@var ChainSetInterface<' . $this->createMarker($namespace, $chains[0] ?? '') . '>');
+
+                continue;
             }
+
+            $parameter->setType($codec->createPhpType($context));
+            $parameter->setNullable($property->isNullable);
 
             $description = DocComments::createLines($property->field->comment ?? '');
             $limit = $this->createLimitDescription($property);
@@ -170,13 +175,11 @@ final readonly class Properties
      * structure it extends keeps.
      *
      * @param list<PropertyPlan> $inherited
-     * @param list<non-empty-string> $chains
      */
     private function emitInherited(
         PhpNamespace $namespace,
         Method $constructor,
         array $inherited,
-        array $chains,
         bool $isReturned,
     ): void {
         $arguments = [];
@@ -191,12 +194,6 @@ final readonly class Properties
             }
 
             $arguments[] = $property->name . ': $' . $property->name . ',';
-
-            if ($property->kind === PropertyKind::NEXT) {
-                $parameter->setType($this->createChainType($namespace, $chains));
-
-                continue;
-            }
 
             $parameter->setType($codec->createPhpType($context));
             $parameter->setNullable($property->isNullable);
@@ -477,24 +474,6 @@ final readonly class Properties
     }
 
     /**
-     * @param list<non-empty-string> $chains
-     */
-    private function createChainType(PhpNamespace $namespace, array $chains): string
-    {
-        $types = [];
-
-        foreach ($chains as $root) {
-            $types[] = Imports::importFullName(
-                $namespace,
-                Locations::EXTENSION_NAMESPACE,
-                ExtensionEmitter::createName($root),
-            );
-        }
-
-        return \implode('|', $types) . '|null';
-    }
-
-    /**
      * Tells how the limit of a device is compared with the required one.
      *
      * @return list<string>
@@ -520,6 +499,10 @@ final readonly class Properties
 
     private function createDefault(PropertyPlan $property): mixed
     {
+        if ($property->kind === PropertyKind::CHAIN) {
+            return new Literal('new ChainSet()');
+        }
+
         if ($property->kind === PropertyKind::ENUMERATION && \is_string($property->default)) {
             return new Literal($property->field->type . '::' . $property->default);
         }

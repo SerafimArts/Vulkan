@@ -10,7 +10,6 @@ use Serafim\Vulkan\Build\Generator\Quirks;
 use Serafim\Vulkan\Build\Generator\Registry\FieldDefinition;
 use Serafim\Vulkan\Build\Generator\Registry\Registry;
 use Serafim\Vulkan\Build\Generator\Registry\StructDefinition;
-use Serafim\Vulkan\Struct\InputStructureInterface;
 
 /**
  * Decides how the members of a structure are represented in PHP.
@@ -71,10 +70,11 @@ final readonly class StructAnalyzer
                     $properties[] = new PropertyPlan(
                         $member,
                         PropertyKind::NEXT,
-                        'next',
-                        InputStructureInterface::class,
+                        'chain',
+                        'array',
+                        false,
                         true,
-                        true,
+                        [],
                     );
                 }
 

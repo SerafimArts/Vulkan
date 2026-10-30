@@ -252,16 +252,16 @@ final readonly class Planner
                 static fn(string $root): bool => isset($extended[$root]),
             ));
             $chains = $implements;
+            $isRoot = isset($extended[$name]);
 
             if (isset($extended[$name])) {
                 \array_unshift($chains, $name);
             }
 
-            $isRoot = isset($extended[$name]);
             $properties = \array_values(\array_filter(
                 $plan->properties,
                 static fn(PropertyPlan $property): bool => match ($property->kind) {
-                    PropertyKind::NEXT => $chains !== [],
+                    PropertyKind::NEXT => $isRoot,
                     PropertyKind::CHAIN => $isRoot,
                     default => true,
                 },

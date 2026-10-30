@@ -73,7 +73,7 @@ final readonly class StructEmitter
 
         $this->files = new PhpFiles();
         $this->properties = new Properties($types, $codecs, $meta);
-        $this->chains = new ChainMethods($meta);
+        $this->chains = new ChainMethods();
         $this->write = new WriteMethod(new Writer($codecs), $shape);
         $this->factory = new FactoryMethod($numbers, $reader, $shape, $this->chains, $contextual);
         $this->buffers = new BufferMethod($registry, $shape, $buffered);
@@ -215,7 +215,7 @@ final readonly class StructEmitter
         $this->factory->emit($namespace, $class, $plan);
 
         if ($this->chains->hasChain($plan)) {
-            $this->chains->emitFinder($namespace, $class, $plan);
+            $this->chains->emitRoot($namespace, $class, $plan);
         }
     }
 
