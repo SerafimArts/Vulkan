@@ -31,7 +31,7 @@ final class PlatformDetectorTest extends TestCase
     public static function environmentPlatformDataProvider(): iterable
     {
         yield 'windows' => [new Environment('Windows'), Platform::WIN32];
-        yield 'darwin' => [new Environment('Darwin'), Platform::MACOS];
+        yield 'darwin' => [new Environment('Darwin'), Platform::METAL];
         yield 'solaris' => [new Environment('Solaris'), Platform::XLIB];
         yield 'linux without session' => [new Environment('Linux'), Platform::XLIB];
         yield 'linux x11 session' => [
