@@ -9,7 +9,8 @@ use Serafim\Vulkan\Loader\Platform\Platform;
 use Serafim\Vulkan\Loader\Platform\PlatformDriverInterface;
 
 /**
- * macOS platform of Darwin.
+ * macOS platform of Darwin: the surfaces are created by `VK_EXT_metal_surface`, which deprecates
+ * `VK_MVK_macos_surface`.
  */
 final readonly class DarwinPlatformDriver implements PlatformDriverInterface
 {
@@ -20,6 +21,6 @@ final readonly class DarwinPlatformDriver implements PlatformDriverInterface
 
     public function resolve(Environment $environment): Platform
     {
-        return Platform::MACOS;
+        return Platform::METAL;
     }
 }
