@@ -46,6 +46,7 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install vulkan-loader molten-vk
       - run: composer install --no-interaction --no-progress
+      - run: php bin/vulkan download 1.4.366
       - run: composer test:unit
 
   generated:
